@@ -1,0 +1,1009 @@
+﻿using Objects.World.Interface;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Objects.Mob.Interface;
+using Objects.Zone.Interface;
+using System.Collections.Concurrent;
+using Objects.Global;
+using System.Reflection;
+using Objects.Magic;
+using Objects.Race;
+using Objects.Room;
+using Objects.Item.Items;
+using Objects.Material;
+using System.IO;
+using static Objects.Global.Logging.LogSettings;
+using System.Diagnostics.CodeAnalysis;
+using Objects.Room.Interface;
+using Objects.Mob;
+using Objects.Interface;
+using static Objects.Room.Room;
+using Objects.Command.Interface;
+using Objects.Command;
+using Objects.Personality.Interface;
+using static Objects.Mob.MobileObject;
+using Objects.Command.World.Interface;
+using Objects.Command.God;
+using Objects.Magic.Interface;
+using System.Diagnostics;
+using Objects.Crafting.Interface;
+using Objects.Language;
+using Objects.Global.Direction;
+using static Objects.Skill.Skills.Track;
+
+namespace Objects.World
+{
+    public class World : IWorld
+    {
+        private object _zoneRefreshPadlock;
+        private int _lastZoneReload = 0;
+        private object _tickPadlock;
+        private Queue<IMobileObject> _followMob = new Queue<IMobileObject>();
+
+        public object LockObject { get; } = new object();
+
+        public World()
+        {
+            _zoneRefreshPadlock = new object();
+            _tickPadlock = new object();
+
+            WeatherTriggers = new Dictionary<int, string>();
+            WeatherTriggers.Add(HighBegin, nameof(HighBegin));
+            WeatherTriggers.Add(HighEnd, nameof(HighEnd));
+            WeatherTriggers.Add(ExtraHighBegin, nameof(ExtraHighBegin));
+            WeatherTriggers.Add(ExtraHighEnd, nameof(ExtraHighEnd));
+            WeatherTriggers.Add(LowBegin, nameof(LowBegin));
+            WeatherTriggers.Add(ExtraLowBegin, nameof(ExtraLowBegin));
+            WeatherTriggers.Add(LowEnd, nameof(LowEnd));
+            WeatherTriggers.Add(ExtraLowEnd, nameof(ExtraLowEnd));
+        }
+
+        #region Weather
+        [ExcludeFromCodeCoverage]
+        private List<int> NotifyDown { get; set; } = new List<int>() { 73, 88, 25, 10 };
+        [ExcludeFromCodeCoverage]
+        private List<int> NotifyUp { get; set; } = new List<int>() { 74, 89, 26, 11 };
+        [ExcludeFromCodeCoverage]
+        private bool NotifyPrecipitation { get; set; } = false;
+        [ExcludeFromCodeCoverage]
+        private bool NotifyWindSpeed { get; set; } = false;
+
+        [ExcludeFromCodeCoverage]
+        public int Precipitation { get; set; } = 50;
+        [ExcludeFromCodeCoverage]
+        public int PrecipitationGoal { get; set; } = 50;
+        [ExcludeFromCodeCoverage]
+        public int WindSpeed { get; set; } = 50;
+        [ExcludeFromCodeCoverage]
+        public int WindSpeedGoal { get; set; } = 50;
+
+        #region Weather High Points
+        [ExcludeFromCodeCoverage]
+        public string WorldPrecipitationHighBegin { get; set; } = "It beings to rain.";
+        [ExcludeFromCodeCoverage]
+        public string WorldPrecipitationHighEnd { get; set; } = "It stops raining.";
+        [ExcludeFromCodeCoverage]
+        public string WorldPrecipitationExtraHighBegin { get; set; } = "The rain is coming down in sheets now making it hard to see.";
+        [ExcludeFromCodeCoverage]
+        public string WorldPrecipitationExtraHighEnd { get; set; } = "The rain begins to lighten.";
+        [ExcludeFromCodeCoverage]
+        public string WorldWindSpeedHighBegin { get; set; } = "The wind picks up and begins to howl.";
+        [ExcludeFromCodeCoverage]
+        public string WorldWindSpeedHighEnd { get; set; } = "The wind calms down to a nice breeze.";
+        [ExcludeFromCodeCoverage]
+        public string WorldWindSpeedExtraHighBegin { get; set; } = "The wind becomes a roar making it hard to hear while whipping at you, threatening to knock you over.";
+        [ExcludeFromCodeCoverage]
+        public string WorldWindSpeedExtraHighEnd { get; set; } = "The wind lightens to a loud howl.";
+        #endregion Weather High Points
+
+        #region Weather Low Points
+        [ExcludeFromCodeCoverage]
+        public string WorldPrecipitationLowBegin { get; set; } = "The weather has become dry.";
+        [ExcludeFromCodeCoverage]
+        public string WorldPrecipitationLowEnd { get; set; } = "The weather is no longer arid.";
+        [ExcludeFromCodeCoverage]
+        public string WorldPrecipitationExtraLowBegin { get; set; } = "The weather has become dry enough for fires to start.";
+        [ExcludeFromCodeCoverage]
+        public string WorldPrecipitationExtraLowEnd { get; set; } = "The fear of wild fires have subsided.";
+        [ExcludeFromCodeCoverage]
+        public string WorldWindSpeedLowBegin { get; set; } = "The wind slows down and become still.";
+        [ExcludeFromCodeCoverage]
+        public string WorldWindSpeedLowEnd { get; set; } = "The wind picks up to a nice breeze.";
+        [ExcludeFromCodeCoverage]
+        public string WorldWindSpeedExtraLowBegin { get; set; } = "The wind has completely stopped.";
+        [ExcludeFromCodeCoverage]
+        public string WorldWindSpeedExtraLowEnd { get; set; } = "The wind has started to move again.";
+        #endregion Weather Low Points
+
+        [ExcludeFromCodeCoverage]
+        public int HighBegin { get; set; } = 74;
+        [ExcludeFromCodeCoverage]
+        public int ExtraHighBegin { get; set; } = 89;
+        [ExcludeFromCodeCoverage]
+        public int HighEnd { get; set; } = 73;
+        [ExcludeFromCodeCoverage]
+        public int ExtraHighEnd { get; set; } = 88;
+        [ExcludeFromCodeCoverage]
+        public int LowBegin { get; set; } = 25;
+        [ExcludeFromCodeCoverage]
+        public int ExtraLowBegin { get; set; } = 10;
+        [ExcludeFromCodeCoverage]
+        public int LowEnd { get; set; } = 26;
+        [ExcludeFromCodeCoverage]
+        public int ExtraLowEnd { get; set; } = 11;
+
+        [ExcludeFromCodeCoverage]
+        public Dictionary<int, string> WeatherTriggers { get; set; }
+
+        private void UpdateWeather()
+        {
+            if (GlobalReference.GlobalValues.TickCounter % 4 == 0)
+            {
+                bool precipitatonDirectionUp = true;
+                bool windSpeedDirectionUp = true;
+
+                NotifyPrecipitation = false;
+                NotifyWindSpeed = false;
+
+                if (Precipitation == PrecipitationGoal)
+                {
+                    PrecipitationGoal = GlobalReference.GlobalValues.Random.Next(100);
+                }
+
+                if (WindSpeed == WindSpeedGoal)
+                {
+                    WindSpeedGoal = GlobalReference.GlobalValues.Random.Next(100);
+                }
+
+                if (PrecipitationGoal > Precipitation)
+                {
+                    Precipitation++;
+                }
+                else if (PrecipitationGoal < Precipitation)
+                {
+                    Precipitation--;
+                    precipitatonDirectionUp = false;
+                }
+
+                if (WeatherTriggers.Keys.Contains(Precipitation))
+                {
+                    if ((precipitatonDirectionUp && NotifyUp.Contains(Precipitation))
+                        || (!precipitatonDirectionUp && NotifyDown.Contains(Precipitation)))
+                    {
+                        NotifyPrecipitation = true;
+                    }
+                }
+
+                if (WindSpeedGoal > WindSpeed)
+                {
+                    WindSpeed++;
+                }
+                else if (WindSpeedGoal < WindSpeed)
+                {
+                    WindSpeed--;
+                    windSpeedDirectionUp = false;
+                }
+
+                if (WeatherTriggers.Keys.Contains(WindSpeed))
+                {
+                    if ((windSpeedDirectionUp && NotifyUp.Contains(WindSpeed))
+                        || (!windSpeedDirectionUp && NotifyDown.Contains(WindSpeed)))
+
+                    {
+                        NotifyWindSpeed = true;
+                    }
+                }
+            }
+        }
+        #endregion Weather
+
+        #region WorldCommands
+        [ExcludeFromCodeCoverage]
+        public ConcurrentQueue<string> WorldCommands { get; } = new ConcurrentQueue<string>();
+        [ExcludeFromCodeCoverage]
+        public ConcurrentDictionary<string, string> WorldResults { get; } = new ConcurrentDictionary<string, string>();
+
+        private void DoWorldCommands()
+        {
+            string command = null;
+            while (WorldCommands.TryDequeue(out command))
+            {
+                switch (command)
+                {
+                    case "GameStats":
+                        GenerateGameStats();
+                        break;
+                }
+            }
+        }
+
+        public Objects.Command.World.Interface.IGameStats GameStatsInterface { get; set; } = new Objects.Command.World.GameStats();
+
+        private void GenerateGameStats()
+        {
+            string result = GameStatsInterface.GenerateGameStats();
+
+            WorldResults.AddOrUpdate("GameStats", result, (k, v) => result);
+        }
+
+        #endregion WorldCommands
+
+        #region Zone
+        [ExcludeFromCodeCoverage]
+        private Dictionary<int, string> _zoneIdToFileMap { get; } = new Dictionary<int, string>();
+        [ExcludeFromCodeCoverage]
+        public Dictionary<int, IZone> Zones { get; } = new Dictionary<int, IZone>();
+
+        public void LoadWorld()
+        {
+            string zoneLocation = GlobalReference.GlobalValues.Settings.ZoneDirectory;
+            GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(zoneLocation);
+            string[] zones = GlobalReference.GlobalValues.FileIO.GetFilesFromDirectory(zoneLocation, "*.zone");
+
+            if (zones.Length == 0)
+            {
+                throw new FileNotFoundException("No zone files found in " + zoneLocation);
+            }
+
+            foreach (string file in zones)
+            {
+                string filePath = Path.GetFullPath(file);
+
+                GlobalReference.GlobalValues.Logger.Log(LogLevel.DEBUG, "Loading " + filePath);
+
+                IZone zone = DeserializeZone(GlobalReference.GlobalValues.FileIO.ReadAllText(filePath));
+                zone.FinishLoad();
+                Zones.Add(zone.Id, zone);
+                _zoneIdToFileMap.Add(zone.Id, file);
+            }
+        }
+
+        public IZone DeserializeZone(string serializedZone)
+        {
+            IZone zone = GlobalReference.GlobalValues.Serialization.Deserialize<Zone.Zone>(serializedZone);
+
+            GlobalReference.GlobalValues.Logger.Log(zone, LogLevel.INFO, "Loading Zone");
+
+            if (zone == null)
+            {
+                string message = "Unable to deserialize string as Zone." + Environment.NewLine + serializedZone;
+                GlobalReference.GlobalValues.Logger.Log(LogLevel.ERROR, message);
+                throw new Exception(message);
+            }
+
+            AddRoomToMobs(zone);
+
+            return zone;
+        }
+
+        private void AddRoomToMobs(IZone zone)
+        {
+            foreach (IRoom room in zone.Rooms.Values)
+            {
+                foreach (IMobileObject mob in room.NonPlayerCharacters)
+                {
+                    mob.Room = room;
+                }
+            }
+        }
+
+        public void SaveWorld()
+        {
+            string zoneDirectory = GlobalReference.GlobalValues.Settings.ZoneDirectory;
+            foreach (IZone zone in Zones.Values)
+            {
+                GlobalReference.GlobalValues.FileIO.WriteFile(Path.Combine(zoneDirectory, zone.Name + ".zone"), SerializeZone(zone));
+            }
+        }
+
+        public string SerializeZone(IZone zone)
+        {
+            foreach (IRoom room in zone.Rooms.Values)
+            {
+                foreach (IMobileObject mob in room.NonPlayerCharacters)
+                {
+                    mob.Room = null;
+                }
+
+                foreach (IPlayerCharacter pc in room.PlayerCharacters)
+                {
+                    room.RemoveMobileObjectFromRoom(pc);
+                }
+            }
+
+            return GlobalReference.GlobalValues.Serialization.Serialize(zone);
+        }
+
+        private void ReloadZones()
+        {
+            if (_lastZoneReload != GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Day)
+            {
+                lock (_zoneRefreshPadlock)
+                {
+                    if (_lastZoneReload != GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Day)
+                    {
+                        _lastZoneReload = GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Day;
+
+                        //we can not load the zones into the list while iterating over the list
+                        //so we create a list of zones that will be reloaded
+                        List<Tuple<int, IZone>> zonesToReload = new List<Tuple<int, IZone>>();
+
+                        foreach (IZone zone in Zones.Values)
+                        {
+                            if (zone.ResetTime < GlobalReference.GlobalValues.GameDateTime.InGameDateTime)
+                            {
+                                string filePath = _zoneIdToFileMap[zone.Id];
+                                GlobalReference.GlobalValues.Logger.Log(LogLevel.DEBUG, "Reloading " + filePath);
+
+                                IZone newZone = DeserializeZone(GlobalReference.GlobalValues.FileIO.ReadAllText(filePath));
+                                newZone.FinishLoad();
+                                zonesToReload.Add(new Tuple<int, IZone>(newZone.Id, newZone));
+                            }
+                        }
+
+                        //now we update the zones that will be reset
+                        foreach (Tuple<int, IZone> zone in zonesToReload)
+                        {
+                            Zones[zone.Item1] = zone.Item2;
+                        }
+                    }
+                }
+            }
+        }
+        #endregion Zone
+
+        #region PlayerCharacters
+        [ExcludeFromCodeCoverage]
+        public ConcurrentQueue<IPlayerCharacter> AddPlayerQueue { get; } = new ConcurrentQueue<IPlayerCharacter>();
+
+        [ExcludeFromCodeCoverage]
+        private object characterLock { get; } = new object();
+        [ExcludeFromCodeCoverage]
+        private List<IPlayerCharacter> characters { get; } = new List<IPlayerCharacter>();
+
+        public List<IPlayerCharacter> CurrentPlayers
+        {
+            get
+            {
+                lock (characterLock)
+                {
+                    return new List<IPlayerCharacter>(characters);
+                }
+            }
+        }
+
+        public Queue<IMobileObject> FollowMob { get => _followMob; set => _followMob = value; }
+
+        public IPlayerCharacter LoadCharacter(string name)
+        {
+            string playerCharacterDir = GlobalReference.GlobalValues.Settings.PlayerCharacterDirectory;
+            lock (characterLock)
+            {
+                //if player is already in game
+                foreach (IPlayerCharacter character in characters)
+                {
+                    if (character.Name.ToUpper() == name.ToUpper())
+                    {
+                        return character;
+                    }
+                }
+            }
+
+            string[] players = SavedPlayers(playerCharacterDir);
+
+            //player not in game, try the XML directory
+            foreach (string file in players)
+            {
+                if (Path.GetFileNameWithoutExtension(file).ToUpper() == name.ToUpper())
+                {
+                    IPlayerCharacter character = DeserializePlayerCharacter(GlobalReference.GlobalValues.FileIO.ReadAllText(file));
+                    character.FinishLoad();
+                    return character;
+                }
+            }
+
+            //we could not find the player, return null
+            return null;
+        }
+
+        private string[] SavedPlayers(string playerCharacterDir)
+        {
+            GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(playerCharacterDir);
+
+            return GlobalReference.GlobalValues.FileIO.GetFilesFromDirectory(playerCharacterDir);
+        }
+
+        private IPlayerCharacter DeserializePlayerCharacter(string serializedPlayerCharcter)
+        {
+            IPlayerCharacter pc = GlobalReference.GlobalValues.Serialization.Deserialize<PlayerCharacter>(serializedPlayerCharcter);
+
+            if (pc == null)
+            {
+                string message = "Unable to deserialize string as PlayerCharacter." + Environment.NewLine + serializedPlayerCharcter;
+                GlobalReference.GlobalValues.Logger.Log(LogLevel.ERROR, message);
+                throw new Exception(message);
+            }
+
+            return pc;
+        }
+
+        public void LogOutCharacter(string name)
+        {
+            lock (characterLock)
+            {
+                foreach (IPlayerCharacter character in characters)
+                {
+                    if (character.Name.ToUpper() == name.ToUpper())
+                    {
+                        SaveCharcter(character);
+                        characters.Remove(character);
+                        character.Room.RemoveMobileObjectFromRoom(character);
+                        break;
+                    }
+                }
+            }
+        }
+
+        public void SaveCharcter(IPlayerCharacter character)
+        {
+            IRoom characterRoom = character.Room;
+            string fileName = Path.Combine(GlobalReference.GlobalValues.Settings.PlayerCharacterDirectory, character.Name + ".char");
+
+            GlobalReference.GlobalValues.FileIO.WriteFile(fileName, SerializePlayerCharacter(character));
+
+            character.Room = characterRoom;
+        }
+
+        public string SerializePlayerCharacter(IPlayerCharacter character)
+        {
+            character.Room = null;
+
+            return GlobalReference.GlobalValues.Serialization.Serialize(character);
+        }
+
+        public IPlayerCharacter CreateCharacter(string userName, string password)
+        {
+            IPlayerCharacter pc = new PlayerCharacter();
+            pc.Name = userName;
+            pc.Password = password;
+            pc.StrengthStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+            pc.DexterityStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+            pc.ConstitutionStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+            pc.IntelligenceStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+            pc.WisdomStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+            pc.CharismaStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+            pc.LevelPoints = GlobalReference.GlobalValues.Settings.AssignableStatPoints;
+            pc.Level = 1;
+            pc.Health = pc.MaxHealth;
+            pc.Stamina = pc.MaxStamina;
+            pc.Mana = pc.MaxStamina;
+            pc.SentenceDescription = pc.Name;
+            pc.ShortDescription = pc.Name;
+            pc.LongDescription = pc.Name;
+            pc.KeyWords.Add(pc.Name);
+            pc.GuildPoints = 1;
+
+            AddPlayerQueue.Enqueue(pc);
+
+            return pc;
+        }
+
+        #endregion PlayerCharacters
+
+        public void PerformTick()
+        {
+            lock (_tickPadlock)
+            {
+                PerformCombatTick();
+                PutPlayersIntoWorld();
+                UpdateWeather();
+                ReloadZones();
+                UpdatePerformanceCounters();
+
+                //#if DEBUG
+                //                foreach (IZone zone in Zones.Values)
+                //                {
+                //                    ProcessRooms(zone);
+                //                }
+                //#else
+                //                Parallel.ForEach(Zones.Values, zone =>
+                //                {
+                //                    ProcessRooms(zone);
+                //                });
+                //#endif
+
+                foreach (IZone zone in Zones.Values)
+                {
+                    ProcessRooms(zone);
+                }
+
+                //Parallel.ForEach(Zones.Values, zone =>
+                //{
+                //    ProcessRooms(zone);
+                //});
+
+
+                CatchPlayersOutSideOfTheWorldDueToReloadedZones();
+
+                NotifyPrecipitation = false;
+                NotifyWindSpeed = false;
+
+                ProcessFollowMobs();
+
+                DoWorldCommands();
+
+                GlobalReference.GlobalValues.Logger.FlushLogs();
+            }
+        }
+
+        #region Follow Methods
+        private void ProcessFollowMobs()
+        {
+            IMobileObject performer;
+            while (_followMob.Count > 0)
+            {
+                performer = _followMob.Dequeue();
+                HashSet<IRoom> searchedRooms = new HashSet<IRoom>();
+                //double check the room in case the follow target moved into the same room as the follower;
+                if (performer.Room != performer.FollowTarget.Room)
+                {
+                    searchedRooms.Add(performer.Room);
+                    SearchOtherRooms(performer, searchedRooms);
+                }
+            }
+        }
+
+        private void SearchOtherRooms(IMobileObject performer, HashSet<IRoom> searchedRooms)
+        {
+            Queue<Trail> newTrails = new Queue<Trail>();
+            IRoom currentRoom = performer.Room;
+
+            Trail trail = null;
+            foreach (Directions.Direction direction in Enum.GetValues(typeof(Directions.Direction)))
+            {
+                Trail brandNewTrail = new Trail() { Direction = direction, Distance = 0 };
+                trail = LookForMobInNextRoom(performer, searchedRooms, newTrails, currentRoom, direction, brandNewTrail);
+                if (trail != null)
+                {
+                    break;
+                }
+            }
+
+            if (trail != null)
+            {
+                performer.EnqueueCommand(trail.Direction.ToString());
+            }
+            else
+            {
+                GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage($"You have lost track of the {performer.FollowTarget.SentenceDescription} and had to quit following them."));
+                performer.FollowTarget = null;
+            }
+        }
+
+        private Trail LookForMobInNextRoom(IMobileObject performer, HashSet<IRoom> searchedRooms, Queue<Trail> newTrails, IRoom currentRoom, Directions.Direction direction, Trail existingTrail)
+        {
+            Trail trail = null;
+            switch (direction)
+            {
+                case Directions.Direction.North:
+                    trail = AddNextRoom(searchedRooms, direction, currentRoom.North, performer, newTrails, existingTrail);
+                    break;
+                case Directions.Direction.East:
+                    trail = AddNextRoom(searchedRooms, direction, currentRoom.East, performer, newTrails, existingTrail);
+                    break;
+                case Directions.Direction.South:
+                    trail = AddNextRoom(searchedRooms, direction, currentRoom.South, performer, newTrails, existingTrail);
+                    break;
+                case Directions.Direction.West:
+                    trail = AddNextRoom(searchedRooms, direction, currentRoom.West, performer, newTrails, existingTrail);
+                    break;
+                case Directions.Direction.Up:
+                    trail = AddNextRoom(searchedRooms, direction, currentRoom.Up, performer, newTrails, existingTrail);
+                    break;
+                case Directions.Direction.Down:
+                    trail = AddNextRoom(searchedRooms, direction, currentRoom.Down, performer, newTrails, existingTrail);
+                    break;
+            }
+
+            return trail;
+        }
+
+        private Trail AddNextRoom(HashSet<IRoom> searchedRooms, Directions.Direction direction, IExit exit, IMobileObject performer, Queue<Trail> newTrails, Trail trail)
+        {
+            if (newTrails.Count > 5) //don't follow someone that has gotten to far away to follow
+            {
+                return null;
+            }
+
+            if (exit != null)
+            {
+                IRoom nextRoom = GlobalReference.GlobalValues.World.Zones[exit.Zone].Rooms[exit.Room];
+
+                if (searchedRooms.Contains(nextRoom))
+                {
+                    return null;
+                }
+
+                trail.Distance++;
+                IMobileObject foundMob = FindMobInRoom(nextRoom, performer);
+                if (foundMob != null)
+                {
+                    return trail;
+                }
+
+                if (!searchedRooms.Contains(nextRoom))
+                {
+                    trail.Room = nextRoom;
+                    newTrails.Enqueue(trail);
+                    searchedRooms.Add(nextRoom);
+                }
+            }
+
+            return null;
+        }
+
+        private IMobileObject FindMobInRoom(IRoom roomToSearch, IMobileObject performer)
+        {
+            if (roomToSearch.NonPlayerCharacters.Contains(performer.FollowTarget)
+                || roomToSearch.PlayerCharacters.Contains(performer.FollowTarget))
+            {
+                return performer.FollowTarget;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        #endregion Follow Methods
+
+        private void UpdatePerformanceCounters()
+        {
+            if (GlobalReference.GlobalValues.Counters != null)
+            {
+                //we are fine hitting the raw values instead of the property because we are not threading yet
+                GlobalReference.GlobalValues.Counters.ConnnectedPlayers = characters.Count;
+                GlobalReference.GlobalValues.Counters.CPU = (int)Math.Round(GlobalReference.GlobalValues.TickTimes.MedianTime);
+                GlobalReference.GlobalValues.Counters.MaxTickTimeInMs = (int)Math.Round(GlobalReference.GlobalValues.TickTimes.MaxTime);
+
+                float memoryConsumption = Process.GetCurrentProcess().WorkingSet64 / (1024f * 1024f);
+                GlobalReference.GlobalValues.Counters.Memory = (int)Math.Round(memoryConsumption, 0);
+            }
+        }
+
+        private void PerformCombatTick()
+        {
+            GlobalReference.GlobalValues.Engine.Combat.ProcessCombatRound();
+        }
+
+        private void PutPlayersIntoWorld()
+        {
+            IPlayerCharacter pc = null;
+            while (AddPlayerQueue.TryDequeue(out pc))
+            {
+                if (pc.Room != null)
+                {
+                    pc.Room.AddMobileObjectToRoom(pc);
+                }
+                else if (pc.RoomId != null)
+                {
+                    try
+                    {
+                        pc.Room = Zones[pc.RoomId.Zone].Rooms[pc.RoomId.Id];
+                    }
+                    catch
+                    {
+                        //for some reason the room does not exist.
+                        //Put the player in the default start room;
+                        pc.Room = Zones[1].Rooms[1];
+                    }
+                    pc.Room.AddMobileObjectToRoom(pc);
+                }
+                //first time loading the character
+                else
+                {
+                    IRoom startRoom = Zones[1].Rooms[1];
+                    pc.Room = startRoom;
+                    startRoom.Enter(pc);
+                }
+
+                lock (characterLock)
+                {
+                    characters.Add(pc);
+                }
+                pc.EnqueueCommand("Look");
+            }
+        }
+
+        private void ProcessRooms(IZone zone)
+        {
+            lock (zone.LockObject)
+            {
+                foreach (IRoom room in zone.Rooms.Values)
+                {
+                    ProcessRoom(room);
+                }
+            }
+        }
+
+        private void ProcessRoom(IRoom room)
+        {
+            PerformHeartBeatBigTick(room);
+
+            bool notifyWeather = false;
+            if ((NotifyPrecipitation || NotifyWindSpeed)
+                && room.Attributes.Contains(Room.Room.RoomAttribute.Weather))
+            {
+                notifyWeather = true;
+            }
+
+            foreach (IMobileObject mob in room.NonPlayerCharacters)
+            {
+                ProcessCommonMobStuff(room, notifyWeather, mob);
+            }
+
+            foreach (IMobileObject mob in room.PlayerCharacters)
+            {
+                ProcessCommonMobStuff(room, notifyWeather, mob);
+            }
+        }
+
+        private void PerformHeartBeatBigTick(IBaseObject obj)
+        {
+            GlobalReference.GlobalValues.Engine.Event.HeartbeatBigTick(obj);
+        }
+
+        private void ProcessCommonMobStuff(IRoom room, bool notifyWeather, IMobileObject mob)
+        {
+            //only process 1 command per tick
+            if (mob.LastProccessedTick != GlobalReference.GlobalValues.TickCounter)
+            {
+                mob.LastProccessedTick = GlobalReference.GlobalValues.TickCounter;
+                ProcessPlayerNotifications(mob);
+                ProcessMobCommunication(mob);
+                ProcessEnchantments(room);
+                AddToFollowQueueIfNeeded(mob);
+                ProcessMobPersonality(mob); //not needed for pc but will not run because pc will not cast as npc
+                ProcessMobCommand(mob);
+                PerformHeartBeatBigTick(mob);
+                if (notifyWeather)
+                {
+                    if (NotifyPrecipitation)
+                    {
+                        ProcessPrecipitation(mob, room);
+                    }
+                    if (NotifyWindSpeed)
+                    {
+                        ProcessWindSpeed(mob, room);
+                    }
+                }
+
+                if (GlobalReference.GlobalValues.TickCounter % 18 == 0)
+                {
+                    MobRegenerate(mob);
+                }
+            }
+        }
+
+        private void AddToFollowQueueIfNeeded(IMobileObject mob)
+        {
+            if (mob.FollowTarget != null && mob.CommmandQueueCount == 0)
+            {
+                if (mob.FollowTarget.Health > 0)
+                {
+                    //the follow target is alive
+                    if (mob.FollowTarget.Room == mob.Room)
+                    {
+                        //the follow target is in the same room, nothing to do
+                        return;
+                    }
+                    else
+                    {
+                        //the follow target is alive but in another room, add this to the list of mobs to process later
+                        lock (LockObject)
+                        {
+                            FollowMob.Enqueue(mob);
+                        }
+                    }
+                }
+                else
+                {
+                    //the follow target died, remove it and notify the mob
+                    GlobalReference.GlobalValues.Notify.Mob(mob, new TranslationMessage($"{mob.FollowTarget.SentenceDescription} died and you quit following them."));
+                    mob.FollowTarget = null;
+                }
+            }
+        }
+
+        private void ProcessPlayerNotifications(IMobileObject mob)
+        {
+            IPlayerCharacter pc = mob as IPlayerCharacter;
+            if (pc != null)
+            {
+                foreach (ICraftsmanObject item in pc.CraftsmanObjects)
+                {
+                    if (item.Completion < DateTime.Now
+                        && item.NextNotifcation < DateTime.Now)
+                    {
+                        GlobalReference.GlobalValues.Notify.Mob(mob, new TranslationMessage($"\"{item.CraftmanDescripition}\" has completed your item in zone {item.CraftsmanId.Zone}."));
+                        item.NextNotifcation = DateTime.Now.AddMinutes(5);
+                    }
+                }
+            }
+        }
+
+        private static void ProcessEnchantments(IRoom room)
+        {
+            if (room.Enchantments.Count > 0)
+            {
+                foreach (INonPlayerCharacter npc in room.NonPlayerCharacters)
+                {
+                    foreach (IEnchantment enchantment in room.Enchantments)
+                    {
+                        enchantment.HeartbeatBigTick(npc);
+                    }
+                }
+            }
+
+            if (room.PlayerCharacters.Count > 0)
+            {
+                foreach (IPlayerCharacter pc in room.PlayerCharacters)
+                {
+                    foreach (IEnchantment enchantment in room.Enchantments)
+                    {
+                        enchantment.HeartbeatBigTick(pc);
+                    }
+                }
+            }
+
+            foreach (IEnchantment enchantment in room.Enchantments)
+            {
+                enchantment.HeartbeatBigTick(room);
+            }
+        }
+
+        private void MobRegenerate(IMobileObject mob)
+        {
+            int healthGainDivisor; //standing ~ 16.66 minute heal
+            switch (mob.Position)
+            {
+                case CharacterPosition.Sleep:   //4x heal
+                    healthGainDivisor = 25;
+                    break;
+                case CharacterPosition.Relax:   //3x heal
+                    healthGainDivisor = 33;
+                    break;
+                case CharacterPosition.Sit:     //2x heal
+                    healthGainDivisor = 50;
+                    break;
+                case CharacterPosition.Mounted: //1x heal
+                case CharacterPosition.Stand:
+                default:
+                    healthGainDivisor = 100;
+                    break;
+            }
+
+            mob.Health += Math.Max(mob.MaxHealth / healthGainDivisor, 1);
+            mob.Mana += Math.Max(mob.MaxMana / healthGainDivisor, 1);
+            mob.Stamina += Math.Max(mob.MaxStamina / healthGainDivisor, 1);
+
+            mob.Health = Math.Min(mob.MaxHealth, mob.Health);
+            mob.Mana = Math.Min(mob.MaxMana, mob.Mana);
+            mob.Stamina = Math.Min(mob.MaxStamina, mob.Stamina);
+        }
+
+        private void ProcessPrecipitation(IMobileObject mob, IRoom room)
+        {
+            GlobalReference.GlobalValues.Notify.Mob(mob, new TranslationMessage(room.PrecipitationNotification));
+        }
+
+        private void ProcessWindSpeed(IMobileObject mob, IRoom room)
+        {
+            GlobalReference.GlobalValues.Notify.Mob(mob, new TranslationMessage(room.WindSpeedNotification));
+        }
+
+        private void ProcessMobCommunication(IMobileObject mob)
+        {
+            IResult result = null;
+            while (result == null || result.ResultSuccess == false)
+            {
+                string communication = mob.DequeueCommunication();
+                if (communication != null)
+                {
+                    ICommand command = GlobalReference.GlobalValues.Parser.Parse(communication);
+                    if (command != null)
+                    {
+                        IMobileObjectCommand mobCommand = GlobalReference.GlobalValues.CommandList.GetCommand(mob, command.CommandName);
+
+                        if (mobCommand == null)
+                        {
+                            result = new Result(false, "Unknown command.");
+                        }
+                        else
+                        {
+                            result = mobCommand.PerformCommand(mob, command);
+                        }
+                        GlobalReference.GlobalValues.Notify.Mob(mob, new TranslationMessage(result.ResultMessage));
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        private void ProcessMobPersonality(IMobileObject mob)
+        {
+            INonPlayerCharacter npc = mob as INonPlayerCharacter;
+            if (npc != null)
+            {
+                string command = null;
+                foreach (IPersonality personality in npc.Personalities)
+                {
+                    command = personality.Process(npc, command);
+                }
+
+                if (command != null)
+                {
+                    npc.EnqueueCommand(command);
+                }
+            }
+        }
+
+        private void ProcessMobCommand(IMobileObject mob)
+        {
+            IResult result = null;
+            while (result == null || result.ResultSuccess == false)
+            {
+                string stringCommand = mob.DequeueCommand();
+                if (stringCommand != null)
+                {
+                    ICommand command = GlobalReference.GlobalValues.Parser.Parse(stringCommand);
+                    if (command != null
+                        && !string.IsNullOrEmpty(command.CommandName))
+                    {
+                        IMobileObjectCommand mobCommand = GlobalReference.GlobalValues.CommandList.GetCommand(mob, command.CommandName);
+                        if (mobCommand != null)
+                        {
+                            result = mobCommand.PerformCommand(mob, command);
+                        }
+                        else
+                        {
+                            result = new Result(false, string.Format("Unable to figure out how to {0}.", command.CommandName));
+                        }
+
+                        if (result != null
+                            && result.ResultMessage != null)
+                        {
+                            GlobalReference.GlobalValues.Notify.Mob(mob, new TranslationMessage(result.ResultMessage));
+                        }
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        private void CatchPlayersOutSideOfTheWorldDueToReloadedZones()
+        {
+            //there is no reason to lock this as we lock on the tick 
+            //so we will never have more than 1 running at once.
+
+            foreach (IPlayerCharacter pc in characters)
+            {
+                IRoom pcRoom = pc.Room;
+                if (pcRoom != null
+                    && pc.LastProccessedTick != GlobalReference.GlobalValues.TickCounter
+                    && pcRoom != Zones[pcRoom.Zone].Rooms[pcRoom.Id])
+                {
+                    ProcessRoom(pc.Room);
+                }
+            }
+        }
+    }
+}

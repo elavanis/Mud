@@ -1,0 +1,202 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateZones", "Misc\GenerateZones\GenerateZones.csproj", "{25C3B00A-1764-4BBA-8DE9-4E132E489AC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{8A171F90-67AA-4827-A9D1-7A6E109CD32C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Objects", "Objects\Objects.csproj", "{839B1EEF-DD03-4FFD-8B8A-CDF9DE8E2E26}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{614FF37E-6BF2-4E94-9799-A0EE3B9222FF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{CC718E5F-D402-4EE6-8338-2187D1CED3F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Telnet", "Telnet", "{95B931F8-268F-4005-991A-BE42410CD389}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerTelnetCommunication", "Telnet\ServerTelnetCommunication\ServerTelnetCommunication.csproj", "{C8DCB623-37D5-4F5C-AA9A-1B04691DAC5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelnetCommunication", "Telnet\TelnetCommunication\TelnetCommunication.csproj", "{D2592112-46D5-4347-88C9-9368FCCAD260}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mud", "Mud\Mud.csproj", "{4DF7988B-6290-44C2-BEB5-437BFBEF1A19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{535DB17B-4DA3-4E04-B5CC-72C7DCA73A86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudUnitTest", "UnitTests\MudUnitTest\MudUnitTest.csproj", "{84A6A929-E5C9-4637-8B98-6975D3D8B2A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectsUnitTest", "UnitTests\ObjectsUnitTest\ObjectsUnitTest.csproj", "{FA398348-2E5D-456A-9009-0984B549A814}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedUnitTest", "UnitTests\SharedUnitTest\SharedUnitTest.csproj", "{60282CCD-D16E-493C-8A2E-C64915D686FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{B2ECF208-4A9C-4365-940C-119B957E36B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelnetCommunicationUnitTest", "Telnet\UnitTests\TelnetCommunicationUnitTest\TelnetCommunicationUnitTest.csproj", "{11BCBAC3-B6AA-45DD-B92C-D22B800A317A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{07EE801B-C2E8-4013-A3E0-00E71194203D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ZoneMaps", "ZoneMaps", "{BA23818C-7AB0-4929-8346-C287A1FCA8F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maps", "Misc\ZoneMaps\Maps\Maps.csproj", "{9D83FBB2-1FEC-4796-B4E6-F34931C75877}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateZoneMaps", "Misc\ZoneMaps\GenerateZoneMaps\GenerateZoneMaps.csproj", "{D0F273E5-E587-492C-9FB1-F86BA36E54F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapsUnitTest", "Misc\UnitTests\MapsUnitTest\MapsUnitTest.csproj", "{C3A9FA80-37AD-4778-A1E0-C56942E03938}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "All", "Misc\All\All.csproj", "{926D9E06-4C55-4D75-8253-513A7B056A2D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{25C3B00A-1764-4BBA-8DE9-4E132E489AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25C3B00A-1764-4BBA-8DE9-4E132E489AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25C3B00A-1764-4BBA-8DE9-4E132E489AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25C3B00A-1764-4BBA-8DE9-4E132E489AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{839B1EEF-DD03-4FFD-8B8A-CDF9DE8E2E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{839B1EEF-DD03-4FFD-8B8A-CDF9DE8E2E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{839B1EEF-DD03-4FFD-8B8A-CDF9DE8E2E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{839B1EEF-DD03-4FFD-8B8A-CDF9DE8E2E26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{614FF37E-6BF2-4E94-9799-A0EE3B9222FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{614FF37E-6BF2-4E94-9799-A0EE3B9222FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{614FF37E-6BF2-4E94-9799-A0EE3B9222FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{614FF37E-6BF2-4E94-9799-A0EE3B9222FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC718E5F-D402-4EE6-8338-2187D1CED3F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC718E5F-D402-4EE6-8338-2187D1CED3F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC718E5F-D402-4EE6-8338-2187D1CED3F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC718E5F-D402-4EE6-8338-2187D1CED3F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8DCB623-37D5-4F5C-AA9A-1B04691DAC5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8DCB623-37D5-4F5C-AA9A-1B04691DAC5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8DCB623-37D5-4F5C-AA9A-1B04691DAC5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8DCB623-37D5-4F5C-AA9A-1B04691DAC5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2592112-46D5-4347-88C9-9368FCCAD260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2592112-46D5-4347-88C9-9368FCCAD260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2592112-46D5-4347-88C9-9368FCCAD260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2592112-46D5-4347-88C9-9368FCCAD260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DF7988B-6290-44C2-BEB5-437BFBEF1A19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DF7988B-6290-44C2-BEB5-437BFBEF1A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DF7988B-6290-44C2-BEB5-437BFBEF1A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DF7988B-6290-44C2-BEB5-437BFBEF1A19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84A6A929-E5C9-4637-8B98-6975D3D8B2A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84A6A929-E5C9-4637-8B98-6975D3D8B2A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84A6A929-E5C9-4637-8B98-6975D3D8B2A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84A6A929-E5C9-4637-8B98-6975D3D8B2A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA398348-2E5D-456A-9009-0984B549A814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA398348-2E5D-456A-9009-0984B549A814}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA398348-2E5D-456A-9009-0984B549A814}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA398348-2E5D-456A-9009-0984B549A814}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60282CCD-D16E-493C-8A2E-C64915D686FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60282CCD-D16E-493C-8A2E-C64915D686FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60282CCD-D16E-493C-8A2E-C64915D686FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60282CCD-D16E-493C-8A2E-C64915D686FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11BCBAC3-B6AA-45DD-B92C-D22B800A317A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11BCBAC3-B6AA-45DD-B92C-D22B800A317A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11BCBAC3-B6AA-45DD-B92C-D22B800A317A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11BCBAC3-B6AA-45DD-B92C-D22B800A317A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D83FBB2-1FEC-4796-B4E6-F34931C75877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D83FBB2-1FEC-4796-B4E6-F34931C75877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D83FBB2-1FEC-4796-B4E6-F34931C75877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D83FBB2-1FEC-4796-B4E6-F34931C75877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0F273E5-E587-492C-9FB1-F86BA36E54F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0F273E5-E587-492C-9FB1-F86BA36E54F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0F273E5-E587-492C-9FB1-F86BA36E54F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0F273E5-E587-492C-9FB1-F86BA36E54F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3A9FA80-37AD-4778-A1E0-C56942E03938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3A9FA80-37AD-4778-A1E0-C56942E03938}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3A9FA80-37AD-4778-A1E0-C56942E03938}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3A9FA80-37AD-4778-A1E0-C56942E03938}.Release|Any CPU.Build.0 = Release|Any CPU
+		{926D9E06-4C55-4D75-8253-513A7B056A2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{926D9E06-4C55-4D75-8253-513A7B056A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{926D9E06-4C55-4D75-8253-513A7B056A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{926D9E06-4C55-4D75-8253-513A7B056A2D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{25C3B00A-1764-4BBA-8DE9-4E132E489AC8} = {8A171F90-67AA-4827-A9D1-7A6E109CD32C}
+		{C8DCB623-37D5-4F5C-AA9A-1B04691DAC5E} = {95B931F8-268F-4005-991A-BE42410CD389}
+		{D2592112-46D5-4347-88C9-9368FCCAD260} = {95B931F8-268F-4005-991A-BE42410CD389}
+		{84A6A929-E5C9-4637-8B98-6975D3D8B2A8} = {535DB17B-4DA3-4E04-B5CC-72C7DCA73A86}
+		{FA398348-2E5D-456A-9009-0984B549A814} = {535DB17B-4DA3-4E04-B5CC-72C7DCA73A86}
+		{60282CCD-D16E-493C-8A2E-C64915D686FA} = {535DB17B-4DA3-4E04-B5CC-72C7DCA73A86}
+		{B2ECF208-4A9C-4365-940C-119B957E36B6} = {95B931F8-268F-4005-991A-BE42410CD389}
+		{11BCBAC3-B6AA-45DD-B92C-D22B800A317A} = {B2ECF208-4A9C-4365-940C-119B957E36B6}
+		{07EE801B-C2E8-4013-A3E0-00E71194203D} = {8A171F90-67AA-4827-A9D1-7A6E109CD32C}
+		{BA23818C-7AB0-4929-8346-C287A1FCA8F7} = {8A171F90-67AA-4827-A9D1-7A6E109CD32C}
+		{9D83FBB2-1FEC-4796-B4E6-F34931C75877} = {BA23818C-7AB0-4929-8346-C287A1FCA8F7}
+		{D0F273E5-E587-492C-9FB1-F86BA36E54F7} = {BA23818C-7AB0-4929-8346-C287A1FCA8F7}
+		{C3A9FA80-37AD-4778-A1E0-C56942E03938} = {07EE801B-C2E8-4013-A3E0-00E71194203D}
+		{926D9E06-4C55-4D75-8253-513A7B056A2D} = {8A171F90-67AA-4827-A9D1-7A6E109CD32C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6ADE6865-E006-444F-B8D1-D4C013AB4534}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 16
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tomjohnson.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Mud\\Mud.csproj
+		SccProjectName1 = Mud
+		SccLocalPath1 = Mud
+		SccProjectUniqueName2 = Objects\\Objects.csproj
+		SccProjectName2 = Objects
+		SccLocalPath2 = Objects
+		SccProjectUniqueName3 = Server\\Server.csproj
+		SccProjectName3 = Server
+		SccLocalPath3 = Server
+		SccProjectUniqueName4 = Shared\\Shared.csproj
+		SccProjectName4 = Shared
+		SccLocalPath4 = Shared
+		SccProjectUniqueName5 = Telnet\\ServerTelnetCommunication\\ServerTelnetCommunication.csproj
+		SccProjectTopLevelParentUniqueName5 = Core.sln
+		SccProjectName5 = Telnet/ServerTelnetCommunication
+		SccLocalPath5 = Telnet\\ServerTelnetCommunication
+		SccProjectUniqueName6 = Telnet\\TelnetCommunication\\TelnetCommunication.csproj
+		SccProjectTopLevelParentUniqueName6 = Core.sln
+		SccProjectName6 = Telnet/TelnetCommunication
+		SccLocalPath6 = Telnet\\TelnetCommunication
+		SccProjectUniqueName7 = UnitTests\\MudUnitTest\\MudUnitTest.csproj
+		SccProjectTopLevelParentUniqueName7 = Core.sln
+		SccProjectName7 = UnitTests/MudUnitTest
+		SccLocalPath7 = UnitTests\\MudUnitTest
+		SccProjectUniqueName8 = UnitTests\\ObjectsUnitTest\\ObjectsUnitTest.csproj
+		SccProjectTopLevelParentUniqueName8 = Core.sln
+		SccProjectName8 = UnitTests/ObjectsUnitTest
+		SccLocalPath8 = UnitTests\\ObjectsUnitTest
+		SccProjectUniqueName9 = UnitTests\\SharedUnitTest\\SharedUnitTest.csproj
+		SccProjectTopLevelParentUniqueName9 = Core.sln
+		SccProjectName9 = UnitTests/SharedUnitTest
+		SccLocalPath9 = UnitTests\\SharedUnitTest
+		SccProjectUniqueName10 = Misc\\ZoneMaps\\Maps\\Maps.csproj
+		SccProjectTopLevelParentUniqueName10 = Core.sln
+		SccProjectName10 = Misc/ZoneMaps/Maps
+		SccLocalPath10 = Misc\\ZoneMaps\\Maps
+		SccProjectUniqueName11 = Misc\\ZoneMaps\\GenerateZoneMaps\\GenerateZoneMaps.csproj
+		SccProjectTopLevelParentUniqueName11 = Core.sln
+		SccProjectName11 = Misc/ZoneMaps/GenerateZoneMaps
+		SccLocalPath11 = Misc\\ZoneMaps\\GenerateZoneMaps
+		SccProjectUniqueName12 = Misc\\GenerateZones\\GenerateZones.csproj
+		SccProjectTopLevelParentUniqueName12 = Core.sln
+		SccProjectName12 = Misc/GenerateZones
+		SccLocalPath12 = Misc\\GenerateZones
+		SccProjectUniqueName13 = Misc\\UnitTests\\MapsUnitTest\\MapsUnitTest.csproj
+		SccProjectTopLevelParentUniqueName13 = Core.sln
+		SccProjectName13 = Misc/UnitTests/MapsUnitTest
+		SccLocalPath13 = Misc\\UnitTests\\MapsUnitTest
+		SccProjectUniqueName14 = Telnet\\UnitTests\\TelnetCommunicationUnitTest\\TelnetCommunicationUnitTest.csproj
+		SccProjectTopLevelParentUniqueName14 = Core.sln
+		SccProjectName14 = Telnet/UnitTests/TelnetCommunicationUnitTest
+		SccLocalPath14 = Telnet\\UnitTests\\TelnetCommunicationUnitTest
+		SccProjectUniqueName15 = Misc\\All\\All.csproj
+		SccProjectTopLevelParentUniqueName15 = Core.sln
+		SccProjectName15 = Misc/All
+		SccLocalPath15 = Misc\\All
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Telnet", "Telnet", "{414C015C-CA1E-4D12-8899-05CCF7E97FF8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientTelentCommucication", "Telnet\ClientTelentCommucication\ClientTelentCommucication.csproj", "{269ADB73-4F43-4471-9D7B-8307E45E0393}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelnetCommunication", "Telnet\TelnetCommunication\TelnetCommunication.csproj", "{A1CDDDC5-DE2B-406D-9A6F-DC73A19F23C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{3BD667AC-5D39-48FB-B8A5-B4DD31ABB88D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageParser", "MessageParser\MessageParser.csproj", "{CAC20CAF-C052-4CE7-B3F9-CE530097A068}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "ModularClient\Gui\Client.csproj", "{1FB5A7E1-4F0D-4198-A287-5150B9B9ED38}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{269ADB73-4F43-4471-9D7B-8307E45E0393}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{269ADB73-4F43-4471-9D7B-8307E45E0393}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{269ADB73-4F43-4471-9D7B-8307E45E0393}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{269ADB73-4F43-4471-9D7B-8307E45E0393}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1CDDDC5-DE2B-406D-9A6F-DC73A19F23C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1CDDDC5-DE2B-406D-9A6F-DC73A19F23C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1CDDDC5-DE2B-406D-9A6F-DC73A19F23C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1CDDDC5-DE2B-406D-9A6F-DC73A19F23C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BD667AC-5D39-48FB-B8A5-B4DD31ABB88D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BD667AC-5D39-48FB-B8A5-B4DD31ABB88D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BD667AC-5D39-48FB-B8A5-B4DD31ABB88D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BD667AC-5D39-48FB-B8A5-B4DD31ABB88D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAC20CAF-C052-4CE7-B3F9-CE530097A068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAC20CAF-C052-4CE7-B3F9-CE530097A068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAC20CAF-C052-4CE7-B3F9-CE530097A068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAC20CAF-C052-4CE7-B3F9-CE530097A068}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FB5A7E1-4F0D-4198-A287-5150B9B9ED38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FB5A7E1-4F0D-4198-A287-5150B9B9ED38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FB5A7E1-4F0D-4198-A287-5150B9B9ED38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FB5A7E1-4F0D-4198-A287-5150B9B9ED38}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{269ADB73-4F43-4471-9D7B-8307E45E0393} = {414C015C-CA1E-4D12-8899-05CCF7E97FF8}
+		{A1CDDDC5-DE2B-406D-9A6F-DC73A19F23C5} = {414C015C-CA1E-4D12-8899-05CCF7E97FF8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62CC0786-7A24-46C6-A6B6-6C7F6A926E84}
+	EndGlobalSection
+EndGlobal
