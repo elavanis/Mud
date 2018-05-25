@@ -5,6 +5,7 @@ using Objects.Personality.Personalities.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Objects.Personality.Personalities.Responder.Response;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Personality.Personalities
@@ -38,6 +39,39 @@ namespace Objects.Personality.Personalities
 
                     string[] words = lastCommunincation.Split(' ');
 
+
+                    foreach (Response response in Responses)
+                    {
+                        bool match = true;
+                        foreach (OptionalWords optionalWords in response.RequiredWords)
+                        {
+                            bool localMatch = false;
+                            foreach (string optionalWord in optionalWords.TriggerWords)
+                            {
+                                if (localMatch == false)
+                                {
+                                    foreach (string word in words)
+                                    {
+                                        if (word.Equals(optionalWord, StringComparison.CurrentCultureIgnoreCase))
+                                        {
+                                            localMatch = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            if (localMatch == false)
+                            {
+                                match = false;
+                                break;
+                            }
+                        }
+                    }
                 }
             }
 
