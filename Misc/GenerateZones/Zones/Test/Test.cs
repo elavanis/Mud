@@ -32,8 +32,7 @@ using Objects.Global.Language;
 using Objects.Personality.Personalities.Interface;
 using Objects.Guild.Guilds;
 using Objects.Guild;
-using static Objects.Personality.Personalities.Responder;
-using static Objects.Personality.Personalities.Responder.Response;
+using Objects.Personality.Personalities.ResponderMisc;
 
 namespace GenerateZones.Zones
 {
@@ -112,9 +111,26 @@ namespace GenerateZones.Zones
 
             IResponder responder = new Responder();
             Response response = new Response();
-            response.RequiredWords.Add(new OptionalWords() { TriggerWords = new List<string>() { "hi" } });
-            response.Message = new TranslationMessage("hello there");
+            response.RequiredWordSets.Add(new OptionalWords() { TriggerWords = new List<string>() { "a" } });
+            response.Message = "aa";
             responder.Responses.Add(response);
+
+            response = new Response();
+            response.RequiredWordSets.Add(new OptionalWords() { TriggerWords = new List<string>() { "b" } });
+            response.Message = "bb";
+            responder.Responses.Add(response);
+
+            response = new Response();
+            response.RequiredWordSets.Add(new OptionalWords() { TriggerWords = new List<string>() { "1", "2" } });
+            response.Message = "1/2";
+            responder.Responses.Add(response);
+
+            response = new Response();
+            response.RequiredWordSets.Add(new OptionalWords() { TriggerWords = new List<string>() { "x" } });
+            response.RequiredWordSets.Add(new OptionalWords() { TriggerWords = new List<string>() { "y" } });
+            response.Message = "xy";
+            responder.Responses.Add(response);
+
             npc.Personalities.Add(responder);
 
             return npc;

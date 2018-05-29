@@ -2,10 +2,10 @@
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 using Objects.Personality.Personalities.Interface;
+using Objects.Personality.Personalities.ResponderMisc;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static Objects.Personality.Personalities.Responder.Response;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Personality.Personalities
@@ -37,38 +37,48 @@ namespace Objects.Personality.Personalities
                     lastCommunincation = lastCommunincation.Replace(CommunicationHeader, "");
                     lastCommunincation = lastCommunincation.Replace(CommunicationTrailer, "");
 
-                    string[] words = lastCommunincation.Split(' ');
+                    string[] wordsRaw = lastCommunincation.Split(' ');
 
+                    List<string> words = new List<string>();
+                    int start;
+
+                    string mobKeyword = wordsRaw[0];
+                    string communicationCommand;
+
+                    if (wordsRaw[1] == "tells")
+                    {
+                        //Mob tells you ...
+                        start = 3;
+                        communicationCommand = "tell";
+                    }
+                    else if (wordsRaw[1] == "says")
+                    {
+                        //Mob says ...
+                        start = 2;
+                        communicationCommand = "say";
+                    }
+                    else
+                    {
+                        //don't do anything for shouts etc
+                        return command;
+                    }
+
+                    for (int i = start; i < wordsRaw.Length; i++)
+                    {
+                        words.Add(wordsRaw[i]);
+                    }
 
                     foreach (Response response in Responses)
                     {
-                        bool match = true;
-                        foreach (OptionalWords optionalWords in response.RequiredWords)
+                        if (response.Match(words))
                         {
-                            bool localMatch = false;
-                            foreach (string optionalWord in optionalWords.TriggerWords)
+                            if (communicationCommand == "tell")
                             {
-                                if (localMatch == false)
-                                {
-                                    foreach (string word in words)
-                                    {
-                                        if (word.Equals(optionalWord, StringComparison.CurrentCultureIgnoreCase))
-                                        {
-                                            localMatch = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    break;
-                                }
+                                command = $"{communicationCommand} {mobKeyword} {response.Message}";
                             }
-
-                            if (localMatch == false)
+                            else if (communicationCommand == "say")
                             {
-                                match = false;
-                                break;
+                                command = $"{communicationCommand} {response.Message}";
                             }
                         }
                     }
@@ -76,17 +86,6 @@ namespace Objects.Personality.Personalities
             }
 
             return command;
-        }
-
-        public class Response
-        {
-            public List<OptionalWords> RequiredWords { get; set; } = new List<OptionalWords>();
-            public TranslationMessage Message { get; set; }
-
-            public class OptionalWords
-            {
-                public List<string> TriggerWords { get; set; } = new List<string>();
-            }
         }
     }
 }
