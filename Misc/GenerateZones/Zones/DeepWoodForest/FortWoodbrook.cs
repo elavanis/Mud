@@ -27,6 +27,7 @@ using Objects.Damage.Interface;
 using Objects.Global.Stats;
 using Objects.Interface;
 using Objects.LoadPercentage;
+using Objects.Magic.Enchantment;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
@@ -177,6 +178,10 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.ExamineDescription = "The whole fort seems to let out a low creak as you walk on this part of the rampart.";
             room.LongDescription = "As you step on to this part of the rampart it lets out a grown in protest at your presence.";
             room.ShortDescription = "On the rampart";
+
+            ISound sound = new Sound();
+            sound.SoundName = $"{zone.Name}\\WooodenCreak.mp3";
+            room.Sounds.Add(sound);
 
             return room;
         }

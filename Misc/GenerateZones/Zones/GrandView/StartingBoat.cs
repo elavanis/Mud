@@ -211,7 +211,9 @@ namespace GenerateZones.Zones
         {
             ISound sound = new Sound();
             sound.Loop = false;
-            sound.SoundName = string.Format("{0}\\{1}", zone.Name, "DragonFireball.mp3");
+            sound.RandomSounds.Add($"{zone.Name}\\DragonFireball_Center.mp3");
+            sound.RandomSounds.Add($"{zone.Name}\\DragonFireball_L-R.mp3");
+            sound.RandomSounds.Add($"{zone.Name}\\DragonFireball_R-L.mp3");
 
             IEnchantment fireDamage = new HeartbeatBigTickEnchantment();
             fireDamage.Effect = new Damage(sound);
