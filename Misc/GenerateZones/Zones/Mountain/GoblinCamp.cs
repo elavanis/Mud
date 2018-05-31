@@ -179,6 +179,8 @@ namespace GenerateZones.Zones.Mountain
             room.LongDescription = "The large room is has animal hides for a floor with several torches for lighting the area nicely.";
 
             room.AddMobileObjectToRoom(GoblinChief());
+
+            room.Items.Add(new RecallBeacon());
             return room;
         }
 
