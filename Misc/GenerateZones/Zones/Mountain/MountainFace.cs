@@ -77,7 +77,6 @@ namespace GenerateZones.Zones.Mountain
             return room;
         }
 
-
         private IRoom GenerateRoom5()
         {
             IRoom room = RockFace();
@@ -86,6 +85,54 @@ namespace GenerateZones.Zones.Mountain
 
             return room;
         }
+
+        private IRoom GenerateRoom6()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "There are scratches on the rock face indicating people have climbed on this rock face before you.";
+            room.LongDescription = "The wall rock face is craggy and easy to climb.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom7()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "A small green bush protrudes from the rock ledge.";
+            room.LongDescription = "A small ledge makes standing here much easier.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom8()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "The hand holds continue on a path straight up.";
+            room.LongDescription = "A tree branch brushes up against the rock face as if saying hello there.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom9()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "The rock face is getting very hard to find hand holds.";
+            room.LongDescription = "The rock face is harder to climb with less hand holds.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom10()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "A small birds nest sits on a small ledge to a few feet to your right.";
+            room.LongDescription = "The rock wall is smooth like water has flowed over it but is still craggy with plenty of holds.";
+
+            return room;
+        }
+
+
+
 
         private IRoom RockFace()
         {
