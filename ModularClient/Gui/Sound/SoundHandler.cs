@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using Client.AssetValidation;
+using Newtonsoft.Json;
 using Shared.Sound.Interface;
+using Shared.TagWrapper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,11 +14,9 @@ namespace Client.Sound
 {
     public class SoundHandler
     {
-        private Settings _settings;
         private TelnetHandler _telnetHandler;
-        public SoundHandler(Settings settings, TelnetHandler telnetHandler)
+        public SoundHandler(TelnetHandler telnetHandler)
         {
-            _settings = settings;
             _telnetHandler = telnetHandler;
         }
         public void HandleSounds(string message)
@@ -31,6 +31,14 @@ namespace Client.Sound
             foreach (ISound sound in sounds)
             {
                 string file = Path.Combine("Sounds", sound.SoundName);
+
+                //request validation the file we have is the latest
+                if (!ValidateAssets.AssetHashes.ContainsKey(file)
+                    && File.Exists(file))
+                {
+                    _telnetHandler.OutQueue.Enqueue($"VALIDATEASSET|{file}");
+                }
+
                 if (!File.Exists(file))
                 {
                     RequestSound(file);

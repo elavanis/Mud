@@ -1,4 +1,5 @@
-﻿using Client.Extensions;
+﻿using Client.AssetValidation;
+using Client.Extensions;
 using Client.Map;
 using Client.Sound;
 using ClientTelentCommucication;
@@ -28,7 +29,6 @@ namespace Client.MainInterface
     public partial class GraphicalUserInterFace : Form
     {
         private int margin = 3;
-        private Settings _settings = null;
         private TelnetHandler _telnetHandler;
         private SoundHandler _soundHandler;
         private PreviousCommands _previousCommands;
@@ -42,11 +42,11 @@ namespace Client.MainInterface
         #region StartUp
         private void LoadForm(object sender, EventArgs e)
         {
-            _settings = new Settings();
+            Settings.Initialize();
             _previousCommands = new PreviousCommands();
             try
             {
-                _telnetHandler = new ClientHandler(_settings.ServerAdress, _settings.Port, new JsonMudMessage());
+                _telnetHandler = new ClientHandler(Settings.ServerAdress, Settings.Port, new JsonMudMessage());
                 timer_UpdateTimer.Start();
                 //richTextBox1.ReadOnly = true;
                 SetDoubleBufferToOn(myRichTextBox_MainText);
@@ -60,12 +60,12 @@ namespace Client.MainInterface
             }
 
             SelectTextEntry(sender, e);
-            ResetFontSize(_settings);
-            if (_settings.Map)
+            ResetFontSize();
+            if (Settings.Map)
             {
                 LoadMap();
             }
-            if (_settings.Sound)
+            if (Settings.Sound)
             {
                 LoadSound();
             }
@@ -81,15 +81,15 @@ namespace Client.MainInterface
         #region Menus
         private void GuiSettings(object sender, EventArgs e)
         {
-            GuiSettings guiSettings = new GuiSettings(_settings);
+            GuiSettings guiSettings = new GuiSettings();
             guiSettings.ShowDialog();
-            ResetFontSize(_settings);
-            _settings.Save();
+            ResetFontSize();
+            Settings.Save();
         }
 
-        private void ResetFontSize(Settings settings)
+        private void ResetFontSize()
         {
-            Font font = new Font(myRichTextBox_MainText.Font.FontFamily, settings.FontSize);
+            Font font = new Font(myRichTextBox_MainText.Font.FontFamily, Settings.FontSize);
             myRichTextBox_MainText.Font = font;
             textBox_Intelisense.Font = font;
             textBox_CommandBox.Font = font;
@@ -115,7 +115,7 @@ namespace Client.MainInterface
                 mapToolStripMenuItem.Checked = false;
             }
 
-            _settings.Save();
+            Settings.Save();
         }
 
         private void LoadMap()
@@ -137,12 +137,12 @@ namespace Client.MainInterface
                 _soundHandler = null;
                 soundToolStripMenuItem.Checked = false;
             }
-            _settings.Save();
+            Settings.Save();
         }
 
         private void LoadSound()
         {
-            _soundHandler = new SoundHandler(_settings, _telnetHandler);
+            _soundHandler = new SoundHandler(_telnetHandler);
             soundToolStripMenuItem.Checked = true;
         }
 
@@ -194,7 +194,7 @@ namespace Client.MainInterface
                 default:
                     string command = null;
 
-                    if (_settings.ShortCutKeys.TryGetValue(e.KeyCode.ToString(), out command))
+                    if (Settings.ShortCutKeys.TryGetValue(e.KeyCode.ToString(), out command))
                     {
                         SendCommandText(command);
                         e.Handled = true;
@@ -265,7 +265,7 @@ namespace Client.MainInterface
             _telnetHandler.OutQueue.Enqueue(text);
             List<ParsedMessage> list = new List<ParsedMessage>();
             list.Add(new ParsedMessage() { Message = text, TagType = TagType.ClientCommand });
-            myRichTextBox_MainText.AddFormatedText(list, _settings);
+            myRichTextBox_MainText.AddFormatedText(list);
         }
 
         #endregion Send Messages
@@ -291,20 +291,24 @@ namespace Client.MainInterface
                 {
                     SaveFile(message);
                 }
+                else if (message.StartsWith("<FileValidation>"))
+                {
+                    ValidateAssets.Validate(message);
+                }
                 else
                 {
                     List<ParsedMessage> parsedMessage = Parser.Parse(message);
-                    myRichTextBox_MainText.AddFormatedText(parsedMessage, _settings);
+                    myRichTextBox_MainText.AddFormatedText(parsedMessage);
                     //myRichTextBox_MainText.AddFormatedText(message, _settings);
                 }
             }
 
-            if (myRichTextBox_MainText.Lines.Length > _settings.MaxLines)
+            if (myRichTextBox_MainText.Lines.Length > Settings.MaxLines)
             {
                 myRichTextBox_MainText.BeginUpdate();
 
                 myRichTextBox_MainText.SelectionStart = 0;
-                myRichTextBox_MainText.SelectionLength = myRichTextBox_MainText.GetFirstCharIndexFromLine(myRichTextBox_MainText.Lines.Length - _settings.MaxLines);
+                myRichTextBox_MainText.SelectionLength = myRichTextBox_MainText.GetFirstCharIndexFromLine(myRichTextBox_MainText.Lines.Length - Settings.MaxLines);
                 myRichTextBox_MainText.SelectedText = "";
 
                 myRichTextBox_MainText.SelectionStart = myRichTextBox_MainText.Text.Length;

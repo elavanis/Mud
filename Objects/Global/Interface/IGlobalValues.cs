@@ -22,6 +22,7 @@ using Shared.TagWrapper.Interface;
 using Objects.Global.PerformanceCounters.Interface;
 using Objects.Global.Map.Interface;
 using Objects.Global.Notify.Interface;
+using Objects.Global.ValidateAsset.Interface;
 
 namespace Objects.Global.Interface
 {
@@ -44,6 +45,7 @@ namespace Objects.Global.Interface
         INotify Notify { get; set; }
         IParser Parser { get; set; }
         IRandom Random { get; set; }
+        ISerialization Serialization { get; set; }
         ISettings Settings { get; set; }
         DateTime StartTime { get; set; }
         ITagWrapper TagWrapper { get; set; }
@@ -51,8 +53,8 @@ namespace Objects.Global.Interface
         ITickTimes TickTimes { get; set; }
         ITranslator Translator { get; set; }
         IUpTime UpTime { get; set; }
+        IValidateAsset ValidateAsset { get; set; }
         IWorld World { get; set; }
-        ISerialization Serialization { get; set; }
 
         void Initilize();
     }

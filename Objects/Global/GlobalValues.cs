@@ -17,10 +17,10 @@ using Objects.Global.Notify.Interface;
 using Objects.Global.PerformanceCounters.Interface;
 using Objects.Global.Random.Interface;
 using Objects.Global.Serialization.Interface;
-using Objects.Global.Settings;
 using Objects.Global.Settings.Interface;
 using Objects.Global.TickTimes.Interface;
 using Objects.Global.UpTime.Interface;
+using Objects.Global.ValidateAsset.Interface;
 using Objects.World.Interface;
 using Shared.FileIO;
 using Shared.FileIO.Interface;
@@ -96,6 +96,9 @@ namespace Objects.Global
         public ISettings Settings { get; set; }
 
         [ExcludeFromCodeCoverage]
+        public ISerialization Serialization { get; set; }
+
+        [ExcludeFromCodeCoverage]
         public ITickTimes TickTimes { get; set; }
 
         [ExcludeFromCodeCoverage]
@@ -105,10 +108,11 @@ namespace Objects.Global
         public IUpTime UpTime { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public IWorld World { get; set; }
+        public IValidateAsset ValidateAsset { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public ISerialization Serialization { get; set; }
+        public IWorld World { get; set; }
+
 
         #region Shared
         [ExcludeFromCodeCoverage]
@@ -134,7 +138,6 @@ namespace Objects.Global
 
 
             CanMobDoSomething = new CanMobDoSomething.CanMobDoSomething();
-            //ClassFactory = new ClassFactory();
             CommandList = new Commands.CommandList();
             //Counters = new PerformanceCounters.Counters();
             DefaultValues = new DefaultValues.DefaultValues();
@@ -151,11 +154,12 @@ namespace Objects.Global
             Notify = new Notify.Notify();
             Parser = new Commands.Parser();
             Random = new Random.Random();
+            Serialization = new Serialization.JsonSerialization();
             TickTimes = new TickTimes.TickTimes();
             Translator = new Language.Translator(new Language.TranslatorAlgorithm());
             UpTime = new UpTime.UpTime();
-            //Serialization = new Serialization.XmlSerialization();
-            Serialization = new Serialization.JsonSerialization();
+            ValidateAsset = new ValidateAsset.ValidateAsset();
+
         }
     }
 }

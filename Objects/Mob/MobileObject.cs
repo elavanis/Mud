@@ -840,6 +840,11 @@ namespace Objects.Mob
             {
                 RequestAsset(message);
             }
+            else if (upperMessage.StartsWith("VALIDATEASSET"))
+            {
+                string hashedValue = GlobalReference.GlobalValues.ValidateAsset.GetCheckSum(message);
+                _messageQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag(message + "|" + hashedValue, TagType.FileValidation));
+            }
             else if (upperMessage.StartsWith("SAY")
                 || upperMessage.StartsWith("SHOUT")
                 || upperMessage.StartsWith("TELL")

@@ -71,7 +71,7 @@ namespace Shared.FileIO
         [ExcludeFromCodeCoverage]
         public string ReadFileBase64(string fileName)
         {
-            byte[] bytes = File.ReadAllBytes(fileName);
+            byte[] bytes = ReadBytes(fileName);
             return Convert.ToBase64String(bytes);
         }
 
@@ -80,6 +80,18 @@ namespace Shared.FileIO
         {
             byte[] bytes = Convert.FromBase64String(file);
             File.WriteAllBytes(fileName, bytes);
+        }
+
+        [ExcludeFromCodeCoverage]
+        public byte[] ReadBytes(string fileName)
+        {
+            byte[] bytes = File.ReadAllBytes(fileName);
+            return bytes;
+        }
+
+        public void Delete(string file)
+        {
+            File.Delete(file);
         }
     }
 }
