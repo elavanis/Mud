@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Client.AssetValidation;
+using Shared.FileIO;
+using Shared.TagWrapper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,9 +18,11 @@ namespace Client.Map
     public partial class Map : Form
     {
         private TelnetHandler _telnetHandler;
+        private string _oldMapFileName;
         public Map(TelnetHandler telnetHandler)
         {
             _telnetHandler = telnetHandler;
+            _oldMapFileName = null;
             InitializeComponent();
             pictureBox_Map.BackgroundImage = new Bitmap("map\\map.jpg");
 
@@ -28,24 +33,43 @@ namespace Client.Map
         {
             Message message = new Message(rawMessage);
             string fileName = Path.Combine("Map", $"{message.Zone}-{message.Z}.png");
-            if (!File.Exists(fileName))
-            {
-                RequestMap(fileName);
-                return;
-            }
-            else
-            {
-                Image oldImage = pictureBox_Map.Image;
 
-                Image map = Image.FromFile(fileName);
-                using (Graphics g = Graphics.FromImage(map))
+            if (_oldMapFileName != fileName) //don't bother reloading the map if it will be the same
+            {
+                if (!File.Exists(fileName))
                 {
-                    Brush brush = new SolidBrush(Color.Red);
-                    g.FillRectangle(brush, int.Parse(message.X), ReverseY(int.Parse(message.Y), map) - 10, 10, 10);
+                    RequestMap(fileName);
+                    return;
                 }
-                pictureBox_Map.Image = map;
+                else
+                {
+                    //request validation the file we have is the latest
+                    if (!ValidateAssets.AssetHashes.ContainsKey(fileName)
+                        && File.Exists(fileName))
+                    {
+                        TagWrapper tagWrapper = new TagWrapper();
 
-                oldImage?.Dispose();
+                        _telnetHandler.OutQueue.Enqueue($"VALIDATEASSET|{ fileName}");
+                    }
+
+                    Image oldImage = pictureBox_Map.Image;
+                    Image map;
+
+                    using (MemoryStream ms = new MemoryStream(new FileIO().ReadBytes(fileName)))
+                    {
+                        map = Image.FromStream(ms);
+                    }
+
+
+                    using (Graphics g = Graphics.FromImage(map))
+                    {
+                        Brush brush = new SolidBrush(Color.Red);
+                        g.FillRectangle(brush, int.Parse(message.X), ReverseY(int.Parse(message.Y), map) - 10, 10, 10);
+                    }
+                    pictureBox_Map.Image = map;
+
+                    oldImage?.Dispose();
+                }
             }
         }
 

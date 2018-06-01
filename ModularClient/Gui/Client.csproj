@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetValidation\ValidatedAssets.cs" />
     <Compile Include="Extensions\RichTextBoxExtenstion.cs" />
     <Compile Include="MainInterface\Gui.cs">
       <SubType>Form</SubType>

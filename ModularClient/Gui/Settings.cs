@@ -11,9 +11,9 @@ using static Shared.TagWrapper.TagWrapper;
 
 namespace Client
 {
-    public class Settings
+    public static class Settings
     {
-        public Settings()
+        public static void Initialize()
         {
             ServerAdress = ConfigurationManager.AppSettings["ServerAdress"];
             Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
@@ -23,17 +23,17 @@ namespace Client
             Sound = bool.Parse(ConfigurationManager.AppSettings["Sound"]);
         }
 
-        public string ServerAdress { get; set; }
-        public int Port { get; set; }
-        public int MaxLines { get; internal set; }
-        public int FontSize { get; set; }
-        public bool Map { get; set; }
-        public bool Sound { get; set; }
+        public static string ServerAdress { get; set; }
+        public static int Port { get; set; }
+        public static int MaxLines { get; internal set; }
+        public static int FontSize { get; set; }
+        public static bool Map { get; set; }
+        public static bool Sound { get; set; }
 
 
-        private Dictionary<TagType, Color> _colorDictionary = null;
+        private static Dictionary<TagType, Color> _colorDictionary = null;
 
-        public Dictionary<TagType, Color> ColorDictionary
+        public static Dictionary<TagType, Color> ColorDictionary
         {
             get
             {
@@ -59,8 +59,8 @@ namespace Client
             }
         }
 
-        private Dictionary<string, string> shortCutKeys = null;
-        public Dictionary<string, string> ShortCutKeys
+        private static Dictionary<string, string> shortCutKeys = null;
+        public static Dictionary<string, string> ShortCutKeys
         {
             get
             {
@@ -81,11 +81,11 @@ namespace Client
             }
         }
 
-        internal void Save()
+        internal static void Save()
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
 
-            PropertyInfo[] properties = this.GetType().GetProperties();
+            PropertyInfo[] properties = typeof(Settings).GetProperties();
             foreach (PropertyInfo property in properties)
             {
                 if (property.Name == "ShortCutKeys")
@@ -127,7 +127,7 @@ namespace Client
                 }
                 else
                 {
-                    config.AppSettings.Settings[property.Name].Value = property.GetValue(this).ToString();
+                    config.AppSettings.Settings[property.Name].Value = property.GetValue(null).ToString();
                 }
 
             }

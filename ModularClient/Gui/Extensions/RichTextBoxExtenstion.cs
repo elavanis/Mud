@@ -12,11 +12,11 @@ namespace Client.Extensions
 {
     public static class RichTextBoxExtenstion
     {
-        public static void AddFormatedText(this RichTextBox box, List<ParsedMessage> parsedMessages, Settings settings)
+        public static void AddFormatedText(this RichTextBox box, List<ParsedMessage> parsedMessages)
         {
             foreach (ParsedMessage parsedMessage in parsedMessages)
             {
-                AppendText(box, parsedMessage.Message, settings.ColorDictionary[parsedMessage.TagType]);
+                AppendText(box, parsedMessage.Message, Settings.ColorDictionary[parsedMessage.TagType]);
             }
             box.AppendText(Environment.NewLine);
         }

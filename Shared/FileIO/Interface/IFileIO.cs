@@ -29,5 +29,8 @@ namespace Shared.FileIO.Interface
         string[] GetFilesFromDirectory(string directory);
 
         string[] GetFilesFromDirectory(string zoneLocation, string filter);
+
+        byte[] ReadBytes(string fileName);
+        void Delete(string file);
     }
 }
