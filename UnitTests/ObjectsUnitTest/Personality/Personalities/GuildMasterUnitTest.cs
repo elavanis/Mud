@@ -57,6 +57,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             Mock<ISkill> skill = new Mock<ISkill>();
             skill.Setup(e => e.ToString()).Returns("skill");
             skill.Setup(e => e.TeachMessage).Returns("skill teach message");
+            skill.Setup(e => e.AbilityName).Returns("skill");
             skills.Add(Guilds.Mage, new List<GuildAbility>() { new GuildAbility(skill.Object, 5) });
             guildAbilites.Setup(e => e.Skills).Returns(skills);
 
@@ -64,6 +65,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             Mock<ISpell> spell = new Mock<ISpell>();
             spell.Setup(e => e.ToString()).Returns("spell");
             spell.Setup(e => e.TeachMessage).Returns("spell teach message");
+            spell.Setup(e => e.AbilityName).Returns("spell");
             spells.Add(Guilds.Mage, new List<GuildAbility>() { new GuildAbility(spell.Object, 5) });
             guildAbilites.Setup(e => e.Spells).Returns(spells);
             GlobalReference.GlobalValues.GuildAbilities = guildAbilites.Object;

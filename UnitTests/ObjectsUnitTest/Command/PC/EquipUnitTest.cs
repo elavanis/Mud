@@ -62,7 +62,7 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
 
             Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Wield <Nothing>\r\nHead <Nothing>\r\nNeck <Nothing>\r\nArms <Nothing>\r\nHand <Nothing>\r\nFinger ShortDescription\r\nFinger ShortDescription\r\nFinger <Nothing>\r\nBody <Nothing>\r\nWaist <Nothing>\r\nLegs <Nothing>\r\nFeet <Nothing>\r\nHeld <Nothing>", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag("Wield <Nothing>\r\nHead <Nothing>\r\nNeck <Nothing>\r\nArms <Nothing>\r\nHand <Nothing>\r\nFinger ShortDescription\r\nBody <Nothing>\r\nWaist <Nothing>\r\nLegs <Nothing>\r\nFeet <Nothing>\r\nHeld <Nothing>", TagType.Info)).Returns("message");
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);

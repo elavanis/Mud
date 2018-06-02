@@ -25,33 +25,42 @@ namespace ObjectsUnitTest.Skill.Skills
         List<IParameter> parameters;
         Mock<ITagWrapper> tagWrapper;
         Mock<IRoom> room;
+        Mock<IRoom> room2;
+        Mock<IRoom> room3;
         Mock<IFindObjects> findObjects;
         Mock<INonPlayerCharacter> npc;
         Mock<IPlayerCharacter> pc;
-        Mock<IRoom> room2;
         Mock<IZone> zone;
+        Mock<IZone> zone2;
         Dictionary<int, IRoom> rooms;
+        Dictionary<int, IRoom> rooms2;
         Dictionary<int, IZone> zones;
         Mock<IWorld> world;
 
         [TestInitialize]
         public void Setup()
         {
+            tagWrapper = new Mock<ITagWrapper>();
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
             track = new Track();
             performer = new Mock<IMobileObject>();
             command = new Mock<ICommand>();
             parameters = new List<IParameter>();
             Mock<IParameter> param = new Mock<IParameter>();
             parameters.Add(param.Object);
-            tagWrapper = new Mock<ITagWrapper>();
             room = new Mock<IRoom>();
+            room2 = new Mock<IRoom>();
+            room3 = new Mock<IRoom>();
             findObjects = new Mock<IFindObjects>();
             npc = new Mock<INonPlayerCharacter>();
             pc = new Mock<IPlayerCharacter>();
-            room2 = new Mock<IRoom>();
             zone = new Mock<IZone>();
+            zone2 = new Mock<IZone>();
             Mock<IExit> exit = new Mock<IExit>();
+            Mock<IExit> exit2 = new Mock<IExit>();
             rooms = new Dictionary<int, IRoom>();
+            rooms2 = new Dictionary<int, IRoom>();
             zones = new Dictionary<int, IZone>();
             world = new Mock<IWorld>();
 
@@ -62,15 +71,21 @@ namespace ObjectsUnitTest.Skill.Skills
             performer.Setup(e => e.Room).Returns(room.Object);
             exit.Setup(e => e.Room).Returns(2);
             exit.Setup(e => e.Zone).Returns(1);
+            exit2.Setup(e => e.Room).Returns(3);
+            exit2.Setup(e => e.Zone).Returns(2);
             room.Setup(e => e.East).Returns(exit.Object);
+            room.Setup(e => e.West).Returns(exit2.Object);
+            room2.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room3.Setup(e => e.Zone).Returns(2);
             zone.Setup(e => e.Rooms).Returns(rooms);
+            zone2.Setup(e => e.Rooms).Returns(rooms2);
             world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
+            zones.Add(2, zone2.Object);
             rooms.Add(1, room.Object);
             rooms.Add(2, room2.Object);
-            room2.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            rooms2.Add(3, room3.Object);
 
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.World = world.Object;
         }
@@ -248,6 +263,26 @@ namespace ObjectsUnitTest.Skill.Skills
             Assert.IsTrue(result.ResultSuccess);
             Assert.AreEqual("expected message", result.ResultMessage);
             room2.Verify(e => e.Attributes, Times.Once);
+        }
+
+        [TestMethod]
+        public void Track_ProcessSkill_DontCheckRoomOutsideOfZone()
+        {
+            Mock<IParameter> param = new Mock<IParameter>();
+            param.Setup(e => e.ParameterValue).Returns("target");
+            parameters.Add(param.Object);
+
+            tagWrapper.Setup(e => e.WrapInTag("You were unable to pick up a trail to a target.", TagType.Info)).Returns("expected message");
+            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>());
+            findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>());
+            findObjects.Setup(e => e.FindNpcInRoom(room2.Object, "target")).Returns(new List<INonPlayerCharacter>());
+            findObjects.Setup(e => e.FindPcInRoom(room2.Object, "target")).Returns(new List<IPlayerCharacter>());
+
+            findObjects.Setup(e => e.FindNpcInRoom(room3.Object, "target")).Returns(new List<INonPlayerCharacter>() { npc.Object });
+
+            IResult result = track.ProcessSkill(performer.Object, command.Object);
+            Assert.IsTrue(result.ResultSuccess);
+            Assert.AreEqual("expected message", result.ResultMessage);
         }
     }
 }
