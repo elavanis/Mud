@@ -33,6 +33,8 @@ namespace Objects.Command.PC
                             if (equipment.ItemPosition == position)
                             {
                                 strBldr.AppendLine(position.ToString() + " " + equipment.ShortDescription);
+                                found = true;
+                                break;
                             }
                         }
 
