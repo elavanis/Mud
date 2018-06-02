@@ -79,7 +79,7 @@ namespace Objects.Skill.Skills
             foreach (Directions.Direction direction in Enum.GetValues(typeof(Directions.Direction)))
             {
                 Trail brandNewTrail = new Trail() { Direction = direction, Distance = 0 };
-                trail = LookForMobInNextRoom(target, searchedRooms, newTrails, currentRoom, direction, brandNewTrail);
+                trail = LookForMobInNextRoom(performer, target, searchedRooms, newTrails, currentRoom, direction, brandNewTrail);
                 if (trail != null)
                 {
                     return new Result(true, string.Format("You pickup the trail of a {0} to the {1}.", target, trail.Direction));
@@ -92,7 +92,7 @@ namespace Objects.Skill.Skills
                 Trail dequeuedTrail = newTrails.Dequeue();
                 foreach (Directions.Direction direction in Enum.GetValues(typeof(Directions.Direction)))
                 {
-                    trail = LookForMobInNextRoom(target, searchedRooms, newTrails, dequeuedTrail.Room, direction, dequeuedTrail);
+                    trail = LookForMobInNextRoom(performer, target, searchedRooms, newTrails, dequeuedTrail.Room, direction, dequeuedTrail);
                     if (trail != null)
                     {
                         return new Result(true, string.Format("You pickup the trail of a {0} to the {1}.", target, trail.Direction));
@@ -103,41 +103,47 @@ namespace Objects.Skill.Skills
             return new Result(true, string.Format("You were unable to pick up a trail to a {0}.", target));
         }
 
-        private Trail LookForMobInNextRoom(string target, HashSet<IRoom> searchedRooms, Queue<Trail> newTrails, IRoom currentRoom, Directions.Direction direction, Trail existingTrail)
+        private Trail LookForMobInNextRoom(IMobileObject performer, string target, HashSet<IRoom> searchedRooms, Queue<Trail> newTrails, IRoom currentRoom, Directions.Direction direction, Trail existingTrail)
         {
             Trail trail = null;
             switch (direction)
             {
                 case Directions.Direction.North:
-                    trail = AddNextRoom(searchedRooms, direction, currentRoom.North, target, newTrails, existingTrail);
+                    trail = AddNextRoom(performer, searchedRooms, direction, currentRoom.North, target, newTrails, existingTrail);
                     break;
                 case Directions.Direction.East:
-                    trail = AddNextRoom(searchedRooms, direction, currentRoom.East, target, newTrails, existingTrail);
+                    trail = AddNextRoom(performer, searchedRooms, direction, currentRoom.East, target, newTrails, existingTrail);
                     break;
                 case Directions.Direction.South:
-                    trail = AddNextRoom(searchedRooms, direction, currentRoom.South, target, newTrails, existingTrail);
+                    trail = AddNextRoom(performer, searchedRooms, direction, currentRoom.South, target, newTrails, existingTrail);
                     break;
                 case Directions.Direction.West:
-                    trail = AddNextRoom(searchedRooms, direction, currentRoom.West, target, newTrails, existingTrail);
+                    trail = AddNextRoom(performer, searchedRooms, direction, currentRoom.West, target, newTrails, existingTrail);
                     break;
                 case Directions.Direction.Up:
-                    trail = AddNextRoom(searchedRooms, direction, currentRoom.Up, target, newTrails, existingTrail);
+                    trail = AddNextRoom(performer, searchedRooms, direction, currentRoom.Up, target, newTrails, existingTrail);
                     break;
                 case Directions.Direction.Down:
-                    trail = AddNextRoom(searchedRooms, direction, currentRoom.Down, target, newTrails, existingTrail);
+                    trail = AddNextRoom(performer, searchedRooms, direction, currentRoom.Down, target, newTrails, existingTrail);
                     break;
             }
 
             return trail;
         }
 
-        private Trail AddNextRoom(HashSet<IRoom> searchedRooms, Directions.Direction direction, IExit exit, string targetKeyword, Queue<Trail> newTrails, Trail trail)
+        private Trail AddNextRoom(IMobileObject performer, HashSet<IRoom> searchedRooms, Directions.Direction direction, IExit exit, string targetKeyword, Queue<Trail> newTrails, Trail trail)
         {
             if (exit != null)
             {
                 IRoom nextRoom = GlobalReference.GlobalValues.World.Zones[exit.Zone].Rooms[exit.Room];
 
                 if (searchedRooms.Contains(nextRoom))
+                {
+                    return null;
+                }
+
+                //don't cross zones when tracking
+                if (nextRoom.Zone != performer.Room.Zone)
                 {
                     return null;
                 }
