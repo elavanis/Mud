@@ -31,7 +31,7 @@ namespace ObjectsUnitTest.Magic.Enchantment
         }
 
         [TestMethod]
-        public void LeaveRoomEnchantment_EnterRoom()
+        public void LeaveRoomEnchantment_LeaveRoom()
         {
             Mock<IRandom> random = new Mock<IRandom>();
             Mock<IMobileObject> mob = new Mock<IMobileObject>();

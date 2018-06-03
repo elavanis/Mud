@@ -10,7 +10,6 @@ using Objects.Global.Direction;
 using Objects.Interface;
 using Objects.Language;
 using Objects.Magic.Enchantment;
-using Objects.Magic.Enchantment.AshMaze;
 using Objects.Mob;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities;
@@ -242,11 +241,12 @@ namespace GenerateZones.Zones.Ash
             room1.Enchantments.Add(heartbeatBigTickEnchantment);
         }
 
-        private static MovePcBackToStart GenerateMobEnchantment(Direction direction, int percent)
+        private static LeaveRoomMovePcEnchantment GenerateMobEnchantment(Direction direction, int percent)
         {
-            MovePcBackToStart leaveRoomEnchantment = new MovePcBackToStart();
+            LeaveRoomMovePcEnchantment leaveRoomEnchantment = new LeaveRoomMovePcEnchantment();
             leaveRoomEnchantment.Direction = direction;
             leaveRoomEnchantment.ActivationPercent = percent;
+            leaveRoomEnchantment.RoomId = new BaseObjectId(18, 1);
             leaveRoomEnchantment.Effect = new MoveMob();
             return leaveRoomEnchantment;
         }

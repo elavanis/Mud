@@ -10,7 +10,7 @@ namespace Objects.Personality.Personalities.ResponderMisc
     public class Response : IResponse
     {
         [ExcludeFromCodeCoverage]
-        public List<OptionalWords> RequiredWordSets { get; set; } = new List<OptionalWords>();
+        public List<IOptionalWords> RequiredWordSets { get; set; } = new List<IOptionalWords>();
 
         [ExcludeFromCodeCoverage]
         public string Message { get; set; }
@@ -18,7 +18,7 @@ namespace Objects.Personality.Personalities.ResponderMisc
         public bool Match(List<string> communicationWords)
         {
             bool matched = true;
-            foreach (OptionalWords optionalWords in RequiredWordSets)
+            foreach (IOptionalWords optionalWords in RequiredWordSets)
             {
                 bool optionalWordsMatched = false;
 
