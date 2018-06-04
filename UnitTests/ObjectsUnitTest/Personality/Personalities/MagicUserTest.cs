@@ -30,7 +30,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             damageSpell = new DamageSpell("damageSpell", 1, 2, Objects.Damage.Damage.DamageType.Cold);
             cureSpell = new CureSpell("cureSpell", 1, 2);
 
-            guild.Setup(e => e.Spells).Returns(new List<Objects.Guild.GuildAbility>() { })
+            guild.Setup(e => e.Spells).Returns(new List<Objects.Guild.GuildAbility>() { });
         }
 
         [TestMethod]

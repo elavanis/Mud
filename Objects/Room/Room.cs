@@ -34,6 +34,10 @@ namespace Objects.Room
 {
     public class Room : BaseObject, IRoom, IContainer, ILoadableItems
     {
+
+        private static ReadOnlyCollection<INonPlayerCharacter> BlankNonPlayerCharacters { get; } = new List<INonPlayerCharacter>().AsReadOnly();
+        private static ReadOnlyCollection<IPlayerCharacter> BlankPlayerCharacters { get; } = new List<IPlayerCharacter>().AsReadOnly();
+
         public Room()
         {
             KeyWords.Add("room");
@@ -65,7 +69,14 @@ namespace Objects.Room
             {
                 lock (_nonPlayerCharactersLock)
                 {
-                    return new List<INonPlayerCharacter>(_nonPlayerCharacters).AsReadOnly();
+                    if (_nonPlayerCharacters.Count == 0)
+                    {
+                        return BlankNonPlayerCharacters;  //save memory allocations when returning a blank list
+                    }
+                    else
+                    {
+                        return new List<INonPlayerCharacter>(_nonPlayerCharacters).AsReadOnly();
+                    }
                 }
             }
             set
@@ -86,7 +97,14 @@ namespace Objects.Room
             {
                 lock (_playerCharactersLock)
                 {
-                    return new List<IPlayerCharacter>(_playerCharacters).AsReadOnly();
+                    if (_playerCharacters.Count == 0)
+                    {
+                        return BlankPlayerCharacters;   //save memory allocations when returning a blank list
+                    }
+                    else
+                    {
+                        return new List<IPlayerCharacter>(_playerCharacters).AsReadOnly();
+                    }
                 }
             }
             set
