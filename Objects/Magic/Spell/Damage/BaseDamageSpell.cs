@@ -26,7 +26,7 @@ namespace Objects.Magic.Spell.Damage
             }
             else
             {
-                manaCost = manaCost;
+                ManaCost = manaCost;
             }
         }
     }

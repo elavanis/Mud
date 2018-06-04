@@ -14,13 +14,22 @@ namespace Objects.Magic.Spell.Heal.Health
 {
     public class BaseCureSpell : SingleTargetSpell
     {
-        public BaseCureSpell(string spellName, int die, int sides)
+        public BaseCureSpell(string spellName, int die, int sides, int manaCost = -1)
         {
             Effect = new RecoverHealth();
             Parameter.Dice = GlobalReference.GlobalValues.DefaultValues.ReduceValues(die, sides);
 
             SpellName = spellName;
-            ManaCost = sides / 20;
+
+            SpellName = spellName;
+            if (manaCost == -1)
+            {
+                ManaCost = sides * die / 20;
+            }
+            else
+            {
+                ManaCost = manaCost;
+            }
 
             string roomMessage = "{performer} says {0} and their hands begin to glow causing {target} to look better.";
             string targetMessage = "{performer} says {0} and heals you.";

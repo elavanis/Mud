@@ -515,15 +515,18 @@ namespace Objects.World
                 //                });
                 //#endif
 
-                foreach (IZone zone in Zones.Values)
-                {
-                    ProcessRooms(zone);
-                }
-
-                //Parallel.ForEach(Zones.Values, zone =>
+                //foreach (IZone zone in Zones.Values)
                 //{
                 //    ProcessRooms(zone);
-                //});
+                //}
+
+                ParallelOptions options = new ParallelOptions();
+                options.MaxDegreeOfParallelism = Environment.ProcessorCount;
+
+                Parallel.ForEach(Zones.Values, options, zone =>
+                {
+                    ProcessRooms(zone);
+                });
 
 
                 CatchPlayersOutSideOfTheWorldDueToReloadedZones();
