@@ -42,6 +42,7 @@ namespace Mud
                 }
                 finally
                 {
+                    GC.Collect(); //force a garbabce collection now while nothing is happening
                     int sleepTime = Math.Max(0, (int)(_heartBeatDelay - sw.ElapsedMilliseconds));
                     Thread.Sleep(sleepTime);
                 }
