@@ -52,33 +52,47 @@ namespace Objects.Personality.Personalities
             {
                 if (GlobalReference.GlobalValues.TickCounter % 5 == 0) //slow down casting to prevent spamming
                 {
-                    if (npc.IsInCombat)
+                    if ((npc.Health * 1.0) / npc.MaxHealth < .5)
                     {
-                        if ((npc.Health * 1.0) / npc.MaxHealth > .5)
-                        {
-                            //More than half health.  Attack
-                            foreach (BaseDamageSpell spell in DamageSpells)
-                            {
-                                if (spell.ManaCost <= npc.Mana)
-                                {
-                                    command = $"Cast {spell.SpellName}";
-                                    break;
-                                }
-                            }
-                        }
+                        //Less than half health.  Cure.
+                        command = Heal(npc, command);
                     }
                     else
                     {
-                        //Less than half health.  Cure.
-                        foreach (BaseCureSpell spell in CureSpell)
+                        if (npc.IsInCombat)
                         {
-                            if (spell.ManaCost > npc.Mana)
-                            {
-                                command = $"Cast {spell.SpellName}";
-                                break;
-                            }
+                            //More than half health.  Attack
+                            command = Attack(npc, command);
                         }
+
                     }
+                }
+            }
+            return command;
+        }
+
+        private string Heal(INonPlayerCharacter npc, string command)
+        {
+            foreach (BaseCureSpell spell in CureSpell)
+            {
+                if (spell.ManaCost <= npc.Mana)
+                {
+                    command = $"Cast {spell.SpellName}";
+                    break;
+                }
+            }
+
+            return command;
+        }
+
+        private string Attack(INonPlayerCharacter npc, string command)
+        {
+            foreach (BaseDamageSpell spell in DamageSpells)
+            {
+                if (spell.ManaCost <= npc.Mana)
+                {
+                    command = $"Cast {spell.SpellName}";
+                    break;
                 }
             }
 

@@ -42,10 +42,10 @@ namespace Mud
                 }
                 finally
                 {
-                    if (GlobalReference.GlobalValues.TickCounter % 60 == 0)  //every 30 seconds
-                    {
-                        GC.Collect(); //force a garbabce collection now while nothing is happening
-                    }
+                    //if (GlobalReference.GlobalValues.TickCounter % 1 == 0)  //every 30 seconds
+                    //{
+                    //    GC.Collect(); //force a garbabce collection now while nothing is happening
+                    //}
                     int sleepTime = Math.Max(0, (int)(_heartBeatDelay - sw.ElapsedMilliseconds));
                     Thread.Sleep(sleepTime);
                 }
