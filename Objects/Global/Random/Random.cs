@@ -12,13 +12,19 @@ namespace Objects.Global.Random
         [ExcludeFromCodeCoverage]
         public int Next(int maxValue)
         {
-            return _random.Next(maxValue);
+            lock (_random)
+            {
+                return _random.Next(maxValue);
+            }
         }
 
         [ExcludeFromCodeCoverage]
         public int Next(int minValue, int maxValue)
         {
-            return _random.Next(minValue, maxValue);
+            lock (_random)
+            {
+                return _random.Next(minValue, maxValue);
+            }
         }
 
         /// <summary>
@@ -32,13 +38,16 @@ namespace Objects.Global.Random
         /// <returns></returns>
         public bool PercentDiceRoll(int percentSuccessful)
         {
-            if (_random.Next(100) + 1 <= percentSuccessful)
+            lock (_random)
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                if (_random.Next(100) + 1 <= percentSuccessful)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
     }

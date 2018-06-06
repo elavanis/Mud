@@ -503,31 +503,17 @@ namespace Objects.World
                 ReloadZones();
                 UpdatePerformanceCounters();
 
-                //#if DEBUG
-                //                foreach (IZone zone in Zones.Values)
-                //                {
-                //                    ProcessRooms(zone);
-                //                }
-                //#else
-                //                Parallel.ForEach(Zones.Values, zone =>
-                //                {
-                //                    ProcessRooms(zone);
-                //                });
-                //#endif
-
+#if DEBUG
                 foreach (IZone zone in Zones.Values)
                 {
                     ProcessRooms(zone);
                 }
-
-                //ParallelOptions options = new ParallelOptions();
-                //options.MaxDegreeOfParallelism = Environment.ProcessorCount;
-
-                //Parallel.ForEach(Zones.Values, options, zone =>
-                //{
-                //    ProcessRooms(zone);
-                //});
-
+#else
+                Parallel.ForEach(Zones.Values, zone =>
+                {
+                    ProcessRooms(zone);
+                });
+#endif
 
                 CatchPlayersOutSideOfTheWorldDueToReloadedZones();
 
