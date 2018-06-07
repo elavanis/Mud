@@ -64,6 +64,9 @@ namespace ObjectsUnitTest.Effect
         [TestMethod]
         public void MoveMob_ProcessEffect_UnableToFindRoom()
         {
+            Mock<IWorld> world = new Mock<IWorld>();
+            GlobalReference.GlobalValues.World = world.Object;
+
             effect.ProcessEffect(parameter.Object);
 
             logger.Verify(e => e.Log(pc.Object, LogLevel.ERROR, "Mob tried to move to Zone 1 Room 2 but failed."));

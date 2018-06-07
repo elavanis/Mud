@@ -53,6 +53,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
             command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter0.Object, parameter1.Object });
             tagWrapper.Setup(e => e.WrapInTag("The spell param0 requires a target.", TagType.Info)).Returns("notEnoughParams");
             tagWrapper.Setup(e => e.WrapInTag("Unable to find param1.", TagType.Info)).Returns("notFound");
+            tagWrapper.Setup(e => e.WrapInTag("Unable to find an opponent to cast the spell on.", TagType.Info)).Returns("failure");
             translationMessage.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("success");
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
@@ -86,6 +87,29 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
             IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
             Assert.AreEqual("success", result.ResultMessage);
             Assert.IsTrue(result.ResultSuccess);
+        }
+
+        [TestMethod]
+        public void SingleTargetSpell_ProcessSpell_InCombat()
+        {
+            command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter0.Object });
+            npc.Setup(e => e.IsInCombat).Returns(true);
+            npc.Setup(e => e.Opponent).Returns(npc2.Object);
+
+            IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
+            Assert.AreEqual("success", result.ResultMessage);
+            Assert.IsTrue(result.ResultSuccess);
+        }
+
+        [TestMethod]
+        public void SingleTargetSpell_ProcessSpell_InCombatNoOpponet()
+        {
+            command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter0.Object });
+            npc.Setup(e => e.IsInCombat).Returns(true);
+
+            IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
+            Assert.AreEqual("failure", result.ResultMessage);
+            Assert.IsFalse(result.ResultSuccess);
         }
     }
 }

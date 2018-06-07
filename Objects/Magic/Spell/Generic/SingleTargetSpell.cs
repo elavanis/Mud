@@ -38,7 +38,7 @@ namespace Objects.Magic.Spell.Generic
                 }
                 else
                 {
-                    return new Result(false, $"Unable to find an opponent to cast the spell on.");
+                    return new Result(false, "Unable to find an opponent to cast the spell on.");
                 }
             }
 
