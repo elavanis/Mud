@@ -32,7 +32,7 @@ namespace Objects.Effect
                 {
                     if (npc.Id == parameter.ObjectId.Id)
                     {
-                        npc.EnqueueCommand(string.Format("Tell {0} {1}", parameter.Target.KeyWords[0], parameter.Message.GetTranslatedMessage(null)));
+                        npc.EnqueueCommand(string.Format("Tell {0} {1}", parameter.Target.KeyWords[0], parameter.TargetMessage.GetTranslatedMessage(null)));
                         break;
                     }
                 }

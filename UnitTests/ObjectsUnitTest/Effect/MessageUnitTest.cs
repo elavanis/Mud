@@ -64,7 +64,7 @@ namespace ObjectsUnitTest.Effect
             effectParameter.Setup(e => e.RoomId).Returns(roomId);
             effectParameter.Setup(e => e.Performer).Returns(performer.Object);
             effectParameter.Setup(e => e.Target).Returns(target.Object);
-            effectParameter.Setup(e => e.Message).Returns(translationMessage.Object);
+            effectParameter.Setup(e => e.RoomMessage).Returns(translationMessage.Object);
             random.Setup(e => e.Next(2)).Returns(0);
             world.Setup(e => e.Zones).Returns(zones);
             zone.Setup(e => e.Rooms).Returns(rooms);

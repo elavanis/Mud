@@ -131,7 +131,7 @@ namespace GenerateZones.Zones.Mountain
             enchantment.Effect = effect;
 
             IEffectParameter effectParameter = new EffectParameter();
-            effectParameter.Message = new TranslationMessage("A prisoner shouts \"Let us out of here.\"");
+            effectParameter.RoomMessage = new TranslationMessage("A prisoner shouts \"Let us out of here.\"");
             effectParameter.RoomId = new RoomId(zoneId, roomId);
             enchantment.Parameter = effectParameter;
 
@@ -328,7 +328,7 @@ namespace GenerateZones.Zones.Mountain
             enchantment.Effect = say;
             TranslationPair translationPair = new TranslationPair(Objects.Global.Language.Translator.Languages.Goblin, "The spirits said you would come.");
             List<ITranslationPair> translationPairs = new List<ITranslationPair>() { translationPair };
-            effectParameter.Message = new TranslationMessage("The Shaman says \"{0}\"", TagType.Communication, translationPairs);
+            effectParameter.RoomMessage = new TranslationMessage("The Shaman says \"{0}\"", TagType.Communication, translationPairs);
             effectParameter.RoomId = new RoomId(zoneId, 8);
             enchantment.Parameter = effectParameter;
 

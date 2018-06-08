@@ -42,7 +42,7 @@ namespace ObjectsUnitTest.Effect
             Dictionary<int, IZone> zones = new Dictionary<int, IZone>();
 
             effectParameter.Setup(e => e.RoomId).Returns(baseObjectId.Object);
-            effectParameter.Setup(e => e.Message).Returns(message.Object);
+            effectParameter.Setup(e => e.RoomMessage).Returns(message.Object);
             room.Setup(e => e.Zone).Returns(1);
             room.Setup(e => e.Id).Returns(2);
             zone.Setup(e => e.Rooms).Returns(rooms);

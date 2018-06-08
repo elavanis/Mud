@@ -231,7 +231,7 @@ namespace GenerateZones.Zones.Ash
             string castleSilhouette = $"Lightning illuminates a castle to the {direction.ToString()}.";
             IEffectParameter effectParameter = new EffectParameter();
             effectParameter.RoomId = new BaseObjectId(room1);
-            effectParameter.Message = new TranslationMessage(castleSilhouette);
+            effectParameter.RoomMessage = new TranslationMessage(castleSilhouette);
             HeartbeatBigTickEnchantment heartbeatBigTickEnchantment = new HeartbeatBigTickEnchantment();
             heartbeatBigTickEnchantment.ActivationPercent = 2;
             heartbeatBigTickEnchantment.Effect = message;

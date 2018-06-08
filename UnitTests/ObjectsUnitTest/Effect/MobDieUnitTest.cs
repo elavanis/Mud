@@ -31,7 +31,7 @@ namespace ObjectsUnitTest.Effect
             translationMessage = new Mock<ITranslationMessage>();
             notify = new Mock<INotify>();
 
-            parameter.Setup(e => e.Message).Returns(translationMessage.Object);
+            parameter.Setup(e => e.TargetMessage).Returns(translationMessage.Object);
             parameter.Setup(e => e.Target).Returns(pc.Object);
             translationMessage.Setup(e => e.GetTranslatedMessage(null)).Returns("test message");
 
@@ -55,7 +55,7 @@ namespace ObjectsUnitTest.Effect
             mobDie.ProcessEffect(parameter.Object);
 
             pc.Verify(e => e.Die(), Times.Never);
-            pc.Verify(e => e.EnqueueMessage(parameter.Object.Message), Times.Never);
+            pc.Verify(e => e.EnqueueMessage(parameter.Object.TargetMessage), Times.Never);
         }
     }
 }

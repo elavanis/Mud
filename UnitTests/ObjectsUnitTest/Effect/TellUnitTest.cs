@@ -45,7 +45,7 @@ namespace ObjectsUnitTest.Effect
             listNpc.Add(npc.Object);
             objectId.Setup(e => e.Zone).Returns(1);
             objectId.Setup(e => e.Zone).Returns(1);
-            parameter.Setup(e => e.Message).Returns(translationMessage.Object);
+            parameter.Setup(e => e.TargetMessage).Returns(translationMessage.Object);
             parameter.Setup(e => e.ObjectId).Returns(objectId.Object);
             parameter.Setup(e => e.Target).Returns(pc.Object);
             translationMessage.Setup(e => e.GetTranslatedMessage(null)).Returns("test message");

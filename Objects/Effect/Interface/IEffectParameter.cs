@@ -12,7 +12,6 @@ namespace Objects.Effect.Interface
     public interface IEffectParameter
     {
         IDamage Damage { get; set; }
-        ITranslationMessage Message { get; set; }
         ITranslationMessage PerformerMessage { get; set; }
         ITranslationMessage TargetMessage { get; set; }
         ITranslationMessage RoomMessage { get; set; }

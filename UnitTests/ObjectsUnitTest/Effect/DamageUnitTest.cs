@@ -36,7 +36,7 @@ namespace ObjectsUnitTest.Effect
             parameter = new Mock<IEffectParameter>();
             translationMessage = new Mock<ITranslationMessage>();
 
-            parameter.Setup(e => e.Message).Returns(translationMessage.Object);
+            parameter.Setup(e => e.TargetMessage).Returns(translationMessage.Object);
             translationMessage.Setup(e => e.GetTranslatedMessage(null)).Returns("test message");
             tagWrapper = new Mock<ITagWrapper>();
 

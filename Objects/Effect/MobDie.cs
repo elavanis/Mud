@@ -33,7 +33,7 @@ namespace Objects.Effect
                     return;
                 }
 
-                GlobalReference.GlobalValues.Notify.Mob(mob, parameter.Message);
+                GlobalReference.GlobalValues.Notify.Mob(mob, parameter.TargetMessage);
 
                 mob.Die();
             }

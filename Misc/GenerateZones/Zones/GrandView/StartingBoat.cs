@@ -164,7 +164,7 @@ namespace GenerateZones.Zones
             death.Effect = new MobDie();
             death.ActivationPercent = 100;
             death.EnchantmentEndingDateTime = new DateTime(9999, 12, 31);
-            death.Parameter.Message = new TranslationMessage("Just as you were about to hop into the boat one of the dragons breathed a fireball in your area knocking you overboard and into the water.  The cool water is a sharp contrast to the intense heat of the fireball that burned your skin.  You fight to keep your head above the water but you are to disoriented from the blast.  You can hear the people shouting above and the flames from the ship and then silence as you slip beneath the water.  The light from the burning ship can be seen momentarily as you sink into the dark depths of the ocean.");
+            death.Parameter.TargetMessage = new TranslationMessage("Just as you were about to hop into the boat one of the dragons breathed a fireball in your area knocking you overboard and into the water.  The cool water is a sharp contrast to the intense heat of the fireball that burned your skin.  You fight to keep your head above the water but you are to disoriented from the blast.  You can hear the people shouting above and the flames from the ship and then silence as you slip beneath the water.  The light from the burning ship can be seen momentarily as you sink into the dark depths of the ocean.");
             room.Enchantments.Add(death);
 
             room.ExamineDescription = "";
@@ -193,7 +193,7 @@ namespace GenerateZones.Zones
             damage.Dice = new Dice(1, 6);
             damage.Type = DamageType.Fire;
             fireDamage.Parameter.Damage = damage;
-            fireDamage.Parameter.Message = new TranslationMessage("Fire leaps up and burns you.");
+            fireDamage.Parameter.TargetMessage = new TranslationMessage("Fire leaps up and burns you.");
 
             return fireDamage;
         }
@@ -224,7 +224,7 @@ namespace GenerateZones.Zones
             damage.Dice = new Dice(5, 6);
             damage.Type = DamageType.Fire;
             fireDamage.Parameter.Damage = damage;
-            fireDamage.Parameter.Message = new TranslationMessage("A dragon sweeps down and breaths fire on you.");
+            fireDamage.Parameter.TargetMessage = new TranslationMessage("A dragon sweeps down and breaths fire on you.");
 
             return fireDamage;
         }

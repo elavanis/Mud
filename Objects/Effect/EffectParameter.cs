@@ -29,8 +29,6 @@ namespace Objects.Effect
         [ExcludeFromCodeCoverage]
         public IItem Item { get; set; }
         [ExcludeFromCodeCoverage]
-        public ITranslationMessage Message { get; set; }
-        [ExcludeFromCodeCoverage]
         public IBaseObjectId ObjectId { get; set; }
         [ExcludeFromCodeCoverage]
         public IRoom ObjectRoom { get; set; }

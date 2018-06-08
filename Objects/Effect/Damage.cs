@@ -38,14 +38,8 @@ namespace Objects.Effect
             IMobileObject mob = parameter.Target as IMobileObject;
             if (mob != null)
             {
-                if (parameter.Message != null)
-                {
-                    GlobalReference.GlobalValues.Notify.Mob(mob, parameter.Message);
-                }
-                else
-                {
-                    GlobalReference.GlobalValues.Notify.Mob(parameter.Performer, parameter.Target, mob, parameter.TargetMessage);
-                }
+
+                GlobalReference.GlobalValues.Notify.Mob(parameter.Performer, parameter.Target, mob, parameter.TargetMessage);
 
                 mob.TakeDamage(parameter.Damage.Dice.RollDice(), parameter.Damage, null);
 

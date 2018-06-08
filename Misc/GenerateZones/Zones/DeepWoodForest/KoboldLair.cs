@@ -177,7 +177,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForTrapLevel(11, 100);
             damage.Type = damageType;
             effectParameter.Damage = damage;
-            effectParameter.Message = new TranslationMessage(effectMessage);
+            effectParameter.TargetMessage = new TranslationMessage(effectMessage);
 
             enchantment.Parameter = effectParameter;
             trap.Enchantments.Add(enchantment);
@@ -1097,7 +1097,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForTrapLevel(11, 100);
             damage.Type = DamageType.Bludgeon;
             effectParameter.Damage = damage;
-            effectParameter.Message = new TranslationMessage("As you walk through the door it swings closed and bludgeons you in the back of the head repeatedly knocking you forward.");
+            effectParameter.TargetMessage = new TranslationMessage("As you walk through the door it swings closed and bludgeons you in the back of the head repeatedly knocking you forward.");
 
             enchantment.Parameter = effectParameter;
             trap.Enchantments.Add(enchantment);

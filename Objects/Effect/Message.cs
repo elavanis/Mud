@@ -22,7 +22,7 @@ namespace Objects.Effect
         public void ProcessEffect(IEffectParameter parameter)
         {
             IRoom room = GlobalReference.GlobalValues.World.Zones[parameter.RoomId.Zone].Rooms[parameter.RoomId.Id];
-            GlobalReference.GlobalValues.Notify.Room(parameter.Performer, parameter.Target, room, parameter.Message);
+            GlobalReference.GlobalValues.Notify.Room(parameter.Performer, parameter.Target, room, parameter.RoomMessage);
 
             if (Sound != null)
             {
