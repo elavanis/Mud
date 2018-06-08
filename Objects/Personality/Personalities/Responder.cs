@@ -5,6 +5,7 @@ using Objects.Personality.Personalities.Interface;
 using Objects.Personality.Personalities.ResponderMisc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using static Shared.TagWrapper.TagWrapper;
 
@@ -12,10 +13,15 @@ namespace Objects.Personality.Personalities
 {
     public class Responder : IResponder
     {
+        [ExcludeFromCodeCoverage]
         public List<Response> Responses { get; set; } = new List<Response>();
+
+        [ExcludeFromCodeCoverage]
         public INonPlayerCharacter NonPlayerCharacter { get; set; }
 
+        [ExcludeFromCodeCoverage]
         private static string CommunicationHeader { get; } = "<" + TagType.Communication.ToString() + ">";
+        [ExcludeFromCodeCoverage]
         private static string CommunicationTrailer { get; } = "</" + TagType.Communication.ToString() + ">";
 
         public string Process(INonPlayerCharacter npc, string command)
@@ -29,6 +35,7 @@ namespace Objects.Personality.Personalities
                     if (lastMessage.StartsWith(CommunicationHeader))
                     {
                         lastCommunincation = lastMessage;
+                        break;
                     }
                 }
 
