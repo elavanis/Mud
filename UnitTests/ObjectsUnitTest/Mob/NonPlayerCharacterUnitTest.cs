@@ -34,14 +34,16 @@ namespace ObjectsUnitTest.Mob
         public void Setup()
         {
             Mock<IDice> dice = new Mock<IDice>();
+            Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
+            Mock<ISettings> settings = new Mock<ISettings>();
+
             dice.Setup(e => e.Die).Returns(1);
             dice.Setup(e => e.Sides).Returns(2);
-            Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
             defaultValues.Setup(e => e.MoneyForNpcLevel(1)).Returns(1);
             defaultValues.Setup(e => e.DiceForArmorLevel(1)).Returns(dice.Object);
-            GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
-            Mock<ISettings> settings = new Mock<ISettings>();
             settings.Setup(e => e.BaseStatValue).Returns(7);
+
+            GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
 
 
@@ -124,11 +126,15 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_FinsihLoad()
         {
+            Mock<IItem> item = new Mock<IItem>();
+            npc.Items.Add(item.Object);
+
             npc.Level = 1;
 
             npc.FinishLoad();
 
             Assert.AreEqual(1ul, npc.Money);
+            item.Verify(e => e.FinishLoad(-1), Times.Once);
         }
 
         [TestMethod]

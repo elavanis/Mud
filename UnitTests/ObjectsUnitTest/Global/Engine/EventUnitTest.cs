@@ -64,6 +64,7 @@ namespace ObjectsUnitTest.Global.Engine
             npc.Setup(e => e.Room).Returns(room.Object);
             npc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>() { npcEnchantment.Object });
             npc.Setup(e => e.SentenceDescription).Returns("NpcSentence");
+            pc.Setup(e => e.Room).Returns(room.Object);
             pc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>() { pcEnchantment.Object });
             pc.Setup(e => e.SentenceDescription).Returns("PcSentence");
             item.Setup(e => e.Enchantments).Returns(new List<IEnchantment>() { itemEnchantment.Object });
@@ -189,18 +190,17 @@ namespace ObjectsUnitTest.Global.Engine
         {
             tagWrapper.Setup(e => e.WrapInTag("SerializedSounds", TagType.Sound)).Returns("sounds");
 
-            evnt.EnterRoom(npc.Object);
+            evnt.EnterRoom(pc.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUG, "NpcSentence entered room 1-1."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence entered room 1-1."), Times.Once);
 
-            roomEnchantment.Verify(e => e.EnterRoom(npc.Object), Times.Once);
-            trapEnchantment.Verify(e => e.EnterRoom(npc.Object), Times.Once);
-            pcEnchantment.Verify(e => e.EnterRoom(npc.Object), Times.Once);
-            npcEnchantment.Verify(e => e.EnterRoom(npc.Object), Times.Once);
-            itemEnchantment.Verify(e => e.EnterRoom(npc.Object), Times.Once);
-            map.Verify(e => e.SendMapPosition(npc.Object));
-            notify.Verify(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>()));
-
+            roomEnchantment.Verify(e => e.EnterRoom(pc.Object), Times.Once);
+            trapEnchantment.Verify(e => e.EnterRoom(pc.Object), Times.Once);
+            pcEnchantment.Verify(e => e.EnterRoom(pc.Object), Times.Once);
+            npcEnchantment.Verify(e => e.EnterRoom(pc.Object), Times.Once);
+            itemEnchantment.Verify(e => e.EnterRoom(pc.Object), Times.Once);
+            map.Verify(e => e.SendMapPosition(pc.Object));
+            notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()));
         }
 
         [TestMethod]

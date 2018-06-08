@@ -791,11 +791,6 @@ namespace Objects.Mob
             }
         }
 
-        public virtual void EnqueueMessage(ITranslationMessage message)
-        {
-            EnqueueMessage(message.GetTranslatedMessage(this));
-        }
-
         private string Status()
         {
             StringBuilder strBldr = new StringBuilder();

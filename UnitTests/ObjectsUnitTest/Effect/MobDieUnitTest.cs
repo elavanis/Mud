@@ -55,7 +55,6 @@ namespace ObjectsUnitTest.Effect
             mobDie.ProcessEffect(parameter.Object);
 
             pc.Verify(e => e.Die(), Times.Never);
-            pc.Verify(e => e.EnqueueMessage(parameter.Object.TargetMessage), Times.Never);
         }
     }
 }

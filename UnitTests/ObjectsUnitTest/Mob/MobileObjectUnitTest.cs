@@ -12,6 +12,7 @@ using Objects.Global.Serialization.Interface;
 using Objects.Global.Settings;
 using Objects.Global.Settings.Interface;
 using Objects.Global.Stats;
+using Objects.Global.ValidateAsset.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
 using Objects.Magic;
@@ -1274,6 +1275,28 @@ namespace ObjectsUnitTest.Mob
             ConcurrentQueue<string> outQueue = GetMobMessageQueue(mob);
 
             string message = "requestasset|sound|test";
+            mob.EnqueueCommand(message);
+            string result;
+            outQueue.TryDequeue(out result);
+            Assert.AreEqual("test", result);
+        }
+
+        [TestMethod]
+        public void MobileObject_EnqueueCommand_ValidateAsset()
+        {
+            Mock<IValidateAsset> validateAsset = new Mock<IValidateAsset>();
+            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
+
+            validateAsset.Setup(e => e.GetCheckSum("validateAsset")).Returns("abc");
+            tagWrapper.Setup(e => e.WrapInTag("validateAsset|abc", TagType.FileValidation)).Returns("test");
+
+            GlobalReference.GlobalValues.ValidateAsset = validateAsset.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
+            ConcurrentQueue<string> queue = GetMobCommunicationQueue(mob);
+            ConcurrentQueue<string> outQueue = GetMobMessageQueue(mob);
+
+            string message = "validateAsset";
             mob.EnqueueCommand(message);
             string result;
             outQueue.TryDequeue(out result);

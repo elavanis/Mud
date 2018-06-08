@@ -131,6 +131,20 @@ namespace ObjectsUnitTest.Global.Notify
             pc.Verify(e => e.EnqueueMessage("unknown unknown message"), Times.Once);
         }
 
+        [TestMethod]
+        public void Notify_Mob_OptionsMessageAdded()
+        {
+            notify.Mob(npc.Object, pc.Object, npc.Object, translationMessage.Object, false, false);
 
+            npc.Verify(e => e.EnqueueMessage("npcSentance pcSentance message"), Times.Once);
+        }
+
+        [TestMethod]
+        public void Notify_Mob_DirectMessageAdded()
+        {
+            notify.Mob(npc.Object, translationMessage.Object);
+
+            npc.Verify(e => e.EnqueueMessage("{performer} {target} message"), Times.Once);
+        }
     }
 }

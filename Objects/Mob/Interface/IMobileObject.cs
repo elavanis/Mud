@@ -80,7 +80,6 @@ namespace Objects.Mob.Interface
         ICorpse Die();
         void EnqueueCommand(string message);
         void EnqueueMessage(string message);
-        void EnqueueMessage(ITranslationMessage message);
         int GetStatEffective(Stats.Stat? stat);
         void LevelMobileObject();
         void RemoveEquipment(IEquipment equipment);
