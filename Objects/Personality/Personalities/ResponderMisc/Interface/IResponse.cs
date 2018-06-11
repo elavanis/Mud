@@ -7,5 +7,6 @@ namespace Objects.Personality.Personalities.ResponderMisc.Interface
     {
         string Message { get; set; }
         List<IOptionalWords> RequiredWordSets { get; set; }
+        bool Match(List<string> communicationWords);
     }
 }

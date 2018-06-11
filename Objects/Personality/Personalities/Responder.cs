@@ -3,6 +3,7 @@ using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 using Objects.Personality.Personalities.Interface;
 using Objects.Personality.Personalities.ResponderMisc;
+using Objects.Personality.Personalities.ResponderMisc.Interface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -14,7 +15,7 @@ namespace Objects.Personality.Personalities
     public class Responder : IResponder
     {
         [ExcludeFromCodeCoverage]
-        public List<Response> Responses { get; set; } = new List<Response>();
+        public List<IResponse> Responses { get; set; } = new List<IResponse>();
 
         [ExcludeFromCodeCoverage]
         public INonPlayerCharacter NonPlayerCharacter { get; set; }
