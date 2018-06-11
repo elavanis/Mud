@@ -58,6 +58,8 @@ namespace ObjectsUnitTest.World
         Mock<IZone> zone;
         Mock<INotify> notify;
         Mock<ITagWrapper> tagWrapper;
+        Dictionary<int, IRoom> dictionaryRoom;
+
         [TestInitialize]
         public void Setup()
         {
@@ -78,7 +80,7 @@ namespace ObjectsUnitTest.World
             Mock<ICounters> counters = new Mock<ICounters>();
             Mock<ITickTimes> tickTimes = new Mock<ITickTimes>();
             object zoneLockObject = new object();
-            Dictionary<int, IRoom> dictionaryRoom = new Dictionary<int, IRoom>();
+            dictionaryRoom = new Dictionary<int, IRoom>();
 
             world.Zones.Add(0, zone.Object);
             dictionaryRoom.Add(0, room.Object);
@@ -93,6 +95,8 @@ namespace ObjectsUnitTest.World
             npc.Setup(e => e.LastProccessedTick).Returns(1);
             pc.Setup(e => e.LastProccessedTick).Returns(1);
             pc.Setup(e => e.CraftsmanObjects).Returns(new List<Objects.Crafting.Interface.ICraftsmanObject>());
+            pc.Setup(e => e.Room).Returns(room.Object);
+            pc.Setup(e => e.FollowTarget).Returns(npc.Object);
             tickTimes.Setup(e => e.MedianTime).Returns(1m);
 
             GlobalReference.GlobalValues.Engine = engine.Object;
@@ -137,6 +141,8 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_PutPlayersIntoWorld_HasRoomId()
         {
+            pc.Setup(e => e.Room).Returns((IRoom)null);
+
             List<IPlayerCharacter> lPc = new List<IPlayerCharacter>();
             Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
 
@@ -165,6 +171,8 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_PutPlayersIntoWorld_HasRoomIdButInvalid()
         {
+            pc.Setup(e => e.Room).Returns((IRoom)null);
+
             List<IPlayerCharacter> lPc = new List<IPlayerCharacter>();
             Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
 
@@ -921,6 +929,30 @@ namespace ObjectsUnitTest.World
             Assert.IsTrue(result.KeyWords.Contains("userName"));
             Assert.AreEqual(1, result.GuildPoints);
             Assert.AreEqual(1, world.AddPlayerQueue.Count);
+        }
+
+        [TestMethod]
+        public void World_ProcessFollowMobs()
+        {
+            FieldInfo fieldInfo = world.GetType().GetField("_followMob", BindingFlags.NonPublic | BindingFlags.Instance);
+            ((Queue<IMobileObject>)fieldInfo.GetValue(world)).Enqueue(pc.Object);
+
+            Mock<IRoom> room2 = new Mock<IRoom>();
+            Mock<IExit> exit = new Mock<IExit>();
+
+            npc.Setup(e => e.Room).Returns(room2.Object);
+            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
+            room.Setup(e => e.Down).Returns(exit.Object);
+            room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room2.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+            exit.Setup(e => e.Zone).Returns(0);
+            exit.Setup(e => e.Room).Returns(2);
+            dictionaryRoom.Add(2, room2.Object);
+
+
+            world.PerformTick();
+            pc.Verify(e => e.EnqueueCommand("East"));
         }
     }
 }
