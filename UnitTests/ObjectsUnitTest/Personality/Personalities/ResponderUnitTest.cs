@@ -27,17 +27,24 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             responder.NonPlayerCharacter = npc.Object;
             npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>mobName tells you hello there</Communication>")
-                                                    .Returns("<Communication>mobName say hello there</Communication>")
+                                                    .Returns("<Communication>mobName says hello there</Communication>")
                                                     .Returns("<Communication>mobName shouts hello there</Communication>");
             response.Setup(e => e.Message).Returns("returnMessge");
             response.Setup(e => e.RequiredWordSets).Returns(optionalWords);
             response.Setup(e => e.Match(new List<string>() { "hello", "there" })).Returns(true);
+            response.Setup(e => e.Message).Returns("matched message");
+            responder.Responses.Add(response.Object);
         }
 
         [TestMethod]
         public void Responder_Process_ThreeMessage()
         {
-            responder.Process(npc.Object, null);
+            string command = responder.Process(npc.Object, null);
+            Assert.AreEqual("tell mobName matched message", command);
+            command = responder.Process(npc.Object, null);
+            Assert.AreEqual("say matched message", command);
+            command = responder.Process(npc.Object, null);
+            Assert.AreEqual(null, command);
         }
     }
 }

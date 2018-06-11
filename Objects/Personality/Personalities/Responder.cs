@@ -76,17 +76,19 @@ namespace Objects.Personality.Personalities
                         words.Add(wordsRaw[i]);
                     }
 
-                    foreach (Response response in Responses)
+                    foreach (IResponse response in Responses)
                     {
                         if (response.Match(words))
                         {
                             if (communicationCommand == "tell")
                             {
                                 command = $"{communicationCommand} {mobKeyword} {response.Message}";
+                                break;
                             }
                             else if (communicationCommand == "say")
                             {
                                 command = $"{communicationCommand} {response.Message}";
+                                break;
                             }
                         }
                     }
