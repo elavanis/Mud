@@ -40,6 +40,7 @@ using Objects.Crafting.Interface;
 using Objects.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
+using Objects.Language;
 
 namespace ObjectsUnitTest.World
 {
@@ -975,12 +976,9 @@ namespace ObjectsUnitTest.World
 
             npc.Setup(e => e.Room).Returns(room6.Object);
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
+            npc.Setup(e => e.SentenceDescription).Returns("npc");
+
             room.Setup(e => e.North).Returns(exit.Object);
-            exit.Setup(e => e.Zone).Returns(0);
-            exit.Setup(e => e.Room).Returns(2);
-            dictionaryRoom.Add(2, room2.Object);
-
-
             room2.Setup(e => e.North).Returns(exit2.Object);
             room3.Setup(e => e.North).Returns(exit3.Object);
             room4.Setup(e => e.North).Returns(exit4.Object);
@@ -998,6 +996,9 @@ namespace ObjectsUnitTest.World
             room6.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
             room6.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
 
+            exit.Setup(e => e.Zone).Returns(0);
+            exit.Setup(e => e.Room).Returns(2);
+            dictionaryRoom.Add(2, room2.Object);
             exit2.Setup(e => e.Zone).Returns(0);
             exit2.Setup(e => e.Room).Returns(3);
             dictionaryRoom.Add(3, room3.Object);
@@ -1013,6 +1014,7 @@ namespace ObjectsUnitTest.World
 
 
             world.PerformTick();
+            notify.Verify(e => e.Mob(pc.Object, new TranslationMessage($"You have lost track of the npc and had to quit following them.", TagType.Info, null)));
         }
     }
 }
