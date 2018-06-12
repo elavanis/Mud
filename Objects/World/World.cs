@@ -375,8 +375,6 @@ namespace Objects.World
             }
         }
 
-        public Queue<IMobileObject> FollowMob { get => _followMob; set => _followMob = value; }
-
         public IPlayerCharacter LoadCharacter(string name)
         {
             string playerCharacterDir = GlobalReference.GlobalValues.Settings.PlayerCharacterDirectory;
@@ -609,7 +607,7 @@ namespace Objects.World
 
             if (exit != null)
             {
-                IRoom nextRoom = GlobalReference.GlobalValues.World.Zones[exit.Zone].Rooms[exit.Room];
+                IRoom nextRoom = Zones[exit.Zone].Rooms[exit.Room];
 
                 if (searchedRooms.Contains(nextRoom))
                 {
@@ -793,7 +791,7 @@ namespace Objects.World
                         //the follow target is alive but in another room, add this to the list of mobs to process later
                         lock (LockObject)
                         {
-                            FollowMob.Enqueue(mob);
+                            _followMob.Enqueue(mob);
                         }
                     }
                 }
