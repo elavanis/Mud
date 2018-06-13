@@ -41,6 +41,7 @@ namespace GenerateZones.Zones.Mountain
             return zone;
         }
 
+        #region Level 1
         private IRoom GenerateRoom1()
         {
             IRoom room = RockFace();
@@ -85,7 +86,9 @@ namespace GenerateZones.Zones.Mountain
 
             return room;
         }
+        #endregion Level 1
 
+        #region Level 2
         private IRoom GenerateRoom6()
         {
             IRoom room = RockFace();
@@ -130,8 +133,27 @@ namespace GenerateZones.Zones.Mountain
 
             return room;
         }
+        #endregion Level 2
 
+        #region Level 3
+        private IRoom GenerateRoom11()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "A small crack quickly grows into a crack large enough to crawl into.";
+            room.LongDescription = "The rock face is starting to get craggy and brittle.";
 
+            return room;
+        }
+
+        private IRoom GenerateRoom12()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "The soft stone has been worn away in spots and polished smooth.";
+            room.LongDescription = "The rock face has become loose crumbly stone that breaks when weight it put on it.";
+
+            return room;
+        }
+        #endregion Level 3
 
 
         private IRoom RockFace()
