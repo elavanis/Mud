@@ -41,6 +41,7 @@ using Objects.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
 using Objects.Language;
+using System.Collections.Concurrent;
 
 namespace ObjectsUnitTest.World
 {
@@ -445,6 +446,40 @@ namespace ObjectsUnitTest.World
         }
 
         [TestMethod]
+        public void World_PerformTick_ProcessRoom_ProcessMobCommand_UnknownCommand()
+        {
+            Mock<IParser> parser = new Mock<IParser>();
+            Mock<ICommand> command = new Mock<ICommand>();
+            Mock<ICommandList> commandList = new Mock<ICommandList>();
+            Mock<IMobileObjectCommand> mobCommand = new Mock<IMobileObjectCommand>();
+            Mock<IResult> result = new Mock<IResult>();
+            ITranslationMessage message = null;
+
+            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
+            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
+            npc.Setup(e => e.LastProccessedTick).Returns(1);
+            npc.SetupSequence(e => e.DequeueCommand())
+                .Returns("3");
+            parser.Setup(e => e.Parse("3")).Returns(command.Object);
+            command.Setup(e => e.CommandName).Returns("4");
+            commandList.Setup(e => e.GetCommand(npc.Object, "command")).Returns(mobCommand.Object);
+            mobCommand.Setup(e => e.PerformCommand(npc.Object, command.Object)).Returns(result.Object);
+            result.Setup(e => e.ResultMessage).Returns("result");
+            notify.Setup(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>())).Callback<IMobileObject, ITranslationMessage>((mob, translationMessage) => { message = translationMessage; });
+            tagWrapper.Setup(e => e.WrapInTag("Unable to figure out how to 4.", TagType.Info)).Returns("expectedMessage");
+            tagWrapper.Setup(e => e.WrapInTag("expectedMessage", TagType.Info)).Returns("expectedMessage");
+
+            GlobalReference.GlobalValues.Parser = parser.Object;
+            GlobalReference.GlobalValues.CommandList = commandList.Object;
+
+            world.PerformTick();
+
+            Assert.AreEqual("expectedMessage", message.Message);
+        }
+
+        [TestMethod]
         public void World_PerformTick_ProcessRoom_PerformHeartBeatBigTick()
         {
             Mock<ICounters> counter = new Mock<ICounters>();
@@ -590,6 +625,17 @@ namespace ObjectsUnitTest.World
             notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()));
             craftsmanObject.VerifySet(e => e.NextNotifcation = It.IsAny<DateTime>());
         }
+
+        [TestMethod]
+        public void World_PerformTick_ProcessRoom_AddToFolloQueue()
+        {
+            pc.Setup(e => e.FollowTarget).Returns(npc.Object);
+            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
+            npc.Setup(e => e.Health).Returns(100);
+
+            world.PerformTick();
+            pc.VerifyGet(e => e.FollowTarget); //verify the follow target was read to see who they are following
+        }
         #endregion ProcessRoom
 
         #region CatchPlayersOutSideOfTheWorldDueToReloadedZones
@@ -618,6 +664,99 @@ namespace ObjectsUnitTest.World
             evnt.Verify(e => e.HeartbeatBigTick(room2.Object), Times.Once);
         }
         #endregion CatchPlayersOutSideOfTheWorldDueToReloadedZones
+
+        #region ProccessFollowMobs
+        [TestMethod]
+        public void World_PerformTick_ProcessFollowMobs()
+        {
+            FieldInfo fieldInfo = world.GetType().GetField("_followMob", BindingFlags.NonPublic | BindingFlags.Instance);
+            ((ConcurrentQueue<IMobileObject>)fieldInfo.GetValue(world)).Enqueue(pc.Object);
+
+            Mock<IRoom> room2 = new Mock<IRoom>();
+            Mock<IExit> exit = new Mock<IExit>();
+
+            npc.Setup(e => e.Room).Returns(room2.Object);
+            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
+            room.Setup(e => e.Down).Returns(exit.Object);
+            room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room2.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+            exit.Setup(e => e.Zone).Returns(0);
+            exit.Setup(e => e.Room).Returns(2);
+            dictionaryRoom.Add(2, room2.Object);
+
+
+            world.PerformTick();
+            pc.Verify(e => e.EnqueueCommand("Down"));
+        }
+
+        [TestMethod]
+        public void World_PerformTick_ProcessFollowMobs_ToFar()
+        {
+            FieldInfo fieldInfo = world.GetType().GetField("_followMob", BindingFlags.NonPublic | BindingFlags.Instance);
+            ((ConcurrentQueue<IMobileObject>)fieldInfo.GetValue(world)).Enqueue(pc.Object);
+
+            tagWrapper.Setup(e => e.WrapInTag("You have lost track of the npc and had to quit following them.", TagType.Info)).Returns("expectedMessage");
+
+            Mock<IRoom> room2 = new Mock<IRoom>();
+            Mock<IRoom> room3 = new Mock<IRoom>();
+            Mock<IRoom> room4 = new Mock<IRoom>();
+            Mock<IRoom> room5 = new Mock<IRoom>();
+            Mock<IRoom> room6 = new Mock<IRoom>();
+            Mock<IExit> exit = new Mock<IExit>();
+            Mock<IExit> exit2 = new Mock<IExit>();
+            Mock<IExit> exit3 = new Mock<IExit>();
+            Mock<IExit> exit4 = new Mock<IExit>();
+            Mock<IExit> exit5 = new Mock<IExit>();
+            Mock<IExit> exit6 = new Mock<IExit>();
+
+            npc.Setup(e => e.Room).Returns(room6.Object);
+            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
+            npc.Setup(e => e.SentenceDescription).Returns("npc");
+
+            room.Setup(e => e.North).Returns(exit.Object);
+            room2.Setup(e => e.North).Returns(exit2.Object);
+            room3.Setup(e => e.North).Returns(exit3.Object);
+            room4.Setup(e => e.North).Returns(exit4.Object);
+            room5.Setup(e => e.North).Returns(exit5.Object);
+            room6.Setup(e => e.North).Returns(exit6.Object);
+            room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
+            room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room3.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
+            room3.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room4.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
+            room4.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room5.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
+            room5.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room6.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            room6.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room6.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+
+            exit.Setup(e => e.Zone).Returns(0);
+            exit.Setup(e => e.Room).Returns(2);
+            dictionaryRoom.Add(2, room2.Object);
+            exit2.Setup(e => e.Zone).Returns(0);
+            exit2.Setup(e => e.Room).Returns(3);
+            dictionaryRoom.Add(3, room3.Object);
+            exit3.Setup(e => e.Zone).Returns(0);
+            exit3.Setup(e => e.Room).Returns(4);
+            dictionaryRoom.Add(4, room4.Object);
+            exit4.Setup(e => e.Zone).Returns(0);
+            exit4.Setup(e => e.Room).Returns(5);
+            dictionaryRoom.Add(5, room5.Object);
+            exit5.Setup(e => e.Zone).Returns(0);
+            exit5.Setup(e => e.Room).Returns(6);
+            dictionaryRoom.Add(6, room6.Object);
+
+            ITranslationMessage message = null;
+            notify.Setup(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>())).Callback<IMobileObject, ITranslationMessage>((mob, translationMessage) => { message = translationMessage; });
+
+
+            world.PerformTick();
+            notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            Assert.AreEqual("expectedMessage", message.Message);
+        }
+        #endregion ProcessFollowMobs
 
         #region DoWorldCommand
         [TestMethod]
@@ -932,95 +1071,8 @@ namespace ObjectsUnitTest.World
             Assert.AreEqual(1, world.AddPlayerQueue.Count);
         }
 
-        [TestMethod]
-        public void World_ProcessFollowMobs()
-        {
-            FieldInfo fieldInfo = world.GetType().GetField("_followMob", BindingFlags.NonPublic | BindingFlags.Instance);
-            ((Queue<IMobileObject>)fieldInfo.GetValue(world)).Enqueue(pc.Object);
-
-            Mock<IRoom> room2 = new Mock<IRoom>();
-            Mock<IExit> exit = new Mock<IExit>();
-
-            npc.Setup(e => e.Room).Returns(room2.Object);
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            room.Setup(e => e.Down).Returns(exit.Object);
-            room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
-            room2.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            exit.Setup(e => e.Zone).Returns(0);
-            exit.Setup(e => e.Room).Returns(2);
-            dictionaryRoom.Add(2, room2.Object);
 
 
-            world.PerformTick();
-            pc.Verify(e => e.EnqueueCommand("Down"));
-        }
 
-        [TestMethod]
-        public void World_ProcessFollowMobs_ToFar()
-        {
-            FieldInfo fieldInfo = world.GetType().GetField("_followMob", BindingFlags.NonPublic | BindingFlags.Instance);
-            ((Queue<IMobileObject>)fieldInfo.GetValue(world)).Enqueue(pc.Object);
-
-            tagWrapper.Setup(e => e.WrapInTag("You have lost track of the npc and had to quit following them.", TagType.Info)).Returns("expectedMessage");
-
-            Mock<IRoom> room2 = new Mock<IRoom>();
-            Mock<IRoom> room3 = new Mock<IRoom>();
-            Mock<IRoom> room4 = new Mock<IRoom>();
-            Mock<IRoom> room5 = new Mock<IRoom>();
-            Mock<IRoom> room6 = new Mock<IRoom>();
-            Mock<IExit> exit = new Mock<IExit>();
-            Mock<IExit> exit2 = new Mock<IExit>();
-            Mock<IExit> exit3 = new Mock<IExit>();
-            Mock<IExit> exit4 = new Mock<IExit>();
-            Mock<IExit> exit5 = new Mock<IExit>();
-            Mock<IExit> exit6 = new Mock<IExit>();
-
-            npc.Setup(e => e.Room).Returns(room6.Object);
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            npc.Setup(e => e.SentenceDescription).Returns("npc");
-
-            room.Setup(e => e.North).Returns(exit.Object);
-            room2.Setup(e => e.North).Returns(exit2.Object);
-            room3.Setup(e => e.North).Returns(exit3.Object);
-            room4.Setup(e => e.North).Returns(exit4.Object);
-            room5.Setup(e => e.North).Returns(exit5.Object);
-            room6.Setup(e => e.North).Returns(exit6.Object);
-            room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
-            room3.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            room3.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
-            room4.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            room4.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
-            room5.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            room5.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
-            room6.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room6.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
-            room6.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-
-            exit.Setup(e => e.Zone).Returns(0);
-            exit.Setup(e => e.Room).Returns(2);
-            dictionaryRoom.Add(2, room2.Object);
-            exit2.Setup(e => e.Zone).Returns(0);
-            exit2.Setup(e => e.Room).Returns(3);
-            dictionaryRoom.Add(3, room3.Object);
-            exit3.Setup(e => e.Zone).Returns(0);
-            exit3.Setup(e => e.Room).Returns(4);
-            dictionaryRoom.Add(4, room4.Object);
-            exit4.Setup(e => e.Zone).Returns(0);
-            exit4.Setup(e => e.Room).Returns(5);
-            dictionaryRoom.Add(5, room5.Object);
-            exit5.Setup(e => e.Zone).Returns(0);
-            exit5.Setup(e => e.Room).Returns(6);
-            dictionaryRoom.Add(6, room6.Object);
-
-            ITranslationMessage message = null;
-            notify.Setup(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>())).Callback<IMobileObject, ITranslationMessage>((mob, translationMessage) => { message = translationMessage; });
-
-
-            world.PerformTick();
-            notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()), Times.Once);
-            Assert.AreEqual("expectedMessage", message.Message);
-        }
     }
 }

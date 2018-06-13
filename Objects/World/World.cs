@@ -41,7 +41,7 @@ namespace Objects.World
         private object _zoneRefreshPadlock;
         private int _lastZoneReload = 0;
         private object _tickPadlock;
-        private Queue<IMobileObject> _followMob = new Queue<IMobileObject>();
+        private ConcurrentQueue<IMobileObject> _followMob = new ConcurrentQueue<IMobileObject>();
 
         public object LockObject { get; } = new object();
 
@@ -532,13 +532,15 @@ namespace Objects.World
             IMobileObject performer;
             while (_followMob.Count > 0)
             {
-                performer = _followMob.Dequeue();
-                HashSet<IRoom> searchedRooms = new HashSet<IRoom>();
-                //double check the room in case the follow target moved into the same room as the follower;
-                if (performer.Room != performer.FollowTarget.Room)
+                if (_followMob.TryDequeue(out performer))
                 {
-                    searchedRooms.Add(performer.Room);
-                    SearchOtherRooms(performer, searchedRooms);
+                    HashSet<IRoom> searchedRooms = new HashSet<IRoom>();
+                    //double check the room in case the follow target moved into the same room as the follower;
+                    if (performer.Room != performer.FollowTarget.Room)
+                    {
+                        searchedRooms.Add(performer.Room);
+                        SearchOtherRooms(performer, searchedRooms);
+                    }
                 }
             }
         }
@@ -798,10 +800,7 @@ namespace Objects.World
                     else
                     {
                         //the follow target is alive but in another room, add this to the list of mobs to process later
-                        lock (LockObject)
-                        {
-                            _followMob.Enqueue(mob);
-                        }
+                        _followMob.Enqueue(mob);
                     }
                 }
                 else
