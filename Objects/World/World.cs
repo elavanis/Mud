@@ -555,19 +555,27 @@ namespace Objects.World
                 trail = LookForMobInNextRoom(performer, searchedRooms, newTrails, currentRoom, direction, brandNewTrail);
                 if (trail != null)
                 {
+                    performer.EnqueueCommand(trail.Direction.ToString());
                     break;
                 }
             }
 
-            if (trail != null)
+            while (newTrails.Count > 0)
             {
-                performer.EnqueueCommand(trail.Direction.ToString());
+                Trail dequeuedTrail = newTrails.Dequeue();
+                foreach (Directions.Direction direction in Enum.GetValues(typeof(Directions.Direction)))
+                {
+                    trail = LookForMobInNextRoom(performer, searchedRooms, newTrails, dequeuedTrail.Room, direction, dequeuedTrail);
+                    if (trail != null)
+                    {
+                        performer.EnqueueCommand(trail.Direction.ToString());
+                        break;
+                    }
+                }
             }
-            else
-            {
-                GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage($"You have lost track of the {performer.FollowTarget.SentenceDescription} and had to quit following them."));
-                performer.FollowTarget = null;
-            }
+
+            GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage($"You have lost track of the {performer.FollowTarget.SentenceDescription} and had to quit following them."));
+            performer.FollowTarget = null;
         }
 
         private Trail LookForMobInNextRoom(IMobileObject performer, HashSet<IRoom> searchedRooms, Queue<Trail> newTrails, IRoom currentRoom, Directions.Direction direction, Trail existingTrail)
@@ -600,7 +608,7 @@ namespace Objects.World
 
         private Trail AddNextRoom(HashSet<IRoom> searchedRooms, Directions.Direction direction, IExit exit, IMobileObject performer, Queue<Trail> newTrails, Trail trail)
         {
-            if (newTrails.Count > 5) //don't follow someone that has gotten to far away to follow
+            if (trail.Distance > 3) //don't follow someone that has gotten to far away to follow
             {
                 return null;
             }
@@ -644,6 +652,7 @@ namespace Objects.World
                 return null;
             }
         }
+
         #endregion Follow Methods
 
         private void UpdatePerformanceCounters()

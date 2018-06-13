@@ -962,6 +962,8 @@ namespace ObjectsUnitTest.World
             FieldInfo fieldInfo = world.GetType().GetField("_followMob", BindingFlags.NonPublic | BindingFlags.Instance);
             ((Queue<IMobileObject>)fieldInfo.GetValue(world)).Enqueue(pc.Object);
 
+            tagWrapper.Setup(e => e.WrapInTag("You have lost track of the npc and had to quit following them.", TagType.Info)).Returns("expectedMessage");
+
             Mock<IRoom> room2 = new Mock<IRoom>();
             Mock<IRoom> room3 = new Mock<IRoom>();
             Mock<IRoom> room4 = new Mock<IRoom>();
@@ -1012,9 +1014,13 @@ namespace ObjectsUnitTest.World
             exit5.Setup(e => e.Room).Returns(6);
             dictionaryRoom.Add(6, room6.Object);
 
+            ITranslationMessage message = null;
+            notify.Setup(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>())).Callback<IMobileObject, ITranslationMessage>((mob, translationMessage) => { message = translationMessage; });
+
 
             world.PerformTick();
-            notify.Verify(e => e.Mob(pc.Object, new TranslationMessage($"You have lost track of the npc and had to quit following them.", TagType.Info, null)));
+            notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            Assert.AreEqual("expectedMessage", message.Message);
         }
     }
 }
