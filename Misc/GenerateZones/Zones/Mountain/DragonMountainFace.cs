@@ -10,7 +10,7 @@ using Objects.Zone.Interface;
 
 namespace GenerateZones.Zones.Mountain
 {
-    public class MountainFace : IZoneCode
+    public class DragonMountainFace : IZoneCode
     {
         IZone zone;
         private int zoneId = 19;
@@ -23,7 +23,7 @@ namespace GenerateZones.Zones.Mountain
             zone = new Zone();
             zone.Id = zoneId;
             zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(MountainFace);
+            zone.Name = nameof(DragonMountainFace);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -150,6 +150,33 @@ namespace GenerateZones.Zones.Mountain
             IRoom room = RockFace();
             room.ExamineDescription = "The soft stone has been worn away in spots and polished smooth.";
             room.LongDescription = "The rock face has become loose crumbly stone that breaks when weight it put on it.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom13()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "The rock face contains a vein of sparkling stones while pretty would be to hard to get while dangling from the rock face.";
+            room.LongDescription = "The rock face looks to have broken off here reveling the innards of the mountain.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom14()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "A small birds nest gently sits on a branch growing out of the rock face.  Be careful if you use the branch as a hand hold.";
+            room.LongDescription = "The hand holds are getting thin except a few branches growing out of the rock face.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom15()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "The stone resembles a eye of a dragon.  This is what gives this mountain its name. Dragon Mountain.";
+            room.LongDescription = "There is a large round stone that some how is carved out of the mountain side.";
 
             return room;
         }
