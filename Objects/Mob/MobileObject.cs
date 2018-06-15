@@ -96,7 +96,7 @@ namespace Objects.Mob
             }
         }
 
-        public IBaseObject Opponent
+        public IMobileObject Opponent
         {
             get
             {
@@ -742,14 +742,12 @@ namespace Objects.Mob
         /// </summary>
         public enum MobileAttribute
         {
-            /// <summary>
-            /// See in darkness
-            /// </summary>
-            Infravision,
-            Hidden,
-            SeeInvisible,
             Fly,
-            Invisibile
+            Hidden,
+            Infravision,
+            Invisibile,
+            NoFlee,
+            SeeInvisible
         }
 
         public enum CharacterPosition

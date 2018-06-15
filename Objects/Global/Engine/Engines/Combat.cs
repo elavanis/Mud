@@ -179,7 +179,7 @@ namespace Objects.Global.Engine.Engines
             return combatants.ContainsKey(mob);
         }
 
-        public IBaseObject Opponet(MobileObject mobileObject)
+        public IMobileObject Opponet(MobileObject mobileObject)
         {
             CombatPair.CombatPair pair;
             if (combatants.TryGetValue(mobileObject, out pair))

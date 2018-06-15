@@ -52,6 +52,7 @@ namespace Objects.Room.Interface
         string RoomWindSpeedLowEnd { get; set; }
 
         IResult CheckEnter(IMobileObject mobileObject);
+        IResult CheckFlee(IMobileObject mobileObject);
         IResult CheckLeave(IMobileObject mobileObject);
         IResult CheckLeaveDirection(IMobileObject mobileObject, Directions.Direction direction);
         void Enter(IMobileObject performer);

@@ -80,10 +80,20 @@ namespace Objects.Command.PC
 
             if (room.Leave(performer, direction))
             {
+                ////check if in different zone
+                //if (proposedRoom.Zone != room.Zone)
+                //{
+                //    lock (GlobalReference.GlobalValues.World.LockObject)
+                //    {
+                //        lock (GlobalReference.GlobalValues.World.Zones[proposedRoom.Zone].LockObject)
+                //        {
                 performer.Room = proposedRoom;
                 proposedRoom.Enter(performer);
 
                 return GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(performer, new Command());
+                //        }
+                //    }
+                //}
             }
 
             //the character was moved before they could move to the desired room.

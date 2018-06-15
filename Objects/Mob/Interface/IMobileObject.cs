@@ -42,7 +42,7 @@ namespace Objects.Mob.Interface
         int IntelligenceStat { get; set; }
         bool IsAlive { get; set; }
         bool IsInCombat { get; }
-        IBaseObject Opponent { get; }
+        IMobileObject Opponent { get; }
         List<IItem> Items { get; }
         Dictionary<string, ISkill> KnownSkills { get; }
         HashSet<Languages> KnownLanguages { get; set; }

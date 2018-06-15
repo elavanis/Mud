@@ -180,6 +180,23 @@ namespace Objects.Room
 
         public IResult CheckLeave(IMobileObject mobileObject)
         {
+            IResult result = CheckFlee(mobileObject);
+            if (result != null)
+            {
+                return result;
+            }
+
+            if (mobileObject.IsInCombat)
+            {
+                //TODO Update this message when flee is implemented to mention fleeing.
+                return new Result(false, "You can not leave while your fighting for your life.");
+            }
+
+            return null;
+        }
+
+        public IResult CheckFlee(IMobileObject mobileObject)
+        {
             //mob does not have enough stamina to cover room movement cost
             //we want to make them fully recover so they are not stuck
             if ((mobileObject.MaxStamina < MovementCost
@@ -194,12 +211,6 @@ namespace Objects.Room
                 && mobileObject.Stamina < MovementCost)
             {
                 return new Result(false, "You need to rest before you attempt to leave.");
-            }
-
-            if (mobileObject.IsInCombat)
-            {
-                //TODO Update this message when flee is implemented to mention fleeing.
-                return new Result(false, "You can not leave while your fighting for your life.");
             }
 
             return null;

@@ -23,6 +23,6 @@ namespace Objects.Global.Engine.Engines.Interface
 
         bool AreFighting(IMobileObject mob, IMobileObject mob2);
         bool IsInCombat(IMobileObject mob);
-        IBaseObject Opponet(MobileObject mobileObject);
+        IMobileObject Opponet(MobileObject mobileObject);
     }
 }
