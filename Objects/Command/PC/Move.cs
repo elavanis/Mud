@@ -67,10 +67,18 @@ namespace Objects.Command.PC
 
             IRoom proposedRoom = GlobalReference.GlobalValues.World.Zones[exit.Zone].Rooms[exit.Room];
 
-            return MoveToRoom(performer, room, direction, proposedRoom);
+            if (proposedRoom.Zone == room.Zone)
+            {
+                return MoveToRoom(performer, room, direction, proposedRoom);
+            }
+            else
+            {
+                GlobalReference.GlobalValues.World.MoveMobToAnotherZone(performer, proposedRoom, direction);
+                return new Result(true, "");
+            }
         }
 
-        private static IResult MoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)
+        internal static IResult MoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)
         {
             IResult result = proposedRoom.CheckEnter(performer);
             if (result != null)
@@ -80,20 +88,10 @@ namespace Objects.Command.PC
 
             if (room.Leave(performer, direction))
             {
-                ////check if in different zone
-                //if (proposedRoom.Zone != room.Zone)
-                //{
-                //    lock (GlobalReference.GlobalValues.World.LockObject)
-                //    {
-                //        lock (GlobalReference.GlobalValues.World.Zones[proposedRoom.Zone].LockObject)
-                //        {
                 performer.Room = proposedRoom;
                 proposedRoom.Enter(performer);
 
                 return GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(performer, new Command());
-                //        }
-                //    }
-                //}
             }
 
             //the character was moved before they could move to the desired room.

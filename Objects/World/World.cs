@@ -33,6 +33,10 @@ using Objects.Crafting.Interface;
 using Objects.Language;
 using Objects.Global.Direction;
 using static Objects.Skill.Skills.Track;
+using Objects.World.Helper.Interface;
+using Objects.World.Helper;
+using static Objects.Global.Direction.Directions;
+using Objects.Command.PC;
 
 namespace Objects.World
 {
@@ -41,7 +45,8 @@ namespace Objects.World
         private object _zoneRefreshPadlock;
         private int _lastZoneReload = 0;
         private object _tickPadlock;
-        private ConcurrentQueue<IMobileObject> _followMob = new ConcurrentQueue<IMobileObject>();
+        private ConcurrentQueue<IMobileObject> _followMobQueue = new ConcurrentQueue<IMobileObject>();
+        private ConcurrentQueue<IMoveToOtherZoneInfo> _moveMobToOtherZoneQueue = new ConcurrentQueue<IMoveToOtherZoneInfo>();
 
         public object LockObject { get; } = new object();
 
@@ -518,7 +523,7 @@ namespace Objects.World
                 NotifyPrecipitation = false;
                 NotifyWindSpeed = false;
 
-                ProcessFollowMobs();
+                ProcessSerialCommands();
 
                 DoWorldCommands();
 
@@ -526,13 +531,43 @@ namespace Objects.World
             }
         }
 
+        private void ProcessSerialCommands()
+        {
+            ProcessFollowMobs();
+            MoveToOtherZones();
+        }
+
+        public void MoveMobToAnotherZone(IMobileObject mobileObject, IRoom proposedRoom, Direction direction)
+        {
+            _moveMobToOtherZoneQueue.Enqueue(new MoveToOtherZoneInfo(mobileObject, proposedRoom, direction));
+        }
+
+        private void MoveToOtherZones()
+        {
+            IMoveToOtherZoneInfo moveToOtherZoneInfo = null;
+            while (_moveMobToOtherZoneQueue.TryDequeue(out moveToOtherZoneInfo))
+            {
+                GlobalReference.GlobalValues.Notify.Mob(
+                                                        moveToOtherZoneInfo.Performer,
+                                                        new TranslationMessage(
+                                                                                Move.MoveToRoom(moveToOtherZoneInfo.Performer,
+                                                                                moveToOtherZoneInfo.Performer.Room,
+                                                                                moveToOtherZoneInfo.Direction,
+                                                                                moveToOtherZoneInfo.ProposedRoom).ResultMessage
+                                                                                )
+
+                                                        );
+
+            }
+        }
+
         #region Follow Methods
         private void ProcessFollowMobs()
         {
             IMobileObject performer;
-            while (_followMob.Count > 0)
+            while (_followMobQueue.Count > 0)
             {
-                if (_followMob.TryDequeue(out performer))
+                if (_followMobQueue.TryDequeue(out performer))
                 {
                     HashSet<IRoom> searchedRooms = new HashSet<IRoom>();
                     //double check the room in case the follow target moved into the same room as the follower;
@@ -800,7 +835,7 @@ namespace Objects.World
                     else
                     {
                         //the follow target is alive but in another room, add this to the list of mobs to process later
-                        _followMob.Enqueue(mob);
+                        _followMobQueue.Enqueue(mob);
                     }
                 }
                 else
@@ -1000,5 +1035,7 @@ namespace Objects.World
                 }
             }
         }
+
+
     }
 }
