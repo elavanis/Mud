@@ -533,8 +533,8 @@ namespace Objects.World
 
         private void ProcessSerialCommands()
         {
-            ProcessFollowMobs();
             MoveToOtherZones();
+            ProcessFollowMobs();
         }
 
         public void MoveMobToAnotherZone(IMobileObject mobileObject, IRoom proposedRoom, Direction direction)

@@ -669,7 +669,7 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_ProcessFollowMobs()
         {
-            FieldInfo fieldInfo = world.GetType().GetField("_followMob", BindingFlags.NonPublic | BindingFlags.Instance);
+            FieldInfo fieldInfo = world.GetType().GetField("_followMobQueue", BindingFlags.NonPublic | BindingFlags.Instance);
             ((ConcurrentQueue<IMobileObject>)fieldInfo.GetValue(world)).Enqueue(pc.Object);
 
             Mock<IRoom> room2 = new Mock<IRoom>();
@@ -693,7 +693,7 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_ProcessFollowMobs_ToFar()
         {
-            FieldInfo fieldInfo = world.GetType().GetField("_followMob", BindingFlags.NonPublic | BindingFlags.Instance);
+            FieldInfo fieldInfo = world.GetType().GetField("_followMobQueue", BindingFlags.NonPublic | BindingFlags.Instance);
             ((ConcurrentQueue<IMobileObject>)fieldInfo.GetValue(world)).Enqueue(pc.Object);
 
             tagWrapper.Setup(e => e.WrapInTag("You have lost track of the npc and had to quit following them.", TagType.Info)).Returns("expectedMessage");
