@@ -11,7 +11,6 @@ namespace Objects.Zone.Interface
     public interface IZone : ILoadable
     {
         bool RepeatZoneProcessing { get; set; }
-        object LockObject { get; }
         int ZoneObjectSyncOptions { get; set; }
         int InGameDaysTillReset { get; set; }
         DateTime ResetTime { get; set; }

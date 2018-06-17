@@ -6,6 +6,11 @@ using Objects.Skill.Interface;
 using static Objects.Guild.Guild;
 using Objects.Magic.Interface;
 using Objects.Guild;
+using Objects.Global;
+using Objects.Global.DefaultValues.Interface;
+using Moq;
+using Objects.Die.Interface;
+using Shared.TagWrapper.Interface;
 
 namespace ObjectsUnitTest.Global.Guild
 {
@@ -18,6 +23,15 @@ namespace ObjectsUnitTest.Global.Guild
         [TestInitialize]
         public void Setup()
         {
+            Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
+            Mock<IDice> dice = new Mock<IDice>();
+            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
+
+            defaultValues.Setup(e => e.DiceForSpellLevel(It.IsAny<int>())).Returns(dice.Object);
+
+            GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
             abiltites = new GuildAbilities();
         }
 

@@ -65,7 +65,6 @@ namespace ObjectsUnitTest.World
         [TestInitialize]
         public void Setup()
         {
-            world = new Objects.World.World();
             engine = new Mock<IEngine>();
             evnt = new Mock<IEvent>();
             combat = new Mock<ICombat>();
@@ -81,10 +80,8 @@ namespace ObjectsUnitTest.World
             Mock<ILogger> logger = new Mock<ILogger>();
             Mock<ICounters> counters = new Mock<ICounters>();
             Mock<ITickTimes> tickTimes = new Mock<ITickTimes>();
-            object zoneLockObject = new object();
             dictionaryRoom = new Dictionary<int, IRoom>();
 
-            world.Zones.Add(0, zone.Object);
             dictionaryRoom.Add(0, room.Object);
             engine.Setup(e => e.Combat).Returns(combat.Object);
             engine.Setup(e => e.Event).Returns(evnt.Object);
@@ -92,7 +89,6 @@ namespace ObjectsUnitTest.World
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
             room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
-            zone.Setup(e => e.LockObject).Returns(zoneLockObject);
             zone.Setup(e => e.Rooms).Returns(dictionaryRoom);
             npc.Setup(e => e.LastProccessedTick).Returns(1);
             pc.Setup(e => e.LastProccessedTick).Returns(1);
@@ -109,6 +105,9 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.TickTimes = tickTimes.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
+            world = new Objects.World.World();
+            world.Zones.Add(0, zone.Object);
         }
 
         #region PerformTick
@@ -1070,9 +1069,5 @@ namespace ObjectsUnitTest.World
             Assert.AreEqual(1, result.GuildPoints);
             Assert.AreEqual(1, world.AddPlayerQueue.Count);
         }
-
-
-
-
     }
 }

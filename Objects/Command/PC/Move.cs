@@ -13,10 +13,11 @@ using Objects.Room;
 using Objects.Room.Interface;
 using System.Threading;
 using Objects.Zone.Interface;
+using Objects.Command.PC.Interface;
 
 namespace Objects.Command.PC
 {
-    public class Move : IMobileObjectCommand
+    public class Move : IMobileObjectCommand, IMove
     {
         public IResult Instructions { get; } = new Result(true, InstructionText());
 
@@ -78,7 +79,7 @@ namespace Objects.Command.PC
             }
         }
 
-        internal static IResult MoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)
+        public IResult MoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)
         {
             IResult result = proposedRoom.CheckEnter(performer);
             if (result != null)

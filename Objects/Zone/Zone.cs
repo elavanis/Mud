@@ -21,8 +21,6 @@ namespace Objects.Zone
         [ExcludeFromCodeCoverage]
         public bool RepeatZoneProcessing { get; set; }
         [ExcludeFromCodeCoverage]
-        public object LockObject { get; } = new object();
-        [ExcludeFromCodeCoverage]
         public int ZoneObjectSyncOptions { get; set; } = -1;
         [ExcludeFromCodeCoverage]
         public int InGameDaysTillReset { get; set; } = 150;

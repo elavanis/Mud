@@ -14,7 +14,6 @@ namespace Objects.World.Interface
 {
     public interface IWorld
     {
-        object LockObject { get; }
         int Precipitation { get; set; }
         int PrecipitationGoal { get; set; }
         int WindSpeed { get; set; }

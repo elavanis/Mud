@@ -37,6 +37,7 @@ using Objects.World.Helper.Interface;
 using Objects.World.Helper;
 using static Objects.Global.Direction.Directions;
 using Objects.Command.PC;
+using Objects.Command.PC.Interface;
 
 namespace Objects.World
 {
@@ -48,7 +49,7 @@ namespace Objects.World
         private ConcurrentQueue<IMobileObject> _followMobQueue = new ConcurrentQueue<IMobileObject>();
         private ConcurrentQueue<IMoveToOtherZoneInfo> _moveMobToOtherZoneQueue = new ConcurrentQueue<IMoveToOtherZoneInfo>();
 
-        public object LockObject { get; } = new object();
+        public IMove Move { get; set; } = new Move();
 
         public World()
         {
@@ -752,12 +753,9 @@ namespace Objects.World
 
         private void ProcessRooms(IZone zone)
         {
-            lock (zone.LockObject)
+            foreach (IRoom room in zone.Rooms.Values)
             {
-                foreach (IRoom room in zone.Rooms.Values)
-                {
-                    ProcessRoom(room);
-                }
+                ProcessRoom(room);
             }
         }
 
