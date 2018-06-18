@@ -77,6 +77,7 @@ namespace ObjectsUnitTest.Skill.Skills
             room.Setup(e => e.West).Returns(exit2.Object);
             room2.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
             room3.Setup(e => e.Zone).Returns(2);
+            room3.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
             zone.Setup(e => e.Rooms).Returns(rooms);
             zone2.Setup(e => e.Rooms).Returns(rooms2);
             world.Setup(e => e.Zones).Returns(zones);
@@ -183,6 +184,9 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindNpcInRoom(room2.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room2.Object, "target")).Returns(new List<IPlayerCharacter>());
 
+            findObjects.Setup(e => e.FindNpcInRoom(room3.Object, "target")).Returns(new List<INonPlayerCharacter>());
+            findObjects.Setup(e => e.FindPcInRoom(room3.Object, "target")).Returns(new List<IPlayerCharacter>());
+
             IResult result = track.ProcessSkill(performer.Object, command.Object);
             Assert.IsTrue(result.ResultSuccess);
             Assert.AreEqual("expected message", result.ResultMessage);
@@ -227,7 +231,6 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindNpcInRoom(room2.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room2.Object, "target")).Returns(new List<IPlayerCharacter>());
 
-
             IResult result = track.ProcessSkill(performer.Object, command.Object);
             Assert.IsTrue(result.ResultSuccess);
             Assert.AreEqual("expected message", result.ResultMessage);
@@ -239,7 +242,6 @@ namespace ObjectsUnitTest.Skill.Skills
         {
             Mock<IParameter> param = new Mock<IParameter>();
             Mock<IExit> exit = new Mock<IExit>();
-            Mock<IRoom> room3 = new Mock<IRoom>();
 
             param.Setup(e => e.ParameterValue).Returns("target");
             exit.Setup(e => e.Room).Returns(3);
@@ -248,7 +250,7 @@ namespace ObjectsUnitTest.Skill.Skills
             rooms.Add(3, room3.Object);
             room3.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
 
-            tagWrapper.Setup(e => e.WrapInTag("You pickup the trail of a target to the East.", TagType.Info)).Returns("expected message");
+            tagWrapper.Setup(e => e.WrapInTag("You pickup the trail of a target to the West.", TagType.Info)).Returns("expected message");
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>());
 
@@ -263,26 +265,6 @@ namespace ObjectsUnitTest.Skill.Skills
             Assert.IsTrue(result.ResultSuccess);
             Assert.AreEqual("expected message", result.ResultMessage);
             room2.Verify(e => e.Attributes, Times.Once);
-        }
-
-        [TestMethod]
-        public void Track_ProcessSkill_DontCheckRoomOutsideOfZone()
-        {
-            Mock<IParameter> param = new Mock<IParameter>();
-            param.Setup(e => e.ParameterValue).Returns("target");
-            parameters.Add(param.Object);
-
-            tagWrapper.Setup(e => e.WrapInTag("You were unable to pick up a trail to a target.", TagType.Info)).Returns("expected message");
-            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>());
-            findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>());
-            findObjects.Setup(e => e.FindNpcInRoom(room2.Object, "target")).Returns(new List<INonPlayerCharacter>());
-            findObjects.Setup(e => e.FindPcInRoom(room2.Object, "target")).Returns(new List<IPlayerCharacter>());
-
-            findObjects.Setup(e => e.FindNpcInRoom(room3.Object, "target")).Returns(new List<INonPlayerCharacter>() { npc.Object });
-
-            IResult result = track.ProcessSkill(performer.Object, command.Object);
-            Assert.IsTrue(result.ResultSuccess);
-            Assert.AreEqual("expected message", result.ResultMessage);
         }
     }
 }

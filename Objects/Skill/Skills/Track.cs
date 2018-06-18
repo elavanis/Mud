@@ -142,12 +142,6 @@ namespace Objects.Skill.Skills
                     return null;
                 }
 
-                //don't cross zones when tracking
-                if (nextRoom.Zone != performer.Room.Zone)
-                {
-                    return null;
-                }
-
                 //check to make sure the next room does not contain the attribute NoTrack
                 //if so return null
                 if (nextRoom.Attributes.Contains(RoomAttribute.NoTrack))
