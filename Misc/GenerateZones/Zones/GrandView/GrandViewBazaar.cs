@@ -20,6 +20,7 @@ using Objects.Personality.Personalities;
 using Objects.Mob;
 using static Objects.Global.Direction.Directions;
 using Objects.Mob.Interface;
+using Objects.Item.Items.Interface;
 
 namespace GenerateZones.Zones
 {
@@ -292,10 +293,11 @@ namespace GenerateZones.Zones
             return npc;
         }
 
-        private Weapon BlackSmithDagger()
+        private IWeapon BlackSmithDagger()
         {
-            Weapon dagger = new Weapon();
+            IWeapon dagger = new Weapon();
             dagger.Level = 1;
+            dagger.Type = Weapon.WeaponType.Dagger;
             dagger.Id = itemId++;
             dagger.KeyWords.Add("Dagger");
             dagger.ShortDescription = "A basic dagger.";

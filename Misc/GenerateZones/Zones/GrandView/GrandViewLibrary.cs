@@ -205,6 +205,7 @@ namespace GenerateZones.Zones
             staff.Id = itemId++;
 
             staff.Level = 1;
+            staff.Type = Weapon.WeaponType.WizardStaff;
             staff.ExamineDescription = "Examining the staff reveals the slight shimmer is a thin layer of frost.  The head of the staff is emitting extreme cold that could useful in battle or drinks at parties.";
             staff.LongDescription = "The gnarled staff is twisted age seems to have a slight shimmer at the head of the staff.";
             staff.ShortDescription = "A wizards staff hewn from an oak tree.";

@@ -208,6 +208,7 @@ namespace GenerateZones.Zones.GrandView
         {
             IWeapon scalpel = new Weapon();
             scalpel.Level = 1;
+            scalpel.Type = Weapon.WeaponType.Dagger;
             scalpel.Id = itemId++;
             scalpel.KeyWords.Add("Scalpel");
             scalpel.ShortDescription = "A surgical scalpel.";

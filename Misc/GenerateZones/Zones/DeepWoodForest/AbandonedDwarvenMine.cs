@@ -743,6 +743,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IWeapon weapon = new Weapon();
             weapon.Id = itemId++;
             weapon.Level = 87;
+            weapon.Type = Weapon.WeaponType.Sword;
             weapon.ItemPosition = Equipment.AvalableItemPosition.Wield;
 
             IDamage damage = new Objects.Damage.Damage();

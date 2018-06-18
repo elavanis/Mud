@@ -22,6 +22,8 @@ using Shared.Sound;
 using Objects.Mob;
 using Objects.Personality.Personalities;
 using Objects.Item.Items;
+using Objects.Damage.Interface;
+using static Objects.Damage.Damage;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
@@ -967,11 +969,17 @@ namespace GenerateZones.Zones.DeepWoodForest
             IWeapon weapon = new Weapon();
             weapon.Id = itemId++;
             weapon.Level = 7;
+            weapon.Type = Weapon.WeaponType.Spear;
             weapon.KeyWords.Add("spear");
             weapon.LongDescription = "A spear crafted from animal bone and a stick.";
             weapon.SentenceDescription = "a spear";
             weapon.ShortDescription = "A hastily made weapon made of readily available materials.";
             weapon.ExamineDescription = "The point of this spear is fashioned from animal and lashed to a large stick.";
+            IDamage damage = new Objects.Damage.Damage();
+            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
+            damage.Type = DamageType.Pierce;
+            weapon.DamageList.Add(damage);
+            weapon.FinishLoad();
             npc.AddEquipment(weapon);
 
             IArmor armor = Armor();

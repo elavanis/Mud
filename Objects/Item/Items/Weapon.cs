@@ -26,6 +26,8 @@ namespace Objects.Item.Items
             }
         }
 
+        public WeaponType Type { get; set; } = WeaponType.NotSet;
+
         [ExcludeFromCodeCoverage]
         /// <summary>
         /// bigger numbers mean slower
@@ -39,5 +41,25 @@ namespace Objects.Item.Items
         public Stats.Stat AttackerStat { get; set; } = Stats.Stat.Dexterity;
         [ExcludeFromCodeCoverage]
         public Stats.Stat DeffenderStat { get; set; } = Stats.Stat.Dexterity;
+
+        public enum WeaponType
+        {
+            NotSet,
+            #region Bludgeon
+            Club,
+            Mace,
+            WizardStaff,
+            #endregion Bludgeon
+            #region Slash
+            Axe,
+            Sword,
+            #endregion Slash
+            #region Pierce
+            Dagger,
+            Pick,
+            Spear
+
+            #endregion Pierce
+        }
     }
 }

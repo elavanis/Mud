@@ -1,4 +1,6 @@
-﻿using Objects.Global;
+﻿using Objects.Damage;
+using Objects.Damage.Interface;
+using Objects.Global;
 using Objects.Item.Items;
 using Objects.Item.Items.Interface;
 using Objects.LevelRange;
@@ -325,6 +327,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IWeapon weapon = new Weapon();
             weapon.Id = itemId++;
             weapon.Level = 15;
+            weapon.Type = Weapon.WeaponType.Sword;
             weapon.KeyWords.Add("sword");
             weapon.KeyWords.Add("dog");
             weapon.KeyWords.Add("slicer");
@@ -332,6 +335,11 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.ShortDescription = "The goblin Dogslicer has three holes in the blade making it lighter and easier to swing.";
             weapon.SentenceDescription = "Dogslicer";
             weapon.ExamineDescription = "The Dogslicer is poorly made and looks like it will fail in combat at some point.";
+
+            IDamage damage = new Damage();
+            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
+            damage.Type = Damage.DamageType.Slash;
+            weapon.DamageList.Add(damage);
 
             return weapon;
         }

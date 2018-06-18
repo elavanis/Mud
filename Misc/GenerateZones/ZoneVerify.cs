@@ -2,6 +2,7 @@
 using Objects.Damage.Interface;
 using Objects.Interface;
 using Objects.Item.Interface;
+using Objects.Item.Items;
 using Objects.Item.Items.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob.Interface;
@@ -172,6 +173,7 @@ namespace GenerateZones
             VerifyDescriptions(item, type);
 
             VerifyArmor(item);
+            VerifyWeapon(item);
 
             IContainer container = item as IContainer;
             if (container != null)
@@ -179,6 +181,25 @@ namespace GenerateZones
                 foreach (IItem innerItem in container.Items)
                 {
                     VerifyItem(innerItem);
+                }
+            }
+        }
+
+        private static void VerifyWeapon(IItem item)
+        {
+            IWeapon weapon = item as IWeapon;
+            if (weapon != null)
+            {
+                string type = "Weapon";
+
+                if (weapon.DamageList.Count == 0)
+                {
+                    ThrowConfigException(item, type, $"No damage set for weapon {item.SentenceDescription}.");
+                }
+
+                if (weapon.Type == Weapon.WeaponType.NotSet)
+                {
+                    ThrowConfigException(item, type, $"No weapon type set for weapon {item.SentenceDescription}.");
                 }
             }
         }

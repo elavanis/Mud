@@ -350,6 +350,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IWeapon weapon = new Weapon();
             weapon.Id = itemId++;
             weapon.Level = 11;
+            weapon.Type = Weapon.WeaponType.Pick;
             weapon.ItemPosition = Equipment.AvalableItemPosition.Wield;
             IDamage damage = new Objects.Damage.Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
@@ -934,6 +935,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IWeapon weapon = new Weapon();
             weapon.Id = itemId++;
             weapon.Level = 13;
+            weapon.Type = Weapon.WeaponType.Spear;
 
             weapon.ExamineDescription = "The spear is about three feet long and made of wood.  It had a point of cobalt on it that is very sharp to the touch.";
             weapon.LongDescription = "A spear about three feet long with a sharp point of cobalt on the end.";

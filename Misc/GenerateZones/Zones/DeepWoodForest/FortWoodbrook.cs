@@ -606,6 +606,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.Id = itemId++;
 
             weapon.Level = level;
+            weapon.Type = Weapon.WeaponType.Sword;
             weapon.ExamineDescription = "The metal sword is approximately two feet long with a guard that has a slight upward curve.  The grip is {grip} and has a {pommel} for the pommel.";
             weapon.LongDescription = "A finely polish metal sword.";
             weapon.ShortDescription = "A metal sword.";
@@ -630,6 +631,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.Id = itemId++;
 
             weapon.Level = level;
+            weapon.Type = Weapon.WeaponType.Spear;
             weapon.ExamineDescription = "The tip of the spear is a bit rusty but nothing that a little polishing wouldn't take care of.";
             weapon.LongDescription = "A oak spear with a iron tip.";
             weapon.ShortDescription = "A wooden spear.";
