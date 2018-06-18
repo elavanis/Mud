@@ -534,33 +534,12 @@ namespace Objects.World
 
         private void ProcessSerialCommands()
         {
-            MoveToOtherZones();
             ProcessFollowMobs();
         }
 
-        public void MoveMobToAnotherZone(IMobileObject mobileObject, IRoom proposedRoom, Direction direction)
-        {
-            _moveMobToOtherZoneQueue.Enqueue(new MoveToOtherZoneInfo(mobileObject, proposedRoom, direction));
-        }
 
-        private void MoveToOtherZones()
-        {
-            IMoveToOtherZoneInfo moveToOtherZoneInfo = null;
-            while (_moveMobToOtherZoneQueue.TryDequeue(out moveToOtherZoneInfo))
-            {
-                GlobalReference.GlobalValues.Notify.Mob(
-                                                        moveToOtherZoneInfo.Performer,
-                                                        new TranslationMessage(
-                                                                                Move.MoveToRoom(moveToOtherZoneInfo.Performer,
-                                                                                moveToOtherZoneInfo.Performer.Room,
-                                                                                moveToOtherZoneInfo.Direction,
-                                                                                moveToOtherZoneInfo.ProposedRoom).ResultMessage
-                                                                                )
 
-                                                        );
 
-            }
-        }
 
         #region Follow Methods
         private void ProcessFollowMobs()

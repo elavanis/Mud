@@ -758,18 +758,6 @@ namespace ObjectsUnitTest.World
             notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()), Times.Once);
             Assert.AreEqual("expectedMessage", message.Message);
         }
-
-        [TestMethod]
-        public void World_PerformTick_ProccessSerialCommands_MoveToAnotherZone()
-        {
-            Mock<IRoom> proposedRoom = new Mock<IRoom>();
-            IMoveToOtherZoneInfo moveToOtherZoneInfo = new MoveToOtherZoneInfo(pc.Object, proposedRoom.Object, Direction.North);
-            FieldInfo fieldInfo = world.GetType().GetField("_moveMobToOtherZoneQueue", BindingFlags.NonPublic | BindingFlags.Instance);
-            ((ConcurrentQueue<IMoveToOtherZoneInfo>)fieldInfo.GetValue(world)).Enqueue(moveToOtherZoneInfo);
-
-            world.PerformTick();
-            notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()));
-        }
         #endregion ProccessSerialCommands
 
         #region DoWorldCommand
@@ -1083,18 +1071,6 @@ namespace ObjectsUnitTest.World
             Assert.IsTrue(result.KeyWords.Contains("userName"));
             Assert.AreEqual(1, result.GuildPoints);
             Assert.AreEqual(1, world.AddPlayerQueue.Count);
-        }
-
-        [TestMethod]
-        public void World_MoveMobToAnotherZone()
-        {
-            FieldInfo fieldInfo = world.GetType().GetField("_moveMobToOtherZoneQueue", BindingFlags.NonPublic | BindingFlags.Instance);
-
-            Assert.AreEqual(0, ((ConcurrentQueue<IMoveToOtherZoneInfo>)fieldInfo.GetValue(world)).Count);
-
-            world.MoveMobToAnotherZone(pc.Object, room.Object, Direction.East);
-
-            Assert.AreEqual(1, ((ConcurrentQueue<IMoveToOtherZoneInfo>)fieldInfo.GetValue(world)).Count);
         }
     }
 }

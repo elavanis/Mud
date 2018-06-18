@@ -68,15 +68,8 @@ namespace Objects.Command.PC
 
             IRoom proposedRoom = GlobalReference.GlobalValues.World.Zones[exit.Zone].Rooms[exit.Room];
 
-            if (proposedRoom.Zone == room.Zone)
-            {
-                return MoveToRoom(performer, room, direction, proposedRoom);
-            }
-            else
-            {
-                GlobalReference.GlobalValues.World.MoveMobToAnotherZone(performer, proposedRoom, direction);
-                return new Result(true, "");
-            }
+            //we are safe to cross zones because we make a copy of each pc/npc list before processing it in a thread safe manor
+            return MoveToRoom(performer, room, direction, proposedRoom);
         }
 
         public IResult MoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)

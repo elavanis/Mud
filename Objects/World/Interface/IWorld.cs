@@ -55,7 +55,6 @@ namespace Objects.World.Interface
         IPlayerCharacter LoadCharacter(string name);
         void LoadWorld();
         void LogOutCharacter(string name);
-        void MoveMobToAnotherZone(IMobileObject mobileObject, IRoom proposedRoom, Direction direction);
         void PerformTick();
         void SaveCharcter(IPlayerCharacter character);
         void SaveWorld();
