@@ -33,8 +33,6 @@ using Objects.Crafting.Interface;
 using Objects.Language;
 using Objects.Global.Direction;
 using static Objects.Skill.Skills.Track;
-using Objects.World.Helper.Interface;
-using Objects.World.Helper;
 using static Objects.Global.Direction.Directions;
 using Objects.Command.PC;
 using Objects.Command.PC.Interface;
@@ -47,9 +45,6 @@ namespace Objects.World
         private int _lastZoneReload = 0;
         private object _tickPadlock;
         private ConcurrentQueue<IMobileObject> _followMobQueue = new ConcurrentQueue<IMobileObject>();
-        private ConcurrentQueue<IMoveToOtherZoneInfo> _moveMobToOtherZoneQueue = new ConcurrentQueue<IMoveToOtherZoneInfo>();
-
-        public IMove Move { get; set; } = new Move();
 
         public World()
         {

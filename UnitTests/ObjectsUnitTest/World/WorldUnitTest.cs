@@ -42,9 +42,6 @@ using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
 using Objects.Language;
 using System.Collections.Concurrent;
-using Objects.World.Helper;
-using static Objects.Global.Direction.Directions;
-using Objects.World.Helper.Interface;
 
 namespace ObjectsUnitTest.World
 {

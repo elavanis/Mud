@@ -35,7 +35,7 @@ namespace Objects.Command.PC
                 }
                 else
                 {
-                    return new Result(true, "You attempt to run away but are not able to.");
+                    return new Result(true, "You attempt to run away but are not able to.");  //return true so the mob does not get another move
                 }
             }
             else
@@ -66,10 +66,10 @@ namespace Objects.Command.PC
                 bool directionChoosen = false;
                 Direction chosenDirection = Direction.Down;
 
-                if (parameter.Count > 1)
+                if (parameter.Count > 0)
                 {
                     Direction? localDirection = null;
-                    string direction = parameter[1].ParameterValue;
+                    string direction = parameter[0].ParameterValue;
 
                     switch (direction.ToUpper())
                     {
@@ -110,7 +110,7 @@ namespace Objects.Command.PC
                         {
                             redirect = true;
                             chosenDirection = PickDirection(exitDirections);
-                            result = new Result(true, $"You tried to flee to the {localDirection} but were unable to instead fled to the {chosenDirection}.");
+                            GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage($"You tried to flee {localDirection} but were unable to instead fled {chosenDirection}."));
                         }
                     }
                     else
@@ -131,7 +131,10 @@ namespace Objects.Command.PC
                     performer.Room = proposedRoom;
                     proposedRoom.Enter(performer);
 
-                    GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage($"You flee to the {chosenDirection}."));
+                    if (!redirect)
+                    {
+                        GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage($"You flee {chosenDirection}."));
+                    }
                     return GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(performer, new Command());
                 }
 
