@@ -146,6 +146,7 @@ namespace Objects.Skill.Skills
                 //if so return null
                 if (nextRoom.Attributes.Contains(RoomAttribute.NoTrack))
                 {
+                    searchedRooms.Add(nextRoom);  //don't bother to keep searching this room
                     return null;
                 }
 

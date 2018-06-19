@@ -204,6 +204,8 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>());
             findObjects.Setup(e => e.FindNpcInRoom(room2.Object, "target")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room2.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.NoTrack });
+            findObjects.Setup(e => e.FindNpcInRoom(room3.Object, "target")).Returns(new List<INonPlayerCharacter>());
+            findObjects.Setup(e => e.FindPcInRoom(room3.Object, "target")).Returns(new List<IPlayerCharacter>());
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
             Assert.IsTrue(result.ResultSuccess);
@@ -219,7 +221,7 @@ namespace ObjectsUnitTest.Skill.Skills
             param.Setup(e => e.ParameterValue).Returns("target");
             exit.Setup(e => e.Room).Returns(2);
             exit.Setup(e => e.Zone).Returns(1);
-            room.Setup(e => e.North).Returns(exit.Object);
+            room.Setup(e => e.West).Returns(exit.Object);
 
             parameters.Add(param.Object);
 
