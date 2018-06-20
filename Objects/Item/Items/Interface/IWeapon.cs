@@ -8,7 +8,7 @@ namespace Objects.Item.Items.Interface
     {
         Stats.Stat AttackerStat { get; set; }
         List<IDamage> DamageList { get; }
-        Weapon.WeaponType Type { get; set; }
+        Weapon.WeaponType? Type { get; set; }
         Stats.Stat DeffenderStat { get; set; }
         int RequiredHands { get; set; }
         int Speed { get; set; }

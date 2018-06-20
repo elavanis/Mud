@@ -12,5 +12,7 @@
         string AsciiArt { get; set; }
         int Port { get; set; }
         bool SendMapPosition { get; set; }
+        int OddsOfGeneratingRandomDrop { get; set; }
+        int OddsOfDropBeingPlusOne { get; set; }
     }
 }

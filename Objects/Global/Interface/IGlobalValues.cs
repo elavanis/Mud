@@ -45,6 +45,7 @@ namespace Objects.Global.Interface
         INotify Notify { get; set; }
         IParser Parser { get; set; }
         IRandom Random { get; set; }
+        IRandomDropGenerator RandomDropGenerator { get; set; }
         ISerialization Serialization { get; set; }
         ISettings Settings { get; set; }
         DateTime StartTime { get; set; }

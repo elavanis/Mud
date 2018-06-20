@@ -197,7 +197,7 @@ namespace GenerateZones
                     ThrowConfigException(item, type, $"No damage set for weapon {item.SentenceDescription}.");
                 }
 
-                if (weapon.Type == Weapon.WeaponType.NotSet)
+                if (weapon.Type == null)
                 {
                     ThrowConfigException(item, type, $"No weapon type set for weapon {item.SentenceDescription}.");
                 }

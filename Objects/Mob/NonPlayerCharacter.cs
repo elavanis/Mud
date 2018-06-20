@@ -334,10 +334,30 @@ namespace Objects.Mob
         {
             ICorpse corpse = base.Die();
 
+            IItem item = GlobalReference.GlobalValues.RandomDropGenerator.GenerateRandomDrop(this);
+            if (item != null)
+            {
+                corpse.Items.Add(item);
+            }
+
             Room.RemoveMobileObjectFromRoom(this);
             Room.Items.Insert(0, corpse);
 
             return corpse;
+        }
+
+        public MobType? TypeOfMob { get; set; }
+
+
+        /// <summary>
+        /// Used for random drops.
+        /// Humanoid    will drop equipment, weapons, armor etc;
+        /// Other       will drop nothing.
+        /// </summary>
+        public enum MobType
+        {
+            Humanoid,
+            Other
         }
     }
 }

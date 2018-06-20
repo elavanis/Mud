@@ -35,5 +35,11 @@ namespace Objects.Global.Settings
 
         [ExcludeFromCodeCoverage]
         public bool SendMapPosition { get; set; }
+
+        [ExcludeFromCodeCoverage]
+        public int OddsOfGeneratingRandomDrop { get; set; }
+
+        [ExcludeFromCodeCoverage]
+        public int OddsOfDropBeingPlusOne { get; set; }
     }
 }

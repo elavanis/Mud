@@ -12,7 +12,6 @@ namespace Objects.Item.Items
         [ExcludeFromCodeCoverage]
         public IDice Dice { get; set; }
 
-
         #region DamageType
         [ExcludeFromCodeCoverage]
         public decimal Acid { get; set; } = decimal.MaxValue;

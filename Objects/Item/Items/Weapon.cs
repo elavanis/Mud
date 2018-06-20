@@ -26,7 +26,7 @@ namespace Objects.Item.Items
             }
         }
 
-        public WeaponType Type { get; set; } = WeaponType.NotSet;
+        public WeaponType? Type { get; set; }
 
         [ExcludeFromCodeCoverage]
         /// <summary>
@@ -44,7 +44,6 @@ namespace Objects.Item.Items
 
         public enum WeaponType
         {
-            NotSet,
             #region Bludgeon
             Club,
             Mace,

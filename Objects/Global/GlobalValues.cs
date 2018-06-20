@@ -93,6 +93,9 @@ namespace Objects.Global
         public IRandom Random { get; set; }
 
         [ExcludeFromCodeCoverage]
+        public IRandomDropGenerator RandomDropGenerator { get; set; }
+
+        [ExcludeFromCodeCoverage]
         public ISettings Settings { get; set; }
 
         [ExcludeFromCodeCoverage]
@@ -154,6 +157,7 @@ namespace Objects.Global
             Notify = new Notify.Notify();
             Parser = new Commands.Parser();
             Random = new Random.Random();
+            RandomDropGenerator = new Random.RandomDropGenerator();
             Serialization = new Serialization.JsonSerialization();
             TickTimes = new TickTimes.TickTimes();
             Translator = new Language.Translator(new Language.TranslatorAlgorithm());

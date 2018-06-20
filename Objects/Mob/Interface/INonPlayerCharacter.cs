@@ -4,6 +4,7 @@ using Objects.LevelRange.Interface;
 using Objects.Personality.Interface;
 using Objects.Room.Interface;
 using Objects.Interface;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace Objects.Mob.Interface
 {
@@ -25,5 +26,6 @@ namespace Objects.Mob.Interface
         int StrengthMin { get; set; }
         int WisdomMax { get; set; }
         int WisdomMin { get; set; }
+        MobType? TypeOfMob { get; set; }
     }
 }
