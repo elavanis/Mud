@@ -98,7 +98,7 @@ namespace GenerateZones.Zones
             npc.Id += npcId++;
             npc.TypeOfMob = MobType.Humanoid;
 
-            npc.Level = 100;
+            npc.Level = 1;
             npc.KeyWords.Add("npc");
 
             npc.ExamineDescription = "A test mob dressed in its finished lab coat.";

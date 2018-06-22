@@ -48,7 +48,7 @@ namespace Objects.Global.Random
         private IItem GenerateRandomEquipment(INonPlayerCharacter nonPlayerCharacter)
         {
             int objectGenerateLevelAt = nonPlayerCharacter.Level;
-            while (GlobalReference.GlobalValues.Random.Next(GlobalReference.GlobalValues.Settings.OddsOfGeneratingRandomDrop) == 0)
+            while (GlobalReference.GlobalValues.Random.Next(GlobalReference.GlobalValues.Settings.OddsOfDropBeingPlusOne) == 0)
             {
                 objectGenerateLevelAt++;
             }
@@ -84,10 +84,10 @@ namespace Objects.Global.Random
             {
                 case 0:
                     weapon.Type = WeaponType.Club;
-                    weapon.ExamineDescription = "";
-                    weapon.LongDescription = "";
-                    weapon.ShortDescription = "";
-                    weapon.SentenceDescription = "";
+                    weapon.ExamineDescription = "The club has been worn smooth with several large indentions.  There surly a story for each one but hopefully you were the one telling the story and not the receiving actor.";
+                    weapon.LongDescription = "What once must have been a strong tree branch has been reduced to a wooden club.";
+                    weapon.ShortDescription = "The stout wooden club looks to be well balanced.";
+                    weapon.SentenceDescription = "club";
                     weapon.KeyWords.Add("Club");
                     break;
                 case 1:
@@ -157,12 +157,12 @@ namespace Objects.Global.Random
                     break;
                 case WeaponType.Axe:
                 case WeaponType.Sword:
-                    damage.Type = DamageType.Pierce;
+                    damage.Type = DamageType.Slash;
                     break;
                 case WeaponType.Dagger:
                 case WeaponType.Pick:
                 case WeaponType.Spear:
-                    damage.Type = DamageType.Slash;
+                    damage.Type = DamageType.Pierce;
                     break;
             }
             weapon.DamageList.Add(damage);
