@@ -28,6 +28,7 @@ using Objects.Global.Stats;
 using Objects.Interface;
 using Objects.LoadPercentage;
 using Objects.Magic.Enchantment;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
@@ -416,6 +417,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         private INonPlayerCharacter BabySpider()
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
+            npc.TypeOfMob = MobType.Other;
             npc.Id = npcId++;
             npc.Level = 6;
             npc.KeyWords.Add("spider");
@@ -431,6 +433,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         private INonPlayerCharacter GiantSpider()
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
+            npc.TypeOfMob = MobType.Other;
             npc.Id = npcId++;
             npc.Level = 12;
             npc.KeyWords.Add("spider");

@@ -20,6 +20,7 @@ using Objects.Zone;
 using Objects.Zone.Interface;
 using Shared.Sound;
 using static Objects.Global.Direction.Directions;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones.Ash
 {
@@ -69,7 +70,8 @@ namespace GenerateZones.Zones.Ash
             npc.Level = 85;
             npc.KeyWords.Add("Ash");
             npc.KeyWords.Add("Witch");
-            npc.God = true;
+            npc.TypeOfMob = MobType.Humanoid;
+            npc.God = true;     //needed to phase
 
             IPhase phase = new Phase();
             foreach (IRoom room in zone.Rooms.Values)
@@ -92,7 +94,8 @@ namespace GenerateZones.Zones.Ash
             npc.Id = npcId++;
             npc.Level = 80;
             npc.KeyWords.Add("LZoir");
-            npc.God = true;
+            npc.TypeOfMob = MobType.Other;
+            npc.God = true;     //needed to phase
 
             npc.Personalities.Add(new Aggressive());
             IPhase phase = new Phase();

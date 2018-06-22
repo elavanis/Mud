@@ -34,6 +34,7 @@ using Objects.Global.Language;
 using Objects.Language;
 using Objects.Language.Interface;
 using static Shared.TagWrapper.TagWrapper;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones.GrandView
 {
@@ -93,6 +94,7 @@ namespace GenerateZones.Zones.GrandView
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "The nurse is dressed in blue dress with a white apron that covers the front of her and ties in the back.  On her head she wears a white cloth that drapes down on either side of her head.";
             npc.LongDescription = "A nurse busily attends to her patients, taking care to make sure each one is as comfortable as possible.";

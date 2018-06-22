@@ -14,6 +14,7 @@ using Objects.LevelRange;
 using System.Reflection;
 using Objects.Interface;
 using Objects.LoadPercentage;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones.ConnectingZones
 {
@@ -146,6 +147,7 @@ namespace GenerateZones.Zones.ConnectingZones
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
             npc.Zone = zoneId;
+            npc.TypeOfMob = MobType.Other;
             npc.Personalities.Add(new Wanderer());
             return npc;
         }

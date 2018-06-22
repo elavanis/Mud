@@ -24,6 +24,7 @@ using Objects.Personality.Personalities;
 using Objects.Item.Items;
 using Objects.Damage.Interface;
 using static Objects.Damage.Damage;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
@@ -941,6 +942,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
             npc.Level = 7;
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.KeyWords.Add("Kobold");
             npc.KeyWords.Add("Guard");
@@ -1033,6 +1035,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Id = npcId++;
             npc.Level = 7;
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Owl");
             npc.LongDescription = "The owl is brown in color with some black feathers for camouflage.";
@@ -1049,6 +1052,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Id = npcId++;
             npc.Level = 7;
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Mouse");
             npc.LongDescription = "The mouse is {color} in color little pink nose.";
@@ -1067,6 +1071,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Id = npcId++;
             npc.Level = 7;
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Squirrel");
             npc.LongDescription = "The Squirrel is runs to and fro looking for nuts.";
@@ -1083,6 +1088,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Id = npcId++;
             npc.Level = 7;
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Crow");
             npc.LongDescription = "As you and the crow stare at each other it starts crowing loudly as trying to win a staring contest by making you look away.";
@@ -1099,6 +1105,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Id = npcId++;
             npc.Level = 7;
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Fox");
             npc.LongDescription = "A red fox scurries along trying to catch mice.";
@@ -1115,6 +1122,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Id = npcId++;
             npc.Level = 10;
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Bear");
             npc.LongDescription = "The black bear looks to be thirty two inches long weigh over 200 lbs.";
@@ -1131,6 +1139,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Id = npcId++;
             npc.Level = 7;
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Chipmunk");
             npc.LongDescription = "A little chipmunk runs underneath your feet with its fat cheeks stuffed full of food.";
@@ -1146,6 +1155,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
             npc.Level = 7;
+            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Fish");
             npc.LongDescription = "It is a silver fish with a blue spot behind its gill.";

@@ -27,6 +27,7 @@ using static Objects.Global.Direction.Directions;
 using static Objects.Guild.Guild;
 using static Objects.Item.Item;
 using static Objects.Item.Items.Equipment;
+using static Objects.Mob.NonPlayerCharacter;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace GenerateZones.Zones.Mountain
@@ -293,6 +294,7 @@ namespace GenerateZones.Zones.Mountain
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
             npc.Level = 16;
+            npc.TypeOfMob = MobType.Other;
 
             npc.ExamineDescription = "The pigs fur is matted with mud and manure.";
             npc.LongDescription = "A war pig snorts around looking for something to eat.";
@@ -311,6 +313,7 @@ namespace GenerateZones.Zones.Mountain
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
             npc.Level = 40;
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "Wearing a pair of deer antlers and the pelts of a bear the shaman would stand out from any member of the goblin camp.";
             npc.LongDescription = "The shaman sways gently as he communes with spirits.";
@@ -342,6 +345,7 @@ namespace GenerateZones.Zones.Mountain
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
             npc.Level = 25;
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "Goblin Cheif";
             npc.LongDescription = "Goblin Cheif";

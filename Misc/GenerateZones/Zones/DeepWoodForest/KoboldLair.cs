@@ -32,6 +32,7 @@ using static Objects.Damage.Damage;
 using Objects.Die.Interface;
 using Objects;
 using Objects.Language;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
@@ -467,8 +468,9 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter Miner()
         {
-            INonPlayerCharacter npc = Npc();
-            npc.Level = 11;
+            INonPlayerCharacter npc = Npc(11);
+            npc.Personalities.Add(new Wanderer());
+
             npc.KeyWords.Add("miner");
             npc.SentenceDescription = "Kobold miner";
             npc.ShortDescription = "A Kobold miner.";
@@ -481,13 +483,13 @@ namespace GenerateZones.Zones.DeepWoodForest
             return npc;
         }
 
-        private INonPlayerCharacter Npc()
+        private INonPlayerCharacter Npc(int level)
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
-            npc.Level = 11;
+            npc.Level = level;
             npc.KeyWords.Add("kobold");
-            npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Humanoid;
 
             return npc;
         }
@@ -906,15 +908,12 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter Guard()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 13;
+            INonPlayerCharacter npc = Npc(13);
 
             npc.ExamineDescription = "The guard looks tougher than a normal kobold, like its been trained extra hard and will fight to defend the tribe.";
             npc.LongDescription = "The kobold is slightly taller than most at a little over four feet tall.";
             npc.ShortDescription = "A kobold guard.";
             npc.SentenceDescription = "guard";
-            npc.KeyWords.Add("kobold");
             npc.KeyWords.Add("guard");
 
             npc.Personalities.Add(new Aggressive());
@@ -1233,15 +1232,12 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter EggCareTaker()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 11;
+            INonPlayerCharacter npc = Npc(11);
 
             npc.ExamineDescription = "The care giver carefully goes around examining each egg and makes sure it is growing properly.";
             npc.LongDescription = "Dressed in a light blue apron the kobold gives you a peaceful sensation.";
             npc.ShortDescription = "A kobold care giver.";
             npc.SentenceDescription = "kobold";
-            npc.KeyWords.Add("kobold");
             npc.KeyWords.Add("giver");
 
             return npc;
@@ -1260,9 +1256,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter ChildrenKobold()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 8;
+            INonPlayerCharacter npc = Npc(8);
 
             npc.ExamineDescription = "It appears that when the teacher is away that the children really do play.";
             npc.LongDescription = "The small kobold ignores you and continues to play.";

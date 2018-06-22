@@ -19,6 +19,7 @@ using System.Reflection;
 using System.Text;
 using static Objects.Global.Direction.Directions;
 using static Objects.Item.Items.Equipment;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
@@ -289,6 +290,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
             npc.Level = 14;
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "The goblin stares at you with fright in its eyes.";
             npc.LongDescription = "The goblin cowers in the corner watching you very intently.";
@@ -304,6 +306,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
             npc.LevelRange = new LevelRange() { LowerLevel = 14, UpperLevel = 16 };
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.Personalities.Add(new Aggressive());
             npc.Personalities.Add(new Wanderer());

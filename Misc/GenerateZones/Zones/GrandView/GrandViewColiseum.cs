@@ -16,6 +16,7 @@ using Objects.Mob.Interface;
 using Objects.Global;
 using Objects.Room.Interface;
 using Objects.Personality.Personalities.Interface;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones
 {
@@ -82,6 +83,7 @@ namespace GenerateZones.Zones
 
             npc.Id = npcId++;
             npc.Level = 3;
+            npc.TypeOfMob = MobType.Humanoid;
             npc.ExamineDescription = "The vendor is dressed in a white shirt with gray pants.  He is wearing a red straw hat that looks to be two sizes to big slightly off to one side.";
             npc.LongDescription = "The ticket vendor holds 3 tickets in his hand and is trying to sell it to anyone willing to listen.";
             npc.ShortDescription = "A ticket vendor selling tickets.";
@@ -136,6 +138,7 @@ namespace GenerateZones.Zones
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
             npc.Level = 20;
+            npc.TypeOfMob = MobType.Humanoid;
             npc.ExamineDescription = "The Guildmaster is dressed gray studded leather armor.  A blue eagle is emblazoned across his chest but has begun to fade with use.  His arms are squeezed into gauntlets but bulging biceps tell you that you should think twice before picking a fight.";
             npc.LongDescription = "He looks at you with an annoyed look on his face before returning to his previous activities.";
             npc.ShortDescription = "The warrior Guildmaster.";
@@ -732,6 +735,8 @@ namespace GenerateZones.Zones
             npc.Personalities.Add(new Aggressive());
             npc.Personalities.Add(new Wanderer());
 
+            npc.TypeOfMob = MobType.Other;
+
             //npc.Level = Shared.Random.random.Next(3) + 1;
             npc.Id = npcId++;
             npc.LevelRange = new LevelRange() { LowerLevel = 1, UpperLevel = 5 };
@@ -921,6 +926,7 @@ namespace GenerateZones.Zones
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.Id = npcId++;
             npc.Level = 3;

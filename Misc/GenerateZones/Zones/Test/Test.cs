@@ -33,6 +33,7 @@ using Objects.Personality.Personalities.Interface;
 using Objects.Guild.Guilds;
 using Objects.Guild;
 using Objects.Personality.Personalities.ResponderMisc;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones
 {
@@ -95,6 +96,7 @@ namespace GenerateZones.Zones
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id += npcId++;
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.Level = 100;
             npc.KeyWords.Add("npc");

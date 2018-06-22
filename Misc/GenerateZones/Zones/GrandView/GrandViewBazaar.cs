@@ -21,6 +21,7 @@ using Objects.Mob;
 using static Objects.Global.Direction.Directions;
 using Objects.Mob.Interface;
 using Objects.Item.Items.Interface;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones
 {
@@ -153,6 +154,7 @@ namespace GenerateZones.Zones
             npc.KeyWords.Add("patron");
             npc.KeyWords.Add("male");
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "Dressed in a {adjective} tunic of {color1} and {color2} he wanders the bazaar looking for some {item} for his {target}.";
             npc.LongDescription = "He seems to have a list of items he is looking for.";
@@ -182,6 +184,7 @@ namespace GenerateZones.Zones
             npc.KeyWords.Add("patron");
             npc.KeyWords.Add("female");
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "Dressed in a {adjective} tunic of {color1} and {color2} she wanders the bazaar looking for some {item} for her {target}.";
             npc.LongDescription = "She seems to have a list of items she is looking for.";
@@ -209,6 +212,7 @@ namespace GenerateZones.Zones
             npc.Id = npcId++;
             npc.Level = 4;
             npc.KeyWords.Add("beggar");
+            npc.TypeOfMob = MobType.Humanoid;
 
             Speaker speaker = new Speaker();
             speaker.ThingsToSay.Add("Do you have any spare coins?");
@@ -270,6 +274,8 @@ namespace GenerateZones.Zones
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
+            npc.TypeOfMob = MobType.Humanoid;
+
             Merchant merchant = new Merchant();
 
             merchant.Sellables.Add(BlackSmithDagger());
@@ -358,6 +364,7 @@ namespace GenerateZones.Zones
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
+            npc.TypeOfMob = MobType.Humanoid;
             Merchant merchant = new Merchant();
 
             merchant.Sellables.Add(LeatherSmithBracer());
@@ -444,6 +451,7 @@ namespace GenerateZones.Zones
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = npcId++;
+            npc.TypeOfMob = MobType.Humanoid;
             Merchant merchant = new Merchant();
 
             merchant.Sellables.Add(ClothBoots());

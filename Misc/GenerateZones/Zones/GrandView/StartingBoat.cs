@@ -23,6 +23,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Objects.Damage.Damage;
 using static Objects.Global.Direction.Directions;
+using static Objects.Mob.NonPlayerCharacter;
 using static Objects.Room.Room;
 
 namespace GenerateZones.Zones
@@ -246,6 +247,7 @@ namespace GenerateZones.Zones
             npc.KeyWords.Add("deckhand");
             npc.KeyWords.Add("member");
             npc.Level = 20;
+            npc.TypeOfMob = MobType.Humanoid;
             npc.ExamineDescription = "He looks like your average sailer, dressed in slightly raged clothing and well tanned from his time at sea.";
             npc.LongDescription = "This crew member run back and forth trying put out fires and throw spears at the dragons as they attack.";
             npc.ShortDescription = "A crew member.";

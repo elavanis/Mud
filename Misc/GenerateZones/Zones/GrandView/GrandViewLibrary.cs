@@ -21,6 +21,7 @@ using Objects.Mob.Interface;
 using Objects.Room.Interface;
 using Objects.Personality.Personalities.Interface;
 using Objects.Item.Items.Interface;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones
 {
@@ -133,6 +134,7 @@ namespace GenerateZones.Zones
             npc.KeyWords.Add("GuildMaster");
             npc.KeyWords.Add("Mage");
             npc.Personalities.Add(new GuildMaster(Guilds.Mage));
+            npc.TypeOfMob = MobType.Humanoid;
             return npc;
         }
 
@@ -390,6 +392,7 @@ namespace GenerateZones.Zones
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.Id = npcId++;
             npc.Level = 2;
@@ -416,6 +419,7 @@ namespace GenerateZones.Zones
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.Id = npcId++;
             npc.Level = 2;
@@ -704,6 +708,7 @@ namespace GenerateZones.Zones
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.Id = npcId++;
             npc.Level = 2;

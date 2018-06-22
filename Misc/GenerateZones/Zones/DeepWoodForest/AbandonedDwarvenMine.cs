@@ -23,6 +23,7 @@ using Objects.Effect;
 using Objects.Die;
 using Objects.Language;
 using static Shared.TagWrapper.TagWrapper;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
@@ -699,7 +700,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.KeyWords.Add("Balrog");
             npc.Personalities.Add(new Aggressive());
             npc.Personalities.Add(new Wanderer());
-
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "The demon is ablaze with fire will smoke hides its true form from view.";
             npc.LongDescription = "A large demon of fire and smoke standing twenty feet tall.";
@@ -779,6 +780,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Level = 14;
             npc.KeyWords.Add("Shadow");
             npc.Personalities.Add(new Wanderer());
+            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "The dark figure is hard to see and blends into the shadows.";
             npc.LongDescription = "The figure seems to fade in and out of existence as it moves among the shadows.";

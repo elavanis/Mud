@@ -97,6 +97,7 @@ namespace GenerateZones
             string type = "NPC";
             VerifyIds(npc, type);
             VerifyDescriptions(npc, type);
+            VerifyMobType(npc, type);
 
             foreach (IItem item in npc.Items)
             {
@@ -163,6 +164,14 @@ namespace GenerateZones
                 {
                     ThrowConfigException(null, type, string.Format("Skill {0} target notification is null.", skill.SkillName));
                 }
+            }
+        }
+
+        private static void VerifyMobType(INonPlayerCharacter npc, string type)
+        {
+            if (npc.TypeOfMob == null)
+            {
+                ThrowConfigException(npc, type, $"No mob type set {npc.SentenceDescription}.");
             }
         }
 

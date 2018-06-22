@@ -22,6 +22,7 @@ using Shared.Sound.Interface;
 using Shared.Sound;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities.Interface;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones
 {
@@ -760,6 +761,7 @@ East: The Training Hall";
             npc.Personalities.Add(new Guardian());
             npc.Personalities.Add(ValidDuckAreaWander());
             npc.Level = 1;
+            npc.TypeOfMob = MobType.Other;
 
             npc.SentenceDescription = "daddy duck";
             npc.ShortDescription = "A male mallard duck.";
@@ -780,6 +782,7 @@ East: The Training Hall";
             npc.Personalities.Add(new Guardian());
             npc.Personalities.Add(ValidDuckAreaWander());
             npc.Level = 1;
+            npc.TypeOfMob = MobType.Other;
 
             npc.SentenceDescription = "momma duck";
             npc.ShortDescription = "A female mallard duck.";
@@ -813,6 +816,7 @@ East: The Training Hall";
             npc.KeyWords.Add("mallard");
             npc.Personalities.Add(new Wanderer(100));
             npc.Level = 1;
+            npc.TypeOfMob = MobType.Other;
 
             npc.SentenceDescription = "baby duck";
             npc.ShortDescription = "A baby mallard duck.";
