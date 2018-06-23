@@ -75,71 +75,71 @@ namespace Objects.Global.Random
 
         private IEquipment GenerateRandomWeapon(int level, int effectiveLevel)
         {
+            return GenerateRandomWeapon(level, effectiveLevel, (WeaponType)GlobalReference.GlobalValues.Random.Next(8));
+        }
+
+        public IEquipment GenerateRandomWeapon(int level, int effectiveLevel, WeaponType weaponType)
+        {
             IWeapon weapon = new Weapon();
             weapon.Level = level;
 
             IDamage damage = new Damage.Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(effectiveLevel);
-            switch (GlobalReference.GlobalValues.Random.Next(8))
+            weapon.DamageList.Add(damage);
+
+            weapon.Type = weaponType;
+            switch (weaponType)
             {
-                case 0:
-                    weapon.Type = WeaponType.Club;
+                case WeaponType.Club:
                     weapon.ExamineDescription = "The club has been worn smooth with several large indentions.  There surly a story for each one but hopefully you were the one telling the story and not the receiving actor.";
                     weapon.LongDescription = "What once must have been a strong tree branch has been reduced to a wooden club.";
                     weapon.ShortDescription = "The stout wooden club looks to be well balanced.";
                     weapon.SentenceDescription = "club";
                     weapon.KeyWords.Add("Club");
                     break;
-                case 1:
-                    weapon.Type = WeaponType.Mace;
+                case WeaponType.Mace:
                     weapon.ExamineDescription = "";
                     weapon.LongDescription = "";
                     weapon.ShortDescription = "";
                     weapon.SentenceDescription = "";
                     weapon.KeyWords.Add("Mace");
                     break;
-                case 2:
-                    weapon.Type = WeaponType.WizardStaff;
+                case WeaponType.WizardStaff:
                     weapon.ExamineDescription = "";
                     weapon.LongDescription = "";
                     weapon.ShortDescription = "";
                     weapon.SentenceDescription = "";
                     weapon.KeyWords.Add("WizardStaff");
                     break;
-                case 3:
-                    weapon.Type = WeaponType.Axe;
+                case WeaponType.Axe:
                     weapon.ExamineDescription = "";
                     weapon.LongDescription = "";
                     weapon.ShortDescription = "";
                     weapon.SentenceDescription = "";
                     weapon.KeyWords.Add("Axe");
                     break;
-                case 4:
-                    weapon.Type = WeaponType.Sword;
+                case WeaponType.Sword:
                     weapon.ExamineDescription = "";
                     weapon.LongDescription = "";
                     weapon.ShortDescription = "";
                     weapon.SentenceDescription = "";
                     weapon.KeyWords.Add("Sword");
                     break;
-                case 5:
-                    weapon.Type = WeaponType.Dagger;
+                case WeaponType.Dagger:
                     weapon.ExamineDescription = "";
                     weapon.LongDescription = "";
                     weapon.ShortDescription = "";
                     weapon.SentenceDescription = "";
                     weapon.KeyWords.Add("Dagger");
                     break;
-                case 6:
-                    weapon.Type = WeaponType.Pick;
+                case WeaponType.Pick:
                     weapon.ExamineDescription = "";
                     weapon.LongDescription = "";
                     weapon.ShortDescription = "";
                     weapon.SentenceDescription = "";
                     weapon.KeyWords.Add("Pick");
                     break;
-                case 7:
-                    weapon.Type = WeaponType.Spear;
+                case WeaponType.Spear:
                     weapon.ExamineDescription = "";
                     weapon.LongDescription = "";
                     weapon.ShortDescription = "";
@@ -165,7 +165,6 @@ namespace Objects.Global.Random
                     damage.Type = DamageType.Pierce;
                     break;
             }
-            weapon.DamageList.Add(damage);
 
             return weapon;
         }
