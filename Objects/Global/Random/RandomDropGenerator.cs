@@ -92,10 +92,12 @@ namespace Objects.Global.Random
             {
                 case WeaponType.Club:
                     weapon.ExamineDescription = "The club has been worn smooth with several large indentions.  There surly a story for each one but hopefully you were the one telling the story and not the receiving actor.";
-                    weapon.LongDescription = "What once must have been a strong tree branch has been reduced to a wooden club.";
-                    weapon.ShortDescription = "The stout wooden club looks to be well balanced.";
+                    weapon.LongDescription = "The club looks to well balanced with a {description} leather grip.";
+                    weapon.ShortDescription = "The stout {material} club looks to be well balanced.";
                     weapon.SentenceDescription = "club";
                     weapon.KeyWords.Add("Club");
+                    weapon.FlavorOptions.Add("{material}", new List<string>() { "wooden", "stone" });
+                    weapon.FlavorOptions.Add("{description}", new List<string>() { "frayed", "worn", "strong" });
                     break;
                 case WeaponType.Mace:
                     weapon.ExamineDescription = "";
