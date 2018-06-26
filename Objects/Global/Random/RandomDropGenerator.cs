@@ -91,7 +91,7 @@ namespace Objects.Global.Random
             switch (weaponType)
             {
                 case WeaponType.Club:
-                    weapon.ExamineDescription = "The club has been worn smooth with several large indentions.  There surly a story for each one but hopefully you were the one telling the story and not the receiving actor.";
+                    weapon.ExamineDescription = "The club has been worn smooth with several large indentions.  There surly a story for each one but hopefully you were the story teller and not the receiving actor.";
                     weapon.LongDescription = "The club looks to well balanced with a {description} leather grip.";
                     weapon.ShortDescription = "The stout {material} club looks to be well balanced.";
                     weapon.SentenceDescription = "club";
@@ -100,11 +100,16 @@ namespace Objects.Global.Random
                     weapon.FlavorOptions.Add("{description}", new List<string>() { "frayed", "worn", "strong" });
                     break;
                 case WeaponType.Mace:
-                    weapon.ExamineDescription = "";
-                    weapon.LongDescription = "";
-                    weapon.ShortDescription = "";
-                    weapon.SentenceDescription = "";
+                    weapon.ExamineDescription = "The head of the mace {shape}.";
+                    weapon.LongDescription = "The shaft of the mace is {shaft} and the head of the {head}.";
+                    weapon.ShortDescription = "The metal mace has an ornate head used for bashing things.";
+                    weapon.SentenceDescription = "mace";
                     weapon.KeyWords.Add("Mace");
+                    weapon.FlavorOptions.Add("{shaft}", new List<string>() { "smooth", "has intricate scroll work", "has images depicting an ancient battle" });
+                    weapon.FlavorOptions.Add("{head}", new List<string>() { "polished", "covered in runes", });
+                    weapon.FlavorOptions.Add("{shape}", new List<string>() { "is a round ball", "has {number} {design}", "has {number} sides that resemble the crown of a king", "is round with several distinct layers resembling some type of upside down tower" });
+                    weapon.FlavorOptions.Add("{number}", new List<string>() { "four", "five" });
+                    weapon.FlavorOptions.Add("{design}", new List<string>() { "rows of triangular pyramids", "dragon heads delicately carved into it", "pairs flanges of coming to a rounded point" });
                     break;
                 case WeaponType.WizardStaff:
                     weapon.ExamineDescription = "";
@@ -167,6 +172,8 @@ namespace Objects.Global.Random
                     damage.Type = DamageType.Pierce;
                     break;
             }
+
+            weapon.FinishLoad();
 
             return weapon;
         }
