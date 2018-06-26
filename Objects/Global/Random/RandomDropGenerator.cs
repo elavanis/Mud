@@ -112,11 +112,15 @@ namespace Objects.Global.Random
                     weapon.FlavorOptions.Add("{design}", new List<string>() { "rows of triangular pyramids", "dragon heads delicately carved into it", "pairs flanges of coming to a rounded point" });
                     break;
                 case WeaponType.WizardStaff:
-                    weapon.ExamineDescription = "";
-                    weapon.LongDescription = "";
-                    weapon.ShortDescription = "";
-                    weapon.SentenceDescription = "";
+                    weapon.ExamineDescription = "The wooden staff is constantly in flux as small leaves grow out from the staff, blossom {color2} flowers and then wilt and are reabsorbed into the staff ";
+                    weapon.LongDescription = "The wooden staff has {head} for a head{feels}.";
+                    weapon.ShortDescription = "The wizards staff hums with a deep sound that resonates deep in your body.";
+                    weapon.SentenceDescription = "wizard staff";
                     weapon.KeyWords.Add("WizardStaff");
+                    weapon.FlavorOptions.Add("{head}", new List<string>() { "gnarled fingers", "gnarled fingers wrapped around a {color} orb", "a {color} orb that floats above the end of the staff", "a {color} stone growing out of the end of the staff" });
+                    weapon.FlavorOptions.Add("{feels}", new List<string>() { "", " and feels slightly cold", " and feels warm to the touch", " and vibrates in your hands" });
+                    weapon.FlavorOptions.Add("{color}", new List<string>() { "red", "blue", "deep purple", "black as dark as night", "swirling gray blue" });
+                    weapon.FlavorOptions.Add("{color2}", new List<string>() { "crimson", "sky blue", "deep purple", "white", "metallic orange", "silver" });
                     break;
                 case WeaponType.Axe:
                     weapon.ExamineDescription = "";
