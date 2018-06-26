@@ -123,11 +123,13 @@ namespace Objects.Global.Random
                     weapon.FlavorOptions.Add("{color2}", new List<string>() { "crimson", "sky blue", "deep purple", "white", "metallic orange", "silver" });
                     break;
                 case WeaponType.Axe:
-                    weapon.ExamineDescription = "";
-                    weapon.LongDescription = "";
-                    weapon.ShortDescription = "";
-                    weapon.SentenceDescription = "";
+                    weapon.ExamineDescription = "The blade is {blade description} and made of {material}.";
+                    weapon.LongDescription = "The axe could have been used by a great warrior of days or the local peasant down the road.  It is hard tell the history just from its looks.";
+                    weapon.ShortDescription = "The axe has a large head and strong wooden handle.";
+                    weapon.SentenceDescription = "axe";
                     weapon.KeyWords.Add("Axe");
+                    weapon.FlavorOptions.Add("{blade description}", new List<string>() { "carved runes", "well worn", "full of ornate intersecting lines" });
+                    weapon.FlavorOptions.Add("{material}", new List<string>() { "iron", "green glass", "black stone", "granite", "iron with interwoven bands of gold creating a museum worth axe" });
                     break;
                 case WeaponType.Sword:
                     weapon.ExamineDescription = "";
