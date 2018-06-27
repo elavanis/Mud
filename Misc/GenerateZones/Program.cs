@@ -1,6 +1,12 @@
 ﻿using Objects.Global;
+using Objects.Mob;
+using Objects.Mob.Interface;
+using Objects.Personality.Personalities;
+using Objects.Room;
+using Objects.Room.Interface;
 using Objects.World;
 using Objects.World.Interface;
+using Objects.Zone;
 using Objects.Zone.Interface;
 using System;
 using System.Collections.Generic;
@@ -32,6 +38,46 @@ namespace GenerateZones
                 IZoneCode zone = (IZoneCode)Activator.CreateInstance(type);
                 SaveZone(world, zone.Generate());
             }
+
+
+
+            //for (int i = 100; i < 1000; i++)
+            //{
+            //    SaveZone(world, MassZone(i));
+            //}
+        }
+
+        private static IZone MassZone(int i)
+        {
+            IZone zone = new Zone();
+            zone.Id = i;
+            int roomId = 1;
+            zone.Name = i.ToString();
+
+            INonPlayerCharacter npc = new NonPlayerCharacter();
+            npc.Personalities.Add(new Wanderer());
+            npc.Zone = i;
+            npc.Id = 1;
+            npc.ExamineDescription = "ExamineDescription";
+            npc.LongDescription = "LongDescription";
+            npc.ShortDescription = "ShortDescription";
+            npc.SentenceDescription = "SentenceDescription";
+            npc.KeyWords.Add("npc");
+            npc.TypeOfMob = NonPlayerCharacter.MobType.Humanoid;
+            for (int x = 0; x < 100; x++)
+            {
+                IRoom room = new Room();
+                room.Id = roomId++;
+                room.Zone = i;
+                room.ExamineDescription = "ExamineDescription";
+                room.LongDescription = "LongDescription";
+                room.ShortDescription = "ShortDescription";
+                room.SentenceDescription = "SentenceDescription";
+                zone.Rooms.Add(room.Id, room);
+                room.AddMobileObjectToRoom(npc);
+            }
+
+            return zone;
         }
 
         private static void DeleteOldZoneFiles(string directory)
