@@ -168,11 +168,12 @@ namespace Objects.Global.Random
 
                     break;
                 case WeaponType.Pick:
-                    weapon.ExamineDescription = "";
-                    weapon.LongDescription = "";
-                    weapon.ShortDescription = "";
-                    weapon.SentenceDescription = "";
+                    weapon.ExamineDescription = "The head of the war pick {head description}.";
+                    weapon.LongDescription = "This pick has a large grooved hammer head and a sharp pick on the back";
+                    weapon.ShortDescription = "This war pick is a versatile weapon used to fight against armored opponents.";
+                    weapon.SentenceDescription = "war pick";
                     weapon.KeyWords.Add("Pick");
+                    weapon.FlavorOptions.Add("{head description}", new List<string>() { "is polished smooth and shines slightly", "is slightly rusted", "has dwarven runes", " is covered in elvish runes", "depicts a kings crest" });
                     break;
                 case WeaponType.Spear:
                     weapon.ExamineDescription = "";
