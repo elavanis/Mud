@@ -165,7 +165,6 @@ namespace Objects.Global.Random
                     weapon.FlavorOptions.Add("{silkColor}", new List<string>() { "white", "black", "gold", "silver", "brown", "red", "orange", "yellow", "green", "blue", "purple" });
                     weapon.FlavorOptions.Add("{pommel}", new List<string>() { "knights helmet", "small {pommelStone}", "skull with a pair of red rubies for eyes" });
                     weapon.FlavorOptions.Add("{pommelStone}", new List<string>() { "amber", "amethyst", "aquamarine", "bloodstone", "diamond", "emerald", "garnet", "jade", "moonstone", "onyx", "quartz", "rubies", "sapphire", "sunstone", "tigers eye", "topaz" });
-
                     break;
                 case WeaponType.Pick:
                     weapon.ExamineDescription = "The head of the war pick {head description}.";
