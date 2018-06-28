@@ -132,7 +132,7 @@ namespace Objects.Global.Random
                     weapon.FlavorOptions.Add("{material}", new List<string>() { "iron", "green glass", "black stone", "granite", "iron with interwoven bands of gold creating a museum worth axe" });
                     break;
                 case WeaponType.Sword:
-                    weapon.ExamineDescription = "The blade is made from {blade material}.  The guard is {guard} and the handle is wrapped in {handle}.  There is a {pommel}.";
+                    weapon.ExamineDescription = "The blade is made from {blade material}.  The guard is {guard} and the handle is wrapped in {handle}.  There is a {pommel} for a pommel.";
                     weapon.LongDescription = "The blade is {condition} and has {sides} sharpened.";
                     weapon.ShortDescription = "A {type} sword used to cut down ones foes.";
                     weapon.SentenceDescription = "sword";
@@ -151,11 +151,21 @@ namespace Objects.Global.Random
                     weapon.FlavorOptions.Add("{pommelStone}", new List<string>() { "amber", "amethyst", "aquamarine", "bloodstone", "diamond", "emerald", "garnet", "jade", "moonstone", "onyx", "quartz", "rubies", "sapphire", "sunstone", "tigers eye", "topaz" });
                     break;
                 case WeaponType.Dagger:
-                    weapon.ExamineDescription = "";
-                    weapon.LongDescription = "";
-                    weapon.ShortDescription = "";
-                    weapon.SentenceDescription = "";
+                    weapon.ExamineDescription = "The blade is made from {blade material}.  The handle is wrapped in {handle} and there is a small {pommel} for a pommel.";
+                    weapon.LongDescription = "The blade is {condition} and has a small fuller running the length of the blade.";
+                    weapon.ShortDescription = "The dagger is short sharp and pointy.  Perfect for concealing on your person.";
+                    weapon.SentenceDescription = "sword";
                     weapon.KeyWords.Add("Dagger");
+                    weapon.FlavorOptions.Add("{condition}", new List<string>() { "pitted", "sharp", "smooth" });
+                    weapon.FlavorOptions.Add("{blade material}", new List<string>() { "steal", "cold steal", "a black metal that seems to suck the light out of the room", "two different metals.  The first being {metal1} forming the base of the sword with an inlay of {metal2} forming {secondMetalObject}." });
+                    weapon.FlavorOptions.Add("{metal1}", new List<string>() { "steal" });
+                    weapon.FlavorOptions.Add("{metal2}", new List<string>() { "gold", "copper", "silver" });
+                    weapon.FlavorOptions.Add("{secondMetalObject}", new List<string>() { "runes", "intricate weaves", "ancient writings" });
+                    weapon.FlavorOptions.Add("{handle}", new List<string>() { "{silkColor} silk", "leather", "shark skin" });
+                    weapon.FlavorOptions.Add("{silkColor}", new List<string>() { "white", "black", "gold", "silver", "brown", "red", "orange", "yellow", "green", "blue", "purple" });
+                    weapon.FlavorOptions.Add("{pommel}", new List<string>() { "knights helmet", "small {pommelStone}", "skull with a pair of red rubies for eyes" });
+                    weapon.FlavorOptions.Add("{pommelStone}", new List<string>() { "amber", "amethyst", "aquamarine", "bloodstone", "diamond", "emerald", "garnet", "jade", "moonstone", "onyx", "quartz", "rubies", "sapphire", "sunstone", "tigers eye", "topaz" });
+
                     break;
                 case WeaponType.Pick:
                     weapon.ExamineDescription = "";

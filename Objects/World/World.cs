@@ -532,10 +532,6 @@ namespace Objects.World
             ProcessFollowMobs();
         }
 
-
-
-
-
         #region Follow Methods
         private void ProcessFollowMobs()
         {
