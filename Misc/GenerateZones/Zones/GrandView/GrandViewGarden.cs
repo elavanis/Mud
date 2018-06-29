@@ -33,42 +33,38 @@ using Objects.Effect.Zone.GrandViewGarden;
 
 namespace GenerateZones.Zones
 {
-    public class GrandViewGarden : IZoneCode
+    public class GrandViewGarden : BaseZone, IZoneCode
     {
-        public static int zoneId = 11;
+        public GrandViewGarden() : base(11)
+        {
+        }
 
-        IZone zone = new Zone();
-        int roomId = 1;
-        int itemId = 1;
         //int npcId = 1;
         public IZone Generate()
         {
-            zone.Id = zoneId;
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(GrandViewGarden);
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(GrandViewGarden);
 
             for (int i = 1; i < 20; i++)
             {
                 IRoom room = GenerateRoom();
-                room.Zone = zone.Id;
-                ZoneHelper.AddRoom(zone, room);
+                room.Zone = Zone.Id;
+                ZoneHelper.AddRoom(Zone, room);
             }
 
-            zone.Rooms[6].Items.Add(PrizeRose());
-            zone.Rooms[19].Items.Add(Sign());
+            Zone.Rooms[6].Items.Add(PrizeRose());
+            Zone.Rooms[19].Items.Add(Sign());
 
             ConnectRooms();
 
-            return zone;
+            return Zone;
         }
 
 
 
         private IRoom GenerateRoom()
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
             room.ShortDescription = "A rose garden";
@@ -79,9 +75,7 @@ namespace GenerateZones.Zones
 
         public IItem PrizeRose()
         {
-            IItem rose = new Item();
-            rose.Id = itemId++;
-            rose.Level = 0;
+            IItem rose = CreateItem<IItem>();
             rose.KeyWords.Add("rose");
             rose.SentenceDescription = "rose";
             rose.ShortDescription = "A beautiful prize {color} rose.";
@@ -110,9 +104,7 @@ namespace GenerateZones.Zones
 
         public IItem Sign()
         {
-            IItem sign = new Item();
-            sign.Id = itemId++;
-            sign.Level = 0;
+            IItem sign = CreateItem<IItem>();
             sign.KeyWords.Add("sign");
             sign.Attributes.Add(Item.ItemAttribute.NoGet);
             sign.SentenceDescription = "sign";
@@ -124,25 +116,25 @@ namespace GenerateZones.Zones
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
+            Zone.RecursivelySetZone();
 
-            ZoneHelper.ConnectRoom(zone.Rooms[1], Direction.North, zone.Rooms[2]);
-            ZoneHelper.ConnectRoom(zone.Rooms[2], Direction.North, zone.Rooms[9]);
-            ZoneHelper.ConnectRoom(zone.Rooms[2], Direction.East, zone.Rooms[3]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.East, zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.South, zone.Rooms[7]);
-            ZoneHelper.ConnectRoom(zone.Rooms[4], Direction.North, zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(zone.Rooms[4], Direction.South, zone.Rooms[8]);
-            ZoneHelper.ConnectRoom(zone.Rooms[5], Direction.West, zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.North, Zone.Rooms[2]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.North, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.South, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.North, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.South, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.West, Zone.Rooms[6]);
 
-            ZoneHelper.ConnectRoom(zone.Rooms[11], Direction.North, zone.Rooms[12]);
-            ZoneHelper.ConnectRoom(zone.Rooms[12], Direction.North, zone.Rooms[19]);
-            ZoneHelper.ConnectRoom(zone.Rooms[12], Direction.East, zone.Rooms[13]);
-            ZoneHelper.ConnectRoom(zone.Rooms[13], Direction.East, zone.Rooms[14]);
-            ZoneHelper.ConnectRoom(zone.Rooms[13], Direction.South, zone.Rooms[17]);
-            ZoneHelper.ConnectRoom(zone.Rooms[14], Direction.North, zone.Rooms[15]);
-            ZoneHelper.ConnectRoom(zone.Rooms[14], Direction.South, zone.Rooms[18]);
-            ZoneHelper.ConnectRoom(zone.Rooms[15], Direction.West, zone.Rooms[16]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.North, Zone.Rooms[12]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[12], Direction.North, Zone.Rooms[19]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[12], Direction.East, Zone.Rooms[13]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[13], Direction.East, Zone.Rooms[14]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[13], Direction.South, Zone.Rooms[17]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[14], Direction.North, Zone.Rooms[15]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[14], Direction.South, Zone.Rooms[18]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[15], Direction.West, Zone.Rooms[16]);
         }
     }
 }

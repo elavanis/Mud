@@ -29,20 +29,21 @@ using Objects.Interface;
 using Objects.LoadPercentage;
 using Objects.Magic.Enchantment;
 using static Objects.Mob.NonPlayerCharacter;
+using static Objects.Item.Items.Weapon;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
-    public class Woodbrook : IZoneCode
+    public class Woodbrook : BaseZone, IZoneCode
     {
-        Zone zone = new Zone();
-        int roomId = 1;
-        int itemId = 1;
-        int npcId = 1;
+
+        public Woodbrook() : base(10)
+        {
+        }
+
         public IZone Generate()
         {
-            zone.Id = 10;
-            zone.InGameDaysTillReset = 10;
-            zone.Name = nameof(Woodbrook);
+            Zone.InGameDaysTillReset = 10;
+            Zone.Name = nameof(Woodbrook);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -52,14 +53,14 @@ namespace GenerateZones.Zones.DeepWoodForest
                 if (method != null)
                 {
                     IRoom room = (IRoom)method.Invoke(this, null);
-                    room.Zone = zone.Id;
-                    ZoneHelper.AddRoom(zone, room);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
                 }
             }
 
             ConnectRooms();
 
-            return zone;
+            return Zone;
         }
 
         #region Rooms
@@ -181,7 +182,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.ShortDescription = "On the rampart";
 
             ISound sound = new Sound();
-            sound.SoundName = $"{zone.Name}\\WooodenCreak.mp3";
+            sound.SoundName = $"{Zone.Name}\\WooodenCreak.mp3";
             room.Sounds.Add(sound);
 
             return room;
@@ -416,10 +417,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter BabySpider()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.TypeOfMob = MobType.Other;
-            npc.Id = npcId++;
-            npc.Level = 6;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 6);
             npc.KeyWords.Add("spider");
             npc.Personalities.Add(new Wanderer());
             npc.SentenceDescription = "spider";
@@ -432,10 +430,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter GiantSpider()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.TypeOfMob = MobType.Other;
-            npc.Id = npcId++;
-            npc.Level = 12;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 12);
             npc.KeyWords.Add("spider");
 
             IGuard guard = new Guard(Direction.North);
@@ -453,9 +448,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom OutSideRoom(int movementCost)
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            room.MovementCost = movementCost;
+            IRoom room = CreateRoom(movementCost);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
             return room;
@@ -463,9 +456,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom InSideRoom(int movementCost)
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            room.MovementCost = movementCost;
+            IRoom room = CreateRoom(movementCost);
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.NoLight);
             return room;
@@ -605,11 +596,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IWeapon Sword(int level)
         {
-            IWeapon weapon = new Weapon();
-            weapon.Id = itemId++;
-
-            weapon.Level = level;
-            weapon.Type = Weapon.WeaponType.Sword;
+            IWeapon weapon = CreateWeapon(WeaponType.Sword, level);
             weapon.ExamineDescription = "The metal sword is approximately two feet long with a guard that has a slight upward curve.  The grip is {grip} and has a {pommel} for the pommel.";
             weapon.LongDescription = "A finely polish metal sword.";
             weapon.ShortDescription = "A metal sword.";
@@ -630,11 +617,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IWeapon Spear(int level)
         {
-            IWeapon weapon = new Weapon();
-            weapon.Id = itemId++;
-
-            weapon.Level = level;
-            weapon.Type = Weapon.WeaponType.Spear;
+            IWeapon weapon = CreateWeapon(WeaponType.Spear, level);
             weapon.ExamineDescription = "The tip of the spear is a bit rusty but nothing that a little polishing wouldn't take care of.";
             weapon.LongDescription = "A oak spear with a iron tip.";
             weapon.ShortDescription = "A wooden spear.";
@@ -655,11 +638,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor Arms(int level)
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-
-            armor.Level = level;
-            armor.ItemPosition = AvalableItemPosition.Arms;
+            IArmor armor = CreateArmor(AvalableItemPosition.Arms, level);
             armor.ExamineDescription = "The bracer has a intricate design of intersecting lines running up and down the length of the item.";
             armor.SentenceDescription = "bracer";
             armor.KeyWords.Add("bracer");
@@ -669,22 +648,14 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor Body(int level)
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-
-            armor.Level = level;
-            armor.ItemPosition = AvalableItemPosition.Body;
+            IArmor armor = CreateArmor(AvalableItemPosition.Body, level);
 
             return armor;
         }
 
         private IArmor Feet(int level)
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-
-            armor.Level = level;
-            armor.ItemPosition = AvalableItemPosition.Feet;
+            IArmor armor = CreateArmor(AvalableItemPosition.Feet, level);
             armor.ExamineDescription = "The boots still have some cob webs on them but otherwise look to be in good shape.";
             armor.SentenceDescription = "boots";
             armor.KeyWords.Add("boots");
@@ -694,11 +665,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor Hand(int level)
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-
-            armor.Level = level;
-            armor.ItemPosition = AvalableItemPosition.Hand;
+            IArmor armor = CreateArmor(AvalableItemPosition.Hand, level);
             armor.ExamineDescription = "The leather gloves have an emblem of a burning phoenix stamped into the back of each glove.";
             armor.SentenceDescription = "leather";
             armor.KeyWords.Add("leather");
@@ -709,11 +676,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor Helmet(int level)
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-
-            armor.Level = level;
-            armor.ItemPosition = AvalableItemPosition.Head;
+            IArmor armor = CreateArmor(AvalableItemPosition.Head, level);
             armor.ExamineDescription = "The helmet's insides are padded with soft animal fur.";
             armor.SentenceDescription = "helmet";
             armor.KeyWords.Add("helmet");
@@ -723,11 +686,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor Leg(int level)
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-
-            armor.Level = level;
-            armor.ItemPosition = AvalableItemPosition.Legs;
+            IArmor armor = CreateArmor(AvalableItemPosition.Legs, level);
             armor.ExamineDescription = "The leather the design of fire going up each leg.";
             armor.SentenceDescription = "pants";
             armor.KeyWords.Add("leather");
@@ -740,49 +699,49 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
+            Zone.RecursivelySetZone();
 
-            ZoneHelper.ConnectZone(zone.Rooms[1], Direction.South, 8, 36);
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.South, 8, 36);
 
-            ZoneHelper.ConnectRoom(zone.Rooms[1], Direction.North, zone.Rooms[2]);
-            ZoneHelper.ConnectRoom(zone.Rooms[2], Direction.North, zone.Rooms[7]);
-            ZoneHelper.ConnectRoom(zone.Rooms[2], Direction.East, zone.Rooms[3]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.North, zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.Up, zone.Rooms[11]);
-            ZoneHelper.ConnectRoom(zone.Rooms[4], Direction.North, zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(zone.Rooms[6], Direction.East, zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(zone.Rooms[7], Direction.North, zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(zone.Rooms[7], Direction.East, zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(zone.Rooms[8], Direction.East, zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(zone.Rooms[9], Direction.North, zone.Rooms[8]);
-            ZoneHelper.ConnectRoom(zone.Rooms[9], Direction.East, zone.Rooms[7]);
-            ZoneHelper.ConnectRoom(zone.Rooms[10], Direction.North, zone.Rooms[9]);
-            ZoneHelper.ConnectRoom(zone.Rooms[10], Direction.East, zone.Rooms[2]);
-            ZoneHelper.ConnectRoom(zone.Rooms[11], Direction.East, zone.Rooms[12]);
-            ZoneHelper.ConnectRoom(zone.Rooms[12], Direction.North, zone.Rooms[13]);
-            ZoneHelper.ConnectRoom(zone.Rooms[13], Direction.North, zone.Rooms[14]);
-            ZoneHelper.ConnectRoom(zone.Rooms[15], Direction.East, zone.Rooms[9]);
-            ZoneHelper.ConnectRoom(zone.Rooms[16], Direction.North, zone.Rooms[21]);
-            ZoneHelper.ConnectRoom(zone.Rooms[16], Direction.East, zone.Rooms[15]);
-            ZoneHelper.ConnectRoom(zone.Rooms[17], Direction.East, zone.Rooms[16]);
-            ZoneHelper.ConnectRoom(zone.Rooms[18], Direction.North, zone.Rooms[17]);
-            ZoneHelper.ConnectRoom(zone.Rooms[19], Direction.North, zone.Rooms[18]);
-            ZoneHelper.ConnectRoom(zone.Rooms[20], Direction.East, zone.Rooms[19]);
-            ZoneHelper.ConnectRoom(zone.Rooms[22], Direction.North, zone.Rooms[25]);
-            ZoneHelper.ConnectRoom(zone.Rooms[22], Direction.East, zone.Rooms[17]);
-            ZoneHelper.ConnectRoom(zone.Rooms[23], Direction.North, zone.Rooms[26]);
-            ZoneHelper.ConnectRoom(zone.Rooms[23], Direction.East, zone.Rooms[22]);
-            ZoneHelper.ConnectRoom(zone.Rooms[24], Direction.North, zone.Rooms[27]);
-            ZoneHelper.ConnectRoom(zone.Rooms[24], Direction.East, zone.Rooms[23]);
-            ZoneHelper.ConnectRoom(zone.Rooms[25], Direction.North, zone.Rooms[28]);
-            ZoneHelper.ConnectRoom(zone.Rooms[26], Direction.North, zone.Rooms[29]);
-            ZoneHelper.ConnectRoom(zone.Rooms[26], Direction.East, zone.Rooms[25]);
-            ZoneHelper.ConnectRoom(zone.Rooms[27], Direction.North, zone.Rooms[30]);
-            ZoneHelper.ConnectRoom(zone.Rooms[27], Direction.East, zone.Rooms[26]);
-            ZoneHelper.ConnectRoom(zone.Rooms[29], Direction.East, zone.Rooms[28]);
-            ZoneHelper.ConnectRoom(zone.Rooms[30], Direction.North, zone.Rooms[31]);
-            ZoneHelper.ConnectRoom(zone.Rooms[30], Direction.East, zone.Rooms[29]);
-            ZoneHelper.ConnectRoom(zone.Rooms[31], Direction.North, zone.Rooms[32]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.North, Zone.Rooms[2]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.North, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.North, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.Up, Zone.Rooms[11]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.North, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.East, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[7], Direction.North, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[7], Direction.East, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[8], Direction.East, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.North, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.East, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.North, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.East, Zone.Rooms[2]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.East, Zone.Rooms[12]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[12], Direction.North, Zone.Rooms[13]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[13], Direction.North, Zone.Rooms[14]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[15], Direction.East, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[16], Direction.North, Zone.Rooms[21]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[16], Direction.East, Zone.Rooms[15]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[17], Direction.East, Zone.Rooms[16]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[18], Direction.North, Zone.Rooms[17]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[19], Direction.North, Zone.Rooms[18]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[20], Direction.East, Zone.Rooms[19]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[22], Direction.North, Zone.Rooms[25]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[22], Direction.East, Zone.Rooms[17]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[23], Direction.North, Zone.Rooms[26]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[23], Direction.East, Zone.Rooms[22]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[24], Direction.North, Zone.Rooms[27]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[24], Direction.East, Zone.Rooms[23]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[25], Direction.North, Zone.Rooms[28]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[26], Direction.North, Zone.Rooms[29]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[26], Direction.East, Zone.Rooms[25]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[27], Direction.North, Zone.Rooms[30]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[27], Direction.East, Zone.Rooms[26]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[29], Direction.East, Zone.Rooms[28]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[30], Direction.North, Zone.Rooms[31]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[30], Direction.East, Zone.Rooms[29]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[31], Direction.North, Zone.Rooms[32]);
         }
     }
 }

@@ -24,57 +24,52 @@ using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones.Ash
 {
-    public class AshMaze : IZoneCode
+    public class AshMaze : BaseZone, IZoneCode
     {
         MethodInfo baseAddExit;
-        IZone zone;
-        private int zoneId = 18;
-        private int roomId = 1;
-        private int itemId = 1;
-        private int npcId = 1;
         private int roomCount = 30;
+
+        public AshMaze() : base(18)
+        {
+        }
+
         public IZone Generate()
         {
-            zone = new Zone();
-            zone.Id = zoneId;
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(AshMaze);
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(AshMaze);
 
             baseAddExit = typeof(ZoneHelper).GetMethod("AddExitToRoom", BindingFlags.Static | BindingFlags.NonPublic);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 0; i < roomCount; i++)
             {
-                ZoneHelper.AddRoom(zone, GetRoom());
+                ZoneHelper.AddRoom(Zone, GetRoom());
             }
 
-            zone.RecursivelySetZone();
-            zone.Rooms[1].AddMobileObjectToRoom(LZoir());
-            zone.Rooms[10].AddMobileObjectToRoom(LZoir());
-            zone.Rooms[20].AddMobileObjectToRoom(LZoir());
-            zone.Rooms[30].AddMobileObjectToRoom(LZoir());
+            Zone.RecursivelySetZone();
+            Zone.Rooms[1].AddMobileObjectToRoom(LZoir());
+            Zone.Rooms[10].AddMobileObjectToRoom(LZoir());
+            Zone.Rooms[20].AddMobileObjectToRoom(LZoir());
+            Zone.Rooms[30].AddMobileObjectToRoom(LZoir());
 
-            zone.Rooms[15].AddMobileObjectToRoom(AshWitch());
+            Zone.Rooms[15].AddMobileObjectToRoom(AshWitch());
 
             ConnectRooms();
 
 
 
-            return zone;
+            return Zone;
         }
 
         private IMobileObject AshWitch()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 85;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 85);
             npc.KeyWords.Add("Ash");
             npc.KeyWords.Add("Witch");
-            npc.TypeOfMob = MobType.Humanoid;
             npc.God = true;     //needed to phase
 
             IPhase phase = new Phase();
-            foreach (IRoom room in zone.Rooms.Values)
+            foreach (IRoom room in Zone.Rooms.Values)
             {
                 phase.RoomsToPhaseTo.Add(new BaseObjectId(room));
             }
@@ -90,16 +85,13 @@ namespace GenerateZones.Zones.Ash
 
         private IMobileObject LZoir()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 80;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 80);
             npc.KeyWords.Add("LZoir");
-            npc.TypeOfMob = MobType.Other;
             npc.God = true;     //needed to phase
 
             npc.Personalities.Add(new Aggressive());
             IPhase phase = new Phase();
-            foreach (IRoom room in zone.Rooms.Values)
+            foreach (IRoom room in Zone.Rooms.Values)
             {
                 phase.RoomsToPhaseTo.Add(new BaseObjectId(room));
             }
@@ -115,9 +107,7 @@ namespace GenerateZones.Zones.Ash
 
         private IRoom GetRoom()
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.ShortDescription = "A world of ash.";
             room.ExamineDescription = "Flakes of ash fall like gray snow on the ground from some unseen fire.";
             room.LongDescription = "Ash floats through the air making it hard to see and breath.";
@@ -127,39 +117,39 @@ namespace GenerateZones.Zones.Ash
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
+            Zone.RecursivelySetZone();
 
             int roomPos = 1;
-            ConnectRooms(zone.Rooms[roomPos], Direction.South, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.West, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.South, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.South, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.West, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.South, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.East, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.South, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.East, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.South, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.West, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.South, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.South, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.East, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.South, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.West, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.West, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.North, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.North, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.North, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.North, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.West, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.North, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.North, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.North, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.East, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.North, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.North, zone.Rooms[++roomPos]);
-            ConnectRooms(zone.Rooms[roomPos], Direction.East, zone.Rooms[++roomPos]);
-            //ConnectRooms(zone.Rooms[roomPos], Direction.South, zone.Rooms[roomPos + 1]);  //Use North
+            ConnectRooms(Zone.Rooms[roomPos], Direction.South, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.West, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.South, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.South, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.West, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.South, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.East, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.South, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.East, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.South, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.West, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.South, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.South, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.East, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.South, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.West, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.West, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.North, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.North, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.North, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.North, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.West, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.North, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.North, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.North, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.East, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.North, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.North, Zone.Rooms[++roomPos]);
+            ConnectRooms(Zone.Rooms[roomPos], Direction.East, Zone.Rooms[++roomPos]);
+            //ConnectRooms(Zone.Rooms[roomPos], Direction.South, Zone.Rooms[roomPos + 1]);  //Use North
         }
 
         private void ConnectRooms(IRoom room1, Direction direction, IRoom room2)
@@ -228,7 +218,7 @@ namespace GenerateZones.Zones.Ash
             message.Sound = new Sound();
             for (int i = 1; i < 9; i++)
             {
-                message.Sound.RandomSounds.Add($"{zone.Name}\\Thunder{i.ToString()}.mp3");
+                message.Sound.RandomSounds.Add($"{Zone.Name}\\Thunder{i.ToString()}.mp3");
             }
 
             string castleSilhouette = $"Lightning illuminates a castle to the {direction.ToString()}.";

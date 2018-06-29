@@ -26,17 +26,16 @@ using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones
 {
-    public class GrandViewJail : IZoneCode
+    public class GrandViewJail : BaseZone, IZoneCode
     {
-        IZone zone = new Zone();
-        int roomId = 1;
-        int itemId = 1;
-        int mobId = 1;
+        public GrandViewJail() : base(6)
+        {
+        }
+
         public IZone Generate()
         {
-            zone.Id = 6;
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(GrandViewJail);
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(GrandViewJail);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -46,14 +45,14 @@ namespace GenerateZones.Zones
                 if (method != null)
                 {
                     Room room = (Room)method.Invoke(this, null);
-                    room.Zone = zone.Id;
-                    ZoneHelper.AddRoom(zone, room);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
                 }
             }
 
             ConnectRooms();
 
-            return zone;
+            return Zone;
         }
 
         #region Rooms
@@ -70,18 +69,10 @@ namespace GenerateZones.Zones
         //    return enchantment;
         //}
 
-        private IRoom GenearteRoom()
-        {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            return room;
-        }
-
 
         private IRoom GenerateRoom1()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.Attributes.Add(Room.RoomAttribute.Peaceful);
@@ -98,8 +89,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom2()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.Light);
 
@@ -114,8 +104,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom3()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.Light);
 
@@ -137,10 +126,8 @@ namespace GenerateZones.Zones
 
         private IItem Room3_Mushroom()
         {
-            IEquipment item = new Equipment();
-            item.Id = itemId++;
+            IEquipment item = CreateEquipment(1);
             item.Attributes.Add(ItemAttribute.Light);
-            item.ItemPosition = Equipment.AvalableItemPosition.Held;
             item.ExamineDescription = "A small mushroom about 1.5 inches tall.  It glows with a soft {color} light that is capable of lighting a room without being harsh on the eyes.";
             item.KeyWords.Add("Mushroom");
             item.KeyWords.Add("{color}");
@@ -155,8 +142,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom4()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.NoLight);
 
@@ -172,8 +158,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom5()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.NoLight);
 
@@ -189,8 +174,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom6()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.NoLight);
 
@@ -206,8 +190,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom7()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.NoLight);
 
@@ -223,8 +206,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom8()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.NoLight);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
@@ -243,8 +225,7 @@ namespace GenerateZones.Zones
         #region City
         private IRoom GenerateRoom9()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -260,8 +241,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom10()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 2;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -277,8 +257,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom11()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -291,8 +270,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom12()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -307,9 +285,8 @@ namespace GenerateZones.Zones
         }
         private IItem LionStatue()
         {
-            IItem statue = new Item();
+            IItem statue = CreateItem<IItem>();
             statue.Attributes.Add(Item.ItemAttribute.NoGet);
-            statue.Id = itemId++;
             statue.KeyWords.Add("Lion");
             statue.KeyWords.Add("statue");
 
@@ -323,8 +300,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom13()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -342,15 +318,13 @@ namespace GenerateZones.Zones
         {
             ISound sound = new Sound();
             sound.Loop = true;
-            sound.SoundName = string.Format("{0}\\{1}", zone.Name, "Fountain.mp3");
+            sound.SoundName = string.Format("{0}\\{1}", Zone.Name, "Fountain.mp3");
             return sound;
         }
 
-        private Fountain Room13_Fountain()
+        private IItem Room13_Fountain()
         {
-            Fountain fountain = new Fountain();
-            fountain.Id = itemId++;
-            fountain.KeyWords.Add("fountain");
+            IItem fountain = CreateItem<Fountain>();
 
             fountain.ShortDescription = "An ornate fountain.";
             fountain.LongDescription = "A large ornate fountain pours water down several tiers.";
@@ -362,8 +336,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom14()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -376,8 +349,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom15()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -393,8 +365,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom16()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -407,8 +378,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom17()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -424,8 +394,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom18()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -438,8 +407,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom19()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -455,8 +423,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom20()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -469,8 +436,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom21()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -479,17 +445,16 @@ namespace GenerateZones.Zones
             room.ShortDescription = "Under the stained glass dome";
 
             room.Items.Add(Room21_Sign());
-            IRecallBeacon beacon = new RecallBeacon();
-            beacon.Id = itemId++;
+            IRecallBeacon beacon = CreateItem<IRecallBeacon>();
             room.Items.Add(beacon);
             return room;
         }
 
         private IItem Room21_Sign()
         {
-            IItem item = new Item();
+            IItem item = CreateItem<IItem>();
+            item.Attributes.Add(ItemAttribute.NoGet);
             item.ExamineDescription = "The sign appears to be made of black marble with the words carved out and filled with a silvery metal so they appear to almost shine.  The frame is 1.5 inches and is made of African Blackwood.  All in all the sign creates a striking contrast against the white pillar on which it hangs.";
-            item.Id = itemId++;
             item.KeyWords.Add("sign");
             item.LongDescription = @"North: The Great Library
 East: The Training Hall";
@@ -501,8 +466,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom22()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -514,8 +478,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom23()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -527,8 +490,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom24()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -540,8 +502,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom25()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -557,8 +518,7 @@ East: The Training Hall";
         #region City Pt2
         private IRoom GenerateRoom26()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -571,8 +531,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom27()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -587,8 +546,7 @@ East: The Training Hall";
         #region Duck Pond
         private IRoom GenerateRoom28()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -601,8 +559,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom29()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -615,8 +572,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom30()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -629,8 +585,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom31()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -643,8 +598,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom32()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -657,8 +611,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom33()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -671,8 +624,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom34()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -685,8 +637,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom35()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 5;
+            IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -699,8 +650,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom36()
         {
-            IRoom room = GenearteRoom();
-            room.MovementCost = 10;
+            IRoom room = CreateRoom(10);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -738,7 +688,6 @@ East: The Training Hall";
         {
             IItem item = new Item();
             item.Attributes.Add(Item.ItemAttribute.NoGet);
-            item.Id = itemId++;
             item.KeyWords.Add("sign");
             item.KeyWords.Add("statue");
 
@@ -752,16 +701,13 @@ East: The Training Hall";
 
         private INonPlayerCharacter DaddyDuck()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = mobId++;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 1);
             npc.KeyWords.Add("duck");
             npc.KeyWords.Add("dad");
             npc.KeyWords.Add("daddy");
             npc.KeyWords.Add("mallard");
             npc.Personalities.Add(new Guardian());
             npc.Personalities.Add(ValidDuckAreaWander());
-            npc.Level = 1;
-            npc.TypeOfMob = MobType.Other;
 
             npc.SentenceDescription = "daddy duck";
             npc.ShortDescription = "A male mallard duck.";
@@ -773,16 +719,13 @@ East: The Training Hall";
 
         private INonPlayerCharacter MommaDuck()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = mobId++;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 1);
             npc.KeyWords.Add("duck");
             npc.KeyWords.Add("mom");
             npc.KeyWords.Add("momma");
             npc.KeyWords.Add("mallard");
             npc.Personalities.Add(new Guardian());
             npc.Personalities.Add(ValidDuckAreaWander());
-            npc.Level = 1;
-            npc.TypeOfMob = MobType.Other;
 
             npc.SentenceDescription = "momma duck";
             npc.ShortDescription = "A female mallard duck.";
@@ -795,28 +738,25 @@ East: The Training Hall";
         private IWanderer ValidDuckAreaWander()
         {
             IWanderer wanderer = new Wanderer();
-            wanderer.NavigableRooms.Add(new RoomId(zone.Id, 28));
-            wanderer.NavigableRooms.Add(new RoomId(zone.Id, 29));
-            wanderer.NavigableRooms.Add(new RoomId(zone.Id, 30));
-            wanderer.NavigableRooms.Add(new RoomId(zone.Id, 31));
-            wanderer.NavigableRooms.Add(new RoomId(zone.Id, 32));
-            wanderer.NavigableRooms.Add(new RoomId(zone.Id, 33));
-            wanderer.NavigableRooms.Add(new RoomId(zone.Id, 34));
-            wanderer.NavigableRooms.Add(new RoomId(zone.Id, 35));
-            wanderer.NavigableRooms.Add(new RoomId(zone.Id, 36));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 28));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 29));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 30));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 31));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 32));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 33));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 34));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 35));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 36));
             return wanderer;
         }
 
         private INonPlayerCharacter BabyDuck()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = mobId++;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 1);
             npc.KeyWords.Add("duck");
             npc.KeyWords.Add("baby");
             npc.KeyWords.Add("mallard");
             npc.Personalities.Add(new Wanderer(100));
-            npc.Level = 1;
-            npc.TypeOfMob = MobType.Other;
 
             npc.SentenceDescription = "baby duck";
             npc.ShortDescription = "A baby mallard duck.";
@@ -830,59 +770,59 @@ East: The Training Hall";
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
+            Zone.RecursivelySetZone();
 
-            ZoneHelper.ConnectZone(zone.Rooms[25], Direction.North, 2, 1);
-            ZoneHelper.ConnectZone(zone.Rooms[27], Direction.East, 3, 1);
-            ZoneHelper.ConnectZone(zone.Rooms[12], Direction.South, 7, 5);
+            ZoneHelper.ConnectZone(Zone.Rooms[25], Direction.North, 2, 1);
+            ZoneHelper.ConnectZone(Zone.Rooms[27], Direction.East, 3, 1);
+            ZoneHelper.ConnectZone(Zone.Rooms[12], Direction.South, 7, 5);
 
             #region Jail/Tunnel
-            ZoneHelper.ConnectRoom(zone.Rooms[1], Direction.East, zone.Rooms[2], new DoorInfo("wall", "With one last push the wall slides open enough for you to pass through.", true, "The door blends in perfectly with the wall and makes you wonder how you discovered it in the first place."));
-            ZoneHelper.ConnectRoom(zone.Rooms[2], Direction.East, zone.Rooms[3]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.East, zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(zone.Rooms[4], Direction.East, zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(zone.Rooms[5], Direction.Up, zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(zone.Rooms[6], Direction.Up, zone.Rooms[7]);
-            ZoneHelper.ConnectRoom(zone.Rooms[7], Direction.Up, zone.Rooms[8]);
-            ZoneHelper.ConnectRoom(zone.Rooms[8], Direction.Up, zone.Rooms[9], new DoorInfo("stone", "You move the stone out of the way reveling the opening of the tunnel.", true, "The stone is of good weight, enough to discourage people from moving it but light enough to move when needed."));
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2], new DoorInfo("wall", "With one last push the wall slides open enough for you to pass through.", true, "The door blends in perfectly with the wall and makes you wonder how you discovered it in the first place."));
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.East, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.Up, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.Up, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[7], Direction.Up, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[8], Direction.Up, Zone.Rooms[9], new DoorInfo("stone", "You move the stone out of the way reveling the opening of the tunnel.", true, "The stone is of good weight, enough to discourage people from moving it but light enough to move when needed."));
             #endregion Jail/Tunnel
 
-            ZoneHelper.ConnectRoom(zone.Rooms[9], Direction.North, zone.Rooms[10]);
-            ZoneHelper.ConnectRoom(zone.Rooms[10], Direction.North, zone.Rooms[11]);
-            ZoneHelper.ConnectRoom(zone.Rooms[11], Direction.East, zone.Rooms[12]);
-            ZoneHelper.ConnectRoom(zone.Rooms[12], Direction.North, zone.Rooms[13]);
-            ZoneHelper.ConnectRoom(zone.Rooms[13], Direction.East, zone.Rooms[14]);
-            ZoneHelper.ConnectRoom(zone.Rooms[14], Direction.North, zone.Rooms[15]);
-            ZoneHelper.ConnectRoom(zone.Rooms[15], Direction.North, zone.Rooms[16]);
-            ZoneHelper.ConnectRoom(zone.Rooms[16], Direction.West, zone.Rooms[17]);
-            ZoneHelper.ConnectRoom(zone.Rooms[17], Direction.West, zone.Rooms[18]);
-            ZoneHelper.ConnectRoom(zone.Rooms[17], Direction.North, zone.Rooms[22]);
-            ZoneHelper.ConnectRoom(zone.Rooms[18], Direction.South, zone.Rooms[19]);
-            ZoneHelper.ConnectRoom(zone.Rooms[19], Direction.South, zone.Rooms[20]);
-            ZoneHelper.ConnectRoom(zone.Rooms[20], Direction.East, zone.Rooms[13]);
-            ZoneHelper.ConnectRoom(zone.Rooms[21], Direction.South, zone.Rooms[13]);
-            ZoneHelper.ConnectRoom(zone.Rooms[21], Direction.East, zone.Rooms[15]);
-            ZoneHelper.ConnectRoom(zone.Rooms[21], Direction.North, zone.Rooms[17]);
-            ZoneHelper.ConnectRoom(zone.Rooms[21], Direction.West, zone.Rooms[19]);
-            ZoneHelper.ConnectRoom(zone.Rooms[22], Direction.North, zone.Rooms[23]);
-            ZoneHelper.ConnectRoom(zone.Rooms[23], Direction.North, zone.Rooms[24]);
-            ZoneHelper.ConnectRoom(zone.Rooms[24], Direction.North, zone.Rooms[25]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.North, Zone.Rooms[10]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.North, Zone.Rooms[11]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.East, Zone.Rooms[12]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[12], Direction.North, Zone.Rooms[13]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[13], Direction.East, Zone.Rooms[14]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[14], Direction.North, Zone.Rooms[15]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[15], Direction.North, Zone.Rooms[16]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[16], Direction.West, Zone.Rooms[17]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[17], Direction.West, Zone.Rooms[18]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[17], Direction.North, Zone.Rooms[22]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[18], Direction.South, Zone.Rooms[19]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[19], Direction.South, Zone.Rooms[20]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[20], Direction.East, Zone.Rooms[13]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[21], Direction.South, Zone.Rooms[13]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[21], Direction.East, Zone.Rooms[15]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[21], Direction.North, Zone.Rooms[17]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[21], Direction.West, Zone.Rooms[19]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[22], Direction.North, Zone.Rooms[23]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[23], Direction.North, Zone.Rooms[24]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[24], Direction.North, Zone.Rooms[25]);
 
-            ZoneHelper.ConnectRoom(zone.Rooms[15], Direction.East, zone.Rooms[26]);
-            ZoneHelper.ConnectRoom(zone.Rooms[26], Direction.East, zone.Rooms[27]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[15], Direction.East, Zone.Rooms[26]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[26], Direction.East, Zone.Rooms[27]);
 
-            ZoneHelper.ConnectRoom(zone.Rooms[11], Direction.North, zone.Rooms[28]);
-            ZoneHelper.ConnectRoom(zone.Rooms[28], Direction.West, zone.Rooms[29]);
-            ZoneHelper.ConnectRoom(zone.Rooms[29], Direction.North, zone.Rooms[30]);
-            ZoneHelper.ConnectRoom(zone.Rooms[30], Direction.North, zone.Rooms[31]);
-            ZoneHelper.ConnectRoom(zone.Rooms[31], Direction.East, zone.Rooms[32]);
-            ZoneHelper.ConnectRoom(zone.Rooms[32], Direction.East, zone.Rooms[33]);
-            ZoneHelper.ConnectRoom(zone.Rooms[33], Direction.South, zone.Rooms[34]);
-            ZoneHelper.ConnectRoom(zone.Rooms[34], Direction.South, zone.Rooms[35]);
-            ZoneHelper.ConnectRoom(zone.Rooms[35], Direction.West, zone.Rooms[28]);
-            ZoneHelper.ConnectRoom(zone.Rooms[36], Direction.East, zone.Rooms[34]);
-            ZoneHelper.ConnectRoom(zone.Rooms[36], Direction.South, zone.Rooms[28]);
-            ZoneHelper.ConnectRoom(zone.Rooms[36], Direction.West, zone.Rooms[30]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.North, Zone.Rooms[28]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[28], Direction.West, Zone.Rooms[29]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[29], Direction.North, Zone.Rooms[30]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[30], Direction.North, Zone.Rooms[31]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[31], Direction.East, Zone.Rooms[32]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[32], Direction.East, Zone.Rooms[33]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[33], Direction.South, Zone.Rooms[34]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[34], Direction.South, Zone.Rooms[35]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[35], Direction.West, Zone.Rooms[28]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[36], Direction.East, Zone.Rooms[34]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[36], Direction.South, Zone.Rooms[28]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[36], Direction.West, Zone.Rooms[30]);
         }
     }
 }

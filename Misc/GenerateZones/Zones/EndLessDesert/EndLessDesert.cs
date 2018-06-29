@@ -15,27 +15,29 @@ using static Objects.Global.Direction.Directions;
 
 namespace GenerateZones.Zones.EndLessDesert
 {
-    public class EndLessDesert : IZoneCode
+    public class EndLessDesert : BaseZone, IZoneCode
     {
-        //private int npcId = 1;
-        private int zoneId = 14;
+
+        public EndLessDesert() : base(14)
+        {
+        }
 
         IZone IZoneCode.Generate()
         {
-            RandomZoneGeneration randZoneGen = new RandomZoneGeneration(10, 10, zoneId);
+            RandomZoneGeneration randZoneGen = new RandomZoneGeneration(10, 10, Zone.Id);
             RoomDescription description = new RoomDescription();
             description.LongDescription = "Dunes gently roll off into the horizon like waves on the ocean.";
             description.ExamineDescription = "The sand is a soft almost powdery substance that lets you sink up to your ankles.";
             description.ShortDescription = "Desert";
             randZoneGen.RoomDescriptions.Add(description);
 
-            IZone zone = randZoneGen.Generate();
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(EndLessDesert);
+            Zone = randZoneGen.Generate();
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(EndLessDesert);
 
 
-            Random random = new Random(zoneId);
-            IRoom room = zone.Rooms[random.Next(zone.Rooms.Count) + 1];
+            Random random = new Random(Zone.Id);
+            IRoom room = Zone.Rooms[random.Next(Zone.Rooms.Count) + 1];
             room.LongDescription = "Lush trees grow around the small lake forming every desert travelers dream, an oasis.";
             room.ExamineDescription = "A small lake is a pale cool blue color inviting you to take a drink and cool off from the hot desert air.";
             room.ShortDescription = "Oasis";
@@ -45,9 +47,9 @@ namespace GenerateZones.Zones.EndLessDesert
             enchantment.Effect = new DoorwayToUnderworld();
             room.Enchantments.Add(enchantment);
 
-            ZoneHelper.ConnectZone(zone.Rooms[6], Direction.North, 9, 93);
+            ZoneHelper.ConnectZone(Zone.Rooms[6], Direction.North, 9, 93);
 
-            return zone;
+            return Zone;
         }
     }
 }

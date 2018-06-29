@@ -29,14 +29,11 @@ namespace Objects.Global.Random
                 {
                     case MobType.Other:
                         return null;
-                        break;
                     case MobType.Humanoid:
                         return GenerateRandomEquipment(nonPlayerCharacter);
-                        break;
 
                     default:
                         return null;
-                        break;
                 }
             }
             else

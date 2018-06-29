@@ -25,20 +25,20 @@ using Objects.Item.Items;
 using Objects.Damage.Interface;
 using static Objects.Damage.Damage;
 using static Objects.Mob.NonPlayerCharacter;
+using static Objects.Item.Items.Weapon;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
-    public class DeepWoodForest : IZoneCode
+    public class DeepWoodForest : BaseZone, IZoneCode
     {
-        Zone zone = new Zone();
-        int roomId = 1;
-        int itemId = 1;
-        int npcId = 1;
+        public DeepWoodForest() : base(8)
+        {
+        }
+
         public IZone Generate()
         {
-            zone.Id = 8;
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(DeepWoodForest);
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(DeepWoodForest);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -48,43 +48,43 @@ namespace GenerateZones.Zones.DeepWoodForest
                 if (method != null)
                 {
                     IRoom room = (IRoom)method.Invoke(this, null);
-                    room.Zone = zone.Id;
-                    ZoneHelper.AddRoom(zone, room);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
                 }
             }
 
             ConnectRooms();
             AddSounds();
 
-            return zone;
+            return Zone;
         }
 
         private void AddSounds()
         {
             ISound sound = new Sound();
             sound.Loop = true;
-            sound.SoundName = string.Format("{0}\\{1}", zone.Name, "Forest.mp3");
-            foreach (IRoom room in zone.Rooms.Values)
+            sound.SoundName = string.Format("{0}\\{1}", Zone.Name, "Forest.mp3");
+            foreach (IRoom room in Zone.Rooms.Values)
             {
                 room.Sounds.Add(sound);
             }
 
             sound = new Sound();
             sound.Loop = true;
-            sound.SoundName = string.Format("{0}\\{1}", zone.Name, "Stream.mp3");
-            zone.Rooms[35].Sounds.Add(sound);
-            zone.Rooms[27].Sounds.Add(sound);
-            zone.Rooms[28].Sounds.Add(sound);
-            zone.Rooms[29].Sounds.Add(sound);
-            zone.Rooms[21].Sounds.Add(sound);
-            zone.Rooms[13].Sounds.Add(sound);
-            zone.Rooms[5].Sounds.Add(sound);
-            zone.Rooms[45].Sounds.Add(sound);
-            zone.Rooms[53].Sounds.Add(sound);
-            zone.Rooms[61].Sounds.Add(sound);
-            zone.Rooms[69].Sounds.Add(sound);
-            zone.Rooms[77].Sounds.Add(sound);
-            zone.Rooms[78].Sounds.Add(sound);
+            sound.SoundName = string.Format("{0}\\{1}", Zone.Name, "Stream.mp3");
+            Zone.Rooms[35].Sounds.Add(sound);
+            Zone.Rooms[27].Sounds.Add(sound);
+            Zone.Rooms[28].Sounds.Add(sound);
+            Zone.Rooms[29].Sounds.Add(sound);
+            Zone.Rooms[21].Sounds.Add(sound);
+            Zone.Rooms[13].Sounds.Add(sound);
+            Zone.Rooms[5].Sounds.Add(sound);
+            Zone.Rooms[45].Sounds.Add(sound);
+            Zone.Rooms[53].Sounds.Add(sound);
+            Zone.Rooms[61].Sounds.Add(sound);
+            Zone.Rooms[69].Sounds.Add(sound);
+            Zone.Rooms[77].Sounds.Add(sound);
+            Zone.Rooms[78].Sounds.Add(sound);
         }
 
         #region Rooms
@@ -875,9 +875,8 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IItem SwordHammer()
         {
-            IItem item = new Item();
+            IItem item = CreateItem<IItem>();
             item.Attributes.Add(Item.ItemAttribute.NoGet);
-            item.Id = itemId++;
             item.KeyWords.Add("sword");
             item.KeyWords.Add("hammer");
 
@@ -939,10 +938,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter KolboldGuard()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 7;
-            npc.TypeOfMob = MobType.Humanoid;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 7);
 
             npc.KeyWords.Add("Kobold");
             npc.KeyWords.Add("Guard");
@@ -955,23 +951,17 @@ namespace GenerateZones.Zones.DeepWoodForest
             IGuard guardPersonality = new Guard(Direction.South);
             npc.Personalities.Add(guardPersonality);
 
-            IShield shield = new Shield();
-            shield.Id = itemId++;
-            shield.Level = 7;
+            IShield shield = CreateShield(7, new Leather());
             shield.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(shield.Level);
             shield.KeyWords.Add("leather");
             shield.KeyWords.Add("shield");
-            shield.Material = new Leather();
             shield.ShortDescription = "A well made leather shields.";
             shield.LongDescription = "The shield is made of a wooden ring with leather hides stretched across.";
             shield.SentenceDescription = "a leather shield";
             shield.ExamineDescription = "The shield is surprisingly light for it's size but also feels less durable than originally anticipated.";
             npc.AddEquipment(shield);
 
-            IWeapon weapon = new Weapon();
-            weapon.Id = itemId++;
-            weapon.Level = 7;
-            weapon.Type = Weapon.WeaponType.Spear;
+            IWeapon weapon = CreateWeapon(WeaponType.Spear, 7);
             weapon.KeyWords.Add("spear");
             weapon.LongDescription = "A spear crafted from animal bone and a stick.";
             weapon.SentenceDescription = "a spear";
@@ -984,22 +974,18 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.FinishLoad();
             npc.AddEquipment(weapon);
 
-            IArmor armor = Armor();
-            armor.ItemPosition = AvalableItemPosition.Arms;
+            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 7, new Leather());
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("bracer");
-            armor.Material = new Leather();
             armor.ShortDescription = "A well made pair leather bracers.";
             armor.LongDescription = "The bracers extend up the wearers arm a good ways giving the user extra protection.";
             armor.SentenceDescription = "a pair of leather bracers";
             armor.ExamineDescription = "The bracers are fairly plain but are well made.";
             npc.AddEquipment(armor);
 
-            armor = Armor();
-            armor.ItemPosition = AvalableItemPosition.Body;
+            armor = CreateArmor(AvalableItemPosition.Body, 7, new Leather());
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("vest");
-            armor.Material = new Leather();
             armor.ShortDescription = "A leather vest with several pockets.";
             armor.LongDescription = "The leather vest looks to be as utilitarian as protectant.";
             armor.SentenceDescription = "a leather vest";
@@ -1008,20 +994,9 @@ namespace GenerateZones.Zones.DeepWoodForest
             return npc;
         }
 
-        private IArmor Armor()
-        {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-            armor.Level = 7;
-            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(armor.Level);
-            return armor;
-        }
-
         private IRoom ZoneRoom(int movementCost)
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            room.MovementCost = movementCost;
+            IRoom room = CreateRoom(movementCost);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
             return room;
@@ -1031,11 +1006,8 @@ namespace GenerateZones.Zones.DeepWoodForest
         #region Animals
         private INonPlayerCharacter Owl()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 7;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 7);
             npc.Personalities.Add(new Wanderer());
-            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Owl");
             npc.LongDescription = "The owl is brown in color with some black feathers for camouflage.";
@@ -1048,11 +1020,8 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter Mouse()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 7;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
             npc.Personalities.Add(new Wanderer());
-            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Mouse");
             npc.LongDescription = "The mouse is {color} in color little pink nose.";
@@ -1067,11 +1036,8 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter Squirrel()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 7;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
             npc.Personalities.Add(new Wanderer());
-            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Squirrel");
             npc.LongDescription = "The Squirrel is runs to and fro looking for nuts.";
@@ -1084,11 +1050,8 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter Crow()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 7;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
             npc.Personalities.Add(new Wanderer());
-            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Crow");
             npc.LongDescription = "As you and the crow stare at each other it starts crowing loudly as trying to win a staring contest by making you look away.";
@@ -1101,11 +1064,8 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter Fox()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 7;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
             npc.Personalities.Add(new Wanderer());
-            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Fox");
             npc.LongDescription = "A red fox scurries along trying to catch mice.";
@@ -1118,11 +1078,8 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter Bear()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 10;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 10);
             npc.Personalities.Add(new Wanderer());
-            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Bear");
             npc.LongDescription = "The black bear looks to be thirty two inches long weigh over 200 lbs.";
@@ -1135,11 +1092,8 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter Chipmunk()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 7;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
             npc.Personalities.Add(new Wanderer());
-            npc.TypeOfMob = MobType.Other;
 
             npc.KeyWords.Add("Chipmunk");
             npc.LongDescription = "A little chipmunk runs underneath your feet with its fat cheeks stuffed full of food.";
@@ -1152,10 +1106,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter Fish()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 7;
-            npc.TypeOfMob = MobType.Other;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
 
             npc.KeyWords.Add("Fish");
             npc.LongDescription = "It is a silver fish with a blue spot behind its gill.";
@@ -1186,10 +1137,10 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
-            ZoneHelper.ConnectZone(zone.Rooms[1], Direction.West, 9, 80);
-            ZoneHelper.ConnectZone(zone.Rooms[36], Direction.North, 10, 1);
-            ZoneHelper.ConnectZone(zone.Rooms[80], Direction.South, 12, 1);
+            Zone.RecursivelySetZone();
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 9, 80);
+            ZoneHelper.ConnectZone(Zone.Rooms[36], Direction.North, 10, 1);
+            ZoneHelper.ConnectZone(Zone.Rooms[80], Direction.South, 12, 1);
 
             for (int h = 0; h < 5; h++)
             {
@@ -1198,11 +1149,11 @@ namespace GenerateZones.Zones.DeepWoodForest
                     int baseRoom = i + h * 8;
                     if (i != 8)
                     {
-                        ZoneHelper.ConnectRoom(zone.Rooms[baseRoom], Direction.East, zone.Rooms[baseRoom + 1]);
+                        ZoneHelper.ConnectRoom(Zone.Rooms[baseRoom], Direction.East, Zone.Rooms[baseRoom + 1]);
                     }
                     if (h != 4)
                     {
-                        ZoneHelper.ConnectRoom(zone.Rooms[baseRoom], Direction.North, zone.Rooms[baseRoom + 8]);
+                        ZoneHelper.ConnectRoom(Zone.Rooms[baseRoom], Direction.North, Zone.Rooms[baseRoom + 8]);
                     }
                 }
             }
@@ -1214,15 +1165,15 @@ namespace GenerateZones.Zones.DeepWoodForest
                     int baseRoom = 72 + i - h * 8;
                     if (i != 8)
                     {
-                        ZoneHelper.ConnectRoom(zone.Rooms[baseRoom], Direction.East, zone.Rooms[baseRoom + 1]);
+                        ZoneHelper.ConnectRoom(Zone.Rooms[baseRoom], Direction.East, Zone.Rooms[baseRoom + 1]);
                     }
                     if (h != 4)
                     {
-                        ZoneHelper.ConnectRoom(zone.Rooms[baseRoom], Direction.North, zone.Rooms[baseRoom - 8]);
+                        ZoneHelper.ConnectRoom(Zone.Rooms[baseRoom], Direction.North, Zone.Rooms[baseRoom - 8]);
                     }
                     else
                     {
-                        ZoneHelper.ConnectRoom(zone.Rooms[baseRoom], Direction.North, zone.Rooms[i]);
+                        ZoneHelper.ConnectRoom(Zone.Rooms[baseRoom], Direction.North, Zone.Rooms[i]);
                     }
                 }
             }

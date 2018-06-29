@@ -10,20 +10,16 @@ using Objects.Zone.Interface;
 
 namespace GenerateZones.Zones.Mountain
 {
-    public class DragonMountainFace : IZoneCode
+    public class DragonMountainFace : BaseZone, IZoneCode
     {
-        IZone zone;
-        private int zoneId = 19;
-        private int roomId = 1;
-        private int itemId = 1;
-        private int npcId = 1;
+        public DragonMountainFace() : base(19)
+        {
+        }
 
         public IZone Generate()
         {
-            zone = new Zone();
-            zone.Id = zoneId;
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(DragonMountainFace);
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(DragonMountainFace);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -33,12 +29,12 @@ namespace GenerateZones.Zones.Mountain
                 if (method != null)
                 {
                     IRoom room = (Room)method.Invoke(this, null);
-                    room.Zone = zone.Id;
-                    ZoneHelper.AddRoom(zone, room);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
                 }
             }
 
-            return zone;
+            return Zone;
         }
 
         #region Level 1
@@ -185,8 +181,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom RockFace()
         {
-            IRoom room = OutSide();
-            room.MovementCost = 100;
+            IRoom room = CreateRoom(100);
             room.ShortDescription = "Mountain Face";
             return room;
         }
@@ -201,8 +196,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom()
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
+            IRoom room = CreateRoom();
             return room;
         }
     }

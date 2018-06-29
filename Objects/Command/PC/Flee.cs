@@ -42,8 +42,6 @@ namespace Objects.Command.PC
             {
                 return new Result(false, "You run around waving your arms and shouting \"Somebody save me.\" but then realize nothing is fighting you.");
             }
-
-            return null;
         }
 
         private static void RollToGetAway(IMobileObject performer, IMobileObject attacker, ref int attackerRoll, ref int performerRoll)
@@ -153,22 +151,16 @@ namespace Objects.Command.PC
             {
                 case Direction.North:
                     return GlobalReference.GlobalValues.World.Zones[room.North.Zone].Rooms[room.North.Room];
-                    break;
                 case Direction.East:
                     return GlobalReference.GlobalValues.World.Zones[room.East.Zone].Rooms[room.East.Room];
-                    break;
                 case Direction.South:
                     return GlobalReference.GlobalValues.World.Zones[room.South.Zone].Rooms[room.South.Room];
-                    break;
                 case Direction.West:
                     return GlobalReference.GlobalValues.World.Zones[room.West.Zone].Rooms[room.West.Room];
-                    break;
                 case Direction.Up:
                     return GlobalReference.GlobalValues.World.Zones[room.Up.Zone].Rooms[room.Up.Room];
-                    break;
                 case Direction.Down:
                     return GlobalReference.GlobalValues.World.Zones[room.Down.Zone].Rooms[room.Down.Room];
-                    break;
                 default:
                     throw new Exception($"Unknown direction. {chosenDirection}");
             }

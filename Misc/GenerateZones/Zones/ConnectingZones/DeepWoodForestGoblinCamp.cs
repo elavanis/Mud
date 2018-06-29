@@ -11,18 +11,19 @@ using static Objects.Global.Direction.Directions;
 
 namespace GenerateZones.Zones.ConnectingZones
 {
-    public class DeepWoodForestGoblinCamp : IZoneCode
+    public class DeepWoodForestGoblinCamp : BaseZone, IZoneCode
     {
-        Zone zone = new Zone();
-        private int roomId = 1;
-        //private int npcId = 1;
-        private int zoneId = 17;
+
+        public DeepWoodForestGoblinCamp() : base(17)
+        {
+        }
+
+
 
         IZone IZoneCode.Generate()
         {
-            zone.InGameDaysTillReset = 5;
-            zone.Id = zoneId;
-            zone.Name = nameof(DeepWoodForestGoblinCamp);
+            Zone.InGameDaysTillReset = 5;
+            Zone.Name = nameof(DeepWoodForestGoblinCamp);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -32,8 +33,8 @@ namespace GenerateZones.Zones.ConnectingZones
                 if (method != null)
                 {
                     IRoom room = (IRoom)method.Invoke(this, null);
-                    room.Zone = zone.Id;
-                    ZoneHelper.AddRoom(zone, room);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
                 }
             }
 
@@ -41,27 +42,25 @@ namespace GenerateZones.Zones.ConnectingZones
 
             ConnectRooms();
 
-            return zone;
+            return Zone;
         }
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
+            Zone.RecursivelySetZone();
 
-            ZoneHelper.ConnectRoom(zone.Rooms[1], Direction.North, zone.Rooms[2]);
-            ZoneHelper.ConnectRoom(zone.Rooms[2], Direction.North, zone.Rooms[3]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.North, zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(zone.Rooms[4], Direction.West, zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(zone.Rooms[5], Direction.West, zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(zone.Rooms[6], Direction.South, zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.North, Zone.Rooms[2]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.North, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.North, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.West, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.West, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.South, Zone.Rooms[7]);
         }
 
         #region Rooms
         private IRoom ZoneRoom(int movementCost)
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            room.MovementCost = movementCost;
+            IRoom room = CreateRoom(movementCost);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             return room;
         }

@@ -18,14 +18,15 @@ using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones.ConnectingZones
 {
-    public class GrandViewDeepForest : IZoneCode
+    public class GrandViewDeepForest : BaseZone, IZoneCode
     {
-        private int npcId = 1;
-        private int zoneId = 9;
+        public GrandViewDeepForest() : base(9)
+        {
+        }
 
         IZone IZoneCode.Generate()
         {
-            RandomZoneGeneration randZoneGen = new RandomZoneGeneration(10, 10, zoneId);
+            RandomZoneGeneration randZoneGen = new RandomZoneGeneration(10, 10, Zone.Id);
             RoomDescription description = new RoomDescription();
             description.LongDescription = "This part of the field is tilled and ready to be planted.";
             description.ExamineDescription = "The dirt is rich and will support a good crop.";
@@ -62,9 +63,9 @@ namespace GenerateZones.Zones.ConnectingZones
             option.FlavorValues.Add("{direction}", new List<string>() { "north", "east", "south", "west" });
             randZoneGen.RoomFlavorText.Add(option);
 
-            IZone zone = randZoneGen.Generate();
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(GrandViewDeepForest);
+            Zone = randZoneGen.Generate();
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(GrandViewDeepForest);
 
 
             description = new RoomDescription();
@@ -72,7 +73,7 @@ namespace GenerateZones.Zones.ConnectingZones
             description.ExamineDescription = "Two wagon ruts cut into the soil.";
             description.ShortDescription = "Road";
             randZoneGen.RoadDescription = description;
-            randZoneGen.AddRoad(zone, null, new ZoneConnection() { ZoneId = 8, RoomId = 1 }, new ZoneConnection() { ZoneId = 14, RoomId = 6 }, new ZoneConnection() { ZoneId = 4, RoomId = 6 });
+            randZoneGen.AddRoad(Zone, null, new ZoneConnection() { ZoneId = 8, RoomId = 1 }, new ZoneConnection() { ZoneId = 14, RoomId = 6 }, new ZoneConnection() { ZoneId = 4, RoomId = 6 });
 
             int animalChoices = 0;
 
@@ -87,7 +88,7 @@ namespace GenerateZones.Zones.ConnectingZones
 
 
             int percent = 20 / animalChoices;
-            foreach (IRoom room in zone.Rooms.Values)
+            foreach (IRoom room in Zone.Rooms.Values)
             {
                 ILoadableItems loadable = (ILoadableItems)room;
                 loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Cow() });
@@ -95,7 +96,7 @@ namespace GenerateZones.Zones.ConnectingZones
                 loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Chicken() });
 
             }
-            return zone;
+            return Zone;
         }
 
         private INonPlayerCharacter Cow()
@@ -144,10 +145,7 @@ namespace GenerateZones.Zones.ConnectingZones
 
         private INonPlayerCharacter BuildNpc()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Zone = zoneId;
-            npc.TypeOfMob = MobType.Other;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other);
             npc.Personalities.Add(new Wanderer());
             return npc;
         }

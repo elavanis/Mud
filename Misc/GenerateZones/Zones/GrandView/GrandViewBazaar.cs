@@ -22,20 +22,21 @@ using static Objects.Global.Direction.Directions;
 using Objects.Mob.Interface;
 using Objects.Item.Items.Interface;
 using static Objects.Mob.NonPlayerCharacter;
+using static Objects.Item.Items.Weapon;
+using static Objects.Item.Items.Equipment;
 
 namespace GenerateZones.Zones
 {
-    public class GrandViewBazaar : IZoneCode
+    public class GrandViewBazaar : BaseZone, IZoneCode
     {
-        Zone zone = new Zone();
-        int roomId = 1;
-        int itemId = 1;
-        int npcId = 1;
+        public GrandViewBazaar() : base(4)
+        {
+        }
+
         public IZone Generate()
         {
-            zone.Id = 4;
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(GrandViewBazaar);
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(GrandViewBazaar);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -45,8 +46,8 @@ namespace GenerateZones.Zones
                 if (method != null)
                 {
                     Room room = (Room)method.Invoke(this, null);
-                    room.Zone = zone.Id;
-                    ZoneHelper.AddRoom(zone, room);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
                 }
             }
 
@@ -54,7 +55,7 @@ namespace GenerateZones.Zones
 
             ConnectRooms();
 
-            return zone;
+            return Zone;
         }
 
 
@@ -75,9 +76,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom()
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             return room;
         }
 
@@ -148,13 +147,10 @@ namespace GenerateZones.Zones
 
         private INonPlayerCharacter MalePatron()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 4;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 4);
             npc.KeyWords.Add("patron");
             npc.KeyWords.Add("male");
             npc.Personalities.Add(new Wanderer());
-            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "Dressed in a {adjective} tunic of {color1} and {color2} he wanders the bazaar looking for some {item} for his {target}.";
             npc.LongDescription = "He seems to have a list of items he is looking for.";
@@ -178,13 +174,10 @@ namespace GenerateZones.Zones
 
         private INonPlayerCharacter FemalePatron()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 4;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 4);
             npc.KeyWords.Add("patron");
             npc.KeyWords.Add("female");
             npc.Personalities.Add(new Wanderer());
-            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "Dressed in a {adjective} tunic of {color1} and {color2} she wanders the bazaar looking for some {item} for her {target}.";
             npc.LongDescription = "She seems to have a list of items she is looking for.";
@@ -208,11 +201,8 @@ namespace GenerateZones.Zones
 
         private INonPlayerCharacter Beggar()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 4;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 14);
             npc.KeyWords.Add("beggar");
-            npc.TypeOfMob = MobType.Humanoid;
 
             Speaker speaker = new Speaker();
             speaker.ThingsToSay.Add("Do you have any spare coins?");
@@ -232,7 +222,7 @@ namespace GenerateZones.Zones
         {
             for (int pos = 1; pos <= flavorRooms; pos++)
             {
-                IRoom room = zone.Rooms[pos];
+                IRoom room = Zone.Rooms[pos];
 
                 for (int mob = 0; mob < 3; mob++)
                 {
@@ -272,9 +262,7 @@ namespace GenerateZones.Zones
 
         private INonPlayerCharacter BlackSmith()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.TypeOfMob = MobType.Humanoid;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 5);
 
             Merchant merchant = new Merchant();
 
@@ -284,7 +272,6 @@ namespace GenerateZones.Zones
             npc.Personalities.Add(merchant);
             npc.Personalities.Add(new Craftsman());
 
-            npc.Level = 5;
             npc.KeyWords.Add("Merchant");
             npc.KeyWords.Add("shop");
             npc.KeyWords.Add("keeper");
@@ -301,10 +288,7 @@ namespace GenerateZones.Zones
 
         private IWeapon BlackSmithDagger()
         {
-            IWeapon dagger = new Weapon();
-            dagger.Level = 1;
-            dagger.Type = Weapon.WeaponType.Dagger;
-            dagger.Id = itemId++;
+            IWeapon dagger = CreateWeapon(WeaponType.Dagger, 1);
             dagger.KeyWords.Add("Dagger");
             dagger.ShortDescription = "A basic dagger.";
             dagger.LongDescription = "Made of steel it is a sharp and pointy dagger.";
@@ -321,13 +305,9 @@ namespace GenerateZones.Zones
             return dagger;
         }
 
-        private Armor BlackSmithBreastPlate()
+        private IArmor BlackSmithBreastPlate()
         {
-            Armor breastPlate = new Armor();
-            breastPlate.Level = 1;
-            breastPlate.Id = itemId++;
-            breastPlate.ItemPosition = Equipment.AvalableItemPosition.Body;
-            breastPlate.Material = new Steel();
+            IArmor breastPlate = CreateArmor(AvalableItemPosition.Body, 1, new Steel());
             breastPlate.KeyWords.Add("BreastPlate");
             breastPlate.KeyWords.Add("Breast");
             breastPlate.KeyWords.Add("Plate");
@@ -362,9 +342,7 @@ namespace GenerateZones.Zones
 
         private INonPlayerCharacter LeatherWorker()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.TypeOfMob = MobType.Humanoid;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 5);
             Merchant merchant = new Merchant();
 
             merchant.Sellables.Add(LeatherSmithBracer());
@@ -373,7 +351,6 @@ namespace GenerateZones.Zones
             npc.Personalities.Add(merchant);
             npc.Personalities.Add(new Craftsman());
 
-            npc.Level = 5;
             npc.KeyWords.Add("Merchant");
             npc.KeyWords.Add("shop");
             npc.KeyWords.Add("keeper");
@@ -391,13 +368,9 @@ namespace GenerateZones.Zones
             return npc;
         }
 
-        private Armor LeatherSmithBracer()
+        private IArmor LeatherSmithBracer()
         {
-            Armor bracer = new Armor();
-            bracer.Level = 1;
-            bracer.Id = itemId++;
-            bracer.ItemPosition = Equipment.AvalableItemPosition.Arms;
-            bracer.Material = new Leather();
+            IArmor bracer = CreateArmor(AvalableItemPosition.Arms, 1, new Leather());
             bracer.KeyWords.Add("Bracer");
             bracer.KeyWords.Add("Leather");
             bracer.ShortDescription = "A leather bracer.";
@@ -409,13 +382,9 @@ namespace GenerateZones.Zones
             return bracer;
         }
 
-        private Armor LeatherSmithLeggings()
+        private IArmor LeatherSmithLeggings()
         {
-            Armor leggings = new Armor();
-            leggings.Level = 1;
-            leggings.Id = itemId++;
-            leggings.ItemPosition = Equipment.AvalableItemPosition.Legs;
-            leggings.Material = new Leather();
+            IArmor leggings = CreateArmor(AvalableItemPosition.Legs, 1, new Leather());
             leggings.KeyWords.Add("Leggings");
             leggings.KeyWords.Add("Leather");
             leggings.ShortDescription = "A pair of leather leggings.";
@@ -449,9 +418,7 @@ namespace GenerateZones.Zones
 
         private INonPlayerCharacter Tailor()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.TypeOfMob = MobType.Humanoid;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 5);
             Merchant merchant = new Merchant();
 
             merchant.Sellables.Add(ClothBoots());
@@ -460,7 +427,6 @@ namespace GenerateZones.Zones
             npc.Personalities.Add(merchant);
             npc.Personalities.Add(new Craftsman());
 
-            npc.Level = 5;
             npc.KeyWords.Add("Merchant");
             npc.KeyWords.Add("shop");
             npc.KeyWords.Add("keeper");
@@ -476,13 +442,9 @@ namespace GenerateZones.Zones
             return npc;
         }
 
-        private Armor ClothBoots()
+        private IArmor ClothBoots()
         {
-            Armor boots = new Armor();
-            boots.Level = 1;
-            boots.Id = itemId++;
-            boots.ItemPosition = Equipment.AvalableItemPosition.Feet;
-            boots.Material = new Cloth();
+            IArmor boots = CreateArmor(AvalableItemPosition.Feet, 1, new Cloth());
             boots.KeyWords.Add("boots");
             boots.KeyWords.Add("cloth");
             boots.ShortDescription = "A pair of nice boots.";
@@ -494,13 +456,9 @@ namespace GenerateZones.Zones
             return boots;
         }
 
-        private Armor ClothSash()
+        private IArmor ClothSash()
         {
-            Armor sash = new Armor();
-            sash.Level = 1;
-            sash.Id = itemId++;
-            sash.ItemPosition = Equipment.AvalableItemPosition.Waist;
-            sash.Material = new Cloth();
+            IArmor sash = CreateArmor(AvalableItemPosition.Waist, 1, new Cloth());
             sash.KeyWords.Add("sash");
             sash.KeyWords.Add("cloth");
             sash.ShortDescription = "A dashing red sash.";
@@ -519,18 +477,18 @@ namespace GenerateZones.Zones
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
+            Zone.RecursivelySetZone();
 
-            ZoneHelper.ConnectZone(zone.Rooms[1], Direction.North, 3, 1);
-            ZoneHelper.ConnectZone(zone.Rooms[6], Direction.East, 9, 61);
-            ZoneHelper.ConnectRoom(zone.Rooms[1], Direction.East, zone.Rooms[2]);
-            ZoneHelper.ConnectRoom(zone.Rooms[2], Direction.East, zone.Rooms[3]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.East, zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(zone.Rooms[4], Direction.East, zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(zone.Rooms[5], Direction.East, zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(zone.Rooms[5], Direction.North, zone.Rooms[7]);
-            ZoneHelper.ConnectRoom(zone.Rooms[6], Direction.North, zone.Rooms[8]);
-            ZoneHelper.ConnectRoom(zone.Rooms[1], Direction.South, zone.Rooms[9]);
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.North, 3, 1);
+            ZoneHelper.ConnectZone(Zone.Rooms[6], Direction.East, 9, 61);
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.East, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.East, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.North, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.North, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.South, Zone.Rooms[9]);
         }
     }
 }

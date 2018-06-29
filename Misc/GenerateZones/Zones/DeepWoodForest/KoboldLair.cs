@@ -33,22 +33,22 @@ using Objects.Die.Interface;
 using Objects;
 using Objects.Language;
 using static Objects.Mob.NonPlayerCharacter;
+using static Objects.Item.Items.Equipment;
+using static Objects.Item.Items.Weapon;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
-    public class KoboldLair : IZoneCode
+    public class KoboldLair : BaseZone, IZoneCode
     {
-        Zone zone = new Zone();
-        int roomId = 1;
-        int itemId = 1;
-        int npcId = 1;
-        int zoneId = 12;
+
+        public KoboldLair() : base(12)
+        {
+        }
 
         public IZone Generate()
         {
-            zone.Id = zoneId;
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(KoboldLair);
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(KoboldLair);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -58,91 +58,91 @@ namespace GenerateZones.Zones.DeepWoodForest
                 if (method != null)
                 {
                     IRoom room = (IRoom)method.Invoke(this, null);
-                    room.Zone = zone.Id;
-                    ZoneHelper.AddRoom(zone, room);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
                 }
             }
 
             ConnectRooms();
             //AddSounds();
 
-            return zone;
+            return Zone;
         }
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
+            Zone.RecursivelySetZone();
 
-            ZoneHelper.ConnectRoom(zone.Rooms[1], Direction.South, zone.Rooms[2]);
-            ZoneHelper.ConnectRoom(zone.Rooms[2], Direction.East, zone.Rooms[3]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.East, zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(zone.Rooms[4], Direction.East, zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(zone.Rooms[5], Direction.East, zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(zone.Rooms[6], Direction.North, zone.Rooms[7]);
-            ZoneHelper.ConnectRoom(zone.Rooms[7], Direction.North, zone.Rooms[8]);
-            ZoneHelper.ConnectRoom(zone.Rooms[8], Direction.North, zone.Rooms[9]);
-            ZoneHelper.ConnectRoom(zone.Rooms[6], Direction.East, zone.Rooms[10]);
-            ZoneHelper.ConnectRoom(zone.Rooms[10], Direction.East, zone.Rooms[11]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.South, Zone.Rooms[2]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.East, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.East, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.North, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[7], Direction.North, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[8], Direction.North, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.East, Zone.Rooms[10]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.East, Zone.Rooms[11]);
 
-            ZoneHelper.ConnectZone(zone.Rooms[1], Direction.North, 8, 80);
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.North, 8, 80);
 
             #region Mine
             #region Mine Shaft
             for (int i = 11; i < 21; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.Down, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.Down, Zone.Rooms[i + 1]);
             }
             #endregion Mine Shaft
 
             #region Level 2
-            ZoneHelper.ConnectRoom(zone.Rooms[12], Direction.East, zone.Rooms[25]);
-            ZoneHelper.ConnectRoom(zone.Rooms[25], Direction.East, zone.Rooms[26]);
-            ZoneHelper.ConnectRoom(zone.Rooms[26], Direction.North, zone.Rooms[27]);
-            ZoneHelper.ConnectRoom(zone.Rooms[27], Direction.North, zone.Rooms[28]);
-            ZoneHelper.ConnectRoom(zone.Rooms[28], Direction.West, zone.Rooms[29]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[12], Direction.East, Zone.Rooms[25]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[25], Direction.East, Zone.Rooms[26]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[26], Direction.North, Zone.Rooms[27]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[27], Direction.North, Zone.Rooms[28]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[28], Direction.West, Zone.Rooms[29]);
             #endregion Level 2
 
             #region Level 3
-            ZoneHelper.ConnectRoom(zone.Rooms[14], Direction.West, zone.Rooms[30]);
-            ZoneHelper.ConnectRoom(zone.Rooms[30], Direction.West, zone.Rooms[31]);
-            ZoneHelper.ConnectRoom(zone.Rooms[31], Direction.West, zone.Rooms[32]);
-            ZoneHelper.ConnectRoom(zone.Rooms[32], Direction.West, zone.Rooms[33]);
-            ZoneHelper.ConnectRoom(zone.Rooms[33], Direction.South, zone.Rooms[34]);
-            ZoneHelper.ConnectRoom(zone.Rooms[34], Direction.West, zone.Rooms[35]);
-            ZoneHelper.ConnectRoom(zone.Rooms[31], Direction.North, zone.Rooms[36]);
-            ZoneHelper.ConnectRoom(zone.Rooms[36], Direction.North, zone.Rooms[37]);
-            ZoneHelper.ConnectRoom(zone.Rooms[37], Direction.East, zone.Rooms[38]);
-            ZoneHelper.ConnectRoom(zone.Rooms[38], Direction.South, zone.Rooms[39]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[14], Direction.West, Zone.Rooms[30]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[30], Direction.West, Zone.Rooms[31]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[31], Direction.West, Zone.Rooms[32]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[32], Direction.West, Zone.Rooms[33]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[33], Direction.South, Zone.Rooms[34]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[34], Direction.West, Zone.Rooms[35]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[31], Direction.North, Zone.Rooms[36]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[36], Direction.North, Zone.Rooms[37]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[37], Direction.East, Zone.Rooms[38]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[38], Direction.South, Zone.Rooms[39]);
             #endregion Level 3
 
             #region Level 4
-            ZoneHelper.ConnectRoom(zone.Rooms[16], Direction.South, zone.Rooms[40]);
-            ZoneHelper.ConnectRoom(zone.Rooms[40], Direction.South, zone.Rooms[41]);
-            ZoneHelper.ConnectRoom(zone.Rooms[41], Direction.West, zone.Rooms[42]);
-            ZoneHelper.ConnectRoom(zone.Rooms[42], Direction.West, zone.Rooms[43]);
-            ZoneHelper.ConnectRoom(zone.Rooms[43], Direction.North, zone.Rooms[44]);
-            ZoneHelper.ConnectRoom(zone.Rooms[44], Direction.North, zone.Rooms[45]);
-            ZoneHelper.ConnectRoom(zone.Rooms[45], Direction.North, zone.Rooms[46]);
-            ZoneHelper.ConnectRoom(zone.Rooms[43], Direction.South, zone.Rooms[47]);
-            ZoneHelper.ConnectRoom(zone.Rooms[47], Direction.South, zone.Rooms[48]);
-            ZoneHelper.ConnectRoom(zone.Rooms[48], Direction.South, zone.Rooms[49]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[16], Direction.South, Zone.Rooms[40]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[40], Direction.South, Zone.Rooms[41]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[41], Direction.West, Zone.Rooms[42]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[42], Direction.West, Zone.Rooms[43]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[43], Direction.North, Zone.Rooms[44]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[44], Direction.North, Zone.Rooms[45]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[45], Direction.North, Zone.Rooms[46]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[43], Direction.South, Zone.Rooms[47]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[47], Direction.South, Zone.Rooms[48]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[48], Direction.South, Zone.Rooms[49]);
             #endregion Level 4
 
             #region Level 5
-            ZoneHelper.ConnectRoom(zone.Rooms[18], Direction.East, zone.Rooms[50]);
-            ZoneHelper.ConnectRoom(zone.Rooms[50], Direction.East, zone.Rooms[51]);
-            ZoneHelper.ConnectRoom(zone.Rooms[51], Direction.South, zone.Rooms[52]);
-            ZoneHelper.ConnectRoom(zone.Rooms[52], Direction.South, zone.Rooms[53]);
-            ZoneHelper.ConnectRoom(zone.Rooms[53], Direction.East, zone.Rooms[54]);
-            ZoneHelper.ConnectRoom(zone.Rooms[52], Direction.West, zone.Rooms[55]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[18], Direction.East, Zone.Rooms[50]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[50], Direction.East, Zone.Rooms[51]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[51], Direction.South, Zone.Rooms[52]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[52], Direction.South, Zone.Rooms[53]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[53], Direction.East, Zone.Rooms[54]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[52], Direction.West, Zone.Rooms[55]);
             #endregion Level 5
 
             #region Level 6
             //Abandoned Dwarven City
-            ZoneHelper.ConnectRoom(zone.Rooms[20], Direction.North, zone.Rooms[21]);
-            ZoneHelper.ConnectRoom(zone.Rooms[21], Direction.North, zone.Rooms[22]);
-            ZoneHelper.ConnectRoom(zone.Rooms[20], Direction.West, zone.Rooms[23]);
-            ZoneHelper.ConnectRoom(zone.Rooms[23], Direction.North, zone.Rooms[24]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[20], Direction.North, Zone.Rooms[21]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[21], Direction.North, Zone.Rooms[22]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[20], Direction.West, Zone.Rooms[23]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[23], Direction.North, Zone.Rooms[24]);
 
             #endregion Level 6
             #endregion Mine
@@ -152,9 +152,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         #region Rooms
         private IRoom ZoneRoom(int movementCost)
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            room.MovementCost = movementCost;
+            IRoom room = CreateRoom(movementCost);
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.NoLight);
             return room;
@@ -261,8 +259,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IItem Statue()
         {
-            IItem item = new Item();
-            item.Id = itemId++;
+            IItem item = CreateItem<IItem>();
             item.KeyWords.Add("statue");
             item.KeyWords.Add("Krutulmak");
             item.Attributes.Add(Item.ItemAttribute.NoGet);
@@ -328,11 +325,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor MiningHelmet()
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-            armor.Level = 11;
-            armor.Material = new Steel();
-            armor.ItemPosition = Equipment.AvalableItemPosition.Head;
+            IArmor armor = CreateArmor(AvalableItemPosition.Head, 11, new Steel());
             armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(armor.Level);
 
             armor.KeyWords.Add("Mining");
@@ -348,11 +341,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IWeapon MiningPick()
         {
-            IWeapon weapon = new Weapon();
-            weapon.Id = itemId++;
-            weapon.Level = 11;
-            weapon.Type = Weapon.WeaponType.Pick;
-            weapon.ItemPosition = Equipment.AvalableItemPosition.Wield;
+            IWeapon weapon = CreateWeapon(WeaponType.Pick, 11);
             IDamage damage = new Objects.Damage.Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
             damage.Type = Objects.Damage.Damage.DamageType.Slash;
@@ -485,11 +474,8 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter Npc(int level)
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = level;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, level);
             npc.KeyWords.Add("kobold");
-            npc.TypeOfMob = MobType.Humanoid;
 
             return npc;
         }
@@ -894,13 +880,13 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             INonPlayerCharacter npc = Guard();
             Wanderer wanderer = new Wanderer();
-            wanderer.NavigableRooms.Add(new BaseObjectId(zoneId, 2));
-            wanderer.NavigableRooms.Add(new BaseObjectId(zoneId, 3));
-            wanderer.NavigableRooms.Add(new BaseObjectId(zoneId, 4));
-            wanderer.NavigableRooms.Add(new BaseObjectId(zoneId, 5));
-            wanderer.NavigableRooms.Add(new BaseObjectId(zoneId, 56));
-            wanderer.NavigableRooms.Add(new BaseObjectId(zoneId, 57));
-            wanderer.NavigableRooms.Add(new BaseObjectId(zoneId, 58));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 2));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 3));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 4));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 5));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 56));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 57));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 58));
             npc.Personalities.Add(wanderer);
 
             return npc;
@@ -931,10 +917,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IWeapon Spear()
         {
-            IWeapon weapon = new Weapon();
-            weapon.Id = itemId++;
-            weapon.Level = 13;
-            weapon.Type = Weapon.WeaponType.Spear;
+            IWeapon weapon = CreateWeapon(WeaponType.Spear, 13);
 
             weapon.ExamineDescription = "The spear is about three feet long and made of wood.  It had a point of cobalt on it that is very sharp to the touch.";
             weapon.LongDescription = "A spear about three feet long with a sharp point of cobalt on the end.";
@@ -952,11 +935,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor Bracer()
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-            armor.Level = 13;
-            armor.ItemPosition = Equipment.AvalableItemPosition.Arms;
-            armor.Material = new Leather();
+            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 13, new Leather());
 
             armor.ExamineDescription = "The bracer is made of several smaller bones sewn on a strip of leather wrapped around the wearers arm.";
             armor.LongDescription = "A leather bracer made with bone for extra protection.";
@@ -972,11 +951,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor BreastPlate()
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-            armor.Level = 13;
-            armor.ItemPosition = Equipment.AvalableItemPosition.Body;
-            armor.Material = new Leather();
+            IArmor armor = CreateArmor(AvalableItemPosition.Body, 13, new Leather());
 
             armor.ExamineDescription = "The chest plate looks to like someone took a bears rib cage and set it before you and told you to wear it for armor.";
             armor.LongDescription = "You look at what looks to be a bears rib cage, a set of breast plate armor made of bone.";
@@ -993,11 +968,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor Gloves()
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-            armor.Level = 13;
-            armor.ItemPosition = Equipment.AvalableItemPosition.Hand;
-            armor.Material = new Leather();
+            IArmor armor = CreateArmor(AvalableItemPosition.Hand, 13, new Leather());
 
             armor.ExamineDescription = "The gloves are made of leather and fit pretty nicely.  Each finger has a cutout for you fingers to slide through as well as what looks to be some type of claw that extends over each finger to help scratch the target.";
             armor.LongDescription = "The gloves appear to made of leather of varying grades of quality.  Still they serve their purpose of providing extra protection even if they don't look good.";
@@ -1013,11 +984,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor Mask()
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-            armor.Level = 13;
-            armor.ItemPosition = Equipment.AvalableItemPosition.Head;
-            armor.Material = new Leather();
+            IArmor armor = CreateArmor(AvalableItemPosition.Head, 13, new Leather());
 
             armor.ExamineDescription = "The mask does limit your visibility slightly but does protect your face from attacks.";
             armor.LongDescription = "The mask covers the wearer's face and provides some protection from attacks.";
@@ -1033,11 +1000,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor Greaves()
         {
-            IArmor armor = new Armor();
-            armor.Id = itemId++;
-            armor.Level = 13;
-            armor.ItemPosition = Equipment.AvalableItemPosition.Legs;
-            armor.Material = new Leather();
+            IArmor armor = CreateArmor(AvalableItemPosition.Legs, 13, new Leather());
 
             armor.ExamineDescription = "The right greave has several large gashes while the left one looks brand new.  Maybe these are a mismatched set.";
             armor.LongDescription = "The greaves are made of leather with a bone outer covering.";

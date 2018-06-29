@@ -24,21 +24,20 @@ using Objects.Die;
 using Objects.Language;
 using static Shared.TagWrapper.TagWrapper;
 using static Objects.Mob.NonPlayerCharacter;
+using static Objects.Item.Items.Weapon;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
-    public class AbandonedDwarvenMine : IZoneCode
+    public class AbandonedDwarvenMine : BaseZone, IZoneCode
     {
-        Zone zone = new Zone();
-        int roomId = 1;
-        int itemId = 1;
-        int npcId = 1;
+        public AbandonedDwarvenMine() : base(13)
+        {
+        }
 
         public IZone Generate()
         {
-            zone.Id = 13;
-            zone.InGameDaysTillReset = 5;
-            zone.Name = nameof(AbandonedDwarvenMine);
+            Zone.InGameDaysTillReset = 5;
+            Zone.Name = nameof(AbandonedDwarvenMine);
 
             //int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= 113; i++)
@@ -92,8 +91,8 @@ namespace GenerateZones.Zones.DeepWoodForest
                 }
                 if (room != null)
                 {
-                    room.Zone = zone.Id;
-                    ZoneHelper.AddRoom(zone, room);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
                 }
             }
 
@@ -101,7 +100,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
             ConnectRooms();
 
-            return zone;
+            return Zone;
         }
 
         private void AddMobs()
@@ -114,204 +113,204 @@ namespace GenerateZones.Zones.DeepWoodForest
                     npc.Personalities.Add(new Wanderer());
                 }
 
-                int roomId = GlobalReference.GlobalValues.Random.Next(zone.Rooms.Count);
-                IRoom room = zone.Rooms[roomId];
+                int roomId = GlobalReference.GlobalValues.Random.Next(Zone.Rooms.Count) + 1;
+                IRoom room = Zone.Rooms[roomId];
                 room.AddMobileObjectToRoom(npc);
             }
         }
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
+            Zone.RecursivelySetZone();
 
             #region Ore Cart Storage
-            ZoneHelper.ConnectRoom(zone.Rooms[1], Direction.East, zone.Rooms[2]);
-            ZoneHelper.ConnectRoom(zone.Rooms[1], Direction.South, zone.Rooms[3]);
-            ZoneHelper.ConnectRoom(zone.Rooms[2], Direction.South, zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.East, zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.South, zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(zone.Rooms[4], Direction.South, zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(zone.Rooms[5], Direction.East, zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.South, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.South, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.South, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.South, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.East, Zone.Rooms[6]);
             #endregion Ore Cart Storage
 
             #region Path Ore Cart Storage -- Gold Mine
-            ZoneHelper.ConnectRoom(zone.Rooms[1], Direction.West, zone.Rooms[7]);
-            ZoneHelper.ConnectRoom(zone.Rooms[7], Direction.West, zone.Rooms[8]);
-            ZoneHelper.ConnectRoom(zone.Rooms[8], Direction.West, zone.Rooms[9]);
-            ZoneHelper.ConnectRoom(zone.Rooms[9], Direction.West, zone.Rooms[10]);
-            ZoneHelper.ConnectRoom(zone.Rooms[10], Direction.West, zone.Rooms[11]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.West, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[7], Direction.West, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[8], Direction.West, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.West, Zone.Rooms[10]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.West, Zone.Rooms[11]);
 
-            ZoneHelper.ConnectRoom(zone.Rooms[26], Direction.East, zone.Rooms[106]);
-            ZoneHelper.ConnectRoom(zone.Rooms[106], Direction.East, zone.Rooms[107]);
-            ZoneHelper.ConnectRoom(zone.Rooms[107], Direction.East, zone.Rooms[108]);
-            ZoneHelper.ConnectRoom(zone.Rooms[108], Direction.North, zone.Rooms[109]);
-            ZoneHelper.ConnectRoom(zone.Rooms[109], Direction.North, zone.Rooms[110]);
-            ZoneHelper.ConnectRoom(zone.Rooms[110], Direction.North, zone.Rooms[111]);
-            ZoneHelper.ConnectRoom(zone.Rooms[111], Direction.North, zone.Rooms[112]);
-            ZoneHelper.ConnectRoom(zone.Rooms[112], Direction.North, zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[26], Direction.East, Zone.Rooms[106]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[106], Direction.East, Zone.Rooms[107]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[107], Direction.East, Zone.Rooms[108]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[108], Direction.North, Zone.Rooms[109]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[109], Direction.North, Zone.Rooms[110]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[110], Direction.North, Zone.Rooms[111]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[111], Direction.North, Zone.Rooms[112]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[112], Direction.North, Zone.Rooms[8]);
             #endregion  Path Ore Cart Storage -- Gold Mine
-            ZoneHelper.ConnectZone(zone.Rooms[108], Direction.East, 15, 1);
+            ZoneHelper.ConnectZone(Zone.Rooms[108], Direction.East, 15, 1);
 
 
             #region Gold Mine
             #region Gold Pit
             for (int i = 11; i < 16; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.West, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.West, Zone.Rooms[i + 1]);
             }
 
             for (int i = 16; i < 21; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.South, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.South, Zone.Rooms[i + 1]);
             }
 
             for (int i = 21; i < 26; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.East, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.East, Zone.Rooms[i + 1]);
             }
 
             for (int i = 26; i < 30; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.North, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.North, Zone.Rooms[i + 1]);
             }
 
-            ZoneHelper.ConnectRoom(zone.Rooms[30], Direction.Down, zone.Rooms[31]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[30], Direction.Down, Zone.Rooms[31]);
 
             for (int i = 31; i < 35; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.West, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.West, Zone.Rooms[i + 1]);
             }
 
             for (int i = 35; i < 38; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.South, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.South, Zone.Rooms[i + 1]);
             }
 
             for (int i = 38; i < 41; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.East, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.East, Zone.Rooms[i + 1]);
             }
 
             for (int i = 41; i < 43; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.North, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.North, Zone.Rooms[i + 1]);
             }
 
-            ZoneHelper.ConnectRoom(zone.Rooms[43], Direction.Down, zone.Rooms[44]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[43], Direction.Down, Zone.Rooms[44]);
 
             for (int i = 44; i < 45; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.West, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.West, Zone.Rooms[i + 1]);
             }
 
             for (int i = 45; i < 46; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.South, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.South, Zone.Rooms[i + 1]);
             }
 
             for (int i = 46; i < 47; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.East, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.East, Zone.Rooms[i + 1]);
             }
             #endregion Gold Pit
 
             #region Mine Shaft
             for (int i = 47; i <= 51; i++)
             {
-                ZoneHelper.ConnectRoom(zone.Rooms[i], Direction.Down, zone.Rooms[i + 1]);
+                ZoneHelper.ConnectRoom(Zone.Rooms[i], Direction.Down, Zone.Rooms[i + 1]);
             }
 
             #endregion Mine Shaft
 
             #region Gold Mine Floor
             //Room 1
-            ZoneHelper.ConnectRoom(zone.Rooms[52], Direction.East, zone.Rooms[53]);
-            ZoneHelper.ConnectRoom(zone.Rooms[52], Direction.South, zone.Rooms[54]);
-            ZoneHelper.ConnectRoom(zone.Rooms[52], Direction.North, zone.Rooms[56]);
-            ZoneHelper.ConnectRoom(zone.Rooms[53], Direction.South, zone.Rooms[55]);
-            ZoneHelper.ConnectRoom(zone.Rooms[53], Direction.North, zone.Rooms[57]);
-            ZoneHelper.ConnectRoom(zone.Rooms[54], Direction.East, zone.Rooms[55]);
-            ZoneHelper.ConnectRoom(zone.Rooms[56], Direction.East, zone.Rooms[57]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[52], Direction.East, Zone.Rooms[53]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[52], Direction.South, Zone.Rooms[54]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[52], Direction.North, Zone.Rooms[56]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[53], Direction.South, Zone.Rooms[55]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[53], Direction.North, Zone.Rooms[57]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[54], Direction.East, Zone.Rooms[55]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[56], Direction.East, Zone.Rooms[57]);
 
             //Room 2
-            ZoneHelper.ConnectRoom(zone.Rooms[58], Direction.East, zone.Rooms[59]);
-            ZoneHelper.ConnectRoom(zone.Rooms[59], Direction.East, zone.Rooms[60]);
-            ZoneHelper.ConnectRoom(zone.Rooms[61], Direction.East, zone.Rooms[62]);
-            ZoneHelper.ConnectRoom(zone.Rooms[62], Direction.East, zone.Rooms[63]);
-            ZoneHelper.ConnectRoom(zone.Rooms[58], Direction.South, zone.Rooms[61]);
-            ZoneHelper.ConnectRoom(zone.Rooms[59], Direction.South, zone.Rooms[62]);
-            ZoneHelper.ConnectRoom(zone.Rooms[60], Direction.South, zone.Rooms[63]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[58], Direction.East, Zone.Rooms[59]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[59], Direction.East, Zone.Rooms[60]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[61], Direction.East, Zone.Rooms[62]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[62], Direction.East, Zone.Rooms[63]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[58], Direction.South, Zone.Rooms[61]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[59], Direction.South, Zone.Rooms[62]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[60], Direction.South, Zone.Rooms[63]);
 
             //Room 3
-            ZoneHelper.ConnectRoom(zone.Rooms[64], Direction.East, zone.Rooms[65]);
-            ZoneHelper.ConnectRoom(zone.Rooms[65], Direction.East, zone.Rooms[66]);
-            ZoneHelper.ConnectRoom(zone.Rooms[67], Direction.East, zone.Rooms[68]);
-            ZoneHelper.ConnectRoom(zone.Rooms[68], Direction.East, zone.Rooms[69]);
-            ZoneHelper.ConnectRoom(zone.Rooms[70], Direction.East, zone.Rooms[71]);
-            ZoneHelper.ConnectRoom(zone.Rooms[71], Direction.East, zone.Rooms[72]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[64], Direction.East, Zone.Rooms[65]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[65], Direction.East, Zone.Rooms[66]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[67], Direction.East, Zone.Rooms[68]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[68], Direction.East, Zone.Rooms[69]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[70], Direction.East, Zone.Rooms[71]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[71], Direction.East, Zone.Rooms[72]);
 
-            ZoneHelper.ConnectRoom(zone.Rooms[70], Direction.North, zone.Rooms[67]);
-            ZoneHelper.ConnectRoom(zone.Rooms[71], Direction.North, zone.Rooms[68]);
-            ZoneHelper.ConnectRoom(zone.Rooms[72], Direction.North, zone.Rooms[69]);
-            ZoneHelper.ConnectRoom(zone.Rooms[68], Direction.North, zone.Rooms[65]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[70], Direction.North, Zone.Rooms[67]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[71], Direction.North, Zone.Rooms[68]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[72], Direction.North, Zone.Rooms[69]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[68], Direction.North, Zone.Rooms[65]);
 
             //Room4
-            ZoneHelper.ConnectRoom(zone.Rooms[73], Direction.East, zone.Rooms[74]);
-            ZoneHelper.ConnectRoom(zone.Rooms[74], Direction.North, zone.Rooms[75]);
-            ZoneHelper.ConnectRoom(zone.Rooms[75], Direction.North, zone.Rooms[76]);
-            ZoneHelper.ConnectRoom(zone.Rooms[76], Direction.West, zone.Rooms[77]);
-            ZoneHelper.ConnectRoom(zone.Rooms[77], Direction.West, zone.Rooms[78]);
-            ZoneHelper.ConnectRoom(zone.Rooms[78], Direction.South, zone.Rooms[79]);
-            ZoneHelper.ConnectRoom(zone.Rooms[79], Direction.South, zone.Rooms[80]);
-            ZoneHelper.ConnectRoom(zone.Rooms[80], Direction.East, zone.Rooms[73]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[73], Direction.East, Zone.Rooms[74]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[74], Direction.North, Zone.Rooms[75]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[75], Direction.North, Zone.Rooms[76]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[76], Direction.West, Zone.Rooms[77]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[77], Direction.West, Zone.Rooms[78]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[78], Direction.South, Zone.Rooms[79]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[79], Direction.South, Zone.Rooms[80]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[80], Direction.East, Zone.Rooms[73]);
 
             //Room5
-            ZoneHelper.ConnectRoom(zone.Rooms[86], Direction.West, zone.Rooms[85]);
-            ZoneHelper.ConnectRoom(zone.Rooms[86], Direction.South, zone.Rooms[84]);
-            ZoneHelper.ConnectRoom(zone.Rooms[85], Direction.South, zone.Rooms[83]);
-            ZoneHelper.ConnectRoom(zone.Rooms[84], Direction.West, zone.Rooms[83]);
-            ZoneHelper.ConnectRoom(zone.Rooms[84], Direction.South, zone.Rooms[82]);
-            ZoneHelper.ConnectRoom(zone.Rooms[83], Direction.South, zone.Rooms[81]);
-            ZoneHelper.ConnectRoom(zone.Rooms[82], Direction.West, zone.Rooms[81]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[86], Direction.West, Zone.Rooms[85]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[86], Direction.South, Zone.Rooms[84]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[85], Direction.South, Zone.Rooms[83]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[84], Direction.West, Zone.Rooms[83]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[84], Direction.South, Zone.Rooms[82]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[83], Direction.South, Zone.Rooms[81]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[82], Direction.West, Zone.Rooms[81]);
 
             //Room6
-            ZoneHelper.ConnectRoom(zone.Rooms[87], Direction.West, zone.Rooms[88]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[87], Direction.West, Zone.Rooms[88]);
 
             //Room7
-            ZoneHelper.ConnectRoom(zone.Rooms[89], Direction.East, zone.Rooms[90]);
-            ZoneHelper.ConnectRoom(zone.Rooms[89], Direction.South, zone.Rooms[91]);
-            ZoneHelper.ConnectRoom(zone.Rooms[91], Direction.East, zone.Rooms[92]);
-            ZoneHelper.ConnectRoom(zone.Rooms[90], Direction.South, zone.Rooms[92]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[89], Direction.East, Zone.Rooms[90]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[89], Direction.South, Zone.Rooms[91]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[91], Direction.East, Zone.Rooms[92]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[90], Direction.South, Zone.Rooms[92]);
 
             //Room 1 to Room 2
-            ZoneHelper.ConnectRoom(zone.Rooms[55], Direction.South, zone.Rooms[94]);
-            ZoneHelper.ConnectRoom(zone.Rooms[94], Direction.South, zone.Rooms[95]);
-            ZoneHelper.ConnectRoom(zone.Rooms[95], Direction.South, zone.Rooms[58]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[55], Direction.South, Zone.Rooms[94]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[94], Direction.South, Zone.Rooms[95]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[95], Direction.South, Zone.Rooms[58]);
 
             //Room 2 to Room 3
-            ZoneHelper.ConnectRoom(zone.Rooms[60], Direction.North, zone.Rooms[96]);
-            ZoneHelper.ConnectRoom(zone.Rooms[96], Direction.East, zone.Rooms[97]);
-            ZoneHelper.ConnectRoom(zone.Rooms[97], Direction.East, zone.Rooms[70]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[60], Direction.North, Zone.Rooms[96]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[96], Direction.East, Zone.Rooms[97]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[97], Direction.East, Zone.Rooms[70]);
 
             //Room 3 to Room 4
-            ZoneHelper.ConnectRoom(zone.Rooms[66], Direction.East, zone.Rooms[98]);
-            ZoneHelper.ConnectRoom(zone.Rooms[98], Direction.North, zone.Rooms[99]);
-            ZoneHelper.ConnectRoom(zone.Rooms[99], Direction.North, zone.Rooms[74]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[66], Direction.East, Zone.Rooms[98]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[98], Direction.North, Zone.Rooms[99]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[99], Direction.North, Zone.Rooms[74]);
 
             //Room 1 to Room 5
-            ZoneHelper.ConnectRoom(zone.Rooms[56], Direction.West, zone.Rooms[100]);
-            ZoneHelper.ConnectRoom(zone.Rooms[100], Direction.West, zone.Rooms[101]);
-            ZoneHelper.ConnectRoom(zone.Rooms[101], Direction.South, zone.Rooms[86]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[56], Direction.West, Zone.Rooms[100]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[100], Direction.West, Zone.Rooms[101]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[101], Direction.South, Zone.Rooms[86]);
 
             //Room 5 to Room 6
-            ZoneHelper.ConnectRoom(zone.Rooms[81], Direction.South, zone.Rooms[102]);
-            ZoneHelper.ConnectRoom(zone.Rooms[102], Direction.West, zone.Rooms[103]);
-            ZoneHelper.ConnectRoom(zone.Rooms[103], Direction.South, zone.Rooms[87]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[81], Direction.South, Zone.Rooms[102]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[102], Direction.West, Zone.Rooms[103]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[103], Direction.South, Zone.Rooms[87]);
 
             //Room 5 to Room 7
-            ZoneHelper.ConnectRoom(zone.Rooms[82], Direction.East, zone.Rooms[104]);
-            ZoneHelper.ConnectRoom(zone.Rooms[104], Direction.South, zone.Rooms[105]);
-            ZoneHelper.ConnectRoom(zone.Rooms[105], Direction.South, zone.Rooms[89]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[82], Direction.East, Zone.Rooms[104]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[104], Direction.South, Zone.Rooms[105]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[105], Direction.South, Zone.Rooms[89]);
 
             #endregion Gold Mine Floor
             #endregion Gold Mine
@@ -682,9 +681,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom ZoneRoom(int movementCost)
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            room.MovementCost = movementCost;
+            IRoom room = CreateRoom(movementCost);
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.NoLight);
             return room;
@@ -694,13 +691,10 @@ namespace GenerateZones.Zones.DeepWoodForest
         #region NPC
         private INonPlayerCharacter Balrog()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 87;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 87);
             npc.KeyWords.Add("Balrog");
             npc.Personalities.Add(new Aggressive());
             npc.Personalities.Add(new Wanderer());
-            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "The demon is ablaze with fire will smoke hides its true form from view.";
             npc.LongDescription = "A large demon of fire and smoke standing twenty feet tall.";
@@ -741,11 +735,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IWeapon BalrogSword()
         {
-            IWeapon weapon = new Weapon();
-            weapon.Id = itemId++;
-            weapon.Level = 87;
-            weapon.Type = Weapon.WeaponType.Sword;
-            weapon.ItemPosition = Equipment.AvalableItemPosition.Wield;
+            IWeapon weapon = CreateWeapon(WeaponType.Sword, 87);
 
             IDamage damage = new Objects.Damage.Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
@@ -775,12 +765,9 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter Shadow()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 14;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 14);
             npc.KeyWords.Add("Shadow");
             npc.Personalities.Add(new Wanderer());
-            npc.TypeOfMob = MobType.Humanoid;
 
             npc.ExamineDescription = "The dark figure is hard to see and blends into the shadows.";
             npc.LongDescription = "The figure seems to fade in and out of existence as it moves among the shadows.";

@@ -32,20 +32,16 @@ using static Shared.TagWrapper.TagWrapper;
 
 namespace GenerateZones.Zones.Mountain
 {
-    public class GoblinCamp : IZoneCode
+    public class GoblinCamp : BaseZone, IZoneCode
     {
-        IZone zone;
-        private int zoneId = 16;
-        private int roomId = 1;
-        private int itemId = 1;
-        private int npcId = 1;
+        public GoblinCamp() : base(16)
+        {
+        }
 
         public IZone Generate()
         {
-            zone = new Zone();
-            zone.Id = zoneId;
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(GoblinCamp);
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(GoblinCamp);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -55,14 +51,14 @@ namespace GenerateZones.Zones.Mountain
                 if (method != null)
                 {
                     IRoom room = (Room)method.Invoke(this, null);
-                    room.Zone = zone.Id;
-                    ZoneHelper.AddRoom(zone, room);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
                 }
             }
 
             ConnectRooms();
 
-            return zone;
+            return Zone;
         }
 
 
@@ -78,8 +74,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom CampOutSide()
         {
-            IRoom room = GenerateRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
@@ -90,17 +85,9 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom CampInside()
         {
-            IRoom room = GenerateRoom();
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Indoor);
 
-            return room;
-        }
-
-        private IRoom GenerateRoom()
-        {
-            IRoom room = new Room();
-            room.Id = roomId++;
             return room;
         }
 
@@ -119,7 +106,7 @@ namespace GenerateZones.Zones.Mountain
             room.ExamineDescription = "In the dim light to the north you can see the frail figures of several human prisoners.";
             room.LongDescription = "A prison has been carved out of the hillside to the north.";
 
-            room.Enchantments.Add(PrisonerEnter(zoneId, room.Id));
+            room.Enchantments.Add(PrisonerEnter(Zone.Id, room.Id));
             return room;
         }
 
@@ -291,10 +278,7 @@ namespace GenerateZones.Zones.Mountain
         #region NPC
         private INonPlayerCharacter WarPig()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 16;
-            npc.TypeOfMob = MobType.Other;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 16);
 
             npc.ExamineDescription = "The pigs fur is matted with mud and manure.";
             npc.LongDescription = "A war pig snorts around looking for something to eat.";
@@ -310,10 +294,7 @@ namespace GenerateZones.Zones.Mountain
 
         private INonPlayerCharacter Shaman()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 40;
-            npc.TypeOfMob = MobType.Humanoid;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 40);
 
             npc.ExamineDescription = "Wearing a pair of deer antlers and the pelts of a bear the shaman would stand out from any member of the goblin camp.";
             npc.LongDescription = "The shaman sways gently as he communes with spirits.";
@@ -332,7 +313,7 @@ namespace GenerateZones.Zones.Mountain
             TranslationPair translationPair = new TranslationPair(Objects.Global.Language.Translator.Languages.Goblin, "The spirits said you would come.");
             List<ITranslationPair> translationPairs = new List<ITranslationPair>() { translationPair };
             effectParameter.RoomMessage = new TranslationMessage("The Shaman says \"{0}\"", TagType.Communication, translationPairs);
-            effectParameter.RoomId = new RoomId(zoneId, 8);
+            effectParameter.RoomId = new RoomId(Zone.Id, 8);
             enchantment.Parameter = effectParameter;
 
             npc.Enchantments.Add(enchantment);
@@ -342,10 +323,7 @@ namespace GenerateZones.Zones.Mountain
 
         private INonPlayerCharacter GoblinChief()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
-            npc.Level = 25;
-            npc.TypeOfMob = MobType.Humanoid;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 25);
 
             npc.ExamineDescription = "Goblin Cheif";
             npc.LongDescription = "Goblin Cheif";
@@ -361,8 +339,7 @@ namespace GenerateZones.Zones.Mountain
         #region Items
         private Container Chest()
         {
-            Container chest = new Container();
-            chest.Id = itemId++;
+            Container chest = CreateItem<Container>();
             chest.ExamineDescription = "The chest is a standard issue goblin warrior chest.";
             chest.LongDescription = "The chest is made of wood and reinforced with steel bands.";
             chest.ShortDescription = "A small chest for storing equipment";
@@ -373,20 +350,9 @@ namespace GenerateZones.Zones.Mountain
 
         }
 
-        private IArmor Armor()
-        {
-            IArmor armor = new Armor();
-            armor.Level = 17;
-            armor.Id = itemId++;
-            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(armor.Level);
-            return armor;
-        }
-
         private IArmor Arms()
         {
-            IArmor armor = Armor();
-            armor.ItemPosition = AvalableItemPosition.Arms;
-            armor.Material = new Leather();
+            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 17, new Leather());
             armor.ExamineDescription = "The lamb skin is flawless.  Maybe the original owner thought it would grant the wearer extra protection.";
             armor.LongDescription = "The sleeves are made in such a way as to have soft wool on the inside and out.";
             armor.ShortDescription = "A pair of lamb skin sleeves.";
@@ -399,7 +365,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IArmor Body()
         {
-            IArmor armor = Armor();
+            IArmor armor = CreateArmor(AvalableItemPosition.Body, 17, new Leather());
             armor.ItemPosition = AvalableItemPosition.Body;
             armor.Material = new Leather();
             armor.ExamineDescription = "The bear skin is made in such a way as to have a hood of sorts that can be flipped up.";
@@ -413,9 +379,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IArmor Feet()
         {
-            IArmor armor = Armor();
-            armor.ItemPosition = AvalableItemPosition.Feet;
-            armor.Material = new Leather();
+            IArmor armor = CreateArmor(AvalableItemPosition.Feet, 17, new Leather());
             armor.ExamineDescription = "The boots are have been dyed to a dark black color.";
             armor.LongDescription = "The boots are made of a type of leather sew together.";
             armor.ShortDescription = "A dark black pair of boats.";
@@ -428,9 +392,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IArmor Finger()
         {
-            IArmor armor = Armor();
-            armor.ItemPosition = AvalableItemPosition.Finger;
-            armor.Material = new Gold();
+            IArmor armor = CreateArmor(AvalableItemPosition.Finger, 17, new Gold());
             armor.ExamineDescription = "The gem is made of a red stone with white veins that look like a swirl frozen in time.";
             armor.LongDescription = "The ring is made of a thick gold band with a red stone in the center.";
             armor.ShortDescription = "Gold Ring.";
@@ -450,9 +412,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IArmor Hand()
         {
-            IArmor armor = Armor();
-            armor.ItemPosition = AvalableItemPosition.Hand;
-            armor.Material = new Cloth();
+            IArmor armor = CreateArmor(AvalableItemPosition.Hand, 17, new Cloth());
             armor.ExamineDescription = "The gloves are made of a delicate silver lace that sparkles in the light.";
             armor.LongDescription = "A pair of silver lace gloves that would make a grand statement at any ball.";
             armor.ShortDescription = "A silver pair of ballroom lace gloves.";
@@ -465,9 +425,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IArmor Head()
         {
-            IArmor armor = Armor();
-            armor.ItemPosition = AvalableItemPosition.Head;
-            armor.Material = new Leather();
+            IArmor armor = CreateArmor(AvalableItemPosition.Head, 17, new Leather());
             armor.ExamineDescription = "The leather skull cap has two holes for a goblins ears to stick through.";
             armor.LongDescription = "The leather skull cap is padded to help protect the wearer from blows.";
             armor.ShortDescription = "A leather skull cap.";
@@ -480,9 +438,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IArmor Legs()
         {
-            IArmor armor = Armor();
-            armor.ItemPosition = AvalableItemPosition.Legs;
-            armor.Material = new Steel();
+            IArmor armor = CreateArmor(AvalableItemPosition.Legs, 17, new Steel());
             armor.ExamineDescription = "Delicately carved gold inlays decorate this piece of museum quality piece of armor.";
             armor.LongDescription = "The steel leggings look to be more decorative than protective but will do the job when needed.";
             armor.ShortDescription = "A decorative pair of leggings.";
@@ -494,9 +450,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IArmor Neck()
         {
-            IArmor armor = Armor();
-            armor.ItemPosition = AvalableItemPosition.Neck;
-            armor.Material = new Bone();
+            IArmor armor = CreateArmor(AvalableItemPosition.Neck, 17, new Bone());
             armor.ExamineDescription = "The necklace bones appear to be of small animals, birds, squirls and mice.";
             armor.LongDescription = "The necklace looks like it once belonged to a shaman and has several animal bones strung on it.";
             armor.ShortDescription = "A bone necklace.";
@@ -508,9 +462,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IArmor Waist()
         {
-            IArmor armor = Armor();
-            armor.ItemPosition = AvalableItemPosition.Waist;
-            armor.Material = new Cloth();
+            IArmor armor = CreateArmor(AvalableItemPosition.Waist, 17, new Cloth());
             armor.ExamineDescription = "The piece of rope looks unremarkable in every way.";
             armor.LongDescription = "A simple piece of rope for holding your trousers.";
             armor.ShortDescription = "A short piece of rope.";
@@ -522,22 +474,22 @@ namespace GenerateZones.Zones.Mountain
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
+            Zone.RecursivelySetZone();
 
-            ZoneHelper.ConnectRoom(zone.Rooms[1], Direction.East, zone.Rooms[2], new DoorInfo("gate", "The gate drags across the dirt as it opens.", true, "The gate is made of sturdy wooden tree trunks and looks to be able to take a beating."));
-            ZoneHelper.ConnectRoom(zone.Rooms[2], Direction.East, zone.Rooms[3]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.East, zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(zone.Rooms[4], Direction.South, zone.Rooms[5], new DoorInfo("gate", "The gate drags across the dirt as it opens.", true, "The gate is made of flimsy sticks and acts more of a mental barrier than a physical one."));
-            ZoneHelper.ConnectRoom(zone.Rooms[4], Direction.East, zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(zone.Rooms[6], Direction.North, zone.Rooms[7]);
-            ZoneHelper.ConnectRoom(zone.Rooms[6], Direction.South, zone.Rooms[8]);
-            ZoneHelper.ConnectRoom(zone.Rooms[6], Direction.East, zone.Rooms[9]);
-            ZoneHelper.ConnectRoom(zone.Rooms[9], Direction.East, zone.Rooms[10]);
-            ZoneHelper.ConnectRoom(zone.Rooms[9], Direction.North, zone.Rooms[11]);
-            ZoneHelper.ConnectRoom(zone.Rooms[9], Direction.South, zone.Rooms[12]);
-            ZoneHelper.ConnectRoom(zone.Rooms[10], Direction.North, zone.Rooms[13]);
-            ZoneHelper.ConnectRoom(zone.Rooms[10], Direction.South, zone.Rooms[14]);
-            ZoneHelper.ConnectRoom(zone.Rooms[10], Direction.East, zone.Rooms[15]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2], new DoorInfo("gate", "The gate drags across the dirt as it opens.", true, "The gate is made of sturdy wooden tree trunks and looks to be able to take a beating."));
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.South, Zone.Rooms[5], new DoorInfo("gate", "The gate drags across the dirt as it opens.", true, "The gate is made of flimsy sticks and acts more of a mental barrier than a physical one."));
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.East, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.North, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.South, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.East, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.East, Zone.Rooms[10]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.North, Zone.Rooms[11]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.South, Zone.Rooms[12]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.North, Zone.Rooms[13]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.South, Zone.Rooms[14]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.East, Zone.Rooms[15]);
         }
     }
 }

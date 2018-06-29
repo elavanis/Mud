@@ -37,18 +37,16 @@ using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones
 {
-    public class Test : IZoneCode
+    public class Test : BaseZone, IZoneCode
     {
-        Zone zone = new Zone();
-        int roomId = 1;
-        //int itemId = 1;
-        int npcId = 1;
+        public Test() : base(-1)
+        {
+        }
 
         public IZone Generate()
         {
-            zone.Id = -1;
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(Test);
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(Test);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -58,14 +56,14 @@ namespace GenerateZones.Zones
                 if (method != null)
                 {
                     Room room = (Room)method.Invoke(this, null);
-                    room.Zone = zone.Id;
-                    ZoneHelper.AddRoom(zone, room);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
                 }
             }
 
             ConnectRooms();
 
-            return zone;
+            return Zone;
         }
 
         #region Rooms
@@ -84,9 +82,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom()
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
 
             room.AddMobileObjectToRoom(NPC());
             return room;
@@ -94,11 +90,8 @@ namespace GenerateZones.Zones
 
         private INonPlayerCharacter NPC()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id += npcId++;
-            npc.TypeOfMob = MobType.Humanoid;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 1);
 
-            npc.Level = 1;
             npc.KeyWords.Add("npc");
 
             npc.ExamineDescription = "A test mob dressed in its finished lab coat.";
@@ -141,7 +134,7 @@ namespace GenerateZones.Zones
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
+            Zone.RecursivelySetZone();
         }
     }
 }

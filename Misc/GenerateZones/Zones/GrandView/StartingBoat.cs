@@ -28,18 +28,16 @@ using static Objects.Room.Room;
 
 namespace GenerateZones.Zones
 {
-    public class StartingBoat : IZoneCode
+    public class StartingBoat : BaseZone, IZoneCode
     {
-        Zone zone = new Zone();
-        int roomId = 1;
-        //int itemId = 1;
-        int npcId = 1;
+        public StartingBoat() : base(1)
+        {
+        }
 
         public IZone Generate()
         {
-            zone.Id = 1;
-            zone.InGameDaysTillReset = 1;
-            zone.Name = nameof(StartingBoat);
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(StartingBoat);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -49,8 +47,8 @@ namespace GenerateZones.Zones
                 if (method != null)
                 {
                     IRoom room = (IRoom)method.Invoke(this, null);
-                    room.Zone = zone.Id;
-                    ZoneHelper.AddRoom(zone, room);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
                 }
             }
 
@@ -58,7 +56,7 @@ namespace GenerateZones.Zones
 
             AddAmbientSound();
 
-            return zone;
+            return Zone;
         }
 
 
@@ -212,9 +210,9 @@ namespace GenerateZones.Zones
         {
             ISound sound = new Sound();
             sound.Loop = false;
-            sound.RandomSounds.Add($"{zone.Name}\\DragonFireball_Center.mp3");
-            sound.RandomSounds.Add($"{zone.Name}\\DragonFireball_L-R.mp3");
-            sound.RandomSounds.Add($"{zone.Name}\\DragonFireball_R-L.mp3");
+            sound.RandomSounds.Add($"{Zone.Name}\\DragonFireball_Center.mp3");
+            sound.RandomSounds.Add($"{Zone.Name}\\DragonFireball_L-R.mp3");
+            sound.RandomSounds.Add($"{Zone.Name}\\DragonFireball_R-L.mp3");
 
             IEnchantment fireDamage = new HeartbeatBigTickEnchantment();
             fireDamage.Effect = new Damage(sound);
@@ -232,22 +230,17 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom()
         {
-            IRoom room = new Room();
-            room.Id = roomId++;
-            room.MovementCost = 1;
+            IRoom room = CreateRoom();
             room.Attributes.Add(RoomAttribute.Light);
             return room;
         }
 
         private INonPlayerCharacter DeckCrew()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Id = npcId++;
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 20);
             npc.KeyWords.Add("crew");
             npc.KeyWords.Add("deckhand");
             npc.KeyWords.Add("member");
-            npc.Level = 20;
-            npc.TypeOfMob = MobType.Humanoid;
             npc.ExamineDescription = "He looks like your average sailer, dressed in slightly raged clothing and well tanned from his time at sea.";
             npc.LongDescription = "This crew member run back and forth trying put out fires and throw spears at the dragons as they attack.";
             npc.ShortDescription = "A crew member.";
@@ -270,24 +263,24 @@ namespace GenerateZones.Zones
 
         private void ConnectRooms()
         {
-            zone.RecursivelySetZone();
+            Zone.RecursivelySetZone();
 
-            //ZoneHelper.ConnectRoom(zone.Rooms[1], "W", zone.Rooms[2]);
-            zone.Rooms[1].West = new Exit() { Zone = 1, Room = 2 };
-            ZoneHelper.ConnectRoom(zone.Rooms[2], Direction.West, zone.Rooms[3]);
-            ZoneHelper.ConnectRoom(zone.Rooms[3], Direction.Up, zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(zone.Rooms[4], Direction.West, zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(zone.Rooms[5], Direction.West, zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(zone.Rooms[6], Direction.Down, zone.Rooms[7]);
+            //ZoneHelper.ConnectRoom(Zone.Rooms[1], "W", Zone.Rooms[2]);
+            Zone.Rooms[1].West = new Exit() { Zone = 1, Room = 2 };
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.West, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.Up, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.West, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.West, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.Down, Zone.Rooms[7]);
         }
 
         private void AddAmbientSound()
         {
             ISound sound = new Sound();
             sound.Loop = true;
-            sound.SoundName = string.Format("{0}\\{1}", zone.Name, "ShipFire.mp3");
+            sound.SoundName = string.Format("{0}\\{1}", Zone.Name, "ShipFire.mp3");
 
-            foreach (Room room in zone.Rooms.Values)
+            foreach (Room room in Zone.Rooms.Values)
             {
                 room.Sounds.Add(sound);
             }
