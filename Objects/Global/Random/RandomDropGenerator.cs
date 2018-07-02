@@ -169,14 +169,15 @@ namespace Objects.Global.Random
                     weapon.ShortDescription = "This war pick is a versatile weapon used to fight against armored opponents.";
                     weapon.SentenceDescription = "war pick";
                     weapon.KeyWords.Add("Pick");
-                    weapon.FlavorOptions.Add("{head description}", new List<string>() { "is polished smooth and shines slightly", "is slightly rusted", "has dwarven runes", " is covered in elvish runes", "depicts a kings crest" });
+                    weapon.FlavorOptions.Add("{head description}", new List<string>() { "is polished smooth and shines slightly", "is slightly rusted", "has dwarven runes", "is covered in elvish runes", "depicts a kings crest" });
                     break;
                 case WeaponType.Spear:
-                    weapon.ExamineDescription = "";
+                    weapon.ExamineDescription = "The spear head is made of {material}.";
                     weapon.LongDescription = "The spear head is pointed and about nine inches long.";
                     weapon.ShortDescription = "A large pointed spear that can be used to poke holes in ones foes or pick up trash.";
                     weapon.SentenceDescription = "spear";
                     weapon.KeyWords.Add("Spear");
+                    weapon.FlavorOptions.Add("{material}", new List<string>() { "flint", "black iron", "iron", "steel", "an unidentified blue metal that is warm to the touch" });
                     break;
             }
 
