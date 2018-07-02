@@ -42,18 +42,23 @@ namespace Objects.Global.Random
             }
         }
 
-        private IItem GenerateRandomEquipment(INonPlayerCharacter nonPlayerCharacter)
+        private IEquipment GenerateRandomEquipment(INonPlayerCharacter nonPlayerCharacter)
         {
             int objectGenerateLevelAt = nonPlayerCharacter.Level;
-            while (GlobalReference.GlobalValues.Random.Next(GlobalReference.GlobalValues.Settings.OddsOfDropBeingPlusOne) == 0)
+
+            //verify the setting is set to generate plus items
+            if (GlobalReference.GlobalValues.Settings.OddsOfDropBeingPlusOne > 0)
             {
-                objectGenerateLevelAt++;
+                while (GlobalReference.GlobalValues.Random.Next(GlobalReference.GlobalValues.Settings.OddsOfDropBeingPlusOne) == 0)
+                {
+                    objectGenerateLevelAt++;
+                }
             }
 
             return GenerateRandomEquipment(nonPlayerCharacter.Level, objectGenerateLevelAt);
         }
 
-        public IItem GenerateRandomEquipment(int level, int effectiveLevel)
+        public IEquipment GenerateRandomEquipment(int level, int effectiveLevel)
         {
             IEquipment equipment;
             int randomValue = GlobalReference.GlobalValues.Random.Next(9);
@@ -70,12 +75,12 @@ namespace Objects.Global.Random
             return equipment;
         }
 
-        private IEquipment GenerateRandomWeapon(int level, int effectiveLevel)
+        private IWeapon GenerateRandomWeapon(int level, int effectiveLevel)
         {
             return GenerateRandomWeapon(level, effectiveLevel, (WeaponType)GlobalReference.GlobalValues.Random.Next(8));
         }
 
-        public IEquipment GenerateRandomWeapon(int level, int effectiveLevel, WeaponType weaponType)
+        public IWeapon GenerateRandomWeapon(int level, int effectiveLevel, WeaponType weaponType)
         {
             IWeapon weapon = new Weapon();
             weapon.Level = level;
@@ -109,11 +114,12 @@ namespace Objects.Global.Random
                     weapon.FlavorOptions.Add("{design}", new List<string>() { "rows of triangular pyramids", "dragon heads delicately carved into it", "pairs flanges of coming to a rounded point" });
                     break;
                 case WeaponType.WizardStaff:
-                    weapon.ExamineDescription = "The wooden staff is constantly in flux as small leaves grow out from the staff, blossom {color2} flowers and then wilt and are reabsorbed into the staff ";
+                    weapon.ExamineDescription = "The wooden staff is constantly in flux as small leaves grow out from the staff, blossom {color2} flowers and then wilt and are reabsorbed into the staff.";
                     weapon.LongDescription = "The wooden staff has {head} for a head{feels}.";
                     weapon.ShortDescription = "The wizards staff hums with a deep sound that resonates deep in your body.";
                     weapon.SentenceDescription = "wizard staff";
-                    weapon.KeyWords.Add("WizardStaff");
+                    weapon.KeyWords.Add("Wizard");
+                    weapon.KeyWords.Add("Staff");
                     weapon.FlavorOptions.Add("{head}", new List<string>() { "gnarled fingers", "gnarled fingers wrapped around a {color} orb", "a {color} orb that floats above the end of the staff", "a {color} stone growing out of the end of the staff" });
                     weapon.FlavorOptions.Add("{feels}", new List<string>() { "", " and feels slightly cold", " and feels warm to the touch", " and vibrates in your hands" });
                     weapon.FlavorOptions.Add("{color}", new List<string>() { "red", "blue", "deep purple", "black as dark as night", "swirling gray blue" });
@@ -145,7 +151,7 @@ namespace Objects.Global.Random
                     weapon.FlavorOptions.Add("{handle}", new List<string>() { "{silkColor} silk", "leather", "shark skin" });
                     weapon.FlavorOptions.Add("{silkColor}", new List<string>() { "white", "black", "gold", "silver", "brown", "red", "orange", "yellow", "green", "blue", "purple" });
                     weapon.FlavorOptions.Add("{pommel}", new List<string>() { "dragon claw holding a {pommelStone}", "large {pommelStone}", "skull with a pair of red rubies for eyes" });
-                    weapon.FlavorOptions.Add("{pommelStone}", new List<string>() { "amber", "amethyst", "aquamarine", "bloodstone", "diamond", "emerald", "garnet", "jade", "moonstone", "onyx", "quartz", "rubies", "sapphire", "sunstone", "tigers eye", "topaz" });
+                    weapon.FlavorOptions.Add("{pommelStone}", new List<string>() { "amber stone", "piece of amethyst", "aquamarine stone", "bloodstone", "diamond", "emerald", "garnet gem", "jade stone", "moonstone", "piece of onyx", "quartz stone", "rubie", "sapphire", "sunstone", "tigers eye", "topaz stone" });
                     break;
                 case WeaponType.Dagger:
                     weapon.ExamineDescription = "The blade is made from {blade material}.  The handle is wrapped in {handle} and there is a small {pommel} for a pommel.";

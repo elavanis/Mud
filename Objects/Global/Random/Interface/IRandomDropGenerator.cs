@@ -8,7 +8,7 @@ namespace Objects.Global.Random.Interface
     public interface IRandomDropGenerator
     {
         IItem GenerateRandomDrop(INonPlayerCharacter nonPlayerCharacter);
-        IItem GenerateRandomEquipment(int level, int effectiveLevel);
-        IEquipment GenerateRandomWeapon(int level, int effectiveLevel, WeaponType weaponType);
+        IEquipment GenerateRandomEquipment(int level, int effectiveLevel);
+        IWeapon GenerateRandomWeapon(int level, int effectiveLevel, WeaponType weaponType);
     }
 }
