@@ -167,7 +167,7 @@ namespace ObjectsUnitTest.Global.Random
         {
             IWeapon weapon = randomDropGenerator.GenerateRandomWeapon(1, 1, WeaponType.Sword);
             Assert.AreEqual("The blade is made from steal.  The guard is shaped like a pair of wings and the handle is wrapped in white silk.  There is a dragon claw holding a amber stone for a pommel.", weapon.ExamineDescription);
-            Assert.AreEqual("The blade is pitted and has one sharpened.", weapon.LongDescription);
+            Assert.AreEqual("The blade is pitted and has one side sharpened.", weapon.LongDescription);
             Assert.AreEqual("A short sword used to cut down ones foes.", weapon.ShortDescription);
             Assert.AreEqual("sword", weapon.SentenceDescription);
             Assert.IsTrue(weapon.KeyWords.Contains("Sword"));
@@ -175,6 +175,52 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
             Assert.AreEqual(DamageType.Slash, weapon.DamageList[0].Type);
+        }
+
+        [TestMethod]
+        public void RandomDropGenerator_GenerateRandomWeapon_Dagger()
+        {
+            IWeapon weapon = randomDropGenerator.GenerateRandomWeapon(1, 1, WeaponType.Dagger);
+            Assert.AreEqual("The blade is made from steal.  The handle is wrapped in white silk and there is a small knights helmet for a pommel.", weapon.ExamineDescription);
+            Assert.AreEqual("The blade is pitted and has a small fuller running the length of the blade.", weapon.LongDescription);
+            Assert.AreEqual("The dagger is short sharp and pointy.  Perfect for concealing on your person.", weapon.ShortDescription);
+            Assert.AreEqual("dagger", weapon.SentenceDescription);
+            Assert.IsTrue(weapon.KeyWords.Contains("Dagger"));
+            Assert.AreEqual(1, weapon.DamageList.Count);
+            Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
+            Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
+            Assert.AreEqual(DamageType.Pierce, weapon.DamageList[0].Type);
+        }
+
+        [TestMethod]
+        public void RandomDropGenerator_GenerateRandomWeapon_Pick()
+        {
+            IWeapon weapon = randomDropGenerator.GenerateRandomWeapon(1, 1, WeaponType.Pick);
+            Assert.AreEqual("The head of the war pick is polished smooth and shines slightly.", weapon.ExamineDescription);
+            Assert.AreEqual("This pick has a large grooved hammer head and a sharp pick on the back.", weapon.LongDescription);
+            Assert.AreEqual("This war pick is a versatile weapon used to fight against armored opponents.", weapon.ShortDescription);
+            Assert.AreEqual("war pick", weapon.SentenceDescription);
+            Assert.IsTrue(weapon.KeyWords.Contains("War"));
+            Assert.IsTrue(weapon.KeyWords.Contains("Pick"));
+            Assert.AreEqual(1, weapon.DamageList.Count);
+            Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
+            Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
+            Assert.AreEqual(DamageType.Pierce, weapon.DamageList[0].Type);
+        }
+
+        [TestMethod]
+        public void RandomDropGenerator_GenerateRandomWeapon_Spear()
+        {
+            IWeapon weapon = randomDropGenerator.GenerateRandomWeapon(1, 1, WeaponType.Spear);
+            Assert.AreEqual("The spear head is made of flint.", weapon.ExamineDescription);
+            Assert.AreEqual("The spear head is pointed and about nine inches long.", weapon.LongDescription);
+            Assert.AreEqual("A large pointed spear that can be used to poke holes in ones foes or pick up trash.", weapon.ShortDescription);
+            Assert.AreEqual("spear", weapon.SentenceDescription);
+            Assert.IsTrue(weapon.KeyWords.Contains("Spear"));
+            Assert.AreEqual(1, weapon.DamageList.Count);
+            Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
+            Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
+            Assert.AreEqual(DamageType.Pierce, weapon.DamageList[0].Type);
         }
 
     }

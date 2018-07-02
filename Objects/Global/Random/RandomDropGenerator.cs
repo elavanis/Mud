@@ -142,7 +142,7 @@ namespace Objects.Global.Random
                     weapon.KeyWords.Add("Sword");
                     weapon.FlavorOptions.Add("{type}", new List<string>() { "short", "long", "broad" });
                     weapon.FlavorOptions.Add("{condition}", new List<string>() { "pitted", "sharp", "smooth" });
-                    weapon.FlavorOptions.Add("{sides}", new List<string>() { "one", "both" });
+                    weapon.FlavorOptions.Add("{sides}", new List<string>() { "one side", "both sides" });
                     weapon.FlavorOptions.Add("{blade material}", new List<string>() { "steal", "cold steal", "a black metal that seems to suck the light out of the room", "two different metals.  The first being {metal1} forming the base of the sword with an inlay of {metal2} forming {secondMetalObject}." });
                     weapon.FlavorOptions.Add("{metal1}", new List<string>() { "steal" });
                     weapon.FlavorOptions.Add("{metal2}", new List<string>() { "gold", "copper", "silver" });
@@ -157,7 +157,7 @@ namespace Objects.Global.Random
                     weapon.ExamineDescription = "The blade is made from {blade material}.  The handle is wrapped in {handle} and there is a small {pommel} for a pommel.";
                     weapon.LongDescription = "The blade is {condition} and has a small fuller running the length of the blade.";
                     weapon.ShortDescription = "The dagger is short sharp and pointy.  Perfect for concealing on your person.";
-                    weapon.SentenceDescription = "sword";
+                    weapon.SentenceDescription = "dagger";
                     weapon.KeyWords.Add("Dagger");
                     weapon.FlavorOptions.Add("{condition}", new List<string>() { "pitted", "sharp", "smooth" });
                     weapon.FlavorOptions.Add("{blade material}", new List<string>() { "steal", "cold steal", "a black metal that seems to suck the light out of the room", "two different metals.  The first being {metal1} forming the base of the sword with an inlay of {metal2} forming {secondMetalObject}." });
@@ -171,10 +171,11 @@ namespace Objects.Global.Random
                     break;
                 case WeaponType.Pick:
                     weapon.ExamineDescription = "The head of the war pick {head description}.";
-                    weapon.LongDescription = "This pick has a large grooved hammer head and a sharp pick on the back";
+                    weapon.LongDescription = "This pick has a large grooved hammer head and a sharp pick on the back.";
                     weapon.ShortDescription = "This war pick is a versatile weapon used to fight against armored opponents.";
                     weapon.SentenceDescription = "war pick";
                     weapon.KeyWords.Add("Pick");
+                    weapon.KeyWords.Add("War");
                     weapon.FlavorOptions.Add("{head description}", new List<string>() { "is polished smooth and shines slightly", "is slightly rusted", "has dwarven runes", "is covered in elvish runes", "depicts a kings crest" });
                     break;
                 case WeaponType.Spear:
