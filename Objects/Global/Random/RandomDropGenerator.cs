@@ -173,9 +173,9 @@ namespace Objects.Global.Random
                     break;
                 case WeaponType.Spear:
                     weapon.ExamineDescription = "";
-                    weapon.LongDescription = "";
-                    weapon.ShortDescription = "";
-                    weapon.SentenceDescription = "";
+                    weapon.LongDescription = "The spear head is pointed and about nine inches long.";
+                    weapon.ShortDescription = "A large pointed spear that can be used to poke holes in ones foes or pick up trash.";
+                    weapon.SentenceDescription = "spear";
                     weapon.KeyWords.Add("Spear");
                     break;
             }
