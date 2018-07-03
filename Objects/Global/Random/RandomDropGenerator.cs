@@ -3,9 +3,12 @@ using Objects.Global.Random.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items;
 using Objects.Item.Items.Interface;
+using Objects.Material;
+using Objects.Material.Materials;
 using Objects.Mob.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using static Objects.Damage.Damage;
 using static Objects.Item.Items.Weapon;
@@ -15,6 +18,37 @@ namespace Objects.Global.Random
 {
     public class RandomDropGenerator : IRandomDropGenerator
     {
+        private static object padlock = new object();
+        private static List<BaseMaterial> materials = null;
+        private static List<BaseMaterial> Materials
+        {
+            get
+            {
+                if (materials == null)
+                {
+                    lock (padlock)
+                    {
+                        if (materials == null)
+                        {
+                            List<BaseMaterial> tempMaterials = new List<BaseMaterial>();
+                            List<Type> types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(e => e.GetTypes()).Where(e => e.IsInstanceOfType(typeof(BaseMaterial))).ToList();
+
+                            foreach (Type type in types)
+                            {
+                                if (type != typeof(NpcInnateArmor))
+                                {
+                                    tempMaterials.Add((BaseMaterial)Activator.CreateInstance(type));
+                                }
+                            }
+                            materials = tempMaterials;
+                        }
+                    }
+                }
+
+                return materials;
+            }
+        }
+
         public IItem GenerateRandomDrop(INonPlayerCharacter nonPlayerCharacter)
         {
             //if the odds of generating an item is 0 then return nothing immediately 

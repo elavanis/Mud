@@ -29,6 +29,8 @@ namespace ObjectsUnitTest.Mob
     public class NonPlayerCharacterUnitTest
     {
         NonPlayerCharacter npc;
+        Mock<IRandomDropGenerator> randomDropGenerator;
+        Mock<IItem> item;
 
         [TestInitialize]
         public void Setup()
@@ -36,16 +38,19 @@ namespace ObjectsUnitTest.Mob
             Mock<IDice> dice = new Mock<IDice>();
             Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
             Mock<ISettings> settings = new Mock<ISettings>();
+            randomDropGenerator = new Mock<IRandomDropGenerator>();
+            item = new Mock<IItem>();
 
             dice.Setup(e => e.Die).Returns(1);
             dice.Setup(e => e.Sides).Returns(2);
             defaultValues.Setup(e => e.MoneyForNpcLevel(1)).Returns(1);
             defaultValues.Setup(e => e.DiceForArmorLevel(1)).Returns(dice.Object);
             settings.Setup(e => e.BaseStatValue).Returns(7);
+            randomDropGenerator.Setup(e => e.GenerateRandomDrop(npc)).Returns(item.Object);
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
-
+            GlobalReference.GlobalValues.RandomDropGenerator = randomDropGenerator.Object;
 
             npc = new NonPlayerCharacter();
         }
