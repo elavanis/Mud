@@ -15,7 +15,6 @@ namespace Shared.Sound
     {
         private static Random _random = new Random();
         private string _soundName = null;
-        [ExcludeFromCodeCoverage]
         public string SoundName
         {
             get

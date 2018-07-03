@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using static Objects.Damage.Damage;
+using static Objects.Item.Items.Equipment;
 using static Objects.Item.Items.Weapon;
 using static Objects.Mob.NonPlayerCharacter;
 
@@ -245,9 +246,100 @@ namespace Objects.Global.Random
             return weapon;
         }
 
-        private IEquipment GenerateRandomArmor(int level, int effectiveLevel)
+        private IArmor GenerateRandomArmor(int level, int effectiveLevel)
         {
-            throw new NotImplementedException();
+            Array values = Enum.GetValues(typeof(AvalableItemPosition));
+            int randomValue = GlobalReference.GlobalValues.Random.Next(values.Length);
+            return GenerateRandomArmor(level, effectiveLevel, (AvalableItemPosition)values.GetValue(randomValue));
+        }
+
+        public IArmor GenerateRandomArmor(int level, int effectiveLevel, AvalableItemPosition itemPosition)
+        {
+            IArmor armor = new Armor();
+            armor.Level = level;
+            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(effectiveLevel);
+            armor.ItemPosition = itemPosition;
+
+            BaseMaterial randomMaterial = Materials[GlobalReference.GlobalValues.Random.Next(Materials.Count)];
+            armor.Material = randomMaterial;
+
+            switch (itemPosition)
+            {
+                case AvalableItemPosition.Head:
+                    armor.ExamineDescription = "The helmet has two small holes cut out for seeing out.";
+                    armor.LongDescription = "The helmet is hard and light but well padded giving the ultimate compromise between protection and usability.";
+                    armor.ShortDescription = "A well made helmet that looks like it might fit.";
+                    armor.SentenceDescription = "helmet";
+                    armor.KeyWords.Add("Helmet");
+                    break;
+                case AvalableItemPosition.Neck:
+                    armor.ExamineDescription = "";
+                    armor.LongDescription = "";
+                    armor.ShortDescription = "";
+                    armor.SentenceDescription = "necklace";
+                    armor.KeyWords.Add("Necklace");
+                    break;
+                case AvalableItemPosition.Arms:
+                    armor.ExamineDescription = "";
+                    armor.LongDescription = "";
+                    armor.ShortDescription = "";
+                    armor.SentenceDescription = "bracer";
+                    armor.KeyWords.Add("Bracer");
+                    break;
+                case AvalableItemPosition.Hand:
+                    armor.ExamineDescription = "";
+                    armor.LongDescription = "";
+                    armor.ShortDescription = "";
+                    armor.SentenceDescription = "globe";
+                    armor.KeyWords.Add("Globe");
+                    break;
+                case AvalableItemPosition.Finger:
+                    armor.ExamineDescription = "";
+                    armor.LongDescription = "";
+                    armor.ShortDescription = "";
+                    armor.SentenceDescription = "ring";
+                    armor.KeyWords.Add("Ring");
+                    break;
+                case AvalableItemPosition.Body:
+                    armor.ExamineDescription = "";
+                    armor.LongDescription = "";
+                    armor.ShortDescription = "";
+                    armor.SentenceDescription = "breast plate";
+                    armor.KeyWords.Add("breast");
+                    armor.KeyWords.Add("plate");
+                    armor.KeyWords.Add("breastplate");
+                    break;
+                case AvalableItemPosition.Waist:
+                    armor.ExamineDescription = "";
+                    armor.LongDescription = "";
+                    armor.ShortDescription = "";
+                    armor.SentenceDescription = "belt";
+                    armor.KeyWords.Add("Belt");
+                    break;
+                case AvalableItemPosition.Legs:
+                    armor.ExamineDescription = "";
+                    armor.LongDescription = "";
+                    armor.ShortDescription = "";
+                    armor.SentenceDescription = "legging";
+                    armor.KeyWords.Add("Legging");
+                    break;
+                case AvalableItemPosition.Feet:
+                    armor.ExamineDescription = "";
+                    armor.LongDescription = "";
+                    armor.ShortDescription = "";
+                    armor.SentenceDescription = "boot";
+                    armor.KeyWords.Add("Boot");
+                    break;
+                case AvalableItemPosition.Held:
+                    armor.ExamineDescription = "";
+                    armor.LongDescription = "";
+                    armor.ShortDescription = "";
+                    armor.SentenceDescription = "necklace";
+                    armor.KeyWords.Add("Necklace");
+                    break;
+            }
+
+            return null;
         }
     }
 }

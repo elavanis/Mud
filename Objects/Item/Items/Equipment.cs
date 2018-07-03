@@ -6,7 +6,7 @@ namespace Objects.Item.Items
     public class Equipment : Item, IEquipment
     {
         [ExcludeFromCodeCoverage]
-        public AvalableItemPosition ItemPosition { get; set; } = AvalableItemPosition.NotWorn;
+        public AvalableItemPosition ItemPosition { get; set; } = AvalableItemPosition.Held;
         public enum AvalableItemPosition
         {
             Wield,

@@ -84,8 +84,6 @@ namespace GenerateZones.Zones
             IEquipment equipment = new Equipment();
             equipment.Id = ItemId++;
             equipment.Level = level;
-            equipment.ItemPosition = AvalableItemPosition.Held;
-
 
             return equipment;
         }

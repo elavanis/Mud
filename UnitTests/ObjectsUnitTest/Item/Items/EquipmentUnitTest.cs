@@ -18,7 +18,7 @@ namespace ObjectsUnitTest.Item.Items
         [TestMethod]
         public void Equipment_ItemPosition()
         {
-            Assert.AreEqual(AvalableItemPosition.NotWorn, equipment.ItemPosition);
+            Assert.AreEqual(AvalableItemPosition.Held, equipment.ItemPosition);
         }
     }
 }

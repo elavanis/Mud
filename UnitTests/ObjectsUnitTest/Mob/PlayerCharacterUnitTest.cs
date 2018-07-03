@@ -25,11 +25,17 @@ namespace ObjectsUnitTest.Mob
     public class PlayerCharacterUnitTest
     {
         PlayerCharacter pc;
+        Mock<ISettings> settings;
 
         [TestInitialize]
         public void Setup()
         {
             pc = new PlayerCharacter();
+            settings = new Mock<ISettings>();
+
+            settings.Setup(e => e.Multiplier).Returns(1);
+
+            GlobalReference.GlobalValues.Settings = settings.Object;
         }
 
         [TestMethod]
