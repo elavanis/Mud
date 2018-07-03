@@ -273,11 +273,12 @@ namespace Objects.Global.Random
                     armor.KeyWords.Add("Helmet");
                     break;
                 case AvalableItemPosition.Neck:
-                    armor.ExamineDescription = "";
-                    armor.LongDescription = "";
-                    armor.ShortDescription = "";
+                    armor.ExamineDescription = "A {color} stone rests softly in the middle of the necklace.";
+                    armor.LongDescription = "The necklace has a stone attached to it via a round pendent.";
+                    armor.ShortDescription = "A delicate necklace fit for any royal lady to wear to any party.";
                     armor.SentenceDescription = "necklace";
                     armor.KeyWords.Add("Necklace");
+                    armor.FlavorOptions.Add("{color}", new List<string>() { "black", "clear", "royal purple", "crimson red", "ocean blue", "emerald green" });
                     break;
                 case AvalableItemPosition.Arms:
                     armor.ExamineDescription = "";
