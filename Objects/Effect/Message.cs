@@ -26,20 +26,7 @@ namespace Objects.Effect
 
             if (Sound != null)
             {
-                string serializeSounds;
-
-                if (Sound.RandomSounds.Count > 1)
-                {
-                    //only pick one of the sounds to play, but we need to make a copy of it to serialize
-                    ISound localSound = new Sound();
-                    localSound.Loop = Sound.Loop;
-                    localSound.SoundName = Sound.RandomSounds[GlobalReference.GlobalValues.Random.Next(Sound.RandomSounds.Count)];
-                    serializeSounds = GlobalReference.GlobalValues.Serialization.Serialize(new List<ISound>() { localSound });
-                }
-                else
-                {
-                    serializeSounds = GlobalReference.GlobalValues.Serialization.Serialize(new List<ISound>() { Sound });
-                }
+                string serializeSounds = GlobalReference.GlobalValues.Serialization.Serialize(new List<ISound>() { Sound });
 
                 GlobalReference.GlobalValues.Notify.Room(null, null, room, new TranslationMessage(serializeSounds, TagType.Sound));
             }

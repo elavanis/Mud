@@ -13,8 +13,27 @@ namespace Shared.Sound
 {
     public class Sound : ISound
     {
+        private static Random _random = new Random();
+        private string _soundName = null;
         [ExcludeFromCodeCoverage]
-        public string SoundName { get; set; }
+        public string SoundName
+        {
+            get
+            {
+                if (_soundName == null)
+                {
+                    return RandomSounds[_random.Next(RandomSounds.Count)];
+                }
+                else
+                {
+                    return _soundName;
+                }
+            }
+            set
+            {
+                _soundName = value;
+            }
+        }
 
         [ExcludeFromCodeCoverage]
         public bool Loop { get; set; }
