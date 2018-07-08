@@ -281,34 +281,39 @@ namespace Objects.Global.Random
                     armor.FlavorOptions.Add("{color}", new List<string>() { "black", "clear", "royal purple", "crimson red", "ocean blue", "emerald green" });
                     break;
                 case AvalableItemPosition.Arms:
-                    armor.ExamineDescription = "";
-                    armor.LongDescription = "";
-                    armor.ShortDescription = "";
+                    armor.ExamineDescription = "The bracer is made of strips of material held together with leather.";
+                    armor.LongDescription = "Just a hair longer than your arm these bracers look to be a perfect fit.";
+                    armor.ShortDescription = "A pair of bracers that look to offer good protection for your arms.";
                     armor.SentenceDescription = "bracer";
                     armor.KeyWords.Add("Bracer");
                     break;
                 case AvalableItemPosition.Hand:
-                    armor.ExamineDescription = "";
-                    armor.LongDescription = "";
-                    armor.ShortDescription = "";
-                    armor.SentenceDescription = "globe";
-                    armor.KeyWords.Add("Globe");
+                    armor.ExamineDescription = "Made of a thin material these gloves have a magical property to them that grants the wearer protection.";
+                    armor.LongDescription = "The gloves have a {back} design on the back and a {inside} for the design on the inside.";
+                    armor.ShortDescription = "The gloves look to be thin and not offer much protection.";
+                    armor.SentenceDescription = "gloves";
+                    armor.KeyWords.Add("Gloves");
+                    armor.FlavorOptions.Add("{back}", new List<string>() { "spider web", "unicorn", "lion", "fountain", "eagle", "griffin" });
+                    armor.FlavorOptions.Add("{inside}", new List<string>() { "spider", "scorpion", "knights head", "horse", "sea shell", "mountain" });
                     break;
                 case AvalableItemPosition.Finger:
-                    armor.ExamineDescription = "";
-                    armor.LongDescription = "";
-                    armor.ShortDescription = "";
+                    armor.ExamineDescription = "The gold ring one had a design on the inside but has been worn smooth with time.";
+                    armor.LongDescription = "The ring is smooth on the outside{design}.";
+                    armor.ShortDescription = "The ring is a simple ring with no special markings or anything to suggest it magical.";
                     armor.SentenceDescription = "ring";
                     armor.KeyWords.Add("Ring");
+                    armor.FlavorOptions.Add("{design}", new List<string>() { "", "and has a {color} stone on the top" });
+                    armor.FlavorOptions.Add("{color}", new List<string>() { "black", "clear", "royal purple", "crimson red", "ocean blue", "emerald green" });
                     break;
                 case AvalableItemPosition.Body:
-                    armor.ExamineDescription = "";
-                    armor.LongDescription = "";
-                    armor.ShortDescription = "";
+                    armor.ExamineDescription = "There is a large emblem on the front of a {emblem}.";
+                    armor.LongDescription = "The breast plate is hard giving the wearer plenty of protection while being light.";
+                    armor.ShortDescription = "A strong breast plate that has a small dent in the left side but otherwise is in perfect condition.";
                     armor.SentenceDescription = "breast plate";
                     armor.KeyWords.Add("breast");
                     armor.KeyWords.Add("plate");
                     armor.KeyWords.Add("breastplate");
+                    armor.FlavorOptions.Add("{emblem}", new List<string>() { "tree", "griffin", "meteor", "pair of lions on either side of a crown", "pair of lions on either side of a shield" });
                     break;
                 case AvalableItemPosition.Waist:
                     armor.ExamineDescription = "";

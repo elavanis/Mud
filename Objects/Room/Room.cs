@@ -34,7 +34,6 @@ namespace Objects.Room
 {
     public class Room : BaseObject, IRoom, IContainer, ILoadableItems
     {
-
         private static ReadOnlyCollection<INonPlayerCharacter> BlankNonPlayerCharacters { get; } = new List<INonPlayerCharacter>().AsReadOnly();
         private static ReadOnlyCollection<IPlayerCharacter> BlankPlayerCharacters { get; } = new List<IPlayerCharacter>().AsReadOnly();
 
