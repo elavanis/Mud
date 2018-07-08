@@ -299,7 +299,7 @@ namespace Objects.Global.Random
                 case AvalableItemPosition.Finger:
                     armor.ExamineDescription = "The gold ring one had a design on the inside but has been worn smooth with time.";
                     armor.LongDescription = "The ring is smooth on the outside{design}.";
-                    armor.ShortDescription = "The ring is a simple ring with no special markings or anything to suggest it magical.";
+                    armor.ShortDescription = "The ring is a simple ring with no special markings or anything to suggest it is magical.";
                     armor.SentenceDescription = "ring";
                     armor.KeyWords.Add("Ring");
                     armor.FlavorOptions.Add("{design}", new List<string>() { "", "and has a {color} stone on the top" });
