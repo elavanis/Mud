@@ -316,9 +316,9 @@ namespace Objects.Global.Random
                     armor.FlavorOptions.Add("{emblem}", new List<string>() { "tree", "griffin", "meteor", "pair of lions on either side of a crown", "pair of lions on either side of a shield" });
                     break;
                 case AvalableItemPosition.Waist:
-                    armor.ExamineDescription = "";
-                    armor.LongDescription = "";
-                    armor.ShortDescription = "";
+                    armor.ExamineDescription = "The belt is made of an unknown material that shifts colors through all the colors of the rainbow.";
+                    armor.LongDescription = "The belt is prismatic.  The color shifts through the rainbow as you move relative to it.";
+                    armor.ShortDescription = "The belt is a prismatic color that shifts wildly.";
                     armor.SentenceDescription = "belt";
                     armor.KeyWords.Add("Belt");
                     break;
