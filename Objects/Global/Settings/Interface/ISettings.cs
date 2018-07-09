@@ -5,6 +5,7 @@
         int AssignableStatPoints { get; set; }
         int BaseStatValue { get; set; }
         int MaxLevel { get; set; }
+        int MaxCalculationLevel { get; }
         double Multiplier { get; set; }
         string PlayerCharacterDirectory { get; set; }
         string ZoneDirectory { get; set; }

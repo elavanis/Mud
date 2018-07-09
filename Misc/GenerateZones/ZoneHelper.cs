@@ -114,7 +114,7 @@ namespace GenerateZones
                 exit.Door.Id = room1.Id;        //needed to pass verification
                 exit.Door.KeyWords.Add(doorInfo.Name);
                 exit.Door.ExamineDescription = doorInfo.Description;
-                exit.Door.LongDescription = doorInfo.Description;
+                exit.Door.LookDescription = doorInfo.Description;
                 exit.Door.ShortDescription = doorInfo.Name;
                 exit.Door.SentenceDescription = doorInfo.Name;
                 exit.Door.OpenMessage = doorInfo.OpenMessage;

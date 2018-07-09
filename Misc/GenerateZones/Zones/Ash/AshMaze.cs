@@ -76,7 +76,7 @@ namespace GenerateZones.Zones.Ash
             npc.Personalities.Add(phase);
 
             npc.ShortDescription = "Ash Witch";
-            npc.LongDescription = "An ash witch goes around trying to sweep up all the ash in vain.";
+            npc.LookDescription = "An ash witch goes around trying to sweep up all the ash in vain.";
             npc.ExamineDescription = "The witch stands eight feet tall ans is slender.  It is made entirely of gray ash and has no face.";
             npc.SentenceDescription = "Ash Witch";
 
@@ -98,7 +98,7 @@ namespace GenerateZones.Zones.Ash
             npc.Personalities.Add(phase);
 
             npc.ShortDescription = "LZoir";
-            npc.LongDescription = "A large insect that seems drawn to heat.";
+            npc.LookDescription = "A large insect that seems drawn to heat.";
             npc.ExamineDescription = "A large insect resembling a mosquito with two stingers and spots of red on its wings.";
             npc.SentenceDescription = "LZoir";
 
@@ -110,7 +110,7 @@ namespace GenerateZones.Zones.Ash
             IRoom room = CreateRoom();
             room.ShortDescription = "A world of ash.";
             room.ExamineDescription = "Flakes of ash fall like gray snow on the ground from some unseen fire.";
-            room.LongDescription = "Ash floats through the air making it hard to see and breath.";
+            room.LookDescription = "Ash floats through the air making it hard to see and breath.";
 
             return room;
         }

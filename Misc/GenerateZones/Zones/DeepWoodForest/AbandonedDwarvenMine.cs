@@ -322,7 +322,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Rows of mining cart tracks all converge and continue north and outside the room.";
-            room.LongDescription = "Rows and rows of tracks can be seen indicating this is some type of mining cart storage area.";
+            room.LookDescription = "Rows and rows of tracks can be seen indicating this is some type of mining cart storage area.";
             room.ShortDescription = "Ore Cart Storage.";
 
             return room;
@@ -334,7 +334,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The ore track is beginning to rust from years of neglect.";
-            room.LongDescription = "An ore track runs to the west off into the darkness and to the south.";
+            room.LookDescription = "An ore track runs to the west off into the darkness and to the south.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -343,7 +343,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Some type of fire happened here but it happened so long ago it would be hard to tell what it was.";
-            room.LongDescription = "Some ashes lie on the mine floor here.";
+            room.LookDescription = "Some ashes lie on the mine floor here.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -352,7 +352,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The metal track has warped and bent in the intense heat of a fire.";
-            room.LongDescription = "The walls of the mine have been covered in soot and the rail ties for the ore cars have been burned away.";
+            room.LookDescription = "The walls of the mine have been covered in soot and the rail ties for the ore cars have been burned away.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -361,7 +361,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The sound of the water echo off the cave walls and reverberates down the tunnel.  The pool of water over flows a little with each drop making the floor wet before flowing into a crack in the wall to the north.";
-            room.LongDescription = "A slow but steady drip falls into a shallow pool of water off to the side of the track.";
+            room.LookDescription = "A slow but steady drip falls into a shallow pool of water off to the side of the track.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -370,7 +370,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls still bares the scares of the pick axes used to carve out this tunnel.";
-            room.LongDescription = "A small column of stone reaches the ceiling seeming to indicate the seem that the miners followed spit in two and then rejoined a dozen feet later.";
+            room.LookDescription = "A small column of stone reaches the ceiling seeming to indicate the seem that the miners followed spit in two and then rejoined a dozen feet later.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -379,7 +379,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The mine does not appear to have collapsed but looks like it could.";
-            room.LongDescription = "The ceiling has been reinforced several times here.  Possibly indicating a weak spot in the mine.";
+            room.LookDescription = "The ceiling has been reinforced several times here.  Possibly indicating a weak spot in the mine.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -388,7 +388,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The cave in appears like has been here a while but was never cleared.";
-            room.LongDescription = "A tunnel to the south goes about five feet before a cave in seals the way.";
+            room.LookDescription = "A tunnel to the south goes about five feet before a cave in seals the way.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -397,7 +397,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The mushrooms glow with a pale blue light that is to dim to be any more than a novelty.";
-            room.LongDescription = "Small iridescent mushrooms glow faintly in the dark.";
+            room.LookDescription = "Small iridescent mushrooms glow faintly in the dark.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -406,7 +406,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The mushrooms glow with a pale blue light that is to dim to be any more than a novelty.";
-            room.LongDescription = "Small iridescent mushrooms glow faintly in the dark.";
+            room.LookDescription = "Small iridescent mushrooms glow faintly in the dark.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -415,7 +415,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The steel track appears to have been cut out and dragged away.";
-            room.LongDescription = "One side of the steel track is missing.";
+            room.LookDescription = "One side of the steel track is missing.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -424,7 +424,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The steel track appears to have been cut out and dragged away.";
-            room.LongDescription = "The steel track has been removed from the area here.";
+            room.LookDescription = "The steel track has been removed from the area here.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -433,7 +433,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The barricade failed though and something got through.";
-            room.LongDescription = "A make shift barricade was built here to hold back something.";
+            room.LookDescription = "A make shift barricade was built here to hold back something.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -442,7 +442,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The paintings show a fiery monster coming up out of the ground and attacking miners.";
-            room.LongDescription = "Several paintings are painted on the walls here.";
+            room.LookDescription = "Several paintings are painted on the walls here.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -454,7 +454,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The fact that the earth does not collapse in filling the pit is a testament to the original dwarf miners ingenuity.";
-            room.LongDescription = "You at the edge of a great big open pit mine.";
+            room.LookDescription = "You at the edge of a great big open pit mine.";
             room.ShortDescription = "Ore Track";
 
             return room;
@@ -465,7 +465,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The small tunnel leading down seems to squeeze in on you from all around.";
-            room.LongDescription = "The roughly hewn mine shaft descends into the darkness below.";
+            room.LookDescription = "The roughly hewn mine shaft descends into the darkness below.";
             room.ShortDescription = "Dark Mine Shaft";
 
             return room;
@@ -475,7 +475,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Water can be dribbling down the shaft wall on the east.  Perhaps the miners hit a natural underground stream in their quest for gold.";
-            room.LongDescription = "The roughly hewn mine shaft descends into the darkness below.";
+            room.LookDescription = "The roughly hewn mine shaft descends into the darkness below.";
             room.ShortDescription = "Dark Mine Shaft";
 
             return room;
@@ -485,7 +485,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "You briefly hear a the sound of a far off cry of help as if someone is falling off a ladder and then silence.";
-            room.LongDescription = "The roughly hewn mine shaft descends into the darkness below.";
+            room.LookDescription = "The roughly hewn mine shaft descends into the darkness below.";
             room.ShortDescription = "Dark Mine Shaft";
 
             return room;
@@ -495,7 +495,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Stopping momentarily on the ladder you feel a icy brush as if something feel past you.";
-            room.LongDescription = "The roughly hewn mine shaft descends into the darkness below.";
+            room.LookDescription = "The roughly hewn mine shaft descends into the darkness below.";
             room.ShortDescription = "Dark Mine Shaft";
 
             return room;
@@ -505,7 +505,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls still bear the marks of the pick axes that carved the shaft in search for more gold.";
-            room.LongDescription = "The roughly hewn mine shaft descends into the darkness below.";
+            room.LookDescription = "The roughly hewn mine shaft descends into the darkness below.";
             room.ShortDescription = "Dark Mine Shaft";
 
             return room;
@@ -517,7 +517,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "There cavern walls occasionally sparkle here hinting that there may still be gold in these cave walls.";
-            room.LongDescription = "The room opens up into a large area hinting at a natural cavern of sorts.";
+            room.LookDescription = "The room opens up into a large area hinting at a natural cavern of sorts.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -527,7 +527,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel walls are covered in soot as is something has been burned in it.";
-            room.LongDescription = "The tunnel twists slightly slowly rising and falling as you continue to make your way through.";
+            room.LookDescription = "The tunnel twists slightly slowly rising and falling as you continue to make your way through.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -537,7 +537,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The room is about twenty five feet in height and forty feet in diameter.  The column is about two feet wide at the base and two inches in the middle.";
-            room.LongDescription = "The room opens up again to a natural dome with a single pillar in the center where a stalactite and stalagmite have met.";
+            room.LookDescription = "The room opens up again to a natural dome with a single pillar in the center where a stalactite and stalagmite have met.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -548,7 +548,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IRoom room = ZoneRoom(1);
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.ExamineDescription = "The magma is slow and poses no immediate danger other than falling into the crevice.  The temperature of the room though has risen to a slightly warmish temperature.";
-            room.LongDescription = "The cavern glows with a dull red as magma slowly flows from a hole in the wall to the east down into a deep crevice and to the west.";
+            room.LookDescription = "The cavern glows with a dull red as magma slowly flows from a hole in the wall to the east down into a deep crevice and to the west.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -560,7 +560,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IRoom room = ZoneRoom(1);
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.ExamineDescription = "The stone throne to the north is huge standing sixteen feet to the seat and faces to the north.";
-            room.LongDescription = "A large stone throne dominates the room.";
+            room.LookDescription = "A large stone throne dominates the room.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -571,7 +571,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IRoom room = ZoneRoom(1);
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.ExamineDescription = "The pedestal stands eight feet tall and has a large metal brazier with carvings of fire demons on it.";
-            room.LongDescription = "A large pedestal supports a massive brazier giving light to the room.";
+            room.LookDescription = "A large pedestal supports a massive brazier giving light to the room.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -582,7 +582,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IRoom room = ZoneRoom(1);
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.ExamineDescription = "The stone throne to the west is huge standing sixteen feet to the seat and faces to the north.";
-            room.LongDescription = "A large stone throne dominates the room.";
+            room.LookDescription = "A large stone throne dominates the room.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -593,7 +593,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IRoom room = ZoneRoom(1);
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.ExamineDescription = "The pedestal stands eight feet tall and has a large metal brazier with carvings of fire demons on it.";
-            room.LongDescription = "A large pedestal supports a massive brazier giving light to the room.";
+            room.LookDescription = "A large pedestal supports a massive brazier giving light to the room.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -604,7 +604,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IRoom room = ZoneRoom(1);
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.ExamineDescription = "The stone throne to the south is huge standing sixteen feet to the seat and faces to the north.";
-            room.LongDescription = "A large stone throne dominates the room.";
+            room.LookDescription = "A large stone throne dominates the room.";
             room.ShortDescription = "Dark Mine Floor";
 
             room.AddMobileObjectToRoom(Balrog());
@@ -617,7 +617,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IRoom room = ZoneRoom(1);
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.ExamineDescription = "The pedestal stands eight feet tall and has a large metal brazier with carvings of fire demons on it.";
-            room.LongDescription = "A large pedestal supports a massive brazier giving light to the room.";
+            room.LookDescription = "A large pedestal supports a massive brazier giving light to the room.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -628,7 +628,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IRoom room = ZoneRoom(1);
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.ExamineDescription = "The stone throne to the east is huge standing sixteen feet to the seat and faces to the north.";
-            room.LongDescription = "A large stone throne dominates the room.";
+            room.LookDescription = "A large stone throne dominates the room.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -639,7 +639,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IRoom room = ZoneRoom(1);
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.ExamineDescription = "The pedestal stands eight feet tall and has a large metal brazier with carvings of fire demons on it.";
-            room.LongDescription = "A large pedestal supports a massive brazier giving light to the room.";
+            room.LookDescription = "A large pedestal supports a massive brazier giving light to the room.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -650,7 +650,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Dozen of reflections of yourself can be seen in the cavern walls.  Short and fat as well as tall and thin versions of yourself.";
-            room.LongDescription = "The walls of the room are made of black obsidian glass creating a fun house effect with your reflection.";
+            room.LookDescription = "The walls of the room are made of black obsidian glass creating a fun house effect with your reflection.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -660,7 +660,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Hints of rich gold veins still sparkles through parts of the cavern walls.";
-            room.LongDescription = "This small room seems to be mostly untouched by the dwarven miners.";
+            room.LookDescription = "This small room seems to be mostly untouched by the dwarven miners.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -670,7 +670,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "It would seem to be that the dwarves stumbled upon a underground section of rock salt.";
-            room.LongDescription = "Small salt crystals protrude from the cavern walls.";
+            room.LookDescription = "Small salt crystals protrude from the cavern walls.";
             room.ShortDescription = "Dark Mine Floor";
 
             return room;
@@ -697,7 +697,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Personalities.Add(new Wanderer());
 
             npc.ExamineDescription = "The demon is ablaze with fire will smoke hides its true form from view.";
-            npc.LongDescription = "A large demon of fire and smoke standing twenty feet tall.";
+            npc.LookDescription = "A large demon of fire and smoke standing twenty feet tall.";
             npc.ShortDescription = "A large flaming Balrog.";
             npc.SentenceDescription = "Balrog";
 
@@ -756,7 +756,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.KeyWords.Add("Balrog");
             weapon.KeyWords.Add("Sword");
             weapon.ExamineDescription = "As you get closer to the sword flames flair up engulfing the sword in fire and smoke choking the air and making it hard to determine its true size and shape.";
-            weapon.LongDescription = "When the Balrog wielded the sword it had flames leaping from it, now it just smolders.";
+            weapon.LookDescription = "When the Balrog wielded the sword it had flames leaping from it, now it just smolders.";
             weapon.SentenceDescription = "sword";
             weapon.ShortDescription = "A large flaming sword.";
 
@@ -770,7 +770,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Personalities.Add(new Wanderer());
 
             npc.ExamineDescription = "The dark figure is hard to see and blends into the shadows.";
-            npc.LongDescription = "The figure seems to fade in and out of existence as it moves among the shadows.";
+            npc.LookDescription = "The figure seems to fade in and out of existence as it moves among the shadows.";
             npc.ShortDescription = "A shadowy figure.";
             npc.SentenceDescription = "shadow";
 

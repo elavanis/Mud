@@ -35,7 +35,7 @@ namespace Objects.Global.DefaultValues
         {
             List<IDice> armorValues = new List<IDice>();
             double target = 1;
-            for (int i = 0; i < GlobalReference.GlobalValues.Settings.MaxLevel; i++)
+            for (int i = 0; i < GlobalReference.GlobalValues.Settings.MaxCalculationLevel; i++)
             {
                 //calculate the number of sides the armor die should have based upon the target damage stopping power
                 int sides = (int)Math.Round(target * 2, 0, MidpointRounding.AwayFromZero) - 1;
@@ -77,7 +77,7 @@ namespace Objects.Global.DefaultValues
             IDice dice = DiceForArmorLevel(1);
             int target = dice.Die * dice.Sides * 9 * 3;
 
-            for (int i = 0; i < GlobalReference.GlobalValues.Settings.MaxLevel; i++)
+            for (int i = 0; i < GlobalReference.GlobalValues.Settings.MaxCalculationLevel; i++)
             {
                 weaponValues.Add(ReduceValues(1, target));
 
@@ -112,7 +112,7 @@ namespace Objects.Global.DefaultValues
             List<int> trapValues = new List<int>();
             int damageAmount = (GlobalReference.GlobalValues.Settings.BaseStatValue + GlobalReference.GlobalValues.Settings.AssignableStatPoints / 6) * 10;
             double incrementingValue = (GlobalReference.GlobalValues.Settings.Multiplier - 1) / 6 + GlobalReference.GlobalValues.Settings.Multiplier;
-            for (int i = 0; i < GlobalReference.GlobalValues.Settings.MaxLevel; i++)
+            for (int i = 0; i < GlobalReference.GlobalValues.Settings.MaxCalculationLevel; i++)
             {
                 //we multiply the damage by 2 to get the average damage to be the full health of a player
                 trapValues.Add(2 * damageAmount);
@@ -156,7 +156,7 @@ namespace Objects.Global.DefaultValues
             IDice dice = DiceForArmorLevel(1);
             int target = (int)(dice.Die * dice.Sides * 9 * 3 * 1.5);
 
-            for (int i = 0; i < GlobalReference.GlobalValues.Settings.MaxLevel; i++)
+            for (int i = 0; i < GlobalReference.GlobalValues.Settings.MaxCalculationLevel; i++)
             {
                 weaponValues.Add(ReduceValues(1, target));
 
@@ -220,7 +220,7 @@ namespace Objects.Global.DefaultValues
         {
             List<uint> moneyValues = new List<uint>();
             uint target = 100;
-            for (int i = 0; i < GlobalReference.GlobalValues.Settings.MaxLevel; i++)
+            for (int i = 0; i < GlobalReference.GlobalValues.Settings.MaxCalculationLevel; i++)
             {
                 moneyValues.Add(target);
                 target = (uint)Math.Round(target * GlobalReference.GlobalValues.Settings.Multiplier, 0, MidpointRounding.AwayFromZero);

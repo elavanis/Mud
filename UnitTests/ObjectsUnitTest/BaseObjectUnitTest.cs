@@ -83,7 +83,7 @@ namespace ObjectsUnitTest
         public void BaseObject_FinishLoad_ZoneObjectSyncLoad()
         {
             baseObject.ShortDescription = "short";
-            baseObject.LongDescription = "long";
+            baseObject.LookDescription = "long";
             baseObject.ExamineDescription = "examine";
             baseObject.SentenceDescription = "sentence";
 
@@ -96,7 +96,7 @@ namespace ObjectsUnitTest
             baseObject.FinishLoad(1);
 
             Assert.AreEqual("ShortDescription", baseObject.ShortDescription);
-            Assert.AreEqual("LongDescription", baseObject.LongDescription);
+            Assert.AreEqual("LongDescription", baseObject.LookDescription);
             Assert.AreEqual("ExamineDescription", baseObject.ExamineDescription);
             Assert.AreEqual("SentenceDescription", baseObject.SentenceDescription);
             Assert.AreEqual("KeyWords", baseObject.KeyWords[0]);
@@ -110,7 +110,7 @@ namespace ObjectsUnitTest
             GlobalReference.GlobalValues.Random = random.Object;
 
             baseObject.ShortDescription = "short";
-            baseObject.LongDescription = "long";
+            baseObject.LookDescription = "long";
             baseObject.ExamineDescription = "examine";
             baseObject.SentenceDescription = "sentence";
             baseObject.KeyWords.Add("keyword");
@@ -125,7 +125,7 @@ namespace ObjectsUnitTest
             baseObject.FinishLoad(1);
 
             Assert.AreEqual("b", baseObject.ShortDescription);
-            Assert.AreEqual("b", baseObject.LongDescription);
+            Assert.AreEqual("b", baseObject.LookDescription);
             Assert.AreEqual("b", baseObject.ExamineDescription);
             Assert.AreEqual("b", baseObject.SentenceDescription);
             Assert.AreEqual("b", baseObject.KeyWords[0]);

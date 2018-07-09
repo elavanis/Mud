@@ -68,7 +68,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "While the wooden gates are still strong they have fallen off the hinges and lay strewn on ground.";
-            room.LongDescription = "Both sets of gates have fallen off the hinges and allow access to the fort.";
+            room.LookDescription = "Both sets of gates have fallen off the hinges and allow access to the fort.";
             room.ShortDescription = "Entrance to the fort";
 
             return room;
@@ -78,7 +78,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "To the north a collapsed building has fallen down.  To the east and west are stairs leading to the ramparts.";
-            room.LongDescription = "The court yard is overgrown with grass and small trees.";
+            room.LookDescription = "The court yard is overgrown with grass and small trees.";
             room.ShortDescription = "Inside the court yard";
 
             return room;
@@ -88,7 +88,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "The stairs are worn but look like they should hold your weight.";
-            room.LongDescription = "Wooden stairs lead up to the rampart.";
+            room.LookDescription = "Wooden stairs lead up to the rampart.";
             room.ShortDescription = "Inside the court yard";
 
             return room;
@@ -98,7 +98,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "If the well had a cover it is long gone but there is still water in the well.  If only the bucket was around you could get a drink.";
-            room.LongDescription = "A small stone well dominates the area here.";
+            room.LookDescription = "A small stone well dominates the area here.";
             room.ShortDescription = "Inside the court yard";
 
             return room;
@@ -108,7 +108,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "The part of the eastern wall has started to collapse allowing you to see out into the forest.";
-            room.LongDescription = "Thick grass has grown up obscuring what this part of the court yard might have been used for.";
+            room.LookDescription = "Thick grass has grown up obscuring what this part of the court yard might have been used for.";
             room.ShortDescription = "Inside the court yard";
 
             return room;
@@ -118,7 +118,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "It looks like this might have been stalls for horses but the building has long since collapsed.";
-            room.LongDescription = "A collapsed building lays before you.";
+            room.LookDescription = "A collapsed building lays before you.";
             room.ShortDescription = "Inside the court yard";
 
             return room;
@@ -128,7 +128,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "A several trees have started to grow up pushing the stone pavers out of the way.";
-            room.LongDescription = "You stand in what was once the center of the court yard.";
+            room.LookDescription = "You stand in what was once the center of the court yard.";
             room.ShortDescription = "Inside the court yard";
 
             return room;
@@ -138,7 +138,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "Peeking into the building you can see part of a shelf on the right but not any further as the walls have collapsed.";
-            room.LongDescription = "A small building such as a shed stands to the north.";
+            room.LookDescription = "A small building such as a shed stands to the north.";
             room.ShortDescription = "Inside the court yard";
 
             return room;
@@ -148,7 +148,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "The door to the building is ajar and hangs only by one nail that refuses to give up.";
-            room.LongDescription = "The main building in the fort is to the west while the court yard opens to the east.";
+            room.LookDescription = "The main building in the fort is to the west while the court yard opens to the east.";
             room.ShortDescription = "Inside the court yard";
 
             return room;
@@ -158,7 +158,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "The stairs have long been neglected and have succumb to mother nature and father time.";
-            room.LongDescription = "The stairs leading up to the ramparts have collapsed.";
+            room.LookDescription = "The stairs leading up to the ramparts have collapsed.";
             room.ShortDescription = "Inside the court yard";
 
             return room;
@@ -168,7 +168,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "The forest would have been cut back to allow lookouts to see approaching people sooner. How much is hard to say though.";
-            room.LongDescription = "The top of the rampart you are able to see the court yard below.  This would have given watchers a good view point of the forest below as well as the court yard.";
+            room.LookDescription = "The top of the rampart you are able to see the court yard below.  This would have given watchers a good view point of the forest below as well as the court yard.";
             room.ShortDescription = "On the rampart";
 
             return room;
@@ -178,7 +178,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "The whole fort seems to let out a low creak as you walk on this part of the rampart.";
-            room.LongDescription = "As you step on to this part of the rampart it lets out a grown in protest at your presence.";
+            room.LookDescription = "As you step on to this part of the rampart it lets out a grown in protest at your presence.";
             room.ShortDescription = "On the rampart";
 
             ISound sound = new Sound();
@@ -192,7 +192,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "At some point someone carved TLJ + CLG inside a big heart.";
-            room.LongDescription = "The rampart continues north and south.";
+            room.LookDescription = "The rampart continues north and south.";
             room.ShortDescription = "On the rampart";
 
             return room;
@@ -202,7 +202,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = OutSideRoom(1);
             room.ExamineDescription = "The wall to the north has begun to fall away and you can see the forest starting to grow through.";
-            room.LongDescription = "The rampart to the north has fallen down and is no longer passable.";
+            room.LookDescription = "The rampart to the north has fallen down and is no longer passable.";
             room.ShortDescription = "On the rampart";
 
             return room;
@@ -212,7 +212,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "Large amounts of dust covers the ground.";
-            room.LongDescription = "A long dark hallway stretches to the west while the court yard opens to the east.";
+            room.LookDescription = "A long dark hallway stretches to the west while the court yard opens to the east.";
             room.ShortDescription = "In Fort Woodbrook";
 
             return room;
@@ -222,7 +222,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "The root proves to be a small tripping hazard but could be an issue if you needed to run through here in a hurry.";
-            room.LongDescription = "A tree root grows up through the floor before going back down into the ground.";
+            room.LookDescription = "A tree root grows up through the floor before going back down into the ground.";
             room.ShortDescription = "In Fort Woodbrook";
 
             return room;
@@ -232,7 +232,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "A hall";
-            room.LongDescription = "A hall";
+            room.LookDescription = "A hall";
             room.ShortDescription = "In Fort Woodbrook";
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
@@ -243,7 +243,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "A hall";
-            room.LongDescription = "A hall";
+            room.LookDescription = "A hall";
             room.ShortDescription = "In Fort Woodbrook";
 
             return room;
@@ -253,7 +253,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "A hall";
-            room.LongDescription = "A hall";
+            room.LookDescription = "A hall";
             room.ShortDescription = "In Fort Woodbrook";
 
             return room;
@@ -263,7 +263,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "Most weapons appear to be of training quality and the little that was of better quality has suffered the ravages of time and neglect.";
-            room.LongDescription = "While this room is filled with swords and shields there does not appear to be anything of actual use.";
+            room.LookDescription = "While this room is filled with swords and shields there does not appear to be anything of actual use.";
             room.ShortDescription = "In Fort Woodbrook";
 
             return room;
@@ -273,7 +273,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "It appears over time animals have made this room a favorite sleeping area.";
-            room.LongDescription = "What is left of several beds litter the room.";
+            room.LookDescription = "What is left of several beds litter the room.";
             room.ShortDescription = "In Fort Woodbrook";
 
             return room;
@@ -283,7 +283,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "A large wooden table has several small spider webs on it from lack of use.";
-            room.LongDescription = "A large wooden table with several scattered chairs fill this part of the room.";
+            room.LookDescription = "A large wooden table with several scattered chairs fill this part of the room.";
             room.ShortDescription = "In Fort Woodbrook";
 
             room.AddMobileObjectToRoom(BabySpider());
@@ -295,7 +295,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "A large wooden table has several small spider webs on it from lack of use.";
-            room.LongDescription = "A large wooden table with several scattered chairs fill this part of the room.";
+            room.LookDescription = "A large wooden table with several scattered chairs fill this part of the room.";
             room.ShortDescription = "In Fort Woodbrook";
 
             room.AddMobileObjectToRoom(BabySpider());
@@ -307,7 +307,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "The spider webs have become an integral part of the furniture creating an almost haunted look..";
-            room.LongDescription = "Spider webs cover large amounts of the chairs and table here.";
+            room.LookDescription = "Spider webs cover large amounts of the chairs and table here.";
             room.ShortDescription = "In Fort Woodbrook";
 
             room.AddMobileObjectToRoom(BabySpider());
@@ -319,7 +319,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "A large wooden table has several small spider webs on it from lack of use.";
-            room.LongDescription = "A large wooden table with several scattered chairs fill this part of the room.";
+            room.LookDescription = "A large wooden table with several scattered chairs fill this part of the room.";
             room.ShortDescription = "In Fort Woodbrook";
 
             room.AddMobileObjectToRoom(BabySpider());
@@ -331,7 +331,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "The spider webs have become an integral part of the furniture creating an almost haunted look..";
-            room.LongDescription = "Spider webs cover large amounts of the chairs and table here.";
+            room.LookDescription = "Spider webs cover large amounts of the chairs and table here.";
             room.ShortDescription = "In Fort Woodbrook";
 
             room.AddMobileObjectToRoom(BabySpider());
@@ -343,7 +343,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "The spider webs have grown so complete that they cover the furniture like a giant white sheet.";
-            room.LongDescription = "The spider webs have grown thick and cover the furniture completely hiding it from view.";
+            room.LookDescription = "The spider webs have grown thick and cover the furniture completely hiding it from view.";
             room.ShortDescription = "In Fort Woodbrook";
 
             room.AddMobileObjectToRoom(BabySpider());
@@ -355,7 +355,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "The spider webs have become an integral part of the furniture creating an almost haunted look..";
-            room.LongDescription = "Spider webs cover large amounts of the chairs and table here.";
+            room.LookDescription = "Spider webs cover large amounts of the chairs and table here.";
             room.ShortDescription = "In Fort Woodbrook";
 
             room.AddMobileObjectToRoom(BabySpider());
@@ -367,7 +367,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "The spider webs have grown so complete that they cover the furniture like a giant white sheet.";
-            room.LongDescription = "The spider webs have grown thick and cover the furniture completely hiding it from view.";
+            room.LookDescription = "The spider webs have grown thick and cover the furniture completely hiding it from view.";
             room.ShortDescription = "In Fort Woodbrook";
 
             room.AddMobileObjectToRoom(BabySpider());
@@ -379,7 +379,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "The spider webs criss cross into a solid web wall of web save a small opening to the north.";
-            room.LongDescription = "The spider webs cover the entirety of the room from the floor to the ceiling.";
+            room.LookDescription = "The spider webs cover the entirety of the room from the floor to the ceiling.";
             room.ShortDescription = "In Fort Woodbrook";
 
             room.AddMobileObjectToRoom(BabySpider());
@@ -391,7 +391,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "White silken webs are every where creating a silver shimmer ever where you look.";
-            room.LongDescription = "A tunnel of spider webs leads north and south.";
+            room.LookDescription = "A tunnel of spider webs leads north and south.";
             room.ShortDescription = "In Fort Woodbrook";
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
             room.Attributes.Add(Room.RoomAttribute.NoRecall);
@@ -405,7 +405,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = InSideRoom(1);
             room.ExamineDescription = "Examining the dark spots closer reveal them to be corpses of adventures who were victims of the spider.";
-            room.LongDescription = "Several dark spots in the spider silk web do the walls of the room.";
+            room.LookDescription = "Several dark spots in the spider silk web do the walls of the room.";
             room.ShortDescription = "In Fort Woodbrook";
 
             LoadEquipment(room);
@@ -422,7 +422,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Personalities.Add(new Wanderer());
             npc.SentenceDescription = "spider";
             npc.ShortDescription = "A small spider.";
-            npc.LongDescription = "A small spider crawls along its web.";
+            npc.LookDescription = "A small spider crawls along its web.";
             npc.ExamineDescription = "The spider has the trade mark red hour glass indicating its a black widow.  It might be good to leave this spider alone.";
 
             return npc;
@@ -440,7 +440,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Personalities.Add(guard);
             npc.SentenceDescription = "spider";
             npc.ShortDescription = "A giant spider.";
-            npc.LongDescription = "A giant spider crawls along its web with venom dripping from its fangs.";
+            npc.LookDescription = "A giant spider crawls along its web with venom dripping from its fangs.";
             npc.ExamineDescription = "It is a large spider over 12 feet long.  Its eight legs seem to float along the web barley touching it and moving on without sticking.";
 
             return npc;
@@ -478,19 +478,19 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor = Arms(level);
                 armor.Material = new Silver();
                 armor.ShortDescription = "A silver bracer.";
-                armor.LongDescription = "A silver bracer looks like it would be a nice fit and good defense.";
+                armor.LookDescription = "A silver bracer looks like it would be a nice fit and good defense.";
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 1, Object = armor });
 
                 armor = Arms(level);
                 armor.Material = new Leather();
                 armor.ShortDescription = "A leather bracer.";
-                armor.LongDescription = "The bracer is thick, sturdy and leather.";
+                armor.LookDescription = "The bracer is thick, sturdy and leather.";
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 3, Object = armor });
 
                 armor = Arms(level);
                 armor.Material = new Steel();
                 armor.ShortDescription = "A steel bracer.";
-                armor.LongDescription = "The steel bracer has a small dent in it but nothing that will affect its performance.";
+                armor.LookDescription = "The steel bracer has a small dent in it but nothing that will affect its performance.";
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 3, Object = armor });
                 #endregion Arms
 
@@ -498,7 +498,7 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor = Body(level);
                 armor.Material = new Cloth();
                 armor.ShortDescription = "A padded vest.";
-                armor.LongDescription = "The padded vest is has the emblem of the GrandView warrior guild.";
+                armor.LookDescription = "The padded vest is has the emblem of the GrandView warrior guild.";
                 armor.ExamineDescription = "The vest is a light brown color and the stitching for the padding is well hidden making it look like a regular vest.";
                 armor.SentenceDescription = "vest";
                 armor.SentenceDescription = "padded vest";
@@ -507,7 +507,7 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor = Body(level);
                 armor.Material = new Leather();
                 armor.ShortDescription = "A leather jacket.";
-                armor.LongDescription = "The studded leather jacket looks to be intimidating.";
+                armor.LookDescription = "The studded leather jacket looks to be intimidating.";
                 armor.ExamineDescription = "Black as night the only thing that keeps this from being a good thief's outfit is the metal studs sticking out.";
                 armor.SentenceDescription = "leather";
                 armor.SentenceDescription = "jacket";
@@ -517,7 +517,7 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor = Body(level);
                 armor.Material = new Steel();
                 armor.ShortDescription = "A steel breast plate.";
-                armor.LongDescription = "The steel breast plate is complete with a six pack on the front.";
+                armor.LookDescription = "The steel breast plate is complete with a six pack on the front.";
                 armor.ExamineDescription = "The breast plate even has a belly button.  Inside the armor it has the creators initials. {FirstInitial}{SecondInitial}.";
                 armor.SentenceDescription = "bracer";
                 armor.FlavorOptions.Add("{FirstInitial}", new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" });
@@ -530,7 +530,7 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor.Material = new Silver();
                 armor.KeyWords.Clear();
                 armor.ShortDescription = "A silver pair of ballet slippers.";
-                armor.LongDescription = "The silver slippers don't look like they would offer much protection.";
+                armor.LookDescription = "The silver slippers don't look like they would offer much protection.";
                 armor.ExamineDescription = "The slippers hum slightly but other than that appear to be normal.";
                 armor.SentenceDescription = "silver slippers";
                 armor.KeyWords.Add("silver");
@@ -540,13 +540,13 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor = Feet(level);
                 armor.Material = new Leather();
                 armor.ShortDescription = "Leather boots.";
-                armor.LongDescription = "The boots are made of leather and appear to be sturdy.";
+                armor.LookDescription = "The boots are made of leather and appear to be sturdy.";
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 3, Object = armor });
 
                 armor = Feet(level);
                 armor.Material = new Steel();
                 armor.ShortDescription = "A steel boot.";
-                armor.LongDescription = "The steel boots will give the user plenty of protection but will wear them out having to walking in them all day.";
+                armor.LookDescription = "The steel boots will give the user plenty of protection but will wear them out having to walking in them all day.";
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 3, Object = armor });
                 #endregion Feet
 
@@ -554,7 +554,7 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor = Hand(level);
                 armor.Material = new Leather();
                 armor.ShortDescription = "Leather gloves.";
-                armor.LongDescription = "The gloves have a fair amount of padding to protect the users hands.";
+                armor.LookDescription = "The gloves have a fair amount of padding to protect the users hands.";
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 3, Object = armor });
                 #endregion Hands
 
@@ -562,25 +562,25 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor = Helmet(level);
                 armor.Material = new Gold();
                 armor.ShortDescription = "A gold helmet.";
-                armor.LongDescription = "A golden helmet looks like it would be a nice fit and good defense.";
+                armor.LookDescription = "A golden helmet looks like it would be a nice fit and good defense.";
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 1, Object = armor });
 
                 armor = Helmet(level);
                 armor.Material = new Cloth();
                 armor.ShortDescription = "A cloth helmet.";
-                armor.LongDescription = "While not the best defense it is better than nothing.";
+                armor.LookDescription = "While not the best defense it is better than nothing.";
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 2, Object = armor });
 
                 armor = Helmet(level);
                 armor.Material = new Leather();
                 armor.ShortDescription = "A leather helmet.";
-                armor.LongDescription = "A fightings mans helmet.  Better than cloth and not quite as good as steel but much more affordable.";
+                armor.LookDescription = "A fightings mans helmet.  Better than cloth and not quite as good as steel but much more affordable.";
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 3, Object = armor });
 
                 armor = Helmet(level);
                 armor.Material = new Steel();
                 armor.ShortDescription = "A steel helmet.";
-                armor.LongDescription = "The helmet is made of steel a tried and true material able to take a bashing while protecting the wearer.";
+                armor.LookDescription = "The helmet is made of steel a tried and true material able to take a bashing while protecting the wearer.";
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 3, Object = armor });
                 #endregion Helmet
 
@@ -588,7 +588,7 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor = Leg(level);
                 armor.Material = new Leather();
                 armor.ShortDescription = "Leather pants.";
-                armor.LongDescription = "A pair of pants that once belonged to a member of the phoenix guild.";
+                armor.LookDescription = "A pair of pants that once belonged to a member of the phoenix guild.";
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 3, Object = armor });
                 #endregion Legs
             }
@@ -598,7 +598,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IWeapon weapon = CreateWeapon(WeaponType.Sword, level);
             weapon.ExamineDescription = "The metal sword is approximately two feet long with a guard that has a slight upward curve.  The grip is {grip} and has a {pommel} for the pommel.";
-            weapon.LongDescription = "A finely polish metal sword.";
+            weapon.LookDescription = "A finely polish metal sword.";
             weapon.ShortDescription = "A metal sword.";
             weapon.SentenceDescription = "sword";
             weapon.KeyWords.Add("sword");
@@ -619,7 +619,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IWeapon weapon = CreateWeapon(WeaponType.Spear, level);
             weapon.ExamineDescription = "The tip of the spear is a bit rusty but nothing that a little polishing wouldn't take care of.";
-            weapon.LongDescription = "A oak spear with a iron tip.";
+            weapon.LookDescription = "A oak spear with a iron tip.";
             weapon.ShortDescription = "A wooden spear.";
             weapon.SentenceDescription = "spear";
             weapon.KeyWords.Add("spear");

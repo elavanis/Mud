@@ -60,7 +60,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { mob.Object, pc.Object });
             room.Setup(e => e.ShortDescription).Returns("RoomShortDescription");
-            room.Setup(e => e.LongDescription).Returns("RoomLongDescription");
+            room.Setup(e => e.LookDescription).Returns("RoomLongDescription");
             canDoSomething.Setup(e => e.SeeDueToLight(mob.Object)).Returns(true);
             canDoSomething.Setup(e => e.SeeObject(mob.Object, item.Object)).Returns(true);
             canDoSomething.Setup(e => e.SeeObject(mob.Object, npc.Object)).Returns(true);
@@ -148,7 +148,7 @@ namespace ObjectsUnitTest.Command.PC
             parameter.Setup(e => e.ParameterValue).Returns("pc");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "pc", 0, true, true, true, true, true)).Returns(pc.Object);
-            pc.Setup(e => e.LongDescription).Returns("PcLongDescription");
+            pc.Setup(e => e.LookDescription).Returns("PcLongDescription");
             pc.Setup(e => e.EquipedEquipment).Returns(new List<IEquipment>() { item.Object });
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
@@ -171,7 +171,7 @@ namespace ObjectsUnitTest.Command.PC
             parameter.Setup(e => e.ParameterValue).Returns("npc");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "npc", 0, true, true, true, true, true)).Returns(npc.Object);
-            npc.Setup(e => e.LongDescription).Returns("NpcLongDescription");
+            npc.Setup(e => e.LookDescription).Returns("NpcLongDescription");
             npc.Setup(e => e.EquipedEquipment).Returns(new List<IEquipment>() { item.Object });
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
@@ -193,7 +193,7 @@ namespace ObjectsUnitTest.Command.PC
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, true, true, true)).Returns(item.Object);
-            item.Setup(e => e.LongDescription).Returns("LongDescription");
+            item.Setup(e => e.LookDescription).Returns("LongDescription");
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
@@ -215,7 +215,7 @@ namespace ObjectsUnitTest.Command.PC
             parameter.Setup(e => e.ParameterValue).Returns("container");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             container.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
-            containerItem.Setup(e => e.LongDescription).Returns("ContainerLongDescription");
+            containerItem.Setup(e => e.LookDescription).Returns("ContainerLongDescription");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, true, true, true)).Returns(containerItem.Object);
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
@@ -238,9 +238,9 @@ namespace ObjectsUnitTest.Command.PC
             parameter.Setup(e => e.ParameterValue).Returns("container");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             container.Setup(e => e.Items).Returns(new List<IItem>());
-            containerItem.Setup(e => e.LongDescription).Returns("LongDescription");
+            containerItem.Setup(e => e.LookDescription).Returns("LongDescription");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, true, true, true)).Returns(containerItem.Object);
-            item.Setup(e => e.LongDescription).Returns("LongDescription");
+            item.Setup(e => e.LookDescription).Returns("LongDescription");
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 

@@ -78,7 +78,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Each statue is larger than life coming in at eight feet tall.  Their axes raised in a salute touching overhead forming the entrance way in which to walk in or out of the camp.";
-            room.LongDescription = "A pair of dwarven statues are carved into the rock faces.";
+            room.LookDescription = "A pair of dwarven statues are carved into the rock faces.";
             room.ShortDescription = "Dwarven Mining Camp";
 
             return room;
@@ -88,7 +88,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The cavern begins to open up more here to allow for the larger camp.";
-            room.LongDescription = "The dwarven mining camp opens to the east and the camp ends with a pair of statues to the west.";
+            room.LookDescription = "The dwarven mining camp opens to the east and the camp ends with a pair of statues to the west.";
             room.ShortDescription = "Dwarven Mining Camp";
 
             return room;
@@ -98,7 +98,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The store front was carved out the rock but the right half has been ripped apart like it was a kids Lincoln Logs.";
-            room.LongDescription = "The old store front of the blacksmith has been partly destroyed.";
+            room.LookDescription = "The old store front of the blacksmith has been partly destroyed.";
             room.ShortDescription = "Dwarven Mining Camp";
 
             return room;
@@ -108,7 +108,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The smoke carries the smell of meat and vegetables to your nostrils.";
-            room.LongDescription = "Smoke slowly rolls out of what used to be the old dwarven tavern.";
+            room.LookDescription = "Smoke slowly rolls out of what used to be the old dwarven tavern.";
             room.ShortDescription = "Dwarven Mining Camp";
 
             return room;
@@ -118,7 +118,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The hole leading down to the water is all that remains.";
-            room.LongDescription = "Once upon a time there used to be a well here but has since been removed.";
+            room.LookDescription = "Once upon a time there used to be a well here but has since been removed.";
             room.ShortDescription = "Dwarven Mining Camp";
 
             return room;
@@ -128,7 +128,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Small piles of rubble are all that are left of the stone walls that was one stood high above.";
-            room.LongDescription = "Piles of rubble, a dwarven anvil and a long dead forge are all that remain of the dwarven blacksmith hall.";
+            room.LookDescription = "Piles of rubble, a dwarven anvil and a long dead forge are all that remain of the dwarven blacksmith hall.";
             room.ShortDescription = "Dwarven Mining Camp";
 
             return room;
@@ -138,7 +138,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The place has been ransacked and looted.  A few empty bottles are all that remain of what was surely a well stocked store.";
-            room.LongDescription = "You stand in what was a general store of sorts.";
+            room.LookDescription = "You stand in what was a general store of sorts.";
             room.ShortDescription = "Dwarven Mining Camp";
 
             return room;
@@ -148,7 +148,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Not much remains of the bar.  Just a few broken table and chairs.";
-            room.LongDescription = "Broken tables are piled in one corner while the booze behind the bar has been emptied.";
+            room.LookDescription = "Broken tables are piled in one corner while the booze behind the bar has been emptied.";
             room.ShortDescription = "Dwarven Mining Camp";
 
             return room;
@@ -158,7 +158,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Peering into the cooking pot revels a stew of sorts slowly bubbling.";
-            room.LongDescription = "A small cooking fire burns giving light to the room and filling the room with the scent of food.";
+            room.LookDescription = "A small cooking fire burns giving light to the room and filling the room with the scent of food.";
             room.ShortDescription = "Dwarven Mining Camp";
 
             room.Attributes.Add(Room.RoomAttribute.Light);
@@ -173,7 +173,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Faint light comes from one end of the tunnel while inky blackness fills the other end.";
-            room.LongDescription = "A natural tunnel was revealed when the wall to the bar was broken.";
+            room.LookDescription = "A natural tunnel was revealed when the wall to the bar was broken.";
             room.ShortDescription = "Cavern Tunnels";
 
             return room;
@@ -273,7 +273,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The small tunnel was formed by flowing water long since gone.";
-            room.LongDescription = "You stand in a small tunnel part of a larger cave system.";
+            room.LookDescription = "You stand in a small tunnel part of a larger cave system.";
             room.ShortDescription = "Cavern Tunnels";
 
             return room;
@@ -287,7 +287,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 14);
 
             npc.ExamineDescription = "The goblin stares at you with fright in its eyes.";
-            npc.LongDescription = "The goblin cowers in the corner watching you very intently.";
+            npc.LookDescription = "The goblin cowers in the corner watching you very intently.";
             npc.ShortDescription = "A frightened goblin.";
             npc.SentenceDescription = "goblin";
             npc.KeyWords.Add("goblin");
@@ -304,7 +304,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.Personalities.Add(new Wanderer());
 
             npc.ExamineDescription = "The goblin is armed to the teeth and appears to be on some type of war patrol.";
-            npc.LongDescription = "A well armed goblin appears before you with weapon drawn.";
+            npc.LookDescription = "A well armed goblin appears before you with weapon drawn.";
             npc.ShortDescription = "An armed goblin.";
             npc.SentenceDescription = "goblin";
             npc.KeyWords.Add("goblin");
@@ -323,7 +323,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.KeyWords.Add("sword");
             weapon.KeyWords.Add("dog");
             weapon.KeyWords.Add("slicer");
-            weapon.LongDescription = "The sword is crudely made with spots of rust where the iron has gotten wet.";
+            weapon.LookDescription = "The sword is crudely made with spots of rust where the iron has gotten wet.";
             weapon.ShortDescription = "The goblin Dogslicer has three holes in the blade making it lighter and easier to swing.";
             weapon.SentenceDescription = "Dogslicer";
             weapon.ExamineDescription = "The Dogslicer is poorly made and looks like it will fail in combat at some point.";
@@ -342,7 +342,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("bracer");
             armor.ShortDescription = "A poorly made pair leather bracers.";
-            armor.LongDescription = "The bracers extend up the wearers arm a good ways giving the user extra protection.";
+            armor.LookDescription = "The bracers extend up the wearers arm a good ways giving the user extra protection.";
             armor.SentenceDescription = "a pair of leather bracers";
             armor.ExamineDescription = "The bracers are fairly plain but are poorly made.";
 
@@ -356,7 +356,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             armor.KeyWords.Add("mail");
             armor.KeyWords.Add("shirt");
             armor.ShortDescription = "A chain mail shirt with a few missing links.";
-            armor.LongDescription = "The chain mail looks to be as utilitarian as protectant.";
+            armor.LookDescription = "The chain mail looks to be as utilitarian as protectant.";
             armor.SentenceDescription = "a chain mail shirt";
             armor.ExamineDescription = "The chain mail is a light steel color. It has a few missing links but other wise looks good.";
 
@@ -370,7 +370,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             armor.KeyWords.Add("steel");
             armor.Material = new Steel();
             armor.ShortDescription = "A steel helmet that is more functional then attractive.";
-            armor.LongDescription = "The helmet sits crooked on the user slightly obscuring their vision.";
+            armor.LookDescription = "The helmet sits crooked on the user slightly obscuring their vision.";
             armor.SentenceDescription = "a steel helmet";
             armor.ExamineDescription = "The helmet is of good quality for goblin craftsmanship.";
 
@@ -384,7 +384,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             armor.KeyWords.Add("pants");
             armor.KeyWords.Add("pant");
             armor.ShortDescription = "Leather pants.";
-            armor.LongDescription = "These pants once belonged to a goblin and look well worn.";
+            armor.LookDescription = "These pants once belonged to a goblin and look well worn.";
             armor.SentenceDescription = "leather pants";
             armor.ExamineDescription = "The leather pants have lots of stains from the life in the caves.";
 

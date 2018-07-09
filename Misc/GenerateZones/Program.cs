@@ -59,7 +59,7 @@ namespace GenerateZones
             npc.Zone = i;
             npc.Id = 1;
             npc.ExamineDescription = "ExamineDescription";
-            npc.LongDescription = "LongDescription";
+            npc.LookDescription = "LongDescription";
             npc.ShortDescription = "ShortDescription";
             npc.SentenceDescription = "SentenceDescription";
             npc.KeyWords.Add("npc");
@@ -70,7 +70,7 @@ namespace GenerateZones
                 room.Id = roomId++;
                 room.Zone = i;
                 room.ExamineDescription = "ExamineDescription";
-                room.LongDescription = "LongDescription";
+                room.LookDescription = "LongDescription";
                 room.ShortDescription = "ShortDescription";
                 room.SentenceDescription = "SentenceDescription";
                 zone.Rooms.Add(room.Id, room);

@@ -689,7 +689,7 @@ namespace Objects.Mob
             Corpse corpse = new Corpse();
             corpse.TimeOfDeath = DateTime.UtcNow;
             corpse.ShortDescription = "A corpse lies here.";
-            corpse.LongDescription = CorpseLongDescription ?? "This corpse once was living but no life exists here now.";
+            corpse.LookDescription = CorpseLongDescription ?? "This corpse once was living but no life exists here now.";
             corpse.ExamineDescription = CorpseLongDescription ?? "This corpse once was living but no life exists here now.";
             corpse.KeyWords.Add("Corpse");
             corpse.SentenceDescription = "corpse";

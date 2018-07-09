@@ -42,7 +42,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "A rock face looks craggy and has plenty of hand holds.";
-            room.LongDescription = "You stand at the base of the mountain side.  The ground is rocky here with little vegetation growing.";
+            room.LookDescription = "You stand at the base of the mountain side.  The ground is rocky here with little vegetation growing.";
 
             return room;
         }
@@ -51,7 +51,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "The path up appears to be clear and able to be climbed.";
-            room.LongDescription = "You stand at the base of the mountain side.  A few small clumps of grass grow in cracks in the rocky soil.";
+            room.LookDescription = "You stand at the base of the mountain side.  A few small clumps of grass grow in cracks in the rocky soil.";
 
             return room;
         }
@@ -60,7 +60,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "Several hand holds have been marked on the rock face showing a way up the mountain side.";
-            room.LongDescription = "You stand at the base of the mountain side.  A small pool of water sits in a small divot in an otherwise smooth rock ground.";
+            room.LookDescription = "You stand at the base of the mountain side.  A small pool of water sits in a small divot in an otherwise smooth rock ground.";
 
             return room;
         }
@@ -69,7 +69,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "The rock face seems to smooth out the higher up you go.";
-            room.LongDescription = "You stand at the base of the mountain side.  The ground is made of soil and has several sets of goat prints here.";
+            room.LookDescription = "You stand at the base of the mountain side.  The ground is made of soil and has several sets of goat prints here.";
 
             return room;
         }
@@ -78,7 +78,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "A few feet above you the rock face move back into the mountain making it hard to see a path up.";
-            room.LongDescription = "You stand at the base of the mountain side.  There is a long path leading up the mountain to the east and a short solid rock wall going straight up.";
+            room.LookDescription = "You stand at the base of the mountain side.  There is a long path leading up the mountain to the east and a short solid rock wall going straight up.";
 
             return room;
         }
@@ -89,7 +89,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "There are scratches on the rock face indicating people have climbed on this rock face before you.";
-            room.LongDescription = "The wall rock face is craggy and easy to climb.";
+            room.LookDescription = "The wall rock face is craggy and easy to climb.";
 
             return room;
         }
@@ -98,7 +98,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "A small green bush protrudes from the rock ledge.";
-            room.LongDescription = "A small ledge makes standing here much easier.";
+            room.LookDescription = "A small ledge makes standing here much easier.";
 
             return room;
         }
@@ -107,7 +107,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "The hand holds continue on a path straight up.";
-            room.LongDescription = "A tree branch brushes up against the rock face as if saying hello there.";
+            room.LookDescription = "A tree branch brushes up against the rock face as if saying hello there.";
 
             return room;
         }
@@ -116,7 +116,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "The rock face is getting very hard to find hand holds.";
-            room.LongDescription = "The rock face is harder to climb with less hand holds.";
+            room.LookDescription = "The rock face is harder to climb with less hand holds.";
 
             return room;
         }
@@ -125,7 +125,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "A small birds nest sits on a small ledge to a few feet to your right.";
-            room.LongDescription = "The rock wall is smooth like water has flowed over it but is still craggy with plenty of holds.";
+            room.LookDescription = "The rock wall is smooth like water has flowed over it but is still craggy with plenty of holds.";
 
             return room;
         }
@@ -136,7 +136,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "A small crack quickly grows into a crack large enough to crawl into.";
-            room.LongDescription = "The rock face is starting to get craggy and brittle.";
+            room.LookDescription = "The rock face is starting to get craggy and brittle.";
 
             return room;
         }
@@ -145,7 +145,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "The soft stone has been worn away in spots and polished smooth.";
-            room.LongDescription = "The rock face has become loose crumbly stone that breaks when weight it put on it.";
+            room.LookDescription = "The rock face has become loose crumbly stone that breaks when weight it put on it.";
 
             return room;
         }
@@ -154,7 +154,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "The rock face contains a vein of sparkling stones while pretty would be to hard to get while dangling from the rock face.";
-            room.LongDescription = "The rock face looks to have broken off here reveling the innards of the mountain.";
+            room.LookDescription = "The rock face looks to have broken off here reveling the innards of the mountain.";
 
             return room;
         }
@@ -163,7 +163,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "A small birds nest gently sits on a branch growing out of the rock face.  Be careful if you use the branch as a hand hold.";
-            room.LongDescription = "The hand holds are getting thin except a few branches growing out of the rock face.";
+            room.LookDescription = "The hand holds are getting thin except a few branches growing out of the rock face.";
 
             return room;
         }
@@ -172,7 +172,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockFace();
             room.ExamineDescription = "The stone resembles a eye of a dragon.  This is what gives this mountain its name. Dragon Mountain.";
-            room.LongDescription = "There is a large round stone that some how is carved out of the mountain side.";
+            room.LookDescription = "There is a large round stone that some how is carved out of the mountain side.";
 
             return room;
         }

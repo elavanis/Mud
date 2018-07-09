@@ -15,7 +15,7 @@ namespace Objects.Item.Items
         {
             Corpse corpse = new Corpse();
             corpse.ExamineDescription = this.ExamineDescription;
-            corpse.LongDescription = this.LongDescription;
+            corpse.LookDescription = this.LookDescription;
             corpse.SentenceDescription = this.SentenceDescription;
             corpse.ShortDescription = this.ShortDescription;
             corpse.TimeOfDeath = this.TimeOfDeath;

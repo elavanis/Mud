@@ -68,7 +68,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
             room.ExamineDescription = "Tapestries of every color adore the bazaar here.  The one on the right might be look good in your house.  Further in the back you can see the seamstresses work.";
-            room.LongDescription = "Colorful tapestries and other cloth materials hang on display all around you.";
+            room.LookDescription = "Colorful tapestries and other cloth materials hang on display all around you.";
             room.ShortDescription = "Bazaar";
 
             return room;
@@ -87,7 +87,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
             room.ExamineDescription = "There are all kinds of fish here.  Bass, trout and walleye as well as ocean imports swordfish and shark.  For the adventurous there are squid and eel.  In the north side of the fish market there is some live lobster and crab.";
-            room.LongDescription = "The smell of fish assault your nostrils.  Everywhere you look you see fish.";
+            room.LookDescription = "The smell of fish assault your nostrils.  Everywhere you look you see fish.";
             room.ShortDescription = "Bazaar";
 
             return room;
@@ -100,7 +100,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
             room.ExamineDescription = "Wheels of fresh Gouda and mozzarella are on display on the left.  Fresh baguettes and other loaves of breads are on the right.";
-            room.LongDescription = "The smell of fresh breeds and cheeses emanate from the market.";
+            room.LookDescription = "The smell of fresh breeds and cheeses emanate from the market.";
             room.ShortDescription = "Bazaar";
 
             return room;
@@ -113,7 +113,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
             room.ExamineDescription = "Wooden bowls come in all shapes and sizes.  Carved from the most beautiful woods some have beautiful designs while other are the more economical choice variety.";
-            room.LongDescription = "Wooden chairs tables, carts and other things lay littered on the ground.";
+            room.LookDescription = "Wooden chairs tables, carts and other things lay littered on the ground.";
             room.ShortDescription = "Bazaar";
 
             return room;
@@ -126,7 +126,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
             room.ExamineDescription = "With so many things on display its actually not as bad to maneuver though here as you might think.  The organization leaves a bit to be desired but its not cluttered.  Pieces range in quality and in price.  While the life size statue of Charon might not be practical maybe a necklace with Charon's symbol on it might be good.";
-            room.LongDescription = "This appears to be the metalworkers area.  Metal utensils, small figurines as well as swords, shields and entire suits of armor are on display here.";
+            room.LookDescription = "This appears to be the metalworkers area.  Metal utensils, small figurines as well as swords, shields and entire suits of armor are on display here.";
             room.ShortDescription = "Bazaar";
 
             return room;
@@ -139,7 +139,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
             room.ExamineDescription = "Leather items range from furniture to pieces of armor.  They come are available in all shapes and sizes.";
-            room.LongDescription = "Tanned leather pieces are hung for purchase as well as finished products.";
+            room.LookDescription = "Tanned leather pieces are hung for purchase as well as finished products.";
             room.ShortDescription = "Bazaar";
 
             return room;
@@ -153,7 +153,7 @@ namespace GenerateZones.Zones
             npc.Personalities.Add(new Wanderer());
 
             npc.ExamineDescription = "Dressed in a {adjective} tunic of {color1} and {color2} he wanders the bazaar looking for some {item} for his {target}.";
-            npc.LongDescription = "He seems to have a list of items he is looking for.";
+            npc.LookDescription = "He seems to have a list of items he is looking for.";
             npc.ShortDescription = "A male patron.";
             npc.SentenceDescription = "patron";
 
@@ -180,7 +180,7 @@ namespace GenerateZones.Zones
             npc.Personalities.Add(new Wanderer());
 
             npc.ExamineDescription = "Dressed in a {adjective} tunic of {color1} and {color2} she wanders the bazaar looking for some {item} for her {target}.";
-            npc.LongDescription = "She seems to have a list of items she is looking for.";
+            npc.LookDescription = "She seems to have a list of items she is looking for.";
             npc.ShortDescription = "A female patron.";
             npc.SentenceDescription = "patron";
 
@@ -212,7 +212,7 @@ namespace GenerateZones.Zones
             npc.Personalities.Add(speaker);
 
             npc.ExamineDescription = "Dressed in a tattered tunic of that is mainly the color of mud the beggar raises a cup to you and asks for change.";
-            npc.LongDescription = "Ignored my most people this beggar calls out for money to anyone who will listen.";
+            npc.LookDescription = "Ignored my most people this beggar calls out for money to anyone who will listen.";
             npc.ShortDescription = "A beggar.";
             npc.SentenceDescription = "beggar";
 
@@ -250,7 +250,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Light);
 
             room.ExamineDescription = "Anything that you can could need for self protection exists in this shop.  It only a matter of finding something you like.";
-            room.LongDescription = "Swords, shields and armor adorn the walls of the little shop.  While mannequins display items on the floor.";
+            room.LookDescription = "Swords, shields and armor adorn the walls of the little shop.  While mannequins display items on the floor.";
             room.ShortDescription = "The Basic Dagger";
 
             INonPlayerCharacter npc = BlackSmith();
@@ -279,7 +279,7 @@ namespace GenerateZones.Zones
             npc.KeyWords.Add("blacksmith");
 
             npc.ShortDescription = "A shop keeper.";
-            npc.LongDescription = "The shop keeper continues to work on a sword.  Banging his hammer on a sword, quenching in the water than putting it back in the furnace.";
+            npc.LookDescription = "The shop keeper continues to work on a sword.  Banging his hammer on a sword, quenching in the water than putting it back in the furnace.";
             npc.ExamineDescription = "The shop keeper looks to be in his twenties.  At this stage in life he probably hasn't had enough experience to make any master level equipment but we all have to start somewhere.";
             npc.SentenceDescription = "blacksmith";
 
@@ -291,7 +291,7 @@ namespace GenerateZones.Zones
             IWeapon dagger = CreateWeapon(WeaponType.Dagger, 1);
             dagger.KeyWords.Add("Dagger");
             dagger.ShortDescription = "A basic dagger.";
-            dagger.LongDescription = "Made of steel it is a sharp and pointy dagger.";
+            dagger.LookDescription = "Made of steel it is a sharp and pointy dagger.";
             dagger.ExamineDescription = "The dagger lacks any intricate engravings, the blade is however is very sharp and is thick enough to attack an enemy without fear of breaking.  It is in all regards a basic dagger.";
             dagger.SentenceDescription = "small dagger";
             dagger.AttackerStat = Stats.Stat.Dexterity;
@@ -312,7 +312,7 @@ namespace GenerateZones.Zones
             breastPlate.KeyWords.Add("Breast");
             breastPlate.KeyWords.Add("Plate");
             breastPlate.ShortDescription = "A steel breast plate.";
-            breastPlate.LongDescription = "Made of steel this breast plate is rather heavy but effective.";
+            breastPlate.LookDescription = "Made of steel this breast plate is rather heavy but effective.";
             breastPlate.ExamineDescription = "Examining the plate closer you notice there is a knick in the front right, a dent in the upper left and the one of the straps for holding it together is starting to tear.  Maybe the reason this was such a good deal was because it was used.";
             breastPlate.SentenceDescription = "breastplate";
             breastPlate.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(breastPlate.Level);
@@ -330,7 +330,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Light);
 
             room.ExamineDescription = "The smell of fresh leather drifts through the shop.  The various shades of browns give the shop a warm look and in the evening the light of the setting sun can be seen entering through the front of the store.  It reflects off the leather samples in the store and creates a nice warm inviting atmosphere, so much so that the shop keeper says that over 20% of her business come at sunset.";
-            room.LongDescription = "Different type of leather armor line one wall while raw materials line the other.";
+            room.LookDescription = "Different type of leather armor line one wall while raw materials line the other.";
             room.ShortDescription = "Hyde's Hides";
 
             INonPlayerCharacter npc = LeatherWorker();
@@ -361,7 +361,7 @@ namespace GenerateZones.Zones
             npc.KeyWords.Add("leatherworker");
 
             npc.ShortDescription = "A leather worker.";
-            npc.LongDescription = "The female leather worker stares intently at a piece of leather.  Turning it this way and that as if trying to imaging in her mind what the piece wants to be.";
+            npc.LookDescription = "The female leather worker stares intently at a piece of leather.  Turning it this way and that as if trying to imaging in her mind what the piece wants to be.";
             npc.ExamineDescription = "The leather worker has shoulder length auburn hair tied in a pony tail.  Her clothing is mostly fine leather, perhaps self made.";
             npc.SentenceDescription = "leather worker";
 
@@ -374,7 +374,7 @@ namespace GenerateZones.Zones
             bracer.KeyWords.Add("Bracer");
             bracer.KeyWords.Add("Leather");
             bracer.ShortDescription = "A leather bracer.";
-            bracer.LongDescription = "The leather is hard and will offer some basic protection from sharp objects.";
+            bracer.LookDescription = "The leather is hard and will offer some basic protection from sharp objects.";
             bracer.ExamineDescription = "A small woven design is made weaves back and forth over the leather bracer.  It is a slightly darker color than the rich brown of the rest of the bracer.";
             bracer.SentenceDescription = "bracer";
             bracer.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(bracer.Level);
@@ -388,7 +388,7 @@ namespace GenerateZones.Zones
             leggings.KeyWords.Add("Leggings");
             leggings.KeyWords.Add("Leather");
             leggings.ShortDescription = "A pair of leather leggings.";
-            leggings.LongDescription = "Simple but effective these leggings will protect you next time someone decides to kick you in the shins.  Take that 5 grade bully.";
+            leggings.LookDescription = "Simple but effective these leggings will protect you next time someone decides to kick you in the shins.  Take that 5 grade bully.";
             leggings.ExamineDescription = "The leather leggings stop just short of you knees leaving you needing some knee pads.  While this leaves you open to kicks to the knee caps it does give you a little more speed so hopefully you can dodge them.";
             leggings.SentenceDescription = "leggings";
             leggings.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(leggings.Level);
@@ -406,7 +406,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Light);
 
             room.ExamineDescription = "The black tailored suit and the purple ball gown are most exquisite.  Both are tucked in just the right places to show of the wearers figure and show an eye for detail by the tailor.";
-            room.LongDescription = "Fine tailored suits and formal gowns are displayed in the front window.  The armor is in the back half of the store.";
+            room.LookDescription = "Fine tailored suits and formal gowns are displayed in the front window.  The armor is in the back half of the store.";
             room.ShortDescription = "The better than nothing armor shop";
 
             INonPlayerCharacter npc = Tailor();
@@ -435,7 +435,7 @@ namespace GenerateZones.Zones
             npc.KeyWords.Add("Taylor");
 
             npc.ShortDescription = "A tailor.";
-            npc.LongDescription = "Talking to the tailor you find out that her name is Taylor.  Its almost as if the gods that control the world though it would be funny to have her become a tailor in life.";
+            npc.LookDescription = "Talking to the tailor you find out that her name is Taylor.  Its almost as if the gods that control the world though it would be funny to have her become a tailor in life.";
             npc.ExamineDescription = "Talking with Taylor some more you she tells you she wanted to be a seamstress when she grew up but when her dad became ill she had to take over the family, how the gods are cruel for not letting her fulfill her life dream to become a seamstress and since she has enjoyed your company if you buy today she'll give you a 10% discount.";
             npc.SentenceDescription = "tailor";
 
@@ -448,7 +448,7 @@ namespace GenerateZones.Zones
             boots.KeyWords.Add("boots");
             boots.KeyWords.Add("cloth");
             boots.ShortDescription = "A pair of nice boots.";
-            boots.LongDescription = "The boots are made of a thick black material.  Soft and subtle yet sturdy.";
+            boots.LookDescription = "The boots are made of a thick black material.  Soft and subtle yet sturdy.";
             boots.ExamineDescription = "Made from a unknown type of cloth they offer a fair amount of protection while being bendable enough to not notice.  They come to about half way up the calf lending some stability especially when the laces are drawn tight.";
             boots.SentenceDescription = "boots";
             boots.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(boots.Level);
@@ -462,7 +462,7 @@ namespace GenerateZones.Zones
             sash.KeyWords.Add("sash");
             sash.KeyWords.Add("cloth");
             sash.ShortDescription = "A dashing red sash.";
-            sash.LongDescription = "While it serves no practice purpose other than to cover up your waist it does look dashing.";
+            sash.LookDescription = "While it serves no practice purpose other than to cover up your waist it does look dashing.";
             sash.ExamineDescription = "Made of a silky red material it manages to do a good job of covering your waist while making the wearer look better.";
             sash.SentenceDescription = "sash";
             sash.Charisma = 2;

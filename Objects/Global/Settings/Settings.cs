@@ -19,6 +19,9 @@ namespace Objects.Global.Settings
         public int MaxLevel { get; set; } = 100;
 
         [ExcludeFromCodeCoverage]
+        public int MaxCalculationLevel { get; set; } = 130;
+
+        [ExcludeFromCodeCoverage]
         public string PlayerCharacterDirectory { get; set; } = "..\\Players";
 
         [ExcludeFromCodeCoverage]
@@ -37,9 +40,10 @@ namespace Objects.Global.Settings
         public bool SendMapPosition { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public int OddsOfGeneratingRandomDrop { get; set; }
+        public int OddsOfGeneratingRandomDrop { get; set; } = 10;
 
         [ExcludeFromCodeCoverage]
-        public int OddsOfDropBeingPlusOne { get; set; }
+        public int OddsOfDropBeingPlusOne { get; set; } = 10;
+
     }
 }

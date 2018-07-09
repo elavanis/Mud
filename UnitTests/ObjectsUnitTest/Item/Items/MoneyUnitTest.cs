@@ -30,7 +30,7 @@ namespace ObjectsUnitTest.Item.Items
             Assert.IsTrue(money.KeyWords.Contains("coins"));
             Assert.AreEqual("coins", money.SentenceDescription);
             Assert.AreEqual("A purse of coins.", money.ShortDescription);
-            Assert.AreEqual("A purse of coins worth Zero.", money.LongDescription);
+            Assert.AreEqual("A purse of coins worth Zero.", money.LookDescription);
             Assert.AreEqual("While the purse is not worth anything the items in side are worth keeping.", money.ExamineDescription);
         }
 
@@ -44,7 +44,7 @@ namespace ObjectsUnitTest.Item.Items
             Assert.IsTrue(money.KeyWords.Contains("coins"));
             Assert.AreEqual("coins", money.SentenceDescription);
             Assert.AreEqual("A purse of coins.", money.ShortDescription);
-            Assert.AreEqual("A purse of coins worth One.", money.LongDescription);
+            Assert.AreEqual("A purse of coins worth One.", money.LookDescription);
             Assert.AreEqual("While the purse is not worth anything the items in side are worth keeping.", money.ExamineDescription);
         }
     }

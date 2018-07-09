@@ -69,7 +69,7 @@ namespace GenerateZones.Zones.ConnectingZones
         {
             IRoom room = ZoneRoom(100);
             room.ExamineDescription = "The ravine is narrow enough to block out a lot of light making it seem darker than it really is.";
-            room.LongDescription = "Steep rock walls tower above you on both sides.";
+            room.LookDescription = "Steep rock walls tower above you on both sides.";
             room.ShortDescription = "In a ravine";
 
             return room;
@@ -79,7 +79,7 @@ namespace GenerateZones.Zones.ConnectingZones
         {
             IRoom room = ZoneRoom(100);
             room.ExamineDescription = "The pass narrows and makes a series of zig zags making it impossible to see forward or back.";
-            room.LongDescription = "The walls are jagged enough to climb twenty or thirty feet but then the next sixty or seventy is smooth making it impossible to climb.";
+            room.LookDescription = "The walls are jagged enough to climb twenty or thirty feet but then the next sixty or seventy is smooth making it impossible to climb.";
             room.ShortDescription = "In a ravine";
 
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
@@ -90,7 +90,7 @@ namespace GenerateZones.Zones.ConnectingZones
         {
             IRoom room = ZoneRoom(100);
             room.ExamineDescription = "The path through the ravine seems surprisingly barren of plant life.";
-            room.LongDescription = "The ravine narrows enough that you have to turn sideways to continue on.";
+            room.LookDescription = "The ravine narrows enough that you have to turn sideways to continue on.";
             room.ShortDescription = "In a ravine";
 
             return room;
@@ -100,7 +100,7 @@ namespace GenerateZones.Zones.ConnectingZones
         {
             IRoom room = ZoneRoom(100);
             room.ExamineDescription = "The path to the East rises slightly before turning out of sight.  The path to the West descends slightly.  The path to the South also rises slightly.";
-            room.LongDescription = "Here the path splits forming a T.";
+            room.LookDescription = "Here the path splits forming a T.";
             room.ShortDescription = "In a ravine";
 
             return room;
@@ -110,7 +110,7 @@ namespace GenerateZones.Zones.ConnectingZones
         {
             IRoom room = ZoneRoom(100);
             room.ExamineDescription = "The markings are several round Os made in some kind of red paint.";
-            room.LongDescription = "There are several markings on the ravine wall.";
+            room.LookDescription = "There are several markings on the ravine wall.";
             room.ShortDescription = "In a ravine";
 
             return room;
@@ -120,7 +120,7 @@ namespace GenerateZones.Zones.ConnectingZones
         {
             IRoom room = ZoneRoom(100);
             room.ExamineDescription = "The cave seems to emanate a foul earthy smell.";
-            room.LongDescription = "Several bones lie scattered on the ground around the entrance to a cave.";
+            room.LookDescription = "Several bones lie scattered on the ground around the entrance to a cave.";
             room.ShortDescription = "In a ravine";
 
             return room;
@@ -130,7 +130,7 @@ namespace GenerateZones.Zones.ConnectingZones
         {
             IRoom room = ZoneRoom(100);
             room.ExamineDescription = "There is a half eaten goat in one corner along with several other unidentifiable animals.";
-            room.LongDescription = "The cave has a large pile of straw in one corner.";
+            room.LookDescription = "The cave has a large pile of straw in one corner.";
             room.ShortDescription = "In a ravine";
 
             return room;

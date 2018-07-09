@@ -107,7 +107,7 @@ namespace GenerateZones.Zones.ConnectingZones
             npc.KeyWords.Add("cow");
             npc.SentenceDescription = "cow";
             npc.ShortDescription = "A dairy cow.";
-            npc.LongDescription = "A dairy cow lazily eats grass.";
+            npc.LookDescription = "A dairy cow lazily eats grass.";
             npc.ExamineDescription = "The cow looks to be about five feet tall and could easily push you out of the way if it wanted the grass you were standing on.";
 
             //TODO add hide drop, some type of leather material
@@ -123,7 +123,7 @@ namespace GenerateZones.Zones.ConnectingZones
             npc.KeyWords.Add("horse");
             npc.SentenceDescription = "horse";
             npc.ShortDescription = "A fine cow.";
-            npc.LongDescription = "A beautiful {color} horse stands looking at you.";
+            npc.LookDescription = "A beautiful {color} horse stands looking at you.";
             npc.ExamineDescription = "The {color} horse .";
             npc.FlavorOptions.Add("{color}", new List<string>() { "black", "brown" });
 
@@ -137,7 +137,7 @@ namespace GenerateZones.Zones.ConnectingZones
             npc.KeyWords.Add("chicken");
             npc.SentenceDescription = "chicken";
             npc.ShortDescription = "A chicken";
-            npc.LongDescription = "The chicken struts around pecking the ground looking for something to eat.";
+            npc.LookDescription = "The chicken struts around pecking the ground looking for something to eat.";
             npc.ExamineDescription = "The chicken looks to be just the right size for some good eating.";
 
             return npc;

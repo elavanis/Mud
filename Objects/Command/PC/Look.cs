@@ -57,7 +57,7 @@ namespace Objects.Command.PC
                     {
                         IContainer container = foundItem as IContainer;
                         StringBuilder strBldr = new StringBuilder();
-                        strBldr.AppendLine(foundItem.LongDescription);
+                        strBldr.AppendLine(foundItem.LookDescription);
                         if (container.Items.Count == 0)
                         {
                             strBldr.AppendLine("<Empty>");
@@ -75,7 +75,7 @@ namespace Objects.Command.PC
                     }
                     else
                     {
-                        message = GlobalReference.GlobalValues.TagWrapper.WrapInTag(foundItem.LongDescription, TagWrapper.TagType.Item);
+                        message = GlobalReference.GlobalValues.TagWrapper.WrapInTag(foundItem.LookDescription, TagWrapper.TagType.Item);
                         return new Result(true, message);
                     }
                 }
@@ -91,7 +91,7 @@ namespace Objects.Command.PC
         private static string BuildMobLookMessage(IMobileObject mob, TagType wrapType)
         {
             StringBuilder masterMessage = new StringBuilder();
-            masterMessage.AppendLine(GlobalReference.GlobalValues.TagWrapper.WrapInTag(mob.LongDescription, wrapType));
+            masterMessage.AppendLine(GlobalReference.GlobalValues.TagWrapper.WrapInTag(mob.LookDescription, wrapType));
 
 
             StringBuilder strBldr = new StringBuilder();
@@ -121,7 +121,7 @@ namespace Objects.Command.PC
             }
 
             strBldr.AppendLine(string.Format("[{0}]", room.ShortDescription));
-            strBldr.AppendLine(room.LongDescription);
+            strBldr.AppendLine(room.LookDescription);
 
             strBldr.Append("Exits:");
 

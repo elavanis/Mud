@@ -67,7 +67,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampOutSide();
             room.ExamineDescription = "A hastily made wooden gate prevents attackers from riding into camp.";
-            room.LongDescription = "Long tree limbs have been sharpened and lashed into a form of gate that prevents outsiders from getting into camp.";
+            room.LookDescription = "Long tree limbs have been sharpened and lashed into a form of gate that prevents outsiders from getting into camp.";
 
             return room;
         }
@@ -95,7 +95,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampOutSide();
             room.ExamineDescription = "The camp walls rise up each side to the north and south.";
-            room.LongDescription = "The camp appears to be well used with lots of tracks in the dirt.";
+            room.LookDescription = "The camp appears to be well used with lots of tracks in the dirt.";
 
             return room;
         }
@@ -104,7 +104,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampOutSide();
             room.ExamineDescription = "In the dim light to the north you can see the frail figures of several human prisoners.";
-            room.LongDescription = "A prison has been carved out of the hillside to the north.";
+            room.LookDescription = "A prison has been carved out of the hillside to the north.";
 
             room.Enchantments.Add(PrisonerEnter(Zone.Id, room.Id));
             return room;
@@ -130,7 +130,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampOutSide();
             room.ExamineDescription = "The pen is crudely constructed and like it would fall over if the animals wanted to get out.";
-            room.LongDescription = "A pen to the south is where the goblins hold their war pigs.";
+            room.LookDescription = "A pen to the south is where the goblins hold their war pigs.";
 
             return room;
         }
@@ -139,7 +139,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampOutSide();
             room.ExamineDescription = "The pen smells of foul animal waste.";
-            room.LongDescription = "It smells like the goblins do not clean the pens regularly.";
+            room.LookDescription = "It smells like the goblins do not clean the pens regularly.";
 
             for (int i = 0; i < 5; i++)
             {
@@ -153,7 +153,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampOutSide();
             room.ExamineDescription = "The slightly larger hut lies to the north while the smaller to the south.  The size of the huts would indicate that someone important live there.";
-            room.LongDescription = "Two massive huts engulf your field of view and dwarfs the other huts to the east.";
+            room.LookDescription = "Two massive huts engulf your field of view and dwarfs the other huts to the east.";
 
             return room;
         }
@@ -164,7 +164,7 @@ namespace GenerateZones.Zones.Mountain
             room.ShortDescription = "Goblin Chief Hut";
 
             room.ExamineDescription = "A small table for eating sits to the west while a smaller room for sleeping is to the north.  Several swords and shields spaced evenly apart decorate the walls.";
-            room.LongDescription = "The large room is has animal hides for a floor with several torches for lighting the area nicely.";
+            room.LookDescription = "The large room is has animal hides for a floor with several torches for lighting the area nicely.";
 
             room.AddMobileObjectToRoom(GoblinChief());
 
@@ -178,7 +178,7 @@ namespace GenerateZones.Zones.Mountain
             room.ShortDescription = "Goblin Shaman Hut";
 
             room.ExamineDescription = "Small totems of different animal spirits sit around the fire.";
-            room.LongDescription = "The hut is mostly empty save for a small fire in the middle of the hut.";
+            room.LookDescription = "The hut is mostly empty save for a small fire in the middle of the hut.";
 
             room.AddMobileObjectToRoom(Shaman());
             return room;
@@ -188,7 +188,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampOutSide();
             room.ExamineDescription = "A small cooking fire burns near each of the huts.";
-            room.LongDescription = "Two small huts flank the path through the camp.";
+            room.LookDescription = "Two small huts flank the path through the camp.";
 
             return room;
         }
@@ -197,7 +197,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampOutSide();
             room.ExamineDescription = "A small cooking fire burns near each of the huts.";
-            room.LongDescription = "Two small huts flank the path through the camp.";
+            room.LookDescription = "Two small huts flank the path through the camp.";
 
             return room;
         }
@@ -206,7 +206,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampInside();
             room.ExamineDescription = "A the desk has several papers on it but they are so poorly written that it makes reading impossible.";
-            room.LongDescription = "The hut contains a small desk for writing as well a place to sleep.";
+            room.LookDescription = "The hut contains a small desk for writing as well a place to sleep.";
             room.ShortDescription = "A goblin hut";
 
             return room;
@@ -216,7 +216,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampInside();
             room.ExamineDescription = "Several strips of meat hang from the hut and are slowly becoming jerky in the smoke.";
-            room.LongDescription = "The hut is filled with smoke making it hard to see.";
+            room.LookDescription = "The hut is filled with smoke making it hard to see.";
             room.ShortDescription = "A goblin hut";
 
             return room;
@@ -226,7 +226,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampInside();
             room.ExamineDescription = "Five sets of bunks extend out from the table.  Who ever was the 3rd player would won the hand with a royal flush.";
-            room.LongDescription = "Several small bunks extend out past a table with cards on it.";
+            room.LookDescription = "Several small bunks extend out past a table with cards on it.";
             room.ShortDescription = "A goblin hut";
 
             Container container = Chest();
@@ -259,7 +259,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampInside();
             room.ExamineDescription = "There is a carving in one of the tables.  TJ + CJ";
-            room.LongDescription = "Several rows of tables are in line.  A small cooking area behind a counter is in the back.";
+            room.LookDescription = "Several rows of tables are in line.  A small cooking area behind a counter is in the back.";
             room.ShortDescription = "A goblin hut";
 
             return room;
@@ -269,7 +269,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CampOutSide();
             room.ExamineDescription = "The gate has a few broken pieces where it looks like has held off some attacks.";
-            room.LongDescription = "A large gate to the east separates the camp from the outside world.";
+            room.LookDescription = "A large gate to the east separates the camp from the outside world.";
 
             return room;
         }
@@ -281,7 +281,7 @@ namespace GenerateZones.Zones.Mountain
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 16);
 
             npc.ExamineDescription = "The pigs fur is matted with mud and manure.";
-            npc.LongDescription = "A war pig snorts around looking for something to eat.";
+            npc.LookDescription = "A war pig snorts around looking for something to eat.";
             npc.ShortDescription = "A goblin war pig.";
             npc.SentenceDescription = "goblin";
             npc.KeyWords.Add("pig");
@@ -297,7 +297,7 @@ namespace GenerateZones.Zones.Mountain
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 40);
 
             npc.ExamineDescription = "Wearing a pair of deer antlers and the pelts of a bear the shaman would stand out from any member of the goblin camp.";
-            npc.LongDescription = "The shaman sways gently as he communes with spirits.";
+            npc.LookDescription = "The shaman sways gently as he communes with spirits.";
             npc.ShortDescription = "The camps shaman.";
             npc.SentenceDescription = "goblin";
             npc.KeyWords.Add("goblin");
@@ -326,7 +326,7 @@ namespace GenerateZones.Zones.Mountain
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 25);
 
             npc.ExamineDescription = "Goblin Cheif";
-            npc.LongDescription = "Goblin Cheif";
+            npc.LookDescription = "Goblin Cheif";
             npc.ShortDescription = "The camps chief.";
             npc.SentenceDescription = "goblin";
             npc.KeyWords.Add("goblin");
@@ -341,7 +341,7 @@ namespace GenerateZones.Zones.Mountain
         {
             Container chest = CreateItem<Container>();
             chest.ExamineDescription = "The chest is a standard issue goblin warrior chest.";
-            chest.LongDescription = "The chest is made of wood and reinforced with steel bands.";
+            chest.LookDescription = "The chest is made of wood and reinforced with steel bands.";
             chest.ShortDescription = "A small chest for storing equipment";
             chest.KeyWords.Add("chest");
             chest.Attributes.Add(ItemAttribute.NoGet);
@@ -354,7 +354,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IArmor armor = CreateArmor(AvalableItemPosition.Arms, 17, new Leather());
             armor.ExamineDescription = "The lamb skin is flawless.  Maybe the original owner thought it would grant the wearer extra protection.";
-            armor.LongDescription = "The sleeves are made in such a way as to have soft wool on the inside and out.";
+            armor.LookDescription = "The sleeves are made in such a way as to have soft wool on the inside and out.";
             armor.ShortDescription = "A pair of lamb skin sleeves.";
             armor.KeyWords.Add("lamb");
             armor.KeyWords.Add("skin");
@@ -369,7 +369,7 @@ namespace GenerateZones.Zones.Mountain
             armor.ItemPosition = AvalableItemPosition.Body;
             armor.Material = new Leather();
             armor.ExamineDescription = "The bear skin is made in such a way as to have a hood of sorts that can be flipped up.";
-            armor.LongDescription = "The bear skin is made from a hodgepodge of several different bears.";
+            armor.LookDescription = "The bear skin is made from a hodgepodge of several different bears.";
             armor.ShortDescription = "A bearskin.";
             armor.KeyWords.Add("bear");
             armor.KeyWords.Add("skin");
@@ -381,7 +381,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IArmor armor = CreateArmor(AvalableItemPosition.Feet, 17, new Leather());
             armor.ExamineDescription = "The boots are have been dyed to a dark black color.";
-            armor.LongDescription = "The boots are made of a type of leather sew together.";
+            armor.LookDescription = "The boots are made of a type of leather sew together.";
             armor.ShortDescription = "A dark black pair of boats.";
             armor.KeyWords.Add("black");
             armor.KeyWords.Add("leather");
@@ -394,7 +394,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IArmor armor = CreateArmor(AvalableItemPosition.Finger, 17, new Gold());
             armor.ExamineDescription = "The gem is made of a red stone with white veins that look like a swirl frozen in time.";
-            armor.LongDescription = "The ring is made of a thick gold band with a red stone in the center.";
+            armor.LookDescription = "The ring is made of a thick gold band with a red stone in the center.";
             armor.ShortDescription = "Gold Ring.";
             armor.KeyWords.Add("red");
             armor.KeyWords.Add("stone");
@@ -414,7 +414,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IArmor armor = CreateArmor(AvalableItemPosition.Hand, 17, new Cloth());
             armor.ExamineDescription = "The gloves are made of a delicate silver lace that sparkles in the light.";
-            armor.LongDescription = "A pair of silver lace gloves that would make a grand statement at any ball.";
+            armor.LookDescription = "A pair of silver lace gloves that would make a grand statement at any ball.";
             armor.ShortDescription = "A silver pair of ballroom lace gloves.";
             armor.KeyWords.Add("silver");
             armor.KeyWords.Add("lace");
@@ -427,7 +427,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IArmor armor = CreateArmor(AvalableItemPosition.Head, 17, new Leather());
             armor.ExamineDescription = "The leather skull cap has two holes for a goblins ears to stick through.";
-            armor.LongDescription = "The leather skull cap is padded to help protect the wearer from blows.";
+            armor.LookDescription = "The leather skull cap is padded to help protect the wearer from blows.";
             armor.ShortDescription = "A leather skull cap.";
             armor.KeyWords.Add("skull");
             armor.KeyWords.Add("cap");
@@ -440,7 +440,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IArmor armor = CreateArmor(AvalableItemPosition.Legs, 17, new Steel());
             armor.ExamineDescription = "Delicately carved gold inlays decorate this piece of museum quality piece of armor.";
-            armor.LongDescription = "The steel leggings look to be more decorative than protective but will do the job when needed.";
+            armor.LookDescription = "The steel leggings look to be more decorative than protective but will do the job when needed.";
             armor.ShortDescription = "A decorative pair of leggings.";
             armor.KeyWords.Add("leggings");
             armor.KeyWords.Add("decorative");
@@ -452,7 +452,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IArmor armor = CreateArmor(AvalableItemPosition.Neck, 17, new Bone());
             armor.ExamineDescription = "The necklace bones appear to be of small animals, birds, squirls and mice.";
-            armor.LongDescription = "The necklace looks like it once belonged to a shaman and has several animal bones strung on it.";
+            armor.LookDescription = "The necklace looks like it once belonged to a shaman and has several animal bones strung on it.";
             armor.ShortDescription = "A bone necklace.";
             armor.KeyWords.Add("necklace");
             armor.KeyWords.Add("bone");
@@ -464,7 +464,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IArmor armor = CreateArmor(AvalableItemPosition.Waist, 17, new Cloth());
             armor.ExamineDescription = "The piece of rope looks unremarkable in every way.";
-            armor.LongDescription = "A simple piece of rope for holding your trousers.";
+            armor.LookDescription = "A simple piece of rope for holding your trousers.";
             armor.ShortDescription = "A short piece of rope.";
             armor.KeyWords.Add("rope");
 

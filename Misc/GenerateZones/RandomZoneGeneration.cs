@@ -90,7 +90,7 @@ namespace GenerateZones
             room.Id = roomNumber;
 
             int key = GlobalReference.GlobalValues.Random.Next(RoomDescriptions.Count);
-            room.LongDescription = RoomDescriptions[key].LongDescription;
+            room.LookDescription = RoomDescriptions[key].LongDescription;
             room.ExamineDescription = RoomDescriptions[key].ExamineDescription;
             room.ShortDescription = RoomDescriptions[key].ShortDescription;
 
@@ -107,7 +107,7 @@ namespace GenerateZones
                     else
                     {
                         selectedRoomFlavorText.Add(selectedFlavorText);
-                        room.LongDescription += "  " + RoomFlavorText[selectedFlavorText].ToString();
+                        room.LookDescription += "  " + RoomFlavorText[selectedFlavorText].ToString();
                     }
                 }
             }
@@ -332,7 +332,7 @@ namespace GenerateZones
                 foreach (RoomPos roomPos in road)
                 {
                     IRoom room = GetRoom(roomPos, zone);
-                    room.LongDescription = RoadDescription.LongDescription;
+                    room.LookDescription = RoadDescription.LongDescription;
                     room.ShortDescription = RoadDescription.ShortDescription;
                     room.ExamineDescription = RoadDescription.ExamineDescription;
                 }
@@ -419,7 +419,7 @@ namespace GenerateZones
         private void SetRoadDescription(IRoom room)
         {
             room.ExamineDescription = RoadDescription.ExamineDescription;
-            room.LongDescription = RoadDescription.LongDescription;
+            room.LookDescription = RoadDescription.LongDescription;
             room.ShortDescription = RoadDescription.ShortDescription;
         }
 

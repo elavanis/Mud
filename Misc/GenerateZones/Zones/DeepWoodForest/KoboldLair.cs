@@ -188,7 +188,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The cave walls are slimy and damp with water.";
-            room.LongDescription = "You can hear water dripping far off in the cave.";
+            room.LookDescription = "You can hear water dripping far off in the cave.";
             room.ShortDescription = "The entrance of the Kobold Lair";
 
             return room;
@@ -198,7 +198,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The room is about eight feet tall and fifteen feet wide.  Two smaller tunnels lead off to the east and west.";
-            room.LongDescription = "The cave is opens up a little here to a small room.";
+            room.LookDescription = "The cave is opens up a little here to a small room.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(WanderingGuard());
@@ -210,7 +210,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The craftsmanship is pretty good.  Each brick is a little off but they were able to fit them all together to make a sturdy wall.";
-            room.LongDescription = "This tunnel is not part of the original cave system.  It have been carved out and built back up with bricks.";
+            room.LookDescription = "This tunnel is not part of the original cave system.  It have been carved out and built back up with bricks.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(WanderingGuard());
@@ -222,7 +222,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls are lined with busts of an unknown dragon god.  Each bust has three holes, two for the eyes and one for the mouth.  Some of the holes seem to be scratched as if something comes out or something goes in them.";
-            room.LongDescription = "The tunnel continues on with a slight bend to the east and west.";
+            room.LookDescription = "The tunnel continues on with a slight bend to the east and west.";
             room.ShortDescription = "Kobold Lair";
 
             ITrap trap = BuildTrap(DamageType.Pierce, new List<string>() { "Bust", "Dragon" }, "As you attempt to leave you hear a click and then the air is filled with the whooshing of arrows flying toward you.");
@@ -235,7 +235,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls of the tunnel depict kobolds going into a tunnel and mining.";
-            room.LongDescription = "Dim light can be seen flickering to the east.";
+            room.LookDescription = "Dim light can be seen flickering to the east.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(WanderingGuard());
@@ -250,7 +250,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
             room.ExamineDescription = "While the walls of the chamber are well lit the center is hard to see.  There is a large statue of a kobold god named Krutulmak.";
-            room.LongDescription = "Torches line the walls of the cavern here.  It appears to be some kind of chamber to hold a statue of the god of mining.";
+            room.LookDescription = "Torches line the walls of the cavern here.  It appears to be some kind of chamber to hold a statue of the god of mining.";
             room.ShortDescription = "Kobold Lair";
 
             room.Items.Add(Statue());
@@ -265,7 +265,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             item.Attributes.Add(Item.ItemAttribute.NoGet);
             item.ShortDescription = "Statue of Krutulmak";
             item.SentenceDescription = "statue";
-            item.LongDescription = "The statue stands twenty or thirty feet tall almost touching the top of the chamber.  He holds a pick in one hand and a shovel in the other.";
+            item.LookDescription = "The statue stands twenty or thirty feet tall almost touching the top of the chamber.  He holds a pick in one hand and a shovel in the other.";
             item.ExamineDescription = "The statue is carved from a the natural stone in the cave.  The statue appears some how follow you with its eyes as you walk around the chamber.";
 
             return item;
@@ -277,7 +277,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.Attributes.Remove(Room.RoomAttribute.NoLight);
             room.Attributes.Add(Room.RoomAttribute.Light);
             room.ExamineDescription = "The walls of the tunnel are rough with the scars of pick axes.  Unsure what the kobolds were mining here it will impossible to tell as the walls have been picked clean of any thing that might give a clue.";
-            room.LongDescription = "This tunnel has been carved out of the ground and leads in a slightly down fashion.";
+            room.LookDescription = "This tunnel has been carved out of the ground and leads in a slightly down fashion.";
             room.ShortDescription = "Kobold Lair";
 
             room.Items.Add(Statue());
@@ -288,7 +288,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel is very roughly carved with signs of more than one cave in.";
-            room.LongDescription = "The tunnel continues its path weaving slightly back and forth following what ever the kobolds were mining.";
+            room.LookDescription = "The tunnel continues its path weaving slightly back and forth following what ever the kobolds were mining.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -298,7 +298,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "It appears at some point the miners hit water and flooded this tunnel.  Other than that it would be interesting to know what is creating that light.  Perhaps a miners globe that got left behind in when the tunnel flooded.";
-            room.LongDescription = "The tunnel continues into a downward into water.  Light can be seen coming from deep below the waters surface.";
+            room.LookDescription = "The tunnel continues into a downward into water.  Light can be seen coming from deep below the waters surface.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -308,7 +308,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The equipment looks a little dusty from all the mining dust but is otherwise in good shape.";
-            room.LongDescription = "The room is filled with mining equipment.  Hard hats and mining picks are lined on the wall.";
+            room.LookDescription = "The room is filled with mining equipment.  Hard hats and mining picks are lined on the wall.";
             room.ShortDescription = "Kobold Lair";
 
             room.Items.Add(MiningHelmet());
@@ -331,7 +331,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             armor.KeyWords.Add("Mining");
             armor.KeyWords.Add("Helmet");
             armor.ExamineDescription = "The helmet appears to be made of steal and has two small cut outs for ears of a kobold.";
-            armor.LongDescription = "The helmet looks to be in good shape.  It has a place for a small candle for light in the front.  Right behind where the candle would go is a name.  {Name}";
+            armor.LookDescription = "The helmet looks to be in good shape.  It has a place for a small candle for light in the front.  Right behind where the candle would go is a name.  {Name}";
             armor.SentenceDescription = "mining helmet";
             armor.ShortDescription = "A miners helmet.";
 
@@ -350,7 +350,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.KeyWords.Add("Mining");
             weapon.KeyWords.Add("Pick");
             weapon.ExamineDescription = "The shaft of the pick has the name {Name} carved into the handle but is almost worn smooth.";
-            weapon.LongDescription = "A well balanced pick this tool has seen a lot of use over the years.  The handle is worn smooth and the pick is slightly bent.";
+            weapon.LookDescription = "A well balanced pick this tool has seen a lot of use over the years.  The handle is worn smooth and the pick is slightly bent.";
             weapon.SentenceDescription = "miner pick";
             weapon.ShortDescription = "A miners pick.";
 
@@ -366,7 +366,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "There is a wooden ladder attached to the wall of the shaft as well as a bucket and pulley for raising and lowering items from the pit.";
-            room.LongDescription = "The room is barren except for a single shaft leading down into the abyss.";
+            room.LookDescription = "The room is barren except for a single shaft leading down into the abyss.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -375,7 +375,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The ladder for all its use and age still is quite sturdy.  It appears a few rungs here and there have been replaced to ensure its safety.";
-            room.LongDescription = "The ladder continues up and down the mine shaft.";
+            room.LookDescription = "The ladder continues up and down the mine shaft.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -384,7 +384,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The ladder for all its use and age still is quite sturdy.  It appears a few rungs here and there have been replaced to ensure its safety.";
-            room.LongDescription = "The ladder continues up and down the mine shaft.";
+            room.LookDescription = "The ladder continues up and down the mine shaft.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(Miner());
@@ -395,7 +395,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The ladder for all its use and age still is quite sturdy.  It appears a few rungs here and there have been replaced to ensure its safety.";
-            room.LongDescription = "The ladder continues up and down the mine shaft.";
+            room.LookDescription = "The ladder continues up and down the mine shaft.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -404,7 +404,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The ladder for all its use and age still is quite sturdy.  It appears a few rungs here and there have been replaced to ensure its safety.";
-            room.LongDescription = "The ladder continues up and down the mine shaft.";
+            room.LookDescription = "The ladder continues up and down the mine shaft.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -413,7 +413,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The ladder for all its use and age still is quite sturdy.  It appears a few rungs here and there have been replaced to ensure its safety.";
-            room.LongDescription = "The ladder continues up and down the mine shaft.";
+            room.LookDescription = "The ladder continues up and down the mine shaft.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -422,7 +422,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The ladder for all its use and age still is quite sturdy.  It appears a few rungs here and there have been replaced to ensure its safety.";
-            room.LongDescription = "The ladder continues up and down the mine shaft.";
+            room.LookDescription = "The ladder continues up and down the mine shaft.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -431,7 +431,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The ladder for all its use and age still is quite sturdy.  It appears a few rungs here and there have been replaced to ensure its safety.";
-            room.LongDescription = "The ladder continues up and down the mine shaft.";
+            room.LookDescription = "The ladder continues up and down the mine shaft.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -440,7 +440,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The ladder for all its use and age still is quite sturdy.  It appears a few rungs here and there have been replaced to ensure its safety.";
-            room.LongDescription = "The ladder continues up and down the mine shaft.";
+            room.LookDescription = "The ladder continues up and down the mine shaft.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -449,7 +449,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The ladder for all its use and age still is quite sturdy.  It appears a few rungs here and there have been replaced to ensure its safety.";
-            room.LongDescription = "The ladder continues up and down the mine shaft.";
+            room.LookDescription = "The ladder continues up and down the mine shaft.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -463,7 +463,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.KeyWords.Add("miner");
             npc.SentenceDescription = "Kobold miner";
             npc.ShortDescription = "A Kobold miner.";
-            npc.LongDescription = "The miner is hard at work building new tunnels and mining materials.";
+            npc.LookDescription = "The miner is hard at work building new tunnels and mining materials.";
             npc.ExamineDescription = "The miner ignores you at first then notices you looking at them.  Started at first it decides the best thing to do is ignore you and hope you go away.";
 
             npc.AddEquipment(MiningPick());
@@ -487,7 +487,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Water drips down from cracks in the mine ceiling forming small puddles on the mine floor.";
-            room.LongDescription = "A mining cart track extends off into the darkness.";
+            room.LookDescription = "A mining cart track extends off into the darkness.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -496,7 +496,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Water drips down from cracks in the mine ceiling forming small puddles on the mine floor.";
-            room.LongDescription = "A mining cart track extends off into the darkness.";
+            room.LookDescription = "A mining cart track extends off into the darkness.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -505,7 +505,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Water drips down from cracks in the mine ceiling forming small puddles on the mine floor.";
-            room.LongDescription = "A mining cart track extends off into the darkness.";
+            room.LookDescription = "A mining cart track extends off into the darkness.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -514,7 +514,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Water drips down from cracks in the mine ceiling forming small puddles on the mine floor.";
-            room.LongDescription = "A mining cart track extends off into the darkness.";
+            room.LookDescription = "A mining cart track extends off into the darkness.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -523,7 +523,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Water drips down from cracks in the mine ceiling forming small puddles on the mine floor.";
-            room.LongDescription = "A mining cart track extends off into the darkness.";
+            room.LookDescription = "A mining cart track extends off into the darkness.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -535,7 +535,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls of the mine can be seen streaked with black coal here and there.";
-            room.LongDescription = "The mining tunnel is roughly hewn from the soft rock.";
+            room.LookDescription = "The mining tunnel is roughly hewn from the soft rock.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -544,7 +544,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls of the mine can be seen streaked with black coal here and there.";
-            room.LongDescription = "The mining tunnel is roughly hewn from the soft rock.";
+            room.LookDescription = "The mining tunnel is roughly hewn from the soft rock.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(Miner());
@@ -555,7 +555,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls of the mine can be seen streaked with black coal here and there.";
-            room.LongDescription = "The mining tunnel is roughly hewn from the soft rock.";
+            room.LookDescription = "The mining tunnel is roughly hewn from the soft rock.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -564,7 +564,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls of the mine can be seen streaked with black coal here and there.";
-            room.LongDescription = "The mining tunnel is roughly hewn from the soft rock.";
+            room.LookDescription = "The mining tunnel is roughly hewn from the soft rock.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -573,7 +573,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls of the mine can be seen streaked with black coal here and there.";
-            room.LongDescription = "The mining tunnel is roughly hewn from the soft rock.";
+            room.LookDescription = "The mining tunnel is roughly hewn from the soft rock.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -583,7 +583,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls of the mine can be seen streaked with black coal here and there.";
-            room.LongDescription = "The mining tunnel is roughly hewn from the soft rock.";
+            room.LookDescription = "The mining tunnel is roughly hewn from the soft rock.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -593,7 +593,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls of the mine can be seen streaked with black coal here and there.";
-            room.LongDescription = "The mining tunnel is roughly hewn from the soft rock.";
+            room.LookDescription = "The mining tunnel is roughly hewn from the soft rock.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -603,7 +603,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls of the mine can be seen streaked with black coal here and there.";
-            room.LongDescription = "The mining tunnel is roughly hewn from the soft rock.";
+            room.LookDescription = "The mining tunnel is roughly hewn from the soft rock.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -613,7 +613,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls of the mine can be seen streaked with black coal here and there.";
-            room.LongDescription = "The mining tunnel is roughly hewn from the soft rock.";
+            room.LookDescription = "The mining tunnel is roughly hewn from the soft rock.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(Miner());
@@ -626,7 +626,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls of the mine can be seen streaked with black coal here and there.";
-            room.LongDescription = "The mining tunnel is roughly hewn from the soft rock.";
+            room.LookDescription = "The mining tunnel is roughly hewn from the soft rock.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -638,7 +638,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls appear to be naturally carved from flowing water over time but are dry now.";
-            room.LongDescription = "Smooth walls form a natural tunnel.";
+            room.LookDescription = "Smooth walls form a natural tunnel.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -648,7 +648,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls appear to be naturally carved from flowing water over time but are dry now.";
-            room.LongDescription = "Smooth walls form a natural tunnel.";
+            room.LookDescription = "Smooth walls form a natural tunnel.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -658,7 +658,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls appear to be naturally carved from flowing water over time but are dry now.";
-            room.LongDescription = "Smooth walls form a natural tunnel.";
+            room.LookDescription = "Smooth walls form a natural tunnel.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -668,7 +668,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls appear to be naturally carved from flowing water over time but are dry now.";
-            room.LongDescription = "Smooth walls form a natural tunnel.";
+            room.LookDescription = "Smooth walls form a natural tunnel.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(Miner());
@@ -680,7 +680,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The water is clear and smooth as glass.  You can see the bottom of the lake extend out several feet before disapearing into the darkness.";
-            room.LongDescription = "Smooth walls form a natural tunnel.";
+            room.LookDescription = "Smooth walls form a natural tunnel.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(Miner());
@@ -693,7 +693,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The water is clear and smooth as glass.  You can see the bottom of the lake extend out several feet before disapearing into the darkness.";
-            room.LongDescription = "Smooth walls form a natural tunnel.";
+            room.LookDescription = "Smooth walls form a natural tunnel.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -703,7 +703,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The water is clear and smooth as glass.  You can see the bottom of the lake extend out several feet before disapearing into the darkness.";
-            room.LongDescription = "Smooth walls form a natural tunnel.";
+            room.LookDescription = "Smooth walls form a natural tunnel.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -713,7 +713,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The water is clear and smooth as glass.  You can see the bottom of the lake extend out several feet before disapearing into the darkness.";
-            room.LongDescription = "Smooth walls form a natural tunnel.";
+            room.LookDescription = "Smooth walls form a natural tunnel.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -723,7 +723,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The water is clear and smooth as glass.  You can see the bottom of the lake extend out several feet before disapearing into the darkness.";
-            room.LongDescription = "Smooth walls form a natural tunnel.";
+            room.LookDescription = "Smooth walls form a natural tunnel.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(Miner());
@@ -735,7 +735,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The water is clear and smooth as glass.  You can see the bottom of the lake extend out several feet before disapearing into the darkness.";
-            room.LongDescription = "Smooth walls form a natural tunnel.";
+            room.LookDescription = "Smooth walls form a natural tunnel.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -747,7 +747,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel appears to be a mixture of sharp and smooth glass obsidian.";
-            room.LongDescription = "A small tunnel extends off into the distance making several turns.";
+            room.LookDescription = "A small tunnel extends off into the distance making several turns.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -757,7 +757,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel appears to be a mixture of sharp and smooth glass obsidian.";
-            room.LongDescription = "A small tunnel extends off into the distance making several turns.";
+            room.LookDescription = "A small tunnel extends off into the distance making several turns.";
             room.ShortDescription = "Kobold Lair";
 
             ITrap trap = BuildTrap(DamageType.Slash, new List<string>(), "As you crawl through the tunnel sharp glass cuts you.");
@@ -773,7 +773,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel appears to be a mixture of sharp and smooth glass obsidian.";
-            room.LongDescription = "Inside the tunnel the sharp obsidian presses against you.";
+            room.LookDescription = "Inside the tunnel the sharp obsidian presses against you.";
             room.ShortDescription = "Kobold Lair";
 
             ITrap trap = BuildTrap(DamageType.Slash, new List<string>(), "As you crawl through the tunnel sharp glass cuts you.");
@@ -787,7 +787,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel appears to be a mixture of sharp and smooth glass obsidian.";
-            room.LongDescription = "Inside the tunnel the sharp obsidian presses against you.";
+            room.LookDescription = "Inside the tunnel the sharp obsidian presses against you.";
             room.ShortDescription = "Kobold Lair";
 
             ITrap trap = BuildTrap(DamageType.Slash, new List<string>(), "As you crawl through the tunnel sharp glass cuts you.");
@@ -801,7 +801,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel opens up to a room that seems to shimmer with reflective gems.";
-            room.LongDescription = "A small shimmering room.";
+            room.LookDescription = "A small shimmering room.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -811,7 +811,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel opens up to a room that seems to shimmer with reflective gems.";
-            room.LongDescription = "A small shimmering room.";
+            room.LookDescription = "A small shimmering room.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -823,7 +823,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The boulders are big enough to let light through.  Through the gaps you can see the tunnel continues on into the darkness.  Occasionally you can see the faint shimmer of light coming from down the tunnel but there is no way to get through and find out what it is.";
-            room.LongDescription = "A cave in has blocked the path to the North.";
+            room.LookDescription = "A cave in has blocked the path to the North.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -832,7 +832,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls while not smooth are well formed.  An iron track for mining carts with wooden supports completes the mine's tunnel.";
-            room.LongDescription = "The tunnel walls are reinforced with wooden beams and carved with a high level of precision.";
+            room.LookDescription = "The tunnel walls are reinforced with wooden beams and carved with a high level of precision.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -841,7 +841,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls while not smooth are well formed.  An iron track for mining carts with wooden supports completes the mine's tunnel.";
-            room.LongDescription = "The tunnel walls are reinforced with wooden beams and carved with a high level of precision.";
+            room.LookDescription = "The tunnel walls are reinforced with wooden beams and carved with a high level of precision.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -850,7 +850,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The walls while not smooth are well formed.  An iron track for mining carts with wooden supports completes the mine's tunnel.";
-            room.LongDescription = "The tunnel walls are reinforced with wooden beams and carved with a high level of precision.";
+            room.LookDescription = "The tunnel walls are reinforced with wooden beams and carved with a high level of precision.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(Miner());
@@ -865,7 +865,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "A natural tunnel that lead deep into the depths of the earth.  The ground is covered in foot prints except for several spots on the ground.";
-            room.LongDescription = "This part of the tunnel has received more foot traffic leading the floor to be worn smooth.";
+            room.LookDescription = "This part of the tunnel has received more foot traffic leading the floor to be worn smooth.";
             room.ShortDescription = "Kobold Lair";
 
             ITrap trap = BuildTrap(DamageType.Pierce, new List<string>() { "ground", "foot", "print" }, "As you step forward your foot falls through the ground onto a spike in the floor.");
@@ -897,7 +897,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             INonPlayerCharacter npc = Npc(13);
 
             npc.ExamineDescription = "The guard looks tougher than a normal kobold, like its been trained extra hard and will fight to defend the tribe.";
-            npc.LongDescription = "The kobold is slightly taller than most at a little over four feet tall.";
+            npc.LookDescription = "The kobold is slightly taller than most at a little over four feet tall.";
             npc.ShortDescription = "A kobold guard.";
             npc.SentenceDescription = "guard";
             npc.KeyWords.Add("guard");
@@ -920,7 +920,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IWeapon weapon = CreateWeapon(WeaponType.Spear, 13);
 
             weapon.ExamineDescription = "The spear is about three feet long and made of wood.  It had a point of cobalt on it that is very sharp to the touch.";
-            weapon.LongDescription = "A spear about three feet long with a sharp point of cobalt on the end.";
+            weapon.LookDescription = "A spear about three feet long with a sharp point of cobalt on the end.";
             weapon.ShortDescription = "A small shoddily made spear.";
             weapon.SentenceDescription = "small spear";
             weapon.KeyWords.Add("spear");
@@ -938,7 +938,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IArmor armor = CreateArmor(AvalableItemPosition.Arms, 13, new Leather());
 
             armor.ExamineDescription = "The bracer is made of several smaller bones sewn on a strip of leather wrapped around the wearers arm.";
-            armor.LongDescription = "A leather bracer made with bone for extra protection.";
+            armor.LookDescription = "A leather bracer made with bone for extra protection.";
             armor.ShortDescription = "A bone bracer.";
             armor.SentenceDescription = "bone bracer";
             armor.KeyWords.Add("bone");
@@ -954,7 +954,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IArmor armor = CreateArmor(AvalableItemPosition.Body, 13, new Leather());
 
             armor.ExamineDescription = "The chest plate looks to like someone took a bears rib cage and set it before you and told you to wear it for armor.";
-            armor.LongDescription = "You look at what looks to be a bears rib cage, a set of breast plate armor made of bone.";
+            armor.LookDescription = "You look at what looks to be a bears rib cage, a set of breast plate armor made of bone.";
             armor.ShortDescription = "A breast plate made of bone.";
             armor.SentenceDescription = "bone breast plate";
             armor.KeyWords.Add("bone");
@@ -971,7 +971,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IArmor armor = CreateArmor(AvalableItemPosition.Hand, 13, new Leather());
 
             armor.ExamineDescription = "The gloves are made of leather and fit pretty nicely.  Each finger has a cutout for you fingers to slide through as well as what looks to be some type of claw that extends over each finger to help scratch the target.";
-            armor.LongDescription = "The gloves appear to made of leather of varying grades of quality.  Still they serve their purpose of providing extra protection even if they don't look good.";
+            armor.LookDescription = "The gloves appear to made of leather of varying grades of quality.  Still they serve their purpose of providing extra protection even if they don't look good.";
             armor.ShortDescription = "A pair of leather gloves.";
             armor.SentenceDescription = "leather gloves";
             armor.KeyWords.Add("leather");
@@ -987,7 +987,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IArmor armor = CreateArmor(AvalableItemPosition.Head, 13, new Leather());
 
             armor.ExamineDescription = "The mask does limit your visibility slightly but does protect your face from attacks.";
-            armor.LongDescription = "The mask covers the wearer's face and provides some protection from attacks.";
+            armor.LookDescription = "The mask covers the wearer's face and provides some protection from attacks.";
             armor.ShortDescription = "A mask made of bone.";
             armor.SentenceDescription = "small mask";
             armor.KeyWords.Add("mask");
@@ -1003,7 +1003,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IArmor armor = CreateArmor(AvalableItemPosition.Legs, 13, new Leather());
 
             armor.ExamineDescription = "The right greave has several large gashes while the left one looks brand new.  Maybe these are a mismatched set.";
-            armor.LongDescription = "The greaves are made of leather with a bone outer covering.";
+            armor.LookDescription = "The greaves are made of leather with a bone outer covering.";
             armor.ShortDescription = "A pair of bone greaves.";
             armor.SentenceDescription = "greaves";
             armor.KeyWords.Add("greaves");
@@ -1019,7 +1019,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel is a bit difficult to navigate as the floor is full of fallen debris.";
-            room.LongDescription = "Several sharp stalactite hang from the ceiling above.  Lets hope they don't fall down on you.";
+            room.LookDescription = "Several sharp stalactite hang from the ceiling above.  Lets hope they don't fall down on you.";
             room.ShortDescription = "Kobold Lair";
 
             ITrap trap = BuildTrap(DamageType.Slash, new List<string>() { "stalactite", }, "Suddenly a half dozen stalactites fall down shattering on the ground and sending sharp rock fragments flying through the air.");
@@ -1032,7 +1032,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel opens up a bit to form a natural room.  To the east is a wooden door with a picture of a shield on it.";
-            room.LongDescription = "The tunnel opens up here to form a bit of a room.  You can hear your foot steps echo gently off the walls.  To the east is door has walled off part of the cave system.";
+            room.LookDescription = "The tunnel opens up here to form a bit of a room.  You can hear your foot steps echo gently off the walls.  To the east is door has walled off part of the cave system.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1042,7 +1042,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "This room is used by the kobold guards.  It has a few beds for sleeping as well as some table for eating and playing games.";
-            room.LongDescription = "A room used for the guards who keep the lair safe from intruders.";
+            room.LookDescription = "A room used for the guards who keep the lair safe from intruders.";
             room.ShortDescription = "Kobold Lair";
 
             ITrap trap = new Trap();
@@ -1074,7 +1074,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The holes appear to be filled with busts of kobolds.  The ones that do have placards with names under them.";
-            room.LongDescription = "The walls of the tunnel have several small holes.  Some of them have small trinkets in them.";
+            room.LookDescription = "The walls of the tunnel have several small holes.  Some of them have small trinkets in them.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1084,7 +1084,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The holes appear to be filled with busts of kobolds.  The ones that do have placards with names under them.";
-            room.LongDescription = "The walls of the tunnel have several small holes.  Some of them have small trinkets in them.";
+            room.LookDescription = "The walls of the tunnel have several small holes.  Some of them have small trinkets in them.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1094,7 +1094,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "A large room with a great deal of seating and tables are setup in circular fashion.";
-            room.LongDescription = "This appears to be some kinda common room.  A place a large fire is built in the middle but it is not lit.";
+            room.LookDescription = "This appears to be some kinda common room.  A place a large fire is built in the middle but it is not lit.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1104,7 +1104,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tapestry depicts the entrapping of Krutulmak.";
-            room.LongDescription = "A large tapestries line the wall.";
+            room.LookDescription = "A large tapestries line the wall.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1114,7 +1114,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tapestry depicts miners searching for Krutulmak.";
-            room.LongDescription = "A large tapestries line the wall.";
+            room.LookDescription = "A large tapestries line the wall.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1124,7 +1124,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tapestry depicts kobolds finding and freeing Krutulmak.";
-            room.LongDescription = "A large tapestries line the wall.";
+            room.LookDescription = "A large tapestries line the wall.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1134,7 +1134,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The bunks are made of wood and are about four feet long.";
-            room.LongDescription = "This is the kobolds sleeping quarters.  Bunk beds line the cave walls maximizing space.";
+            room.LookDescription = "This is the kobolds sleeping quarters.  Bunk beds line the cave walls maximizing space.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1144,7 +1144,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The ceiling is jagged where part of it has caved in but seems to be reinforced to prevent future cave ins.";
-            room.LongDescription = "The tunnel shows signs of a recent cave in but has been cleared.";
+            room.LookDescription = "The tunnel shows signs of a recent cave in but has been cleared.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1154,7 +1154,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnels all look well worn as if something important lies at the ends of them.";
-            room.LongDescription = "A smaller tunnel leads to the west while the main part continues to the south and east.";
+            room.LookDescription = "A smaller tunnel leads to the west while the main part continues to the south and east.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1164,7 +1164,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel walls are rough from carving but the floor has been worn smooth from foot traffic.";
-            room.LongDescription = "A long tunnel that seems to go on forever stretches out before you.";
+            room.LookDescription = "A long tunnel that seems to go on forever stretches out before you.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1174,7 +1174,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel has been carefully collapsed and widened to create a zig zag effect that is easier to defend.";
-            room.LongDescription = "The tunnel has been made to be hard to run through with lots of zig zags.";
+            room.LookDescription = "The tunnel has been made to be hard to run through with lots of zig zags.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(Guard());
@@ -1186,7 +1186,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "There are thirty to fifty eggs here waiting to hatch.";
-            room.LongDescription = "The room is full of kobold eggs.";
+            room.LookDescription = "The room is full of kobold eggs.";
             room.ShortDescription = "Kobold Lair";
 
             room.AddMobileObjectToRoom(EggCareTaker());
@@ -1198,7 +1198,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             INonPlayerCharacter npc = Npc(11);
 
             npc.ExamineDescription = "The care giver carefully goes around examining each egg and makes sure it is growing properly.";
-            npc.LongDescription = "Dressed in a light blue apron the kobold gives you a peaceful sensation.";
+            npc.LookDescription = "Dressed in a light blue apron the kobold gives you a peaceful sensation.";
             npc.ShortDescription = "A kobold care giver.";
             npc.SentenceDescription = "kobold";
             npc.KeyWords.Add("giver");
@@ -1210,7 +1210,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "Several books used for teaching are placed on a shelf in the back of the room.  In addition a large chalk board on wheels is nearby with a ring of sitting mats forming a small semi circle.";
-            room.LongDescription = "This part of the room is where the young kobolds are raised until they can join the main part of the tribe.";
+            room.LookDescription = "This part of the room is where the young kobolds are raised until they can join the main part of the tribe.";
             room.ShortDescription = "Kobold Lair";
 
             //small kobold
@@ -1222,7 +1222,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             INonPlayerCharacter npc = Npc(8);
 
             npc.ExamineDescription = "It appears that when the teacher is away that the children really do play.";
-            npc.LongDescription = "The small kobold ignores you and continues to play.";
+            npc.LookDescription = "The small kobold ignores you and continues to play.";
             npc.ShortDescription = "A small kobold runs around the playing.";
             npc.SentenceDescription = "child kobold";
 
@@ -1233,7 +1233,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The tunnel walls are fairly smooth and damp with water dripping down.";
-            room.LongDescription = "The sound of water can be heard from the tunnel to the south.";
+            room.LookDescription = "The sound of water can be heard from the tunnel to the south.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1243,7 +1243,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "The well is a wooden platform for holding the bucket to retrieve water.  It stands about two feet tall and has a small wooden base to keep things from falling down the hole.";
-            room.LongDescription = "The room is dominated by a small well in the center of the room that is used to retrieve water from deep within the cave.";
+            room.LookDescription = "The room is dominated by a small well in the center of the room that is used to retrieve water from deep within the cave.";
             room.ShortDescription = "Kobold Lair";
 
             return room;
@@ -1255,7 +1255,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             IRoom room = ZoneRoom(1);
             room.ExamineDescription = "There food is stacked neatly on the shelves.  Going through the food though reveals that kobolds will eat most anything, bark, dirt, leather, eggshells.";
-            room.LongDescription = "A large amount of food is stored on shelves in this room.";
+            room.LookDescription = "A large amount of food is stored on shelves in this room.";
             room.ShortDescription = "Kobold Lair";
 
             return room;

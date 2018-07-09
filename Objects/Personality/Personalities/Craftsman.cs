@@ -81,7 +81,7 @@ namespace Objects.Personality.Personalities
             equipment.KeyWords.Add(keyword);
             equipment.SentenceDescription = sentenceDescription;
             equipment.ShortDescription = shortDescription;
-            equipment.LongDescription = longDescription;
+            equipment.LookDescription = longDescription;
             equipment.ExamineDescription = examineDescription;
 
             equipment.FinishLoad();

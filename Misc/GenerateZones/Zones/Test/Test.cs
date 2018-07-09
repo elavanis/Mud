@@ -74,7 +74,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
             room.ExamineDescription = "What can I say, its a room for testing.";
-            room.LongDescription = "This room looks very much like a test.";
+            room.LookDescription = "This room looks very much like a test.";
             room.ShortDescription = "Test Room";
 
             return room;
@@ -95,7 +95,7 @@ namespace GenerateZones.Zones
             npc.KeyWords.Add("npc");
 
             npc.ExamineDescription = "A test mob dressed in its finished lab coat.";
-            npc.LongDescription = "A test mob performing tests.";
+            npc.LookDescription = "A test mob performing tests.";
             npc.ShortDescription = "A test mob.";
             npc.SentenceDescription = "test";
 

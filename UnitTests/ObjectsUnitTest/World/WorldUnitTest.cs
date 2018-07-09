@@ -1064,7 +1064,7 @@ namespace ObjectsUnitTest.World
             Assert.AreEqual(result.MaxMana, result.Mana);
             Assert.AreEqual("userName", result.SentenceDescription);
             Assert.AreEqual("userName", result.ShortDescription);
-            Assert.AreEqual("userName", result.LongDescription);
+            Assert.AreEqual("userName", result.LookDescription);
             Assert.IsTrue(result.KeyWords.Contains("userName"));
             Assert.AreEqual(1, result.GuildPoints);
             Assert.AreEqual(1, world.AddPlayerQueue.Count);

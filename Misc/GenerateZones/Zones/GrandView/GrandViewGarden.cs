@@ -68,7 +68,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
             room.ShortDescription = "A rose garden";
-            room.LongDescription = "Hedges of roses tower above you blocking your view forming a maze.";
+            room.LookDescription = "Hedges of roses tower above you blocking your view forming a maze.";
             room.ExamineDescription = "The red rose bush is in full bloom while the white roses are starting to open up.  There is a red and yellow mix close to your feet that is an interesting color while the pink one slightly above your eye level looks to be straight out of a bouquet.";
             return room;
         }
@@ -79,7 +79,7 @@ namespace GenerateZones.Zones
             rose.KeyWords.Add("rose");
             rose.SentenceDescription = "rose";
             rose.ShortDescription = "A beautiful prize {color} rose.";
-            rose.LongDescription = "This is the prize rose that the Kings Gardner has been growing.";
+            rose.LookDescription = "This is the prize rose that the Kings Gardner has been growing.";
             rose.ExamineDescription = "The rose has the most perfect flower that is in full boom.  It's no wonder that it is the prize flower in the garden.";
 
             rose.FlavorOptions.Add("{color}", new List<string>() { "red", "white", "yellow", "pink", "orange", "lilac", "purple" });
@@ -109,7 +109,7 @@ namespace GenerateZones.Zones
             sign.Attributes.Add(Item.ItemAttribute.NoGet);
             sign.SentenceDescription = "sign";
             sign.ShortDescription = "A sign floats weightlessly in the air.";
-            sign.LongDescription = "ƎƠȴɕȶφΩ ЉѣѼѿ ӁқԘհե";
+            sign.LookDescription = "ƎƠȴɕȶφΩ ЉѣѼѿ ӁқԘհե";
             sign.ExamineDescription = "As you continue to examine the sign it shifts into readable words.  This fountain is used for enchanting items.  To use the fountain use the command \"Enchant [Item].\"";
             return sign;
         }

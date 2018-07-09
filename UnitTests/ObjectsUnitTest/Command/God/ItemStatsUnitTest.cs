@@ -102,7 +102,7 @@ namespace ObjectsUnitTest.Command.God
             item.Setup(e => e.Weight).Returns(4);
             item.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
             item.Setup(e => e.ShortDescription).Returns("ShortDescription");
-            item.Setup(e => e.LongDescription).Returns("LongDescription");
+            item.Setup(e => e.LookDescription).Returns("LongDescription");
             item.Setup(e => e.ExamineDescription).Returns("ExamineDescription");
             findThings.Setup(e => e.FindHeldItemsOnMob(mob.Object, "item", 0)).Returns(item.Object);
 
@@ -156,7 +156,7 @@ namespace ObjectsUnitTest.Command.God
 
             item.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
             item.Setup(e => e.ShortDescription).Returns("ShortDescription");
-            item.Setup(e => e.LongDescription).Returns("LongDescription");
+            item.Setup(e => e.LookDescription).Returns("LongDescription");
             item.Setup(e => e.ExamineDescription).Returns("ExamineDescription");
             item.Setup(e => e.Dice).Returns(dice.Object);
             item.Setup(e => e.Attributes).Returns(new List<ItemAttribute>() { ItemAttribute.Light });
@@ -205,7 +205,7 @@ namespace ObjectsUnitTest.Command.God
 
             item.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
             item.Setup(e => e.ShortDescription).Returns("ShortDescription");
-            item.Setup(e => e.LongDescription).Returns("LongDescription");
+            item.Setup(e => e.LookDescription).Returns("LongDescription");
             item.Setup(e => e.ExamineDescription).Returns("ExamineDescription");
             item.Setup(e => e.Attributes).Returns(new List<ItemAttribute>() { ItemAttribute.Light });
             item.Setup(e => e.Enchantments).Returns(new List<IEnchantment>() { enchantment.Object });

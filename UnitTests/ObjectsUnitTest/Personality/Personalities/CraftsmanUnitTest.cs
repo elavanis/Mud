@@ -90,7 +90,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             Assert.AreEqual("keyword", item.KeyWords[0]);
             Assert.AreEqual("sentenceDescription", item.SentenceDescription);
             Assert.AreEqual("shortDescription", item.ShortDescription);
-            Assert.AreEqual("longDescription", item.LongDescription);
+            Assert.AreEqual("longDescription", item.LookDescription);
             Assert.AreEqual("examineDescription", item.ExamineDescription);
             Assert.AreEqual(1, craftsmanObject.CraftsmanId.Zone);
             Assert.AreEqual(2, craftsmanObject.CraftsmanId.Id);
@@ -118,7 +118,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             Assert.AreEqual("keyword", item.KeyWords[0]);
             Assert.AreEqual("sentenceDescription", item.SentenceDescription);
             Assert.AreEqual("shortDescription", item.ShortDescription);
-            Assert.AreEqual("longDescription", item.LongDescription);
+            Assert.AreEqual("longDescription", item.LookDescription);
             Assert.AreEqual("examineDescription", item.ExamineDescription);
             Assert.AreEqual(1, craftsmanObject.CraftsmanId.Zone);
             Assert.AreEqual(2, craftsmanObject.CraftsmanId.Id);
@@ -146,7 +146,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             Assert.AreEqual("keyword", item.KeyWords[0]);
             Assert.AreEqual("sentenceDescription", item.SentenceDescription);
             Assert.AreEqual("shortDescription", item.ShortDescription);
-            Assert.AreEqual("longDescription", item.LongDescription);
+            Assert.AreEqual("longDescription", item.LookDescription);
             Assert.AreEqual("examineDescription", item.ExamineDescription);
             Assert.AreEqual(1, craftsmanObject.CraftsmanId.Zone);
             Assert.AreEqual(2, craftsmanObject.CraftsmanId.Id);

@@ -17,7 +17,7 @@ namespace Objects.Interface
         /// <summary>
         /// Description when looking at object
         /// </summary>
-        string LongDescription { get; set; }
+        string LookDescription { get; set; }
         /// <summary>
         /// Description when item is listed in room or room description for look.
         /// </summary>

@@ -32,7 +32,7 @@ namespace Objects.Global.Exp
 
         private int[] GenerateNpcExpValues()
         {
-            int[] npcExpValue = new int[GlobalReference.GlobalValues.Settings.MaxLevel];
+            int[] npcExpValue = new int[GlobalReference.GlobalValues.Settings.MaxCalculationLevel];
             int currentExp = 100;
             for (int i = 0; i < npcExpValue.Length; i++)
             {

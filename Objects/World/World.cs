@@ -481,7 +481,7 @@ namespace Objects.World
             pc.Mana = pc.MaxStamina;
             pc.SentenceDescription = pc.Name;
             pc.ShortDescription = pc.Name;
-            pc.LongDescription = pc.Name;
+            pc.LookDescription = pc.Name;
             pc.KeyWords.Add(pc.Name);
             pc.GuildPoints = 1;
 

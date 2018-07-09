@@ -981,7 +981,7 @@ namespace ObjectsUnitTest.Mob
 
             Assert.IsFalse(mob.IsAlive);
             Assert.AreEqual("A corpse lies here.", corpse.ShortDescription);
-            Assert.AreEqual("This corpse once was living but no life exists here now.", corpse.LongDescription);
+            Assert.AreEqual("This corpse once was living but no life exists here now.", corpse.LookDescription);
             Assert.AreEqual("This corpse once was living but no life exists here now.", corpse.ExamineDescription);
             Assert.IsTrue(corpse.KeyWords.Contains("Corpse"));
             Assert.AreEqual("corpse", corpse.SentenceDescription);
@@ -1029,7 +1029,7 @@ namespace ObjectsUnitTest.Mob
 
             Assert.IsFalse(mob.IsAlive);
             Assert.AreEqual("A corpse lies here.", corpse.ShortDescription);
-            Assert.AreEqual("corp desc", corpse.LongDescription);
+            Assert.AreEqual("corp desc", corpse.LookDescription);
             Assert.AreEqual("corp desc", corpse.ExamineDescription);
             Assert.IsTrue(corpse.KeyWords.Contains("Corpse"));
             Assert.AreEqual("corpse", corpse.SentenceDescription);

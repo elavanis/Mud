@@ -66,7 +66,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(RoomAttribute.Indoor);
 
             room.ExamineDescription = "Is it really wise to be taking your time to examine the room while the ship is on FIRE!!!!  None the less you are in your room.  Flames are consuming the walls to the east and north.  The wall to the south still looks to be in good shape but it might not be a good idea to stay and find out how it takes for a wooden ship to burn.  Instead try leaving to the WEST.";
-            room.LongDescription = "You are awaken from you sleep by a hot ember that has landed on you forehead.  Quickly knocking it off you realize the ship is on fire.";
+            room.LookDescription = "You are awaken from you sleep by a hot ember that has landed on you forehead.  Quickly knocking it off you realize the ship is on fire.";
             room.ShortDescription = "FIRE!";
 
             EnterRoomEnchantment enter = new EnterRoomEnchantment();
@@ -83,7 +83,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(RoomAttribute.Indoor);
 
             room.ExamineDescription = "The door to the east is burning brightly while the hallway to the west seems slightly less on fire.";
-            room.LongDescription = "Fire has spread to most of the ship and smoke makes it hard to see and breath.";
+            room.LookDescription = "Fire has spread to most of the ship and smoke makes it hard to see and breath.";
             room.ShortDescription = "FIRE!";
 
             return room;
@@ -95,7 +95,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(RoomAttribute.Indoor);
 
             room.ExamineDescription = "The smoky ash burns your eyes making it hard to see.";
-            room.LongDescription = "Rays of light from above streak down through the smoky air while the orange glow of flames light the way to the east.";
+            room.LookDescription = "Rays of light from above streak down through the smoky air while the orange glow of flames light the way to the east.";
             room.ShortDescription = "Stairs to the deck above";
 
             return room;
@@ -107,7 +107,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(RoomAttribute.Outdoor);
 
             room.ExamineDescription = "The crew scramble around trying to put out fires, attack the dragons as they dive in for an attack and get to the one remaining life boat on the west side of the ship.";
-            room.LongDescription = "A pair of dragons circle above taking turns breathing fire onto the ship.";
+            room.LookDescription = "A pair of dragons circle above taking turns breathing fire onto the ship.";
             room.ShortDescription = "On the ships' deck";
 
             room.AddMobileObjectToRoom(DeckCrew());
@@ -122,7 +122,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(RoomAttribute.Outdoor);
 
             room.ExamineDescription = "Standing in the middle of the ship you can see that the ship is lost.  The center mast is engulfed in flames, the sails long burned away, both the aft and stern of the ship is ablaze.  It is only a matter of time before she burns enough to allow water into her hull or fire reaches the gunpowder magazine and the ship is blown apart.";
-            room.LongDescription = "Flames are beginning to make the deck unstable.  Holes are opening up as barrels fall through the floor.";
+            room.LookDescription = "Flames are beginning to make the deck unstable.  Holes are opening up as barrels fall through the floor.";
             room.ShortDescription = "On the ships' deck";
 
             room.AddMobileObjectToRoom(DeckCrew());
@@ -137,7 +137,7 @@ namespace GenerateZones.Zones
             room.Attributes.Add(RoomAttribute.Outdoor);
 
             room.ExamineDescription = "Looking around one last time at {shipName} you bid it fairwell. She had been home to you for the last several weeks but she will be no more.";
-            room.LongDescription = "Several feet below you is the last life boat.  Passengers and members of the crew are offering you words of encouragement to get in the boat.";
+            room.LookDescription = "Several feet below you is the last life boat.  Passengers and members of the crew are offering you words of encouragement to get in the boat.";
             room.ShortDescription = "Above the life boat";
 
             room.FlavorOptions.Add("{shipName}", new List<string>() { "Boaty McBoat Face", "The Tinderbox", "The MatchBox", "The Ocean Blaze", "The Firetrap", "Ablaze", "Kindling" });
@@ -167,7 +167,7 @@ namespace GenerateZones.Zones
             room.Enchantments.Add(death);
 
             room.ExamineDescription = "";
-            room.LongDescription = "You should not see this unless you are a god.  In which case congratulations on godhood.";
+            room.LookDescription = "You should not see this unless you are a god.  In which case congratulations on godhood.";
             room.ShortDescription = "In the water";
 
             return room;
@@ -242,7 +242,7 @@ namespace GenerateZones.Zones
             npc.KeyWords.Add("deckhand");
             npc.KeyWords.Add("member");
             npc.ExamineDescription = "He looks like your average sailer, dressed in slightly raged clothing and well tanned from his time at sea.";
-            npc.LongDescription = "This crew member run back and forth trying put out fires and throw spears at the dragons as they attack.";
+            npc.LookDescription = "This crew member run back and forth trying put out fires and throw spears at the dragons as they attack.";
             npc.ShortDescription = "A crew member.";
 
             IWanderer wanderer = new Wanderer();

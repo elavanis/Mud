@@ -19,6 +19,7 @@ namespace ObjectsUnitTest.Global.Exp
             Mock<ISettings> settings = new Mock<ISettings>();
             settings.Setup(e => e.MaxLevel).Returns(100);
             settings.Setup(e => e.Multiplier).Returns(1.1d);
+            settings.Setup(e => e.MaxCalculationLevel).Returns(130);
             GlobalReference.GlobalValues.Settings = settings.Object;
 
             exp = new Experience();

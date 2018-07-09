@@ -129,7 +129,7 @@ namespace Objects.Global.Random
             {
                 case WeaponType.Club:
                     weapon.ExamineDescription = "The club has been worn smooth with several large indentions.  There surly a story for each one but hopefully you were the story teller and not the receiving actor.";
-                    weapon.LongDescription = "The club looks to well balanced with a {description} leather grip.";
+                    weapon.LookDescription = "The club looks to well balanced with a {description} leather grip.";
                     weapon.ShortDescription = "The stout {material} club looks to be well balanced.";
                     weapon.SentenceDescription = "club";
                     weapon.KeyWords.Add("Club");
@@ -138,7 +138,7 @@ namespace Objects.Global.Random
                     break;
                 case WeaponType.Mace:
                     weapon.ExamineDescription = "The head of the mace {shape}.";
-                    weapon.LongDescription = "The shaft of the mace is {shaft} and the head of the {head}.";
+                    weapon.LookDescription = "The shaft of the mace is {shaft} and the head of the {head}.";
                     weapon.ShortDescription = "The metal mace has an ornate head used for bashing things.";
                     weapon.SentenceDescription = "mace";
                     weapon.KeyWords.Add("Mace");
@@ -150,7 +150,7 @@ namespace Objects.Global.Random
                     break;
                 case WeaponType.WizardStaff:
                     weapon.ExamineDescription = "The wooden staff is constantly in flux as small leaves grow out from the staff, blossom {color2} flowers and then wilt and are reabsorbed into the staff.";
-                    weapon.LongDescription = "The wooden staff has {head} for a head{feels}.";
+                    weapon.LookDescription = "The wooden staff has {head} for a head{feels}.";
                     weapon.ShortDescription = "The wizards staff hums with a deep sound that resonates deep in your body.";
                     weapon.SentenceDescription = "wizard staff";
                     weapon.KeyWords.Add("Wizard");
@@ -162,7 +162,7 @@ namespace Objects.Global.Random
                     break;
                 case WeaponType.Axe:
                     weapon.ExamineDescription = "The blade is {blade description} and made of {material}.";
-                    weapon.LongDescription = "The axe could have been used by a great warrior of days or the local peasant down the road.  It is hard tell the history just from its looks.";
+                    weapon.LookDescription = "The axe could have been used by a great warrior of days or the local peasant down the road.  It is hard tell the history just from its looks.";
                     weapon.ShortDescription = "The axe has a large head and strong wooden handle.";
                     weapon.SentenceDescription = "axe";
                     weapon.KeyWords.Add("Axe");
@@ -171,7 +171,7 @@ namespace Objects.Global.Random
                     break;
                 case WeaponType.Sword:
                     weapon.ExamineDescription = "The blade is made from {blade material}.  The guard is {guard} and the handle is wrapped in {handle}.  There is a {pommel} for a pommel.";
-                    weapon.LongDescription = "The blade is {condition} and has {sides} sharpened.";
+                    weapon.LookDescription = "The blade is {condition} and has {sides} sharpened.";
                     weapon.ShortDescription = "A {type} sword used to cut down ones foes.";
                     weapon.SentenceDescription = "sword";
                     weapon.KeyWords.Add("Sword");
@@ -190,7 +190,7 @@ namespace Objects.Global.Random
                     break;
                 case WeaponType.Dagger:
                     weapon.ExamineDescription = "The blade is made from {blade material}.  The handle is wrapped in {handle} and there is a small {pommel} for a pommel.";
-                    weapon.LongDescription = "The blade is {condition} and has a small fuller running the length of the blade.";
+                    weapon.LookDescription = "The blade is {condition} and has a small fuller running the length of the blade.";
                     weapon.ShortDescription = "The dagger is short sharp and pointy.  Perfect for concealing on your person.";
                     weapon.SentenceDescription = "dagger";
                     weapon.KeyWords.Add("Dagger");
@@ -206,7 +206,7 @@ namespace Objects.Global.Random
                     break;
                 case WeaponType.Pick:
                     weapon.ExamineDescription = "The head of the war pick {head description}.";
-                    weapon.LongDescription = "This pick has a large grooved hammer head and a sharp pick on the back.";
+                    weapon.LookDescription = "This pick has a large grooved hammer head and a sharp pick on the back.";
                     weapon.ShortDescription = "This war pick is a versatile weapon used to fight against armored opponents.";
                     weapon.SentenceDescription = "war pick";
                     weapon.KeyWords.Add("Pick");
@@ -215,7 +215,7 @@ namespace Objects.Global.Random
                     break;
                 case WeaponType.Spear:
                     weapon.ExamineDescription = "The spear head is made of {material}.";
-                    weapon.LongDescription = "The spear head is pointed and about nine inches long.";
+                    weapon.LookDescription = "The spear head is pointed and about nine inches long.";
                     weapon.ShortDescription = "A large pointed spear that can be used to poke holes in ones foes or pick up trash.";
                     weapon.SentenceDescription = "spear";
                     weapon.KeyWords.Add("Spear");
@@ -248,13 +248,25 @@ namespace Objects.Global.Random
 
         private IArmor GenerateRandomArmor(int level, int effectiveLevel)
         {
+            AvalableItemPosition itemPosition = PickRandomItemPosition();
+            return GenerateRandomArmor(level, effectiveLevel, itemPosition);
+        }
+
+        private static AvalableItemPosition PickRandomItemPosition()
+        {
             Array values = Enum.GetValues(typeof(AvalableItemPosition));
             int randomValue = GlobalReference.GlobalValues.Random.Next(values.Length);
-            return GenerateRandomArmor(level, effectiveLevel, (AvalableItemPosition)values.GetValue(randomValue));
+            AvalableItemPosition itemPosition = (AvalableItemPosition)values.GetValue(randomValue);
+            return itemPosition;
         }
 
         public IArmor GenerateRandomArmor(int level, int effectiveLevel, AvalableItemPosition itemPosition)
         {
+            while (itemPosition != AvalableItemPosition.Held)
+            {
+                itemPosition = PickRandomItemPosition();
+            }
+
             IArmor armor = new Armor();
             armor.Level = level;
             armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(effectiveLevel);
@@ -267,14 +279,14 @@ namespace Objects.Global.Random
             {
                 case AvalableItemPosition.Head:
                     armor.ExamineDescription = "The helmet has two small holes cut out for seeing out.";
-                    armor.LongDescription = "The helmet is hard and light but well padded giving the ultimate compromise between protection and usability.";
+                    armor.LookDescription = "The helmet is hard and light but well padded giving the ultimate compromise between protection and usability.";
                     armor.ShortDescription = "A well made helmet that looks like it might fit.";
                     armor.SentenceDescription = "helmet";
                     armor.KeyWords.Add("Helmet");
                     break;
                 case AvalableItemPosition.Neck:
                     armor.ExamineDescription = "A {color} stone rests softly in the middle of the necklace.";
-                    armor.LongDescription = "The necklace has a stone attached to it via a round pendent.";
+                    armor.LookDescription = "The necklace has a stone attached to it via a round pendent.";
                     armor.ShortDescription = "A delicate necklace fit for any royal lady to wear to any party.";
                     armor.SentenceDescription = "necklace";
                     armor.KeyWords.Add("Necklace");
@@ -282,14 +294,14 @@ namespace Objects.Global.Random
                     break;
                 case AvalableItemPosition.Arms:
                     armor.ExamineDescription = "The bracer is made of strips of material held together with leather.";
-                    armor.LongDescription = "Just a hair longer than your arm these bracers look to be a perfect fit.";
+                    armor.LookDescription = "Just a hair longer than your arm these bracers look to be a perfect fit.";
                     armor.ShortDescription = "A pair of bracers that look to offer good protection for your arms.";
                     armor.SentenceDescription = "bracer";
                     armor.KeyWords.Add("Bracer");
                     break;
                 case AvalableItemPosition.Hand:
                     armor.ExamineDescription = "Made of a thin material these gloves have a magical property to them that grants the wearer protection.";
-                    armor.LongDescription = "The gloves have a {back} design on the back and a {inside} for the design on the inside.";
+                    armor.LookDescription = "The gloves have a {back} design on the back and a {inside} for the design on the inside.";
                     armor.ShortDescription = "The gloves look to be thin and not offer much protection.";
                     armor.SentenceDescription = "gloves";
                     armor.KeyWords.Add("Gloves");
@@ -298,7 +310,7 @@ namespace Objects.Global.Random
                     break;
                 case AvalableItemPosition.Finger:
                     armor.ExamineDescription = "The gold ring one had a design on the inside but has been worn smooth with time.";
-                    armor.LongDescription = "The ring is smooth on the outside{design}.";
+                    armor.LookDescription = "The ring is smooth on the outside{design}.";
                     armor.ShortDescription = "The ring is a simple ring with no special markings or anything to suggest it is magical.";
                     armor.SentenceDescription = "ring";
                     armor.KeyWords.Add("Ring");
@@ -307,7 +319,7 @@ namespace Objects.Global.Random
                     break;
                 case AvalableItemPosition.Body:
                     armor.ExamineDescription = "There is a large emblem on the front of a {emblem}.";
-                    armor.LongDescription = "The breast plate is hard giving the wearer plenty of protection while being light.";
+                    armor.LookDescription = "The breast plate is hard giving the wearer plenty of protection while being light.";
                     armor.ShortDescription = "A strong breast plate that has a small dent in the left side but otherwise is in perfect condition.";
                     armor.SentenceDescription = "breast plate";
                     armor.KeyWords.Add("breast");
@@ -317,35 +329,30 @@ namespace Objects.Global.Random
                     break;
                 case AvalableItemPosition.Waist:
                     armor.ExamineDescription = "The belt is made of an unknown material that shifts colors through all the colors of the rainbow.";
-                    armor.LongDescription = "The belt is prismatic.  The color shifts through the rainbow as you move relative to it.";
+                    armor.LookDescription = "The belt is prismatic.  The color shifts through the rainbow as you move relative to it.";
                     armor.ShortDescription = "The belt is a prismatic color that shifts wildly.";
                     armor.SentenceDescription = "belt";
                     armor.KeyWords.Add("Belt");
                     break;
                 case AvalableItemPosition.Legs:
-                    armor.ExamineDescription = "";
-                    armor.LongDescription = "";
-                    armor.ShortDescription = "";
+                    armor.ExamineDescription = "The pattern on the leggings produce a soft blue glow.";
+                    armor.LookDescription = "The leggings have are a dark gray color with delicately carved curving lines on the front forming a intricate pattern.";
+                    armor.ShortDescription = "A pair of leggings.";
                     armor.SentenceDescription = "legging";
                     armor.KeyWords.Add("Legging");
                     break;
                 case AvalableItemPosition.Feet:
-                    armor.ExamineDescription = "";
-                    armor.LongDescription = "";
-                    armor.ShortDescription = "";
+                    armor.ExamineDescription = "Three pouches hang off the outside of each boot allowing you to have quick access to small items.";
+                    armor.LookDescription = "Made of supple leather boots are soft and easy to wear at the expense of some protection.";
+                    armor.ShortDescription = "A pair of leather boots.";
                     armor.SentenceDescription = "boot";
                     armor.KeyWords.Add("Boot");
                     break;
-                case AvalableItemPosition.Held:
-                    armor.ExamineDescription = "";
-                    armor.LongDescription = "";
-                    armor.ShortDescription = "";
-                    armor.SentenceDescription = "necklace";
-                    armor.KeyWords.Add("Necklace");
-                    break;
             }
 
-            return null;
+            armor.FinishLoad();
+
+            return armor;
         }
     }
 }

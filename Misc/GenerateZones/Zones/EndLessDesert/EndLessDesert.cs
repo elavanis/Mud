@@ -38,7 +38,7 @@ namespace GenerateZones.Zones.EndLessDesert
 
             Random random = new Random(Zone.Id);
             IRoom room = Zone.Rooms[random.Next(Zone.Rooms.Count) + 1];
-            room.LongDescription = "Lush trees grow around the small lake forming every desert travelers dream, an oasis.";
+            room.LookDescription = "Lush trees grow around the small lake forming every desert travelers dream, an oasis.";
             room.ExamineDescription = "A small lake is a pale cool blue color inviting you to take a drink and cool off from the hot desert air.";
             room.ShortDescription = "Oasis";
 

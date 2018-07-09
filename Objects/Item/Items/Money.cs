@@ -27,7 +27,7 @@ namespace Objects.Item.Items
             {
                 SentenceDescription = "coins";
                 ShortDescription = "A purse of coins.";
-                LongDescription = string.Format("A purse of coins worth {0}.", GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(value));
+                LookDescription = string.Format("A purse of coins worth {0}.", GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(value));
                 ExamineDescription = "While the purse is not worth anything the items in side are worth keeping.";
                 _value = value;
             }

@@ -243,7 +243,7 @@ namespace GenerateZones
                 ThrowConfigException(item, type, "ExamineDescription = null");
             }
 
-            if (item.LongDescription == null)
+            if (item.LookDescription == null)
             {
                 ThrowConfigException(item, type, "LongDescription = null");
             }

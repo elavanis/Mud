@@ -38,7 +38,7 @@ namespace Objects
         /// Description used when looking at the item."
         /// </summary>
         [ExcludeFromCodeCoverage]
-        public string LongDescription { get; set; }
+        public string LookDescription { get; set; }
 
         /// <summary>
         /// Description used when examining an item."
@@ -116,7 +116,7 @@ namespace Objects
                     string selectedFlavorOption = FlavorOptions[key][selectedPosition];
 
                     ShortDescription = ShortDescription.Replace(key, selectedFlavorOption);
-                    LongDescription = LongDescription.Replace(key, selectedFlavorOption);
+                    LookDescription = LookDescription.Replace(key, selectedFlavorOption);
                     ExamineDescription = ExamineDescription.Replace(key, selectedFlavorOption);
 
                     SentenceDescription = SentenceDescription.Replace(key, selectedFlavorOption);
@@ -180,7 +180,7 @@ namespace Objects
                     string selectedFlavorOption = ZoneSyncOptions[key][syncValue];
 
                     ShortDescription = ShortDescription.Replace(key, selectedFlavorOption);
-                    LongDescription = LongDescription.Replace(key, selectedFlavorOption);
+                    LookDescription = LookDescription.Replace(key, selectedFlavorOption);
                     ExamineDescription = ExamineDescription.Replace(key, selectedFlavorOption);
                     if (SentenceDescription != null) //rooms do not have sentence descriptions
                     {
