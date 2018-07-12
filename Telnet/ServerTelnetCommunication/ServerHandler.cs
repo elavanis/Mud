@@ -123,10 +123,14 @@ namespace ServerTelnetCommunication
                                     GuidToCharacter.TryGetValue(_guid, out pc);
                                     if (pc != null)
                                     {
-                                        pc.EnqueueCommand(messageFromClient);
-                                        if (messageFromClient.ToUpper() == "LOGOUT")
+                                        //don't accept commands from possessed mobs
+                                        if (pc.PossingMob == null)
                                         {
-                                            continueToLoop = false;
+                                            pc.EnqueueCommand(messageFromClient);
+                                            if (messageFromClient.ToUpper() == "LOGOUT")
+                                            {
+                                                continueToLoop = false;
+                                            }
                                         }
                                     }
                                     //not sure why we could not find the player character.  Relogin.

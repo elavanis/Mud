@@ -936,7 +936,7 @@ namespace Objects.World
         private void ProcessMobPersonality(IMobileObject mob)
         {
             INonPlayerCharacter npc = mob as INonPlayerCharacter;
-            if (npc != null)
+            if (npc != null && npc.PossingMob == null)  //don't process the npc personalities if possessed
             {
                 string command = null;
                 foreach (IPersonality personality in npc.Personalities)

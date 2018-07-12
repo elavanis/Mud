@@ -686,6 +686,13 @@ namespace Objects.Mob
             GlobalReference.GlobalValues.Engine.Event.OnDeath(this);
             IsAlive = false;
 
+            if (PossingMob != null)
+            {
+                PossingMob.PossedMob = null;
+                PossingMob.EnqueueCommand("Look");
+                PossingMob = null;
+            }
+
             Corpse corpse = new Corpse();
             corpse.TimeOfDeath = DateTime.UtcNow;
             corpse.ShortDescription = "A corpse lies here.";
@@ -768,16 +775,21 @@ namespace Objects.Mob
             //skipping null messages will now make it no longer enqueue multiple status updates
             if (message != null)
             {
-                _messageQueue.Enqueue(GlobalReference.GlobalValues.Engine.Event.EnqueueMessage(this, message));
+                InternalEnqueueMessage(GlobalReference.GlobalValues.Engine.Event.EnqueueMessage(this, message));
 
                 //do not add any extra status update for sound messages
                 if (!message.StartsWith("<Sound>"))
                 {
-                    _messageQueue.Enqueue(GlobalReference.GlobalValues.Engine.Event.EnqueueMessage(this, Status()));
+                    //only send status for the posses mob
+                    if (PossedMob == null)
+                    {
+                        InternalEnqueueMessage(GlobalReference.GlobalValues.Engine.Event.EnqueueMessage(this, Status()));
+                    }
+
                     if (LevelPoints > 0)
                     {
                         string levelPointsMessage = GlobalReference.GlobalValues.TagWrapper.WrapInTag(string.Format("You have {0} level points to spend.", LevelPoints));
-                        _messageQueue.Enqueue(GlobalReference.GlobalValues.Engine.Event.EnqueueMessage(this, levelPointsMessage));
+                        InternalEnqueueMessage(GlobalReference.GlobalValues.Engine.Event.EnqueueMessage(this, levelPointsMessage));
                     }
 
                     while (_messageQueue.Count >= 100)
@@ -786,6 +798,18 @@ namespace Objects.Mob
                         _messageQueue.TryDequeue(out temp);
                     }
                 }
+            }
+        }
+
+        private void InternalEnqueueMessage(string message)
+        {
+            if (PossingMob == null)
+            {
+                _messageQueue.Enqueue(message);
+            }
+            else
+            {
+                PossingMob.EnqueueMessage(message);
             }
         }
 
@@ -825,6 +849,9 @@ namespace Objects.Mob
             }
         }
 
+        public IMobileObject PossingMob { get; set; }
+        public IMobileObject PossedMob { get; set; }
+
         public void EnqueueCommand(string message)
         {
             string upperMessage = message.ToUpper();
@@ -837,6 +864,11 @@ namespace Objects.Mob
             {
                 string hashedValue = GlobalReference.GlobalValues.ValidateAsset.GetCheckSum(message);
                 _messageQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag(message + "|" + hashedValue, TagType.FileValidation));
+            }
+            else if (PossedMob != null
+                        && !upperMessage.StartsWith("POSSESS")) //send everything other than possess commands to the possessed mob
+            {
+                PossedMob.EnqueueCommand(message);
             }
             else if (upperMessage.StartsWith("SAY")
                 || upperMessage.StartsWith("SHOUT")

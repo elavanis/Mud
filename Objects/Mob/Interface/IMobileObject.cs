@@ -30,6 +30,10 @@ namespace Objects.Mob.Interface
         string CorpseLongDescription { get; set; }
         int DexterityEffective { get; }
         int DexterityStat { get; set; }
+
+        IMobileObject PossingMob { get; set; }
+        IMobileObject PossedMob { get; set; }
+
         IEnumerable<IArmor> EquipedArmor { get; }
         IEnumerable<IEquipment> EquipedEquipment { get; }
         IEnumerable<IWeapon> EquipedWeapon { get; }
