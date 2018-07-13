@@ -809,6 +809,7 @@ namespace Objects.Mob
             }
             else
             {
+                _messageQueue.Enqueue(message);     //allow the possessed mob to see what they are doing
                 PossingMob.EnqueueMessage(message);
             }
         }
