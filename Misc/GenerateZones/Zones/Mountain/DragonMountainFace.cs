@@ -178,6 +178,52 @@ namespace GenerateZones.Zones.Mountain
         }
         #endregion Level 3
 
+        #region Level 4
+        private IRoom GenerateRoom16()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "The rock face is spotted with little hole as if a great volcanic blast blew holes in the mountain side.";
+            room.LookDescription = "The wall here is a golden brown color.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom17()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "A great divot has been worn away by the wind in the face of the mountain.";
+            room.LookDescription = "The soft rock has not stood the test of time and worn away.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom18()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "The rock face contains a vein of sparkling stones while pretty would be to hard to get while dangling from the rock face.";
+            room.LookDescription = "The rock face looks to have broken off here reveling the innards of the mountain.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom19()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "A small birds nest gently sits on a branch growing out of the rock face.  Be careful if you use the branch as a hand hold.";
+            room.LookDescription = "The hand holds are getting thin except a few branches growing out of the rock face.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom20()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "The stone resembles a eye of a dragon.  This is what gives this mountain its name. Dragon Mountain.";
+            room.LookDescription = "There is a large round stone that some how is carved out of the mountain side.";
+
+            return room;
+        }
+        #endregion Level 4
 
         private IRoom RockFace()
         {
