@@ -200,8 +200,8 @@ namespace GenerateZones.Zones.Mountain
         private IRoom GenerateRoom18()
         {
             IRoom room = RockFace();
-            room.ExamineDescription = "The rock face contains a vein of sparkling stones while pretty would be to hard to get while dangling from the rock face.";
-            room.LookDescription = "The rock face looks to have broken off here reveling the innards of the mountain.";
+            room.ExamineDescription = "The stone has sparkles slightly as if its made of granite.";
+            room.LookDescription = "The rock face looks like it a cool gray color.";
 
             return room;
         }
@@ -209,8 +209,8 @@ namespace GenerateZones.Zones.Mountain
         private IRoom GenerateRoom19()
         {
             IRoom room = RockFace();
-            room.ExamineDescription = "A small birds nest gently sits on a branch growing out of the rock face.  Be careful if you use the branch as a hand hold.";
-            room.LookDescription = "The hand holds are getting thin except a few branches growing out of the rock face.";
+            room.ExamineDescription = "The rock face looks like it has a grid pattern almost as if it was made of scales.";
+            room.LookDescription = "The rock here has a grid pattern as if it was once made of something else.";
 
             return room;
         }
@@ -218,8 +218,8 @@ namespace GenerateZones.Zones.Mountain
         private IRoom GenerateRoom20()
         {
             IRoom room = RockFace();
-            room.ExamineDescription = "The stone resembles a eye of a dragon.  This is what gives this mountain its name. Dragon Mountain.";
-            room.LookDescription = "There is a large round stone that some how is carved out of the mountain side.";
+            room.ExamineDescription = "The stone has given way to a white chalky substance that crumbles in your hand.";
+            room.LookDescription = "The rock has become a white chalky substance making it easy to climb but dangerous to stay.";
 
             return room;
         }
