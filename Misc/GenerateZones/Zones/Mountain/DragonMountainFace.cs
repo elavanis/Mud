@@ -225,6 +225,53 @@ namespace GenerateZones.Zones.Mountain
         }
         #endregion Level 4
 
+        #region Level 5
+        private IRoom GenerateRoom21()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "The top of the rock mountain ledge is covered in green grass.";
+            room.LookDescription = "The sheer rock face is looks difficult to climb.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom22()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "Unfortunately the ropes seem quite frail and do not look to be able to support weight.";
+            room.LookDescription = "Several ropes have been hung over the side of the ledge allowing one to climb down the cliff.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom23()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "It is hard to tell if the depression is natural or man made but the stones were put there by someone for sure.";
+            room.LookDescription = "The earth has been shaped into a large bowl area with rocks forming a perimeter.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom24()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "The remnants of what appear to be torches can be seen scattered around.";
+            room.LookDescription = "Here the ground has been burned by fire.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom25()
+        {
+            IRoom room = RockFace();
+            room.ExamineDescription = "Large rocks five feet in diameter are scattered around for what appears like no good reason.";
+            room.LookDescription = "The terrain and interesting mix of large rocks and small patches of grass.";
+
+            return room;
+        }
+        #endregion Level 5
+
         private IRoom RockFace()
         {
             IRoom room = CreateRoom(100);
