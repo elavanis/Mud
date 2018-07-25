@@ -15,6 +15,7 @@ namespace Objects.Zone.Interface
         int InGameDaysTillReset { get; set; }
         DateTime ResetTime { get; set; }
         Dictionary<int, IRoom> Rooms { get; set; }
+        int Level { get; }
         int Id { get; set; }
         string Name { get; set; }
         string ZonePrecipitationExtraHighBegin { get; set; }

@@ -37,6 +37,7 @@ namespace GenerateZones.Zones.Mountain
             return Zone;
         }
 
+        #region Mountain Face
         #region Level 1
         private IRoom GenerateRoom1()
         {
@@ -271,11 +272,31 @@ namespace GenerateZones.Zones.Mountain
             return room;
         }
         #endregion Level 5
+        #endregion Mountain Face
+
+        #region Path
+        private IRoom GenerateRoom26()
+        {
+            IRoom room = RockPath();
+            room.ExamineDescription = "A small path leads up the side of the mountain.";
+            room.LookDescription = "Several small flowers grow along side of the path here.";
+
+            return room;
+        }
+        #endregion Path
+
 
         private IRoom RockFace()
         {
             IRoom room = CreateRoom(100);
             room.ShortDescription = "Mountain Face";
+            return room;
+        }
+
+        private IRoom RockPath()
+        {
+            IRoom room = CreateRoom(1);
+            room.ShortDescription = "Mountain Path";
             return room;
         }
 

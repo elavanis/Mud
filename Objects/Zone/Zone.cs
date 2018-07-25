@@ -34,6 +34,9 @@ namespace Objects.Zone
         [ExcludeFromCodeCoverage]
         public Dictionary<int, IRoom> Rooms { get; set; } = new Dictionary<int, IRoom>();
 
+        [ExcludeFromCodeCoverage]
+        public int Level { get; private set; }
+
         #region Weather
         #region Weather High Points
         [ExcludeFromCodeCoverage]
@@ -88,6 +91,29 @@ namespace Objects.Zone
             }
 
             FinishLoadingObjects(zoneObjectSyncValue);
+
+            SetMedianZoneLevel();
+        }
+
+        private void SetMedianZoneLevel()
+        {
+            List<int> mobsLevel = new List<int>();
+            foreach (IRoom room in Rooms.Values)
+            {
+                foreach (IMobileObject mob in room.NonPlayerCharacters)
+                {
+                    mobsLevel.Add(mob.Level);
+                }
+            }
+
+            if (mobsLevel.Count == 0)
+            {
+                Level = 0;
+            }
+            else
+            {
+                Level = mobsLevel[mobsLevel.Count / 2];
+            }
         }
 
         private void FinishLoadingObjects(int zoneObjectSyncValue)
