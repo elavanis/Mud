@@ -283,6 +283,24 @@ namespace GenerateZones.Zones.Mountain
 
             return room;
         }
+
+        private IRoom GenerateRoom27()
+        {
+            IRoom room = RockPath();
+            room.ExamineDescription = "A small path leads up the side of the mountain.";
+            room.LookDescription = "A small set of stones is piled on the side of the path.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom28()
+        {
+            IRoom room = RockPath();
+            room.ExamineDescription = "The stone is worn smooth and looks like it would be very slick when wet.";
+            room.LookDescription = "The path disappears as the path transitions into solid stone..";
+
+            return room;
+        }
         #endregion Path
 
 
@@ -296,7 +314,7 @@ namespace GenerateZones.Zones.Mountain
         private IRoom RockPath()
         {
             IRoom room = CreateRoom(1);
-            room.ShortDescription = "Mountain Path";
+            room.ShortDescription = "Path up the side of the mountain";
             return room;
         }
 
