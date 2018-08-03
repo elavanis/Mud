@@ -297,7 +297,34 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = RockPath();
             room.ExamineDescription = "The stone is worn smooth and looks like it would be very slick when wet.";
-            room.LookDescription = "The path disappears as the path transitions into solid stone..";
+            room.LookDescription = "The path disappears as the path transitions between grass and solid stone.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom29()
+        {
+            IRoom room = RockPath();
+            room.ExamineDescription = "The stone is hard and smooth and make the path impossible to see.";
+            room.LookDescription = "Solid stone makes the path impossible to see the path continues straight on along the side of the mountain.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom30()
+        {
+            IRoom room = RockPath();
+            room.ExamineDescription = "Where the stone has turned to grass a well defined path is visible.";
+            room.LookDescription = "The path transitions between grass and solid stone.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom31()
+        {
+            IRoom room = RockPath();
+            room.ExamineDescription = "The white daisies spatter the green grass.";
+            room.LookDescription = "Daisies line the path like a people watching a parade.";
 
             return room;
         }
