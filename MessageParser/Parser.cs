@@ -57,7 +57,7 @@ namespace MessageParser
 
                                 ParsedMessage parsedMessage = new ParsedMessage();
                                 parsedMessage.TagType = tagTypeStack.Peek();
-                                parsedMessage.Message = line.Substring(previousPos, i - previousPos);
+                                parsedMessage.Message = line.Substring(previousPos, i - previousPos).Trim();
                                 parsedInfo.Add(parsedMessage);
                             }
                             previousPos = i + ParsedTagTypes[key].Item1.Length;
@@ -79,10 +79,11 @@ namespace MessageParser
 
                                 ParsedMessage parsedMessage = new ParsedMessage();
                                 parsedMessage.TagType = tagTypeStack.Peek();
-                                parsedMessage.Message = line.Substring(previousPos, i - previousPos);
+                                parsedMessage.Message = line.Substring(previousPos, i - previousPos).Trim();
                                 parsedInfo.Add(parsedMessage);
                             }
                             previousPos = i + ParsedTagTypes[key].Item2.Length;
+                            previousPos = 0;
                             tagTypeStack.Pop();
                             break;
                         }
@@ -90,6 +91,27 @@ namespace MessageParser
                 }
             }
 
+            tagTypeStack.Clear();
+
+
+            parsedInfo = AddSpacing(parsedInfo);
+
+            return parsedInfo;
+        }
+
+        private static List<ParsedMessage> AddSpacing(List<ParsedMessage> parsedInfo)
+        {
+            foreach (ParsedMessage parseMessage in parsedInfo)
+            {
+                if (parseMessage.TagType != TagType.Health && parseMessage.TagType != TagType.Mana)
+                {
+                    parseMessage.Message += "\r\n";
+                }
+                else
+                {
+                    parseMessage.Message += " ";
+                }
+            }
 
             return parsedInfo;
         }

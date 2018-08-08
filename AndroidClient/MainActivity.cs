@@ -51,7 +51,8 @@ namespace AndroidClient
             _inputText.TextChanged += InputChanged;
 
             //_telnetHandler = new ClientHandler("10.1.6.164", 52475, new JsonMudMessage());
-            _telnetHandler = new ClientHandler("10.0.1.219", 52475, new JsonMudMessage());
+            //_telnetHandler = new ClientHandler("10.0.1.219", 52475, new JsonMudMessage());
+            _telnetHandler = new ClientHandler("elavanis.dyndns.pro", 52475, new JsonMudMessage());
 
             _timer = new Timer();
             _timer.Interval = 100;
@@ -131,11 +132,6 @@ namespace AndroidClient
                     {
                         _displayText.SetText(spannableString, BufferType.Spannable);
 
-                        //add a return to the list of parsed messages to make line returns
-                        lock (parsedMessages)
-                        {
-                            parsedMessagesCache.Add(new ParsedMessage() { Message = "\n", TagType = TagType.Info });
-                        }
 
                         //this allows the screen to update
                         _displayText.Append("\n");

@@ -21,6 +21,6 @@
         android:layout_height="75.00dp"
         android:id="@+id/InputText"
         android:layout_marginTop="250.0dp"
-        android:background="#ff2962ff"
+        android:background="#ff616161"
         android:textColor="#fffafafa" />
 </RelativeLayout>

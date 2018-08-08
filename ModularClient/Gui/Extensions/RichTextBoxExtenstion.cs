@@ -18,7 +18,6 @@ namespace Client.Extensions
             {
                 AppendText(box, parsedMessage.Message, Settings.ColorDictionary[parsedMessage.TagType]);
             }
-            box.AppendText(Environment.NewLine);
         }
 
         private static void AppendText(this RichTextBox box, string text, Color color)

@@ -264,7 +264,7 @@ namespace Client.MainInterface
         {
             _telnetHandler.OutQueue.Enqueue(text);
             List<ParsedMessage> list = new List<ParsedMessage>();
-            list.Add(new ParsedMessage() { Message = text, TagType = TagType.ClientCommand });
+            list.Add(new ParsedMessage() { Message = text + Environment.NewLine, TagType = TagType.ClientCommand });
             myRichTextBox_MainText.AddFormatedText(list);
         }
 

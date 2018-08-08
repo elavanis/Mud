@@ -976,7 +976,7 @@ namespace Objects.World
                         if (result != null
                             && result.ResultMessage != null)
                         {
-                            GlobalReference.GlobalValues.Notify.Mob(mob, new TranslationMessage(result.ResultMessage));
+                            GlobalReference.GlobalValues.Notify.Mob(mob, new TranslationMessage(result.ResultMessage, null));
                         }
                     }
                 }
@@ -1003,7 +1003,5 @@ namespace Objects.World
                 }
             }
         }
-
-
     }
 }

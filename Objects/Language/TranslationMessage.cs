@@ -16,9 +16,17 @@ namespace Objects.Language
         [ExcludeFromCodeCoverage]
         public List<ITranslationPair> TranslationPair { get; set; }
 
-        public TranslationMessage(string message, TagType tagType = TagType.Info, List<ITranslationPair> translationPair = null)
+        public TranslationMessage(string message, TagType? tagType = TagType.Info, List<ITranslationPair> translationPair = null)
         {
-            this.Message = GlobalReference.GlobalValues.TagWrapper.WrapInTag(message, tagType);
+            if (tagType == null)
+            {
+                this.Message = message;
+            }
+            else
+            {
+                TagType localTagType = (TagType)tagType;
+                this.Message = GlobalReference.GlobalValues.TagWrapper.WrapInTag(message, localTagType);
+            }
             this.TranslationPair = translationPair;
         }
 
