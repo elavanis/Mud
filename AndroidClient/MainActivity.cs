@@ -15,10 +15,11 @@ using MessageParser;
 using Android.Util;
 using static Shared.TagWrapper.TagWrapper;
 using static Android.Widget.TextView;
+using Android.Content.PM;
 
 namespace AndroidClient
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : AppCompatActivity
     {
         private TelnetHandler _telnetHandler;
@@ -50,8 +51,7 @@ namespace AndroidClient
             _inputText = FindViewById<EditText>(Resource.Id.InputText);
             _inputText.TextChanged += InputChanged;
 
-            //_telnetHandler = new ClientHandler("10.1.6.164", 52475, new JsonMudMessage());
-            //_telnetHandler = new ClientHandler("10.0.1.219", 52475, new JsonMudMessage());
+            //_telnetHandler = new ClientHandler(Settings.Address, Settings.Port, new JsonMudMessage());
             _telnetHandler = new ClientHandler("elavanis.dyndns.pro", 52475, new JsonMudMessage());
 
             _timer = new Timer();

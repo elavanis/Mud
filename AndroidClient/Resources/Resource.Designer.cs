@@ -2405,8 +2405,8 @@ namespace AndroidClient
 			// aapt resource value: 0x7f08005b
 			public const int action_mode_close_button = 2131230811;
 			
-			// aapt resource value: 0x7f0800b3
-			public const int action_settings = 2131230899;
+			// aapt resource value: 0x7f0800b8
+			public const int action_settings = 2131230904;
 			
 			// aapt resource value: 0x7f08009f
 			public const int action_text = 2131230879;
@@ -2419,6 +2419,12 @@ namespace AndroidClient
 			
 			// aapt resource value: 0x7f08002b
 			public const int add = 2131230763;
+			
+			// aapt resource value: 0x7f0800b1
+			public const int address = 2131230897;
+			
+			// aapt resource value: 0x7f0800b0
+			public const int addressLabel = 2131230896;
 			
 			// aapt resource value: 0x7f08006f
 			public const int alertTitle = 2131230831;
@@ -2443,6 +2449,9 @@ namespace AndroidClient
 			
 			// aapt resource value: 0x7f08003c
 			public const int bottom = 2131230780;
+			
+			// aapt resource value: 0x7f0800b4
+			public const int bs = 2131230900;
 			
 			// aapt resource value: 0x7f080062
 			public const int buttonPanel = 2131230818;
@@ -2603,14 +2612,14 @@ namespace AndroidClient
 			// aapt resource value: 0x7f080060
 			public const int list_item = 2131230816;
 			
-			// aapt resource value: 0x7f0800b2
-			public const int masked = 2131230898;
+			// aapt resource value: 0x7f0800b7
+			public const int masked = 2131230903;
 			
 			// aapt resource value: 0x7f0800a3
 			public const int media_actions = 2131230883;
 			
-			// aapt resource value: 0x7f0800b0
-			public const int message = 2131230896;
+			// aapt resource value: 0x7f0800b5
+			public const int message = 2131230901;
 			
 			// aapt resource value: 0x7f080030
 			public const int middle = 2131230768;
@@ -2653,6 +2662,12 @@ namespace AndroidClient
 			
 			// aapt resource value: 0x7f08004c
 			public const int pin = 2131230796;
+			
+			// aapt resource value: 0x7f0800b3
+			public const int port = 2131230899;
+			
+			// aapt resource value: 0x7f0800b2
+			public const int portLable = 2131230898;
 			
 			// aapt resource value: 0x7f080006
 			public const int progress_circular = 2131230726;
@@ -2858,8 +2873,8 @@ namespace AndroidClient
 			// aapt resource value: 0x7f080016
 			public const int view_offset_helper = 2131230742;
 			
-			// aapt resource value: 0x7f0800b1
-			public const int visible = 2131230897;
+			// aapt resource value: 0x7f0800b6
+			public const int visible = 2131230902;
 			
 			// aapt resource value: 0x7f08003b
 			public const int withText = 2131230779;
@@ -3107,10 +3122,13 @@ namespace AndroidClient
 			public const int select_dialog_singlechoice_material = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int support_simple_spinner_dropdown_item = 2130968637;
+			public const int settings = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int tooltip = 2130968638;
+			public const int support_simple_spinner_dropdown_item = 2130968638;
+			
+			// aapt resource value: 0x7f04003f
+			public const int tooltip = 2130968639;
 			
 			static Layout()
 			{
