@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace AndroidClient
 {
-    [Activity(Label = "SettingsActivity", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", MainLauncher = true)]
     public class SettingsActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -32,9 +32,7 @@ namespace AndroidClient
                 button.Click += Button_Click;
             }
 
-            //Toast.MakeText(ApplicationContext, Settings.Address + "xyz", ToastLength.Long).Show();
-
-            if (Settings.Address != null)
+            if (Settings.Address != string.Empty)
             {
                 StartActivity(typeof(MainActivity));
             }

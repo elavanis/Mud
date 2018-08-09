@@ -19,7 +19,7 @@ using Android.Content.PM;
 
 namespace AndroidClient
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : AppCompatActivity
     {
         private TelnetHandler _telnetHandler;
@@ -41,7 +41,6 @@ namespace AndroidClient
 
             _relativeLayout = FindViewById<RelativeLayout>(Resource.Id.ScreenLayout);
 
-
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
 
@@ -51,8 +50,7 @@ namespace AndroidClient
             _inputText = FindViewById<EditText>(Resource.Id.InputText);
             _inputText.TextChanged += InputChanged;
 
-            //_telnetHandler = new ClientHandler(Settings.Address, Settings.Port, new JsonMudMessage());
-            _telnetHandler = new ClientHandler("elavanis.dyndns.pro", 52475, new JsonMudMessage());
+            _telnetHandler = new ClientHandler(Settings.Address, Settings.Port, new JsonMudMessage());
 
             _timer = new Timer();
             _timer.Interval = 100;
