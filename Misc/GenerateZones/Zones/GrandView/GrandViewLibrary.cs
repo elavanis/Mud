@@ -85,7 +85,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom3()
         {
-            return LibraryBasement();
+            return BasementSteps();
         }
 
         private IRoom GenerateRoom4()
@@ -349,7 +349,7 @@ namespace GenerateZones.Zones
             return room;
         }
 
-        private IRoom LibraryBasement()
+        private IRoom BasementSteps()
         {
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Indoor);
@@ -358,6 +358,18 @@ namespace GenerateZones.Zones
             room.ExamineDescription = "The stairs are eerily quiet, to quiet to be exact.  Perhaps since it is a library there is some magic that helps maintain the quietness.";
             room.LookDescription = "Worn stone steps connect the basement to the entrance of the library.";
             room.ShortDescription = "Basement Stairs";
+            return room;
+        }
+
+        private IRoom LibraryBasement()
+        {
+            IRoom room = CreateRoom();
+            room.Attributes.Add(Room.RoomAttribute.Indoor);
+            room.Attributes.Add(Room.RoomAttribute.Light);
+
+            room.ExamineDescription = "The books are quite dusty from being in the basement for so long but the cool temperature has helped preserve the oldest ones.";
+            room.LookDescription = "Piles of books are strewn across the floor here and there.";
+            room.ShortDescription = "Library Basement";
             return room;
         }
 
