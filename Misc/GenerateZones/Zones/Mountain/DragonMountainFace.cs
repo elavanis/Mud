@@ -5,8 +5,8 @@ using System.Reflection;
 using System.Text;
 using Objects.Room;
 using Objects.Room.Interface;
-using Objects.Zone;
 using Objects.Zone.Interface;
+using static Objects.Global.Direction.Directions;
 
 namespace GenerateZones.Zones.Mountain
 {
@@ -33,6 +33,8 @@ namespace GenerateZones.Zones.Mountain
                     ZoneHelper.AddRoom(Zone, room);
                 }
             }
+
+            ConnectRooms();
 
             return Zone;
         }
@@ -328,8 +330,60 @@ namespace GenerateZones.Zones.Mountain
 
             return room;
         }
-        #endregion Path
 
+        private IRoom GenerateRoom32()
+        {
+            IRoom room = RockPath();
+            room.ExamineDescription = "Each bead is about half an inch long and oval in shape.";
+            room.LookDescription = "The path is covered in shiny red beads.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom33()
+        {
+            IRoom room = RockPath();
+            room.ExamineDescription = "The trees massive green leaves give so shelter from the elements for travelers wishing to stop along the path.";
+            room.LookDescription = "A small tree grows defiantly upwards as the soil it has grown in slowly slips downward.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom34()
+        {
+            return GenerateRoom32();
+        }
+
+        private IRoom GenerateRoom35()
+        {
+            return GenerateRoom31();
+        }
+
+        private IRoom GenerateRoom36()
+        {
+            return GenerateRoom30();
+        }
+
+        private IRoom GenerateRoom37()
+        {
+            return GenerateRoom29();
+        }
+
+        private IRoom GenerateRoom38()
+        {
+            return GenerateRoom28();
+        }
+
+        private IRoom GenerateRoom39()
+        {
+            return GenerateRoom27();
+        }
+
+        private IRoom GenerateRoom40()
+        {
+            return GenerateRoom26();
+        }
+        #endregion Path
 
         private IRoom RockFace()
         {
@@ -357,6 +411,67 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = CreateRoom();
             return room;
+        }
+
+        IZone IZoneCode.Generate()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ConnectRooms()
+        {
+            Zone.RecursivelySetZone();
+
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.East, Zone.Rooms[5]);
+
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.East, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[7], Direction.East, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[8], Direction.East, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.East, Zone.Rooms[10]);
+
+            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.East, Zone.Rooms[12]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[12], Direction.East, Zone.Rooms[13]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[13], Direction.East, Zone.Rooms[14]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[14], Direction.East, Zone.Rooms[15]);
+
+            ZoneHelper.ConnectRoom(Zone.Rooms[16], Direction.East, Zone.Rooms[17]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[17], Direction.East, Zone.Rooms[18]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[18], Direction.East, Zone.Rooms[19]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[19], Direction.East, Zone.Rooms[20]);
+
+            ZoneHelper.ConnectRoom(Zone.Rooms[21], Direction.East, Zone.Rooms[22]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[22], Direction.East, Zone.Rooms[23]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[23], Direction.East, Zone.Rooms[24]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[24], Direction.East, Zone.Rooms[25]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[25], Direction.East, Zone.Rooms[26]);
+
+
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.North, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.North, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.North, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.North, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.North, Zone.Rooms[10]);
+
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.North, Zone.Rooms[11]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[7], Direction.North, Zone.Rooms[12]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[8], Direction.North, Zone.Rooms[13]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.North, Zone.Rooms[14]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.North, Zone.Rooms[15]);
+
+            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.North, Zone.Rooms[16]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[12], Direction.North, Zone.Rooms[17]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[13], Direction.North, Zone.Rooms[18]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[14], Direction.North, Zone.Rooms[19]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[15], Direction.North, Zone.Rooms[20]);
+
+            ZoneHelper.ConnectRoom(Zone.Rooms[16], Direction.North, Zone.Rooms[21]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[17], Direction.North, Zone.Rooms[22]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[18], Direction.North, Zone.Rooms[23]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[19], Direction.North, Zone.Rooms[24]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[20], Direction.North, Zone.Rooms[25]);
         }
     }
 }
