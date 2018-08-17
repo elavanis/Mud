@@ -33,6 +33,7 @@ namespace Client.MainInterface
         private TelnetHandler _telnetHandler;
         private SoundHandler _soundHandler;
         private PreviousCommands _previousCommands;
+        private Dictionary<TagType, List<Trigger.Trigger>> _triggers;
         private Map.Map _mapWindow = null;
 
         public GraphicalUserInterFace()
@@ -45,6 +46,8 @@ namespace Client.MainInterface
         {
             Settings.Initialize();
             _previousCommands = new PreviousCommands();
+            //_triggers = new Dictionary<TagType, List<Trigger.Trigger>>();
+            SetTriggersDictioanry(new TriggerSettings());
             try
             {
                 _telnetHandler = new ClientHandler(Settings.ServerAdress, Settings.Port, new JsonMudMessage());
@@ -151,7 +154,24 @@ namespace Client.MainInterface
         {
             TriggerSettings triggerSettings = new TriggerSettings();
             triggerSettings.ShowDialog();
+            SetTriggersDictioanry(triggerSettings);
             ResetFontSize();
+        }
+
+        private void SetTriggersDictioanry(TriggerSettings triggerSettings)
+        {
+            _triggers = new Dictionary<TagType, List<Trigger.Trigger>>();
+            foreach (Trigger.Trigger trigger in triggerSettings._triggers.Values)
+            {
+                List<Trigger.Trigger> listOfTriggers;
+                _triggers.TryGetValue(trigger.TagType, out listOfTriggers);
+                if (listOfTriggers == null)
+                {
+                    listOfTriggers = new List<Trigger.Trigger>();
+                    _triggers.Add(trigger.TagType, listOfTriggers);
+                }
+                listOfTriggers.Add(trigger);
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -307,7 +327,7 @@ namespace Client.MainInterface
                 {
                     List<ParsedMessage> parsedMessage = Parser.Parse(message);
                     myRichTextBox_MainText.AddFormatedText(parsedMessage);
-                    //myRichTextBox_MainText.AddFormatedText(message, _settings);
+                    ProcessTriggers(parsedMessage);
                 }
             }
 
@@ -322,6 +342,31 @@ namespace Client.MainInterface
                 myRichTextBox_MainText.SelectionStart = myRichTextBox_MainText.Text.Length;
                 myRichTextBox_MainText.ScrollToCaret();
                 myRichTextBox_MainText.EndUpdate();
+            }
+        }
+
+        private void ProcessTriggers(List<ParsedMessage> parsedMessages)
+        {
+            foreach (ParsedMessage parsedMessage in parsedMessages)
+            {
+                //because the message will probably have a line return at the end
+                string message = parsedMessage.Message.Trim();
+                List<Trigger.Trigger> matchedTriggers = null;
+                if (_triggers.TryGetValue(parsedMessage.TagType, out matchedTriggers))
+                {
+                    foreach (Trigger.Trigger trigger in matchedTriggers)
+                    {
+                        if (trigger.RegexCompiled.IsMatch(message))
+                        {
+                            string command = trigger.CompiledCode.Invoke(message);
+
+                            if (command != null)
+                            {
+                                _telnetHandler.OutQueue.Enqueue(command);
+                            }
+                        }
+                    }
+                }
             }
         }
 

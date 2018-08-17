@@ -1,4 +1,5 @@
 ﻿using Microsoft.CSharp;
+using Newtonsoft.Json;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Client.Trigger
         public TagType TagType { get; set; }
         public string Regex { get; set; }
         private Regex _compiledRegex { get; set; }
+        [JsonIgnoreAttribute]
         public Regex RegexCompiled
         {
             get
@@ -34,7 +36,8 @@ namespace Client.Trigger
         }
         public string Code { get; set; }
         private Func<string, string> _compiledCode { get; set; }
-        public Func<string, string> CompileCode
+        [JsonIgnoreAttribute]
+        public Func<string, string> CompiledCode
         {
             get
             {

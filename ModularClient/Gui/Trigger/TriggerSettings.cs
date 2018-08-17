@@ -16,9 +16,17 @@ namespace Client.Trigger
 {
     public partial class TriggerSettings : Form
     {
-        private Dictionary<string, Trigger> _triggers = new Dictionary<string, Trigger>();
+        public Dictionary<string, Trigger> _triggers = new Dictionary<string, Trigger>();
         private JsonSerializerSettings _settings;
-
+        private string _defaultCode = @"public abstract class DynamicClass
+{
+	public static string EvaluateDynamic(string input)
+	{
+		//return null if you do not want to send a command
+		//return a string if you want that string sent as a command
+		return input;
+	}
+}";
 
         public TriggerSettings()
         {
@@ -38,17 +46,10 @@ namespace Client.Trigger
                 }
                 catch (Exception e)
                 {
-
                 }
             }
-        }
 
-        private void LoadTriggerTypes()
-        {
-            foreach (TagType type in Enum.GetValues(typeof(TagType)))
-            {
-                comboBox_TagType.Items.Add(type);
-            }
+            UpdateGui();
         }
 
         private JsonSerializerSettings Settings
@@ -81,6 +82,27 @@ namespace Client.Trigger
             trigger.Code = richTextBox_Code.Text;
 
             UpdateGui();
+
+            File.WriteAllText("triggers.config", JsonConvert.SerializeObject(_triggers));
+        }
+
+        private void button_New_Click(object sender, EventArgs e)
+        {
+            ClearTriggerSettings();
+        }
+
+        private void button_Delete_Click(object sender, EventArgs e)
+        {
+            _triggers.Remove(comboBox_TriggerName.SelectedItem.ToString());
+            UpdateGui();
+        }
+
+        private void LoadTriggerTypes()
+        {
+            foreach (TagType type in Enum.GetValues(typeof(TagType)))
+            {
+                comboBox_TagType.Items.Add(type);
+            }
         }
 
         private void UpdateGui()
@@ -94,17 +116,12 @@ namespace Client.Trigger
             ClearTriggerSettings();
         }
 
-        private void button_New_Click(object sender, EventArgs e)
-        {
-            ClearTriggerSettings();
-        }
-
         private void ClearTriggerSettings()
         {
             textBox_Name.Text = "";
             comboBox_TagType.SelectedItem = comboBox_TagType.Items[0];
             textBox_Regex.Text = "";
-            richTextBox_Code.Text = "";
+            richTextBox_Code.Text = _defaultCode;
         }
 
         private void SetSelectedItem(object sender, EventArgs e)
@@ -114,12 +131,6 @@ namespace Client.Trigger
             comboBox_TagType.SelectedItem = trigger.TagType;
             textBox_Regex.Text = trigger.Regex.ToString();
             richTextBox_Code.Text = trigger.Code;
-        }
-
-        private void button_Delete_Click(object sender, EventArgs e)
-        {
-            _triggers.Remove(comboBox_TriggerName.SelectedItem.ToString());
-            UpdateGui();
         }
     }
 }

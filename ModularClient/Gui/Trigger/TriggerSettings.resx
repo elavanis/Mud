@@ -117,6 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox_Code.Text" xml:space="preserve">
+    <value>public abstract class DynamicClass
+{
+	public static string EvaluateDynamic(string input)
+	{
+		//return null if you do not want to send a command
+		//return a string if you want that string sent as a command
+		return input;
+	}
+}</value>
+  </data>
   <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

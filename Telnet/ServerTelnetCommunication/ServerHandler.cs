@@ -88,7 +88,7 @@ namespace ServerTelnetCommunication
                                 case LoginState.UserName:
                                     _userName = messageFromClient;
                                     _loginState = LoginState.Password;
-                                    OutQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag("What is your password."));
+                                    OutQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag("What is your password?"));
 
                                     break;
                                 case LoginState.Password:

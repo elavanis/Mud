@@ -34,6 +34,7 @@
             this.label_TagType = new System.Windows.Forms.Label();
             this.comboBox_TagType = new System.Windows.Forms.ComboBox();
             this.groupBox_Trigger = new System.Windows.Forms.GroupBox();
+            this.richTextBox_Code = new System.Windows.Forms.RichTextBox();
             this.button_Save = new System.Windows.Forms.Button();
             this.label_Code = new System.Windows.Forms.Label();
             this.textBox_Regex = new System.Windows.Forms.TextBox();
@@ -42,7 +43,6 @@
             this.label_TriggerName = new System.Windows.Forms.Label();
             this.button_New = new System.Windows.Forms.Button();
             this.button_Delete = new System.Windows.Forms.Button();
-            this.richTextBox_Code = new System.Windows.Forms.RichTextBox();
             this.groupBox_Trigger.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,6 +98,14 @@
             this.groupBox_Trigger.TabIndex = 8;
             this.groupBox_Trigger.TabStop = false;
             this.groupBox_Trigger.Text = "Trigger";
+            // 
+            // richTextBox_Code
+            // 
+            this.richTextBox_Code.Location = new System.Drawing.Point(83, 75);
+            this.richTextBox_Code.Name = "richTextBox_Code";
+            this.richTextBox_Code.Size = new System.Drawing.Size(441, 194);
+            this.richTextBox_Code.TabIndex = 14;
+            this.richTextBox_Code.Text = resources.GetString("richTextBox_Code.Text");
             // 
             // button_Save
             // 
@@ -169,14 +177,6 @@
             this.button_Delete.Text = "Delete";
             this.button_Delete.UseVisualStyleBackColor = true;
             this.button_Delete.Click += new System.EventHandler(this.button_Delete_Click);
-            // 
-            // richTextBox_Code
-            // 
-            this.richTextBox_Code.Location = new System.Drawing.Point(83, 75);
-            this.richTextBox_Code.Name = "richTextBox_Code";
-            this.richTextBox_Code.Size = new System.Drawing.Size(441, 194);
-            this.richTextBox_Code.TabIndex = 14;
-            this.richTextBox_Code.Text = "";
             // 
             // TriggerSettings
             // 
