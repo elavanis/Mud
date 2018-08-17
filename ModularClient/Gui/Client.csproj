@@ -86,6 +86,13 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Sound\SoundHandler.cs" />
     <Compile Include="Sound\SoundManager.cs" />
+    <Compile Include="Trigger\Trigger.cs" />
+    <Compile Include="Trigger\TriggerSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trigger\TriggerSettings.Designer.cs">
+      <DependentUpon>TriggerSettings.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainInterface\Gui.resx">
       <DependentUpon>Gui.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,6 +112,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Trigger\TriggerSettings.resx">
+      <DependentUpon>TriggerSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

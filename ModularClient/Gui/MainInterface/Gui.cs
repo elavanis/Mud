@@ -2,6 +2,7 @@
 using Client.Extensions;
 using Client.Map;
 using Client.Sound;
+using Client.Trigger;
 using ClientTelentCommucication;
 using MessageParser;
 using Newtonsoft.Json;
@@ -144,6 +145,13 @@ namespace Client.MainInterface
         {
             _soundHandler = new SoundHandler(_telnetHandler);
             soundToolStripMenuItem.Checked = true;
+        }
+
+        private void TriggerSettings(object sender, EventArgs e)
+        {
+            TriggerSettings triggerSettings = new TriggerSettings();
+            triggerSettings.ShowDialog();
+            ResetFontSize();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -333,5 +341,7 @@ namespace Client.MainInterface
         #endregion ReceiveMessage
 
         #endregion SendReceiveMessage
+
+
     }
 }

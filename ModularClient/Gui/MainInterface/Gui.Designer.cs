@@ -39,6 +39,7 @@
             this.textBox_CommandBox = new System.Windows.Forms.TextBox();
             this.timer_UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.myRichTextBox_MainText = new Client.MainInterface.MyRichTextBox();
+            this.triggerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip_Menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +58,8 @@
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.guiToolStripMenuItem,
             this.mapToolStripMenuItem,
-            this.soundToolStripMenuItem});
+            this.soundToolStripMenuItem,
+            this.triggerToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -66,7 +68,7 @@
             // 
             this.guiToolStripMenuItem.Name = "guiToolStripMenuItem";
             this.guiToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.guiToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.guiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.guiToolStripMenuItem.Text = "Gui";
             this.guiToolStripMenuItem.Click += new System.EventHandler(this.GuiSettings);
             // 
@@ -74,7 +76,7 @@
             // 
             this.mapToolStripMenuItem.Name = "mapToolStripMenuItem";
             this.mapToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.mapToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.mapToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mapToolStripMenuItem.Text = "Map";
             this.mapToolStripMenuItem.Click += new System.EventHandler(this.ToggleMap);
             // 
@@ -82,13 +84,13 @@
             // 
             this.soundToolStripMenuItem.Name = "soundToolStripMenuItem";
             this.soundToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.soundToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.soundToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.soundToolStripMenuItem.Text = "Sound";
             this.soundToolStripMenuItem.Click += new System.EventHandler(this.ToggleSound);
             // 
             // textBox_Intelisense
             // 
-            this.textBox_Intelisense.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBox_Intelisense.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_Intelisense.Location = new System.Drawing.Point(12, 383);
             this.textBox_Intelisense.Name = "textBox_Intelisense";
@@ -99,7 +101,7 @@
             // 
             // textBox_CommandBox
             // 
-            this.textBox_CommandBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBox_CommandBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_CommandBox.Location = new System.Drawing.Point(12, 409);
             this.textBox_CommandBox.Name = "textBox_CommandBox";
@@ -115,8 +117,8 @@
             // 
             // myRichTextBox_MainText
             // 
-            this.myRichTextBox_MainText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.myRichTextBox_MainText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.myRichTextBox_MainText.BackColor = System.Drawing.Color.Black;
             this.myRichTextBox_MainText.Font = new System.Drawing.Font("Lucida Console", 8.25F);
@@ -129,6 +131,14 @@
             this.myRichTextBox_MainText.Text = "";
             this.myRichTextBox_MainText.Click += new System.EventHandler(this.SelectTextEntry);
             this.myRichTextBox_MainText.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.CatchTypeInMainScreen);
+            // 
+            // triggerToolStripMenuItem
+            // 
+            this.triggerToolStripMenuItem.Name = "triggerToolStripMenuItem";
+            this.triggerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.triggerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.triggerToolStripMenuItem.Text = "Trigger";
+            this.triggerToolStripMenuItem.Click += new System.EventHandler(this.TriggerSettings);
             // 
             // GraphicalUserInterFace
             // 
@@ -163,6 +173,7 @@
         private System.Windows.Forms.TextBox textBox_Intelisense;
         private System.Windows.Forms.TextBox textBox_CommandBox;
         private System.Windows.Forms.Timer timer_UpdateTimer;
+        private System.Windows.Forms.ToolStripMenuItem triggerToolStripMenuItem;
     }
 }
 
