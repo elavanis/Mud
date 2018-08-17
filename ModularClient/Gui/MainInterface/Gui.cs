@@ -380,13 +380,7 @@ namespace Client.MainInterface
             IFileIO io = new FileIO();
             io.WriteFileBase64(data.AssetName, data.Base64Encoding);
         }
-
-
-
         #endregion ReceiveMessage
-
         #endregion SendReceiveMessage
-
-
     }
 }
