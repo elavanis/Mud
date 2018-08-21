@@ -413,11 +413,6 @@ namespace GenerateZones.Zones.Mountain
             return room;
         }
 
-        IZone IZoneCode.Generate()
-        {
-            throw new NotImplementedException();
-        }
-
         private void ConnectRooms()
         {
             Zone.RecursivelySetZone();
