@@ -138,6 +138,9 @@ namespace GenerateZoneMaps
             mapGrid.Grid.Add(zone.Rooms[26], new MapRoom(zone, zone.Rooms[26], new Position(6, 5, 1)));
             mapGrid.Grid.Add(zone.Rooms[27], new MapRoom(zone, zone.Rooms[27], new Position(6, 4, 1)));
             mapGrid.Grid.Add(zone.Rooms[28], new MapRoom(zone, zone.Rooms[28], new Position(5, 5, 1)));
+            mapGrid.Grid.Add(zone.Rooms[29], new MapRoom(zone, zone.Rooms[29], new Position(4, 3, 1)));
+            mapGrid.Grid.Add(zone.Rooms[30], new MapRoom(zone, zone.Rooms[30], new Position(3, 3, 1)));
+            mapGrid.Grid.Add(zone.Rooms[31], new MapRoom(zone, zone.Rooms[31], new Position(2, 3, 1)));
 
             map.DrawGrid(mapGrid);
             map.BuildRoomToPositionConversion(mapGrid, zone.Id);

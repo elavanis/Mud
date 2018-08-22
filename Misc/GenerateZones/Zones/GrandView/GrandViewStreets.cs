@@ -55,7 +55,6 @@ namespace GenerateZones.Zones.GrandView
         #region City
         private IRoom GenerateRoom1()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -72,7 +71,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom2()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -89,7 +87,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom3()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -103,7 +100,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom4()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -134,7 +130,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom5()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -171,7 +166,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom6()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -185,7 +179,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom7()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -202,7 +195,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom8()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -216,7 +208,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom9()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -233,7 +224,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom10()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -247,7 +237,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom11()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -264,7 +253,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom12()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -278,7 +266,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom13()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -309,7 +296,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom14()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -322,7 +308,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom15()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -335,7 +320,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom16()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -348,7 +332,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom17()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -365,7 +348,6 @@ East: The Training Hall";
         #region City Pt2
         private IRoom GenerateRoom18()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -379,7 +361,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom19()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -395,7 +376,6 @@ East: The Training Hall";
         #region Duck Pond
         private IRoom GenerateRoom20()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -409,7 +389,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom21()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -423,7 +402,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom22()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -437,7 +415,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom23()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -451,7 +428,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom24()
         {
-
             IRoom room = CreateRoom();
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -465,7 +441,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom25()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -479,7 +454,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom26()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -493,7 +467,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom27()
         {
-
             IRoom room = CreateRoom(5);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -507,7 +480,6 @@ East: The Training Hall";
 
         private IRoom GenerateRoom28()
         {
-
             IRoom room = CreateRoom(10);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
@@ -625,6 +597,61 @@ East: The Training Hall";
         }
         #endregion Duck Pond
 
+        private IRoom GenerateRoom29()
+        {
+            IRoom room = CreateRoom();
+            room.Attributes.Add(Room.RoomAttribute.Outdoor);
+            room.Attributes.Add(Room.RoomAttribute.Weather);
+
+            room.ExamineDescription = "The entrance to the temple of Charon can be seen on the hill to the west.";
+            room.LookDescription = "A main road of the city it the cobble stones have been warn smooth.";
+            room.ShortDescription = "A main road.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom30()
+        {
+            IRoom room = CreateRoom();
+            room.Attributes.Add(Room.RoomAttribute.Outdoor);
+            room.Attributes.Add(Room.RoomAttribute.Weather);
+
+            room.ExamineDescription = "A coin has become wedged in between to stones but try as you might it won't come loose.";
+            room.LookDescription = "A few dandelions push their way up through the cracks in the road.";
+            room.ShortDescription = "A main road.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom31()
+        {
+            IRoom room = CreateRoom();
+            room.Attributes.Add(Room.RoomAttribute.Outdoor);
+            room.Attributes.Add(Room.RoomAttribute.Weather);
+
+            room.ExamineDescription = "Dandelions grow in the grass along side the road creating a blanket of yellow.";
+            room.LookDescription = "Part of the road has sunken down causing a small dip on the right side of the road.";
+            room.ShortDescription = "A main road.";
+
+            room.Items.Add(BrokenCart());
+
+            return room;
+        }
+
+        private IItem BrokenCart()
+        {
+            IItem item = CreateItem<Item>();
+            item.ShortDescription = "A broken down cart.";
+            item.LookDescription = "A broken down cart has been left on the side of the road.";
+            item.ExamineDescription = "While the cart looks to be freshly left its contents have been emptied.";
+
+            item.Attributes.Add(ItemAttribute.NoGet);
+
+            return item;
+        }
+
+
+
         #endregion End Rooms
 
         private void ConnectRooms()
@@ -635,6 +662,7 @@ East: The Training Hall";
             ZoneHelper.ConnectZone(Zone.Rooms[17], Direction.North, 2, 1);
             ZoneHelper.ConnectZone(Zone.Rooms[19], Direction.East, 3, 1);
             ZoneHelper.ConnectZone(Zone.Rooms[4], Direction.South, 7, 5);
+            ZoneHelper.ConnectZone(Zone.Rooms[30], Direction.South, 11, 9);
 
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.North, Zone.Rooms[2]);
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.North, Zone.Rooms[3]);
@@ -672,6 +700,9 @@ East: The Training Hall";
             ZoneHelper.ConnectRoom(Zone.Rooms[28], Direction.East, Zone.Rooms[26]);
             ZoneHelper.ConnectRoom(Zone.Rooms[28], Direction.South, Zone.Rooms[20]);
             ZoneHelper.ConnectRoom(Zone.Rooms[28], Direction.West, Zone.Rooms[22]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.West, Zone.Rooms[29]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[29], Direction.West, Zone.Rooms[30]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[30], Direction.West, Zone.Rooms[31]);
         }
     }
 }
