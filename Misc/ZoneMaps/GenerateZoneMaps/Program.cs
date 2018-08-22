@@ -43,8 +43,8 @@ namespace GenerateZoneMaps
         {
             switch (zone.Id)
             {
-                case 6:
-                    GenerateZone6(zone);
+                case 5:
+                    GenerateZone5(zone);
                     break;
                 case 11:
                     GenerateZone11(zone);
@@ -104,48 +104,40 @@ namespace GenerateZoneMaps
             map.BuildRoomToPositionConversion(mapGrid, zone.Id);
         }
 
-        private static void GenerateZone6(IZone zone)
+        private static void GenerateZone5(IZone zone)
         {
             Map map = new Map(null);
             MapGrid mapGrid = new MapGrid();
             mapGrid.Grid = new Dictionary<IRoom, MapRoom>();
 
-            mapGrid.Grid.Add(zone.Rooms[1], new MapRoom(zone, zone.Rooms[1], new Position(1, 1, 1)));
-            mapGrid.Grid.Add(zone.Rooms[2], new MapRoom(zone, zone.Rooms[2], new Position(2, 1, 1)));
-            mapGrid.Grid.Add(zone.Rooms[3], new MapRoom(zone, zone.Rooms[3], new Position(3, 1, 1)));
-            mapGrid.Grid.Add(zone.Rooms[4], new MapRoom(zone, zone.Rooms[4], new Position(4, 1, 1)));
-            mapGrid.Grid.Add(zone.Rooms[5], new MapRoom(zone, zone.Rooms[5], new Position(5, 1, 1)));
-            mapGrid.Grid.Add(zone.Rooms[6], new MapRoom(zone, zone.Rooms[6], new Position(5, 1, 2)));
-            mapGrid.Grid.Add(zone.Rooms[7], new MapRoom(zone, zone.Rooms[7], new Position(5, 1, 3)));
-            mapGrid.Grid.Add(zone.Rooms[8], new MapRoom(zone, zone.Rooms[8], new Position(5, 1, 4)));
-            mapGrid.Grid.Add(zone.Rooms[9], new MapRoom(zone, zone.Rooms[9], new Position(5, 1, 5)));
-            mapGrid.Grid.Add(zone.Rooms[10], new MapRoom(zone, zone.Rooms[10], new Position(5, 2, 5)));
-            mapGrid.Grid.Add(zone.Rooms[11], new MapRoom(zone, zone.Rooms[11], new Position(5, 3, 5)));
-            mapGrid.Grid.Add(zone.Rooms[12], new MapRoom(zone, zone.Rooms[12], new Position(8, 3, 5)));
-            mapGrid.Grid.Add(zone.Rooms[13], new MapRoom(zone, zone.Rooms[13], new Position(8, 4, 5)));
-            mapGrid.Grid.Add(zone.Rooms[14], new MapRoom(zone, zone.Rooms[14], new Position(9, 4, 5)));
-            mapGrid.Grid.Add(zone.Rooms[15], new MapRoom(zone, zone.Rooms[15], new Position(9, 5, 5)));
-            mapGrid.Grid.Add(zone.Rooms[16], new MapRoom(zone, zone.Rooms[16], new Position(9, 6, 5)));
-            mapGrid.Grid.Add(zone.Rooms[17], new MapRoom(zone, zone.Rooms[17], new Position(8, 6, 5)));
-            mapGrid.Grid.Add(zone.Rooms[18], new MapRoom(zone, zone.Rooms[18], new Position(7, 6, 5)));
-            mapGrid.Grid.Add(zone.Rooms[19], new MapRoom(zone, zone.Rooms[19], new Position(7, 5, 5)));
-            mapGrid.Grid.Add(zone.Rooms[20], new MapRoom(zone, zone.Rooms[20], new Position(7, 4, 5)));
-            mapGrid.Grid.Add(zone.Rooms[21], new MapRoom(zone, zone.Rooms[21], new Position(8, 5, 5)));
-            mapGrid.Grid.Add(zone.Rooms[22], new MapRoom(zone, zone.Rooms[22], new Position(8, 7, 5)));
-            mapGrid.Grid.Add(zone.Rooms[23], new MapRoom(zone, zone.Rooms[23], new Position(8, 8, 5)));
-            mapGrid.Grid.Add(zone.Rooms[24], new MapRoom(zone, zone.Rooms[24], new Position(8, 9, 5)));
-            mapGrid.Grid.Add(zone.Rooms[25], new MapRoom(zone, zone.Rooms[25], new Position(8, 10, 5)));
-            mapGrid.Grid.Add(zone.Rooms[26], new MapRoom(zone, zone.Rooms[26], new Position(10, 5, 5)));
-            mapGrid.Grid.Add(zone.Rooms[27], new MapRoom(zone, zone.Rooms[27], new Position(10, 5, 5)));
-            mapGrid.Grid.Add(zone.Rooms[28], new MapRoom(zone, zone.Rooms[28], new Position(5, 4, 5)));
-            mapGrid.Grid.Add(zone.Rooms[29], new MapRoom(zone, zone.Rooms[29], new Position(4, 4, 5)));
-            mapGrid.Grid.Add(zone.Rooms[30], new MapRoom(zone, zone.Rooms[30], new Position(4, 5, 5)));
-            mapGrid.Grid.Add(zone.Rooms[31], new MapRoom(zone, zone.Rooms[31], new Position(4, 6, 5)));
-            mapGrid.Grid.Add(zone.Rooms[32], new MapRoom(zone, zone.Rooms[32], new Position(5, 6, 5)));
-            mapGrid.Grid.Add(zone.Rooms[33], new MapRoom(zone, zone.Rooms[33], new Position(6, 6, 5)));
-            mapGrid.Grid.Add(zone.Rooms[34], new MapRoom(zone, zone.Rooms[34], new Position(6, 5, 5)));
-            mapGrid.Grid.Add(zone.Rooms[35], new MapRoom(zone, zone.Rooms[35], new Position(6, 4, 5)));
-            mapGrid.Grid.Add(zone.Rooms[36], new MapRoom(zone, zone.Rooms[36], new Position(5, 5, 5)));
+            mapGrid.Grid.Add(zone.Rooms[1], new MapRoom(zone, zone.Rooms[1], new Position(5, 1, 1)));
+            mapGrid.Grid.Add(zone.Rooms[2], new MapRoom(zone, zone.Rooms[2], new Position(5, 2, 1)));
+            mapGrid.Grid.Add(zone.Rooms[3], new MapRoom(zone, zone.Rooms[3], new Position(5, 3, 1)));
+            mapGrid.Grid.Add(zone.Rooms[4], new MapRoom(zone, zone.Rooms[4], new Position(8, 3, 1)));
+            mapGrid.Grid.Add(zone.Rooms[5], new MapRoom(zone, zone.Rooms[5], new Position(8, 4, 1)));
+            mapGrid.Grid.Add(zone.Rooms[6], new MapRoom(zone, zone.Rooms[6], new Position(9, 4, 1)));
+            mapGrid.Grid.Add(zone.Rooms[7], new MapRoom(zone, zone.Rooms[7], new Position(9, 5, 1)));
+            mapGrid.Grid.Add(zone.Rooms[8], new MapRoom(zone, zone.Rooms[8], new Position(9, 6, 1)));
+            mapGrid.Grid.Add(zone.Rooms[9], new MapRoom(zone, zone.Rooms[9], new Position(8, 6, 1)));
+            mapGrid.Grid.Add(zone.Rooms[10], new MapRoom(zone, zone.Rooms[10], new Position(7, 6, 1)));
+            mapGrid.Grid.Add(zone.Rooms[11], new MapRoom(zone, zone.Rooms[11], new Position(7, 5, 1)));
+            mapGrid.Grid.Add(zone.Rooms[12], new MapRoom(zone, zone.Rooms[12], new Position(7, 4, 1)));
+            mapGrid.Grid.Add(zone.Rooms[13], new MapRoom(zone, zone.Rooms[13], new Position(8, 5, 1)));
+            mapGrid.Grid.Add(zone.Rooms[14], new MapRoom(zone, zone.Rooms[14], new Position(8, 7, 1)));
+            mapGrid.Grid.Add(zone.Rooms[15], new MapRoom(zone, zone.Rooms[15], new Position(8, 8, 1)));
+            mapGrid.Grid.Add(zone.Rooms[16], new MapRoom(zone, zone.Rooms[16], new Position(8, 9, 1)));
+            mapGrid.Grid.Add(zone.Rooms[17], new MapRoom(zone, zone.Rooms[17], new Position(8, 10, 1)));
+            mapGrid.Grid.Add(zone.Rooms[18], new MapRoom(zone, zone.Rooms[18], new Position(10, 5, 1)));
+            mapGrid.Grid.Add(zone.Rooms[19], new MapRoom(zone, zone.Rooms[19], new Position(10, 5, 1)));
+            mapGrid.Grid.Add(zone.Rooms[20], new MapRoom(zone, zone.Rooms[20], new Position(5, 4, 1)));
+            mapGrid.Grid.Add(zone.Rooms[21], new MapRoom(zone, zone.Rooms[21], new Position(4, 4, 1)));
+            mapGrid.Grid.Add(zone.Rooms[22], new MapRoom(zone, zone.Rooms[22], new Position(4, 5, 1)));
+            mapGrid.Grid.Add(zone.Rooms[23], new MapRoom(zone, zone.Rooms[23], new Position(4, 6, 1)));
+            mapGrid.Grid.Add(zone.Rooms[24], new MapRoom(zone, zone.Rooms[24], new Position(5, 6, 1)));
+            mapGrid.Grid.Add(zone.Rooms[25], new MapRoom(zone, zone.Rooms[25], new Position(6, 6, 1)));
+            mapGrid.Grid.Add(zone.Rooms[26], new MapRoom(zone, zone.Rooms[26], new Position(6, 5, 1)));
+            mapGrid.Grid.Add(zone.Rooms[27], new MapRoom(zone, zone.Rooms[27], new Position(6, 4, 1)));
+            mapGrid.Grid.Add(zone.Rooms[28], new MapRoom(zone, zone.Rooms[28], new Position(5, 5, 1)));
 
             map.DrawGrid(mapGrid);
             map.BuildRoomToPositionConversion(mapGrid, zone.Id);

@@ -240,8 +240,6 @@ namespace GenerateZones.Zones
             ZoneHelper.ConnectRoom(Zone.Rooms[7], Direction.Up, Zone.Rooms[8]);
             ZoneHelper.ConnectZone(Zone.Rooms[8], Direction.Up, 5, 1, new DoorInfo("stone", "You move the stone out of the way reveling the opening of the tunnel.", true, "The stone is of good weight, enough to discourage people from moving it but light enough to move when needed."));
             #endregion Jail/Tunnel
-
-
         }
     }
 }
