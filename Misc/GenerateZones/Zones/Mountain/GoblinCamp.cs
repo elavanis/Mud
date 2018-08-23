@@ -168,7 +168,7 @@ namespace GenerateZones.Zones.Mountain
 
             room.AddMobileObjectToRoom(GoblinChief());
 
-            room.Items.Add(new RecallBeacon());
+            room.AddItemToRoom(new RecallBeacon());
             return room;
         }
 
@@ -232,26 +232,26 @@ namespace GenerateZones.Zones.Mountain
             Container container = Chest();
             container.Items.Add(Arms());
             container.Items.Add(Head());
-            room.Items.Add(container);
+            room.AddItemToRoom(container);
 
             container = Chest();
             container.Items.Add(Body());
             container.Items.Add(Legs());
-            room.Items.Add(container);
+            room.AddItemToRoom(container);
 
             container = Chest();
             container.Items.Add(Feet());
             container.Items.Add(Neck());
-            room.Items.Add(container);
+            room.AddItemToRoom(container);
 
             container = Chest();
             container.Items.Add(Finger());
             container.Items.Add(Waist());
-            room.Items.Add(container);
+            room.AddItemToRoom(container);
 
             container = Chest();
             container.Items.Add(Hand());
-            room.Items.Add(container);
+            room.AddItemToRoom(container);
             return room;
         }
 

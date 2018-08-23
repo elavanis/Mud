@@ -83,9 +83,9 @@ namespace GenerateZones.Zones.GrandView
             room.ShortDescription = "A quiet corner of the hospital";
 
             room.AddMobileObjectToRoom(Nurse());
-            room.Items.Add(HospitalGown());
-            room.Items.Add(HospitalGown());
-            room.Items.Add(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
             return room;
         }
 
@@ -193,9 +193,9 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "You have entered the main operating room.  It looks like the room is ready for an operation but there is no one here.";
             room.ShortDescription = "Surgery";
 
-            room.Items.Add(Scalpel());
-            room.Items.Add(Scalpel());
-            room.Items.Add(Scalpel());
+            room.AddItemToRoom(Scalpel());
+            room.AddItemToRoom(Scalpel());
+            room.AddItemToRoom(Scalpel());
             return room;
         }
 
@@ -226,11 +226,11 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "The morgue is filled with shelves of dead bodies wrapped in white sheets.";
             room.ShortDescription = "Morgue";
 
-            room.Items.Add(GlowingJar());
-            room.Items.Add(GlowingJar());
-            room.Items.Add(GlowingJar());
-            room.Items.Add(GlowingJar());
-            room.Items.Add(GlowingJar());
+            room.AddItemToRoom(GlowingJar());
+            room.AddItemToRoom(GlowingJar());
+            room.AddItemToRoom(GlowingJar());
+            room.AddItemToRoom(GlowingJar());
+            room.AddItemToRoom(GlowingJar());
 
             return room;
         }
@@ -263,9 +263,9 @@ namespace GenerateZones.Zones.GrandView
             enter.Parameter.TargetMessage = new TranslationMessage("It's good to have you among the living again.  Next time be more careful because dieing isn't fun and your going to have a nasty scar to remind you of it.", TagType.Communication);
             npc.Enchantments.Add(enter);
             room.AddMobileObjectToRoom(npc);
-            room.Items.Add(HospitalGown());
-            room.Items.Add(HospitalGown());
-            room.Items.Add(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
             return room;
         }
 
@@ -296,9 +296,9 @@ namespace GenerateZones.Zones.GrandView
             enter.Parameter.TargetMessage = new TranslationMessage("It's good to have you conscious again.  The other nurses and I were getting worried when you wouldn't wake up for 2 weeks.  We called in the best healers but they were beginning to loose hope.  Still we had hope because at night would scream and thrash like you were on fire.  It is no wonder since over 85% of your body was burned.  I heard the ship you were on was attacked by the pair of dragons off the coast.  One of the passengers said you were about to make it in to the life boat when you were knocked overboard by a fireball from one of the dragons.  One of the passengers Noah Davies jumped in and saved you from drowning but you were unconscious when they pulled you into the boat.  You floated on the ocean adrift for 3 days before you were picked up by Captain Reynolds.  Once you and the rest of the survivors were picked up you were brought here to GrandView Hospital where we have been treating you.", TagType.Communication);
             npc.Enchantments.Add(enter);
             room.AddMobileObjectToRoom(npc);
-            room.Items.Add(HospitalGown());
-            room.Items.Add(HospitalGown());
-            room.Items.Add(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
             return room;
         }
 
@@ -330,9 +330,9 @@ namespace GenerateZones.Zones.GrandView
             enter.Parameter.TargetMessage = new TranslationMessage("It's good to have you conscious again.  The other nurses and I were getting worried when you wouldn't wake up for 2 weeks.  We called in the best healers but they were beginning to loose hope.  Still we had hope because at night would scream and thrash like you were on fire.  It is no wonder since over 85% of your body was burned.  I heard the ship you were on was attacked by the pair of dragons off the coast.  One of the passengers said you were still on the ship when it exploded. One of the passengers Noah Davies jumped in and saved you from drowning but you were unconscious when they pulled you into the boat.  You floated on the ocean adrift for 3 days before you were picked up by Captain Reynolds.  Once you and the rest of the survivors were picked up you were brought here to GrandView Hospital where we have been treating you.", TagType.Communication);
             npc.Enchantments.Add(enter);
             room.AddMobileObjectToRoom(npc);
-            room.Items.Add(HospitalGown());
-            room.Items.Add(HospitalGown());
-            room.Items.Add(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
+            room.AddItemToRoom(HospitalGown());
             return room;
         }
 
@@ -372,8 +372,9 @@ namespace GenerateZones.Zones.GrandView
             Zone.Rooms[3].East = new Exit() { Zone = 7, Room = 4 };
             Zone.Rooms[8].East = new Exit() { Zone = 7, Room = 4 };
 
+            ZoneHelper.ConnectZone(Zone.Rooms[5], Direction.North, 5, 4);
+
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[4]);
-            ZoneHelper.ConnectZone(Zone.Rooms[5], Direction.North, 6, 12);
             ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.East, Zone.Rooms[5]);
             ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.North, Zone.Rooms[6]);
             ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.South, Zone.Rooms[7]);

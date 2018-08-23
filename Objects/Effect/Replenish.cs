@@ -44,12 +44,13 @@ namespace Objects.Effect
                 {
                     enchantment.Parameter.Item = null;
                     enchantment.Parameter.ObjectRoom = null;
+                    enchantment.Parameter.Target = null;
                 }
             }
 
             IItem newItem = GlobalReference.GlobalValues.Serialization.Deserialize<IItem>(GlobalReference.GlobalValues.Serialization.Serialize(parameterItem));
 
-            parameterRoom.Items.Add(newItem);
+            parameterRoom.AddItemToRoom(newItem);
         }
     }
 }

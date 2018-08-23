@@ -115,11 +115,11 @@ namespace GenerateZones.Zones
             //string message = "Perform the following commands." + Environment.NewLine + "GET MUSHROOM" + Environment.NewLine + "EAST";
             //room.Enchantments.Add(EnterRoomMessage(message, TagWrapper.TagType.Info));
 
-            room.Items.Add(Room3_Mushroom());
-            room.Items.Add(Room3_Mushroom());
-            room.Items.Add(Room3_Mushroom());
-            room.Items.Add(Room3_Mushroom());
-            room.Items.Add(Room3_Mushroom());
+            room.AddItemToRoom(Room3_Mushroom());
+            room.AddItemToRoom(Room3_Mushroom());
+            room.AddItemToRoom(Room3_Mushroom());
+            room.AddItemToRoom(Room3_Mushroom());
+            room.AddItemToRoom(Room3_Mushroom());
 
             return room;
         }

@@ -341,7 +341,7 @@ namespace Objects.Mob
             }
 
             Room.RemoveMobileObjectFromRoom(this);
-            Room.Items.Insert(0, corpse);
+            Room.AddItemToRoom(corpse, 0);
 
             return corpse;
         }

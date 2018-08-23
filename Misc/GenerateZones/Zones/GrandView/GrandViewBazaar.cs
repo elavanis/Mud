@@ -481,6 +481,7 @@ namespace GenerateZones.Zones
 
             ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.North, 3, 1);
             ZoneHelper.ConnectZone(Zone.Rooms[6], Direction.East, 9, 61);
+
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2]);
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
             ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);

@@ -18,6 +18,7 @@ using static Shared.TagWrapper.TagWrapper;
 using Objects.Personality.Personalities.Interface;
 using Objects.Personality.Interface;
 using Objects.LoadPercentage.Interface;
+using System.Linq;
 
 namespace ObjectsUnitTest.Room
 {

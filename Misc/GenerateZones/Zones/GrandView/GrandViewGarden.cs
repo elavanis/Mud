@@ -52,8 +52,8 @@ namespace GenerateZones.Zones
                 ZoneHelper.AddRoom(Zone, room);
             }
 
-            Zone.Rooms[6].Items.Add(PrizeRose());
-            Zone.Rooms[19].Items.Add(Sign());
+            Zone.Rooms[6].AddItemToRoom(PrizeRose());
+            Zone.Rooms[19].AddItemToRoom(Sign());
 
             ConnectRooms();
 

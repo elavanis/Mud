@@ -34,7 +34,7 @@ namespace Objects.Command.PC
                 IRoom room = performer.Room;
                 GlobalReference.GlobalValues.Engine.Event.Drop(performer, item);
                 performer.Items.Remove(item);
-                room.Items.Insert(0, item);
+                room.AddItemToRoom(item, 0);
 
 
                 string message = string.Format("You dropped {0}.", item.SentenceDescription);

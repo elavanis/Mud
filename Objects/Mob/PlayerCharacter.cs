@@ -171,7 +171,7 @@ namespace Objects.Mob
             Corpses.Add(corpse.Clone());  //because if someone picks something up out of the corpse it will be reflected here
 
             Room.RemoveMobileObjectFromRoom(this);
-            Room.Items.Insert(0, corpse);
+            Room.AddItemToRoom(corpse, 0);
             Room = GlobalReference.GlobalValues.World.Zones[RespawnPoint.Zone].Rooms[RespawnPoint.Id];
             Room.AddMobileObjectToRoom(this);
             Health = 1;

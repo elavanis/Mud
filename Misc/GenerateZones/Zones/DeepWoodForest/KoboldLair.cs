@@ -253,7 +253,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.LookDescription = "Torches line the walls of the cavern here.  It appears to be some kind of chamber to hold a statue of the god of mining.";
             room.ShortDescription = "Kobold Lair";
 
-            room.Items.Add(Statue());
+            room.AddItemToRoom(Statue());
             return room;
         }
 
@@ -280,7 +280,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.LookDescription = "This tunnel has been carved out of the ground and leads in a slightly down fashion.";
             room.ShortDescription = "Kobold Lair";
 
-            room.Items.Add(Statue());
+            room.AddItemToRoom(Statue());
             return room;
         }
 
@@ -311,14 +311,14 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.LookDescription = "The room is filled with mining equipment.  Hard hats and mining picks are lined on the wall.";
             room.ShortDescription = "Kobold Lair";
 
-            room.Items.Add(MiningHelmet());
-            room.Items.Add(MiningHelmet());
-            room.Items.Add(MiningHelmet());
-            room.Items.Add(MiningHelmet());
-            room.Items.Add(MiningPick());
-            room.Items.Add(MiningPick());
-            room.Items.Add(MiningPick());
-            room.Items.Add(MiningPick());
+            room.AddItemToRoom(MiningHelmet());
+            room.AddItemToRoom(MiningHelmet());
+            room.AddItemToRoom(MiningHelmet());
+            room.AddItemToRoom(MiningHelmet());
+            room.AddItemToRoom(MiningPick());
+            room.AddItemToRoom(MiningPick());
+            room.AddItemToRoom(MiningPick());
+            room.AddItemToRoom(MiningPick());
 
             return room;
         }

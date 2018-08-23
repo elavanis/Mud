@@ -18,6 +18,10 @@ namespace Objects.Room.Interface
     {
         void AddMobileObjectToRoom(IMobileObject mob);
         bool RemoveMobileObjectFromRoom(IMobileObject mob);
+
+        void AddItemToRoom(IItem item, int position = 0);
+        bool RemoveItemFromRoom(IItem item);
+
         List<Room.RoomAttribute> Attributes { get; }
         IExit North { get; set; }
         IExit East { get; set; }
@@ -25,7 +29,7 @@ namespace Objects.Room.Interface
         IExit West { get; set; }
         IExit Up { get; set; }
         IExit Down { get; set; }
-        List<IItem> Items { get; }
+        IReadOnlyList<IItem> Items { get; }
         List<ITrap> Traps { get; }
         int MovementCost { get; set; }
         IReadOnlyList<INonPlayerCharacter> NonPlayerCharacters { get; }

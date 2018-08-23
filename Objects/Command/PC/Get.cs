@@ -53,7 +53,7 @@ namespace Objects.Command.PC
                         {
                             IRoom room = performer.Room;
                             GlobalReference.GlobalValues.Engine.Event.Get(performer, item);
-                            room.Items.Remove(item);
+                            room.RemoveItemFromRoom(item);
                             AddItemToPerformer(performer, item);
 
                             string message = string.Format("You pickup the {0}.", item.SentenceDescription);

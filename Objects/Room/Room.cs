@@ -32,10 +32,11 @@ using System.Collections.ObjectModel;
 
 namespace Objects.Room
 {
-    public class Room : BaseObject, IRoom, IContainer, ILoadableItems
+    public class Room : BaseObject, IRoom, ILoadableItems
     {
         private static ReadOnlyCollection<INonPlayerCharacter> BlankNonPlayerCharacters { get; } = new List<INonPlayerCharacter>().AsReadOnly();
         private static ReadOnlyCollection<IPlayerCharacter> BlankPlayerCharacters { get; } = new List<IPlayerCharacter>().AsReadOnly();
+        private static ReadOnlyCollection<IItem> BlankItems { get; } = new List<IItem>().AsReadOnly();
 
         public Room()
         {
@@ -50,8 +51,34 @@ namespace Objects.Room
         [ExcludeFromCodeCoverage]
         public int MovementCost { get; set; }
 
+        private object _itemLock = new object();
+        private List<IItem> _items = new List<IItem>();
         [ExcludeFromCodeCoverage]
-        public List<IItem> Items { get; } = new List<IItem>();
+        public IReadOnlyList<IItem> Items
+        {
+            get
+            {
+                lock (_itemLock)
+                {
+                    if (_items.Count == 0)
+                    {
+                        return BlankItems;  //save memory allocations when returning a blank list
+                    }
+                    else
+                    {
+                        return new List<IItem>(_items).AsReadOnly();
+                    }
+                }
+            }
+            set
+            {
+                lock (_items)
+                {
+                    _items = new List<IItem>(value);
+                }
+            }
+        }
+
 
         [ExcludeFromCodeCoverage]
         public List<ITrap> Traps { get; } = new List<ITrap>();
@@ -272,6 +299,21 @@ namespace Objects.Room
             }
         }
 
+        public void AddItemToRoom(IItem item, int position = int.MaxValue)
+        {
+            lock (_itemLock)
+            {
+                if (position == int.MaxValue)
+                {
+                    _items.Add(item);
+                }
+                else
+                {
+                    _items.Insert(position, item);
+                }
+            }
+        }
+
 
 
         public bool Leave(IMobileObject performer, Direction direction)
@@ -306,6 +348,14 @@ namespace Objects.Room
             }
 
             return false;
+        }
+
+        public bool RemoveItemFromRoom(IItem item)
+        {
+            lock (_itemLock)
+            {
+                return _items.Remove(item);
+            }
         }
 
         [ExcludeFromCodeCoverage]
@@ -728,6 +778,8 @@ namespace Objects.Room
 
             return weatherMessage;
         }
+
+
         #endregion Weather
     }
 }

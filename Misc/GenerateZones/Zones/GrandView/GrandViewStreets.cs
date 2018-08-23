@@ -108,8 +108,8 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "An arched sign extends over the street here and reads \"Grandview Meadows.\"";
             room.ShortDescription = "Entrance to the park";
 
-            room.Items.Add(LionStatue());
-            room.Items.Add(LionStatue());
+            room.AddItemToRoom(LionStatue());
+            room.AddItemToRoom(LionStatue());
 
             return room;
         }
@@ -138,7 +138,7 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "A paved court yard surrounds the giant dome to the north.";
             room.ShortDescription = "South of the dome";
 
-            room.Items.Add(Room13_Fountain());
+            room.AddItemToRoom(Room13_Fountain());
             room.Sounds.Add(FountainSound());
 
             return room;
@@ -187,7 +187,7 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "A paved court yard surrounds the giant dome to the west.";
             room.ShortDescription = "East of the dome";
 
-            room.Items.Add(Room13_Fountain());
+            room.AddItemToRoom(Room13_Fountain());
             room.Sounds.Add(FountainSound());
 
             return room;
@@ -216,7 +216,7 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "A paved court yard surrounds the giant dome to the north.";
             room.ShortDescription = "North of the dome";
 
-            room.Items.Add(Room13_Fountain());
+            room.AddItemToRoom(Room13_Fountain());
             room.Sounds.Add(FountainSound());
 
             return room;
@@ -245,7 +245,7 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "A paved court yard surrounds the giant dome to the east.";
             room.ShortDescription = "West of the dome";
 
-            room.Items.Add(Room13_Fountain());
+            room.AddItemToRoom(Room13_Fountain());
             room.Sounds.Add(FountainSound());
 
             return room;
@@ -274,9 +274,9 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "A giant stained glass dome stands 30 to 40 feet above you.  The light shining through the dome cast interesting patterns on the cobble stone floor causing you to admire its beauty for a moment.";
             room.ShortDescription = "Under the stained glass dome";
 
-            room.Items.Add(Room21_Sign());
+            room.AddItemToRoom(Room21_Sign());
             IRecallBeacon beacon = CreateItem<IRecallBeacon>();
-            room.Items.Add(beacon);
+            room.AddItemToRoom(beacon);
             return room;
         }
 
@@ -488,7 +488,7 @@ East: The Training Hall";
             room.LookDescription = "You are standing in the center of the duck pond.  Small fish swim around you curious as to who or what has entered their pond.";
             room.ShortDescription = "Duck Pond";
 
-            room.Items.Add(Sign());
+            room.AddItemToRoom(Sign());
 
             INonPlayerCharacter mommaDuck = MommaDuck();
             mommaDuck.Room = room;
@@ -633,7 +633,7 @@ East: The Training Hall";
             room.LookDescription = "Part of the road has sunken down causing a small dip on the right side of the road.";
             room.ShortDescription = "A main road.";
 
-            room.Items.Add(BrokenCart());
+            room.AddItemToRoom(BrokenCart());
 
             return room;
         }
@@ -644,6 +644,7 @@ East: The Training Hall";
             item.ShortDescription = "A broken down cart.";
             item.LookDescription = "A broken down cart has been left on the side of the road.";
             item.ExamineDescription = "While the cart looks to be freshly left its contents have been emptied.";
+            item.KeyWords.Add("Cart");
 
             item.Attributes.Add(ItemAttribute.NoGet);
 

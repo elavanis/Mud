@@ -894,7 +894,7 @@ namespace GenerateZones.Zones
             Zone.RecursivelySetZone();
 
 
-            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 6, 27);
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 5, 19);
             ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.South, 4, 1);
 
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.Down, Zone.Rooms[2]);

@@ -27,7 +27,7 @@ namespace ObjectsUnitTest.Zone
             room.Id = 0;
             item.Level = 3;
             zone.Rooms.Add(0, room);
-            room.Items.Add(item);
+            room.AddItemToRoom(item);
             room.AddMobileObjectToRoom(npc);
             room.AddMobileObjectToRoom(pc);
             npc.Items.Add(item);
