@@ -18,3 +18,5 @@
 17		DeepWoodForestGoblinCamp
 18		AshMaze
 19		DragonMountainFace
+20		CharonTemple
+20		GrandViewGraveyard
