@@ -122,9 +122,9 @@ namespace GenerateZones.Zones.ConnectingZones
             npc.LevelRange = new LevelRange() { LowerLevel = 9, UpperLevel = 11 };
             npc.KeyWords.Add("horse");
             npc.SentenceDescription = "horse";
-            npc.ShortDescription = "A fine cow.";
+            npc.ShortDescription = "A fine horse stands here.";
             npc.LookDescription = "A beautiful {color} horse stands looking at you.";
-            npc.ExamineDescription = "The {color} horse .";
+            npc.ExamineDescription = "The {color} horse.";
             npc.FlavorOptions.Add("{color}", new List<string>() { "black", "brown" });
 
             return npc;

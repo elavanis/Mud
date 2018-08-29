@@ -175,7 +175,7 @@ namespace ServerTelnetCommunication
                         case LoginState.AsciiArt:
                             OutQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag(GlobalReference.GlobalValues.Settings.AsciiArt, TagType.AsciiArt));
 
-                            OutQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag("Welcome adventure. What is your name?"));
+                            OutQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag("Welcome adventurer. What is your name?"));
                             _loginState = LoginState.UserName;
                             break;
                     }
