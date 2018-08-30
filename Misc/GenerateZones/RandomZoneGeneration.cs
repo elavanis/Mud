@@ -90,7 +90,7 @@ namespace GenerateZones
             room.Id = roomNumber;
 
             int key = GlobalReference.GlobalValues.Random.Next(RoomDescriptions.Count);
-            room.LookDescription = RoomDescriptions[key].LongDescription;
+            room.LookDescription = RoomDescriptions[key].LookDescription;
             room.ExamineDescription = RoomDescriptions[key].ExamineDescription;
             room.ShortDescription = RoomDescriptions[key].ShortDescription;
 
@@ -125,16 +125,16 @@ namespace GenerateZones
         {
             private Dictionary<string, string> replacedValues = new Dictionary<string, string>();
 
-            private string _longDescription;
-            public string LongDescription
+            private string _lookDescription;
+            public string LookDescription
             {
                 get
                 {
-                    return ProcessFlavorText(_longDescription);
+                    return ProcessFlavorText(_lookDescription);
                 }
                 set
                 {
-                    _longDescription = value;
+                    _lookDescription = value;
                 }
             }
 
@@ -332,7 +332,7 @@ namespace GenerateZones
                 foreach (RoomPos roomPos in road)
                 {
                     IRoom room = GetRoom(roomPos, zone);
-                    room.LookDescription = RoadDescription.LongDescription;
+                    room.LookDescription = RoadDescription.LookDescription;
                     room.ShortDescription = RoadDescription.ShortDescription;
                     room.ExamineDescription = RoadDescription.ExamineDescription;
                 }
@@ -419,7 +419,7 @@ namespace GenerateZones
         private void SetRoadDescription(IRoom room)
         {
             room.ExamineDescription = RoadDescription.ExamineDescription;
-            room.LookDescription = RoadDescription.LongDescription;
+            room.LookDescription = RoadDescription.LookDescription;
             room.ShortDescription = RoadDescription.ShortDescription;
         }
 

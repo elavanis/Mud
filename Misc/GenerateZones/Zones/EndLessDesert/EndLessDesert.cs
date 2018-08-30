@@ -26,7 +26,7 @@ namespace GenerateZones.Zones.EndLessDesert
         {
             RandomZoneGeneration randZoneGen = new RandomZoneGeneration(10, 10, Zone.Id);
             RoomDescription description = new RoomDescription();
-            description.LongDescription = "Dunes gently roll off into the horizon like waves on the ocean.";
+            description.LookDescription = "Dunes gently roll off into the horizon like waves on the ocean.";
             description.ExamineDescription = "The sand is a soft almost powdery substance that lets you sink up to your ankles.";
             description.ShortDescription = "Desert";
             randZoneGen.RoomDescriptions.Add(description);

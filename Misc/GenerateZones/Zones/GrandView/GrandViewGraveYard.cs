@@ -27,43 +27,43 @@ namespace GenerateZones.Zones.GrandView
 
             RandomZoneGeneration randZoneGen = new RandomZoneGeneration(5, 5, Zone.Id);
             RoomDescription description = new RoomDescription();
-            description.LongDescription = "The dirt has been freshly disturbed where a body has been recently placed in the ground.";
+            description.LookDescription = "The dirt has been freshly disturbed where a body has been recently placed in the ground.";
             description.ExamineDescription = "Some flowers have been placed on the headstone that belongs to {name}.";
             description.ShortDescription = "Graveyard";
             randZoneGen.RoomDescriptions.Add(description);
 
             description = new RoomDescription();
-            description.LongDescription = "The headstone has been here a while and is starting to show its age.";
+            description.LookDescription = "The headstone has been here a while and is starting to show its age.";
             description.ExamineDescription = "The headstone name has worn off and is impossible to read.";
             description.ShortDescription = "Graveyard";
             randZoneGen.RoomDescriptions.Add(description);
 
             description = new RoomDescription();
-            description.LongDescription = "A grand tower of marble rises to the sky.  This person must have been important or rich in life.";
+            description.LookDescription = "A grand tower of marble rises to the sky.  This person must have been important or rich in life.";
             description.ExamineDescription = "The tombstone belongs to {name}.";
             description.ShortDescription = "Graveyard";
             randZoneGen.RoomDescriptions.Add(description);
 
             description = new RoomDescription();
-            description.LongDescription = "A small flat stone marker is all shows where this person is buried.";
+            description.LookDescription = "A small flat stone marker is all shows where this person is buried.";
             description.ExamineDescription = "The grave marker belongs to {name}.";
             description.ShortDescription = "Graveyard";
             randZoneGen.RoomDescriptions.Add(description);
 
             description = new RoomDescription();
-            description.LongDescription = "There is a small bench for resting as one walks among the tombstones.";
+            description.LookDescription = "There is a small bench for resting as one walks among the tombstones.";
             description.ExamineDescription = "A pair of angles are carved into the sides of the feet on the bench.";
             description.ShortDescription = "Graveyard";
             randZoneGen.RoomDescriptions.Add(description);
 
             description = new RoomDescription();
-            description.LongDescription = "Crosses give hint that the owner might have been religions in life.";
+            description.LookDescription = "Crosses give hint that the owner might have been religions in life.";
             description.ExamineDescription = "Here lies {name}.";
             description.ShortDescription = "Graveyard";
             randZoneGen.RoomDescriptions.Add(description);
 
             description = new RoomDescription();
-            description.LongDescription = "The statue a weeping angle stands watch over the deceased.";
+            description.LookDescription = "The statue a weeping angle stands watch over the deceased.";
             description.ExamineDescription = "The grave belongs to {name}.";
             description.ShortDescription = "Graveyard";
             randZoneGen.RoomDescriptions.Add(description);
@@ -88,7 +88,6 @@ namespace GenerateZones.Zones.GrandView
                 }
             }
 
-
             int percent = 50 / creatueChoices;
             foreach (IRoom room in Zone.Rooms.Values)
             {
@@ -96,10 +95,35 @@ namespace GenerateZones.Zones.GrandView
                 loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Skeleton() });
                 loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Zombie() });
                 loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Crow() });
-
             }
 
+            SetRoom13();
+
             return Zone;
+        }
+
+        private void SetRoom13()
+        {
+            IRoom room = Zone.Rooms[12];
+            room.LookDescription = "The temple of Charon is shaped like a large mausoleum made of white granite.";
+            room.ExamineDescription = "Reliefs of Charon ferrying people to the underworld can be seen carved into the side of the mausoleum.";
+            room.ShortDescription = "Temple";
+
+            room.AddMobileObjectToRoom(GroundsKeeper());
+        }
+
+        private IMobileObject GroundsKeeper()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 30);
+            npc.LookDescription = "The groundskeeper looks tired of his job and dreams of a better place.";
+            npc.ExamineDescription = "Heavy gray eyes stare at you. He seems intently aware that you're not part of the normal surroundings but unaware what to do about it.";
+            npc.ShortDescription = "Groundskeeper";
+            npc.KeyWords.Add("Groundskeeper");
+            npc.KeyWords.Add("Grounds");
+            npc.KeyWords.Add("ground");
+            npc.KeyWords.Add("keeper");
+
+            return npc;
         }
 
         private INonPlayerCharacter Skeleton()

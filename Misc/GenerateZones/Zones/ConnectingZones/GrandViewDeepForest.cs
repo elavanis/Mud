@@ -28,13 +28,13 @@ namespace GenerateZones.Zones.ConnectingZones
         {
             RandomZoneGeneration randZoneGen = new RandomZoneGeneration(10, 10, Zone.Id);
             RoomDescription description = new RoomDescription();
-            description.LongDescription = "This part of the field is tilled and ready to be planted.";
+            description.LookDescription = "This part of the field is tilled and ready to be planted.";
             description.ExamineDescription = "The dirt is rich and will support a good crop.";
             description.ShortDescription = "Farmland";
             randZoneGen.RoomDescriptions.Add(description);
 
             description = new RoomDescription();
-            description.LongDescription = "While the {crop} looks healthy it is still to young to eat.";
+            description.LookDescription = "While the {crop} looks healthy it is still to young to eat.";
             description.ExamineDescription = "A tall crop of {crop} is growing here.";
             description.ShortDescription = "Farmland";
             FlavorOption option = new FlavorOption();
@@ -43,7 +43,7 @@ namespace GenerateZones.Zones.ConnectingZones
             randZoneGen.RoomDescriptions.Add(description);
 
             description = new RoomDescription();
-            description.LongDescription = "The field is full of tall grass.";
+            description.LookDescription = "The field is full of tall grass.";
             description.ExamineDescription = "The field is full of tall grass that seems to flow around you as you walk through it.";
             description.ShortDescription = "Farmland";
             randZoneGen.RoomDescriptions.Add(description);
@@ -69,7 +69,7 @@ namespace GenerateZones.Zones.ConnectingZones
 
 
             description = new RoomDescription();
-            description.LongDescription = "A road runs through the farm lands.";
+            description.LookDescription = "A road runs through the farm lands.";
             description.ExamineDescription = "Two wagon ruts cut into the soil.";
             description.ShortDescription = "Road";
             randZoneGen.RoadDescription = description;
