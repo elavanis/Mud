@@ -41,7 +41,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Unequip_Instructions()
         {
             IResult result = command.Instructions;
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -97,7 +97,7 @@ namespace ObjectsUnitTest.Command.PC
             mob.Setup(e => e.Items).Returns(items);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             mob.Verify(e => e.RemoveEquipment(equipment2.Object), Times.Once);
             mob.Verify(e => e.ResetMaxStatValues(), Times.Once);

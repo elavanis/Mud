@@ -83,7 +83,7 @@ namespace ObjectsUnitTest.Command.PC
 
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            tagWrapper.Setup(e => e.WrapInTag("There is nothing to enchant here with.", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag("There is nothing to enchant with here.", TagType.Info)).Returns("message");
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;

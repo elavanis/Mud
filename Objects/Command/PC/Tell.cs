@@ -36,7 +36,7 @@ namespace Objects.Command.PC
                         string message = string.Format("{0} tells you -- {1}", performer.KeyWords[0], strBldr.ToString()).Trim();
                         GlobalReference.GlobalValues.Notify.Mob(player, new TranslationMessage(message, TagType.Communication));
 
-                        return new Result(null, false);
+                        return new Result("", false);
                     }
                     else
                     {

@@ -62,7 +62,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -95,7 +95,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("You have been successfully logged out.", TagType.Info)).Returns("EnqueueMessage");
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             room.Verify(e => e.RemoveMobileObjectFromRoom(pc.Object), Times.Once);
             save.Verify(e => e.PerformCommand(pc.Object, mockCommand.Object), Times.Once);

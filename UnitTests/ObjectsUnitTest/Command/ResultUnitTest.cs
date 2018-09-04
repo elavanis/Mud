@@ -14,7 +14,7 @@ namespace ObjectsUnitTest.Command
         [TestMethod]
         public void Result_Constructor_1Parameter()
         {
-            Result result = new Result(null, false);
+            Result result = new Result("", false);
 
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.IsNull(result.ResultMessage);

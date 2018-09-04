@@ -44,7 +44,7 @@ namespace Objects.Command.PC
                         }
                     }
                 }
-                return new Result(strBldr.ToString().Trim(), false);
+                return new Result(strBldr.ToString().Trim(), true);
             }
 
             IParameter parm = command.Parameters[0];

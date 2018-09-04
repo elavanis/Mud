@@ -41,7 +41,7 @@ namespace Objects.Command.PC
                         IResult innerResult = PerformCommand(performer, innerCommand);
                         GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage(innerResult.ResultMessage));
                     }
-                    return new Result(null, false);
+                    return new Result("", false);
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace Objects.Command.PC
                             IResult innerResult = PerformCommand(performer, innerCommand);
                             GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage(innerResult.ResultMessage));
                         }
-                        return new Result(null, false);
+                        return new Result("", false);
                     }
                     else
                     {

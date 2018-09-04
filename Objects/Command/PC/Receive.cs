@@ -65,12 +65,12 @@ namespace Objects.Command.PC
 
             if (foundItem)
             {
-                return new Result(null, false);
+                return new Result("", false);
             }
             else
             {
                 foundCraftsman.Item1.EnqueueCommand($"Tell {pc.KeyWords[0]} Sorry I don't have anything for you to pick up at this time.");
-                return new Result(null, true);
+                return new Result("", true);;
             }
         }
     }

@@ -59,7 +59,7 @@ namespace ObjectsUnitTest.Command.God
             world.Setup(e => e.WorldCommands).Returns(queue);
 
             IResult result = command.PerformCommand(mob.Object, null);
-            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("Calculating Stats", result.ResultMessage);
             Assert.AreEqual(1, queue.Count);
             string message;

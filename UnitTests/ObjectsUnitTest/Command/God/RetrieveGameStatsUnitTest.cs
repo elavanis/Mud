@@ -34,7 +34,7 @@ namespace ObjectsUnitTest.Command.God
         {
             IResult result = command.Instructions;
 
-            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 

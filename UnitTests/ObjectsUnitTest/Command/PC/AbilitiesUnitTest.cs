@@ -49,7 +49,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -70,7 +70,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             IResult result = command.PerformCommand(mob.Object, null);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -85,7 +85,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             IResult result = command.PerformCommand(mob.Object, null);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

@@ -41,7 +41,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Sit_Instructions()
         {
             IResult result = command.Instructions;
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -65,7 +65,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.Engine = engine.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             mob.VerifySet(e => e.Position = CharacterPosition.Sit);
             evnt.Verify(e => e.Sit(mob.Object), Times.Once);

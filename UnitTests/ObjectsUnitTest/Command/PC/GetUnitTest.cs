@@ -18,6 +18,7 @@ using Objects.Global.FindObjects.Interface;
 using Objects.Global.Engine.Interface;
 using Objects.Global.Engine.Engines.Interface;
 using Objects.Global.MoneyToCoins.Interface;
+using Objects.Global.Notify.Interface;
 
 namespace ObjectsUnitTest.Command.PC
 {
@@ -28,6 +29,7 @@ namespace ObjectsUnitTest.Command.PC
         Mock<ITagWrapper> tagWrapper;
         Mock<IEngine> engine;
         Mock<IEvent> mockEvent;
+        Mock<INotify> notify;
 
         [TestInitialize]
         public void Setup()
@@ -35,12 +37,15 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper = new Mock<ITagWrapper>();
             engine = new Mock<IEngine>();
             mockEvent = new Mock<IEvent>();
+            notify = new Mock<INotify>();
 
             tagWrapper.Setup(e => e.WrapInTag("Get [Item Name] {Container}", TagType.Info)).Returns("message");
             engine.Setup(e => e.Event).Returns(mockEvent.Object);
 
+
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
+            GlobalReference.GlobalValues.Notify = notify.Object;
 
             command = new Get();
         }
@@ -50,7 +55,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -103,7 +108,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             Assert.AreEqual(0, roomItems.Count);
             Assert.IsTrue(mobItems.Contains(item.Object));
@@ -144,7 +149,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual(null, result.ResultMessage);
             Assert.AreEqual(0, roomItems.Count);
             Assert.IsTrue(mobItems.Contains(item.Object));
@@ -249,7 +254,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             Assert.AreEqual(0, containerItems.Count);
             mob.VerifySet(e => e.Money = 10);
@@ -292,7 +297,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual(null, result.ResultMessage);
             Assert.AreEqual(0, containerItems.Count);
             mob.VerifySet(e => e.Money = 10);

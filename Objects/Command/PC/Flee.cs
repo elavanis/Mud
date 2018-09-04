@@ -137,7 +137,7 @@ namespace Objects.Command.PC
                 }
 
                 //the character was moved before they could move to the desired room.
-                return new Result(null, false);
+                return new Result("", false);
             }
             else
             {

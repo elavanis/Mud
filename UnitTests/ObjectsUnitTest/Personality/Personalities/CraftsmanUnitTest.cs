@@ -78,7 +78,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             DateTime start = DateTime.Now;
             IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Feet, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription");
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("", result.ResultMessage);
             Assert.AreEqual(1, craftsmanObjects.Count);
             ICraftsmanObject craftsmanObject = craftsmanObjects[0];
@@ -106,7 +106,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             DateTime start = DateTime.Now;
             IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Held, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription");
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("", result.ResultMessage);
             Assert.AreEqual(1, craftsmanObjects.Count);
             ICraftsmanObject craftsmanObject = craftsmanObjects[0];
@@ -134,7 +134,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             DateTime start = DateTime.Now;
             IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Pierce);
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("", result.ResultMessage);
             Assert.AreEqual(1, craftsmanObjects.Count);
             ICraftsmanObject craftsmanObject = craftsmanObjects[0];

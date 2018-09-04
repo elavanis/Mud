@@ -27,7 +27,7 @@ namespace Objects.Command.PC
 
             ITranslationMessage message = new TranslationMessage(parm.ParameterValue);
             GlobalReference.GlobalValues.Notify.Room(performer, null, performer.Room, message);
-            return new Result(null, true);
+            return new Result("", true);;
         }
     }
 }

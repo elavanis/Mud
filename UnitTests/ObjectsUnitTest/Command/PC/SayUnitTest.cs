@@ -52,7 +52,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -93,7 +93,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.CanMobDoSomething = canDoSomething.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             notify.Verify(e => e.Room(mob.Object, null, mob.Object.Room, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { mob.Object }, false, true), Times.Once);
         }

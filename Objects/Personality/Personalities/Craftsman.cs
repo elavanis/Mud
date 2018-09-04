@@ -46,7 +46,7 @@ namespace Objects.Personality.Personalities
                     break;
                 case Equipment.AvalableItemPosition.NotWorn:
                     craftsman.EnqueueCommand($"Tell {performer.KeyWords[0]} I can not build that.");
-                    result = new Result(null, true);
+                    result = new Result("", true); ;
                     break;
                 default:
                     IArmor armor = new Armor();
@@ -91,7 +91,7 @@ namespace Objects.Personality.Personalities
             craftsman.EnqueueCommand($"Tell {performer.KeyWords[0]} I will have this finished for you on {GlobalReference.GlobalValues.GameDateTime.BuildFormatedDateTime(completionDate)}.");
 
 
-            result = new Result(null, false);
+            result = new Result("", false);
 
             return result;
         }

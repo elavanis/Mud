@@ -57,7 +57,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -99,7 +99,7 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
-            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 

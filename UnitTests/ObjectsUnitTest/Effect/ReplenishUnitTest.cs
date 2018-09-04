@@ -24,7 +24,7 @@ namespace ObjectsUnitTest.Effect
         Replenish effect;
         Mock<IEffectParameter> parameter;
         Mock<IItem> item;
-        List<IItem> items;
+        Mock<IRoom> room;
 
         [TestInitialize]
         public void Setup()
@@ -32,15 +32,13 @@ namespace ObjectsUnitTest.Effect
             effect = new Replenish();
             parameter = new Mock<IEffectParameter>();
             item = new Mock<IItem>();
-            items = new List<IItem>();
-            Mock<IRoom> room = new Mock<IRoom>();
+            room = new Mock<IRoom>();
             Mock<IEnchantment> enchantment = new Mock<IEnchantment>();
             Mock<ISerialization> serilization = new Mock<ISerialization>();
 
 
             parameter.Setup(e => e.ObjectRoom).Returns(room.Object);
             parameter.Setup(e => e.Item).Returns(item.Object);
-            room.Setup(e => e.Items).Returns(items);
             item.Setup(e => e.Enchantments).Returns(new List<IEnchantment>() { enchantment.Object });
             enchantment.Setup(e => e.Parameter).Returns(parameter.Object);
             serilization.Setup(e => e.Serialize(item.Object)).Returns("obj");
@@ -52,13 +50,13 @@ namespace ObjectsUnitTest.Effect
 
 
         [TestMethod]
-        public void Damage_ProcessEffect()
+        public void Replenish_ProcessEffect()
         {
             effect.ProcessEffect(parameter.Object);
 
             parameter.VerifySet(e => e.Item = null);
             parameter.VerifySet(e => e.ObjectRoom = null);
-            Assert.IsTrue(items.Contains(item.Object));
+            room.Verify(e => e.AddItemToRoom(item.Object, 0));
         }
     }
 }

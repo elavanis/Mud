@@ -41,7 +41,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Perform_Instructions()
         {
             IResult result = command.Instructions;
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
