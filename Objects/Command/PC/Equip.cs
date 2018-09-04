@@ -14,7 +14,7 @@ namespace Objects.Command.PC
 {
     public class Equip : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Equip [Item Name]");
+        public IResult Instructions { get; } = new Result("Equip [Item Name]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Equip" };
 
@@ -44,7 +44,7 @@ namespace Objects.Command.PC
                         }
                     }
                 }
-                return new Result(false, strBldr.ToString().Trim());
+                return new Result(strBldr.ToString().Trim(), false);
             }
 
             IParameter parm = command.Parameters[0];
@@ -57,27 +57,27 @@ namespace Objects.Command.PC
                     || equipment.ItemPosition == Equipment.AvalableItemPosition.NotWorn)
                 {
                     string message = string.Format("You can not equip the {0}.", item.SentenceDescription);
-                    return new Result(false, message);
+                    return new Result(message, true);
                 }
 
                 IEquipment equipedItem = performer.EquipedEquipment.Where(i => i.ItemPosition == equipment.ItemPosition).FirstOrDefault();
                 if (equipedItem != null)
                 {
                     string message = string.Format("You already have {0} in the {1} position.", equipedItem.SentenceDescription, equipedItem.ItemPosition);
-                    return new Result(false, message);
+                    return new Result(message, true);
                 }
                 else
                 {
                     performer.Items.Remove(equipment);
                     performer.AddEquipment(equipment);
                     string message = string.Format("You equipped the {0}.", equipment.SentenceDescription);
-                    return new Result(true, message);
+                    return new Result(message, false);
                 }
             }
             else
             {
                 string message = string.Format("You were unable to find {0}.", parm.ParameterValue);
-                return new Result(false, message);
+                return new Result(message, true);
             }
         }
     }

@@ -69,7 +69,7 @@ namespace Objects.Item.Items
                 if (randomEnchantment != null)
                 {
                     item.Enchantments.Add(randomEnchantment);
-                    result = new Result(true, EnchantmentSuccess);
+                    result = new Result(EnchantmentSuccess, false);
                 }
                 else
                 {
@@ -78,7 +78,7 @@ namespace Objects.Item.Items
             }
             else
             {
-                result = new Result(false, EnchantmentFail);
+                result = new Result(EnchantmentFail, false);
             }
 
             return result;

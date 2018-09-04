@@ -13,7 +13,7 @@ namespace Objects.Command.PC
 {
     public class Search : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Search");
+        public IResult Instructions { get; } = new Result("Search", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Search" };
 
@@ -28,11 +28,11 @@ namespace Objects.Command.PC
 
             if (strbBldr.Length == 0)
             {
-                return new Result(true, "Nothing found was found.");
+                return new Result("Nothing found was found.", true);
             }
             else
             {
-                return new Result(true, strbBldr.ToString().Trim());
+                return new Result(strbBldr.ToString().Trim(), false);
             }
         }
     }

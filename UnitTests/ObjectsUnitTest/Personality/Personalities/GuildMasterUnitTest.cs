@@ -91,7 +91,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob Welcome to the Mage guild."), Times.Once);
             mob.VerifySet(e => e.GuildPoints = 0);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             Assert.IsTrue(guildHashSet.Contains(Guilds.Mage));
         }
@@ -104,7 +104,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Join(npc.Object, mob.Object);
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You need to gain more experience in the world before I can allow you to join the Mage guild."), Times.Once);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -117,7 +117,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Join(npc.Object, mob.Object);
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You are already a member of the Mage guild."), Times.Once);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -127,7 +127,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "learnable");
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I'm sorry but I can not teach you until you gain more experience and join our guild."), Times.Once);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -139,7 +139,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "learnable");
 
             npc.Verify(e => e.EnqueueCommand("Tell mob Please join our guild so that I may teach you our ways."), Times.Once);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -151,7 +151,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "learnable");
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I can not teach you that."), Times.Once);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -163,7 +163,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "skill");
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You are not high enough level for that yet."), Times.Once);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -175,7 +175,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "spell");
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You are not high enough level for that yet."), Times.Once);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -188,7 +188,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "skill");
 
             npc.Verify(e => e.EnqueueCommand("Tell mob skill teach message"), Times.Once);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             Assert.IsTrue(knowSkills.ContainsKey("SKILL"));
         }
@@ -202,7 +202,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "spell");
 
             npc.Verify(e => e.EnqueueCommand("Tell mob spell teach message"), Times.Once);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             Assert.IsTrue(spellBook.ContainsKey("SPELL"));
         }
@@ -217,7 +217,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "skill");
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You already know that skill."), Times.Once);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -231,7 +231,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "spell");
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You already know that spell."), Times.Once);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -245,7 +245,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teachable(npc.Object, mob.Object);
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I can teach you the following. \r\nspell"), Times.Once);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -259,7 +259,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teachable(npc.Object, mob.Object);
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I can teach you the following. \r\nskill"), Times.Once);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -272,7 +272,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = guildMaster.Teachable(npc.Object, mob.Object);
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I can not teach you anything at this time."), Times.Once);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 

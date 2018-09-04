@@ -119,7 +119,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.CommandList = commandList.Object;
 
 
-            mobileObjectCommand.Setup(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>())).Returns(new Result(true, "looked at new room"));
+            mobileObjectCommand.Setup(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>())).Returns(new Result("looked at new room", false));
             command = new Flee();
         }
 
@@ -128,7 +128,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -147,7 +147,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("wave", result.ResultMessage);
         }
 
@@ -333,7 +333,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("can't run away", result.ResultMessage);
         }
     }

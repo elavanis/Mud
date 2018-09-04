@@ -78,7 +78,7 @@ namespace ObjectsUnitTest.Item.Items
             IResult result = enchantery.Enchant(weapon.Object);
 
             Assert.IsTrue(enchantments.Count == 1);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("success", result.ResultMessage);
         }
 
@@ -91,7 +91,7 @@ namespace ObjectsUnitTest.Item.Items
             IResult result = enchantery.Enchant(weapon.Object);
 
             Assert.IsTrue(enchantments.Count == 0);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("failure", result.ResultMessage);
         }
 
@@ -103,7 +103,7 @@ namespace ObjectsUnitTest.Item.Items
             IResult result = enchantery.Enchant(armor.Object);
 
             Assert.IsTrue(enchantments.Count == 1);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("success", result.ResultMessage);
         }
 
@@ -117,7 +117,7 @@ namespace ObjectsUnitTest.Item.Items
             IResult result = enchantery.Enchant(armor.Object);
 
             Assert.IsTrue(enchantments.Count == 1);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("success", result.ResultMessage);
         }
 
@@ -131,7 +131,7 @@ namespace ObjectsUnitTest.Item.Items
             IResult result = enchantery.Enchant(armor.Object);
 
             Assert.IsTrue(enchantments.Count == 0);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("failure", result.ResultMessage);
         }
     }

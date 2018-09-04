@@ -11,7 +11,7 @@ namespace Objects.Command.PC
 {
     public class Receive : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Receive");
+        public IResult Instructions { get; } = new Result("Receive", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Receive" };
 
@@ -21,7 +21,7 @@ namespace Objects.Command.PC
 
             if (pc == null)
             {
-                return new Result(false, "Only player characters can receive.");
+                return new Result("Only player characters can receive.", true);
             }
 
             Tuple<INonPlayerCharacter, ICraftsman> foundCraftsman = null;
@@ -44,7 +44,7 @@ namespace Objects.Command.PC
 
             if (foundCraftsman == null)
             {
-                return new Result(false, "No craftsman found at this location.");
+                return new Result("No craftsman found at this location.", true);
             }
 
             bool foundItem = false;
@@ -65,12 +65,12 @@ namespace Objects.Command.PC
 
             if (foundItem)
             {
-                return new Result(true, "");
+                return new Result(null, false);
             }
             else
             {
                 foundCraftsman.Item1.EnqueueCommand($"Tell {pc.KeyWords[0]} Sorry I don't have anything for you to pick up at this time.");
-                return new Result(false, "");
+                return new Result(null, true);
             }
         }
     }

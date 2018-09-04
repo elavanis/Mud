@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Cast : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "(C)ast [Spell Name] {Parameter(s)}");
+        public IResult Instructions { get; } = new Result("(C)ast [Spell Name] {Parameter(s)}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "C", "Cast" };
 
@@ -20,7 +20,7 @@ namespace Objects.Command.PC
         {
             if (command.Parameters.Count <= 0)
             {
-                return new Result(false, "What spell would you like to cast?");
+                return new Result("What spell would you like to cast?", true);
             }
 
             ISpell spell;
@@ -32,7 +32,7 @@ namespace Objects.Command.PC
             }
             else
             {
-                return new Result(false, "You do not know that spell.");
+                return new Result("You do not know that spell.", true);
             }
         }
     }

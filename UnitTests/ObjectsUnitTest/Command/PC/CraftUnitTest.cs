@@ -81,7 +81,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -99,7 +99,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("Only player characters can have craftsman craft items.", TagType.Info)).Returns("otherMessage");
 
             IResult result = command.PerformCommand(npc.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -109,7 +109,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("There is no craftsman to make anything for you.", TagType.Info)).Returns("otherMessage");
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -120,7 +120,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("Please provide all the parameters needed for the craftsman to make your item.", TagType.Info)).Returns("otherMessage");
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -140,7 +140,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("Damage type is required for weapons.", TagType.Info)).Returns("otherMessage");
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -159,10 +159,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Arms, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Arms, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -181,10 +181,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Body, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Body, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -203,10 +203,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Feet, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Feet, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -225,10 +225,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Finger, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Finger, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -247,10 +247,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Hand, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Hand, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -269,10 +269,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Head, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Head, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -291,10 +291,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Held, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Held, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -313,10 +313,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Legs, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Legs, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -335,10 +335,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Neck, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Neck, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -357,10 +357,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Waist, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Waist, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -381,10 +381,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Bludgeon)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Bludgeon)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -405,10 +405,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Pierce)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Pierce)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -427,10 +427,10 @@ namespace ObjectsUnitTest.Command.PC
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Slash)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Slash)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -459,10 +459,10 @@ namespace ObjectsUnitTest.Command.PC
                           Legs,
                           Feet,
                           Held ", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Slash)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Slash)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -485,10 +485,10 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag(@"Available damage types are Bludgeon,
                              Pierce,
                              Slash", TagType.Info)).Returns("otherMessage");
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Slash)).Returns(new Result(true, ""));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Slash)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
 
@@ -511,7 +511,7 @@ namespace ObjectsUnitTest.Command.PC
             craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Slash)).Throws(new Exception());
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("otherMessage", result.ResultMessage);
         }
     }

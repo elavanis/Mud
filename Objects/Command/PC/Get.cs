@@ -16,7 +16,7 @@ namespace Objects.Command.PC
 {
     public class Get : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Get [Item Name] {Container}");
+        public IResult Instructions { get; } = new Result("Get [Item Name] {Container}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Get" };
 
@@ -24,7 +24,7 @@ namespace Objects.Command.PC
         {
             if (command.Parameters.Count <= 0)
             {
-                return new Result(false, "What would you like to get?");
+                return new Result("What would you like to get?", true);
             }
             else if (command.Parameters.Count == 1)
             {
@@ -41,7 +41,7 @@ namespace Objects.Command.PC
                         IResult innerResult = PerformCommand(performer, innerCommand);
                         GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage(innerResult.ResultMessage));
                     }
-                    return new Result(true, "");
+                    return new Result(null, false);
                 }
                 else
                 {
@@ -57,18 +57,18 @@ namespace Objects.Command.PC
                             AddItemToPerformer(performer, item);
 
                             string message = string.Format("You pickup the {0}.", item.SentenceDescription);
-                            return new Result(true, message);
+                            return new Result(message, false);
                         }
                         else
                         {
                             string message = string.Format("You were unable to get {0}.", item.SentenceDescription);
-                            return new Result(false, message);
+                            return new Result(message, true);
                         }
                     }
                     else
                     {
                         string message = string.Format("You were unable to find {0}.", parameter.ParameterValue);
-                        return new Result(false, message);
+                        return new Result(message, true);
                     }
                 }
             }
@@ -92,7 +92,7 @@ namespace Objects.Command.PC
                             IResult innerResult = PerformCommand(performer, innerCommand);
                             GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage(innerResult.ResultMessage));
                         }
-                        return new Result(true, "");
+                        return new Result(null, false);
                     }
                     else
                     {
@@ -114,19 +114,19 @@ namespace Objects.Command.PC
                             {
                                 message = string.Format("You get the {0} from the {1}.", parameterItem.ParameterValue, parameterContainer.ParameterValue);
                             }
-                            return new Result(true, message);
+                            return new Result(message, false);
                         }
                         else
                         {
                             string message = string.Format("Unable to find item {0} in container {1}.", parameterItem.ParameterValue, parameterContainer.ParameterValue);
-                            return new Result(false, message);
+                            return new Result(message, true);
                         }
                     }
                 }
                 else
                 {
                     string message = string.Format("Unable to find container {0}.", parameterContainer.ParameterValue);
-                    return new Result(false, message);
+                    return new Result(message, true);
                 }
             }
         }

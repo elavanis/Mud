@@ -81,7 +81,7 @@ namespace ObjectsUnitTest.Skill
             npc.Setup(e => e.Stamina).Returns(0);
             IResult result = baseSkill.ProcessSkill(npc.Object, command.Object);
 
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("NotEnoughStamina", result.ResultMessage);
         }
 
@@ -90,7 +90,7 @@ namespace ObjectsUnitTest.Skill
         {
             IResult result = baseSkill.ProcessSkill(npc.Object, command.Object);
 
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("performNotify", result.ResultMessage);
             notify.Verify(e => e.Room(npc.Object, npc.Object, room.Object, translationMessageRoom.Object, new List<IMobileObject>() { npc.Object }, false, false), Times.Once);
             notify.Verify(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>()));

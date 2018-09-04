@@ -18,7 +18,7 @@ namespace Objects.Command.PC
 {
     public class Examine : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Examine {Object Name}");
+        public IResult Instructions { get; } = new Result("Examine {Object Name}", true);
 
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Examine" };
@@ -39,14 +39,14 @@ namespace Objects.Command.PC
                 if (baseObject != null)
                 {
                     TagType tagType = GlobalReference.GlobalValues.FindObjects.DetermineFoundObjectTagType(baseObject);
-                    return new Result(true, baseObject.ExamineDescription, tagType);
+                    return new Result(baseObject.ExamineDescription, false, tagType);
                 }
 
-                return new Result(false, "You were unable to find that what you were looking for.");
+                return new Result("You were unable to find that what you were looking for.", true);
             }
             else
             {
-                return new Result(true, mob.Room.ExamineDescription, TagType.Room);
+                return new Result(mob.Room.ExamineDescription, false, TagType.Room);
             }
 
         }
@@ -55,12 +55,12 @@ namespace Objects.Command.PC
         {
             if (!GlobalReference.GlobalValues.CanMobDoSomething.SeeDueToLight(performer))
             {
-                return new Result(false, "You can not see here because it is to dark.");
+                return new Result("You can not see here because it is to dark.", true);
             }
 
             if (performer.Position == MobileObject.CharacterPosition.Sleep)
             {
-                return new Result(false, "You need to wake up before trying to examining things.");
+                return new Result("You need to wake up before trying to examining things.", true);
             }
 
             return null;

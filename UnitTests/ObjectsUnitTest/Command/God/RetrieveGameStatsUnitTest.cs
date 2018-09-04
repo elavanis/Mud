@@ -34,7 +34,7 @@ namespace ObjectsUnitTest.Command.God
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -61,7 +61,7 @@ namespace ObjectsUnitTest.Command.God
 
             IResult result = command.PerformCommand(mob.Object, null);
             Assert.AreEqual("GameStats", result.ResultMessage);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
         }
 
         [TestMethod]
@@ -78,7 +78,7 @@ namespace ObjectsUnitTest.Command.God
 
             IResult result = command.PerformCommand(mob.Object, null);
             Assert.AreEqual("Unable to retrieve game stats.", result.ResultMessage);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Objects.Command.PC
 {
     public class Statistics : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "(Stats) Statistics");
+        public IResult Instructions { get; } = new Result("(Stats) Statistics", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Stats", "Statistics" };
 
@@ -42,7 +42,7 @@ namespace Objects.Command.PC
                 strBldr.AppendLine(string.Format("WIS:{0}{1}{2}", columnPad, pc.WisdomStat.ToString().PadRight(column2Width, ' '), pc.WisdomMultiClassBonus));
                 strBldr.AppendLine(string.Format("CHA:{0}{1}{2}", columnPad, pc.CharismaStat.ToString().PadRight(column2Width, ' '), pc.CharismaMultiClassBonus));
 
-                return new Result(true, strBldr.ToString().Trim());
+                return new Result(strBldr.ToString().Trim(), true);
             }
             else
             {
@@ -60,7 +60,7 @@ namespace Objects.Command.PC
                 strBldr.AppendLine(string.Format("WIS:{0}{1}", columnPad, performer.WisdomStat.ToString()));
                 strBldr.AppendLine(string.Format("CHA:{0}{1}", columnPad, performer.CharismaStat.ToString()));
 
-                return new Result(true, strBldr.ToString().Trim());
+                return new Result(strBldr.ToString().Trim(), true);
             }
         }
 

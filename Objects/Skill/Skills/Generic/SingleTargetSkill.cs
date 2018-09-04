@@ -24,10 +24,10 @@ namespace Objects.Skill.Skills.Generic
                 }
                 else
                 {
-                    return new Result(false, $"Unable to find {command.Parameters[1].ParameterValue}.");
+                    return new Result($"Unable to find {command.Parameters[1].ParameterValue}.", true);
                 }
             }
-            return new Result(false, $"The skill {command.Parameters[0].ParameterValue} requires a target.");
+            return new Result($"The skill {command.Parameters[0].ParameterValue} requires a target.", true);
 
         }
     }

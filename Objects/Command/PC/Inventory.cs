@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Inventory : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "(Inv)entory");
+        public IResult Instructions { get; } = new Result("(Inv)entory", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Inv", "Inventory" };
 
@@ -27,11 +27,11 @@ namespace Objects.Command.PC
             string message = strBldr.ToString().Trim();
             if (message != "")
             {
-                return new Result(true, message, TagType.Item);
+                return new Result(message, true, TagType.Item);
             }
             else
             {
-                return new Result(true, "You are not carrying anything.");
+                return new Result("You are not carrying anything.", true);
             }
         }
     }

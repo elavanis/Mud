@@ -13,7 +13,7 @@ namespace Objects.Command.PC
 {
     public class Logout : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Logout");
+        public IResult Instructions { get; } = new Result("Logout", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Logout" };
 
@@ -30,11 +30,11 @@ namespace Objects.Command.PC
 
                 GlobalReference.GlobalValues.Notify.Mob(pc, new TranslationMessage("You have been successfully logged out."));
 
-                return new Result(true, "Exit Connection", TagType.Connection);
+                return new Result("Exit Connection", false, TagType.Connection);
             }
             else
             {
-                return new Result(false, "Only PlayerCharacters can logout.");
+                return new Result("Only PlayerCharacters can logout.", true);
             }
         }
     }

@@ -905,7 +905,7 @@ namespace Objects.World
         private void ProcessMobCommunication(IMobileObject mob)
         {
             IResult result = null;
-            while (result == null || result.ResultSuccess == false)
+            while (result == null || result.AllowAnotherCommand == true)
             {
                 string communication = mob.DequeueCommunication();
                 if (communication != null)
@@ -917,7 +917,7 @@ namespace Objects.World
 
                         if (mobCommand == null)
                         {
-                            result = new Result(false, "Unknown command.");
+                            result = new Result("Unknown command.", true);
                         }
                         else
                         {
@@ -954,7 +954,7 @@ namespace Objects.World
         private void ProcessMobCommand(IMobileObject mob)
         {
             IResult result = null;
-            while (result == null || result.ResultSuccess == false)
+            while (result == null || result.AllowAnotherCommand == true)
             {
                 string stringCommand = mob.DequeueCommand();
                 if (stringCommand != null)
@@ -970,7 +970,7 @@ namespace Objects.World
                         }
                         else
                         {
-                            result = new Result(false, string.Format("Unable to figure out how to {0}.", command.CommandName));
+                            result = new Result(string.Format("Unable to figure out how to {0}.", command.CommandName), true);
                         }
 
                         if (result != null

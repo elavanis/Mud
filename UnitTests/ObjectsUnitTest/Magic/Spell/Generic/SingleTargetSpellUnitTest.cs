@@ -68,7 +68,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
 
             IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
             Assert.AreEqual("notEnoughParams", result.ResultMessage);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
         }
 
         [TestMethod]
@@ -78,7 +78,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
 
             IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
             Assert.AreEqual("notFound", result.ResultMessage);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
         }
 
         [TestMethod]
@@ -86,7 +86,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
         {
             IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
             Assert.AreEqual("success", result.ResultMessage);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
         }
 
         [TestMethod]
@@ -98,7 +98,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
 
             IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
             Assert.AreEqual("success", result.ResultMessage);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
         }
 
         [TestMethod]
@@ -109,7 +109,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
 
             IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
             Assert.AreEqual("failure", result.ResultMessage);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
         }
     }
 }

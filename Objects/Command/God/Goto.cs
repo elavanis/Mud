@@ -18,7 +18,7 @@ namespace Objects.Command.God
 {
     public class Goto : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Goto [ZoneId] [RoomId] \r\nGoto [PlayerName]");
+        public IResult Instructions { get; } = new Result("Goto [ZoneId] [RoomId] \r\nGoto [PlayerName]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Goto" };
 
@@ -39,17 +39,17 @@ namespace Objects.Command.God
                     }
                     catch
                     {
-                        return new Result(false, string.Format("Unable to find zone {0} room {1}.", zoneId, roomId));
+                        return new Result(string.Format("Unable to find zone {0} room {1}.", zoneId, roomId), true);
                     }
                 }
                 else
                 {
-                    return new Result(false, "Goto [ZoneId] [RoomId]");
+                    return new Result("Goto [ZoneId] [RoomId]", true);
                 }
             }
             else
             {
-                return new Result(false, "Where would you like to goto?");
+                return new Result("Where would you like to goto?", true);
             }
         }
 

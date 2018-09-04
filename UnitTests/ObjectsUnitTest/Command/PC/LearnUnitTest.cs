@@ -51,11 +51,11 @@ namespace ObjectsUnitTest.Command.PC
             teachable = new Mock<IResult>();
 
             Mock<IResult> result1 = new Mock<IResult>();
-            result1.Setup(e => e.ResultSuccess).Returns(true);
+            result1.Setup(e => e.AllowAnotherCommand).Returns(false);
             result1.Setup(e => e.ResultMessage).Returns("1");
 
             Mock<IResult> result2 = new Mock<IResult>();
-            result2.Setup(e => e.ResultSuccess).Returns(true);
+            result2.Setup(e => e.AllowAnotherCommand).Returns(false);
             result2.Setup(e => e.ResultMessage).Returns("2");
 
             npc1.Setup(e => e.KeyWords).Returns(new List<string>() { "npc1" });
@@ -69,10 +69,10 @@ namespace ObjectsUnitTest.Command.PC
 
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
 
-            teach.Setup(e => e.ResultSuccess).Returns(true);
+            teach.Setup(e => e.AllowAnotherCommand).Returns(false);
             teach.Setup(e => e.ResultMessage).Returns("teach");
 
-            teachable.Setup(e => e.ResultSuccess).Returns(true);
+            teachable.Setup(e => e.AllowAnotherCommand).Returns(false);
             teachable.Setup(e => e.ResultMessage).Returns("teachable");
 
             Mock<IEngine> engine = new Mock<IEngine>();
@@ -93,7 +93,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -131,7 +131,7 @@ namespace ObjectsUnitTest.Command.PC
             npc1.Setup(e => e.Personalities).Returns(new List<IPersonality>() { personality.Object });
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

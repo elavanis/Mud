@@ -13,7 +13,7 @@ namespace Objects.Command.PC
 {
     public class Drop : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Drop [Item Name]");
+        public IResult Instructions { get; } = new Result("Drop [Item Name]", true);
 
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Drop" };
@@ -23,7 +23,7 @@ namespace Objects.Command.PC
         {
             if (command.Parameters.Count <= 0)
             {
-                return new Result(false, "What would you like to drop?");
+                return new Result("What would you like to drop?", true);
             }
 
             IParameter parm = command.Parameters[0];
@@ -38,12 +38,12 @@ namespace Objects.Command.PC
 
 
                 string message = string.Format("You dropped {0}.", item.SentenceDescription);
-                return new Result(true, message);
+                return new Result(message, false);
             }
             else
             {
                 string message = string.Format("You were unable to find {0}.", command.Parameters[0].ParameterValue);
-                return new Result(false, message);
+                return new Result(message, true);
             }
         }
     }

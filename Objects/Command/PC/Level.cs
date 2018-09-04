@@ -10,7 +10,7 @@ namespace Objects.Command.PC
 {
     public class Level : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Level [Stat] {Amount To Level}");
+        public IResult Instructions { get; } = new Result("Level [Stat] {Amount To Level}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Level" };
 
@@ -19,12 +19,12 @@ namespace Objects.Command.PC
             if (command.Parameters.Count == 0)
             {
                 string localmessage = string.Format("You have {0} points to spend.", performer.LevelPoints);
-                return new Result(true, localmessage);
+                return new Result(localmessage, false);
             }
 
             if (performer.LevelPoints == 0)
             {
-                return new Result(false, "You have no points to spend at this time.");
+                return new Result("You have no points to spend at this time.", true);
             }
 
 
@@ -34,7 +34,7 @@ namespace Objects.Command.PC
                 int.TryParse(command.Parameters[1].ParameterValue, out increase);
                 if (increase > performer.LevelPoints)
                 {
-                    return new Result(false, "You do not have that many points to spend.");
+                    return new Result("You do not have that many points to spend.", true);
                 }
             }
 
@@ -75,10 +75,10 @@ namespace Objects.Command.PC
                 default:
                     //add back the level points that were deducted
                     performer.LevelPoints += increase;
-                    return new Result(false, "Unsure which stat to increase.");
+                    return new Result("Unsure which stat to increase.", true);
             }
             performer.ResetMaxStatValues();
-            return new Result(true, message);
+            return new Result(message, false);
         }
     }
 }

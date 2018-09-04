@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Learn : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Learn [Skill/Spell Name]");
+        public IResult Instructions { get; } = new Result("Learn [Skill/Spell Name]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Learn" };
 
@@ -37,7 +37,7 @@ namespace Objects.Command.PC
                 }
             }
 
-            return new Result(false, "There is no GuildMaster here to teach you.");
+            return new Result("There is no GuildMaster here to teach you.", true);
         }
     }
 }

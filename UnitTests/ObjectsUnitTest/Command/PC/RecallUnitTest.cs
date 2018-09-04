@@ -48,7 +48,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Recall_Instructions()
         {
             IResult result = command.Instructions;
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -66,7 +66,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("No recall point defined.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -82,7 +82,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.NoRecall });
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -116,7 +116,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             room.Verify(e => e.RemoveMobileObjectFromRoom(pc.Object));
             altRoom.Verify(e => e.AddMobileObjectToRoom(pc.Object));
@@ -154,7 +154,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(npc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             room.Verify(e => e.RemoveMobileObjectFromRoom(npc.Object));
             altRoom.Verify(e => e.AddMobileObjectToRoom(npc.Object));
@@ -176,7 +176,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.World = null; //was getting issues when run with other tests that this was populated
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -195,7 +195,7 @@ namespace ObjectsUnitTest.Command.PC
             mob.Setup(e => e.Room).Returns(room.Object);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             mob.VerifySet(e => e.RecallPoint = It.IsAny<IBaseObjectId>());
         }
@@ -215,7 +215,7 @@ namespace ObjectsUnitTest.Command.PC
             mob.Setup(e => e.Room).Returns(room.Object);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -234,7 +234,7 @@ namespace ObjectsUnitTest.Command.PC
             mob.Setup(e => e.Room).Returns(room.Object);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

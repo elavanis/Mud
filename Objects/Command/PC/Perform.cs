@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Perform : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "(P)erform [Skill Name] {Parameter(s)}");
+        public IResult Instructions { get; } = new Result("(P)erform [Skill Name] {Parameter(s)}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "P", "Perform" };
 
@@ -20,7 +20,7 @@ namespace Objects.Command.PC
         {
             if (command.Parameters.Count <= 0)
             {
-                return new Result(false, "What skill would you like to use?");
+                return new Result("What skill would you like to use?", true);
             }
 
             ISkill skill;
@@ -32,7 +32,7 @@ namespace Objects.Command.PC
             }
             else
             {
-                return new Result(false, "You do not know that skill.");
+                return new Result("You do not know that skill.", true);
             }
         }
     }

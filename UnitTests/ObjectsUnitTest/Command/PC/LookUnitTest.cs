@@ -76,7 +76,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -96,7 +96,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("You can not look while asleep.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -107,7 +107,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("You can not see here because it is to dark.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -130,7 +130,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.Down).Returns(exit.Object);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("Room\r\nItem\r\nNonPlayerCharacter\r\nPlayerCharacter", result.ResultMessage);
         }
 
@@ -154,7 +154,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -177,7 +177,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -198,7 +198,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -221,7 +221,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -245,7 +245,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -264,7 +264,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

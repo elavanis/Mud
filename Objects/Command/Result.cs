@@ -17,12 +17,12 @@ namespace Objects.Command
         public string ResultMessage { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public bool ResultSuccess { get; set; }
+        public bool AllowAnotherCommand { get; set; }
 
 
-        public Result(bool success, string message, TagType? tagType = TagType.Info)
+        public Result(string message, bool allowAnotherCommand, TagType? tagType = TagType.Info)
         {
-            ResultSuccess = success;
+            AllowAnotherCommand = allowAnotherCommand;
             if (message != null)
             {
                 if (tagType == null)

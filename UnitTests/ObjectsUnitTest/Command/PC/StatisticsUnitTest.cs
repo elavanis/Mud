@@ -41,7 +41,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Statistics_Instructions()
         {
             IResult result = command.Instructions;
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -89,7 +89,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -116,7 +116,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
 
             IResult result = command.PerformCommand(npc.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

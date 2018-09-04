@@ -10,7 +10,7 @@ namespace Objects.Command.God
 {
     public class Possess : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Posses {Mob Keyword}");
+        public IResult Instructions { get; } = new Result("Posses {Mob Keyword}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Possess" };
 
@@ -23,11 +23,11 @@ namespace Objects.Command.God
                     IMobileObject PossedMob = performer.PossedMob;
                     performer.PossedMob.PossingMob = null;
                     performer.PossedMob = null;
-                    return new Result(true, $"You release control of {PossedMob.SentenceDescription}.");
+                    return new Result($"You release control of {PossedMob.SentenceDescription}.", false);
                 }
                 else
                 {
-                    return new Result(false, "You were not possessing anyone.");
+                    return new Result("You were not possessing anyone.", true);
                 }
             }
             else
@@ -41,7 +41,7 @@ namespace Objects.Command.God
 
                 if (possedMob == null)
                 {
-                    return new Result(false, $"You were unable to find {command.Parameters[0].ParameterValue}.");
+                    return new Result($"You were unable to find {command.Parameters[0].ParameterValue}.", true);
                 }
                 else
                 {
@@ -53,7 +53,7 @@ namespace Objects.Command.God
 
                     possedMob.PossingMob = performer;
                     performer.PossedMob = possedMob;
-                    return new Result(false, $"You possessed {command.Parameters[0].ParameterValue}.");
+                    return new Result($"You possessed {command.Parameters[0].ParameterValue}.", false);
                 }
             }
         }

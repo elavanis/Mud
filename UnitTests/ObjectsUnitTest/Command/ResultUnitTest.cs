@@ -14,9 +14,9 @@ namespace ObjectsUnitTest.Command
         [TestMethod]
         public void Result_Constructor_1Parameter()
         {
-            Result result = new Result(true, null);
+            Result result = new Result(null, false);
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.IsNull(result.ResultMessage);
         }
 
@@ -27,9 +27,9 @@ namespace ObjectsUnitTest.Command
             tagWrapper.Setup(e => e.WrapInTag("test", TagType.Info)).Returns("success");
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
-            Result result = new Result(false, "test");
+            Result result = new Result("test", true);
 
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("success", result.ResultMessage);
         }
 
@@ -40,9 +40,9 @@ namespace ObjectsUnitTest.Command
             tagWrapper.Setup(e => e.WrapInTag("art", TagType.AsciiArt)).Returns("success");
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
-            Result result = new Result(true, "art", TagType.AsciiArt);
+            Result result = new Result("art", false, TagType.AsciiArt);
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("success", result.ResultMessage);
         }
     }

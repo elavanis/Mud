@@ -114,11 +114,11 @@ namespace Objects.Global.CanMobDoSomething
             switch (performer.Position)
             {
                 case CharacterPosition.Sleep:
-                    return new Result(false, "You can not move while asleep.");
+                    return new Result("You can not move while asleep.", true);
                 case CharacterPosition.Sit:
-                    return new Result(false, "You can not move while sitting.");
+                    return new Result("You can not move while sitting.", true);
                 case CharacterPosition.Relax:
-                    return new Result(false, "You can not move while relaxing.");
+                    return new Result("You can not move while relaxing.", true);
             }
 
             return null;

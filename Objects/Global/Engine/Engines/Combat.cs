@@ -92,7 +92,7 @@ namespace Objects.Global.Engine.Engines
 
             if (combatants.TryGetValue(attacker, out pair))
             {
-                return new Result(false, string.Format("You are already attacking {0}.", pair.Defender.KeyWords.FirstOrDefault()));
+                return new Result(string.Format("You are already attacking {0}.", pair.Defender.KeyWords.FirstOrDefault()), true);
             }
             else
             {
@@ -104,7 +104,7 @@ namespace Objects.Global.Engine.Engines
                 //add the defender attacking the attacker
                 AddCombatPairInternal(defender, attacker);
 
-                return new Result(true, string.Format("You begin to attack {0}.", defender.KeyWords.FirstOrDefault()));
+                return new Result(string.Format("You begin to attack {0}.", defender.KeyWords.FirstOrDefault()), false);
             }
         }
 

@@ -15,7 +15,7 @@ namespace Objects.Command.PC
 {
     public class Enchant : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Enchant [Item Name]");
+        public IResult Instructions { get; } = new Result("Enchant [Item Name]", false);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Enchant" };
 
@@ -42,12 +42,12 @@ namespace Objects.Command.PC
                             if (result == null)
                             {
                                 //unable to enchant for some reason
-                                return new Result(false, "Nothing seems to happen.");
+                                return new Result("Nothing seems to happen.", true);
                             }
                             else
                             {
                                 performer.Money -= goldCost;
-                                if (!result.ResultSuccess)
+                                if (result.AllowAnotherCommand)
                                 {
                                     performer.Items.Remove(item);
                                 }
@@ -56,22 +56,22 @@ namespace Objects.Command.PC
                         }
                         else
                         {
-                            return new Result(false, string.Format("You need {0} to bind the enchantment.", GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(goldCost)));
+                            return new Result(string.Format("You need {0} to bind the enchantment.", GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(goldCost)), true);
                         }
                     }
                     else
                     {
-                        return new Result(false, string.Format("Unable to find the {0}.", command.Parameters[0].ParameterValue));
+                        return new Result(string.Format("Unable to find the {0}.", command.Parameters[0].ParameterValue), true);
                     }
                 }
                 else
                 {
-                    return new Result(false, "There is nothing to enchant here with.");
+                    return new Result("There is nothing to enchant with here.", true);
                 }
             }
             else
             {
-                return new Result(false, "What would you like to enchant?");
+                return new Result("What would you like to enchant?", true);
             }
         }
     }

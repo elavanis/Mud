@@ -15,7 +15,7 @@ namespace Objects.Command.PC
 {
     public class Kill : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "(K)ill {Target}");
+        public IResult Instructions { get; } = new Result("(K)ill {Target}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "K", "Kill" };
 
@@ -25,7 +25,7 @@ namespace Objects.Command.PC
 
             if (performer.Position == CharacterPosition.Sleep)
             {
-                return new Result(false, "You can not kill someone while you are asleep.");
+                return new Result("You can not kill someone while you are asleep.", true);
             }
 
             if (command.Parameters.Count == 0)
@@ -46,22 +46,22 @@ namespace Objects.Command.PC
                 {
                     GlobalReference.GlobalValues.Engine.Combat.AddCombatPair(performer, target);
                     string message = string.Format("You begin to attack {0}.", target.SentenceDescription);
-                    return new Result(true, message);
+                    return new Result(message, false);
                 }
                 else
                 {
-                    return new Result(false, "You were ready to attack but then you sense of peace rush over you and you decided not to attack.");
+                    return new Result("You were ready to attack but then you sense of peace rush over you and you decided not to attack.", true);
                 }
             }
             else
             {
                 if (command.Parameters.Count == 0)
                 {
-                    return new Result(false, "Unable to find anything to kill.");
+                    return new Result("Unable to find anything to kill.", true);
                 }
                 else
                 {
-                    return new Result(false, "Unable to find anything that matches that description to kill.");
+                    return new Result("Unable to find anything that matches that description to kill.", true);
                 }
             }
         }

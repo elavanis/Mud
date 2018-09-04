@@ -43,7 +43,7 @@ namespace Objects.Personality.Personalities
             else
             {
                 guildMaster.EnqueueCommand(string.Format("Tell {0} You are already a member of the {1} guild.", peformer.KeyWords.FirstOrDefault(), Guild));
-                return new Result(false, "");
+                return new Result(null, true);
             }
         }
 
@@ -54,12 +54,12 @@ namespace Objects.Personality.Personalities
                 guildMaster.EnqueueCommand(string.Format("Tell {0} Welcome to the {1} guild.", peformer.KeyWords.FirstOrDefault(), Guild));
                 peformer.Guild.Add(Guild);
                 peformer.GuildPoints--;
-                return new Result(true, "");
+                return new Result(null, false);
             }
             else
             {
                 guildMaster.EnqueueCommand(string.Format("Tell {0} You need to gain more experience in the world before I can allow you to join the {1} guild.", peformer.KeyWords.FirstOrDefault(), Guild));
-                return new Result(false, "");
+                return new Result(null, true);
 
             }
         }
@@ -83,7 +83,7 @@ namespace Objects.Personality.Personalities
                     guildMaster.EnqueueCommand(string.Format("Tell {0} I'm sorry but I can not teach you until you gain more experience and join our guild.", learner.KeyWords[0]));
                 }
 
-                return new Result(false, "");
+                return new Result(null, true);
             }
         }
 
@@ -116,13 +116,13 @@ namespace Objects.Personality.Personalities
             }
 
             guildMaster.EnqueueCommand(string.Format("Tell {0} I can not teach you that.", learner.KeyWords[0]));
-            return new Result(false, "");
+            return new Result(null, true);
         }
 
         private IResult NotHighEnoughLevel(IMobileObject guildMaster, IMobileObject learner)
         {
             guildMaster.EnqueueCommand(string.Format("Tell {0} You are not high enough level for that yet.", learner.KeyWords[0]));
-            return new Result(false, "");
+            return new Result(null, true);
         }
 
         private IResult TeachSkill(ISkill skill, IMobileObject guildMaster, IMobileObject learner)
@@ -132,12 +132,12 @@ namespace Objects.Personality.Personalities
             {
                 learner.KnownSkills.Add(skillName, skill);
                 guildMaster.EnqueueCommand(string.Format("Tell {0} {1}", learner.KeyWords[0], skill.TeachMessage));
-                return new Result(true, "");
+                return new Result(null, false);
             }
             else
             {
                 guildMaster.EnqueueCommand(string.Format("Tell {0} You already know that skill.", learner.KeyWords[0]));
-                return new Result(false, "");
+                return new Result(null, true);
             }
         }
 
@@ -148,12 +148,12 @@ namespace Objects.Personality.Personalities
             {
                 learner.SpellBook.Add(spellName, spell);
                 guildMaster.EnqueueCommand(string.Format("Tell {0} {1}", learner.KeyWords[0], spell.TeachMessage));
-                return new Result(true, "");
+                return new Result(null, false);
             }
             else
             {
                 guildMaster.EnqueueCommand(string.Format("Tell {0} You already know that spell.", learner.KeyWords[0]));
-                return new Result(false, "");
+                return new Result(null, true);
             }
         }
 
@@ -187,7 +187,7 @@ namespace Objects.Personality.Personalities
             {
                 guildMaster.EnqueueCommand(string.Format("Tell {0} I can not teach you anything at this time.", actor.KeyWords.FirstOrDefault()));
             }
-            return new Result(true, "");
+            return new Result(null, false);
         }
 
         #endregion Teach

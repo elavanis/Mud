@@ -10,7 +10,7 @@ namespace Objects.Command.PC
 {
     public class Areas : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Areas");
+        public IResult Instructions { get; } = new Result("Areas", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Areas" };
 
@@ -29,7 +29,7 @@ namespace Objects.Command.PC
                 stringBuilder.AppendLine($"{zone.Name.PadRight(zoneNameLength)} -- Level: {zone.Level}");
             }
 
-            return new Result(false, stringBuilder.ToString());
+            return new Result(stringBuilder.ToString(), true);
         }
     }
 }

@@ -76,7 +76,7 @@ namespace ObjectsUnitTest.Command.God
             pc.Setup(e => e.GotoLeaveMessage).Returns("God Leaves");
             canDoSomething.Setup(e => e.SeeObject(It.IsAny<IMobileObject>(), pc.Object)).Returns(true);
             commandList.Setup(e => e.PcCommandsLookup).Returns(dictionaryMobileObjectCommand);
-            mockCommand.Setup(e => e.PerformCommand(It.IsAny<IMobileObject>(), It.IsAny<ICommand>())).Returns(new Result(true, "look result"));
+            mockCommand.Setup(e => e.PerformCommand(It.IsAny<IMobileObject>(), It.IsAny<ICommand>())).Returns(new Result("look result", true));
             dictionaryMobileObjectCommand.Add("LOOK", mockCommand.Object);
 
             GlobalReference.GlobalValues.World = world.Object;
@@ -92,7 +92,7 @@ namespace ObjectsUnitTest.Command.God
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -114,7 +114,7 @@ namespace ObjectsUnitTest.Command.God
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
 
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -132,7 +132,7 @@ namespace ObjectsUnitTest.Command.God
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
 
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -150,7 +150,7 @@ namespace ObjectsUnitTest.Command.God
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
 
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -167,7 +167,7 @@ namespace ObjectsUnitTest.Command.God
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             notify.Verify(e => e.Room(pc.Object, null, pc.Object.Room, It.IsAny<ITranslationMessage>(), null, true, false), Times.Exactly(2));
         }

@@ -64,7 +64,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -107,7 +107,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.North).Returns<IExit>(null);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -125,7 +125,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.North).Returns(exit.Object);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 

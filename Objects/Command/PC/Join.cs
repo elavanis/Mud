@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Join : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Join");
+        public IResult Instructions { get; } = new Result("Join", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Join" };
 
@@ -35,7 +35,7 @@ namespace Objects.Command.PC
                     }
                 }
             }
-            return new Result(false, "There is no Guildmaster here to induct you.");
+            return new Result("There is no Guildmaster here to induct you.", true);
         }
     }
 }

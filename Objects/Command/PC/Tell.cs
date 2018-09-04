@@ -13,7 +13,7 @@ namespace Objects.Command.PC
 {
     public class Tell : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Tell [Player Name] [Message]");
+        public IResult Instructions { get; } = new Result("Tell [Player Name] [Message]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Tell" };
 
@@ -36,22 +36,22 @@ namespace Objects.Command.PC
                         string message = string.Format("{0} tells you -- {1}", performer.KeyWords[0], strBldr.ToString()).Trim();
                         GlobalReference.GlobalValues.Notify.Mob(player, new TranslationMessage(message, TagType.Communication));
 
-                        return new Result(true, "");
+                        return new Result(null, false);
                     }
                     else
                     {
                         string message = string.Format("Unable to find {0} to tell them.", command.Parameters[0].ParameterValue);
-                        return new Result(false, message);
+                        return new Result(message, true);
                     }
                 }
                 else
                 {
-                    return new Result(false, "What would you like to tell them?");
+                    return new Result("What would you like to tell them?", true);
                 }
             }
             else
             {
-                return new Result(false, "Who would you like to tell what?");
+                return new Result("Who would you like to tell what?", true);
             }
         }
 

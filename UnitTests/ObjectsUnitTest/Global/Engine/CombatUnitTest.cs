@@ -56,7 +56,7 @@ namespace ObjectsUnitTest.Engine
 
             IResult result = combat.AddCombatPair(attacker.Object, defender.Object);
 
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("success", result.ResultMessage);
         }
 
@@ -77,7 +77,7 @@ namespace ObjectsUnitTest.Engine
             combat.AddCombatPair(attacker.Object, defender.Object);
             IResult result = combat.AddCombatPair(attacker.Object, defender.Object);
 
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("fail", result.ResultMessage);
         }
 

@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Unequip : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Unequip [Item Name]");
+        public IResult Instructions { get; } = new Result("Unequip [Item Name]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Unequip" };
 
@@ -20,7 +20,7 @@ namespace Objects.Command.PC
         {
             if (command.Parameters.Count <= 0)
             {
-                return new Result(false, "What would you like to unequip?");
+                return new Result("What would you like to unequip?", true);
             }
 
             IEquipment equippedItem = null;
@@ -38,12 +38,12 @@ namespace Objects.Command.PC
                 performer.Items.Add(equippedItem);
                 performer.ResetMaxStatValues();
                 string message = string.Format("You removed {0}.", equippedItem.SentenceDescription);
-                return new Result(true, message);
+                return new Result(message, false);
             }
             else
             {
                 string message = string.Format("You do not appear to have {0} equipped.", parameter.ParameterValue);
-                return new Result(false, message);
+                return new Result(message, true);
             }
         }
     }

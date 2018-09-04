@@ -94,7 +94,7 @@ namespace ObjectsUnitTest.Magic
             npc.Setup(e => e.Mana).Returns(0);
             IResult result = spell.ProcessSpell(npc.Object, command.Object);
 
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("NotEnoughMana", result.ResultMessage);
         }
 
@@ -103,7 +103,7 @@ namespace ObjectsUnitTest.Magic
         {
             IResult result = spell.ProcessSpell(npc.Object, command.Object);
 
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("performNotify", result.ResultMessage);
             notify.Verify(e => e.Room(npc.Object, npc.Object, room.Object, translationMessageRoom.Object, new List<IMobileObject>() { npc.Object }, false, false), Times.Once);
             notify.Verify(e => e.Mob(npc.Object, npc.Object, npc.Object, translationMessageTarget.Object, false, false), Times.Once);

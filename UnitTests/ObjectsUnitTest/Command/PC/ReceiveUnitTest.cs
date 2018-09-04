@@ -68,7 +68,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -86,7 +86,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("Only player characters can receive.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(npc.Object, null);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -96,7 +96,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("No craftsman found at this location.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(pc.Object, null);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -111,7 +111,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(pc.Object, null);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             npc.Verify(e => e.EnqueueCommand("Tell pc As promised, here is your item."));
         }
@@ -127,7 +127,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(pc.Object, null);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             npc.Verify(e => e.EnqueueCommand("Tell pc Sorry I don't have anything for you to pick up at this time."));
         }

@@ -13,7 +13,7 @@ namespace Objects.Command.PC
 {
     public class Relax : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Relax");
+        public IResult Instructions { get; } = new Result("Relax", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Relax" };
 
@@ -22,7 +22,7 @@ namespace Objects.Command.PC
             performer.Position = CharacterPosition.Relax;
             GlobalReference.GlobalValues.Engine.Event.Relax(performer);
 
-            return new Result(true, "You lay down and relax.");
+            return new Result("You lay down and relax.", false);
         }
     }
 }

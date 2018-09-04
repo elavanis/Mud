@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Buy : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Buy {Item Number}");
+        public IResult Instructions { get; } = new Result("Buy {Item Number}", true);
 
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Buy" };
@@ -47,7 +47,7 @@ namespace Objects.Command.PC
                 }
             }
 
-            return new Result(false, "There is no merchant here to sell to you.");
+            return new Result("There is no merchant here to sell to you.", true);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Objects.Command.PC
 {
     public class Sell : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Sell {Item Keyword}");
+        public IResult Instructions { get; } = new Result("Sell {Item Keyword}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Sell" };
 
@@ -54,7 +54,7 @@ namespace Objects.Command.PC
                 }
             }
 
-            return new Result(false, "There is no merchant here to sell to.");
+            return new Result("There is no merchant here to sell to.", true);
         }
     }
 }
