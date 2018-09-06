@@ -62,7 +62,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.GameDateTime = gameDateTime.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

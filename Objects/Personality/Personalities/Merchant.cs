@@ -41,7 +41,7 @@ namespace Objects.Personality.Personalities
                 performer.Items.Remove(item);
 
                 string message = string.Format("You sold the {0} for {1}.", item.SentenceDescription, GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(amount));
-                return new Result("", false);
+                return new Result(message, false);
             }
             else
             {

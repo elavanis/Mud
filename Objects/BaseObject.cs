@@ -168,6 +168,13 @@ namespace Objects
                     npc.Room = room;
                     return;
                 }
+
+                IItem item = @object as IItem;
+                if (item != null)
+                {
+                    room.AddItemToRoom(item);
+                    return;
+                }
             }
         }
 

@@ -110,8 +110,8 @@ namespace ObjectsUnitTest.Command.PC
 
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
-            Assert.AreEqual(0, roomItems.Count);
             Assert.IsTrue(mobItems.Contains(item.Object));
+            room.Verify(e => e.RemoveItemFromRoom(item.Object));
         }
 
 
@@ -151,8 +151,10 @@ namespace ObjectsUnitTest.Command.PC
 
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual(null, result.ResultMessage);
-            Assert.AreEqual(0, roomItems.Count);
+            //Assert.AreEqual(0, roomItems.Count);
             Assert.IsTrue(mobItems.Contains(item.Object));
+            room.Verify(e => e.RemoveItemFromRoom(item.Object));
+            room.Verify(e => e.RemoveItemFromRoom(item2.Object));
         }
 
         [TestMethod]

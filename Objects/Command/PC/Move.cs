@@ -85,7 +85,10 @@ namespace Objects.Command.PC
                 performer.Room = proposedRoom;
                 proposedRoom.Enter(performer);
 
-                return GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(performer, new Command());
+                //take the result of the look, change it so they can't move again and return it.  
+                result = GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(performer, new Command());
+                result.AllowAnotherCommand = false;
+                return result;
             }
 
             //the character was moved before they could move to the desired room.

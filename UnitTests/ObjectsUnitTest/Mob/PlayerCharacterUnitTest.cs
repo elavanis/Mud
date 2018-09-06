@@ -144,7 +144,6 @@ namespace ObjectsUnitTest.Mob
             Mock<IEngine> engine = new Mock<IEngine>();
             Mock<IEvent> evnt = new Mock<IEvent>();
             Mock<IBaseObjectId> roomId = new Mock<IBaseObjectId>();
-            List<IItem> items = new List<IItem>();
 
             roomId.Setup(e => e.Zone).Returns(1);
             roomId.Setup(e => e.Id).Returns(1);
@@ -152,7 +151,6 @@ namespace ObjectsUnitTest.Mob
             pc.RespawnPoint = roomId.Object;
             pcs.Add(pc);
             room.Setup(e => e.PlayerCharacters).Returns(pcs);
-            room.Setup(e => e.Items).Returns(items);
             room2.Setup(e => e.PlayerCharacters).Returns(pcs2);
             world.Setup(e => e.Zones).Returns(zoneDictionary);
             zone.Setup(e => e.Rooms).Returns(roomDictionary);
@@ -165,9 +163,8 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.Engine = engine.Object;
 
             pc.Die();
+            room.Verify(e => e.AddItemToRoom(It.IsAny<IItem>(), 0));
             Assert.AreEqual(1, pc.Corpses.Count);
-            Assert.AreEqual(1, items.Count);
-            Assert.AreNotSame(pc.Corpses[0], items[0]);
             evnt.Verify(e => e.OnDeath(pc), Times.Once);
             evnt.Verify(e => e.EnterRoom(pc), Times.Once);
         }

@@ -79,7 +79,10 @@ namespace Objects.Command.God
             newRoom.AddMobileObjectToRoom(performer);
             performer.Room = newRoom;
 
-            return GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(performer, new Command());
+            //take the result of the look, change it so they can't move again and return it.  
+            IResult result = GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(performer, new Command());
+            result.AllowAnotherCommand = false;
+            return result;
         }
     }
 }

@@ -81,7 +81,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
 
             IResult result = merchant.Sell(mockMerchant.Object, mockMobileObject.Object, item.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             mockMobileObject.VerifySet(e => e.Money = 5);
             Assert.AreEqual(0, items.Count);
@@ -101,7 +101,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
 
             IResult result = merchant.Offer(mockMerchant.Object, mockMobileObject.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -152,7 +152,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
 
             IResult result = merchant.Buy(mockMerchant.Object, mockMobileObject.Object, 1);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             mockMobileObject.VerifySet(e => e.Money = 0);
             Assert.AreEqual(1, items.Count);
@@ -171,7 +171,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
 
             IResult result = merchant.List(mockMerchant.Object, mockMobileObject.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

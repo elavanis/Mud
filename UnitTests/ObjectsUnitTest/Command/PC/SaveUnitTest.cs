@@ -81,7 +81,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("Character Saved", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
-            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             world.Verify(e => e.SaveCharcter(pc.Object), Times.Once);
             pc.Verify(e => e.RemoveOldCorpses(It.IsAny<DateTime>()));

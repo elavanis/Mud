@@ -28,7 +28,7 @@ namespace Objects.Command.PC
 
             if (strbBldr.Length == 0)
             {
-                return new Result("Nothing found was found.", true);
+                return new Result("Nothing found was found.", false);
             }
             else
             {
