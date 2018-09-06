@@ -43,7 +43,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -68,7 +68,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -83,13 +83,13 @@ namespace ObjectsUnitTest.Command.PC
 
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            tagWrapper.Setup(e => e.WrapInTag("There is nothing to enchant here with.", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag("There is nothing to enchant with here.", TagType.Info)).Returns("message");
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -112,7 +112,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -145,7 +145,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -172,7 +172,7 @@ namespace ObjectsUnitTest.Command.PC
             findObjects.Setup(e => e.FindHeldItemsOnMob(mob.Object, "item", 0)).Returns(item.Object);
             item.Setup(e => e.Level).Returns(10);
             enchantery.Setup(e => e.CostToEnchantLevel1Item).Returns(10);
-            enchantery.Setup(e => e.Enchant(item.Object)).Returns(new Result(false, "failure"));
+            enchantery.Setup(e => e.Enchant(item.Object)).Returns(new Result("failure", true));
             settings.Setup(e => e.Multiplier).Returns(2);
             moneyToCoins.Setup(e => e.FormatedAsCoins(10240)).Returns("correct money");
             itemsHeldByMob.Add(item.Object);
@@ -183,7 +183,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual(null, result.ResultMessage); //not sure why its doing this
             Assert.IsFalse(itemsHeldByMob.Contains(item.Object));
             mob.VerifySet(e => e.Money = 0);
@@ -212,7 +212,7 @@ namespace ObjectsUnitTest.Command.PC
             findObjects.Setup(e => e.FindHeldItemsOnMob(mob.Object, "item", 0)).Returns(item.Object);
             item.Setup(e => e.Level).Returns(10);
             enchantery.Setup(e => e.CostToEnchantLevel1Item).Returns(10);
-            enchantery.Setup(e => e.Enchant(item.Object)).Returns(new Result(true, "success"));
+            enchantery.Setup(e => e.Enchant(item.Object)).Returns(new Result("success", false));
             settings.Setup(e => e.Multiplier).Returns(2);
             moneyToCoins.Setup(e => e.FormatedAsCoins(10240)).Returns("correct money");
             itemsHeldByMob.Add(item.Object);
@@ -223,7 +223,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual(null, result.ResultMessage); //not sure why its doing this
             Assert.IsTrue(itemsHeldByMob.Contains(item.Object));
             mob.VerifySet(e => e.Money = 0);

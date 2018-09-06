@@ -47,7 +47,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -65,7 +65,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("While you ponder what to open you let you mouth hang open.  Hey you did open something!", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -81,7 +81,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -100,7 +100,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -122,7 +122,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 

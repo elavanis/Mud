@@ -19,7 +19,7 @@ namespace Objects.Command.PC
 {
     public class Move : IMobileObjectCommand, IMove
     {
-        public IResult Instructions { get; } = new Result(true, InstructionText());
+        public IResult Instructions { get; } = new Result(InstructionText(), true);
 
         private static string InstructionText()
         {
@@ -85,11 +85,14 @@ namespace Objects.Command.PC
                 performer.Room = proposedRoom;
                 proposedRoom.Enter(performer);
 
-                return GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(performer, new Command());
+                //take the result of the look, change it so they can't move again and return it.  
+                result = GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(performer, new Command());
+                result.AllowAnotherCommand = false;
+                return result;
             }
 
             //the character was moved before they could move to the desired room.
-            return new Result(true, "");
+            return new Result("", false);
         }
 
 
@@ -149,13 +152,13 @@ namespace Objects.Command.PC
         {
             if (exit == null)
             {
-                return new Result(false, "There is no obvious way to leave that way.");
+                return new Result("There is no obvious way to leave that way.", true);
             }
 
             if (exit.Door != null && exit.Door.Opened == false)
             {
                 string message = string.Format("You will need to open the {0} first.", exit.Door.SentenceDescription);
-                return new Result(false, message);
+                return new Result(message, true);
             }
 
             return null;

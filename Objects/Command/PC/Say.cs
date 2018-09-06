@@ -14,7 +14,7 @@ namespace Objects.Command.PC
 {
     public class Say : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Say [Message]");
+        public IResult Instructions { get; } = new Result("Say [Message]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Say" };
 
@@ -28,11 +28,11 @@ namespace Objects.Command.PC
                 ITranslationMessage translationMessage = new TranslationMessage(message, TagType.Communication);
                 GlobalReference.GlobalValues.Notify.Room(performer, null, performer.Room, translationMessage, new List<IMobileObject>() { performer }, false, true);
 
-                return new Result(true, "");
+                return new Result("", false);
             }
             else
             {
-                return new Result(false, "What would you like to say?");
+                return new Result("What would you like to say?", true);
             }
         }
     }

@@ -11,7 +11,7 @@ namespace Objects.Command.God
 {
     public class RetrieveGameStats : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "RetrieveGameStats");
+        public IResult Instructions { get; } = new Result("RetrieveGameStats", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "RetrieveGameStats" };
 
@@ -22,11 +22,11 @@ namespace Objects.Command.God
 
             if (value != null)
             {
-                return new Result(true, value);
+                return new Result(value, false);
             }
             else
             {
-                return new Result(false, "Unable to retrieve game stats.");
+                return new Result("Unable to retrieve game stats.", true);
             }
         }
     }

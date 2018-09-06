@@ -57,7 +57,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -81,7 +81,7 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -99,7 +99,7 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -117,7 +117,7 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -136,7 +136,7 @@ namespace ObjectsUnitTest.Command.PC
             trap.Setup(e => e.DisarmSuccessRoll).Returns(10);
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -163,7 +163,7 @@ namespace ObjectsUnitTest.Command.PC
             dice.Setup(e => e.Sides).Returns(1);
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             performer.Verify(e => e.TakeDamage(0, damage.Object, null));
         }
@@ -189,7 +189,7 @@ namespace ObjectsUnitTest.Command.PC
             dice.Setup(e => e.Sides).Returns(1);
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             performer.Verify(e => e.TakeDamage(0, damage.Object, null));
         }

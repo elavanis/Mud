@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Sit : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Sit");
+        public IResult Instructions { get; } = new Result("Sit", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Sit" };
 
@@ -21,7 +21,7 @@ namespace Objects.Command.PC
             performer.Position = CharacterPosition.Sit;
             GlobalReference.GlobalValues.Engine.Event.Sit(performer);
 
-            return new Result(true, "You sit down.");
+            return new Result("You sit down.", false);
         }
     }
 }

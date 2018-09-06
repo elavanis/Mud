@@ -34,7 +34,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -58,7 +58,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("ShortDescription", TagType.Item)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -71,7 +71,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("You are not carrying anything.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

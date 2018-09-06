@@ -14,7 +14,7 @@ namespace Objects.Command.PC
 {
     public class Craft : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Craft [Position] [Level] [Keyword] [\"SentenceDescription\"] [\"ShortDescription\"] [\"LongDescription\"] [\"ExamineDescription\"] {DamageType}");
+        public IResult Instructions { get; } = new Result("Craft [Position] [Level] [Keyword] [\"SentenceDescription\"] [\"ShortDescription\"] [\"LongDescription\"] [\"ExamineDescription\"] {DamageType}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Craft" };
 
@@ -23,7 +23,7 @@ namespace Objects.Command.PC
             IPlayerCharacter pc = performer as IPlayerCharacter;
             if (pc == null)
             {
-                return new Result(false, "Only player characters can have craftsman craft items.");
+                return new Result("Only player characters can have craftsman craft items.", true);
             }
 
             INonPlayerCharacter craftsman = null;
@@ -32,12 +32,12 @@ namespace Objects.Command.PC
 
             if (craftsman == null)
             {
-                return new Result(false, "There is no craftsman to make anything for you.");
+                return new Result("There is no craftsman to make anything for you.", true);
             }
 
             if (command.Parameters.Count < 7)
             {
-                return new Result(false, "Please provide all the parameters needed for the craftsman to make your item.");
+                return new Result("Please provide all the parameters needed for the craftsman to make your item.", true);
             }
 
             try
@@ -45,7 +45,7 @@ namespace Objects.Command.PC
                 AvalableItemPosition position = GetPosition(command.Parameters[0].ParameterValue);
                 if (position == AvalableItemPosition.Wield && command.Parameters.Count < 8)
                 {
-                    return new Result(false, "Damage type is required for weapons.");
+                    return new Result("Damage type is required for weapons.", true);
                 }
 
                 int level = int.Parse(command.Parameters[1].ParameterValue);
@@ -66,11 +66,11 @@ namespace Objects.Command.PC
             {
                 if (ex is ArgumentException)
                 {
-                    return new Result(false, ex.Message);
+                    return new Result(ex.Message, true);
                 }
                 else
                 {
-                    return new Result(false, "Please verify all parameters and try again.");
+                    return new Result("Please verify all parameters and try again.", true);
                 }
             }
         }

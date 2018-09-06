@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Save : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Save");
+        public IResult Instructions { get; } = new Result("Save", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Save" };
 
@@ -24,11 +24,11 @@ namespace Objects.Command.PC
                 pc.RemoveOldCorpses(DateTime.UtcNow.AddMonths(-1));
                 GlobalReference.GlobalValues.World.SaveCharcter(pc);
 
-                return new Result(true, "Character Saved");
+                return new Result("Character Saved", true);
             }
             else
             {
-                return new Result(false, "Only PlayerCharacters can save.");
+                return new Result("Only PlayerCharacters can save.", true);
             }
         }
     }

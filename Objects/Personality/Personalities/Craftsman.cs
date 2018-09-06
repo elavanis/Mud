@@ -46,7 +46,7 @@ namespace Objects.Personality.Personalities
                     break;
                 case Equipment.AvalableItemPosition.NotWorn:
                     craftsman.EnqueueCommand($"Tell {performer.KeyWords[0]} I can not build that.");
-                    result = new Result(false, "");
+                    result = new Result("", true); ;
                     break;
                 default:
                     IArmor armor = new Armor();
@@ -55,7 +55,7 @@ namespace Objects.Personality.Personalities
                     break;
             }
 
-            if (result.ResultSuccess)
+            if (!result.AllowAnotherCommand)
             {
                 ICraftsmanObject craftsmanObject = new CraftsmanObject();
                 craftsmanObject.CraftsmanId = new BaseObjectId(craftsman);
@@ -91,7 +91,7 @@ namespace Objects.Personality.Personalities
             craftsman.EnqueueCommand($"Tell {performer.KeyWords[0]} I will have this finished for you on {GlobalReference.GlobalValues.GameDateTime.BuildFormatedDateTime(completionDate)}.");
 
 
-            result = new Result(true, "");
+            result = new Result("", false);
 
             return result;
         }
@@ -104,7 +104,7 @@ namespace Objects.Personality.Personalities
             if (sellPrice > performer.Money)
             {
                 string money = GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(sellPrice);
-                return new Result(false, $"You need {money} to have the item made for you.");
+                return new Result($"You need {money} to have the item made for you.", true);
             }
             else
             {

@@ -35,7 +35,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -61,7 +61,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-            Assert.AreEqual(false, result.ResultSuccess);
+            Assert.AreEqual(true, result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -82,7 +82,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-            Assert.AreEqual(true, result.ResultSuccess);
+            Assert.AreEqual(false, result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -111,7 +111,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-            Assert.AreEqual(false, result.ResultSuccess);
+            Assert.AreEqual(true, result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -140,7 +140,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-            Assert.AreEqual(true, result.ResultSuccess);
+            Assert.AreEqual(false, result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -169,7 +169,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-            Assert.AreEqual(true, result.ResultSuccess);
+            Assert.AreEqual(true, result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

@@ -60,7 +60,7 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
 
             IResult result = singleTargetSkill.Object.ProcessSkill(npc.Object, command.Object);
             Assert.AreEqual("notEnoughParams", result.ResultMessage);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
 
             IResult result = singleTargetSkill.Object.ProcessSkill(npc.Object, command.Object);
             Assert.AreEqual("notFound", result.ResultMessage);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
         }
 
         [TestMethod]
@@ -78,7 +78,7 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
         {
             IResult result = singleTargetSkill.Object.ProcessSkill(npc.Object, command.Object);
             Assert.AreEqual(null, result.ResultMessage);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
         }
     }
 }

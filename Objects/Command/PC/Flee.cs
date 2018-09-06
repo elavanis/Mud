@@ -15,7 +15,7 @@ namespace Objects.Command.PC
 {
     public class Flee : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Flee {Direction}");
+        public IResult Instructions { get; } = new Result("Flee {Direction}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Flee" };
 
@@ -35,12 +35,12 @@ namespace Objects.Command.PC
                 }
                 else
                 {
-                    return new Result(true, "You attempt to run away but are not able to.");  //return true so the mob does not get another move
+                    return new Result("You attempt to run away but are not able to.", false);  //return false so the mob does not get another move
                 }
             }
             else
             {
-                return new Result(false, "You run around waving your arms and shouting \"Somebody save me.\" but then realize nothing is fighting you.");
+                return new Result("You run around waving your arms and shouting \"Somebody save me.\" but then realize nothing is fighting you.", true);
             }
         }
 
@@ -137,7 +137,7 @@ namespace Objects.Command.PC
                 }
 
                 //the character was moved before they could move to the desired room.
-                return new Result(true, "");
+                return new Result("", false);
             }
             else
             {

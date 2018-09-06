@@ -179,13 +179,13 @@ namespace Objects.Room
                 {
                     if (NonPlayerCharacters.Count != 0)
                     {
-                        return new Result(false, "The room is to small to fit another person in there.");
+                        return new Result("The room is to small to fit another person in there.", true);
                     }
                 }
 
                 if (Attributes.Contains(RoomAttribute.NoNPC))
                 {
-                    return new Result(false, "Non player characters can not enter here.");
+                    return new Result("Non player characters can not enter here.", true);
                 }
             }
 
@@ -196,7 +196,7 @@ namespace Objects.Room
                 {
                     if (PlayerCharacters.Count != 0)
                     {
-                        return new Result(false, "The room is to small to fit another person in there.");
+                        return new Result("The room is to small to fit another person in there.", true);
                     }
                 }
             }
@@ -215,7 +215,7 @@ namespace Objects.Room
             if (mobileObject.IsInCombat)
             {
                 //TODO Update this message when flee is implemented to mention fleeing.
-                return new Result(false, "You can not leave while your fighting for your life.");
+                return new Result("You can not leave while your fighting for your life.", true);
             }
 
             return null;
@@ -229,14 +229,14 @@ namespace Objects.Room
                 && mobileObject.Stamina < mobileObject.MaxStamina))
 
             {
-                return new Result(false, "You need to rest before you attempt to leave.");
+                return new Result("You need to rest before you attempt to leave.", true);
             }
 
             //move does not have enough stamina to leave, rest
             if (mobileObject.MaxStamina >= MovementCost
                 && mobileObject.Stamina < MovementCost)
             {
-                return new Result(false, "You need to rest before you attempt to leave.");
+                return new Result("You need to rest before you attempt to leave.", true);
             }
 
             return null;
@@ -257,7 +257,7 @@ namespace Objects.Room
                         {
                             if (guard.GuardDirections.Contains(direction))
                             {
-                                return new Result(false, guard.BlockLeaveMessage);
+                                return new Result(guard.BlockLeaveMessage, true);
                             }
                         }
                     }

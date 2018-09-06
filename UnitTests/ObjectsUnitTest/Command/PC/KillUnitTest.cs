@@ -49,11 +49,11 @@ namespace ObjectsUnitTest.Command.PC
             findObjects = new Mock<IFindObjects>();
 
             Mock<IResult> result1 = new Mock<IResult>();
-            result1.Setup(e => e.ResultSuccess).Returns(true);
+            result1.Setup(e => e.AllowAnotherCommand).Returns(false);
             result1.Setup(e => e.ResultMessage).Returns("1");
 
             Mock<IResult> result2 = new Mock<IResult>();
-            result2.Setup(e => e.ResultSuccess).Returns(true);
+            result2.Setup(e => e.AllowAnotherCommand).Returns(false);
             result2.Setup(e => e.ResultMessage).Returns("2");
 
             npc1.Setup(e => e.KeyWords).Returns(new List<string>() { "npc1" });
@@ -83,7 +83,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -102,7 +102,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("You begin to attack npc1 sentence.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             combatEngine.Verify(e => e.AddCombatPair(mob.Object, npc1.Object), Times.Once);
         }
@@ -114,7 +114,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("Unable to find anything to kill.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -128,7 +128,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("You begin to attack npc1 sentence.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             combatEngine.Verify(e => e.AddCombatPair(mob.Object, npc1.Object), Times.Once);
         }
@@ -143,7 +143,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("Unable to find anything that matches that description to kill.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -154,7 +154,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("You were ready to attack but then you sense of peace rush over you and you decided not to attack.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -165,7 +165,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("You can not kill someone while you are asleep.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

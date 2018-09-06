@@ -14,7 +14,7 @@ namespace Objects.Command.PC
 {
     public class Disarm : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Disarm [Trap]");
+        public IResult Instructions { get; } = new Result("Disarm [Trap]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Disarm" };
 
@@ -22,7 +22,7 @@ namespace Objects.Command.PC
         {
             if (command.Parameters.Count <= 0)
             {
-                return new Result(false, "What would you like to disarm?");
+                return new Result("What would you like to disarm?", true);
             }
 
             string itemToDisarm = command.Parameters[0].ParameterValue;
@@ -30,7 +30,7 @@ namespace Objects.Command.PC
 
             if (trap == null)
             {
-                return new Result(true, $"Unable to find a {command.Parameters[0].ParameterValue} trap.");
+                return new Result($"Unable to find a {command.Parameters[0].ParameterValue} trap.", true);
             }
             else
             {
@@ -38,7 +38,7 @@ namespace Objects.Command.PC
                 if (performerRoll >= trap.DisarmSuccessRoll)
                 {
                     performer.Room.Traps.Remove(trap);
-                    return new Result(true, $"You successfully disarm the {itemToDisarm} trap.");
+                    return new Result($"You successfully disarm the {itemToDisarm} trap.", false);
                 }
                 else
                 {
@@ -47,16 +47,16 @@ namespace Objects.Command.PC
                         performer.TakeDamage(trap.DisarmFailureDamage.Dice.RollDice(), trap.DisarmFailureDamage, null);
                         if (trap.DisarmFailureMessage != null)
                         {
-                            return new Result(true, trap.DisarmFailureMessage);
+                            return new Result(trap.DisarmFailureMessage, false);
                         }
                         else
                         {
-                            return new Result(true, "You tried to disarm the trap but accidentally tripped it.");
+                            return new Result("You tried to disarm the trap but accidentally tripped it.", false);
                         }
                     }
                     else
                     {
-                        return new Result(true, $"You were unable to disarm the {itemToDisarm} trap.");
+                        return new Result($"You were unable to disarm the {itemToDisarm} trap.", false);
                     }
                 }
             }

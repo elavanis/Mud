@@ -48,7 +48,7 @@ namespace ObjectsUnitTest.Item.Items
             GlobalReference.GlobalValues.TagWrapper = tagwrapper.Object;
 
             IResult result = container.Open();
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

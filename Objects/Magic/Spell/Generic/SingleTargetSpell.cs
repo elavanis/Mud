@@ -24,7 +24,7 @@ namespace Objects.Magic.Spell.Generic
                 }
                 else
                 {
-                    return new Result(false, $"Unable to find {command.Parameters[1].ParameterValue}.");
+                    return new Result($"Unable to find {command.Parameters[1].ParameterValue}.", true);
                 }
             }
             else if (performer.IsInCombat)
@@ -38,11 +38,11 @@ namespace Objects.Magic.Spell.Generic
                 }
                 else
                 {
-                    return new Result(false, "Unable to find an opponent to cast the spell on.");
+                    return new Result("Unable to find an opponent to cast the spell on.", true);
                 }
             }
 
-            return new Result(false, $"The spell {command.Parameters[0].ParameterValue} requires a target.");
+            return new Result($"The spell {command.Parameters[0].ParameterValue} requires a target.", true);
         }
 
         private void SetParameters(IMobileObject performer, IBaseObject target)

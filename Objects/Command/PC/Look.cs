@@ -18,7 +18,7 @@ namespace Objects.Command.PC
 {
     public class Look : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "(L)ook {Object To Look At}");
+        public IResult Instructions { get; } = new Result("(L)ook {Object To Look At}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "L", "Look" };
 
@@ -28,12 +28,12 @@ namespace Objects.Command.PC
 
             if (performer.Position == CharacterPosition.Sleep)
             {
-                return new Result(false, "You can not look while asleep.");
+                return new Result("You can not look while asleep.", true);
             }
 
             if (!GlobalReference.GlobalValues.CanMobDoSomething.SeeDueToLight(performer))
             {
-                return new Result(false, "You can not see here because it is to dark.");
+                return new Result("You can not see here because it is to dark.", true);
             }
 
             if (command.Parameters.Count > 0)
@@ -46,12 +46,12 @@ namespace Objects.Command.PC
                     if (foundItem as IPlayerCharacter != null)
                     {
                         message = BuildMobLookMessage(foundItem as IMobileObject, TagWrapper.TagType.PlayerCharacter);
-                        return new Result(true, message);
+                        return new Result(message, true);
                     }
                     else if (foundItem as INonPlayerCharacter != null)
                     {
                         message = BuildMobLookMessage(foundItem as IMobileObject, TagWrapper.TagType.NonPlayerCharacter);
-                        return new Result(true, message);
+                        return new Result(message, true);
                     }
                     else if (foundItem as IContainer != null)
                     {
@@ -71,16 +71,16 @@ namespace Objects.Command.PC
                         }
 
                         message = GlobalReference.GlobalValues.TagWrapper.WrapInTag(strBldr.ToString().Trim(), TagWrapper.TagType.Item);
-                        return new Result(true, message, null);
+                        return new Result(message, true, null);
                     }
                     else
                     {
                         message = GlobalReference.GlobalValues.TagWrapper.WrapInTag(foundItem.LookDescription, TagWrapper.TagType.Item);
-                        return new Result(true, message);
+                        return new Result(message, true);
                     }
                 }
 
-                return new Result(false, "Unable to find anything that matches that description.");
+                return new Result("Unable to find anything that matches that description.", true);
             }
             else
             {
@@ -204,7 +204,7 @@ namespace Objects.Command.PC
 
             string message = masterBuilder.ToString().Trim();
             #endregion PC
-            return new Result(true, message, null);
+            return new Result(message, true, null);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Time_Instructions()
         {
             IResult result = command.Instructions;
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -62,7 +62,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.GameDateTime = gameDateTime.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

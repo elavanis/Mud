@@ -73,7 +73,7 @@ namespace ObjectsUnitTest.Room
             Mock<INonPlayerCharacter> mob = new Mock<INonPlayerCharacter>();
 
             IResult result = room.CheckEnter(mob.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -88,7 +88,7 @@ namespace ObjectsUnitTest.Room
             Mock<INonPlayerCharacter> mob = new Mock<INonPlayerCharacter>();
 
             IResult result = room.CheckEnter(mob.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -123,7 +123,7 @@ namespace ObjectsUnitTest.Room
             Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
 
             IResult result = room.CheckEnter(mob.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -150,7 +150,7 @@ namespace ObjectsUnitTest.Room
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             IResult result = room.CheckLeave(mob.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -168,7 +168,7 @@ namespace ObjectsUnitTest.Room
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             IResult result = room.CheckLeave(mob.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -206,7 +206,7 @@ namespace ObjectsUnitTest.Room
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             IResult result = room.CheckLeaveDirection(mob.Object, Direction.North);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -224,7 +224,7 @@ namespace ObjectsUnitTest.Room
 
 
             IResult result = room.CheckLeave(mob.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 

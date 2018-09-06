@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Stand : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Stand");
+        public IResult Instructions { get; } = new Result("Stand", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Stand" };
 
@@ -21,7 +21,7 @@ namespace Objects.Command.PC
             performer.Position = CharacterPosition.Stand;
             GlobalReference.GlobalValues.Engine.Event.Stand(performer);
 
-            return new Result(true, "You stand up.");
+            return new Result("You stand up.", false);
         }
     }
 }

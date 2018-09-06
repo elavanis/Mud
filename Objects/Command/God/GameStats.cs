@@ -11,7 +11,7 @@ namespace Objects.Command.God
 {
     public class GameStats : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "GameStats");
+        public IResult Instructions { get; } = new Result("GameStats", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "GameStats" };
 
@@ -21,7 +21,7 @@ namespace Objects.Command.God
             performer.EnqueueCommand("RetrieveGameStats");
 
 
-            return new Result(true, "Calculating Stats");
+            return new Result("Calculating Stats", true);
         }
     }
 }

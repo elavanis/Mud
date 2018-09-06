@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Sleep : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Sleep");
+        public IResult Instructions { get; } = new Result("Sleep", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Sleep" };
 
@@ -21,7 +21,7 @@ namespace Objects.Command.PC
             performer.Position = CharacterPosition.Sleep;
             GlobalReference.GlobalValues.Engine.Event.Sleep(performer);
 
-            return new Result(true, "You lay down and goto sleep.");
+            return new Result("You lay down and goto sleep.", false);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Objects.Command.PC
 {
     public class Abilities : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Abils|Abilities");
+        public IResult Instructions { get; } = new Result("Abils|Abilities", true);
 
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Abils", "Abilities" };
@@ -63,7 +63,7 @@ namespace Objects.Command.PC
                 }
             }
 
-            return new Result(true, strBldr.ToString().Trim());
+            return new Result(strBldr.ToString().Trim(), false);
         }
     }
 }

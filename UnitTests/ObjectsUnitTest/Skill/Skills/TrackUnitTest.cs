@@ -106,7 +106,7 @@ namespace ObjectsUnitTest.Skill.Skills
             tagWrapper.Setup(e => e.WrapInTag("You can not track while asleep.", TagType.Info)).Returns("expected message");
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("expected message", result.ResultMessage);
         }
 
@@ -117,7 +117,7 @@ namespace ObjectsUnitTest.Skill.Skills
             tagWrapper.Setup(e => e.WrapInTag("What are you trying to track?", TagType.Info)).Returns("expected message");
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("expected message", result.ResultMessage);
         }
 
@@ -132,7 +132,7 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>() { npc.Object });
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("expected message", result.ResultMessage);
         }
 
@@ -148,7 +148,7 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>() { pc.Object });
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("expected message", result.ResultMessage);
         }
 
@@ -166,7 +166,7 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindNpcInRoom(room2.Object, "target")).Returns(new List<INonPlayerCharacter>() { npc.Object });
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("expected message", result.ResultMessage);
         }
 
@@ -188,7 +188,7 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindPcInRoom(room3.Object, "target")).Returns(new List<IPlayerCharacter>());
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("expected message", result.ResultMessage);
         }
 
@@ -208,7 +208,7 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindPcInRoom(room3.Object, "target")).Returns(new List<IPlayerCharacter>());
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("expected message", result.ResultMessage);
         }
 
@@ -234,7 +234,7 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindPcInRoom(room2.Object, "target")).Returns(new List<IPlayerCharacter>());
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("expected message", result.ResultMessage);
             room2.Verify(e => e.Attributes, Times.Once);
         }
@@ -264,7 +264,7 @@ namespace ObjectsUnitTest.Skill.Skills
             parameters.Add(param.Object);
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-            Assert.IsTrue(result.ResultSuccess);
+             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("expected message", result.ResultMessage);
             room2.Verify(e => e.Attributes, Times.Once);
         }

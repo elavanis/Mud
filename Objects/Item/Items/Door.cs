@@ -40,7 +40,7 @@ namespace Objects.Item.Items
         public IResult Open()
         {
             Opened = true;
-            return new Result(true, OpenMessage);
+            return new Result(OpenMessage, false);
         }
     }
 }

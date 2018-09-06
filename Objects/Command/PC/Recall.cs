@@ -17,11 +17,11 @@ namespace Objects.Command.PC
 {
     public class Recall : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Recall {Set}");
+        public IResult Instructions { get; } = new Result("Recall {Set}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Recall" };
 
-        private IResult SuccesfulRecallResult { get; } = new Result(true, "Your body begins to shimmer and become translucent.\r\nThe surroundings begin to fade to black and then new scenery appears before you.\r\nSlowly your body becomes solid again and you can see the recall crystal in front of you.");
+        private IResult SuccesfulRecallResult { get; } = new Result("Your body begins to shimmer and become translucent.\r\nThe surroundings begin to fade to black and then new scenery appears before you.\r\nSlowly your body becomes solid again and you can see the recall crystal in front of you.", false);
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
@@ -42,13 +42,13 @@ namespace Objects.Command.PC
 
                     if (beacon == null)
                     {
-                        return new Result(false, "There is no recall beacon here.");
+                        return new Result("There is no recall beacon here.", true);
                     }
                     else
                     {
                         performer.RecallPoint = new RoomId(performer.Room);
 
-                        return new Result(true, "Recall point set.");
+                        return new Result("Recall point set.", false);
                     }
                 }
             }
@@ -64,7 +64,7 @@ namespace Objects.Command.PC
 
                 if (currentRoom.Attributes.Contains(Room.Room.RoomAttribute.NoRecall))
                 {
-                    return new Result(false, "You try to recall but your body is held in place.");
+                    return new Result("You try to recall but your body is held in place.", true);
                 }
 
                 IRoom targetRoom = null;
@@ -101,12 +101,12 @@ namespace Objects.Command.PC
                 }
                 else
                 {
-                    return new Result(false, "Invalid recall point defined.");
+                    return new Result("Invalid recall point defined.", true);
                 }
             }
             else
             {
-                return new Result(false, "No recall point defined.");
+                return new Result("No recall point defined.", true);
             }
         }
     }

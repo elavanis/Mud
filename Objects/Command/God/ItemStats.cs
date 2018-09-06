@@ -20,7 +20,7 @@ namespace Objects.Command.God
 {
     public class ItemStats : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "ItemStats [Item Keyword]");
+        public IResult Instructions { get; } = new Result("ItemStats [Item Keyword]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "ItemStats" };
 
@@ -46,12 +46,12 @@ namespace Objects.Command.God
                         message += "[" + parm.ParameterNumber + "]";
                         message += ".";
                     }
-                    return new Result(false, message);
+                    return new Result(message, true);
                 }
             }
             else
             {
-                return new Result(false, "What item would you like to get stats on?");
+                return new Result("What item would you like to get stats on?", true);
             }
         }
 
@@ -86,7 +86,7 @@ namespace Objects.Command.God
             strBldr.Append(GetArmorInfo(item));
             strBldr.Append(GetWeaponInfo(item));
 
-            return new Result(true, strBldr.ToString().Trim());
+            return new Result(strBldr.ToString().Trim(), false);
         }
 
         private string GetArmorInfo(IItem item)

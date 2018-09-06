@@ -41,11 +41,11 @@ namespace Objects.Personality.Personalities
                 performer.Items.Remove(item);
 
                 string message = string.Format("You sold the {0} for {1}.", item.SentenceDescription, GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(amount));
-                return new Result(true, message);
+                return new Result(message, false);
             }
             else
             {
-                return new Result(false, "The merchant was unwilling to buy that from you.");
+                return new Result("The merchant was unwilling to buy that from you.", true);
             }
         }
 
@@ -62,7 +62,7 @@ namespace Objects.Personality.Personalities
                 strBldr.AppendLine(string.Format("{0} - {1}", item.ShortDescription, BuyPrice(merchant, performer, item)));
             }
 
-            return new Result(true, strBldr.ToString().Trim());
+            return new Result(strBldr.ToString().Trim(), false);
         }
         #endregion Sell
 
@@ -81,17 +81,17 @@ namespace Objects.Personality.Personalities
                     performer.Items.Add(item);
 
                     string message = string.Format("You bought the {0} for {1}.", item.SentenceDescription, GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(amount));
-                    return new Result(true, message);
+                    return new Result(message, false);
                 }
                 else
                 {
                     string message = string.Format("You need {0} to buy the {1}.", GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(amount), item.SentenceDescription);
-                    return new Result(false, message);
+                    return new Result(message, true);
                 }
             }
             else
             {
-                return new Result(false, "The merchant does not carry that many items.");
+                return new Result("The merchant does not carry that many items.", true);
             }
         }
 
@@ -121,7 +121,7 @@ namespace Objects.Personality.Personalities
                 strBlrd.AppendLine(formatedItemLine);
             }
 
-            return new Result(true, strBlrd.ToString().Trim());
+            return new Result(strBlrd.ToString().Trim(), false);
         }
         #endregion Buy
 

@@ -34,7 +34,7 @@ namespace ObjectsUnitTest.Command.God
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -59,7 +59,7 @@ namespace ObjectsUnitTest.Command.God
             world.Setup(e => e.WorldCommands).Returns(queue);
 
             IResult result = command.PerformCommand(mob.Object, null);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("Calculating Stats", result.ResultMessage);
             Assert.AreEqual(1, queue.Count);
             string message;

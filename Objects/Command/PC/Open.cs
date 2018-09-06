@@ -16,7 +16,7 @@ namespace Objects.Command.PC
 {
     public class Open : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Open [Item Name]");
+        public IResult Instructions { get; } = new Result("Open [Item Name]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Open" };
 
@@ -24,7 +24,7 @@ namespace Objects.Command.PC
         {
             if (command.Parameters.Count == 0)
             {
-                return new Result(false, "While you ponder what to open you let you mouth hang open.  Hey you did open something!");
+                return new Result("While you ponder what to open you let you mouth hang open.  Hey you did open something!", true);
             }
 
             IParameter parameter = command.Parameters[0];
@@ -87,11 +87,11 @@ namespace Objects.Command.PC
                     }
                 }
 
-                return new Result(false, "You found what you were looking for but could not figure out how to open it.");
+                return new Result("You found what you were looking for but could not figure out how to open it.", true);
             }
             else
             {
-                return new Result(false, "You were unable to find that what you were looking for.");
+                return new Result("You were unable to find that what you were looking for.", true);
             }
         }
 
@@ -111,7 +111,7 @@ namespace Objects.Command.PC
             //if the door can not be opened then return that
             if (!canOpen)
             {
-                return new Result(false, "The door is locked and will not open.");
+                return new Result("The door is locked and will not open.", true);
             }
 
             //the door can be opened and will be opened after control is returned

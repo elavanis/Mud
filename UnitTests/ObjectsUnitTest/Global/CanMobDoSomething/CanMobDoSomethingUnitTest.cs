@@ -232,7 +232,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             IResult result = canDoSomething.Move(mob.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -246,7 +246,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             IResult result = canDoSomething.Move(mob.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -260,7 +260,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             IResult result = canDoSomething.Move(mob.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 

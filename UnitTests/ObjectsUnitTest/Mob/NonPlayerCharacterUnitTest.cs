@@ -408,14 +408,12 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
             Mock<IRoom> room = new Mock<IRoom>();
             List<INonPlayerCharacter> npcList = new List<INonPlayerCharacter>();
-            List<IItem> itemsList = new List<IItem>();
             Mock<IEngine> engine = new Mock<IEngine>();
             Mock<IEvent> evnt = new Mock<IEvent>();
 
             moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("0");
             npcList.Add(npc);
             room.Setup(e => e.NonPlayerCharacters).Returns(npcList);
-            room.Setup(e => e.Items).Returns(itemsList);
             npc.Room = room.Object;
             engine.Setup(e => e.Event).Returns(evnt.Object);
 
@@ -424,8 +422,9 @@ namespace ObjectsUnitTest.Mob
             npc.Die();
 
             room.Verify(e => e.RemoveMobileObjectFromRoom(npc));
-            Assert.AreEqual(1, room.Object.Items.Count);
+            room.Verify(e => e.AddItemToRoom(It.IsAny<IItem>(), 0));
             evnt.Verify(e => e.OnDeath(npc));
+
         }
 
         [TestMethod]

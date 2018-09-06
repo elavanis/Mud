@@ -35,7 +35,7 @@ namespace Objects.Skill.Skills
         {
             if (performer.Position == CharacterPosition.Sleep)
             {
-                return new Result(false, "You can not track while asleep.");
+                return new Result("You can not track while asleep.", true);
             }
 
             if (command.Parameters.Count > 1)
@@ -45,7 +45,7 @@ namespace Objects.Skill.Skills
 
                 if (foundMob != null)
                 {
-                    return new Result(true, string.Format("You look up and see the {0} in front of you.", target));
+                    return new Result(string.Format("You look up and see the {0} in front of you.", target), false);
                 }
 
 
@@ -55,7 +55,7 @@ namespace Objects.Skill.Skills
             }
             else
             {
-                return new Result(false, "What are you trying to track?");
+                return new Result("What are you trying to track?", true);
             }
         }
 
@@ -82,7 +82,7 @@ namespace Objects.Skill.Skills
                 trail = LookForMobInNextRoom(performer, target, searchedRooms, newTrails, currentRoom, direction, brandNewTrail);
                 if (trail != null)
                 {
-                    return new Result(true, string.Format("You pickup the trail of a {0} to the {1}.", target, trail.Direction));
+                    return new Result(string.Format("You pickup the trail of a {0} to the {1}.", target, trail.Direction), false);
                 }
             }
 
@@ -95,12 +95,12 @@ namespace Objects.Skill.Skills
                     trail = LookForMobInNextRoom(performer, target, searchedRooms, newTrails, dequeuedTrail.Room, direction, dequeuedTrail);
                     if (trail != null)
                     {
-                        return new Result(true, string.Format("You pickup the trail of a {0} to the {1}.", target, trail.Direction));
+                        return new Result(string.Format("You pickup the trail of a {0} to the {1}.", target, trail.Direction), false);
                     }
                 }
             }
 
-            return new Result(true, string.Format("You were unable to pick up a trail to a {0}.", target));
+            return new Result(string.Format("You were unable to pick up a trail to a {0}.", target), false);
         }
 
         private Trail LookForMobInNextRoom(IMobileObject performer, string target, HashSet<IRoom> searchedRooms, Queue<Trail> newTrails, IRoom currentRoom, Directions.Direction direction, Trail existingTrail)

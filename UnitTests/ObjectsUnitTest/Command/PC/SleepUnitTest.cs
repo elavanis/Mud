@@ -41,7 +41,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Sleep_Instructions()
         {
             IResult result = command.Instructions;
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -65,7 +65,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.Engine = engine.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             mob.VerifySet(e => e.Position = CharacterPosition.Sleep);
             evnt.Verify(e => e.Sleep(mob.Object), Times.Once);

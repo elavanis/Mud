@@ -11,7 +11,7 @@ namespace Objects.Command.PC
 {
     public class Manual : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result(true, "Do you really need to Man the Manual?");
+        public IResult Instructions { get; } = new Result("Do you really need to Man the Manual?", false);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Man", "Manual" };
 
@@ -49,7 +49,7 @@ namespace Objects.Command.PC
             {
                 strBldr.AppendLine(str);
             }
-            return new Result(true, strBldr.ToString().Trim());
+            return new Result(strBldr.ToString().Trim(), true);
         }
 
         private IResult ManualForCommand(ICommand command)
@@ -67,7 +67,7 @@ namespace Objects.Command.PC
             }
             else
             {
-                return new Result(false, "Unable to find that command.");
+                return new Result("Unable to find that command.", true);
             }
         }
     }

@@ -44,11 +44,11 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand = new Mock<ICommand>();
 
             Mock<IResult> result1 = new Mock<IResult>();
-            result1.Setup(e => e.ResultSuccess).Returns(true);
+            result1.Setup(e => e.AllowAnotherCommand).Returns(false);
             result1.Setup(e => e.ResultMessage).Returns("1");
 
             Mock<IResult> result2 = new Mock<IResult>();
-            result2.Setup(e => e.ResultSuccess).Returns(true);
+            result2.Setup(e => e.AllowAnotherCommand).Returns(false);
             result2.Setup(e => e.ResultMessage).Returns("2");
 
             guildMaster1.Setup(e => e.Join(npc1.Object, mob.Object)).Returns(result1.Object);
@@ -74,7 +74,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -91,7 +91,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("1", result.ResultMessage);
         }
 
@@ -104,7 +104,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("2", result.ResultMessage);
         }
 
@@ -116,7 +116,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
     }

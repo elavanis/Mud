@@ -64,11 +64,11 @@ namespace Objects.Skill
                     }
                 }
 
-                return new Result(true, PerformerNotification.GetTranslatedMessage(performer), null);
+                return new Result(PerformerNotification.GetTranslatedMessage(performer), false, null);
             }
             else
             {
-                return new Result(false, $"You need {StaminaCost} stamina to use the skill {command.Parameters[0].ParameterValue}.");
+                return new Result($"You need {StaminaCost} stamina to use the skill {command.Parameters[0].ParameterValue}.", true);
             }
         }
     }

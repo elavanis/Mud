@@ -51,7 +51,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
 
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -72,7 +72,7 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -92,7 +92,7 @@ namespace ObjectsUnitTest.Command.PC
             traps.Add(trap2.Object);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message2", result.ResultMessage);
         }
     }

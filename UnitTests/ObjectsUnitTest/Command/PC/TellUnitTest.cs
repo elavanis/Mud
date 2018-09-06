@@ -45,7 +45,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Tell_Instructions()
         {
             IResult result = command.Instructions;
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -63,7 +63,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("Who would you like to tell what?", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -77,7 +77,7 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object });
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -101,7 +101,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsFalse(result.ResultSuccess);
+            Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -126,7 +126,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.ResultSuccess);
+            Assert.IsFalse(result.AllowAnotherCommand);
             notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()));
         }
     }
