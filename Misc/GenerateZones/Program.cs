@@ -82,6 +82,11 @@ namespace GenerateZones
 
         private static void DeleteOldZoneFiles(string directory)
         {
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
             foreach (string file in Directory.GetFiles(directory, "*.zone"))
             {
                 File.Delete(file);
