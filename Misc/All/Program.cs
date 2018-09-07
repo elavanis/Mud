@@ -19,15 +19,15 @@ namespace All
         {
             GlobalReference.GlobalValues.Initilize();
 
-            ISpell spell = GenerateSpell("abc");
-            spell.TargetNotification = new TranslationMessage("You feel healthier.");
-            spell.Effect = new RecoverHealth();
-
-            string s = GlobalReference.GlobalValues.Serialization.Serialize(spell);
-
             GenerateZones.Program.Main(null);
             GenerateZoneMaps.Program.Main(null);
             string assets = @"C:\Mud\Assets\Map";
+
+            if (!Directory.Exists(assets))
+            {
+                Directory.CreateDirectory(assets);
+            }
+
             foreach (string file in Directory.GetFiles(assets))
             {
                 File.Delete(file);
