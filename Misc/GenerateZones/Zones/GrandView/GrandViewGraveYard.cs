@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using Objects.Effect;
 using Objects.Interface;
+using Objects.Language;
 using Objects.LevelRange;
 using Objects.LoadPercentage;
+using Objects.Magic.Enchantment;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities;
+using Objects.Personality.Personalities.GrandViewGraveYard;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static GenerateZones.RandomZoneGeneration;
@@ -89,12 +93,24 @@ namespace GenerateZones.Zones.GrandView
             }
 
             int percent = 50 / creatueChoices;
+            HeartbeatBigTickEnchantment enchantmentSkeleton = new HeartbeatBigTickEnchantment();
+            enchantmentSkeleton.ActivationPercent = 1;
+            enchantmentSkeleton.Effect = new LoadMob();
+            enchantmentSkeleton.Parameter = new EffectParameter() { Performer = Skeleton(), RoomMessage = new TranslationMessage("The skeleton rises slowly out of its grave.") };
+
+            HeartbeatBigTickEnchantment enchantmentZombie = new HeartbeatBigTickEnchantment();
+            enchantmentSkeleton.ActivationPercent = 1;
+            enchantmentSkeleton.Effect = new LoadMob();
+            enchantmentSkeleton.Parameter = new EffectParameter() { Performer = Zombie(), RoomMessage = new TranslationMessage("A Zombie burst forth from it grave hungry for brains.") };
+
             foreach (IRoom room in Zone.Rooms.Values)
             {
                 ILoadableItems loadable = (ILoadableItems)room;
-                loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Skeleton() });
-                loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Zombie() });
+                //loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Skeleton() });
+                //loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Zombie() });
                 loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Crow() });
+
+                room.Enchantments.Add(enchantmentSkeleton);
             }
 
             SetRoom13();
@@ -123,6 +139,8 @@ namespace GenerateZones.Zones.GrandView
             npc.KeyWords.Add("ground");
             npc.KeyWords.Add("keeper");
 
+            npc.Personalities.Add(new GroundsKeeper());
+            npc.Personalities.Add(new Wanderer());
             return npc;
         }
 
@@ -137,6 +155,9 @@ namespace GenerateZones.Zones.GrandView
             npc.LookDescription = "Somewhere the skeleton lost part of its arm.";
             npc.ExamineDescription = "There air takes on a slight chill as the skeleton turns and looks at you.";
 
+            npc.Personalities.Add(new DeathDuringDay());
+            npc.Personalities.Add(new Wanderer());
+
             return npc;
         }
 
@@ -149,6 +170,10 @@ namespace GenerateZones.Zones.GrandView
             npc.ShortDescription = "A zombie stares off into the distance looking at nothing.";
             npc.LookDescription = "The zombie is wearing clothes or at least what used to be clothes.  A small red handkerchief can be seen sticking out of what is left of its suit.";
             npc.ExamineDescription = "The smell of rotting flesh emanates from the zombie as you get close to it.";
+
+            npc.Personalities.Add(new DeathDuringDay());
+            npc.Personalities.Add(new Aggressive());
+            npc.Personalities.Add(new Wanderer());
 
             return npc;
         }
@@ -163,6 +188,7 @@ namespace GenerateZones.Zones.GrandView
             npc.ShortDescription = "A black as night crow calls out a warning as you approach.";
             npc.ExamineDescription = "It seems to have been born of the night with black feathers, feet and beak. The small black beady eyes are the only thing to reflect any light.";
 
+            npc.Personalities.Add(new Wanderer());
 
             return npc;
         }

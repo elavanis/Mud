@@ -12,7 +12,7 @@ namespace Objects.Command.PC
 {
     public class Emote : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result("Emote \"[what you want to emote]\"", true);
+        public IResult Instructions { get; } = new Result("Emote \"[your emote message]\"", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Emote" };
 
@@ -27,7 +27,7 @@ namespace Objects.Command.PC
 
             ITranslationMessage message = new TranslationMessage(parm.ParameterValue);
             GlobalReference.GlobalValues.Notify.Room(performer, null, performer.Room, message);
-            return new Result("", true);;
+            return new Result("", true);
         }
     }
 }
