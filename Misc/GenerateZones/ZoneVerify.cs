@@ -253,9 +253,13 @@ namespace GenerateZones
                 ThrowConfigException(item, type, "ShortDescription = null");
             }
 
-            if (item.SentenceDescription == null)
+            if (!(item is IRoom))
             {
-                ThrowConfigException(item, type, "SentenceDescription = null");
+                if (item.SentenceDescription == null
+                    || item.SentenceDescription != "")
+                {
+                    ThrowConfigException(item, type, "SentenceDescription = null");
+                }
             }
 
             if (item.KeyWords.Count == 0)

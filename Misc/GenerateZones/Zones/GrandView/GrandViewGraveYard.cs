@@ -78,7 +78,7 @@ namespace GenerateZones.Zones.GrandView
             randZoneGen.RoomDescriptions.Add(description);
 
             Zone = randZoneGen.Generate();
-            Zone.InGameDaysTillReset = 1;
+            Zone.InGameDaysTillReset = -1;
             Zone.Name = nameof(GrandViewGraveYard);
 
             int creatueChoices = 0;
@@ -93,15 +93,21 @@ namespace GenerateZones.Zones.GrandView
             }
 
             int percent = 50 / creatueChoices;
+            List<int> hoursToSpawnUndead = new List<int>();
+            for (int i = 12; i < 24; i++)
+            {
+                hoursToSpawnUndead.Add(i);
+            }
+
             HeartbeatBigTickEnchantment enchantmentSkeleton = new HeartbeatBigTickEnchantment();
             enchantmentSkeleton.ActivationPercent = 1;
-            enchantmentSkeleton.Effect = new LoadMob();
+            enchantmentSkeleton.Effect = new LoadMob() { HoursToLoad = hoursToSpawnUndead };
             enchantmentSkeleton.Parameter = new EffectParameter() { Performer = Skeleton(), RoomMessage = new TranslationMessage("The skeleton rises slowly out of its grave.") };
 
             HeartbeatBigTickEnchantment enchantmentZombie = new HeartbeatBigTickEnchantment();
-            enchantmentSkeleton.ActivationPercent = 1;
-            enchantmentSkeleton.Effect = new LoadMob();
-            enchantmentSkeleton.Parameter = new EffectParameter() { Performer = Zombie(), RoomMessage = new TranslationMessage("A Zombie burst forth from it grave hungry for brains.") };
+            enchantmentZombie.ActivationPercent = 1;
+            enchantmentZombie.Effect = new LoadMob() { HoursToLoad = hoursToSpawnUndead };
+            enchantmentZombie.Parameter = new EffectParameter() { Performer = Zombie(), RoomMessage = new TranslationMessage("A Zombie burst forth from it grave hungry for brains.") };
 
             foreach (IRoom room in Zone.Rooms.Values)
             {

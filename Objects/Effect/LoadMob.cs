@@ -18,12 +18,15 @@ namespace Objects.Effect
         [ExcludeFromCodeCoverage]
         public ISound Sound { get; set; }
 
+        public List<int> HoursToLoad { get; set; } = null;
+
         public void ProcessEffect(IEffectParameter parameter)
         {
             IRoom room = parameter.Target as IRoom;
             INonPlayerCharacter nonPlayerCharacter = parameter.Performer as INonPlayerCharacter;
 
-            if (room != null && nonPlayerCharacter != null)
+            if (room != null && nonPlayerCharacter != null
+                && (HoursToLoad == null || HoursToLoad.Contains(GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Hour)))
             {
                 room.AddMobileObjectToRoom(nonPlayerCharacter);
                 nonPlayerCharacter.Room = room;
