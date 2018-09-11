@@ -15,6 +15,7 @@ using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static GenerateZones.RandomZoneGeneration;
 using static Objects.Mob.NonPlayerCharacter;
+using static Objects.Room.Room;
 
 namespace GenerateZones.Zones.GrandView
 {
@@ -78,7 +79,6 @@ namespace GenerateZones.Zones.GrandView
             randZoneGen.RoomDescriptions.Add(description);
 
             Zone = randZoneGen.Generate();
-            Zone.InGameDaysTillReset = -1;
             Zone.Name = nameof(GrandViewGraveYard);
 
             int creatueChoices = 0;
@@ -112,11 +112,12 @@ namespace GenerateZones.Zones.GrandView
             foreach (IRoom room in Zone.Rooms.Values)
             {
                 ILoadableItems loadable = (ILoadableItems)room;
-                //loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Skeleton() });
-                //loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Zombie() });
                 loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Crow() });
+                room.Attributes.Add(RoomAttribute.Outdoor);
+                room.Attributes.Add(RoomAttribute.Weather);
 
                 room.Enchantments.Add(enchantmentSkeleton);
+                room.Enchantments.Add(enchantmentZombie);
             }
 
             SetRoom13();
