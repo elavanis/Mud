@@ -644,6 +644,7 @@ East: The Training Hall";
             item.ShortDescription = "A broken down cart.";
             item.LookDescription = "A broken down cart has been left on the side of the road.";
             item.ExamineDescription = "While the cart looks to be freshly left its contents have been emptied.";
+            item.SentenceDescription = "cart";
             item.KeyWords.Add("Cart");
 
             item.Attributes.Add(ItemAttribute.NoGet);

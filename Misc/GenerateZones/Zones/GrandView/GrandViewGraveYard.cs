@@ -140,6 +140,7 @@ namespace GenerateZones.Zones.GrandView
             npc.LookDescription = "The groundskeeper looks tired of his job and dreams of a better place.";
             npc.ExamineDescription = "Heavy gray eyes stare at you. He seems intently aware that you're not part of the normal surroundings but unaware what to do about it.";
             npc.ShortDescription = "Groundskeeper";
+            npc.SentenceDescription = "groundskeeper";
             npc.KeyWords.Add("Groundskeeper");
             npc.KeyWords.Add("Grounds");
             npc.KeyWords.Add("ground");

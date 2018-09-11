@@ -97,6 +97,7 @@ namespace GenerateZones.Zones.GrandView
             npc.ExamineDescription = "The nurse is dressed in blue dress with a white apron that covers the front of her and ties in the back.  On her head she wears a white cloth that drapes down on either side of her head.";
             npc.LookDescription = "A nurse busily attends to her patients, taking care to make sure each one is as comfortable as possible.";
             npc.ShortDescription = "A nurse attending patients.";
+            npc.SentenceDescription = "nurse";
             npc.KeyWords.Add("Nurse");
 
             npc.Personalities.Add(new Healer() { CastPercent = 10 });

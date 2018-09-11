@@ -343,6 +343,7 @@ namespace GenerateZones.Zones.Mountain
             chest.ExamineDescription = "The chest is a standard issue goblin warrior chest.";
             chest.LookDescription = "The chest is made of wood and reinforced with steel bands.";
             chest.ShortDescription = "A small chest for storing equipment";
+            chest.SentenceDescription = "chest";
             chest.KeyWords.Add("chest");
             chest.Attributes.Add(ItemAttribute.NoGet);
 
@@ -356,6 +357,7 @@ namespace GenerateZones.Zones.Mountain
             armor.ExamineDescription = "The lamb skin is flawless.  Maybe the original owner thought it would grant the wearer extra protection.";
             armor.LookDescription = "The sleeves are made in such a way as to have soft wool on the inside and out.";
             armor.ShortDescription = "A pair of lamb skin sleeves.";
+            armor.SentenceDescription = "sleeves";
             armor.KeyWords.Add("lamb");
             armor.KeyWords.Add("skin");
             armor.KeyWords.Add("sleeve");
@@ -371,6 +373,7 @@ namespace GenerateZones.Zones.Mountain
             armor.ExamineDescription = "The bear skin is made in such a way as to have a hood of sorts that can be flipped up.";
             armor.LookDescription = "The bear skin is made from a hodgepodge of several different bears.";
             armor.ShortDescription = "A bearskin.";
+            armor.SentenceDescription = "bearskin";
             armor.KeyWords.Add("bear");
             armor.KeyWords.Add("skin");
 
@@ -383,6 +386,7 @@ namespace GenerateZones.Zones.Mountain
             armor.ExamineDescription = "The boots are have been dyed to a dark black color.";
             armor.LookDescription = "The boots are made of a type of leather sew together.";
             armor.ShortDescription = "A dark black pair of boats.";
+            armor.SentenceDescription = "boots";
             armor.KeyWords.Add("black");
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("boots");
@@ -396,6 +400,7 @@ namespace GenerateZones.Zones.Mountain
             armor.ExamineDescription = "The gem is made of a red stone with white veins that look like a swirl frozen in time.";
             armor.LookDescription = "The ring is made of a thick gold band with a red stone in the center.";
             armor.ShortDescription = "Gold Ring.";
+            armor.SentenceDescription = "ring";
             armor.KeyWords.Add("red");
             armor.KeyWords.Add("stone");
             armor.KeyWords.Add("gold");
@@ -416,6 +421,7 @@ namespace GenerateZones.Zones.Mountain
             armor.ExamineDescription = "The gloves are made of a delicate silver lace that sparkles in the light.";
             armor.LookDescription = "A pair of silver lace gloves that would make a grand statement at any ball.";
             armor.ShortDescription = "A silver pair of ballroom lace gloves.";
+            armor.SentenceDescription = "lace gloves";
             armor.KeyWords.Add("silver");
             armor.KeyWords.Add("lace");
             armor.KeyWords.Add("gloves");
@@ -429,6 +435,7 @@ namespace GenerateZones.Zones.Mountain
             armor.ExamineDescription = "The leather skull cap has two holes for a goblins ears to stick through.";
             armor.LookDescription = "The leather skull cap is padded to help protect the wearer from blows.";
             armor.ShortDescription = "A leather skull cap.";
+            armor.SentenceDescription = "skull cap";
             armor.KeyWords.Add("skull");
             armor.KeyWords.Add("cap");
             armor.KeyWords.Add("leather");
@@ -442,6 +449,7 @@ namespace GenerateZones.Zones.Mountain
             armor.ExamineDescription = "Delicately carved gold inlays decorate this piece of museum quality piece of armor.";
             armor.LookDescription = "The steel leggings look to be more decorative than protective but will do the job when needed.";
             armor.ShortDescription = "A decorative pair of leggings.";
+            armor.SentenceDescription = "leggings";
             armor.KeyWords.Add("leggings");
             armor.KeyWords.Add("decorative");
 
@@ -451,9 +459,10 @@ namespace GenerateZones.Zones.Mountain
         private IArmor Neck()
         {
             IArmor armor = CreateArmor(AvalableItemPosition.Neck, 17, new Bone());
-            armor.ExamineDescription = "The necklace bones appear to be of small animals, birds, squirls and mice.";
+            armor.ExamineDescription = "The necklace bones appear to be of small animals, birds, squirrels and mice.";
             armor.LookDescription = "The necklace looks like it once belonged to a shaman and has several animal bones strung on it.";
             armor.ShortDescription = "A bone necklace.";
+            armor.SentenceDescription = "necklace";
             armor.KeyWords.Add("necklace");
             armor.KeyWords.Add("bone");
 
@@ -466,6 +475,7 @@ namespace GenerateZones.Zones.Mountain
             armor.ExamineDescription = "The piece of rope looks unremarkable in every way.";
             armor.LookDescription = "A simple piece of rope for holding your trousers.";
             armor.ShortDescription = "A short piece of rope.";
+            armor.SentenceDescription = "rope";
             armor.KeyWords.Add("rope");
 
             return armor;
