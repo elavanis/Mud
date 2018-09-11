@@ -253,10 +253,11 @@ namespace GenerateZones
                 ThrowConfigException(item, type, "ShortDescription = null");
             }
 
-            if (!(item is IRoom))
+            IRoom room = item as IRoom;
+            if (room == null) //do not check this for rooms
             {
                 if (item.SentenceDescription == null
-                    || item.SentenceDescription != "")
+                    || item.SentenceDescription == "")
                 {
                     ThrowConfigException(item, type, "SentenceDescription = null");
                 }
@@ -267,15 +268,6 @@ namespace GenerateZones
                 if (!item.ZoneSyncOptions.ContainsKey("ZoneSyncKeywords"))
                 {
                     ThrowConfigException(item, type, "No Keywords Found");
-                }
-            }
-
-            IRoom room = item as IRoom;
-            if (room == null) //do not check this for rooms
-            {
-                if (item.SentenceDescription == null)
-                {
-                    ThrowConfigException(item, type, "SentenceDescription = null");
                 }
             }
         }
