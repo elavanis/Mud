@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
+using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static Objects.Room.Room;
@@ -15,7 +18,25 @@ namespace GenerateZones.Zones.GrandView
 
         public IZone Generate()
         {
-            throw new NotImplementedException();
+            Zone.InGameDaysTillReset = 1;
+            Zone.Name = nameof(CharonTemple);
+
+            int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
+            for (int i = 1; i <= methodCount; i++)
+            {
+                string methodName = "GenerateRoom" + i;
+                MethodInfo method = this.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+                if (method != null)
+                {
+                    Room room = (Room)method.Invoke(this, null);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
+                }
+            }
+
+            //ConnectRooms();
+
+            return Zone;
         }
 
         private IRoom GenerateRoom()

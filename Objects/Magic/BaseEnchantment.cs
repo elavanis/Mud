@@ -18,7 +18,7 @@ namespace Objects.Magic
         [ExcludeFromCodeCoverage]
         public IEffect Effect { get; set; }
         [ExcludeFromCodeCoverage]
-        public int ActivationPercent { get; set; }
+        public double ActivationPercent { get; set; }
         [ExcludeFromCodeCoverage]
         public TargetOption Target { get; set; }
         [ExcludeFromCodeCoverage]

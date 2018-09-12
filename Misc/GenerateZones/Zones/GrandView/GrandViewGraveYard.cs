@@ -100,12 +100,12 @@ namespace GenerateZones.Zones.GrandView
             }
 
             HeartbeatBigTickEnchantment enchantmentSkeleton = new HeartbeatBigTickEnchantment();
-            enchantmentSkeleton.ActivationPercent = 1;
+            enchantmentSkeleton.ActivationPercent = .4;
             enchantmentSkeleton.Effect = new LoadMob() { HoursToLoad = hoursToSpawnUndead };
             enchantmentSkeleton.Parameter = new EffectParameter() { Performer = Skeleton(), RoomMessage = new TranslationMessage("The skeleton rises slowly out of its grave.") };
 
             HeartbeatBigTickEnchantment enchantmentZombie = new HeartbeatBigTickEnchantment();
-            enchantmentZombie.ActivationPercent = 1;
+            enchantmentSkeleton.ActivationPercent = .4;
             enchantmentZombie.Effect = new LoadMob() { HoursToLoad = hoursToSpawnUndead };
             enchantmentZombie.Parameter = new EffectParameter() { Performer = Zombie(), RoomMessage = new TranslationMessage("A Zombie burst forth from it grave hungry for brains.") };
 
@@ -156,7 +156,6 @@ namespace GenerateZones.Zones.GrandView
         {
             INonPlayerCharacter npc = BuildNpc();
             npc.LevelRange = new LevelRange() { LowerLevel = 17, UpperLevel = 19 };
-            npc.Personalities.Add(new Wanderer());
             npc.KeyWords.Add("skeleton");
             npc.SentenceDescription = "skeleton";
             npc.ShortDescription = "A skeleton walks bones clatter as it walks around.";
@@ -204,7 +203,6 @@ namespace GenerateZones.Zones.GrandView
         private INonPlayerCharacter BuildNpc()
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other);
-            npc.Personalities.Add(new Wanderer());
             return npc;
         }
     }

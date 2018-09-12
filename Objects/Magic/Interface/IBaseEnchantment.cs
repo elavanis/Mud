@@ -10,7 +10,7 @@ namespace Objects.Magic.Interface
 {
     public interface IEnchantment : IEvent
     {
-        int ActivationPercent { get; set; }
+        double ActivationPercent { get; set; }
         IEffect Effect { get; set; }
         BaseEnchantment.TargetOption Target { get; set; }
         IEffectParameter Parameter { get; set; }
