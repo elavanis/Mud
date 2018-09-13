@@ -8,7 +8,7 @@ using static Objects.Mob.NonPlayerCharacter;
 
 namespace Objects.Mob.Interface
 {
-    public interface INonPlayerCharacter : IMobileObject, ILoadable
+    public interface INonPlayerCharacter : IMobileObject, ILoadable, ICloneable
     {
         int CharismaMax { get; set; }
         int CharismaMin { get; set; }

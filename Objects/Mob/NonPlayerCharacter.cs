@@ -346,7 +346,16 @@ namespace Objects.Mob
             return corpse;
         }
 
+
         public MobType? TypeOfMob { get; set; }
+
+
+        public object Clone()
+        {
+            INonPlayerCharacter newNpc = GlobalReference.GlobalValues.Serialization.Deserialize<INonPlayerCharacter>(
+                                            GlobalReference.GlobalValues.Serialization.Serialize(this));
+            return newNpc;
+        }
 
 
         /// <summary>

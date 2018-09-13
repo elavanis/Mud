@@ -28,6 +28,8 @@ namespace Objects.Effect
             if (room != null && nonPlayerCharacter != null
                 && (HoursToLoad == null || HoursToLoad.Contains(GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Hour)))
             {
+                //clone it so we don't keep using the same mob instance
+                nonPlayerCharacter = (INonPlayerCharacter)nonPlayerCharacter.Clone();
                 room.AddMobileObjectToRoom(nonPlayerCharacter);
                 nonPlayerCharacter.Room = room;
                 nonPlayerCharacter.FinishLoad();

@@ -1,4 +1,5 @@
 ﻿using Objects.Global;
+using Objects.Item.Items.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 using System;
@@ -15,6 +16,11 @@ namespace Objects.Personality.Personalities.GrandViewGraveYard
             if (GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Hour < 12)
             {
                 npc.Die();
+                IContainer corpse = npc.Room.Items[0] as IContainer;
+                if (corpse != null)
+                {
+                    corpse.Items.Clear();
+                }
                 return "";
             }
             else
