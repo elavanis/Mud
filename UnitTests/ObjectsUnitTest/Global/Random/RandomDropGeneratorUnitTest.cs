@@ -223,5 +223,18 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual(DamageType.Pierce, weapon.DamageList[0].Type);
         }
 
+
+        [TestMethod]
+        public void RandomDropGenerator_GenerateRandomArmor()
+        {
+            random.SetupSequence(e => e.Next(12)).Returns(5)
+                                               .Returns(5);
+
+            IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
+
+
+
+        }
+
     }
 }

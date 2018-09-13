@@ -16,10 +16,18 @@ namespace Objects.Personality.Personalities.GrandViewGraveYard
             if (GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Hour < 12)
             {
                 npc.Die();
+
                 IContainer corpse = npc.Room.Items[0] as IContainer;
                 if (corpse != null)
                 {
-                    corpse.Items.Clear();
+                    if (npc.Room.Items.Count > 10)
+                    {
+                        npc.Room.RemoveItemFromRoom(npc.Items[0]);
+                    }
+                    else
+                    {
+                        corpse.Items.Clear();
+                    }
                 }
                 return "";
             }

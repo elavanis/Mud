@@ -246,7 +246,7 @@ namespace Objects.Global.Random
             return weapon;
         }
 
-        private IArmor GenerateRandomArmor(int level, int effectiveLevel)
+        public IArmor GenerateRandomArmor(int level, int effectiveLevel)
         {
             AvalableItemPosition itemPosition = PickRandomItemPosition();
             return GenerateRandomArmor(level, effectiveLevel, itemPosition);
@@ -262,7 +262,8 @@ namespace Objects.Global.Random
 
         public IArmor GenerateRandomArmor(int level, int effectiveLevel, AvalableItemPosition itemPosition)
         {
-            while (itemPosition != AvalableItemPosition.Held)
+            while (itemPosition == AvalableItemPosition.Held
+                || itemPosition == AvalableItemPosition.Wield)
             {
                 itemPosition = PickRandomItemPosition();
             }

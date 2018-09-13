@@ -21,10 +21,10 @@ namespace Objects.Personality.Personalities.GrandViewGraveYard
                     if (item is ICorpse)
                     {
                         npc.EnqueueCommand($"Get {item.KeyWords[0]}");
-                        npc.EnqueueCommand("Emote The groudskeeper starts digging a grave for the corpse.");
-                        npc.EnqueueCommand("Emote The groudskeeper places the body in the grave.");
+                        npc.EnqueueCommand("Emote The groundskeeper starts digging a grave for the corpse.");
+                        npc.EnqueueCommand("Emote The groundskeeper places the body in the grave.");
                         npc.EnqueueCommand("Say And stay there this time.");
-                        break;
+                        return "";
                     }
                 }
             }
