@@ -9,6 +9,7 @@ using Objects.Mob.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using static Objects.Damage.Damage;
 using static Objects.Item.Items.Equipment;
@@ -32,7 +33,15 @@ namespace Objects.Global.Random
                         if (materials == null)
                         {
                             List<BaseMaterial> tempMaterials = new List<BaseMaterial>();
-                            List<Type> types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(e => e.GetTypes()).Where(e => e.IsInstanceOfType(typeof(BaseMaterial))).ToList();
+                            List<Type> types = new List<Type>();
+                            foreach (Type t in Assembly.GetExecutingAssembly().GetTypes())
+                            {
+                                if (t.IsSubclassOf(typeof(BaseMaterial)))
+                                {
+                                    types.Add(t);
+                                }
+                            }
+                            //List<Type> types = Assembly.GetExecutingAssembly().GetTypes().Where(e => e.IsSubclassOf(typeof(BaseMaterial))).ToList();
 
                             foreach (Type type in types)
                             {

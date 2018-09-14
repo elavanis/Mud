@@ -225,15 +225,31 @@ namespace ObjectsUnitTest.Global.Random
 
 
         [TestMethod]
-        public void RandomDropGenerator_GenerateRandomArmor()
+        public void RandomDropGenerator_GenerateRandomArmor_Head()
         {
-            random.SetupSequence(e => e.Next(12)).Returns(5)
-                                               .Returns(5);
+            random.SetupSequence(e => e.Next(12)).Returns(1);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
+            Assert.AreEqual("The helmet has two small holes cut out for seeing out.", armor.ExamineDescription);
+            Assert.AreEqual("The helmet is hard and light but well padded giving the ultimate compromise between protection and usability.", armor.LookDescription);
+            Assert.AreEqual("A well made helmet that looks like it might fit.", armor.ShortDescription);
+            Assert.AreEqual("helmet", armor.SentenceDescription);
+            Assert.IsTrue(armor.KeyWords.Contains("Helmet"));
+        }
 
+        [TestMethod]
+        public void RandomDropGenerator_GenerateRandomArmor_Necklace()
+        {
+            random.SetupSequence(e => e.Next(12)).Returns(2);
 
+            IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
+
+            Assert.AreEqual("A black stone rests softly in the middle of the necklace.", armor.ExamineDescription);
+            Assert.AreEqual("The necklace has a stone attached to it via a round pendent.", armor.LookDescription);
+            Assert.AreEqual("A delicate necklace fit for any royal lady to wear to any party.", armor.ShortDescription);
+            Assert.AreEqual("necklace", armor.SentenceDescription);
+            Assert.IsTrue(armor.KeyWords.Contains("Necklace"));
         }
 
     }
