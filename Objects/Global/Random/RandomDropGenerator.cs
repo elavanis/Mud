@@ -319,12 +319,12 @@ namespace Objects.Global.Random
                     armor.FlavorOptions.Add("{inside}", new List<string>() { "spider", "scorpion", "knights head", "horse", "sea shell", "mountain" });
                     break;
                 case AvalableItemPosition.Finger:
-                    armor.ExamineDescription = "The gold ring one had a design on the inside but has been worn smooth with time.";
+                    armor.ExamineDescription = "The ring once had a design on the inside but has been worn smooth with time.";
                     armor.LookDescription = "The ring is smooth on the outside{design}.";
                     armor.ShortDescription = "The ring is a simple ring with no special markings or anything to suggest it is magical.";
                     armor.SentenceDescription = "ring";
                     armor.KeyWords.Add("Ring");
-                    armor.FlavorOptions.Add("{design}", new List<string>() { "", "and has a {color} stone on the top" });
+                    armor.FlavorOptions.Add("{design}", new List<string>() { "", " and has a {color} stone on the top" });
                     armor.FlavorOptions.Add("{color}", new List<string>() { "black", "clear", "royal purple", "crimson red", "ocean blue", "emerald green" });
                     break;
                 case AvalableItemPosition.Body:
@@ -353,7 +353,7 @@ namespace Objects.Global.Random
                     break;
                 case AvalableItemPosition.Feet:
                     armor.ExamineDescription = "Three pouches hang off the outside of each boot allowing you to have quick access to small items.";
-                    armor.LookDescription = "Made of supple leather boots are soft and easy to wear at the expense of some protection.";
+                    armor.LookDescription = "Made of supple leather the boots are soft and easy to wear at the expense of some protection.";
                     armor.ShortDescription = "A pair of leather boots.";
                     armor.SentenceDescription = "boot";
                     armor.KeyWords.Add("Boot");

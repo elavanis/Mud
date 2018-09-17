@@ -89,6 +89,7 @@ namespace Shared.FileIO
             return bytes;
         }
 
+        [ExcludeFromCodeCoverage]
         public void Delete(string file)
         {
             File.Delete(file);
