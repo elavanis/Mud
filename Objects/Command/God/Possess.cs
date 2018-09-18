@@ -10,7 +10,7 @@ namespace Objects.Command.God
 {
     public class Possess : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result("Posses {Mob Keyword}", true);
+        public IResult Instructions { get; } = new Result("Possess {Mob Keyword}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Possess" };
 
