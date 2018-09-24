@@ -63,5 +63,19 @@ namespace ObjectsUnitTest.Personality.Personalities.GrandViewGraveYard
             npc.Verify(e => e.Die(), Times.Never);
             //corpseItems.Verify(e => e.Clear(), Times.Once);
         }
+
+        [TestMethod]
+        public void DeathDuringDay_Process_RemoveCorpse()
+        {
+            gameDateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(1, 1, 1, 1, 1, 1));
+            room.Setup(e => e.Items).Returns(new List<IItem>() { corpse.Object, corpse.Object, corpse.Object, corpse.Object, corpse.Object, corpse.Object });
+
+            string result = deathDuringDay.Process(npc.Object, null);
+
+            Assert.AreEqual("", result);
+            npc.Verify(e => e.Die(), Times.Once);
+            room.Verify(e => e.RemoveItemFromRoom(corpse.Object), Times.Once);
+            //corpseItems.Verify(e => e.Clear(), Times.Once);
+        }
     }
 }

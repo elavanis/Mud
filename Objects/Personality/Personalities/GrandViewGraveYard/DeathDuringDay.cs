@@ -20,9 +20,9 @@ namespace Objects.Personality.Personalities.GrandViewGraveYard
                 IContainer corpse = npc.Room.Items[0] as IContainer;
                 if (corpse != null)
                 {
-                    if (npc.Room.Items.Count > 10)
+                    if (npc.Room.Items.Count > 5)
                     {
-                        npc.Room.RemoveItemFromRoom(npc.Items[0]);
+                        npc.Room.RemoveItemFromRoom(npc.Room.Items[0]);
                     }
                     else
                     {
