@@ -12,13 +12,37 @@ namespace Objects.GameDateTime
         private static int MonthCount { get; } = Enum.GetValues(typeof(Month)).Length;
         private static int DayCount { get; } = Enum.GetValues(typeof(Day)).Length;
 
-        public Day DayName { get; }
-        public Month MonthName { get; }
-        public Year YearName { get; }
+        public Year YearName
+        {
+            get
+            {
+                int localYear = (Year - 1) % YearCount;
 
-        public int Day { get; private set; }
-        public int Month { get; private set; }
+                return (Objects.GameDateTime.Year)localYear;
+            }
+        }
+        public Month MonthName
+        {
+            get
+            {
+                int localMonth = (Month - 1) % MonthCount;
+
+                return (Objects.GameDateTime.Month)localMonth;
+            }
+        }
+        public Day DayName
+        {
+            get
+            {
+                int localDay = (Day - 1) % DayCount;
+
+                return (Objects.GameDateTime.Day)localDay;
+            }
+        }
+
         public int Year { get; private set; }
+        public int Month { get; private set; }
+        public int Day { get; private set; }
         public int Hour { get; private set; }
         public int Minute { get; private set; }
 
@@ -33,39 +57,36 @@ namespace Objects.GameDateTime
             Minute = CalculateMinute(ref totalInGameSecondsSinceBegining);
         }
 
-        private int CalculateYear(ref long totalSeconds)
+        #region Private Calculations
+        private static int CalculateYear(ref long totalSeconds)
         {
             int year = (int)(totalSeconds / secondsInYear());
             totalSeconds = totalSeconds - (year * secondsInYear());
 
             return year;
         }
-
-        private int CalculateMonth(ref long totalSeconds)
+        private static int CalculateMonth(ref long totalSeconds)
         {
             int month = (int)(totalSeconds / secondsInMonth());
             totalSeconds = totalSeconds - (month * secondsInMonth());
 
             return month;
         }
-
-        private int CalculateDay(ref long totalSeconds)
+        private static int CalculateDay(ref long totalSeconds)
         {
             int day = (int)(totalSeconds / secondsInDay());
             totalSeconds = totalSeconds - (day * secondsInDay());
 
             return day;
         }
-
-        private int CalculateHour(ref long totalSeconds)
+        private static int CalculateHour(ref long totalSeconds)
         {
             int hour = (int)(totalSeconds / secondsInHour());
             totalSeconds = totalSeconds - (hour * secondsInHour());
 
             return hour;
         }
-
-        private int CalculateMinute(ref long totalSeconds)
+        private static int CalculateMinute(ref long totalSeconds)
         {
             int minute = (int)(totalSeconds / secondsInMinute());
             totalSeconds = totalSeconds - (minute * secondsInMinute());
@@ -73,34 +94,35 @@ namespace Objects.GameDateTime
             return minute;
         }
 
-        private long secondsInMinute()
+        private static long secondsInMinute()
         {
             return 60;
         }
-        private long secondsInHour()
+        private static long secondsInHour()
         {
             return 60 * secondsInMinute();
         }
-        private long secondsInDay()
+        private static long secondsInDay()
         {
             return 24 * secondsInHour();
         }
-        private long secondsInMonth()
+        private static long secondsInMonth()
         {
             return 5 * DayCount * secondsInDay();  //5 weeks of 6 days
         }
-        private long secondsInYear()
+        private static long secondsInYear()
         {
             return 12 * secondsInMonth();
         }
+        #endregion Private Calculations
     }
 
     public enum Day
     {
         Life,
+        Earth,
         Fire,
         Air,
-        Earth,
         Water,
         Death
     }
