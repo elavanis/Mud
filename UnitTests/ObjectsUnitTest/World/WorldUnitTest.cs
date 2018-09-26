@@ -266,6 +266,7 @@ namespace ObjectsUnitTest.World
         public void World_PerformTick_ReloadZones()
         {
             gameDateTime.Setup(e => e.Day).Returns(1);
+            gameDateTime.Setup(e => e.IsLessThan(gameDateTime.Object)).Returns(true);
 
             world.Zones.Clear();  //clears out the zone added at initialization
 

@@ -336,7 +336,8 @@ namespace Objects.World
                         foreach (IZone zone in Zones.Values)
                         {
                             //TODO Figure out how to not need to cast
-                            if (zone.ResetTime < GlobalReference.GlobalValues.GameDateTime.GameDateTime)
+                            //if ((Objects.GameDateTime.GameDateTime)zone.ResetTime < GlobalReference.GlobalValues.GameDateTime.GameDateTime)
+                            if (zone.ResetTime.IsLessThan(GlobalReference.GlobalValues.GameDateTime.GameDateTime))
                             {
                                 string filePath = _zoneIdToFileMap[zone.Id];
                                 GlobalReference.GlobalValues.Logger.Log(LogLevel.DEBUG, "Reloading " + filePath);

@@ -1,4 +1,6 @@
-﻿namespace Objects.GameDateTime.Interface
+﻿using System;
+
+namespace Objects.GameDateTime.Interface
 {
     public interface IGameDateTime
     {
@@ -11,5 +13,8 @@
         int Year { get; }
         Years YearName { get; }
         IGameDateTime AddDays(int days);
+
+        bool IsGreaterThan(IGameDateTime other);
+        bool IsLessThan(IGameDateTime other);
     }
 }

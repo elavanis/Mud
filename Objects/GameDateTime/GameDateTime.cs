@@ -76,48 +76,18 @@ namespace Objects.GameDateTime
             return strBldr.ToString();
         }
 
-        public int CompareTo(object obj)
-        {
-            IGameDateTime gameDateTime = obj as IGameDateTime;
 
-            if (gameDateTime == null)
-            {
-                throw new Exception("Unable to compare to non game date time object.");
-            }
+        //public static bool operator <(GameDateTime gameDateTime1, IGameDateTime gameDateTime2)
+        //{
+        //    return gameDateTime1.CompareTo(gameDateTime2) < 0;
+        //}
 
-            if (Year != gameDateTime.Year)
-            {
-                return Year.CompareTo(gameDateTime.Year);
-            }
-            else if (Month != gameDateTime.Month)
-            {
-                return Month.CompareTo(gameDateTime.Month);
-            }
-            else if (Day != gameDateTime.Day)
-            {
-                return Day.CompareTo(gameDateTime.Day);
-            }
-            else if (Hour != gameDateTime.Hour)
-            {
-                return Hour.CompareTo(gameDateTime.Hour);
-            }
-            else if (Minute != gameDateTime.Minute)
-            {
-                return Minute.CompareTo(gameDateTime.Minute);
-            }
+        //public static bool operator >(GameDateTime gameDateTime1, IGameDateTime gameDateTime2)
+        //{
+        //    return gameDateTime1.CompareTo(gameDateTime2) > 0;
+        //}
 
-            return 0;
-        }
 
-        public static bool operator <(GameDateTime gameDateTime1, IGameDateTime gameDateTime2)
-        {
-            return gameDateTime1.CompareTo(gameDateTime2) < 0;
-        }
-
-        public static bool operator >(GameDateTime gameDateTime1, IGameDateTime gameDateTime2)
-        {
-            return gameDateTime1.CompareTo(gameDateTime2) > 0;
-        }
 
 
         private string Pad(int i)
@@ -125,7 +95,7 @@ namespace Objects.GameDateTime
             return i.ToString().PadLeft(2, '0');
         }
 
-        #region Private Calculations
+        #region Private Date/Time Calculations
         private static int CalculateYear(ref long totalSeconds)
         {
             int year = (int)(totalSeconds / secondsInYear());
@@ -182,8 +152,9 @@ namespace Objects.GameDateTime
         {
             return 12 * secondsInMonth();
         }
+        #endregion Private Date/Time Calculations
 
-        IGameDateTime IGameDateTime.AddDays(int days)
+        public IGameDateTime AddDays(int days)
         {
             Day += days;
             int daysInMonth = weeksInMonth * DayCount;
@@ -203,7 +174,47 @@ namespace Objects.GameDateTime
             return this;
         }
 
-        #endregion Private Calculations
+        public bool IsGreaterThan(IGameDateTime other)
+        {
+            return this.CompareTo(other) > 0;
+        }
+
+        public bool IsLessThan(IGameDateTime other)
+        {
+            return this.CompareTo(other) < 0;
+        }
+
+        private int CompareTo(IGameDateTime gameDateTime)
+        {
+
+            if (gameDateTime == null)
+            {
+                throw new Exception("Unable to compare to non game date time object.");
+            }
+
+            if (Year != gameDateTime.Year)
+            {
+                return Year.CompareTo(gameDateTime.Year);
+            }
+            else if (Month != gameDateTime.Month)
+            {
+                return Month.CompareTo(gameDateTime.Month);
+            }
+            else if (Day != gameDateTime.Day)
+            {
+                return Day.CompareTo(gameDateTime.Day);
+            }
+            else if (Hour != gameDateTime.Hour)
+            {
+                return Hour.CompareTo(gameDateTime.Hour);
+            }
+            else if (Minute != gameDateTime.Minute)
+            {
+                return Minute.CompareTo(gameDateTime.Minute);
+            }
+
+            return 0;
+        }
     }
 
     public enum Days
