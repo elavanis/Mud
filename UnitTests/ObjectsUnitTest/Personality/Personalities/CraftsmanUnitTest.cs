@@ -29,7 +29,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         Mock<INonPlayerCharacter> npc;
         Mock<IPlayerCharacter> pc;
         List<ICraftsmanObject> craftsmanObjects;
-        Mock<IGameDateTime> gameDateTime;
+        Mock<IInGameDateTime> inGameDateTime;
 
         [TestInitialize]
         public void Setup()
@@ -41,7 +41,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             Mock<IMoneyToCoins> moneyToCoins = new Mock<IMoneyToCoins>();
             Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
             craftsmanObjects = new List<ICraftsmanObject>();
-            gameDateTime = new Mock<IGameDateTime>();
+            inGameDateTime = new Mock<IInGameDateTime>();
 
             defaultValues.Setup(e => e.MoneyForNpcLevel(10)).Returns(1000);
             defaultValues.Setup(e => e.DiceForWeaponLevel(1)).Returns(new Dice(1, 2));
@@ -55,12 +55,12 @@ namespace ObjectsUnitTest.Personality.Personalities
             moneyToCoins.Setup(e => e.FormatedAsCoins(20000)).Returns("2 gold");
             tagWrapper.Setup(e => e.WrapInTag("You need 2 gold to have the item made for you.", TagType.Info)).Returns("not enough money");
             tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("");
-            gameDateTime.Setup(e => e.BuildFormatedDateTime(It.IsAny<DateTime>())).Returns("future date");
+            //inGameDateTime.Setup(e => e.ToString()).Returns("future date");
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-            GlobalReference.GlobalValues.GameDateTime = gameDateTime.Object;
+            GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
         }
 
         [TestMethod]

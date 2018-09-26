@@ -3,6 +3,7 @@ using Objects.Command.Interface;
 using Objects.Crafting;
 using Objects.Crafting.Interface;
 using Objects.Damage.Interface;
+using Objects.GameDateTime.Interface;
 using Objects.Global;
 using Objects.Global.GameDateTime;
 using Objects.Item.Interface;
@@ -86,9 +87,9 @@ namespace Objects.Personality.Personalities
 
             equipment.FinishLoad();
 
-            DateTime completionDate = DateTime.Now.AddMinutes(equipment.Level);  //make it take 1 hour game for each level
-            completionDate = GlobalReference.GlobalValues.GameDateTime.GetDateTime(completionDate);
-            craftsman.EnqueueCommand($"Tell {performer.KeyWords[0]} I will have this finished for you on {GlobalReference.GlobalValues.GameDateTime.BuildFormatedDateTime(completionDate)}.");
+            DateTime completionDate = DateTime.UtcNow.AddMinutes(equipment.Level);  //make it take 1 hour game for each level
+            IGameDateTime gameDateTime = GlobalReference.GlobalValues.GameDateTime.GetDateTime(completionDate);
+            craftsman.EnqueueCommand($"Tell {performer.KeyWords[0]} I will have this finished for you on {gameDateTime}.");
 
 
             result = new Result("", false);

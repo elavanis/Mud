@@ -13,6 +13,7 @@ using Objects.Item.Items.Interface;
 using Objects.Personality.Interface;
 using Objects.Personality.Personalities.Interface;
 using System.Diagnostics.CodeAnalysis;
+using Objects.GameDateTime.Interface;
 
 namespace Objects.Zone
 {
@@ -26,7 +27,7 @@ namespace Objects.Zone
         public int InGameDaysTillReset { get; set; } = 150;
 
         [ExcludeFromCodeCoverage]
-        public DateTime ResetTime { get; set; }
+        public IGameDateTime ResetTime { get; set; } = new GameDateTime.GameDateTime();
 
         [ExcludeFromCodeCoverage]
         public string Name { get; set; }
@@ -83,7 +84,7 @@ namespace Objects.Zone
         /// <param name="zoneObjectSyncValue"></param>
         public override void FinishLoad(int zoneObjectSyncValue = -1)
         {
-            ResetTime = GlobalReference.GlobalValues.GameDateTime.InGameDateTime.AddDays(InGameDaysTillReset).Date;
+            ResetTime = GlobalReference.GlobalValues.GameDateTime.GameDateTime.AddDays(InGameDaysTillReset);
 
             if (ZoneObjectSyncOptions != -1)
             {

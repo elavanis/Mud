@@ -1,60 +1,128 @@
-﻿using System;
+﻿using Objects.GameDateTime.Interface;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Objects.GameDateTime
 {
-    public class GameDateTime
+    public class GameDateTime : IGameDateTime
     {
-        private static DateTime Start { get; } = new DateTime(2015, 11, 7);
-        private static DateTime ZeroTime { get; } = new DateTime(1, 1, 1);
-        private static int YearCount { get; } = Enum.GetValues(typeof(Year)).Length;
-        private static int MonthCount { get; } = Enum.GetValues(typeof(Month)).Length;
-        private static int DayCount { get; } = Enum.GetValues(typeof(Day)).Length;
+        private static DateTime Start { get; } = new DateTime(2015, 11, 7, 16, 43, 0, DateTimeKind.Utc);
+        //private static DateTime Start { get; } = new DateTime(2015, 11, 7, 16, 43, 0, DateTimeKind.Utc);
+        private static int YearCount { get; } = Enum.GetValues(typeof(Years)).Length;
+        private static int MonthCount { get; } = Enum.GetValues(typeof(Months)).Length;
+        private static int DayCount { get; } = Enum.GetValues(typeof(Days)).Length;
+        private static int weeksInMonth { get; } = 5;
 
-        public Year YearName
+        public Years YearName
         {
             get
             {
                 int localYear = (Year - 1) % YearCount;
 
-                return (Objects.GameDateTime.Year)localYear;
+                return (Years)localYear;
             }
         }
-        public Month MonthName
+        public Months MonthName
         {
             get
             {
                 int localMonth = (Month - 1) % MonthCount;
 
-                return (Objects.GameDateTime.Month)localMonth;
+                return (Months)localMonth;
             }
         }
-        public Day DayName
+        public Days DayName
         {
             get
             {
                 int localDay = (Day - 1) % DayCount;
 
-                return (Objects.GameDateTime.Day)localDay;
+                return (Days)localDay;
             }
         }
 
-        public int Year { get; private set; }
-        public int Month { get; private set; }
-        public int Day { get; private set; }
-        public int Hour { get; private set; }
-        public int Minute { get; private set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int Day { get; set; }
+        public int Hour { get; set; }
+        public int Minute { get; set; }
 
+
+        public GameDateTime()
+        {
+
+        }
         public GameDateTime(DateTime now)
         {
-            long totalInGameSecondsSinceBegining = (long)now.ToUniversalTime().Subtract(Start.ToUniversalTime()).TotalSeconds * 60;
+            long totalInGameSecondsSinceBegining = (long)now.ToUniversalTime().Subtract(Start).TotalSeconds * 60;
 
             Year = CalculateYear(ref totalInGameSecondsSinceBegining) + 1;
             Month = CalculateMonth(ref totalInGameSecondsSinceBegining) + 1;
             Day = CalculateDay(ref totalInGameSecondsSinceBegining) + 1;
-            Hour = CalculateHour(ref totalInGameSecondsSinceBegining) + 1;
+            Hour = CalculateHour(ref totalInGameSecondsSinceBegining);
             Minute = CalculateMinute(ref totalInGameSecondsSinceBegining);
+        }
+
+
+        public override string ToString()
+        {
+            StringBuilder strBldr = new StringBuilder();
+            strBldr.AppendLine($"{Pad(Month)}/{Pad(Day)}/{Pad(Year)} {Pad(Hour)}:{Pad(Minute)}:00");
+            strBldr.AppendLine("Month: " + MonthName);
+            strBldr.AppendLine("Day: " + DayName);
+            strBldr.Append("Year: " + YearName);
+
+            return strBldr.ToString();
+        }
+
+        public int CompareTo(object obj)
+        {
+            IGameDateTime gameDateTime = obj as IGameDateTime;
+
+            if (gameDateTime == null)
+            {
+                throw new Exception("Unable to compare to non game date time object.");
+            }
+
+            if (Year != gameDateTime.Year)
+            {
+                return Year.CompareTo(gameDateTime.Year);
+            }
+            else if (Month != gameDateTime.Month)
+            {
+                return Month.CompareTo(gameDateTime.Month);
+            }
+            else if (Day != gameDateTime.Day)
+            {
+                return Day.CompareTo(gameDateTime.Day);
+            }
+            else if (Hour != gameDateTime.Hour)
+            {
+                return Hour.CompareTo(gameDateTime.Hour);
+            }
+            else if (Minute != gameDateTime.Minute)
+            {
+                return Minute.CompareTo(gameDateTime.Minute);
+            }
+
+            return 0;
+        }
+
+        public static bool operator <(GameDateTime gameDateTime1, IGameDateTime gameDateTime2)
+        {
+            return gameDateTime1.CompareTo(gameDateTime2) < 0;
+        }
+
+        public static bool operator >(GameDateTime gameDateTime1, IGameDateTime gameDateTime2)
+        {
+            return gameDateTime1.CompareTo(gameDateTime2) > 0;
+        }
+
+
+        private string Pad(int i)
+        {
+            return i.ToString().PadLeft(2, '0');
         }
 
         #region Private Calculations
@@ -108,16 +176,37 @@ namespace Objects.GameDateTime
         }
         private static long secondsInMonth()
         {
-            return 5 * DayCount * secondsInDay();  //5 weeks of 6 days
+            return weeksInMonth * DayCount * secondsInDay();  //5 weeks of 6 days
         }
         private static long secondsInYear()
         {
             return 12 * secondsInMonth();
         }
+
+        IGameDateTime IGameDateTime.AddDays(int days)
+        {
+            Day += days;
+            int daysInMonth = weeksInMonth * DayCount;
+
+            if (Day > daysInMonth)
+            {
+                Month += Day / (daysInMonth);
+                Day = Day % daysInMonth;
+
+                if (Month > MonthCount)
+                {
+                    Year += Month / MonthCount;
+                    Month = Month % MonthCount;
+                }
+            }
+
+            return this;
+        }
+
         #endregion Private Calculations
     }
 
-    public enum Day
+    public enum Days
     {
         Life,
         Earth,
@@ -127,7 +216,7 @@ namespace Objects.GameDateTime
         Death
     }
 
-    public enum Month
+    public enum Months
     {
         Griffin,
         Vampire,
@@ -143,7 +232,7 @@ namespace Objects.GameDateTime
         Ghost
     }
 
-    public enum Year
+    public enum Years
     {
         Charon,
         Calypso

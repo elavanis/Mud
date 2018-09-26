@@ -36,6 +36,7 @@ using static Objects.Skill.Skills.Track;
 using static Objects.Global.Direction.Directions;
 using Objects.Command.PC;
 using Objects.Command.PC.Interface;
+using Objects.GameDateTime;
 
 namespace Objects.World
 {
@@ -320,13 +321,13 @@ namespace Objects.World
 
         private void ReloadZones()
         {
-            if (_lastZoneReload != GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Day)
+            if (_lastZoneReload != GlobalReference.GlobalValues.GameDateTime.GameDateTime.Day)
             {
                 lock (_zoneRefreshPadlock)
                 {
-                    if (_lastZoneReload != GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Day)
+                    if (_lastZoneReload != GlobalReference.GlobalValues.GameDateTime.GameDateTime.Day)
                     {
-                        _lastZoneReload = GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Day;
+                        _lastZoneReload = GlobalReference.GlobalValues.GameDateTime.GameDateTime.Day;
 
                         //we can not load the zones into the list while iterating over the list
                         //so we create a list of zones that will be reloaded
@@ -334,7 +335,8 @@ namespace Objects.World
 
                         foreach (IZone zone in Zones.Values)
                         {
-                            if (zone.ResetTime < GlobalReference.GlobalValues.GameDateTime.InGameDateTime)
+                            //TODO Figure out how to not need to cast
+                            if ((GameDateTime.GameDateTime)zone.ResetTime < GlobalReference.GlobalValues.GameDateTime.GameDateTime)
                             {
                                 string filePath = _zoneIdToFileMap[zone.Id];
                                 GlobalReference.GlobalValues.Logger.Log(LogLevel.DEBUG, "Reloading " + filePath);

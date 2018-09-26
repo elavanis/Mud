@@ -42,6 +42,7 @@ using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
 using Objects.Language;
 using System.Collections.Concurrent;
+using Objects.GameDateTime.Interface;
 
 namespace ObjectsUnitTest.World
 {
@@ -53,7 +54,7 @@ namespace ObjectsUnitTest.World
         Mock<IEvent> evnt;
         Mock<ICombat> combat;
         Mock<IRandom> random;
-        Mock<IGameDateTime> gameDateTime;
+        Mock<IInGameDateTime> inGameDateTime;
         Mock<INonPlayerCharacter> npc;
         Mock<IPlayerCharacter> pc;
         Mock<IRoom> room;
@@ -61,6 +62,7 @@ namespace ObjectsUnitTest.World
         Mock<INotify> notify;
         Mock<ITagWrapper> tagWrapper;
         Dictionary<int, IRoom> dictionaryRoom;
+        Mock<IGameDateTime> gameDateTime;
 
         [TestInitialize]
         public void Setup()
@@ -69,13 +71,14 @@ namespace ObjectsUnitTest.World
             evnt = new Mock<IEvent>();
             combat = new Mock<ICombat>();
             random = new Mock<IRandom>();
-            gameDateTime = new Mock<IGameDateTime>();
+            inGameDateTime = new Mock<IInGameDateTime>();
             npc = new Mock<INonPlayerCharacter>();
             pc = new Mock<IPlayerCharacter>();
             room = new Mock<IRoom>();
             zone = new Mock<IZone>();
             notify = new Mock<INotify>();
             tagWrapper = new Mock<ITagWrapper>();
+            gameDateTime = new Mock<IGameDateTime>();
 
             Mock<ILogger> logger = new Mock<ILogger>();
             Mock<ICounters> counters = new Mock<ICounters>();
@@ -90,16 +93,18 @@ namespace ObjectsUnitTest.World
             room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
             zone.Setup(e => e.Rooms).Returns(dictionaryRoom);
+            zone.Setup(e => e.ResetTime).Returns(gameDateTime.Object);
             npc.Setup(e => e.LastProccessedTick).Returns(1);
             pc.Setup(e => e.LastProccessedTick).Returns(1);
             pc.Setup(e => e.CraftsmanObjects).Returns(new List<Objects.Crafting.Interface.ICraftsmanObject>());
             pc.Setup(e => e.Room).Returns(room.Object);
             pc.Setup(e => e.FollowTarget).Returns(npc.Object);
             tickTimes.Setup(e => e.MedianTime).Returns(1m);
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
 
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Random = random.Object;
-            GlobalReference.GlobalValues.GameDateTime = gameDateTime.Object;
+            GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
             GlobalReference.GlobalValues.Logger = logger.Object;
             GlobalReference.GlobalValues.Counters = counters.Object;
             GlobalReference.GlobalValues.TickTimes = tickTimes.Object;
@@ -260,21 +265,22 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_ReloadZones()
         {
+            gameDateTime.Setup(e => e.Day).Returns(1);
+
             world.Zones.Clear();  //clears out the zone added at initialization
 
             PropertyInfo info = world.GetType().GetProperty("_zoneIdToFileMap", BindingFlags.Instance | BindingFlags.NonPublic);
             Mock<IFileIO> fileIo = new Mock<IFileIO>();
-            Mock<ISerialization> xmlSerialization = new Mock<ISerialization>();
+            Mock<ISerialization> serialization = new Mock<ISerialization>();
             Objects.Zone.Zone deserializeZone = new Objects.Zone.Zone();
 
             ((Dictionary<int, string>)info.GetValue(world)).Add(0, "blah");
-            gameDateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(1, 2, 3));
             world.Zones.Add(0, zone.Object);
             fileIo.Setup(e => e.ReadAllText("blah")).Returns("seraializedZone");
-            xmlSerialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("seraializedZone")).Returns(deserializeZone);
+            serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("seraializedZone")).Returns(deserializeZone);
 
             GlobalReference.GlobalValues.FileIO = fileIo.Object;
-            GlobalReference.GlobalValues.Serialization = xmlSerialization.Object;
+            GlobalReference.GlobalValues.Serialization = serialization.Object;
 
             world.PerformTick();
 

@@ -11,6 +11,7 @@ using Objects.Item.Items.Interface;
 using Objects.Global.Random.Interface;
 using Objects.Personality.Personalities.Interface;
 using Objects.Personality.Interface;
+using Objects.GameDateTime.Interface;
 
 namespace ObjectsUnitTest.Zone
 {
@@ -21,6 +22,8 @@ namespace ObjectsUnitTest.Zone
         Mock<IRoom> room;
         Mock<IItem> item;
         Mock<INonPlayerCharacter> npc;
+        Mock<IInGameDateTime> inGameDateTime;
+
 
         [TestInitialize]
         public void Setup()
@@ -29,11 +32,13 @@ namespace ObjectsUnitTest.Zone
             room = new Mock<IRoom>();
             item = new Mock<IItem>();
             npc = new Mock<INonPlayerCharacter>();
+            inGameDateTime = new Mock<IInGameDateTime>();
 
             room.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
 
             zone.Rooms.Add(1, room.Object);
+            GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
         }
 
 
@@ -42,9 +47,8 @@ namespace ObjectsUnitTest.Zone
         {
             Mock<IGameDateTime> gameDateTime = new Mock<IGameDateTime>();
 
-            gameDateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(1, 2, 3));
-
-            GlobalReference.GlobalValues.GameDateTime = gameDateTime.Object;
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
+            gameDateTime.Setup(e => e.AddDays(150)).Returns(gameDateTime.Object);
 
             zone.FinishLoad();
 
@@ -57,21 +61,19 @@ namespace ObjectsUnitTest.Zone
         [TestMethod]
         public void Zone_FinishLoad_RecursiveLoad()
         {
-            Mock<IGameDateTime> gameDateTime = new Mock<IGameDateTime>();
             Mock<IItem> item1 = new Mock<IItem>();
             Mock<IItem> item2 = new Mock<IItem>();
             Mock<IItem> item3 = new Mock<IItem>();
             Mock<IContainer> container1 = item1.As<IContainer>();
             Mock<IContainer> container2 = item2.As<IContainer>();
             Mock<IContainer> container3 = item3.As<IContainer>();
+            Mock<IGameDateTime> gameDateTime = new Mock<IGameDateTime>();
 
-            gameDateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(1, 2, 3));
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             container3.Setup(e => e.Items).Returns(new List<IItem>());
             container2.Setup(e => e.Items).Returns(new List<IItem>() { item3.Object });
             container1.Setup(e => e.Items).Returns(new List<IItem>() { item2.Object });
             room.Setup(e => e.Items).Returns(new List<IItem>() { item1.Object });
-
-            GlobalReference.GlobalValues.GameDateTime = gameDateTime.Object;
 
             zone.FinishLoad();
 
@@ -89,11 +91,10 @@ namespace ObjectsUnitTest.Zone
             Mock<IGameDateTime> gameDateTime = new Mock<IGameDateTime>();
             Mock<IRandom> random = new Mock<IRandom>();
 
-            gameDateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(1, 2, 3));
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             zone.ZoneObjectSyncOptions = 1;
             random.Setup(e => e.Next(1)).Returns(0);
 
-            GlobalReference.GlobalValues.GameDateTime = gameDateTime.Object;
             GlobalReference.GlobalValues.Random = random.Object;
 
             zone.FinishLoad(0);

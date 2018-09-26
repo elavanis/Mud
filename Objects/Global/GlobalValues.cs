@@ -66,7 +66,7 @@ namespace Objects.Global
         public IFindObjects FindObjects { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public IGameDateTime GameDateTime { get; set; }
+        public IInGameDateTime GameDateTime { get; set; }
 
         [ExcludeFromCodeCoverage]
         public IGuildAbilities GuildAbilities { get; set; }
@@ -148,7 +148,7 @@ namespace Objects.Global
             Engine = new Engine.Engine();
             FindObjects = new FindObjects.FindObjects();
             FileIO = new FileIO();
-            GameDateTime = new GameDateTime.GameDateTime(new Time());
+            GameDateTime = new InGameDateTime(new Time());
             GuildAbilities = new Guild.GuildAbilities();
             Logger = new Logging.Logger();
             Map = new Map.Map();

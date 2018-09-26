@@ -2,6 +2,7 @@
 using Moq;
 using Objects.Effect;
 using Objects.Effect.Interface;
+using Objects.GameDateTime.Interface;
 using Objects.Global;
 using Objects.Global.GameDateTime.Interface;
 using Objects.Global.Notify.Interface;
@@ -21,6 +22,7 @@ namespace ObjectsUnitTest.Effect
         Mock<IRoom> room;
         Mock<INonPlayerCharacter> npc;
         Mock<INotify> notify;
+        Mock<IInGameDateTime> inGameDateTime;
         Mock<IGameDateTime> gameDateTime;
 
 
@@ -32,15 +34,17 @@ namespace ObjectsUnitTest.Effect
             room = new Mock<IRoom>();
             npc = new Mock<INonPlayerCharacter>();
             notify = new Mock<INotify>();
+            inGameDateTime = new Mock<IInGameDateTime>();
             gameDateTime = new Mock<IGameDateTime>();
 
             effectParameter.Setup(e => e.Target).Returns(room.Object);
             effectParameter.Setup(e => e.Performer).Returns(npc.Object);
             npc.Setup(e => e.Clone()).Returns(npc.Object);
-            gameDateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(1, 1, 1, 1, 1, 1));
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
+            gameDateTime.Setup(e => e.Hour).Returns(1);
 
             GlobalReference.GlobalValues.Notify = notify.Object;
-            GlobalReference.GlobalValues.GameDateTime = gameDateTime.Object;
+            GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
         }
 
         [TestMethod]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Objects.GameDateTime;
 using Objects.Global;
 using Objects.Item;
 using Objects.Item.Interface;
@@ -104,7 +105,7 @@ namespace GenerateZones.Zones.GrandView
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
-            room.ExamineDescription = string.Format("The \"Grandview Meadows\" park lies to your west.  To call it a Grandview or a Meadow would be stretching the definition of either but hey, no one consulted you when the named the place.  Maybe before the city was here it was a meadow.  To the north is the stairwell leading to the giant dome which some would call the jewel of the city.  The stairwell is made of stone and consists of {0} steps, one for each God.", GlobalReference.GlobalValues.GameDateTime.YearNames.Count);
+            room.ExamineDescription = string.Format("The \"Grandview Meadows\" park lies to your west.  To call it a Grandview or a Meadow would be stretching the definition of either but hey, no one consulted you when the named the place.  Maybe before the city was here it was a meadow.  To the north is the stairwell leading to the giant dome which some would call the jewel of the city.  The stairwell is made of stone and consists of {0} steps, one for each God.", Enum.GetValues(typeof(Years)).Length);
             room.LookDescription = "An arched sign extends over the street here and reads \"Grandview Meadows.\"";
             room.ShortDescription = "Entrance to the park";
 

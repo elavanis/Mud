@@ -1,4 +1,5 @@
 ﻿using Objects.Effect.Interface;
+using Objects.GameDateTime;
 using Objects.Global;
 using Objects.Interface;
 using Objects.Language;
@@ -25,8 +26,8 @@ namespace Objects.Effect.Zone.EndlessDesert
             DoorChange doorChange = DoorChange.NoChange;
             if (room != null)
             {
-                if (GlobalReference.GlobalValues.GameDateTime.InGameDateTime.DayOfWeek == DayOfWeek.Saturday //Death
-                    && GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Hour > 12) //night
+                if (GlobalReference.GlobalValues.GameDateTime.GameDateTime.DayName == Days.Death
+                    && GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour >= 12) //night
                 {
                     if (room.Down == null)
                     {

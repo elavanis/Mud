@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Objects.Command.PC;
 using System.Linq;
 using Objects.Global.GameDateTime.Interface;
+using Objects.GameDateTime.Interface;
 
 namespace ObjectsUnitTest.Command.PC
 {
@@ -54,12 +55,14 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Tell_PerformCommand_NoParameter()
         {
+            Mock<IInGameDateTime> inGameDateTime = new Mock<IInGameDateTime>();
             Mock<IGameDateTime> gameDateTime = new Mock<IGameDateTime>();
 
             tagWrapper.Setup(e => e.WrapInTag("time", TagType.Info)).Returns("message");
-            gameDateTime.Setup(e => e.InGameFormatedDateTime).Returns("time");
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
+            gameDateTime.Setup(e => e.ToString()).Returns("time");
 
-            GlobalReference.GlobalValues.GameDateTime = gameDateTime.Object;
+            GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);

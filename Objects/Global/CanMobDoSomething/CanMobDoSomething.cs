@@ -25,7 +25,7 @@ namespace Objects.Global.CanMobDoSomething
             IRoom room = mob.Room;
 
             if (room.Attributes.Contains(Room.Room.RoomAttribute.NoLight)
-                    || (GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Hour >= 12) //night
+                    || (GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour >= 12) //night
                         && !room.Attributes.Contains(Room.Room.RoomAttribute.Light)) //the room is not lit
             {
                 //room is dark

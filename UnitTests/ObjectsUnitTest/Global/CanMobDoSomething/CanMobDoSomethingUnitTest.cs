@@ -17,6 +17,7 @@ using Objects.Item.Interface;
 using Objects.Global.Random.Interface;
 using Shared.TagWrapper.Interface;
 using static Shared.TagWrapper.TagWrapper;
+using Objects.GameDateTime.Interface;
 
 namespace ObjectsUnitTest.Global.CanMobDoSomething
 {
@@ -25,7 +26,8 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
     {
         Objects.Global.CanMobDoSomething.CanMobDoSomething canDoSomething;
         Mock<IMobileObject> mob;
-        Mock<IGameDateTime> dateTime;
+        Mock<IInGameDateTime> inGameDateTime;
+        Mock<IGameDateTime> gameDateTime;
 
         Mock<IRoom> room;
         Mock<IItem> item;
@@ -37,17 +39,19 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
             canDoSomething = new Objects.Global.CanMobDoSomething.CanMobDoSomething();
 
             mob = new Mock<IMobileObject>();
-            dateTime = new Mock<IGameDateTime>();
+            inGameDateTime = new Mock<IInGameDateTime>();
             room = new Mock<IRoom>();
             item = new Mock<IItem>();
             altMob = new Mock<IMobileObject>();
+            gameDateTime = new Mock<IGameDateTime>();
 
-            dateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(01, 01, 01, 1, 00, 00));
-            GlobalReference.GlobalValues.GameDateTime = dateTime.Object;
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
             mob.Setup(e => e.Room).Returns(room.Object);
             item.Setup(e => e.Attributes).Returns(new List<ItemAttribute>() { ItemAttribute.Invisible });
             altMob.Setup(e => e.AttributesCurrent).Returns(new List<MobileAttribute>() { MobileAttribute.Invisibile });
+
+            GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
         }
 
         #region SeeDueToLight
@@ -62,7 +66,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         [TestMethod]
         public void CanMobDoSomething_SeeDueToLight_Night()
         {
-            dateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(01, 01, 01, 13, 00, 00));
+            gameDateTime.Setup(e => e.Hour).Returns(12);
 
             Assert.IsFalse(canDoSomething.SeeDueToLight(mob.Object));
         }
@@ -70,7 +74,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         [TestMethod]
         public void CanMobDoSomething_SeeDueToLight_NightRoomLite()
         {
-            dateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(01, 01, 01, 13, 00, 00));
+            gameDateTime.Setup(e => e.Hour).Returns(12);
 
             room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.Light });
 
@@ -86,7 +90,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         [TestMethod]
         public void CanMobDoSomething_SeeDueToLight_NightInfravision()
         {
-            dateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(01, 01, 01, 13, 00, 00));
+            gameDateTime.Setup(e => e.Hour).Returns(12);
 
             mob.Setup(e => e.AttributesCurrent).Returns(new List<MobileAttribute>() { MobileAttribute.Infravision });
 
@@ -96,7 +100,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         [TestMethod]
         public void CanMobDoSomething_SeeDueToLight_NightHoldLight()
         {
-            dateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(01, 01, 01, 13, 00, 00));
+            gameDateTime.Setup(e => e.Hour).Returns(12);
 
             Mock<IEquipment> equipment = new Mock<IEquipment>();
             equipment.Setup(e => e.ItemPosition).Returns(AvalableItemPosition.Held);
@@ -110,7 +114,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         [TestMethod]
         public void CanMobDoSomething_SeeDueToLight_NightHoldNotLight()
         {
-            dateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(01, 01, 01, 13, 00, 00));
+            gameDateTime.Setup(e => e.Hour).Returns(12);
 
             Mock<IEquipment> equipment = new Mock<IEquipment>();
             equipment.Setup(e => e.ItemPosition).Returns(AvalableItemPosition.Held);
@@ -123,7 +127,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         [TestMethod]
         public void CanMobDoSomething_SeeDueToLight_NightNotHeldLight()
         {
-            dateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(01, 01, 01, 13, 00, 00));
+            gameDateTime.Setup(e => e.Hour).Returns(12);
 
             Mock<IEquipment> equipment = new Mock<IEquipment>();
             equipment.Setup(e => e.ItemPosition).Returns(AvalableItemPosition.Head);
@@ -151,9 +155,8 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         [TestMethod]
         public void CanMobDoSomething_SeeObject_Dark()
         {
-            Mock<IGameDateTime> dateTime = new Mock<IGameDateTime>();
-            dateTime.Setup(e => e.InGameDateTime).Returns(new DateTime(01, 01, 01, 13, 00, 00));
-            GlobalReference.GlobalValues.GameDateTime = dateTime.Object;
+            gameDateTime.Setup(e => e.Hour).Returns(12);
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
 
             Assert.IsFalse(canDoSomething.SeeObject(mob.Object, room.Object));
         }

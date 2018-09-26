@@ -26,7 +26,7 @@ namespace Objects.Effect
             INonPlayerCharacter nonPlayerCharacter = parameter.Performer as INonPlayerCharacter;
 
             if (room != null && nonPlayerCharacter != null
-                && (HoursToLoad == null || HoursToLoad.Contains(GlobalReference.GlobalValues.GameDateTime.InGameDateTime.Hour)))
+                && (HoursToLoad == null || HoursToLoad.Contains(GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour)))
             {
                 //clone it so we don't keep using the same mob instance
                 nonPlayerCharacter = (INonPlayerCharacter)nonPlayerCharacter.Clone();

@@ -36,7 +36,7 @@ namespace Objects.Global.Interface
         IExperience Experience { get; set; }
         IFileIO FileIO { get; set; }
         IFindObjects FindObjects { get; set; }
-        IGameDateTime GameDateTime { get; set; }
+        IInGameDateTime GameDateTime { get; set; }
         IGuildAbilities GuildAbilities { get; set; }
         ILogger Logger { get; set; }
         IMap Map { get; set; }

@@ -1,4 +1,5 @@
-﻿using Objects.Interface;
+﻿using Objects.GameDateTime.Interface;
+using Objects.Interface;
 using Objects.Room.Interface;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Objects.Zone.Interface
         bool RepeatZoneProcessing { get; set; }
         int ZoneObjectSyncOptions { get; set; }
         int InGameDaysTillReset { get; set; }
-        DateTime ResetTime { get; set; }
+        IGameDateTime ResetTime { get; set; }
         Dictionary<int, IRoom> Rooms { get; set; }
         int Level { get; }
         int Id { get; set; }

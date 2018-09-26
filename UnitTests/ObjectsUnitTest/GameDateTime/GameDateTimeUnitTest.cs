@@ -16,9 +16,9 @@ namespace ObjectsUnitTest.GameDateTime
 
             Objects.GameDateTime.GameDateTime gameDateTime = new Objects.GameDateTime.GameDateTime(dateTime);
 
-            Day day = gameDateTime.DayName;
-            Month month = gameDateTime.MonthName;
-            Year year = gameDateTime.YearName;
+            Days day = gameDateTime.DayName;
+            Months month = gameDateTime.MonthName;
+            Years year = gameDateTime.YearName;
 
 
             Assert.AreEqual(1, 2);

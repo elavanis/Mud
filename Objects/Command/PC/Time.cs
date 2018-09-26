@@ -17,7 +17,7 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            return new Result(GlobalReference.GlobalValues.GameDateTime.InGameFormatedDateTime, true);
+            return new Result(GlobalReference.GlobalValues.GameDateTime.GameDateTime.ToString(), true);
         }
     }
 }
