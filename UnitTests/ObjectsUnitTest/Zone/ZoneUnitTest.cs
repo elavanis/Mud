@@ -52,7 +52,7 @@ namespace ObjectsUnitTest.Zone
 
             zone.FinishLoad();
 
-            Assert.AreEqual(new DateTime(1, 7, 3), zone.ResetTime);
+            Assert.IsNotNull(zone.ResetTime);
             npc.Verify(e => e.FinishLoad(-1), Times.Once);
             item.Verify(e => e.FinishLoad(-1), Times.Once);
             room.Verify(e => e.FinishLoad(-1), Times.Once);
