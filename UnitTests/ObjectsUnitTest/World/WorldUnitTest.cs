@@ -474,7 +474,9 @@ namespace ObjectsUnitTest.World
             mobCommand.Setup(e => e.PerformCommand(npc.Object, command.Object)).Returns(result.Object);
             result.Setup(e => e.ResultMessage).Returns("result");
             notify.Setup(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>())).Callback<IMobileObject, ITranslationMessage>((mob, translationMessage) => { message = translationMessage; });
-            tagWrapper.Setup(e => e.WrapInTag("Unable to figure out how to 4.", TagType.Info)).Returns("expectedMessage");
+            tagWrapper.Setup(e => e.WrapInTag(@"Unable to figure out how to 4.
+To see a list of all commands type MAN.
+To see infon on how to use a command type MAN and then the COMMAND.", TagType.Info)).Returns("expectedMessage");
             tagWrapper.Setup(e => e.WrapInTag("expectedMessage", TagType.Info)).Returns("expectedMessage");
 
             GlobalReference.GlobalValues.Parser = parser.Object;
