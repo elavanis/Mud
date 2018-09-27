@@ -443,7 +443,6 @@ namespace ObjectsUnitTest.Mob
             evnt.Verify(e => e.OnDeath(mob), Times.Once);
         }
 
-
         [TestMethod]
         public void MobileObject_TakeDamage_Shield()
         {
@@ -1007,6 +1006,34 @@ namespace ObjectsUnitTest.Mob
         }
 
         [TestMethod]
+        public void MobileObject_DieWhilePossessed_PossesserLooks()
+        {
+            Mock<IMoneyToCoins> moneyToCoins = new Mock<IMoneyToCoins>();
+            Mock<IItem> item = new Mock<IItem>();
+            Mock<IArmor> armor = new Mock<IArmor>();
+            Mock<IEngine> engine = new Mock<IEngine>();
+            Mock<IEvent> evnt = new Mock<IEvent>();
+            Mock<IPlayerCharacter> pc = new Mock<IPlayerCharacter>();
+
+            mob.PossingMob = pc.Object;
+
+            moneyToCoins.Setup(e => e.FormatedAsCoins(10)).Returns("10 coins");
+            mob.Items.Add(item.Object);
+            mob.AddEquipment(armor.Object);
+            mob.Money = 10;
+            engine.Setup(e => e.Event).Returns(evnt.Object);
+
+            GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
+            GlobalReference.GlobalValues.Engine = engine.Object;
+
+            mob.Die();
+
+            pc.Verify(e => e.EnqueueCommand("Look"), Times.Once);
+            pc.VerifySet(e => e.PossedMob = null);
+            Assert.IsNull(mob.PossingMob);
+        }
+
+        [TestMethod]
         public void MobileObject_Die_CorpseDescriptionSet()
         {
             Mock<IMoneyToCoins> moneyToCoins = new Mock<IMoneyToCoins>();
@@ -1172,6 +1199,45 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual("test", message);
             queue.TryDequeue(out message);
             Assert.AreEqual("AAA", message);
+        }
+
+        [TestMethod]
+        public void MobileObject_EnqueueMessage_Possessed()
+        {
+            Mock<IPlayerCharacter> pc = new Mock<IPlayerCharacter>();
+            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
+            Mock<IEvent> evnt = new Mock<IEvent>();
+            Mock<IEngine> engine = new Mock<IEngine>();
+
+            mob.Health = 1;
+            mob.MaxHealth = 10;
+            mob.Mana = 2;
+            mob.MaxMana = 20;
+            mob.Stamina = 3;
+            mob.MaxStamina = 30;
+            mob.PossingMob = pc.Object;
+            tagWrapper.Setup(e => e.WrapInTag("1/10 ", TagType.Health)).Returns("Health");
+            tagWrapper.Setup(e => e.WrapInTag("2/20 ", TagType.Mana)).Returns("Mana");
+            tagWrapper.Setup(e => e.WrapInTag("3/30", TagType.Stamina)).Returns("Stamina");
+            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), "test")).Returns("test");
+            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), "\r\nHealthManaStamina\r\n")).Returns("AAA");
+            engine.Setup(e => e.Event).Returns(evnt.Object);
+
+            GlobalReference.GlobalValues.Engine = engine.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
+            ConcurrentQueue<string> queue = GetMobMessageQueue(mob);
+
+            mob.EnqueueMessage("test");
+
+            Assert.AreEqual(2, queue.Count());
+            string message;
+            queue.TryDequeue(out message);
+            Assert.AreEqual("test", message);
+            queue.TryDequeue(out message);
+            Assert.AreEqual("AAA", message);
+            pc.Verify(e => e.EnqueueMessage("test"), Times.Once);
+            pc.Verify(e => e.EnqueueMessage("AAA"), Times.Once);
         }
 
         [TestMethod]
