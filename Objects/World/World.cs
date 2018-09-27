@@ -267,7 +267,7 @@ namespace Objects.World
         {
             IZone zone = GlobalReference.GlobalValues.Serialization.Deserialize<Zone.Zone>(serializedZone);
 
-            GlobalReference.GlobalValues.Logger.Log(zone, LogLevel.INFO, "Loading Zone");
+            GlobalReference.GlobalValues.Logger.Log(zone, LogLevel.DEBUG, "Loading Zone");
 
             if (zone == null)
             {

@@ -76,20 +76,6 @@ namespace Objects.GameDateTime
             return strBldr.ToString();
         }
 
-
-        //public static bool operator <(GameDateTime gameDateTime1, IGameDateTime gameDateTime2)
-        //{
-        //    return gameDateTime1.CompareTo(gameDateTime2) < 0;
-        //}
-
-        //public static bool operator >(GameDateTime gameDateTime1, IGameDateTime gameDateTime2)
-        //{
-        //    return gameDateTime1.CompareTo(gameDateTime2) > 0;
-        //}
-
-
-
-
         private string Pad(int i)
         {
             return i.ToString().PadLeft(2, '0');
@@ -186,10 +172,9 @@ namespace Objects.GameDateTime
 
         private int CompareTo(IGameDateTime gameDateTime)
         {
-
             if (gameDateTime == null)
             {
-                throw new Exception("Unable to compare to non game date time object.");
+                throw new NullReferenceException("Game date time can not be null.");
             }
 
             if (Year != gameDateTime.Year)
