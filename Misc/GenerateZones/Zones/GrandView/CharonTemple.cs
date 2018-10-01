@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Objects.Item.Interface;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
+using static Objects.Global.Direction.Directions;
 using static Objects.Room.Room;
 
 namespace GenerateZones.Zones.GrandView
@@ -34,11 +36,12 @@ namespace GenerateZones.Zones.GrandView
                 }
             }
 
-            //ConnectRooms();
+            ConnectRooms();
 
             return Zone;
         }
 
+        #region Rooms
         private IRoom GenerateRoom()
         {
             IRoom room = CreateRoom();
@@ -89,6 +92,57 @@ namespace GenerateZones.Zones.GrandView
             room.ShortDescription = "Charon Temple";
 
             return room;
+        }
+
+        private IRoom GenerateRoom5()
+        {
+            IRoom room = GenerateRoom();
+
+            room.ExamineDescription = "A small shrine has been setup next to the dock.";
+            room.LookDescription = "There is dock extending twenty or thirty feet into a river that extends into the darkness.";
+            room.ShortDescription = "Charon Temple";
+
+            room.AddItemToRoom(Shrine());
+
+            return room;
+        }
+
+        private IItem Shrine()
+        {
+            IItem shrine = CreateItem<IItem>();
+            shrine.Zone = Zone.Id;
+            shrine.ExamineDescription = "The shrine is full of small coins carefully placed there.";
+            shrine.LookDescription = "The shrine is make of old wooden boat planks.";
+            shrine.ShortDescription = "The shrine has a small lantern lit in the center of the wooden shrine.";
+            shrine.SentenceDescription = "shrine";
+            shrine.KeyWords.Add("shrine");
+
+            return shrine;
+        }
+
+        private IRoom GenerateRoom6()
+        {
+            IRoom room = GenerateRoom();
+
+            room.ExamineDescription = "In the center of the circle is a statue of Charon guiding his boat down the river with his mighty oar.";
+            room.LookDescription = "A small circle has been drawn in chalk on the cave floor.";
+            room.ShortDescription = "Charon Temple";
+
+            room.AddItemToRoom(Shrine());
+
+            return room;
+        }
+        #endregion Rooms
+
+        private void ConnectRooms()
+        {
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.Up, 21, 13);
+
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.Down, Zone.Rooms[2]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.West, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.West, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.West, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.North, Zone.Rooms[6]);
         }
     }
 }

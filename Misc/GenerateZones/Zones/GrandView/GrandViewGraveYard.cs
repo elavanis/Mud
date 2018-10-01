@@ -122,6 +122,8 @@ namespace GenerateZones.Zones.GrandView
 
             SetRoom13();
 
+            ZoneHelper.ConnectZone(Zone.Rooms[13], Objects.Global.Direction.Directions.Direction.Down, 20, 1);
+
             return Zone;
         }
 
