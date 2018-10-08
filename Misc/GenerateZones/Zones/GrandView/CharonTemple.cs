@@ -4,10 +4,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Objects.Item.Interface;
+using Objects.Mob;
+using Objects.Mob.Interface;
+using Objects.Personality.Personalities;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static Objects.Global.Direction.Directions;
+using static Objects.Mob.NonPlayerCharacter;
 using static Objects.Room.Room;
 
 namespace GenerateZones.Zones.GrandView
@@ -128,10 +132,27 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "A small circle has been drawn in chalk on the cave floor.";
             room.ShortDescription = "Charon Temple";
 
-            room.AddItemToRoom(Shrine());
-
+            for (int i = 0; i < 8; i++)
+            {
+                room.AddMobileObjectToRoom(Priest());
+            }
             return room;
         }
+
+        private INonPlayerCharacter Priest()
+        {
+            INonPlayerCharacter nonPlayerCharacter = CreateNonplayerCharacter(MobType.Humanoid);
+            nonPlayerCharacter.Personalities.Add(new Guardian());
+            nonPlayerCharacter.Level = 20;
+            nonPlayerCharacter.ExamineDescription = "";
+            nonPlayerCharacter.LookDescription = "";
+            nonPlayerCharacter.ShortDescription = "";
+            nonPlayerCharacter.SentenceDescription = "";
+            nonPlayerCharacter.KeyWords.Add("Priest");
+
+            return nonPlayerCharacter;
+        }
+
         #endregion Rooms
 
         private void ConnectRooms()
