@@ -144,10 +144,10 @@ namespace GenerateZones.Zones.GrandView
             INonPlayerCharacter nonPlayerCharacter = CreateNonplayerCharacter(MobType.Humanoid);
             nonPlayerCharacter.Personalities.Add(new Guardian());
             nonPlayerCharacter.Level = 20;
-            nonPlayerCharacter.ExamineDescription = "";
-            nonPlayerCharacter.LookDescription = "";
-            nonPlayerCharacter.ShortDescription = "";
-            nonPlayerCharacter.SentenceDescription = "";
+            nonPlayerCharacter.ExamineDescription = "Clothed in a gray tunic the priest stands in meditation while emitting a humming sound.";
+            nonPlayerCharacter.LookDescription = "The priest mostly ignores you as all are welcome to the temple of Charon.";
+            nonPlayerCharacter.ShortDescription = "A mediative priest stands in his place the circle.";
+            nonPlayerCharacter.SentenceDescription = "priest";
             nonPlayerCharacter.KeyWords.Add("Priest");
 
             return nonPlayerCharacter;
