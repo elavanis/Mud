@@ -1,4 +1,4 @@
-{
+﻿{
   "$type": "Server.ConfigSettings, Server",
   "PlayerCharacterDirectory": "C:\\Mud\\Players",
   "ZoneDirectory": "C:\\Mud\\World",
@@ -6,6 +6,7 @@
   "AssetsDirectory": "C:\\Mud\\Assets",
   "Port": 52475,
   "SendMapPosition": "True",
+  "BannedIps":"",
   "AsciiArt": "                                   ▒▓▓░░▒▒▓░                               
                            ▒▓▓██████████████▓▓▒░                           
                        ▒████████████████████████████▓░                     

@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -83,13 +84,22 @@ namespace ServerTelnetCommunication
                         string messageFromClient;
                         if (InQueue.TryDequeue(out messageFromClient))
                         {
+                            IPAddress address = ((IPEndPoint)_clientSocket.Client.RemoteEndPoint).Address;
+
                             switch (_loginState)
                             {
                                 case LoginState.UserName:
-                                    _userName = messageFromClient;
-                                    _loginState = LoginState.Password;
-                                    OutQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag("What is your password?"));
 
+                                    if (ConnectionAccessManager.CanLogin(address))
+                                    {
+                                        _userName = messageFromClient;
+                                        _loginState = LoginState.Password;
+                                        OutQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag("What is your password?"));
+                                    }
+                                    else
+                                    {
+                                        OutQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag("IP temporarily/permanently banned."));
+                                    }
                                     break;
                                 case LoginState.Password:
                                     _password = messageFromClient;
@@ -112,7 +122,8 @@ namespace ServerTelnetCommunication
                                         }
                                         else
                                         {
-                                            GlobalReference.GlobalValues.Logger.Log(LogLevel.ALL, string.Format("{0} failed to log in with password {1}.", _userName, _password));
+                                            ConnectionAccessManager.AddFailedLogin(address);
+                                            GlobalReference.GlobalValues.Logger.Log(LogLevel.ALL, $"{_userName} failed to log in with password {_password} from address {address}.");
                                             _loginState = LoginState.AsciiArt;
                                             OutQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag("Invalid username/password."));
                                         }

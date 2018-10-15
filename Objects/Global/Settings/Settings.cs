@@ -1,6 +1,8 @@
 ﻿using Objects.Global.Settings.Interface;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Net;
 
 namespace Objects.Global.Settings
 {
@@ -44,6 +46,6 @@ namespace Objects.Global.Settings
 
         [ExcludeFromCodeCoverage]
         public int OddsOfDropBeingPlusOne { get; set; } = 10;
-
+        public List<IPAddress> BannedIps { get; set; } = new List<IPAddress>();
     }
 }

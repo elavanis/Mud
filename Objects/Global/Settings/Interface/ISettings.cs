@@ -1,4 +1,7 @@
-﻿namespace Objects.Global.Settings.Interface
+﻿using System.Collections.Generic;
+using System.Net;
+
+namespace Objects.Global.Settings.Interface
 {
     public interface ISettings
     {
@@ -15,5 +18,6 @@
         bool SendMapPosition { get; set; }
         int OddsOfGeneratingRandomDrop { get; set; }
         int OddsOfDropBeingPlusOne { get; set; }
+        List<IPAddress> BannedIps { get; set; }
     }
 }

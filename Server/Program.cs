@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using TelnetCommunication;
@@ -46,6 +47,16 @@ namespace Server
             GlobalReference.GlobalValues.Settings.AssetsDirectory = config.AssetsDirectory;
             GlobalReference.GlobalValues.Settings.Port = config.Port;
             GlobalReference.GlobalValues.Settings.SendMapPosition = config.SendMapPosition;
+
+            string[] ips = config.BannedIps.Split(',');
+            foreach (string ip in ips)
+            {
+                IPAddress address = null;
+                if (IPAddress.TryParse(ip, out address))
+                {
+                    GlobalReference.GlobalValues.Settings.BannedIps.Add(address);
+                }
+            }
 
             GlobalReference.GlobalValues.Logger.Settings.LogDirectory = config.LogDirectory;
         }

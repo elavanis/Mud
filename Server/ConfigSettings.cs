@@ -12,8 +12,8 @@ namespace Server
         public string AssetsDirectory { get; set; }
         public int Port { get; set; }
         public bool SendMapPosition { get; set; }
+        public string BannedIps { get; set; }
 
         public string AsciiArt { get; set; }
-
     }
 }
