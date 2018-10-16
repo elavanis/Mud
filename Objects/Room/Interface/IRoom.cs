@@ -22,6 +22,9 @@ namespace Objects.Room.Interface
         void AddItemToRoom(IItem item, int position = 0);
         bool RemoveItemFromRoom(IItem item);
 
+        string Owner { get; set; }
+        HashSet<string> Guests { get; set; }
+
         List<Room.RoomAttribute> Attributes { get; }
         IExit North { get; set; }
         IExit East { get; set; }
@@ -61,5 +64,6 @@ namespace Objects.Room.Interface
         IResult CheckLeaveDirection(IMobileObject mobileObject, Directions.Direction direction);
         void Enter(IMobileObject performer);
         bool Leave(IMobileObject performer, Directions.Direction direction);
+
     }
 }

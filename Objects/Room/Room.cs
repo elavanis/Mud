@@ -142,7 +142,10 @@ namespace Objects.Room
             }
         }
 
-
+        [ExcludeFromCodeCoverage]
+        public string Owner { get; set; }
+        [ExcludeFromCodeCoverage]
+        public HashSet<string> Guests { get; set; } = new HashSet<string>();
 
         [ExcludeFromCodeCoverage]
         public List<Shared.Sound.Interface.ISound> Sounds { get; } = new List<Shared.Sound.Interface.ISound>();
@@ -720,6 +723,8 @@ namespace Objects.Room
                 return GetWeatherMessage("WindSpeed");
             }
         }
+
+
 
         private string GetWeatherMessage(string weatherType)
         {
