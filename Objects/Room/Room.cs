@@ -404,14 +404,6 @@ namespace Objects.Room
             /// Aggressive actions will be ignored in this room
             /// </summary>
             Peaceful,
-            /// <summary>
-            /// Only the owner can enter
-            /// </summary>
-            Private,
-            /// <summary>
-            /// Saves the contents of this room
-            /// </summary>
-            Save,
             NoLight,
             Light,
             /// <summary>
@@ -806,5 +798,27 @@ namespace Objects.Room
 
 
         #endregion Weather
+
+        public override void FinishLoad(int zoneObjectSyncValue = -1)
+        {
+            base.FinishLoad(zoneObjectSyncValue);
+
+            if (Attributes.Contains(RoomAttribute.Vault))
+            {
+                ReloadVault();
+            }
+        }
+
+        private void ReloadVault()
+        {
+            string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{Zone}-{Id}.vault");
+            string fileContents = GlobalReference.GlobalValues.FileIO.ReadAllText(file);
+            IReadOnlyList<IItem> items = GlobalReference.GlobalValues.Serialization.Deserialize<IReadOnlyList<IItem>>(fileContents);
+
+            foreach (IItem item in items)
+            {
+                _items.Add(item);
+            }
+        }
     }
 }
