@@ -85,6 +85,8 @@ namespace GenerateZones.Zones
             IRoom room = CreateRoom();
 
             room.AddMobileObjectToRoom(NPC());
+
+            room.Attributes.Add(Room.RoomAttribute.Vault);
             return room;
         }
 

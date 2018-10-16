@@ -4,6 +4,7 @@
   "ZoneDirectory": "C:\\Mud\\World",
   "LogDirectory": "C:\\Mud\\Logs",
   "AssetsDirectory": "C:\\Mud\\Assets",
+  "VaultDirectory": "C:\\Mud\\Vaults",
   "Port": 52475,
   "SendMapPosition": "True",
   "BannedIps":"",

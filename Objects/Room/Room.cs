@@ -311,10 +311,13 @@ namespace Objects.Room
                 {
                     _items.Insert(position, item);
                 }
+
+                if (Attributes.Contains(RoomAttribute.Vault))
+                {
+                    SaveVault();
+                }
             }
         }
-
-
 
         public bool Leave(IMobileObject performer, Direction direction)
         {
@@ -354,8 +357,21 @@ namespace Objects.Room
         {
             lock (_itemLock)
             {
-                return _items.Remove(item);
+                bool success = _items.Remove(item);
+                if (Attributes.Contains(RoomAttribute.Vault) && success)
+                {
+                    SaveVault();
+                }
+                return success;
             }
+        }
+
+        private void SaveVault()
+        {
+            string serializedItems = GlobalReference.GlobalValues.Serialization.Serialize(_items);
+            GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(GlobalReference.GlobalValues.Settings.VaultDirectory);
+            string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{Zone}-{Id}.vault");
+            GlobalReference.GlobalValues.FileIO.WriteFile(file, serializedItems);
         }
 
         [ExcludeFromCodeCoverage]
@@ -402,7 +418,11 @@ namespace Objects.Room
             /// <summary>
             /// Tracking will not find paths through this room
             /// </summary>
-            NoTrack
+            NoTrack,
+            /// <summary>
+            /// Room will save when items are gotten or dropped
+            /// </summary>
+            Vault
         }
 
         #region Weather

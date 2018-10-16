@@ -27,6 +27,9 @@ namespace Objects.Global.Settings
         public string PlayerCharacterDirectory { get; set; } = "..\\Players";
 
         [ExcludeFromCodeCoverage]
+        public string VaultDirectory { get; set; } = "..\\Vaults";
+
+        [ExcludeFromCodeCoverage]
         public string ZoneDirectory { get; set; } = "..\\World";
 
         [ExcludeFromCodeCoverage]

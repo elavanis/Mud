@@ -11,6 +11,7 @@ namespace Objects.Global.Settings.Interface
         int MaxCalculationLevel { get; }
         double Multiplier { get; set; }
         string PlayerCharacterDirectory { get; set; }
+        string VaultDirectory { get; set; }
         string ZoneDirectory { get; set; }
         string AssetsDirectory { get; set; }
         string AsciiArt { get; set; }
