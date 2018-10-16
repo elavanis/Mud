@@ -36,6 +36,9 @@ namespace Objects.Global.Settings
         public string AssetsDirectory { get; set; } = "..\\Assets";
 
         [ExcludeFromCodeCoverage]
+        public string BugDirectory { get; set; } = "..\\Bugs";
+
+        [ExcludeFromCodeCoverage]
         public string AsciiArt { get; set; }
 
         [ExcludeFromCodeCoverage]

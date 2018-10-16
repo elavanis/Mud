@@ -46,6 +46,7 @@ namespace Server
             GlobalReference.GlobalValues.Settings.ZoneDirectory = config.ZoneDirectory;
             GlobalReference.GlobalValues.Settings.AssetsDirectory = config.AssetsDirectory;
             GlobalReference.GlobalValues.Settings.VaultDirectory = config.VaultDirectory;
+            GlobalReference.GlobalValues.Settings.BugDirectory = config.BugDirectory;
             GlobalReference.GlobalValues.Settings.Port = config.Port;
             GlobalReference.GlobalValues.Settings.SendMapPosition = config.SendMapPosition;
 

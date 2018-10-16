@@ -5,6 +5,7 @@
   "LogDirectory": "C:\\Mud\\Logs",
   "AssetsDirectory": "C:\\Mud\\Assets",
   "VaultDirectory": "C:\\Mud\\Vaults",
+  "BugDirectory": "C:\\Mud\\Bugs",
   "Port": 52475,
   "SendMapPosition": "True",
   "BannedIps":"",

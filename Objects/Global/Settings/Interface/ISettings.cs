@@ -14,6 +14,7 @@ namespace Objects.Global.Settings.Interface
         string VaultDirectory { get; set; }
         string ZoneDirectory { get; set; }
         string AssetsDirectory { get; set; }
+        string BugDirectory { get; set; }
         string AsciiArt { get; set; }
         int Port { get; set; }
         bool SendMapPosition { get; set; }
