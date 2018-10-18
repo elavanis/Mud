@@ -52,6 +52,8 @@ namespace Objects.Global.Interface
         ITagWrapper TagWrapper { get; set; }
         ulong TickCounter { get; set; }
         ITickTimes TickTimes { get; set; }
+        ITime Time { get; set; }
+
         ITranslator Translator { get; set; }
         IUpTime UpTime { get; set; }
         IValidateAsset ValidateAsset { get; set; }

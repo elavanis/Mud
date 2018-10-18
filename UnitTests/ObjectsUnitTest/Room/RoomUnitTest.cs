@@ -19,6 +19,7 @@ using Objects.Personality.Personalities.Interface;
 using Objects.Personality.Interface;
 using Objects.LoadPercentage.Interface;
 using System.Linq;
+using Shared.FileIO.Interface;
 
 namespace ObjectsUnitTest.Room
 {
@@ -26,12 +27,30 @@ namespace ObjectsUnitTest.Room
     public class RoomUnitTest
     {
         Objects.Room.Room room;
+        Mock<IFileIO> fileIO;
 
         [TestInitialize]
         public void Setup()
         {
+            fileIO = new Mock<IFileIO>();
+
             room = new Objects.Room.Room();
             room.Zone = 1;
+        }
+
+        [TestMethod]
+        public void Room_AddItemToRoom_ValutContentsWritten()
+        {
+            room.Attributes.Add(RoomAttribute.Vault);
+
+
+            Assert.IsTrue(false);
+        }
+
+        [TestMethod]
+        public void Room_RemoveItemFromRoom_ValutContentsWritten()
+        {
+            Assert.IsTrue(false);
         }
 
         [TestMethod]
@@ -125,6 +144,70 @@ namespace ObjectsUnitTest.Room
             IResult result = room.CheckEnter(mob.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void Room_CheckEnter_NotOwner()
+        {
+            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
+            tagWrapper.Setup(e => e.WrapInTag("That property belongs to NotYou and you are not on the guest list.", TagType.Info)).Returns("message");
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
+            room.Owner = "NotYou";
+
+            Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
+            mob.Setup(e => e.KeyWords).Returns(new List<string>() { "PC" });
+
+            IResult result = room.CheckEnter(mob.Object);
+
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("message", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void Room_CheckEnter_Owner()
+        {
+            room.Owner = "NotYou";
+
+            Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
+            mob.Setup(e => e.KeyWords).Returns(new List<string>() { "NotYou" });
+
+            IResult result = room.CheckEnter(mob.Object);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void Room_CheckEnter_NotGuest()
+        {
+            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
+            tagWrapper.Setup(e => e.WrapInTag("That property belongs to NotYou and you are not on the guest list.", TagType.Info)).Returns("message");
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
+            room.Owner = "NotYou";
+            room.Guests.Add("AlsoNotYou");
+
+            Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
+            mob.Setup(e => e.KeyWords).Returns(new List<string>() { "PC" });
+
+            IResult result = room.CheckEnter(mob.Object);
+
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("message", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void Room_CheckEnter_Guest()
+        {
+            room.Owner = "NotYou";
+            room.Guests.Add("PC");
+
+            Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
+            mob.Setup(e => e.KeyWords).Returns(new List<string>() { "PC" });
+
+            IResult result = room.CheckEnter(mob.Object);
+
+            Assert.IsNull(result);
         }
 
         [TestMethod]

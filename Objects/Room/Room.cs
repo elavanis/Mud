@@ -204,6 +204,15 @@ namespace Objects.Room
                 }
             }
 
+            if (Owner != null)
+            {
+                if (Owner != mobileObject.KeyWords[0]
+                    && !Guests.Contains(mobileObject.KeyWords[0]))
+                {
+                    return new Result($"That property belongs to {Owner} and you are not on the guest list.", true);
+                }
+            }
+
             return null;
         }
 
@@ -396,10 +405,6 @@ namespace Objects.Room
             /// Unable to use recall to go to the pc home point
             /// </summary>
             NoRecall,
-            /// <summary>
-            /// A players house
-            /// </summary>
-            PlayerHouse,
             /// <summary>
             /// Aggressive actions will be ignored in this room
             /// </summary>

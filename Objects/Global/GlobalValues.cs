@@ -105,6 +105,9 @@ namespace Objects.Global
         public ITickTimes TickTimes { get; set; }
 
         [ExcludeFromCodeCoverage]
+        public ITime Time { get; set; }
+
+        [ExcludeFromCodeCoverage]
         public ITranslator Translator { get; set; }
 
         [ExcludeFromCodeCoverage]
@@ -160,6 +163,7 @@ namespace Objects.Global
             RandomDropGenerator = new Random.RandomDropGenerator();
             Serialization = new Serialization.JsonSerialization();
             TickTimes = new TickTimes.TickTimes();
+            Time = new Time();
             Translator = new Language.Translator(new Language.TranslatorAlgorithm());
             UpTime = new UpTime.UpTime();
             ValidateAsset = new ValidateAsset.ValidateAsset();
