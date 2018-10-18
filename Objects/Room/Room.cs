@@ -817,12 +817,15 @@ namespace Objects.Room
         private void ReloadVault()
         {
             string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{Zone}-{Id}.vault");
-            string fileContents = GlobalReference.GlobalValues.FileIO.ReadAllText(file);
-            IReadOnlyList<IItem> items = GlobalReference.GlobalValues.Serialization.Deserialize<IReadOnlyList<IItem>>(fileContents);
-
-            foreach (IItem item in items)
+            if (File.Exists(file))
             {
-                _items.Add(item);
+                string fileContents = GlobalReference.GlobalValues.FileIO.ReadAllText(file);
+                IReadOnlyList<IItem> items = GlobalReference.GlobalValues.Serialization.Deserialize<IReadOnlyList<IItem>>(fileContents);
+
+                foreach (IItem item in items)
+                {
+                    _items.Add(item);
+                }
             }
         }
     }
