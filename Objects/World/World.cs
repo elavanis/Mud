@@ -46,6 +46,7 @@ namespace Objects.World
         private int _lastZoneReload = 0;
         private object _tickPadlock;
         private ConcurrentQueue<IMobileObject> _followMobQueue = new ConcurrentQueue<IMobileObject>();
+        private DateTime _lastSave = DateTime.UtcNow;
 
         public World()
         {
@@ -502,6 +503,7 @@ namespace Objects.World
                 UpdateWeather();
                 ReloadZones();
                 UpdatePerformanceCounters();
+                AutoSaveCharacters();
 
 #if DEBUG
                 foreach (IZone zone in Zones.Values)
@@ -525,6 +527,19 @@ namespace Objects.World
                 DoWorldCommands();
 
                 GlobalReference.GlobalValues.Logger.FlushLogs();
+            }
+        }
+
+        private void AutoSaveCharacters()
+        {
+            if (DateTime.UtcNow.Subtract(_lastSave).TotalMinutes >= 15)
+            {
+                foreach (IPlayerCharacter pc in CurrentPlayers)
+                {
+                    SaveCharcter(pc);
+                }
+
+                _lastSave = DateTime.UtcNow;
             }
         }
 

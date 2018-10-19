@@ -20,6 +20,9 @@ using Objects.Personality.Interface;
 using Objects.LoadPercentage.Interface;
 using System.Linq;
 using Shared.FileIO.Interface;
+using Objects.Global.Serialization.Interface;
+using Objects.Global.Settings.Interface;
+using System.Reflection;
 
 namespace ObjectsUnitTest.Room
 {
@@ -28,14 +31,28 @@ namespace ObjectsUnitTest.Room
     {
         Objects.Room.Room room;
         Mock<IFileIO> fileIO;
+        Mock<IItem> item;
+        Mock<ISerialization> serializer;
+        Mock<ISettings> settings;
 
         [TestInitialize]
         public void Setup()
         {
             fileIO = new Mock<IFileIO>();
+            item = new Mock<IItem>();
+            serializer = new Mock<ISerialization>();
+            settings = new Mock<ISettings>();
+
+            settings.Setup(e => e.VaultDirectory).Returns("vault");
+            serializer.Setup(e => e.Serialize(It.IsAny<List<IItem>>())).Returns("serializedList");
+
+            GlobalReference.GlobalValues.FileIO = fileIO.Object;
+            GlobalReference.GlobalValues.Serialization = serializer.Object;
+            GlobalReference.GlobalValues.Settings = settings.Object;
 
             room = new Objects.Room.Room();
             room.Zone = 1;
+            room.Id = 2;
         }
 
         [TestMethod]
@@ -43,14 +60,24 @@ namespace ObjectsUnitTest.Room
         {
             room.Attributes.Add(RoomAttribute.Vault);
 
+            room.AddItemToRoom(item.Object);
 
-            Assert.IsTrue(false);
+            fileIO.Verify(e => e.WriteFile("vault\\1-2.vault", "serializedList"), Times.Once);
         }
 
         [TestMethod]
         public void Room_RemoveItemFromRoom_ValutContentsWritten()
         {
-            Assert.IsTrue(false);
+            FieldInfo fieldInfo = room.GetType().GetField("_items", BindingFlags.Instance | BindingFlags.NonPublic);
+            List<IItem> items = (List<IItem>)fieldInfo.GetValue(room);
+            items.Add(item.Object);
+            items.Add(item.Object);
+
+            room.Attributes.Add(RoomAttribute.Vault);
+
+            room.RemoveItemFromRoom(item.Object);
+
+            fileIO.Verify(e => e.WriteFile("vault\\1-2.vault", "serializedList"), Times.Once);
         }
 
         [TestMethod]

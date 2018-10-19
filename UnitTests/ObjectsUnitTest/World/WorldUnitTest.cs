@@ -309,6 +309,71 @@ namespace ObjectsUnitTest.World
         }
         #endregion UpdatePerformanceCounters
 
+        #region SaveCharacters
+        [TestMethod]
+        public void World_PerformTick_ProcessRoom_SaveCharacters_15Minutes()
+        {
+            Mock<ISettings> settings = new Mock<ISettings>();
+            Mock<IFileIO> fileIO = new Mock<IFileIO>();
+            Mock<ISerialization> serializer = new Mock<ISerialization>();
+            DateTime startupDateTime = new DateTime(1, 1, 1);
+
+            settings.Setup(e => e.PlayerCharacterDirectory).Returns("c:\\");
+            pc.Setup(e => e.Name).Returns("test");
+            pc.Setup(e => e.Room).Returns(room.Object);
+            serializer.Setup(e => e.Serialize(pc.Object)).Returns("serialized");
+
+            GlobalReference.GlobalValues.Settings = settings.Object;
+            GlobalReference.GlobalValues.FileIO = fileIO.Object;
+            GlobalReference.GlobalValues.Serialization = serializer.Object;
+
+            PropertyInfo propertyInfo = world.GetType().GetProperty("characters", BindingFlags.Instance | BindingFlags.NonPublic);
+            List<IPlayerCharacter> pcList = (List<IPlayerCharacter>)propertyInfo.GetValue(world);
+            pcList.Add(pc.Object);
+
+            FieldInfo field = world.GetType().GetField("_lastSave", BindingFlags.Instance | BindingFlags.NonPublic);
+            field.SetValue(world, startupDateTime);
+
+
+            world.PerformTick();
+
+            fileIO.Verify(e => e.WriteFile(@"c:\test.char", "serialized"), Times.Once);
+            Assert.IsTrue((DateTime)field.GetValue(world) > startupDateTime);
+        }
+
+        [TestMethod]
+        public void World_PerformTick_ProcessRoom_SaveCharacters_Not15Minutes()
+        {
+            Mock<ISettings> settings = new Mock<ISettings>();
+            Mock<IFileIO> fileIO = new Mock<IFileIO>();
+            Mock<ISerialization> serializer = new Mock<ISerialization>();
+            DateTime startupDateTime = DateTime.UtcNow;
+
+            settings.Setup(e => e.PlayerCharacterDirectory).Returns("c:\\");
+            pc.Setup(e => e.Name).Returns("test");
+            pc.Setup(e => e.Room).Returns(room.Object);
+            serializer.Setup(e => e.Serialize(pc.Object)).Returns("serialized");
+
+            GlobalReference.GlobalValues.Settings = settings.Object;
+            GlobalReference.GlobalValues.FileIO = fileIO.Object;
+            GlobalReference.GlobalValues.Serialization = serializer.Object;
+
+            PropertyInfo propertyInfo = world.GetType().GetProperty("characters", BindingFlags.Instance | BindingFlags.NonPublic);
+            List<IPlayerCharacter> pcList = (List<IPlayerCharacter>)propertyInfo.GetValue(world);
+            pcList.Add(pc.Object);
+
+            FieldInfo field = world.GetType().GetField("_lastSave", BindingFlags.Instance | BindingFlags.NonPublic);
+            field.SetValue(world, startupDateTime);
+
+
+            world.PerformTick();
+
+            fileIO.Verify(e => e.WriteFile(@"c:\test.char", "serialized"), Times.Never);
+            Assert.IsTrue((DateTime)field.GetValue(world) == startupDateTime);
+        }
+        #endregion SaveCharacters
+
+
         #region ProcessRoom
         [TestMethod]
         public void World_PerformTick_ProcessRoom_VerifyWeatherMessage()
