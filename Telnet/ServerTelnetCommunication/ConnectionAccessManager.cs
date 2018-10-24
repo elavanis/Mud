@@ -1,6 +1,7 @@
 ﻿using Objects.Global;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text;
 
@@ -55,6 +56,27 @@ namespace ServerTelnetCommunication
             }
         }
 
+        public static void FlushOldFailedAttempts()
+        {
+            lock (failedLogins)
+            {
+                List<IPAddress> ips = failedLogins.Keys.ToList();
+
+                foreach (IPAddress address in ips)
+                {
+                    List<DateTime> failedDateTimes;
+                    if (failedLogins.TryGetValue(address, out failedDateTimes))
+                    {
+                        failedDateTimes = RemoveOldItems(failedDateTimes);
+                        if (failedDateTimes.Count == 0)
+                        {
+                            failedLogins.Remove(address);
+                        }
+                    }
+                }
+            }
+        }
+
         private static List<DateTime> RemoveOldItems(List<DateTime> failedDateTimes)
         {
             for (int i = failedDateTimes.Count; i > 0; i--)
@@ -67,5 +89,7 @@ namespace ServerTelnetCommunication
 
             return failedDateTimes;
         }
+
+
     }
 }

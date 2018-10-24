@@ -95,6 +95,7 @@ namespace ServerTelnetCommunication
                                         _userName = messageFromClient;
                                         _loginState = LoginState.Password;
                                         OutQueue.Enqueue(GlobalReference.GlobalValues.TagWrapper.WrapInTag("What is your password?"));
+                                        ConnectionAccessManager.FlushOldFailedAttempts();
                                     }
                                     else
                                     {
