@@ -28,7 +28,6 @@ namespace Objects.Skill.Skills.Generic
                 }
             }
             return new Result($"The skill {command.Parameters[0].ParameterValue} requires a target.", true);
-
         }
     }
 }

@@ -2,6 +2,7 @@
 using Objects.Magic.Spell;
 using Objects.Skill.Interface;
 using Objects.Skill.Skills;
+using Objects.Skill.Skills.Damage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
