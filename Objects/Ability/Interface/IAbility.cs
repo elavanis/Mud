@@ -19,5 +19,9 @@ namespace Objects.Ability.Interface
         IEffectParameter Parameter { get; set; }
 
         IResult PerformAbility(IMobileObject performer, ICommand command);
+
+        bool MeetRequirments(IMobileObject performer, IMobileObject target);
+
+        IResult RequirementsFailureMessage { get; }
     }
 }

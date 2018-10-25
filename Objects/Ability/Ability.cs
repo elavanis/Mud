@@ -31,11 +31,21 @@ namespace Objects.Ability
         [ExcludeFromCodeCoverage]
         public string AbilityName { get; set; }
 
+
         [ExcludeFromCodeCoverage]
         public IResult PerformAbility(IMobileObject performer, ICommand command)
         {
             throw new NotImplementedException();
         }
+
+        [ExcludeFromCodeCoverage]
+        public virtual bool MeetRequirments(IMobileObject performer, IMobileObject target)
+        {
+            return true;
+        }
+
+        [ExcludeFromCodeCoverage]
+        public virtual IResult RequirementsFailureMessage { get => throw new NotImplementedException(); }
     }
 }
 
