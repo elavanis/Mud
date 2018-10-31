@@ -28,6 +28,7 @@ namespace ObjectsUnitTest.Global.Guild
             Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
 
             defaultValues.Setup(e => e.DiceForSpellLevel(It.IsAny<int>())).Returns(dice.Object);
+            defaultValues.Setup(e => e.DiceForSkillLevel(It.IsAny<int>())).Returns(dice.Object);
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
@@ -38,7 +39,7 @@ namespace ObjectsUnitTest.Global.Guild
         [TestMethod]
         public void GuildAbilities_Skills()
         {
-            List<GuildAbility> skill = abiltites.Skills[Guilds.Warrior];
+            List<GuildAbility> skill = abiltites.Skills[Guilds.Gladiator];
             Assert.IsNotNull(skill);
             Assert.IsTrue(skill.Count > 0);
         }
@@ -46,7 +47,7 @@ namespace ObjectsUnitTest.Global.Guild
         [TestMethod]
         public void GuildAbilities_Spells()
         {
-            List<GuildAbility> spell = abiltites.Spells[Guilds.Mage];
+            List<GuildAbility> spell = abiltites.Spells[Guilds.Wizard];
             Assert.IsNotNull(spell);
             Assert.IsTrue(spell.Count > 0);
         }

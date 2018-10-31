@@ -498,7 +498,7 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor = Body(level);
                 armor.Material = new Cloth();
                 armor.ShortDescription = "A padded vest.";
-                armor.LookDescription = "The padded vest is has the emblem of the GrandView warrior guild.";
+                armor.LookDescription = "The padded vest is has the emblem of the GrandView Gladiator guild.";
                 armor.ExamineDescription = "The vest is a light brown color and the stitching for the padding is well hidden making it look like a regular vest.";
                 armor.SentenceDescription = "vest";
                 armor.SentenceDescription = "padded vest";

@@ -10,9 +10,22 @@ namespace Objects.Guild
     {
         public enum Guilds
         {
+            //Utility
             Mage,
-            Shaman,
-            Warrior
+
+            //Heal
+            Clearic,
+
+            //Animal Companion
+            Beastmaster,
+            Summoner,
+
+            //Damage focused
+            Wizard,
+
+            //Damage with some effects
+            Gladiator,
+
         }
     }
 }

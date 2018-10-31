@@ -46,6 +46,12 @@ namespace Objects.Ability
 
         [ExcludeFromCodeCoverage]
         public virtual IResult RequirementsFailureMessage { get => throw new NotImplementedException(); }
+
+        [ExcludeFromCodeCoverage]
+        public virtual void AdditionalEffect(IMobileObject performer, IMobileObject target)
+        {
+
+        }
     }
 }
 

@@ -102,7 +102,7 @@ namespace GenerateZones.Zones
             npc.SentenceDescription = "test";
 
             IMagicUser magicUser = new MagicUser();
-            magicUser.AddSpells(npc, new Mage());
+            magicUser.AddSpells(npc, new Wizard());
             //npc.Personalities.Add(magicUser);
 
 

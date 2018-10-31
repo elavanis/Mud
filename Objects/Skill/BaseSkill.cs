@@ -64,6 +64,8 @@ namespace Objects.Skill
                     }
                 }
 
+                AdditionalEffect(performer, targetMob);
+
                 return new Result(PerformerNotification.GetTranslatedMessage(performer), false, null);
             }
             else
@@ -71,5 +73,7 @@ namespace Objects.Skill
                 return new Result($"You need {StaminaCost} stamina to use the skill {command.Parameters[0].ParameterValue}.", true);
             }
         }
+
+
     }
 }

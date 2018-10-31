@@ -109,27 +109,27 @@ namespace GenerateZones.Zones
             room.Attributes.Add(Room.RoomAttribute.Indoor);
             room.Attributes.Add(Room.RoomAttribute.Light);
 
-            room.ExamineDescription = "This corner of the library is used by the mages as their guild hall.  Scrolls and books are scattered about with stacks ranging from a few feet to as hight as the ceiling.";
-            room.LookDescription = "This corner of the basement is designated as the mages guild.  Dimly lit candles burn at desks with scrolls inviting practitioners of magic to learn something new.";
+            room.ExamineDescription = "This corner of the library is used by the wizards as their guild hall.  Scrolls and books are scattered about with stacks ranging from a few feet to as hight as the ceiling.";
+            room.LookDescription = "This corner of the basement is designated as the wizards guild.  Dimly lit candles burn at desks with scrolls inviting practitioners of magic to learn something new.";
             room.ShortDescription = "Library Basement";
 
-            INonPlayerCharacter guildMaster = MageGuildMaster();
+            INonPlayerCharacter guildMaster = WizardGuildMaster();
 
             room.AddMobileObjectToRoom(guildMaster);
 
             return room;
         }
 
-        private INonPlayerCharacter MageGuildMaster()
+        private INonPlayerCharacter WizardGuildMaster()
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 20);
             npc.ExamineDescription = "The Guildmaster is dressed in a tattered gray cloak that looks to at one point been white.  He has a beard that is almost as long as he is tall and is long since lost any sign of color.";
             npc.LookDescription = "He stares into space as if contemplating things you couldn't even imagine.  Occasionally he says something as if he is talking to someone yet you can not see who.  Has he gone mad or talking to something beyond this realm?";
-            npc.ShortDescription = "The mage Guildmaster.";
+            npc.ShortDescription = "The wizard Guildmaster.";
             npc.SentenceDescription = "Guildmaster";
             npc.KeyWords.Add("GuildMaster");
-            npc.KeyWords.Add("Mage");
-            npc.Personalities.Add(new GuildMaster(Guilds.Mage));
+            npc.KeyWords.Add("Wizard");
+            npc.Personalities.Add(new GuildMaster(Guilds.Wizard));
             return npc;
         }
 

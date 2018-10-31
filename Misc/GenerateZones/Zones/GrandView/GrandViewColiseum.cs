@@ -112,23 +112,23 @@ namespace GenerateZones.Zones
             room.LookDescription = "The air quickly turns smoky as torches are the sole source of light the area under the coliseum.";
             room.ShortDescription = "Beneath the coliseum";
 
-            INonPlayerCharacter guildMaster = WarriorGuildMaster();
+            INonPlayerCharacter guildMaster = GladiatorGuildMaster();
 
             room.AddMobileObjectToRoom(guildMaster);
 
             return room;
         }
 
-        private INonPlayerCharacter WarriorGuildMaster()
+        private INonPlayerCharacter GladiatorGuildMaster()
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 20);
             npc.ExamineDescription = "The Guildmaster is dressed gray studded leather armor.  A blue eagle is emblazoned across his chest but has begun to fade with use.  His arms are squeezed into gauntlets but bulging biceps tell you that you should think twice before picking a fight.";
             npc.LookDescription = "He looks at you with an annoyed look on his face before returning to his previous activities.";
-            npc.ShortDescription = "The warrior Guildmaster.";
+            npc.ShortDescription = "The Gladiator Guildmaster.";
             npc.SentenceDescription = "Guildmaster";
             npc.KeyWords.Add("GuildMaster");
-            npc.KeyWords.Add("Warrior");
-            npc.Personalities.Add(new GuildMaster(Guilds.Warrior));
+            npc.KeyWords.Add("Gladiator");
+            npc.Personalities.Add(new GuildMaster(Guilds.Gladiator));
             return npc;
         }
 
