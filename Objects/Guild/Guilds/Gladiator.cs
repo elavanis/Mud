@@ -17,6 +17,9 @@ namespace Objects.Guild.Guilds
         {
             List<GuildAbility> skills = new List<GuildAbility>();
             skills.Add(new GuildAbility(new RagingBull(), 1));
+            skills.Add(new GuildAbility(new ShoulderBash(), 10));
+            skills.Add(new GuildAbility(new Pierce(), 20));
+            skills.Add(new GuildAbility(new SpittingCobra(), 30));
             skills.Add(new GuildAbility(new BlindFighting(), 40));
             return skills;
         }

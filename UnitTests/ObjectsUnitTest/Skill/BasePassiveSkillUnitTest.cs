@@ -22,7 +22,10 @@ namespace ObjectsUnitTest.Skill
 
         private class UnitTestPassiveSkill : BasePassiveSkill
         {
+            public UnitTestPassiveSkill() : base("unitTestPassiveSkill")
+            {
 
+            }
         }
     }
 }

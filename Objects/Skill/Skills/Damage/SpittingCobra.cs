@@ -14,7 +14,7 @@ namespace Objects.Skill.Skills.Damage
 {
     public class SpittingCobra : BaseDamageSkill
     {
-        public SpittingCobra() : base(nameof(Pierce),
+        public SpittingCobra() : base(nameof(SpittingCobra),
             GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(30).Die,
             GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(30).Sides,
             DamageType.Poison)

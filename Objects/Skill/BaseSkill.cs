@@ -37,11 +37,17 @@ namespace Objects.Skill
             }
         }
 
+        public BaseSkill(string skillName)
+        {
+            SkillName = skillName;
+        }
+
         public virtual IResult ProcessSkill(IMobileObject performer, ICommand command)
         {
             if (performer.Stamina > StaminaCost)
             {
                 performer.Stamina -= StaminaCost;
+                Parameter.Performer = performer;
                 Effect.ProcessEffect(Parameter);
                 IMobileObject targetMob = Parameter.Target as IMobileObject;
                 List<IMobileObject> exclusions = new List<IMobileObject>() { performer };
