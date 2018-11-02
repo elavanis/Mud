@@ -797,9 +797,26 @@ namespace Objects.World
                     }
                 }
 
+                CleanupEnchanments(mob);
+
                 if (GlobalReference.GlobalValues.TickCounter % 18 == 0)
                 {
                     MobRegenerate(mob);
+                }
+            }
+        }
+
+        private void CleanupEnchanments(IMobileObject mob)
+        {
+            if (mob.Enchantments.Count > 0)
+            {
+                for (int i = mob.Enchantments.Count; i > 0; i--)
+                {
+                    IEnchantment enchantment = mob.Enchantments[i - 1];
+                    if (enchantment.EnchantmentEndingDateTime <= DateTime.UtcNow)
+                    {
+                        mob.Enchantments.RemoveAt(i - 1);
+                    }
                 }
             }
         }
@@ -867,7 +884,12 @@ namespace Objects.World
                 {
                     foreach (IEnchantment enchantment in room.Enchantments)
                     {
-                        enchantment.HeartbeatBigTick(pc);
+                        //don't fire expired enchantments
+                        //work around because we can't clear the enchanments if on kills the player with out throwing an error
+                        if (enchantment.EnchantmentEndingDateTime > DateTime.UtcNow)
+                        {
+                            enchantment.HeartbeatBigTick(pc);
+                        }
                     }
                 }
             }

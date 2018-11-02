@@ -32,7 +32,6 @@ namespace Objects.Effect
             Sound = sound;
         }
 
-
         public void ProcessEffect(IEffectParameter parameter)
         {
             IMobileObject mob = parameter.Target as IMobileObject;

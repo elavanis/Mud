@@ -47,7 +47,7 @@ namespace Objects.Skill
             if (performer.Stamina > StaminaCost)
             {
                 performer.Stamina -= StaminaCost;
-                Parameter.Performer = performer;
+                SetParameterFields(performer);
                 Effect.ProcessEffect(Parameter);
                 IMobileObject targetMob = Parameter.Target as IMobileObject;
                 List<IMobileObject> exclusions = new List<IMobileObject>() { performer };
@@ -80,6 +80,12 @@ namespace Objects.Skill
             }
         }
 
-
+        private void SetParameterFields(IMobileObject performer)
+        {
+            Parameter.Performer = performer;
+            Parameter.PerformerMessage = PerformerNotification;
+            Parameter.TargetMessage = TargetNotification;
+            Parameter.RoomMessage = RoomNotification;
+        }
     }
 }

@@ -37,9 +37,9 @@ namespace Objects.Skill.Skills.Damage
             enchantment.Parameter = effectParameter;
             enchantment.EnchantmentEndingDateTime = DateTime.UtcNow.AddSeconds(10);
 
-            effectParameter.TargetMessage = new TranslationMessage("Acid burns your face.");
+            effectParameter.TargetMessage = new TranslationMessage("Poison burns your face.");
             effectParameter.Damage = new Objects.Damage.Damage();
-            effectParameter.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(28);
+            effectParameter.Damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(28);
             effectParameter.Damage.Type = DamageType.Poison;
 
             target.Enchantments.Add(enchantment);

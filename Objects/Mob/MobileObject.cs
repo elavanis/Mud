@@ -693,6 +693,11 @@ namespace Objects.Mob
                 PossingMob = null;
             }
 
+            foreach (IEnchantment enchantment in Enchantments)
+            {
+                enchantment.EnchantmentEndingDateTime = new DateTime();  //set the end date to the past so its not fired and wil be cleaned up 
+            }
+
             Corpse corpse = new Corpse();
             corpse.TimeOfDeath = DateTime.UtcNow;
             corpse.ShortDescription = "A corpse lies here.";
