@@ -68,7 +68,7 @@ namespace Objects.Global.Notify
                     }
                 }
 
-                notifie.EnqueueMessage(UpdateTargetPerformer(performerSentence, targetSentence, message.GetTranslatedMessage(notifie)));
+                notifie.EnqueueMessage(GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(performerSentence, targetSentence, message.GetTranslatedMessage(notifie)));
 
 
                 //if (performerSentence = "unknown" && targetSentence = "unknown")
@@ -83,12 +83,14 @@ namespace Objects.Global.Notify
             }
         }
 
-        private string UpdateTargetPerformer(string performer, string target, string message)
-        {
-            string updatedMessage = message.Replace("{performer}", performer);
-            updatedMessage = updatedMessage.Replace("{target}", target);
+        //private string UpdateTargetPerformer(string performer, string target, string message)
+        //{
+        //    List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
+        //    keyValuePairs.Add(new KeyValuePair<string, string>("{performer}", performer));
+        //    keyValuePairs.Add(new KeyValuePair<string, string>("{target}", target));
+        //    string updatedMessage = GlobalReference.GlobalValues.StringManipulator.Manipulate(keyValuePairs, message);
 
-            return updatedMessage;
-        }
+        //    return updatedMessage;
+        //}
     }
 }
