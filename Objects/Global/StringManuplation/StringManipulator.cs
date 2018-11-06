@@ -23,7 +23,7 @@ namespace Objects.Global.StringManuplation
             List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
             keyValuePairs.Add(new KeyValuePair<string, string>("{performer}", performer));
             keyValuePairs.Add(new KeyValuePair<string, string>("{target}", target));
-            string updatedMessage = GlobalReference.GlobalValues.StringManipulator.Manipulate(keyValuePairs, message);
+            string updatedMessage = Manipulate(keyValuePairs, message);
 
             return updatedMessage;
         }

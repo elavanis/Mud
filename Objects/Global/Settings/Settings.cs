@@ -52,6 +52,8 @@ namespace Objects.Global.Settings
 
         [ExcludeFromCodeCoverage]
         public int OddsOfDropBeingPlusOne { get; set; } = 10;
+
+        [ExcludeFromCodeCoverage]
         public List<IPAddress> BannedIps { get; set; } = new List<IPAddress>();
     }
 }

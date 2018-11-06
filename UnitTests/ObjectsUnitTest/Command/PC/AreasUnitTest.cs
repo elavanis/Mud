@@ -3,6 +3,7 @@ using Moq;
 using Objects.Command.Interface;
 using Objects.Command.PC;
 using Objects.Global;
+using Objects.Mob.Interface;
 using Objects.World.Interface;
 using Objects.Zone.Interface;
 using Shared.TagWrapper;
@@ -22,17 +23,29 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IWorld> world;
         Mock<IZone> zone;
         Mock<ITagWrapper> tagWrapper;
+        Mock<IPlayerCharacter> pc;
         [TestInitialize]
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Abils|Abilities", TagType.Info)).Returns("message");
+            world = new Mock<IWorld>();
+            zone = new Mock<IZone>();
+            pc = new Mock<IPlayerCharacter>();
+
+            tagWrapper.Setup(e => e.WrapInTag("Areas", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag("Zone -- Level: 5\r\n", TagType.Info)).Returns("Zone -- Level: 5");
+            zone.Setup(e => e.Name).Returns("Zone");
+            zone.Setup(e => e.Level).Returns(5);
+            Dictionary<int, IZone> zones = new Dictionary<int, IZone>();
+            zones.Add(0, zone.Object);
+            world.Setup(e => e.Zones).Returns(zones);
+
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.World = world.Object;
 
             command = new Areas();
 
         }
-
 
         [TestMethod]
         public void Areas_Instructions()
@@ -40,7 +53,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            //Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("message", result.ResultMessage);
         }
 
         [TestMethod]
@@ -49,6 +62,16 @@ namespace ObjectsUnitTest.Command.PC
             IEnumerable<string> result = command.CommandTrigger;
             Assert.AreEqual(1, result.Count());
             Assert.IsTrue(result.Contains("Areas"));
+        }
+
+        [TestMethod]
+        public void Areas_PerformCommand()
+        {
+            IResult result = command.PerformCommand(pc.Object, null);
+
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("Zone -- Level: 5", result.ResultMessage);
+
         }
 
     }

@@ -25,7 +25,7 @@ namespace Objects.Skill.Skills.Damage
             TargetNotification = new TranslationMessage("{performer} takes the pointy end of their weapon and in a blink of an eye uses it to pierce you.");
         }
 
-        public override string TeachMessage => "Keep the pointy end of the weapon toward your opponet and thrust.";
+        public override string TeachMessage => "Keep the pointy end of the weapon toward your opponent and thrust.";
 
         public override bool MeetRequirments(IMobileObject performer, IMobileObject target)
         {
