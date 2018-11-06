@@ -47,7 +47,7 @@ namespace Objects.Personality.Personalities
                     break;
                 case Equipment.AvalableItemPosition.NotWorn:
                     craftsman.EnqueueCommand($"Tell {performer.KeyWords[0]} I can not build that.");
-                    result = new Result("", true); ;
+                    result = new Result("", true);
                     break;
                 default:
                     IArmor armor = new Armor();

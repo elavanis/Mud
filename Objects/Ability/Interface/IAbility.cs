@@ -23,5 +23,7 @@ namespace Objects.Ability.Interface
         bool MeetRequirments(IMobileObject performer, IMobileObject target);
 
         IResult RequirementsFailureMessage { get; }
+
+        void AdditionalEffect(IMobileObject performer, IMobileObject target);
     }
 }

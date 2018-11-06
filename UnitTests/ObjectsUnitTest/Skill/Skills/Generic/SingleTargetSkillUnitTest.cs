@@ -31,7 +31,7 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
         [TestInitialize]
         public void Setup()
         {
-            singleTargetSkill = new Mock<SingleTargetSkill>();
+            singleTargetSkill = new Mock<SingleTargetSkill>("abc");
             npc = new Mock<INonPlayerCharacter>();
             npc2 = new Mock<INonPlayerCharacter>();
             command = new Mock<ICommand>();

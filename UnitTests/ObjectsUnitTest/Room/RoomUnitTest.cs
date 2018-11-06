@@ -85,7 +85,7 @@ namespace ObjectsUnitTest.Room
         {
             string result = room.ToString();
 
-            Assert.AreEqual("1-0", result);
+            Assert.AreEqual("1-2", result);
         }
 
         [TestMethod]

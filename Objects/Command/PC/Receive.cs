@@ -70,7 +70,7 @@ namespace Objects.Command.PC
             else
             {
                 foundCraftsman.Item1.EnqueueCommand($"Tell {pc.KeyWords[0]} Sorry I don't have anything for you to pick up at this time.");
-                return new Result("", true);;
+                return new Result("", true);
             }
         }
     }

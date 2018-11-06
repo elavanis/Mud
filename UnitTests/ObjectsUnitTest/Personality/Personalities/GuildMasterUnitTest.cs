@@ -33,7 +33,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         public void Setup()
         {
             guildMaster = new GuildMaster();
-            guildMaster.Guild = Guilds.Mage;
+            guildMaster.Guild = Guilds.Wizard;
 
             guildHashSet = new HashSet<Guilds>();
 
@@ -58,7 +58,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             skill.Setup(e => e.ToString()).Returns("skill");
             skill.Setup(e => e.TeachMessage).Returns("skill teach message");
             skill.Setup(e => e.AbilityName).Returns("skill");
-            skills.Add(Guilds.Mage, new List<GuildAbility>() { new GuildAbility(skill.Object, 5) });
+            skills.Add(Guilds.Wizard, new List<GuildAbility>() { new GuildAbility(skill.Object, 5) });
             guildAbilites.Setup(e => e.Skills).Returns(skills);
 
             Dictionary<Guilds, List<GuildAbility>> spells = new Dictionary<Guilds, List<GuildAbility>>();
@@ -66,7 +66,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             spell.Setup(e => e.ToString()).Returns("spell");
             spell.Setup(e => e.TeachMessage).Returns("spell teach message");
             spell.Setup(e => e.AbilityName).Returns("spell");
-            spells.Add(Guilds.Mage, new List<GuildAbility>() { new GuildAbility(spell.Object, 5) });
+            spells.Add(Guilds.Wizard, new List<GuildAbility>() { new GuildAbility(spell.Object, 5) });
             guildAbilites.Setup(e => e.Spells).Returns(spells);
             GlobalReference.GlobalValues.GuildAbilities = guildAbilites.Object;
 
@@ -77,9 +77,9 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestMethod]
         public void GuildMaster_Constructor()
         {
-            GuildMaster guildMaster = new GuildMaster(Guilds.Warrior);
+            GuildMaster guildMaster = new GuildMaster(Guilds.Gladiator);
 
-            Assert.AreEqual(Guilds.Warrior, guildMaster.Guild);
+            Assert.AreEqual(Guilds.Gladiator, guildMaster.Guild);
         }
 
         [TestMethod]
@@ -89,11 +89,11 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             IResult result = guildMaster.Join(npc.Object, mob.Object);
 
-            npc.Verify(e => e.EnqueueCommand("Tell mob Welcome to the Mage guild."), Times.Once);
+            npc.Verify(e => e.EnqueueCommand("Tell mob Welcome to the Wizard guild."), Times.Once);
             mob.VerifySet(e => e.GuildPoints = 0);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
-            Assert.IsTrue(guildHashSet.Contains(Guilds.Mage));
+            Assert.IsTrue(guildHashSet.Contains(Guilds.Wizard));
         }
 
         [TestMethod]
@@ -103,7 +103,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             IResult result = guildMaster.Join(npc.Object, mob.Object);
 
-            npc.Verify(e => e.EnqueueCommand("Tell mob You need to gain more experience in the world before I can allow you to join the Mage guild."), Times.Once);
+            npc.Verify(e => e.EnqueueCommand("Tell mob You need to gain more experience in the world before I can allow you to join the Wizard guild."), Times.Once);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
@@ -111,12 +111,12 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestMethod]
         public void GuildMaster_Join_AlreadyJoinedMage()
         {
-            guildHashSet.Add(Guilds.Mage);
+            guildHashSet.Add(Guilds.Wizard);
             mob.Setup(e => e.GuildPoints).Returns(1);
 
             IResult result = guildMaster.Join(npc.Object, mob.Object);
 
-            npc.Verify(e => e.EnqueueCommand("Tell mob You are already a member of the Mage guild."), Times.Once);
+            npc.Verify(e => e.EnqueueCommand("Tell mob You are already a member of the Wizard guild."), Times.Once);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
@@ -146,7 +146,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestMethod]
         public void GuildMaster_Teach_AbilityNotFound()
         {
-            guildHashSet.Add(Guilds.Mage);
+            guildHashSet.Add(Guilds.Wizard);
 
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "learnable");
 
@@ -158,7 +158,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestMethod]
         public void GuildMaster_Teach_SkillNotHighEnough()
         {
-            guildHashSet.Add(Guilds.Mage);
+            guildHashSet.Add(Guilds.Wizard);
 
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "skill");
 
@@ -170,7 +170,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestMethod]
         public void GuildMaster_Teach_SpellNotHighEnough()
         {
-            guildHashSet.Add(Guilds.Mage);
+            guildHashSet.Add(Guilds.Wizard);
 
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "spell");
 
@@ -182,13 +182,13 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestMethod]
         public void GuildMaster_Teach_LearnSkill()
         {
-            guildHashSet.Add(Guilds.Mage);
+            guildHashSet.Add(Guilds.Wizard);
             mob.Setup(e => e.Level).Returns(10);
 
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "skill");
 
             npc.Verify(e => e.EnqueueCommand("Tell mob skill teach message"), Times.Once);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             Assert.IsTrue(knowSkills.ContainsKey("SKILL"));
         }
@@ -196,13 +196,13 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestMethod]
         public void GuildMaster_Teach_LearnSpell()
         {
-            guildHashSet.Add(Guilds.Mage);
+            guildHashSet.Add(Guilds.Wizard);
             mob.Setup(e => e.Level).Returns(10);
 
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "spell");
 
             npc.Verify(e => e.EnqueueCommand("Tell mob spell teach message"), Times.Once);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
             Assert.IsTrue(spellBook.ContainsKey("SPELL"));
         }
@@ -211,7 +211,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         public void GuildMaster_Teach_AlreadyKnowSkill()
         {
             knowSkills.Add("SKILL", null);
-            guildHashSet.Add(Guilds.Mage);
+            guildHashSet.Add(Guilds.Wizard);
             mob.Setup(e => e.Level).Returns(10);
 
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "skill");
@@ -225,7 +225,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         public void GuildMaster_Teach_AlreadyKnowSpell()
         {
             spellBook.Add("SPELL", null);
-            guildHashSet.Add(Guilds.Mage);
+            guildHashSet.Add(Guilds.Wizard);
             mob.Setup(e => e.Level).Returns(10);
 
             IResult result = guildMaster.Teach(npc.Object, mob.Object, "spell");
@@ -239,13 +239,13 @@ namespace ObjectsUnitTest.Personality.Personalities
         public void GuildMaster_Teachable_AlreadyKnowSkill()
         {
             knowSkills.Add("skill", null);
-            guildHashSet.Add(Guilds.Mage);
+            guildHashSet.Add(Guilds.Wizard);
             mob.Setup(e => e.Level).Returns(10);
 
             IResult result = guildMaster.Teachable(npc.Object, mob.Object);
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I can teach you the following. \r\nspell"), Times.Once);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
@@ -253,26 +253,26 @@ namespace ObjectsUnitTest.Personality.Personalities
         public void GuildMaster_Teachable_AlreadyKnowSpell()
         {
             spellBook.Add("spell", null);
-            guildHashSet.Add(Guilds.Mage);
+            guildHashSet.Add(Guilds.Wizard);
             mob.Setup(e => e.Level).Returns(10);
 
             IResult result = guildMaster.Teachable(npc.Object, mob.Object);
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I can teach you the following. \r\nskill"), Times.Once);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 
         [TestMethod]
         public void GuildMaster_Teachable_NotHighEnoughLevel()
         {
-            guildHashSet.Add(Guilds.Mage);
+            guildHashSet.Add(Guilds.Wizard);
             mob.Setup(e => e.Level).Returns(1);
 
             IResult result = guildMaster.Teachable(npc.Object, mob.Object);
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I can not teach you anything at this time."), Times.Once);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
         }
 

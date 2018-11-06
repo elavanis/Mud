@@ -23,6 +23,7 @@ using Objects.Global.PerformanceCounters.Interface;
 using Objects.Global.Map.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Global.ValidateAsset.Interface;
+using Objects.Global.StringManuplation.Interface;
 
 namespace Objects.Global.Interface
 {
@@ -49,11 +50,11 @@ namespace Objects.Global.Interface
         ISerialization Serialization { get; set; }
         ISettings Settings { get; set; }
         DateTime StartTime { get; set; }
+        IStringManipulator StringManipulator { get; set; }
         ITagWrapper TagWrapper { get; set; }
         ulong TickCounter { get; set; }
         ITickTimes TickTimes { get; set; }
         ITime Time { get; set; }
-
         ITranslator Translator { get; set; }
         IUpTime UpTime { get; set; }
         IValidateAsset ValidateAsset { get; set; }

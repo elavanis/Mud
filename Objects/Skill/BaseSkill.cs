@@ -37,11 +37,17 @@ namespace Objects.Skill
             }
         }
 
+        public BaseSkill(string skillName)
+        {
+            SkillName = skillName;
+        }
+
         public virtual IResult ProcessSkill(IMobileObject performer, ICommand command)
         {
             if (performer.Stamina > StaminaCost)
             {
                 performer.Stamina -= StaminaCost;
+                SetParameterFields(performer);
                 Effect.ProcessEffect(Parameter);
                 IMobileObject targetMob = Parameter.Target as IMobileObject;
                 List<IMobileObject> exclusions = new List<IMobileObject>() { performer };
@@ -56,20 +62,32 @@ namespace Objects.Skill
                     GlobalReference.GlobalValues.Notify.Room(performer, targetMob, performer.Room, RoomNotification, exclusions);
                 }
 
-                if (TargetNotification != null)
-                {
-                    if (targetMob != null)
-                    {
-                        GlobalReference.GlobalValues.Notify.Mob(targetMob, TargetNotification);
-                    }
-                }
+                //don't think we need to notify the target as they will be notified in the Effect.ProcessEffect if there is anything to notify them about
+                //if (TargetNotification != null)
+                //{
+                //    if (targetMob != null)
+                //    {
+                //        GlobalReference.GlobalValues.Notify.Mob(targetMob, TargetNotification);
+                //    }
+                //}
 
-                return new Result(PerformerNotification.GetTranslatedMessage(performer), false, null);
+                AdditionalEffect(performer, targetMob);
+
+                string message = GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(performer.SentenceDescription, targetMob?.SentenceDescription, PerformerNotification.GetTranslatedMessage(performer));
+                return new Result(message, false, null);
             }
             else
             {
                 return new Result($"You need {StaminaCost} stamina to use the skill {command.Parameters[0].ParameterValue}.", true);
             }
+        }
+
+        private void SetParameterFields(IMobileObject performer)
+        {
+            Parameter.Performer = performer;
+            Parameter.PerformerMessage = PerformerNotification;
+            Parameter.TargetMessage = TargetNotification;
+            Parameter.RoomMessage = RoomNotification;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Objects.Skill.Skills
     public class BlindFighting : BasePassiveSkill
     {
         [ExcludeFromCodeCoverage]
-        public BlindFighting() : base()
+        public BlindFighting() : base(nameof(BlindFighting))
         {
         }
 

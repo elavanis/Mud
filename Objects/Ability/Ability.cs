@@ -1,4 +1,5 @@
 ﻿using Objects.Ability.Interface;
+using Objects.Command;
 using Objects.Command.Interface;
 using Objects.Damage.Interface;
 using Objects.Effect;
@@ -45,7 +46,13 @@ namespace Objects.Ability
         }
 
         [ExcludeFromCodeCoverage]
-        public virtual IResult RequirementsFailureMessage { get => throw new NotImplementedException(); }
+        public virtual IResult RequirementsFailureMessage { get => new Result("Unspecified requirements failure", true); }
+
+        [ExcludeFromCodeCoverage]
+        public virtual void AdditionalEffect(IMobileObject performer, IMobileObject target)
+        {
+
+        }
     }
 }
 

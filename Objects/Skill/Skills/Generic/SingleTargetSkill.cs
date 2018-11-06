@@ -11,6 +11,10 @@ namespace Objects.Skill.Skills.Generic
 {
     public class SingleTargetSkill : BaseSkill
     {
+        public SingleTargetSkill(string skillName) : base(skillName)
+        {
+
+        }
         public override IResult ProcessSkill(IMobileObject performer, ICommand command)
         {
             if (command.Parameters.Count > 1)

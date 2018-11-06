@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Objects.Guild.Guilds
 {
-    public class Mage : BaseGuild
+    public class Wizard : BaseGuild
     {
         override protected List<GuildAbility> GenerateSkills()
         {

@@ -287,10 +287,8 @@ namespace Objects.Global.Engine.Engines
                             }
                             else
                             {
-                                foreach (IEnchantment enchantment in pc.Enchantments)
-                                {
-                                    RunEnchantment(enchantment, eventType, paramerter);
-                                }
+                                //for only fire off when its the enchanted player turn, otherwise it will fire once for each player in the room
+                                //keeping else statement  around in case we want to explain why we don't do this in case we want to try this again later
                             }
                         }
                     }

@@ -43,7 +43,7 @@ namespace Objects.Personality.Personalities
             else
             {
                 guildMaster.EnqueueCommand(string.Format("Tell {0} You are already a member of the {1} guild.", peformer.KeyWords.FirstOrDefault(), Guild));
-                return new Result("", true);;
+                return new Result("", true);
             }
         }
 
@@ -59,7 +59,7 @@ namespace Objects.Personality.Personalities
             else
             {
                 guildMaster.EnqueueCommand(string.Format("Tell {0} You need to gain more experience in the world before I can allow you to join the {1} guild.", peformer.KeyWords.FirstOrDefault(), Guild));
-                return new Result("", true);;
+                return new Result("", true);
 
             }
         }
@@ -83,13 +83,13 @@ namespace Objects.Personality.Personalities
                     guildMaster.EnqueueCommand(string.Format("Tell {0} I'm sorry but I can not teach you until you gain more experience and join our guild.", learner.KeyWords[0]));
                 }
 
-                return new Result("", true);;
+                return new Result("", true);
             }
         }
 
         private IResult TeachSpellSkill(Guilds guild, IMobileObject guildMaster, IMobileObject learner, string parameter)
         {
-            GuildAbility skill = GlobalReference.GlobalValues.GuildAbilities.Skills[guild].FirstOrDefault(i => string.Equals(i.Abiltiy.ToString(), parameter, StringComparison.CurrentCultureIgnoreCase));
+            GuildAbility skill = GlobalReference.GlobalValues.GuildAbilities.Skills[guild].FirstOrDefault(i => string.Equals(i.Abiltiy.AbilityName, parameter, StringComparison.CurrentCultureIgnoreCase));
             if (skill != null)
             {
                 if (skill.Level <= learner.Level)
@@ -102,7 +102,7 @@ namespace Objects.Personality.Personalities
                 }
             }
 
-            GuildAbility spell = GlobalReference.GlobalValues.GuildAbilities.Spells[guild].FirstOrDefault(i => string.Equals(i.Abiltiy.ToString(), parameter, StringComparison.CurrentCultureIgnoreCase));
+            GuildAbility spell = GlobalReference.GlobalValues.GuildAbilities.Spells[guild].FirstOrDefault(i => string.Equals(i.Abiltiy.AbilityName, parameter, StringComparison.CurrentCultureIgnoreCase));
             if (spell != null)
             {
                 if (spell.Level <= learner.Level)
@@ -116,18 +116,18 @@ namespace Objects.Personality.Personalities
             }
 
             guildMaster.EnqueueCommand(string.Format("Tell {0} I can not teach you that.", learner.KeyWords[0]));
-            return new Result("", true);;
+            return new Result("", true);
         }
 
         private IResult NotHighEnoughLevel(IMobileObject guildMaster, IMobileObject learner)
         {
             guildMaster.EnqueueCommand(string.Format("Tell {0} You are not high enough level for that yet.", learner.KeyWords[0]));
-            return new Result("", true);;
+            return new Result("", true);
         }
 
         private IResult TeachSkill(ISkill skill, IMobileObject guildMaster, IMobileObject learner)
         {
-            string skillName = skill.ToString().ToUpper();
+            string skillName = skill.AbilityName.ToUpper();
             if (!learner.KnownSkills.Keys.Contains(skillName))
             {
                 learner.KnownSkills.Add(skillName, skill);
@@ -137,7 +137,7 @@ namespace Objects.Personality.Personalities
             else
             {
                 guildMaster.EnqueueCommand(string.Format("Tell {0} You already know that skill.", learner.KeyWords[0]));
-                return new Result("", true);;
+                return new Result("", true);
             }
         }
 
@@ -153,7 +153,7 @@ namespace Objects.Personality.Personalities
             else
             {
                 guildMaster.EnqueueCommand(string.Format("Tell {0} You already know that spell.", learner.KeyWords[0]));
-                return new Result("", true);;
+                return new Result("", true);
             }
         }
 
@@ -166,7 +166,7 @@ namespace Objects.Personality.Personalities
                 if (actor.Level >= skillPair.Level
                     && !actor.KnownSkills.Keys.Contains(skillPair.Abiltiy.AbilityName))
                 {
-                    strBldr.AppendLine(skillPair.Abiltiy.ToString());
+                    strBldr.AppendLine(skillPair.Abiltiy.AbilityName);
                 }
             }
 
@@ -175,7 +175,7 @@ namespace Objects.Personality.Personalities
                 if (actor.Level >= spellPair.Level
                     && !actor.SpellBook.Keys.Contains(spellPair.Abiltiy.AbilityName))
                 {
-                    strBldr.AppendLine(spellPair.Abiltiy.ToString());
+                    strBldr.AppendLine(spellPair.Abiltiy.AbilityName);
                 }
             }
 

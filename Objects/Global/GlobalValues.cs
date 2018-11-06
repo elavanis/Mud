@@ -18,6 +18,7 @@ using Objects.Global.PerformanceCounters.Interface;
 using Objects.Global.Random.Interface;
 using Objects.Global.Serialization.Interface;
 using Objects.Global.Settings.Interface;
+using Objects.Global.StringManuplation.Interface;
 using Objects.Global.TickTimes.Interface;
 using Objects.Global.UpTime.Interface;
 using Objects.Global.ValidateAsset.Interface;
@@ -102,6 +103,9 @@ namespace Objects.Global
         public ISerialization Serialization { get; set; }
 
         [ExcludeFromCodeCoverage]
+        public IStringManipulator StringManipulator { get; set; }
+
+        [ExcludeFromCodeCoverage]
         public ITickTimes TickTimes { get; set; }
 
         [ExcludeFromCodeCoverage]
@@ -162,6 +166,7 @@ namespace Objects.Global
             Random = new Random.Random();
             RandomDropGenerator = new Random.RandomDropGenerator();
             Serialization = new Serialization.JsonSerialization();
+            StringManipulator = new StringManuplation.StringManipulator();
             TickTimes = new TickTimes.TickTimes();
             Time = new Time();
             Translator = new Language.Translator(new Language.TranslatorAlgorithm());

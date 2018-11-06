@@ -303,8 +303,6 @@ namespace GenerateZones.Zones.Mountain
             npc.KeyWords.Add("goblin");
             npc.KeyWords.Add("shaman");
 
-            npc.Personalities.Add(new GuildMaster(Guilds.Shaman));
-
             IEnchantment enchantment = new EnterRoomEnchantment();
             IEffect say = new Message();
             IEffectParameter effectParameter = new EffectParameter();

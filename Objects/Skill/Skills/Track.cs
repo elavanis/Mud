@@ -17,7 +17,7 @@ namespace Objects.Skill.Skills
 {
     public class Track : BaseSkill
     {
-        public Track() : base()
+        public Track() : base(nameof(Track))
         {
             PerformerNotification = new TranslationMessage("You search around for any sign of your target.");
             StaminaCost = 0;

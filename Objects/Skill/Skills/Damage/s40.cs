@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Objects.Skill.Skills.Damage
 {
-    class s40
+    public class ThrowDirt
     {
     }
 }

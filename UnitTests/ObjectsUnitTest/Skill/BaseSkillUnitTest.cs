@@ -90,7 +90,7 @@ namespace ObjectsUnitTest.Skill
         {
             IResult result = baseSkill.ProcessSkill(npc.Object, command.Object);
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("performNotify", result.ResultMessage);
             notify.Verify(e => e.Room(npc.Object, npc.Object, room.Object, translationMessageRoom.Object, new List<IMobileObject>() { npc.Object }, false, false), Times.Once);
             notify.Verify(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>()));
@@ -98,7 +98,10 @@ namespace ObjectsUnitTest.Skill
 
         private class UnitTestSkill : BaseSkill
         {
+            public UnitTestSkill() : base("unitTestSkill")
+            {
 
+            }
         }
     }
 }
