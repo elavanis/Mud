@@ -4,6 +4,7 @@ using Objects.Command.Interface;
 using Objects.Effect.Interface;
 using Objects.Global;
 using Objects.Global.Notify.Interface;
+using Objects.Global.StringManuplation.Interface;
 using Objects.Language.Interface;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
@@ -31,6 +32,7 @@ namespace ObjectsUnitTest.Skill
         Mock<ITranslationMessage> translationMessageRoom;
         Mock<ITranslationMessage> translationMessageTarget;
         Mock<ITranslationMessage> translationMessagePerformer;
+        Mock<IStringManipulator> stringManipulator;
 
         [TestInitialize]
         public void Setup()
@@ -47,6 +49,7 @@ namespace ObjectsUnitTest.Skill
             translationMessageRoom = new Mock<ITranslationMessage>();
             translationMessageTarget = new Mock<ITranslationMessage>();
             translationMessagePerformer = new Mock<ITranslationMessage>();
+            stringManipulator = new Mock<IStringManipulator>();
 
             translationMessageRoom.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("roomNotify");
             translationMessageTarget.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("targetNotify");
@@ -62,11 +65,13 @@ namespace ObjectsUnitTest.Skill
             command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter0.Object });
             parameter0.Setup(e => e.ParameterValue).Returns("param0");
             tagWrapper.Setup(e => e.WrapInTag("You need 1 stamina to use the skill param0.", TagWrapper.TagType.Info)).Returns("NotEnoughStamina");
+            stringManipulator.Setup(e => e.UpdateTargetPerformer(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns((string a, string b, string c) => (c));
 
             effectParameter.Setup(e => e.Target).Returns(npc.Object);
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
         }
 
         [TestMethod]
@@ -93,7 +98,6 @@ namespace ObjectsUnitTest.Skill
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("performNotify", result.ResultMessage);
             notify.Verify(e => e.Room(npc.Object, npc.Object, room.Object, translationMessageRoom.Object, new List<IMobileObject>() { npc.Object }, false, false), Times.Once);
-            notify.Verify(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>()));
         }
 
         private class UnitTestSkill : BaseSkill

@@ -95,10 +95,12 @@ namespace ObjectsUnitTest.World
             zone.Setup(e => e.Rooms).Returns(dictionaryRoom);
             zone.Setup(e => e.ResetTime).Returns(gameDateTime.Object);
             npc.Setup(e => e.LastProccessedTick).Returns(1);
+            npc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             pc.Setup(e => e.LastProccessedTick).Returns(1);
             pc.Setup(e => e.CraftsmanObjects).Returns(new List<Objects.Crafting.Interface.ICraftsmanObject>());
             pc.Setup(e => e.Room).Returns(room.Object);
             pc.Setup(e => e.FollowTarget).Returns(npc.Object);
+            pc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             tickTimes.Setup(e => e.MedianTime).Returns(1m);
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
 

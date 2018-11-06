@@ -89,31 +89,31 @@ namespace ObjectsUnitTest.Global.Engine
         [TestMethod]
         public void Event_HeartbeatBigTick()
         {
-            evnt.HeartbeatBigTick(npc.Object);
+            evnt.HeartbeatBigTick(pc.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.ALL, "Big Heartbeat Tick"), Times.Once);
-            roomEnchantment.Verify(e => e.HeartbeatBigTick(npc.Object), Times.Once);
-            trapEnchantment.Verify(e => e.HeartbeatBigTick(npc.Object), Times.Once);
-            pcEnchantment.Verify(e => e.HeartbeatBigTick(npc.Object), Times.Once);
-            npcEnchantment.Verify(e => e.HeartbeatBigTick(npc.Object), Times.Once);
-            itemEnchantment.Verify(e => e.HeartbeatBigTick(npc.Object), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.ALL, "Big Heartbeat Tick"), Times.Once);
+            roomEnchantment.Verify(e => e.HeartbeatBigTick(pc.Object), Times.Once);
+            trapEnchantment.Verify(e => e.HeartbeatBigTick(pc.Object), Times.Once);
+            pcEnchantment.Verify(e => e.HeartbeatBigTick(pc.Object), Times.Once);
+            npcEnchantment.Verify(e => e.HeartbeatBigTick(pc.Object), Times.Once);
+            itemEnchantment.Verify(e => e.HeartbeatBigTick(pc.Object), Times.Once);
         }
 
 
         [TestMethod]
         public void Event_OnDeath()
         {
-            tagWrapper.Setup(e => e.WrapInTag("NpcSentence has died.", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag("PcSentence has died.", TagType.Info)).Returns("message");
 
-            evnt.OnDeath(npc.Object);
+            evnt.OnDeath(pc.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUG, "Died"), Times.Once);
-            roomEnchantment.Verify(e => e.OnDeath(npc.Object), Times.Once);
-            trapEnchantment.Verify(e => e.OnDeath(npc.Object), Times.Once);
-            pcEnchantment.Verify(e => e.OnDeath(npc.Object), Times.Once);
-            npcEnchantment.Verify(e => e.OnDeath(npc.Object), Times.Once);
-            itemEnchantment.Verify(e => e.OnDeath(npc.Object), Times.Once);
-            notify.Verify(e => e.Room(npc.Object, null, room.Object, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { npc.Object }, false, false), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "Died"), Times.Once);
+            roomEnchantment.Verify(e => e.OnDeath(pc.Object), Times.Once);
+            trapEnchantment.Verify(e => e.OnDeath(pc.Object), Times.Once);
+            pcEnchantment.Verify(e => e.OnDeath(pc.Object), Times.Once);
+            npcEnchantment.Verify(e => e.OnDeath(pc.Object), Times.Once);
+            itemEnchantment.Verify(e => e.OnDeath(pc.Object), Times.Once);
+            notify.Verify(e => e.Room(pc.Object, null, room.Object, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { pc.Object }, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -206,29 +206,29 @@ namespace ObjectsUnitTest.Global.Engine
         [TestMethod]
         public void Event_LeaveRoom()
         {
-            evnt.LeaveRoom(npc.Object, Direction.East);
+            evnt.LeaveRoom(pc.Object, Direction.East);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUG, "NpcSentence left room 1-1."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence left room 1-1."), Times.Once);
 
-            roomEnchantment.Verify(e => e.LeaveRoom(npc.Object, Direction.East), Times.Once);
-            trapEnchantment.Verify(e => e.LeaveRoom(npc.Object, Direction.East), Times.Once);
-            pcEnchantment.Verify(e => e.LeaveRoom(npc.Object, Direction.East), Times.Once);
-            npcEnchantment.Verify(e => e.LeaveRoom(npc.Object, Direction.East), Times.Once);
-            itemEnchantment.Verify(e => e.LeaveRoom(npc.Object, Direction.East), Times.Once);
+            roomEnchantment.Verify(e => e.LeaveRoom(pc.Object, Direction.East), Times.Once);
+            trapEnchantment.Verify(e => e.LeaveRoom(pc.Object, Direction.East), Times.Once);
+            pcEnchantment.Verify(e => e.LeaveRoom(pc.Object, Direction.East), Times.Once);
+            npcEnchantment.Verify(e => e.LeaveRoom(pc.Object, Direction.East), Times.Once);
+            itemEnchantment.Verify(e => e.LeaveRoom(pc.Object, Direction.East), Times.Once);
         }
 
         [TestMethod]
         public void Event_AttemptToFollow()
         {
-            evnt.AttemptToFollow(Direction.East, npc.Object, pc.Object);
+            evnt.AttemptToFollow(Direction.East, pc.Object, npc.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUG, "NpcSentence attempted to follow PcSentence East."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence attempted to follow NpcSentence East."), Times.Once);
 
-            roomEnchantment.Verify(e => e.AttemptToFollow(Direction.East, npc.Object, pc.Object), Times.Once);
-            trapEnchantment.Verify(e => e.AttemptToFollow(Direction.East, npc.Object, pc.Object), Times.Once);
-            pcEnchantment.Verify(e => e.AttemptToFollow(Direction.East, npc.Object, pc.Object), Times.Once);
-            npcEnchantment.Verify(e => e.AttemptToFollow(Direction.East, npc.Object, pc.Object), Times.Once);
-            itemEnchantment.Verify(e => e.AttemptToFollow(Direction.East, npc.Object, pc.Object), Times.Once);
+            roomEnchantment.Verify(e => e.AttemptToFollow(Direction.East, pc.Object, npc.Object), Times.Once);
+            trapEnchantment.Verify(e => e.AttemptToFollow(Direction.East, pc.Object, npc.Object), Times.Once);
+            pcEnchantment.Verify(e => e.AttemptToFollow(Direction.East, pc.Object, npc.Object), Times.Once);
+            npcEnchantment.Verify(e => e.AttemptToFollow(Direction.East, pc.Object, npc.Object), Times.Once);
+            itemEnchantment.Verify(e => e.AttemptToFollow(Direction.East, pc.Object, npc.Object), Times.Once);
         }
         #endregion Room Enter/Leave
 
@@ -236,141 +236,141 @@ namespace ObjectsUnitTest.Global.Engine
         [TestMethod]
         public void Event_Cast()
         {
-            evnt.Cast(npc.Object, "spell");
+            evnt.Cast(pc.Object, "spell");
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUG, "NpcSentence cast spell."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence cast spell."), Times.Once);
 
-            roomEnchantment.Verify(e => e.Cast(npc.Object, "spell"), Times.Once);
-            trapEnchantment.Verify(e => e.Cast(npc.Object, "spell"), Times.Once);
-            pcEnchantment.Verify(e => e.Cast(npc.Object, "spell"), Times.Once);
-            npcEnchantment.Verify(e => e.Cast(npc.Object, "spell"), Times.Once);
-            itemEnchantment.Verify(e => e.Cast(npc.Object, "spell"), Times.Once);
+            roomEnchantment.Verify(e => e.Cast(pc.Object, "spell"), Times.Once);
+            trapEnchantment.Verify(e => e.Cast(pc.Object, "spell"), Times.Once);
+            pcEnchantment.Verify(e => e.Cast(pc.Object, "spell"), Times.Once);
+            npcEnchantment.Verify(e => e.Cast(pc.Object, "spell"), Times.Once);
+            itemEnchantment.Verify(e => e.Cast(pc.Object, "spell"), Times.Once);
         }
 
         [TestMethod]
         public void Event_Perform()
         {
-            evnt.Perform(npc.Object, "skill");
+            evnt.Perform(pc.Object, "skill");
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUG, "NpcSentence performed skill."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence performed skill."), Times.Once);
 
-            roomEnchantment.Verify(e => e.Perform(npc.Object, "skill"), Times.Once);
-            trapEnchantment.Verify(e => e.Perform(npc.Object, "skill"), Times.Once);
-            pcEnchantment.Verify(e => e.Perform(npc.Object, "skill"), Times.Once);
-            npcEnchantment.Verify(e => e.Perform(npc.Object, "skill"), Times.Once);
-            itemEnchantment.Verify(e => e.Perform(npc.Object, "skill"), Times.Once);
+            roomEnchantment.Verify(e => e.Perform(pc.Object, "skill"), Times.Once);
+            trapEnchantment.Verify(e => e.Perform(pc.Object, "skill"), Times.Once);
+            pcEnchantment.Verify(e => e.Perform(pc.Object, "skill"), Times.Once);
+            npcEnchantment.Verify(e => e.Perform(pc.Object, "skill"), Times.Once);
+            itemEnchantment.Verify(e => e.Perform(pc.Object, "skill"), Times.Once);
         }
 
         [TestMethod]
         public void Event_Drop()
         {
-            evnt.Drop(npc.Object, item.Object);
+            evnt.Drop(pc.Object, item.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUG, "NpcSentence dropped ItemSentence."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence dropped ItemSentence."), Times.Once);
 
-            roomEnchantment.Verify(e => e.Drop(npc.Object, item.Object), Times.Once);
-            trapEnchantment.Verify(e => e.Drop(npc.Object, item.Object), Times.Once);
-            pcEnchantment.Verify(e => e.Drop(npc.Object, item.Object), Times.Once);
-            npcEnchantment.Verify(e => e.Drop(npc.Object, item.Object), Times.Once);
-            itemEnchantment.Verify(e => e.Drop(npc.Object, item.Object), Times.Once);
+            roomEnchantment.Verify(e => e.Drop(pc.Object, item.Object), Times.Once);
+            trapEnchantment.Verify(e => e.Drop(pc.Object, item.Object), Times.Once);
+            pcEnchantment.Verify(e => e.Drop(pc.Object, item.Object), Times.Once);
+            npcEnchantment.Verify(e => e.Drop(pc.Object, item.Object), Times.Once);
+            itemEnchantment.Verify(e => e.Drop(pc.Object, item.Object), Times.Once);
         }
 
         [TestMethod]
         public void Event_Get()
         {
-            evnt.Get(npc.Object, item.Object);
+            evnt.Get(pc.Object, item.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUG, "NpcSentence got ItemSentence."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence got ItemSentence."), Times.Once);
 
-            roomEnchantment.Verify(e => e.Get(npc.Object, item.Object), Times.Once);
-            trapEnchantment.Verify(e => e.Get(npc.Object, item.Object), Times.Once);
-            pcEnchantment.Verify(e => e.Get(npc.Object, item.Object), Times.Once);
-            npcEnchantment.Verify(e => e.Get(npc.Object, item.Object), Times.Once);
-            itemEnchantment.Verify(e => e.Get(npc.Object, item.Object), Times.Once);
+            roomEnchantment.Verify(e => e.Get(pc.Object, item.Object), Times.Once);
+            trapEnchantment.Verify(e => e.Get(pc.Object, item.Object), Times.Once);
+            pcEnchantment.Verify(e => e.Get(pc.Object, item.Object), Times.Once);
+            npcEnchantment.Verify(e => e.Get(pc.Object, item.Object), Times.Once);
+            itemEnchantment.Verify(e => e.Get(pc.Object, item.Object), Times.Once);
         }
 
         [TestMethod]
         public void Event_Relax()
         {
-            evnt.Relax(npc.Object);
+            evnt.Relax(pc.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "NpcSentence relaxed."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUGVERBOSE, "PcSentence relaxed."), Times.Once);
 
-            roomEnchantment.Verify(e => e.Relax(npc.Object), Times.Once);
-            trapEnchantment.Verify(e => e.Relax(npc.Object), Times.Once);
-            pcEnchantment.Verify(e => e.Relax(npc.Object), Times.Once);
-            npcEnchantment.Verify(e => e.Relax(npc.Object), Times.Once);
-            itemEnchantment.Verify(e => e.Relax(npc.Object), Times.Once);
+            roomEnchantment.Verify(e => e.Relax(pc.Object), Times.Once);
+            trapEnchantment.Verify(e => e.Relax(pc.Object), Times.Once);
+            pcEnchantment.Verify(e => e.Relax(pc.Object), Times.Once);
+            npcEnchantment.Verify(e => e.Relax(pc.Object), Times.Once);
+            itemEnchantment.Verify(e => e.Relax(pc.Object), Times.Once);
         }
 
         [TestMethod]
         public void Event_Sat()
         {
-            evnt.Sit(npc.Object);
+            evnt.Sit(pc.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "NpcSentence sat."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUGVERBOSE, "PcSentence sat."), Times.Once);
 
-            roomEnchantment.Verify(e => e.Sit(npc.Object), Times.Once);
-            trapEnchantment.Verify(e => e.Sit(npc.Object), Times.Once);
-            pcEnchantment.Verify(e => e.Sit(npc.Object), Times.Once);
-            npcEnchantment.Verify(e => e.Sit(npc.Object), Times.Once);
-            itemEnchantment.Verify(e => e.Sit(npc.Object), Times.Once);
+            roomEnchantment.Verify(e => e.Sit(pc.Object), Times.Once);
+            trapEnchantment.Verify(e => e.Sit(pc.Object), Times.Once);
+            pcEnchantment.Verify(e => e.Sit(pc.Object), Times.Once);
+            npcEnchantment.Verify(e => e.Sit(pc.Object), Times.Once);
+            itemEnchantment.Verify(e => e.Sit(pc.Object), Times.Once);
         }
 
         [TestMethod]
         public void Event_Sleep()
         {
-            evnt.Sleep(npc.Object);
+            evnt.Sleep(pc.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "NpcSentence slept."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUGVERBOSE, "PcSentence slept."), Times.Once);
 
-            roomEnchantment.Verify(e => e.Sleep(npc.Object), Times.Once);
-            trapEnchantment.Verify(e => e.Sleep(npc.Object), Times.Once);
-            pcEnchantment.Verify(e => e.Sleep(npc.Object), Times.Once);
-            npcEnchantment.Verify(e => e.Sleep(npc.Object), Times.Once);
-            itemEnchantment.Verify(e => e.Sleep(npc.Object), Times.Once);
+            roomEnchantment.Verify(e => e.Sleep(pc.Object), Times.Once);
+            trapEnchantment.Verify(e => e.Sleep(pc.Object), Times.Once);
+            pcEnchantment.Verify(e => e.Sleep(pc.Object), Times.Once);
+            npcEnchantment.Verify(e => e.Sleep(pc.Object), Times.Once);
+            itemEnchantment.Verify(e => e.Sleep(pc.Object), Times.Once);
         }
 
         [TestMethod]
         public void Event_Stand()
         {
-            evnt.Stand(npc.Object);
+            evnt.Stand(pc.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "NpcSentence stood."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUGVERBOSE, "PcSentence stood."), Times.Once);
 
-            roomEnchantment.Verify(e => e.Stand(npc.Object), Times.Once);
-            trapEnchantment.Verify(e => e.Stand(npc.Object), Times.Once);
-            pcEnchantment.Verify(e => e.Stand(npc.Object), Times.Once);
-            npcEnchantment.Verify(e => e.Stand(npc.Object), Times.Once);
-            itemEnchantment.Verify(e => e.Stand(npc.Object), Times.Once);
+            roomEnchantment.Verify(e => e.Stand(pc.Object), Times.Once);
+            trapEnchantment.Verify(e => e.Stand(pc.Object), Times.Once);
+            pcEnchantment.Verify(e => e.Stand(pc.Object), Times.Once);
+            npcEnchantment.Verify(e => e.Stand(pc.Object), Times.Once);
+            itemEnchantment.Verify(e => e.Stand(pc.Object), Times.Once);
         }
 
         [TestMethod]
         public void Event_Equip()
         {
-            evnt.Equip(npc.Object, item.Object);
+            evnt.Equip(pc.Object, item.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUG, "NpcSentence equipped ItemSentence."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence equipped ItemSentence."), Times.Once);
 
-            roomEnchantment.Verify(e => e.Equip(npc.Object, item.Object), Times.Once);
-            trapEnchantment.Verify(e => e.Equip(npc.Object, item.Object), Times.Once);
-            pcEnchantment.Verify(e => e.Equip(npc.Object, item.Object), Times.Once);
-            npcEnchantment.Verify(e => e.Equip(npc.Object, item.Object), Times.Once);
-            itemEnchantment.Verify(e => e.Equip(npc.Object, item.Object), Times.Once);
+            roomEnchantment.Verify(e => e.Equip(pc.Object, item.Object), Times.Once);
+            trapEnchantment.Verify(e => e.Equip(pc.Object, item.Object), Times.Once);
+            pcEnchantment.Verify(e => e.Equip(pc.Object, item.Object), Times.Once);
+            npcEnchantment.Verify(e => e.Equip(pc.Object, item.Object), Times.Once);
+            itemEnchantment.Verify(e => e.Equip(pc.Object, item.Object), Times.Once);
         }
 
         [TestMethod]
         public void Event_Unequip()
         {
-            evnt.Unequip(npc.Object, item.Object);
+            evnt.Unequip(pc.Object, item.Object);
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUG, "NpcSentence unequipped ItemSentence."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence unequipped ItemSentence."), Times.Once);
 
-            roomEnchantment.Verify(e => e.Unequip(npc.Object, item.Object), Times.Once);
-            trapEnchantment.Verify(e => e.Unequip(npc.Object, item.Object), Times.Once);
-            pcEnchantment.Verify(e => e.Unequip(npc.Object, item.Object), Times.Once);
-            npcEnchantment.Verify(e => e.Unequip(npc.Object, item.Object), Times.Once);
-            itemEnchantment.Verify(e => e.Unequip(npc.Object, item.Object), Times.Once);
+            roomEnchantment.Verify(e => e.Unequip(pc.Object, item.Object), Times.Once);
+            trapEnchantment.Verify(e => e.Unequip(pc.Object, item.Object), Times.Once);
+            pcEnchantment.Verify(e => e.Unequip(pc.Object, item.Object), Times.Once);
+            npcEnchantment.Verify(e => e.Unequip(pc.Object, item.Object), Times.Once);
+            itemEnchantment.Verify(e => e.Unequip(pc.Object, item.Object), Times.Once);
         }
         #endregion Commands
 
@@ -378,43 +378,43 @@ namespace ObjectsUnitTest.Global.Engine
         [TestMethod]
         public void Event_ProcessedCommand()
         {
-            evnt.ProcessedCommand(npc.Object, "command");
+            evnt.ProcessedCommand(pc.Object, "command");
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "NpcSentence processed command command."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUGVERBOSE, "PcSentence processed command command."), Times.Once);
 
-            roomEnchantment.Verify(e => e.ProcessedCommand(npc.Object, "command"), Times.Once);
-            trapEnchantment.Verify(e => e.ProcessedCommand(npc.Object, "command"), Times.Once);
-            pcEnchantment.Verify(e => e.ProcessedCommand(npc.Object, "command"), Times.Once);
-            npcEnchantment.Verify(e => e.ProcessedCommand(npc.Object, "command"), Times.Once);
-            itemEnchantment.Verify(e => e.ProcessedCommand(npc.Object, "command"), Times.Once);
+            roomEnchantment.Verify(e => e.ProcessedCommand(pc.Object, "command"), Times.Once);
+            trapEnchantment.Verify(e => e.ProcessedCommand(pc.Object, "command"), Times.Once);
+            pcEnchantment.Verify(e => e.ProcessedCommand(pc.Object, "command"), Times.Once);
+            npcEnchantment.Verify(e => e.ProcessedCommand(pc.Object, "command"), Times.Once);
+            itemEnchantment.Verify(e => e.ProcessedCommand(pc.Object, "command"), Times.Once);
         }
 
         [TestMethod]
         public void Event_ProcessedCommunication()
         {
-            evnt.ProcessedCommunication(npc.Object, "communication");
+            evnt.ProcessedCommunication(pc.Object, "communication");
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "NpcSentence processed communication communication."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUGVERBOSE, "PcSentence processed communication communication."), Times.Once);
 
-            roomEnchantment.Verify(e => e.ProcessedCommunication(npc.Object, "communication"), Times.Once);
-            trapEnchantment.Verify(e => e.ProcessedCommunication(npc.Object, "communication"), Times.Once);
-            pcEnchantment.Verify(e => e.ProcessedCommunication(npc.Object, "communication"), Times.Once);
-            npcEnchantment.Verify(e => e.ProcessedCommunication(npc.Object, "communication"), Times.Once);
-            itemEnchantment.Verify(e => e.ProcessedCommunication(npc.Object, "communication"), Times.Once);
+            roomEnchantment.Verify(e => e.ProcessedCommunication(pc.Object, "communication"), Times.Once);
+            trapEnchantment.Verify(e => e.ProcessedCommunication(pc.Object, "communication"), Times.Once);
+            pcEnchantment.Verify(e => e.ProcessedCommunication(pc.Object, "communication"), Times.Once);
+            npcEnchantment.Verify(e => e.ProcessedCommunication(pc.Object, "communication"), Times.Once);
+            itemEnchantment.Verify(e => e.ProcessedCommunication(pc.Object, "communication"), Times.Once);
         }
 
         [TestMethod]
         public void Event_ReturnedMessage()
         {
-            evnt.ReturnedMessage(npc.Object, "message");
+            evnt.ReturnedMessage(pc.Object, "message");
 
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "NpcSentence returned message message."), Times.Once);
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUGVERBOSE, "PcSentence returned message message."), Times.Once);
 
-            roomEnchantment.Verify(e => e.ReturnedMessage(npc.Object, "message"), Times.Once);
-            trapEnchantment.Verify(e => e.ReturnedMessage(npc.Object, "message"), Times.Once);
-            pcEnchantment.Verify(e => e.ReturnedMessage(npc.Object, "message"), Times.Once);
-            npcEnchantment.Verify(e => e.ReturnedMessage(npc.Object, "message"), Times.Once);
-            itemEnchantment.Verify(e => e.ReturnedMessage(npc.Object, "message"), Times.Once);
+            roomEnchantment.Verify(e => e.ReturnedMessage(pc.Object, "message"), Times.Once);
+            trapEnchantment.Verify(e => e.ReturnedMessage(pc.Object, "message"), Times.Once);
+            pcEnchantment.Verify(e => e.ReturnedMessage(pc.Object, "message"), Times.Once);
+            npcEnchantment.Verify(e => e.ReturnedMessage(pc.Object, "message"), Times.Once);
+            itemEnchantment.Verify(e => e.ReturnedMessage(pc.Object, "message"), Times.Once);
         }
         #endregion Input/Output
     }
