@@ -33,7 +33,6 @@ namespace ObjectsUnitTest.Command.PC
             notify = new Mock<INotify>();
             room = new Mock<IRoom>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Emote \"[your emote message]\"", TagType.Info)).Returns("message");
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             pc.Setup(e => e.Room).Returns(room.Object);
 
@@ -49,7 +48,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Emote \"[your emote message]\"", result.ResultMessage);
         }
 
         [TestMethod]

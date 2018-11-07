@@ -349,7 +349,7 @@ namespace Objects.Mob
 
         public MobType? TypeOfMob { get; set; }
 
-
+        [ExcludeFromCodeCoverage]
         public object Clone()
         {
             INonPlayerCharacter newNpc = GlobalReference.GlobalValues.Serialization.Deserialize<INonPlayerCharacter>(

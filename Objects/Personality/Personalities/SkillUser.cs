@@ -8,8 +8,6 @@ namespace Objects.Personality.Personalities
 {
     public class SkillUser : IPersonality
     {
-
-
         public string Process(INonPlayerCharacter npc, string command)
         {
             throw new NotImplementedException();

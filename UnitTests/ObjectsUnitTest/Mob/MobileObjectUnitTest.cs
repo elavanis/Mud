@@ -14,6 +14,7 @@ using Objects.Global.Settings.Interface;
 using Objects.Global.Stats;
 using Objects.Global.ValidateAsset.Interface;
 using Objects.Item.Interface;
+using Objects.Item.Items;
 using Objects.Item.Items.Interface;
 using Objects.Magic;
 using Objects.Magic.Interface;
@@ -25,6 +26,7 @@ using Objects.Skill.Interface;
 using Shared.FileIO.Interface;
 using Shared.TagWrapper.Interface;
 using Shared.TelnetItems;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -966,12 +968,16 @@ namespace ObjectsUnitTest.Mob
             Mock<IArmor> armor = new Mock<IArmor>();
             Mock<IEngine> engine = new Mock<IEngine>();
             Mock<IEvent> evnt = new Mock<IEvent>();
+            Mock<IEnchantment> enchantment = new Mock<IEnchantment>();
+            Mock<IRandomDropGenerator> randomDropGenerator = new Mock<IRandomDropGenerator>();
 
             moneyToCoins.Setup(e => e.FormatedAsCoins(10)).Returns("10 coins");
             mob.Items.Add(item.Object);
             mob.AddEquipment(armor.Object);
             mob.Money = 10;
+            mob.Enchantments.Add(enchantment.Object);
             engine.Setup(e => e.Event).Returns(evnt.Object);
+            randomDropGenerator.Setup(e => e.GenerateRandomDrop(It.IsAny<INonPlayerCharacter>())).Returns(item.Object);
 
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
@@ -991,9 +997,10 @@ namespace ObjectsUnitTest.Mob
             IMoney corpseMoney = null;
             foreach (IItem localItem in corpse.Items)
             {
-                corpseMoney = localItem as IMoney;
-                if (corpseMoney != null)
+                IMoney money = (localItem as IMoney);
+                if (money != null)
                 {
+                    corpseMoney = money;
                     break;
                 }
             }
@@ -1002,7 +1009,9 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(0, mob.Items.Count);
             Assert.AreEqual(0, mob.EquipedEquipment.Count());
             Assert.AreEqual(0ul, mob.Money);
+            Assert.IsTrue(corpse.Items.Contains(item.Object));
             evnt.Verify(e => e.OnDeath(mob), Times.Once);
+            enchantment.VerifySet(e => e.EnchantmentEndingDateTime = new DateTime());
         }
 
         [TestMethod]

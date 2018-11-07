@@ -817,7 +817,7 @@ namespace Objects.Room
         private void ReloadVault()
         {
             string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{Zone}-{Id}.vault");
-            if (File.Exists(file))
+            if (GlobalReference.GlobalValues.FileIO.Exists(file))
             {
                 string fileContents = GlobalReference.GlobalValues.FileIO.ReadAllText(file);
                 IReadOnlyList<IItem> items = GlobalReference.GlobalValues.Serialization.Deserialize<IReadOnlyList<IItem>>(fileContents);

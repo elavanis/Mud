@@ -711,6 +711,22 @@ To see infon on how to use a command type MAN and then the COMMAND.", TagType.In
             world.PerformTick();
             pc.VerifyGet(e => e.FollowTarget); //verify the follow target was read to see who they are following
         }
+
+        [TestMethod]
+        public void World_PerformTick_ProcessRoom_CleanupEnchantments()
+        {
+            List<IEnchantment> enchantments = new List<IEnchantment>();
+            Mock<IEnchantment> enchantment = new Mock<IEnchantment>();
+            enchantments.Add(enchantment.Object);
+            enchantment.Setup(e => e.EnchantmentEndingDateTime).Returns(new DateTime(1, 1, 1));
+
+            pc.Setup(e => e.Enchantments).Returns(enchantments);
+            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
+
+            Assert.AreEqual(1, enchantments.Count);
+            world.PerformTick();
+            Assert.AreEqual(0, enchantments.Count);
+        }
         #endregion ProcessRoom
 
         #region CatchPlayersOutSideOfTheWorldDueToReloadedZones

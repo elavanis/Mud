@@ -441,6 +441,21 @@ namespace ObjectsUnitTest.Room
             Assert.IsTrue(room.Items.Contains(item.Object));
         }
 
+        [TestMethod]
+        public void Room_FinishLoad_ReloadValut()
+        {
+            IReadOnlyList<IItem> items = new List<IItem>() { item.Object };
+
+            room.Attributes.Add(RoomAttribute.Vault);
+            fileIO.Setup(e => e.Exists("vault\\1-2.vault")).Returns(true);
+            fileIO.Setup(e => e.ReadAllText("vault\\1-2.vault")).Returns("contents");
+            serializer.Setup(e => e.Deserialize<IReadOnlyList<IItem>>("contents")).Returns(items);
+
+            room.FinishLoad();
+
+            Assert.IsTrue(room.Items.Contains(item.Object));
+        }
+
         #region Weather
         #region Properties
         #region High
