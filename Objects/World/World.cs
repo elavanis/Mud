@@ -797,7 +797,7 @@ namespace Objects.World
                     }
                 }
 
-                CleanupEnchanments(mob);
+                CleanupEnchantments(mob);
 
                 if (GlobalReference.GlobalValues.TickCounter % 18 == 0)
                 {
@@ -806,7 +806,7 @@ namespace Objects.World
             }
         }
 
-        private void CleanupEnchanments(IMobileObject mob)
+        private void CleanupEnchantments(IMobileObject mob)
         {
             if (mob.Enchantments.Count > 0)
             {
@@ -816,6 +816,13 @@ namespace Objects.World
                     if (enchantment.EnchantmentEndingDateTime <= DateTime.UtcNow)
                     {
                         mob.Enchantments.RemoveAt(i - 1);
+                    }
+                    else if (enchantment.DefeatInfo != null)
+                    {
+                        if (enchantment.DefeatInfo.DoesPayerDefeatEnchantment(mob))
+                        {
+                            mob.Enchantments.RemoveAt(i - 1);
+                        }
                     }
                 }
             }

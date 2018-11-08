@@ -10,6 +10,8 @@ using Objects.Global.Engine.Engines.Interface;
 using Objects.Effect;
 using System.Collections.Generic;
 using Objects.Effect.Interface;
+using Objects.Magic.Enchantment.DefeatbleInfo;
+using Objects.Magic.Enchantment.DefeatbleInfo.Interface;
 
 namespace Objects.Magic
 {
@@ -29,6 +31,8 @@ namespace Objects.Magic
         public string RoomNotification { get; set; }
         [ExcludeFromCodeCoverage]
         public string TargetNotification { get; set; }
+        [ExcludeFromCodeCoverage]
+        public IDefeatInfo DefeatInfo { get; set; }
 
         public enum TargetOption
         {

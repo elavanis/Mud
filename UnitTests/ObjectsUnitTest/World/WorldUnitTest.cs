@@ -43,6 +43,8 @@ using Objects.Language.Interface;
 using Objects.Language;
 using System.Collections.Concurrent;
 using Objects.GameDateTime.Interface;
+using Objects.Magic.Enchantment.DefeatbleInfo.Interface;
+using static Objects.Global.Stats.Stats;
 
 namespace ObjectsUnitTest.World
 {
@@ -713,13 +715,51 @@ To see infon on how to use a command type MAN and then the COMMAND.", TagType.In
         }
 
         [TestMethod]
-        public void World_PerformTick_ProcessRoom_CleanupEnchantments()
+        public void World_PerformTick_ProcessRoom_CleanupEnchantments_OldEnchantments()
         {
             List<IEnchantment> enchantments = new List<IEnchantment>();
             Mock<IEnchantment> enchantment = new Mock<IEnchantment>();
             enchantments.Add(enchantment.Object);
             enchantment.Setup(e => e.EnchantmentEndingDateTime).Returns(new DateTime(1, 1, 1));
 
+            pc.Setup(e => e.Enchantments).Returns(enchantments);
+            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
+
+            Assert.AreEqual(1, enchantments.Count);
+            world.PerformTick();
+            Assert.AreEqual(0, enchantments.Count);
+        }
+
+        [TestMethod]
+        public void World_PerformTick_ProcessRoom_CleanupEnchantments_FailToDefeat()
+        {
+            List<IEnchantment> enchantments = new List<IEnchantment>();
+            Mock<IEnchantment> enchantment = new Mock<IEnchantment>();
+            Mock<IDefeatInfo> defeatInfo = new Mock<IDefeatInfo>();
+
+            enchantments.Add(enchantment.Object);
+            enchantment.Setup(e => e.EnchantmentEndingDateTime).Returns(new DateTime(9999, 1, 1));
+            enchantment.Setup(e => e.DefeatInfo).Returns(defeatInfo.Object);
+            defeatInfo.Setup(e => e.DoesPayerDefeatEnchantment(pc.Object)).Returns(false);
+            pc.Setup(e => e.Enchantments).Returns(enchantments);
+            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
+
+            Assert.AreEqual(1, enchantments.Count);
+            world.PerformTick();
+            Assert.AreEqual(1, enchantments.Count);
+        }
+
+        [TestMethod]
+        public void World_PerformTick_ProcessRoom_CleanupEnchantments_DefeatEnchantment()
+        {
+            List<IEnchantment> enchantments = new List<IEnchantment>();
+            Mock<IEnchantment> enchantment = new Mock<IEnchantment>();
+            Mock<IDefeatInfo> defeatInfo = new Mock<IDefeatInfo>();
+
+            enchantments.Add(enchantment.Object);
+            enchantment.Setup(e => e.EnchantmentEndingDateTime).Returns(new DateTime(9999, 1, 1));
+            enchantment.Setup(e => e.DefeatInfo).Returns(defeatInfo.Object);
+            defeatInfo.Setup(e => e.DoesPayerDefeatEnchantment(pc.Object)).Returns(true);
             pc.Setup(e => e.Enchantments).Returns(enchantments);
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
 
