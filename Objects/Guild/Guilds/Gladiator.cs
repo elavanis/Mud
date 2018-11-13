@@ -2,6 +2,7 @@
 using Objects.Magic.Spell;
 using Objects.Skill.Interface;
 using Objects.Skill.Skills;
+using Objects.Skill.Skills.CauseOpponentEffect;
 using Objects.Skill.Skills.Damage;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace Objects.Guild.Guilds
             skills.Add(new GuildAbility(new Pierce(), 20));
             skills.Add(new GuildAbility(new SpittingCobra(), 30));
             skills.Add(new GuildAbility(new BlindFighting(), 40));
+            skills.Add(new GuildAbility(new ThrowDirt(), 50));
             return skills;
         }
 

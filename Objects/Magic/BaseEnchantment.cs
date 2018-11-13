@@ -199,7 +199,6 @@ namespace Objects.Magic
         {
             throw new NotImplementedException();
         }
-
         #endregion Enchantment Triggers
     }
 }

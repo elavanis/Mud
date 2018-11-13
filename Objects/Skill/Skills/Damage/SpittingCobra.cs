@@ -3,12 +3,15 @@ using Objects.Effect;
 using Objects.Effect.Interface;
 using Objects.Global;
 using Objects.Language;
+using Objects.Magic.Enchantment.DefeatbleInfo;
+using Objects.Magic.Enchantment.DefeatbleInfo.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using static Objects.Damage.Damage;
+using static Objects.Global.Stats.Stats;
 
 namespace Objects.Skill.Skills.Damage
 {
@@ -31,11 +34,15 @@ namespace Objects.Skill.Skills.Damage
             IEnchantment enchantment = new Magic.Enchantment.HeartbeatBigTickEnchantment();
             IEffect effect = new Objects.Effect.Damage();
             IEffectParameter effectParameter = new EffectParameter();
+            IDefeatInfo defeatInfo = new DefeatInfo();
 
             enchantment.ActivationPercent = 100;
             enchantment.Effect = effect;
             enchantment.Parameter = effectParameter;
-            enchantment.EnchantmentEndingDateTime = DateTime.UtcNow.AddSeconds(10);
+            enchantment.EnchantmentEndingDateTime = new DateTime(9999, 1, 1);
+            enchantment.DefeatInfo = defeatInfo;
+            defeatInfo.CurrentEnchantmentPoints = performer.ConstitutionEffective;
+            defeatInfo.MobStat = Stat.Constitution;
 
             effectParameter.TargetMessage = new TranslationMessage("Poison burns your face.");
             effectParameter.Damage = new Objects.Damage.Damage();
