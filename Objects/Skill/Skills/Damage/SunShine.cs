@@ -10,8 +10,8 @@ namespace Objects.Skill.Skills.Damage
     public class SunShine : BaseDamageSkill
     {
         public SunShine() : base(nameof(SunShine),
-            GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(1).Die,
-            GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(1).Sides,
+            GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(60).Die,
+            GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(60).Sides,
             DamageType.Bludgeon)
         {
             PerformerNotification = new TranslationMessage("Taking a step back you charge towards {target}.  Startled they widen their stance and brace for the impact allowing you slide between their legs and hit them where the sun don't shine causing them to howl in pain.");

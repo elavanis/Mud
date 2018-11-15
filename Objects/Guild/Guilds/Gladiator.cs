@@ -23,7 +23,10 @@ namespace Objects.Guild.Guilds
             skills.Add(new GuildAbility(new SpittingCobra(), 30));
             skills.Add(new GuildAbility(new ThrowDirt(), 40));
             skills.Add(new GuildAbility(new BlindFighting(), 50));
-            skills.Add(new GuildAbility(new BlindFighting(), 60));
+            skills.Add(new GuildAbility(new SunShine(), 60));
+            skills.Add(new GuildAbility(new PummelStrike(), 70));
+            skills.Add(new GuildAbility(new KneeBreaker(), 80));
+            skills.Add(new GuildAbility(new ThicketOfBlades(), 90));
 
 
             return skills;
