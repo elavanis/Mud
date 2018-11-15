@@ -21,8 +21,11 @@ namespace Objects.Guild.Guilds
             skills.Add(new GuildAbility(new ShoulderBash(), 10));
             skills.Add(new GuildAbility(new Pierce(), 20));
             skills.Add(new GuildAbility(new SpittingCobra(), 30));
-            skills.Add(new GuildAbility(new BlindFighting(), 40));
-            skills.Add(new GuildAbility(new ThrowDirt(), 50));
+            skills.Add(new GuildAbility(new ThrowDirt(), 40));
+            skills.Add(new GuildAbility(new BlindFighting(), 50));
+            skills.Add(new GuildAbility(new BlindFighting(), 60));
+
+
             return skills;
         }
 
