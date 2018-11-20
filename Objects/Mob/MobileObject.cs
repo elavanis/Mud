@@ -385,9 +385,10 @@ namespace Objects.Mob
                     defaultWeapon.AttackerStat = Stats.Stat.Dexterity;
                     defaultWeapon.DeffenderStat = Stats.Stat.Dexterity;
                     int strength = Math.Max(1, StrengthEffective);
-                    int sides = (int)Math.Max(1, Math.Pow(strength, .9));
+                    int sides = strength;
                     defaultWeapon.DamageList.Add(new Damage.Damage(new Dice(1, sides)) { Type = DamageType.Bludgeon });
                     defaultWeapon.Speed = 1;
+                    defaultWeapon.KeyWords.Add("BareHands");
                     weapons.Add(defaultWeapon);
                 }
 

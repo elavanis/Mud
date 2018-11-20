@@ -56,9 +56,9 @@ namespace ObjectsUnitTest.Skill
             translationMessagePerformer.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("performNotify");
             baseSkill.Effect = effect.Object;
             baseSkill.StaminaCost = 1;
-            baseSkill.RoomNotification = translationMessageRoom.Object;
-            baseSkill.TargetNotification = translationMessageTarget.Object;
-            baseSkill.PerformerNotification = translationMessagePerformer.Object;
+            baseSkill.RoomNotificationSuccess = translationMessageRoom.Object;
+            baseSkill.TargetNotificationSuccess = translationMessageTarget.Object;
+            baseSkill.PerformerNotificationSuccess = translationMessagePerformer.Object;
             baseSkill.Parameter = effectParameter.Object;
             npc.Setup(e => e.Stamina).Returns(2);
             npc.Setup(e => e.Room).Returns(room.Object);

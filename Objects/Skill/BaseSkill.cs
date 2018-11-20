@@ -48,33 +48,17 @@ namespace Objects.Skill
             {
                 performer.Stamina -= StaminaCost;
                 SetParameterFields(performer);
-                Effect.ProcessEffect(Parameter);
+
                 IMobileObject targetMob = Parameter.Target as IMobileObject;
-                List<IMobileObject> exclusions = new List<IMobileObject>() { performer };
-                if (targetMob != null
-                    && !exclusions.Contains(targetMob))
+
+                if (IsSuccessful(performer, targetMob))
                 {
-                    exclusions.Add(targetMob);
+                    return PerformSuccess(performer, targetMob);
                 }
-
-                if (RoomNotification != null)
+                else
                 {
-                    GlobalReference.GlobalValues.Notify.Room(performer, targetMob, performer.Room, RoomNotification, exclusions);
+                    return PerformFailure(performer, targetMob);
                 }
-
-                //don't think we need to notify the target as they will be notified in the Effect.ProcessEffect if there is anything to notify them about
-                //if (TargetNotification != null)
-                //{
-                //    if (targetMob != null)
-                //    {
-                //        GlobalReference.GlobalValues.Notify.Mob(targetMob, TargetNotification);
-                //    }
-                //}
-
-                AdditionalEffect(performer, targetMob);
-
-                string message = GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(performer.SentenceDescription, targetMob?.SentenceDescription, PerformerNotification.GetTranslatedMessage(performer));
-                return new Result(message, false, null);
             }
             else
             {
@@ -82,12 +66,54 @@ namespace Objects.Skill
             }
         }
 
-        private void SetParameterFields(IMobileObject performer)
+        private IResult PerformFailure(IMobileObject performer, IMobileObject targetMob)
+        {
+            List<IMobileObject> exclusions = new List<IMobileObject>() { performer };
+            if (targetMob != null
+                && !exclusions.Contains(targetMob))
+            {
+                exclusions.Add(targetMob);
+            }
+
+            GlobalReference.GlobalValues.Notify.Mob(targetMob, TargetNotificationFailure);
+
+            if (RoomNotificationFailure != null)
+            {
+                GlobalReference.GlobalValues.Notify.Room(performer, targetMob, performer.Room, RoomNotificationFailure, exclusions);
+            }
+
+            string message = GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(performer.SentenceDescription, targetMob?.SentenceDescription, PerformerNotificationFailure.GetTranslatedMessage(performer));
+            return new Result(message, false, null);
+        }
+
+        private IResult PerformSuccess(IMobileObject performer, IMobileObject targetMob)
+        {
+            Effect.ProcessEffect(Parameter);
+            List<IMobileObject> exclusions = new List<IMobileObject>() { performer };
+            if (targetMob != null
+                && !exclusions.Contains(targetMob))
+            {
+                exclusions.Add(targetMob);
+            }
+
+            if (RoomNotificationSuccess != null)
+            {
+                GlobalReference.GlobalValues.Notify.Room(performer, targetMob, performer.Room, RoomNotificationSuccess, exclusions);
+            }
+
+
+            AdditionalEffect(performer, targetMob);
+
+            string message = GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(performer.SentenceDescription, targetMob?.SentenceDescription, PerformerNotificationSuccess.GetTranslatedMessage(performer));
+            return new Result(message, false, null);
+        }
+
+        protected void SetParameterFields(IMobileObject performer)
         {
             Parameter.Performer = performer;
-            Parameter.PerformerMessage = PerformerNotification;
-            Parameter.TargetMessage = TargetNotification;
-            Parameter.RoomMessage = RoomNotification;
+            Parameter.PerformerMessage = PerformerNotificationSuccess;
+            Parameter.TargetMessage = TargetNotificationSuccess;
+            Parameter.RoomMessage = RoomNotificationSuccess;
         }
     }
 }

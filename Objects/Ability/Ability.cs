@@ -19,11 +19,19 @@ namespace Objects.Ability
     public abstract class Ability : IAbility
     {
         [ExcludeFromCodeCoverage]
-        public ITranslationMessage RoomNotification { get; set; }
+        public ITranslationMessage RoomNotificationSuccess { get; set; }
         [ExcludeFromCodeCoverage]
-        public ITranslationMessage TargetNotification { get; set; }
+        public ITranslationMessage TargetNotificationSuccess { get; set; }
         [ExcludeFromCodeCoverage]
-        public ITranslationMessage PerformerNotification { get; set; }
+        public ITranslationMessage PerformerNotificationSuccess { get; set; }
+
+        [ExcludeFromCodeCoverage]
+        public ITranslationMessage RoomNotificationFailure { get; set; }
+        [ExcludeFromCodeCoverage]
+        public ITranslationMessage TargetNotificationFailure { get; set; }
+        [ExcludeFromCodeCoverage]
+        public ITranslationMessage PerformerNotificationFailure { get; set; }
+
 
         [ExcludeFromCodeCoverage]
         public IEffect Effect { get; set; }
@@ -40,7 +48,20 @@ namespace Objects.Ability
         }
 
         [ExcludeFromCodeCoverage]
+        public IResult AbilityFailed(IMobileObject performer, IMobileObject target)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        [ExcludeFromCodeCoverage]
         public virtual bool MeetRequirments(IMobileObject performer, IMobileObject target)
+        {
+            return true;
+        }
+
+        [ExcludeFromCodeCoverage]
+        public virtual bool IsSuccessful(IMobileObject performer, IMobileObject target)
         {
             return true;
         }

@@ -46,7 +46,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
             translationMessage = new Mock<ITranslationMessage>();
 
             singleTargetSpell.Effect = effect.Object;
-            singleTargetSpell.PerformerNotification = translationMessage.Object;
+            singleTargetSpell.PerformerNotificationSuccess = translationMessage.Object;
             parameter0.Setup(e => e.ParameterValue).Returns("param0");
             parameter1.Setup(e => e.ParameterValue).Returns("param1");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(npc.Object, parameter1.Object.ParameterValue, 0, true, true, true, true, true)).Returns(npc2.Object);

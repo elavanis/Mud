@@ -19,9 +19,9 @@ namespace Objects.Skill.Skills.Damage
           GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(90).Sides,
           DamageType.Bludgeon)
         {
-            PerformerNotification = new TranslationMessage("Moving your blade so quick it becomes a blur of flashes that leave {target} with hundreds of cuts..");
-            RoomNotification = new TranslationMessage("{performer} moves their blade so quickly it a blur of flashes that {target} is unable to defend against.");
-            TargetNotification = new TranslationMessage("{performer} begins to move so fast their blade disappears and becomes a flashing light that feels like your running through a thicket of thorns.");
+            PerformerNotificationSuccess = new TranslationMessage("Moving your blade so quick it becomes a blur of flashes that leave {target} with hundreds of cuts..");
+            RoomNotificationSuccess = new TranslationMessage("{performer} moves their blade so quickly it a blur of flashes that {target} is unable to defend against.");
+            TargetNotificationSuccess = new TranslationMessage("{performer} begins to move so fast their blade disappears and becomes a flashing light that feels like your running through a thicket of thorns.");
         }
 
         public override bool MeetRequirments(IMobileObject performer, IMobileObject target)

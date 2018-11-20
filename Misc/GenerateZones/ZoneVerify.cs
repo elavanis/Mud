@@ -132,37 +132,52 @@ namespace GenerateZones
 
             foreach (ISpell spell in npc.SpellBook.Values)
             {
-                if (spell.PerformerNotification == null)
+                if (spell.PerformerNotificationSuccess == null)
                 {
-                    ThrowConfigException(null, type, string.Format("Spell {0} performer notification is null.", spell.SpellName));
+                    ThrowConfigException(null, type, string.Format("Spell {0} performer success notification is null.", spell.SpellName));
                 }
 
-                if (spell.RoomNotification == null)
+                if (spell.RoomNotificationSuccess == null)
                 {
-                    ThrowConfigException(null, type, string.Format("Spell {0} room notification is null.", spell.SpellName));
+                    ThrowConfigException(null, type, string.Format("Spell {0} room success notification is null.", spell.SpellName));
                 }
 
-                if (spell.TargetNotification == null)
+                if (spell.TargetNotificationSuccess == null)
                 {
-                    ThrowConfigException(null, type, string.Format("Spell {0} target notification is null.", spell.SpellName));
+                    ThrowConfigException(null, type, string.Format("Spell {0} target success notification is null.", spell.SpellName));
                 }
             }
 
             foreach (ISkill skill in npc.KnownSkills.Values)
             {
-                if (skill.PerformerNotification == null)
+                if (skill.PerformerNotificationSuccess == null)
                 {
-                    ThrowConfigException(null, type, string.Format("Skill {0} performer notification is null.", skill.SkillName));
+                    ThrowConfigException(null, type, string.Format("Skill {0} performer success notification is null.", skill.SkillName));
                 }
 
-                if (skill.RoomNotification == null)
+                if (skill.RoomNotificationSuccess == null)
                 {
-                    ThrowConfigException(null, type, string.Format("Skill {0} room notification is null.", skill.SkillName));
+                    ThrowConfigException(null, type, string.Format("Skill {0} room success notification is null.", skill.SkillName));
                 }
 
-                if (skill.TargetNotification == null)
+                if (skill.TargetNotificationSuccess == null)
                 {
-                    ThrowConfigException(null, type, string.Format("Skill {0} target notification is null.", skill.SkillName));
+                    ThrowConfigException(null, type, string.Format("Skill {0} target success notification is null.", skill.SkillName));
+                }
+
+                if (skill.PerformerNotificationFailure == null)
+                {
+                    ThrowConfigException(null, type, string.Format("Skill {0} performer failure notification is null.", skill.SkillName));
+                }
+
+                if (skill.RoomNotificationFailure == null)
+                {
+                    ThrowConfigException(null, type, string.Format("Skill {0} room failure notification is null.", skill.SkillName));
+                }
+
+                if (skill.TargetNotificationFailure == null)
+                {
+                    ThrowConfigException(null, type, string.Format("Skill {0} target failure notification is null.", skill.SkillName));
                 }
             }
         }

@@ -22,9 +22,9 @@ namespace Objects.Skill.Skills.Damage
             GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(30).Sides,
             DamageType.Poison)
         {
-            PerformerNotification = new TranslationMessage("You spit the poison on {target}'s face.");
-            RoomNotification = new TranslationMessage("{performer} spits some type of purple liquid on to {target}'s face.");
-            TargetNotification = new TranslationMessage("{performer} spits a purple liquid onto your face.");
+            PerformerNotificationSuccess = new TranslationMessage("You spit the poison on {target}'s face.");
+            RoomNotificationSuccess = new TranslationMessage("{performer} spits some type of purple liquid on to {target}'s face.");
+            TargetNotificationSuccess = new TranslationMessage("{performer} spits a purple liquid onto your face.");
         }
 
         public override string TeachMessage => "Sometimes when fighting we look to animals for inspiration.  Put this pill in your mouth.  Crush it and spit its contents in your opponent's face like a spitting cobra.";

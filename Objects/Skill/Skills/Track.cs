@@ -19,7 +19,7 @@ namespace Objects.Skill.Skills
     {
         public Track() : base(nameof(Track))
         {
-            PerformerNotification = new TranslationMessage("You search around for any sign of your target.");
+            PerformerNotificationSuccess = new TranslationMessage("You search around for any sign of your target.");
             StaminaCost = 0;
         }
 

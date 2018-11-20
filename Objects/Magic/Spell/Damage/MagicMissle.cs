@@ -15,9 +15,9 @@ namespace Objects.Magic.Spell.Damage
                            DamageType.Force,
                            0)
         {
-            PerformerNotification = new TranslationMessage("{performer} test {target}");
-            RoomNotification = new TranslationMessage("{performer} test {target}");
-            TargetNotification = new TranslationMessage("{performer} test {target}");
+            PerformerNotificationSuccess = new TranslationMessage("{performer} test {target}");
+            RoomNotificationSuccess = new TranslationMessage("{performer} test {target}");
+            TargetNotificationSuccess = new TranslationMessage("{performer} test {target}");
         }
     }
 }

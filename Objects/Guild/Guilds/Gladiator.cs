@@ -27,6 +27,7 @@ namespace Objects.Guild.Guilds
             skills.Add(new GuildAbility(new PummelStrike(), 70));
             skills.Add(new GuildAbility(new KneeBreaker(), 80));
             skills.Add(new GuildAbility(new ThicketOfBlades(), 90));
+            skills.Add(new GuildAbility(new Disarm(), 100));
 
 
             return skills;

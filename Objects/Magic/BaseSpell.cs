@@ -57,20 +57,20 @@ namespace Objects.Magic
                     exclusions.Add(targetMob);
                 }
 
-                if (RoomNotification != null)
+                if (RoomNotificationSuccess != null)
                 {
-                    GlobalReference.GlobalValues.Notify.Room(performer, Parameter.Target, performer.Room, RoomNotification, exclusions);
+                    GlobalReference.GlobalValues.Notify.Room(performer, Parameter.Target, performer.Room, RoomNotificationSuccess, exclusions);
                 }
 
-                if (TargetNotification != null)
+                if (TargetNotificationSuccess != null)
                 {
                     if (targetMob != null)
                     {
-                        GlobalReference.GlobalValues.Notify.Mob(performer, targetMob, targetMob, TargetNotification);
+                        GlobalReference.GlobalValues.Notify.Mob(performer, targetMob, targetMob, TargetNotificationSuccess);
                     }
                 }
 
-                return new Result(PerformerNotification.GetTranslatedMessage(performer), false, null);
+                return new Result(PerformerNotificationSuccess.GetTranslatedMessage(performer), false, null);
             }
             else
             {

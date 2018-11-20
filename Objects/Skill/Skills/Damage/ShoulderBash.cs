@@ -14,9 +14,9 @@ namespace Objects.Skill.Skills.Damage
             GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(10).Sides,
             DamageType.Bludgeon)
         {
-            PerformerNotification = new TranslationMessage("Lowering your shoulder you bash into {target} knocking them back slightly.");
-            RoomNotification = new TranslationMessage("{performer} moves in close to {target} before lowering their shoulder and bashing into {target} knocking them back slightly.");
-            TargetNotification = new TranslationMessage("{performer} knocks their shoulder into you knocking you back slightly.");
+            PerformerNotificationSuccess = new TranslationMessage("Lowering your shoulder you bash into {target} knocking them back slightly.");
+            RoomNotificationSuccess = new TranslationMessage("{performer} moves in close to {target} before lowering their shoulder and bashing into {target} knocking them back slightly.");
+            TargetNotificationSuccess = new TranslationMessage("{performer} knocks their shoulder into you knocking you back slightly.");
         }
 
         public override string TeachMessage => "The trick to a good shoulder bash it to get a firm stance before making contact with your opponent.";

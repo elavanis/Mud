@@ -14,9 +14,9 @@ namespace Objects.Skill.Skills.Damage
           GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(70).Sides,
           DamageType.Bludgeon)
         {
-            PerformerNotification = new TranslationMessage("Taking pummel of your weapon you strike it against {target}.");
-            RoomNotification = new TranslationMessage("{performer} strikes their pummel against {target}.");
-            TargetNotification = new TranslationMessage("{performer} hits you with their pummel.");
+            PerformerNotificationSuccess = new TranslationMessage("Taking pummel of your weapon you strike it against {target}.");
+            RoomNotificationSuccess = new TranslationMessage("{performer} strikes their pummel against {target}.");
+            TargetNotificationSuccess = new TranslationMessage("{performer} hits you with their pummel.");
         }
     }
 }

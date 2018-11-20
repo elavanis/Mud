@@ -54,9 +54,9 @@ namespace ObjectsUnitTest.Magic
             translationMessagePerformer.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("performNotify");
             spell.Effect = effect.Object;
             spell.ManaCost = 1;
-            spell.RoomNotification = translationMessageRoom.Object;
-            spell.TargetNotification = translationMessageTarget.Object;
-            spell.PerformerNotification = translationMessagePerformer.Object;
+            spell.RoomNotificationSuccess = translationMessageRoom.Object;
+            spell.TargetNotificationSuccess = translationMessageTarget.Object;
+            spell.PerformerNotificationSuccess = translationMessagePerformer.Object;
             spell.Parameter = effectParameter.Object;
             npc.Setup(e => e.Mana).Returns(2);
             npc.Setup(e => e.Room).Returns(room.Object);

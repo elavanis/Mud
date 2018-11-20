@@ -14,9 +14,9 @@ namespace Objects.Skill.Skills.Damage
             GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(60).Sides,
             DamageType.Bludgeon)
         {
-            PerformerNotification = new TranslationMessage("Taking a step back you charge towards {target}.  Startled they widen their stance and brace for the impact allowing you slide between their legs and hit them where the sun don't shine causing them to howl in pain.");
-            RoomNotification = new TranslationMessage("{performer} takes a step back and charges toward {target}.  Taken off guard {target} barely has time to widen their stance and brace for impact as {performer} slides beneath their legs. {target} howles in pain.");
-            TargetNotification = new TranslationMessage("{performer} charges toward you.  You quickly attempt to brace for the impact but it never comes instead {performer} slides between your legs and hits you where the sun don't shine.");
+            PerformerNotificationSuccess = new TranslationMessage("Taking a step back you charge towards {target}.  Startled they widen their stance and brace for the impact allowing you slide between their legs and hit them where the sun don't shine causing them to howl in pain.");
+            RoomNotificationSuccess = new TranslationMessage("{performer} takes a step back and charges toward {target}.  Taken off guard {target} barely has time to widen their stance and brace for impact as {performer} slides beneath their legs. {target} howles in pain.");
+            TargetNotificationSuccess = new TranslationMessage("{performer} charges toward you.  You quickly attempt to brace for the impact but it never comes instead {performer} slides between your legs and hits you where the sun don't shine.");
         }
     }
 }

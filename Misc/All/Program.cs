@@ -53,8 +53,8 @@ namespace All
             ITranslationPair translationPair = new TranslationPair(Translator.Languages.Magic, spellName);
             translate.Add(translationPair);
             ITranslationMessage translationMessage = new TranslationMessage(message, TagType.Info, translate);
-            spell.RoomNotification = translationMessage;
-            spell.PerformerNotification = new TranslationMessage("you cast a spell");
+            spell.RoomNotificationSuccess = translationMessage;
+            spell.PerformerNotificationSuccess = new TranslationMessage("you cast a spell");
             return spell;
         }
     }

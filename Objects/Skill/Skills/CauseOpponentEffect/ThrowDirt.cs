@@ -25,15 +25,15 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
         public ThrowDirt() : base(nameof(ThrowDirt), 200)
         {
             Effect = new Objects.Effect.Blindness();
-            PerformerNotification = new TranslationMessage("You grab a hand full of dirt and throw it into {target} eyes.");
-            RoomNotification = new TranslationMessage("{performer} throws a hand full of dirt into {target} eyes temporarily blinding them.");
-            TargetNotification = new TranslationMessage("{performer} throws dirt into your eyes blinding you.");
+            PerformerNotificationSuccess = new TranslationMessage("You grab a hand full of dirt and throw it into {target} eyes.");
+            RoomNotificationSuccess = new TranslationMessage("{performer} throws a hand full of dirt into {target} eyes temporarily blinding them.");
+            TargetNotificationSuccess = new TranslationMessage("{performer} throws dirt into your eyes blinding you.");
         }
 
         public override void AdditionalEffect(IMobileObject performer, IMobileObject target)
         {
             //notify the target what is happening since it doesn't happen earlier;
-            ITranslationMessage message = new TranslationMessage(GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(performer.SentenceDescription, target.SentenceDescription, TargetNotification.Message));
+            ITranslationMessage message = new TranslationMessage(GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(performer.SentenceDescription, target.SentenceDescription, TargetNotificationSuccess.Message));
 
             GlobalReference.GlobalValues.Notify.Mob(target, message);
 

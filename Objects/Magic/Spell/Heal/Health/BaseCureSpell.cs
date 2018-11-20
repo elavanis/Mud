@@ -39,9 +39,9 @@ namespace Objects.Magic.Spell.Heal.Health
             ITranslationPair pair = new TranslationPair(Translator.Languages.Magic, spellName);
             translate.Add(pair);
 
-            RoomNotification = new TranslationMessage(roomMessage, TagType.Info, translate);
-            TargetNotification = new TranslationMessage(targetMessage, TagType.Info, translate);
-            PerformerNotification = new TranslationMessage(performerMessage, TagType.Info, translate);
+            RoomNotificationSuccess = new TranslationMessage(roomMessage, TagType.Info, translate);
+            TargetNotificationSuccess = new TranslationMessage(targetMessage, TagType.Info, translate);
+            PerformerNotificationSuccess = new TranslationMessage(performerMessage, TagType.Info, translate);
         }
     }
 }

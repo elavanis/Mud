@@ -49,9 +49,9 @@ namespace Objects.Magic.Spell.Generic
         {
             Parameter.Performer = performer;
             Parameter.Target = target;
-            Parameter.PerformerMessage = PerformerNotification;
-            Parameter.RoomMessage = RoomNotification;
-            Parameter.TargetMessage = TargetNotification;
+            Parameter.PerformerMessage = PerformerNotificationSuccess;
+            Parameter.RoomMessage = RoomNotificationSuccess;
+            Parameter.TargetMessage = TargetNotificationSuccess;
         }
     }
 }

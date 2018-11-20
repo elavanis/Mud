@@ -16,9 +16,9 @@ namespace Objects.Magic.Spell.Damage
                                 GlobalReference.GlobalValues.DefaultValues.DiceForSpellLevel(20).Sides,
                                 DamageType.Acid)
         {
-            PerformerNotification = new TranslationMessage("Acid leaps from you hands and lands on {target} burning their skin.");
-            RoomNotification = new TranslationMessage("Acid leaps from {performer} arms and lands {target} burning their skin.");
-            TargetNotification = new TranslationMessage("Acid leaps from {performer} arms and lands on you burning your skin.");
+            PerformerNotificationSuccess = new TranslationMessage("Acid leaps from you hands and lands on {target} burning their skin.");
+            RoomNotificationSuccess = new TranslationMessage("Acid leaps from {performer} arms and lands {target} burning their skin.");
+            TargetNotificationSuccess = new TranslationMessage("Acid leaps from {performer} arms and lands on you burning your skin.");
         }
     }
 }

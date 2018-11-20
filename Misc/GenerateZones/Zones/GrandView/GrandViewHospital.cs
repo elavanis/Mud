@@ -112,7 +112,7 @@ namespace GenerateZones.Zones.GrandView
         {
             ISpell heal = BuildSpell("health");
 
-            heal.TargetNotification = new TranslationMessage("You feel healthier.");
+            heal.TargetNotificationSuccess = new TranslationMessage("You feel healthier.");
             heal.Effect = new RecoverHealth();
 
             return heal;
@@ -129,15 +129,15 @@ namespace GenerateZones.Zones.GrandView
             ITranslationPair translationPair = new TranslationPair(Translator.Languages.Magic, spellName);
             translate.Add(translationPair);
             ITranslationMessage translationMessage = new TranslationMessage(message, TagType.Info, translate);
-            spell.RoomNotification = translationMessage;
-            spell.PerformerNotification = new TranslationMessage("you cast a spell");
+            spell.RoomNotificationSuccess = translationMessage;
+            spell.PerformerNotificationSuccess = new TranslationMessage("you cast a spell");
             return spell;
         }
 
         private ISpell Magic()
         {
             ISpell heal = BuildSpell("magic");
-            heal.TargetNotification = new TranslationMessage("You feel more magical.");
+            heal.TargetNotificationSuccess = new TranslationMessage("You feel more magical.");
             heal.Effect = new RecoverMana();
 
             return heal;
@@ -146,7 +146,7 @@ namespace GenerateZones.Zones.GrandView
         private ISpell Stamina()
         {
             ISpell heal = BuildSpell("stamina");
-            heal.TargetNotification = new TranslationMessage("You feel more energetic.");
+            heal.TargetNotificationSuccess = new TranslationMessage("You feel more energetic.");
             heal.Effect = new RecoverStamina();
 
             return heal;
