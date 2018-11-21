@@ -30,6 +30,8 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
             TargetNotificationSuccess = new TranslationMessage("{performer} throws dirt into your eyes blinding you.");
         }
 
+        public override string TeachMessage => "Throw some dirt from the ground in your opponent eyes and they will be blinded.";
+
         public override void AdditionalEffect(IMobileObject performer, IMobileObject target)
         {
             //notify the target what is happening since it doesn't happen earlier;

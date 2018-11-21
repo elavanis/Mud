@@ -35,6 +35,8 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
             TargetNotificationFailure = new TranslationMessage("{performer} tries to stun you causing you to drop your weapon but fails.");
         }
 
+        public override string TeachMessage => "If your opponent has no weapon then they can't hurt you.";
+
         public override bool IsSuccessful(IMobileObject performer, IMobileObject target)
         {
             if (GlobalReference.GlobalValues.Random.Next(performer.StrengthEffective)

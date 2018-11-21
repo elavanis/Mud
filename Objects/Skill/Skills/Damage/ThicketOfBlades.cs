@@ -24,6 +24,8 @@ namespace Objects.Skill.Skills.Damage
             TargetNotificationSuccess = new TranslationMessage("{performer} begins to move so fast their blade disappears and becomes a flashing light that feels like your running through a thicket of thorns.");
         }
 
+        public override string TeachMessage => "Move your blade in a circular path like this.  Good now faster, faster.  Perfect.";
+
         public override bool MeetRequirments(IMobileObject performer, IMobileObject target)
         {
             foreach (IWeapon weapon in performer.EquipedWeapon)
