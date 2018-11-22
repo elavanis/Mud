@@ -33,7 +33,7 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
             dice = new Mock<IDice>();
             tagWrapper = new Mock<ITagWrapper>();
 
-            defaultValue.Setup(e => e.DiceForSkillLevel(20)).Returns(dice.Object);
+            defaultValue.Setup(e => e.DiceForSkillLevel(80)).Returns(dice.Object);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.DefaultValues = defaultValue.Object;
@@ -45,7 +45,7 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
         [TestMethod]
         public void KneeBreaker_TeachMessage()
         {
-            string expected = "";
+            string expected = "Kicking the opponents knee will cause them to loose mobility.";
             Assert.AreEqual(expected, kneeBreaker.TeachMessage);
         }
     }
