@@ -37,6 +37,19 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
 
         public override string TeachMessage => "If your opponent has no weapon then they can't hurt you.";
 
+        public override bool MeetRequirments(IMobileObject performer, IMobileObject target)
+        {
+            IWeapon weapon = target.EquipedWeapon.FirstOrDefault();
+            if (weapon.KeyWords[0] == "BareHands")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public override bool IsSuccessful(IMobileObject performer, IMobileObject target)
         {
             if (GlobalReference.GlobalValues.Random.Next(performer.StrengthEffective)
