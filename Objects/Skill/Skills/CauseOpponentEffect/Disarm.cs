@@ -50,6 +50,9 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
             }
         }
 
+        public override IResult RequirementsFailureMessage => new Result("You can not disarm an unarmed opponent.", true, Shared.TagWrapper.TagWrapper.TagType.Info);
+
+
         public override bool IsSuccessful(IMobileObject performer, IMobileObject target)
         {
             if (GlobalReference.GlobalValues.Random.Next(performer.StrengthEffective)
