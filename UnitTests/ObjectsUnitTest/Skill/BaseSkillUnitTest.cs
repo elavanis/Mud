@@ -29,9 +29,12 @@ namespace ObjectsUnitTest.Skill
         Mock<INotify> notify;
         Mock<IRoom> room;
         Mock<IEffectParameter> effectParameter;
-        Mock<ITranslationMessage> translationMessageRoom;
-        Mock<ITranslationMessage> translationMessageTarget;
-        Mock<ITranslationMessage> translationMessagePerformer;
+        Mock<ITranslationMessage> translationMessageRoomSuccess;
+        Mock<ITranslationMessage> translationMessageTargetSuccess;
+        Mock<ITranslationMessage> translationMessagePerformerSuccess;
+        Mock<ITranslationMessage> translationMessageRoomFailure;
+        Mock<ITranslationMessage> translationMessageTargetFailure;
+        Mock<ITranslationMessage> translationMessagePerformerFailure;
         Mock<IStringManipulator> stringManipulator;
 
         [TestInitialize]
@@ -46,19 +49,29 @@ namespace ObjectsUnitTest.Skill
             notify = new Mock<INotify>();
             room = new Mock<IRoom>();
             effectParameter = new Mock<IEffectParameter>();
-            translationMessageRoom = new Mock<ITranslationMessage>();
-            translationMessageTarget = new Mock<ITranslationMessage>();
-            translationMessagePerformer = new Mock<ITranslationMessage>();
+            translationMessageRoomSuccess = new Mock<ITranslationMessage>();
+            translationMessageTargetSuccess = new Mock<ITranslationMessage>();
+            translationMessagePerformerSuccess = new Mock<ITranslationMessage>();
+            translationMessageRoomFailure = new Mock<ITranslationMessage>();
+            translationMessageTargetFailure = new Mock<ITranslationMessage>();
+            translationMessagePerformerFailure = new Mock<ITranslationMessage>();
             stringManipulator = new Mock<IStringManipulator>();
 
-            translationMessageRoom.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("roomNotify");
-            translationMessageTarget.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("targetNotify");
-            translationMessagePerformer.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("performNotify");
+            translationMessageRoomSuccess.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("roomNotifySuccess");
+            translationMessageTargetSuccess.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("targetNotifySuccess");
+            translationMessagePerformerSuccess.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("performNotifySuccess");
+            translationMessageRoomFailure.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("roomNotifyFailure");
+            translationMessageTargetFailure.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("targetNotifyFailure");
+            translationMessagePerformerFailure.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("performNotifyFailure");
             baseSkill.Effect = effect.Object;
             baseSkill.StaminaCost = 1;
-            baseSkill.RoomNotificationSuccess = translationMessageRoom.Object;
-            baseSkill.TargetNotificationSuccess = translationMessageTarget.Object;
-            baseSkill.PerformerNotificationSuccess = translationMessagePerformer.Object;
+            baseSkill.RoomNotificationSuccess = translationMessageRoomSuccess.Object;
+            baseSkill.TargetNotificationSuccess = translationMessageTargetSuccess.Object;
+            baseSkill.PerformerNotificationSuccess = translationMessagePerformerSuccess.Object;
+            baseSkill.RoomNotificationFailure = translationMessageRoomFailure.Object;
+            baseSkill.TargetNotificationFailure = translationMessageTargetFailure.Object;
+            baseSkill.PerformerNotificationFailure = translationMessagePerformerFailure.Object;
+
             baseSkill.Parameter = effectParameter.Object;
             npc.Setup(e => e.Stamina).Returns(2);
             npc.Setup(e => e.Room).Returns(room.Object);
@@ -91,21 +104,40 @@ namespace ObjectsUnitTest.Skill
         }
 
         [TestMethod]
-        public void BaseSkill_ProcessSkill_Processed()
+        public void BaseSkill_ProcessSkill_Successful()
         {
             IResult result = baseSkill.ProcessSkill(npc.Object, command.Object);
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("performNotify", result.ResultMessage);
-            notify.Verify(e => e.Room(npc.Object, npc.Object, room.Object, translationMessageRoom.Object, new List<IMobileObject>() { npc.Object }, false, false), Times.Once);
+            Assert.AreEqual("performNotifySuccess", result.ResultMessage);
+            notify.Verify(e => e.Room(npc.Object, npc.Object, room.Object, translationMessageRoomSuccess.Object, new List<IMobileObject>() { npc.Object }, false, false), Times.Once);
+        }
+
+        [TestMethod]
+        public void BaseSkill_ProcessSkill_Unsucessful()
+        {
+            baseSkill.Successful = false;
+            IResult result = baseSkill.ProcessSkill(npc.Object, command.Object);
+
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("performNotifyFailure", result.ResultMessage);
+            notify.Verify(e => e.Room(npc.Object, npc.Object, room.Object, translationMessageRoomFailure.Object, new List<IMobileObject>() { npc.Object }, false, false), Times.Once);
         }
 
         private class UnitTestSkill : BaseSkill
         {
+            public bool Successful { get; set; } = true;
+
             public UnitTestSkill() : base("unitTestSkill")
             {
 
             }
+
+            public override bool IsSuccessful(IMobileObject performer, IMobileObject target)
+            {
+                return Successful;
+            }
+
         }
     }
 }

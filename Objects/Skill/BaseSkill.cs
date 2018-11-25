@@ -68,6 +68,10 @@ namespace Objects.Skill
 
         private IResult PerformFailure(IMobileObject performer, IMobileObject targetMob)
         {
+            Parameter.PerformerMessage = PerformerNotificationFailure;
+            Parameter.TargetMessage = TargetNotificationFailure;
+            Parameter.RoomMessage = RoomNotificationFailure;
+
             List<IMobileObject> exclusions = new List<IMobileObject>() { performer };
             if (targetMob != null
                 && !exclusions.Contains(targetMob))
@@ -88,6 +92,10 @@ namespace Objects.Skill
 
         private IResult PerformSuccess(IMobileObject performer, IMobileObject targetMob)
         {
+            Parameter.PerformerMessage = PerformerNotificationSuccess;
+            Parameter.TargetMessage = TargetNotificationSuccess;
+            Parameter.RoomMessage = RoomNotificationSuccess;
+
             Effect.ProcessEffect(Parameter);
             List<IMobileObject> exclusions = new List<IMobileObject>() { performer };
             if (targetMob != null
@@ -111,9 +119,6 @@ namespace Objects.Skill
         protected void SetParameterFields(IMobileObject performer)
         {
             Parameter.Performer = performer;
-            Parameter.PerformerMessage = PerformerNotificationSuccess;
-            Parameter.TargetMessage = TargetNotificationSuccess;
-            Parameter.RoomMessage = RoomNotificationSuccess;
         }
     }
 }
