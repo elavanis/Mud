@@ -16,8 +16,10 @@ namespace GenerateZoneMaps
     {
         public static void Main(string[] args)
         {
-            Directory.CreateDirectory(@"C:\Mud\Maps\");
             GlobalReference.GlobalValues.Initilize();
+
+            GlobalReference.GlobalValues.Settings.AssetsDirectory = @"C:\Mud\Assets";
+            Directory.CreateDirectory(Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps"));
 
             Type zoneCodeInterface = typeof(IZoneCode);
             IEnumerable<Type> zones = Assembly.GetAssembly(typeof(IZoneCode)).GetTypes().Where(e => zoneCodeInterface.IsAssignableFrom(e) && e.IsClass);

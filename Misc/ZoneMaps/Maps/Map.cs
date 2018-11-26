@@ -1,4 +1,5 @@
-﻿using Objects.Room.Interface;
+﻿using Objects.Global;
+using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
@@ -87,7 +88,7 @@ namespace Maps
                         break;
                     }
 
-                    string fileName = string.Format(@"C:\Mud\Maps\{0}-{1}.png", zone, z);
+                    string fileName = Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps", string.Format(@"{0}-{1}.png", zone, z));
                     image.Save(fileName);
                 }
             }
@@ -229,7 +230,7 @@ namespace Maps
 
         public void BuildRoomToPositionConversion(MapGrid grid, int id)
         {
-            using (TextWriter tw = new StreamWriter(string.Format(@"C:\Mud\Maps\{0}.MapConversion", id)))
+            using (TextWriter tw = new StreamWriter(Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps", string.Format("{0}.MapConversion", id))))
             {
                 foreach (IRoom room in grid.Grid.Keys)
                 {

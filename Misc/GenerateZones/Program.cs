@@ -18,13 +18,13 @@ namespace GenerateZones
 {
     public class Program
     {
-        private static string zoneFiles = @"C:\Mud\World";
 
         public static void Main(string[] args)
         {
             GlobalReference.GlobalValues.Initilize();
+            GlobalReference.GlobalValues.Settings.ZoneDirectory = @"C:\Mud\World";
 
-            DeleteOldZoneFiles(Directory.GetCurrentDirectory());
+            DeleteOldZoneFiles(GlobalReference.GlobalValues.Settings.ZoneDirectory);
 
             IWorld world = new World();
             GlobalReference.GlobalValues.World = world;
@@ -32,7 +32,7 @@ namespace GenerateZones
             Type zoneCodeInterface = typeof(IZoneCode);
             IEnumerable<Type> zones = Assembly.GetExecutingAssembly().GetTypes().Where(e => zoneCodeInterface.IsAssignableFrom(e) && e.IsClass);
 
-            DeleteOldZoneFiles(zoneFiles);
+            DeleteOldZoneFiles(GlobalReference.GlobalValues.Settings.ZoneDirectory);
             foreach (Type type in zones)
             {
                 IZoneCode zone = (IZoneCode)Activator.CreateInstance(type);
@@ -101,7 +101,7 @@ namespace GenerateZones
                 GlobalReference.GlobalValues.World.Zones.Add(zone.Id, zone);
 
                 Console.WriteLine(string.Format("Starting serialization for {0}.", zone.Name));
-                using (TextWriter tw = new StreamWriter(Path.Combine(zoneFiles, zone.Name + ".zone")))
+                using (TextWriter tw = new StreamWriter(Path.Combine(GlobalReference.GlobalValues.Settings.ZoneDirectory, zone.Name + ".zone")))
                 {
                     tw.Write(world.SerializeZone(zone));
                 }
