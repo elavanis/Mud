@@ -70,7 +70,8 @@ namespace Objects.Magic
                     }
                 }
 
-                return new Result(PerformerNotificationSuccess.GetTranslatedMessage(performer), false, null);
+                string message = GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(performer.SentenceDescription, targetMob?.SentenceDescription, PerformerNotificationSuccess.GetTranslatedMessage(performer));
+                return new Result(message, false, null);
             }
             else
             {

@@ -143,7 +143,7 @@ namespace Objects.Personality.Personalities
 
         private IResult TeachSpell(ISpell spell, IMobileObject guildMaster, IMobileObject learner)
         {
-            string spellName = spell.ToString().ToUpper();
+            string spellName = spell.AbilityName.ToString().ToUpper();
             if (!learner.SpellBook.Keys.Contains(spellName))
             {
                 learner.SpellBook.Add(spellName, spell);

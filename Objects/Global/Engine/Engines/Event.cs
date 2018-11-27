@@ -151,7 +151,6 @@ namespace Objects.Global.Engine.Engines
         {
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} cast {spellName}.");
             RunEnchantments(performer, EventType.Cast, new EventParamerters() { Performer = performer, SpellName = spellName });
-
         }
         public void Perform(IMobileObject performer, string skillName)
         {
