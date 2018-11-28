@@ -14,6 +14,7 @@ using Objects.Global.Notify.Interface;
 using Objects.Room.Interface;
 using static Objects.Global.Language.Translator;
 using Objects.Language.Interface;
+using Objects.Global.StringManuplation.Interface;
 
 namespace ObjectsUnitTest.Magic
 {
@@ -32,6 +33,7 @@ namespace ObjectsUnitTest.Magic
         Mock<ITranslationMessage> translationMessageRoom;
         Mock<ITranslationMessage> translationMessageTarget;
         Mock<ITranslationMessage> translationMessagePerformer;
+        Mock<IStringManipulator> stringManipulator;
 
         [TestInitialize]
         public void Setup()
@@ -48,6 +50,7 @@ namespace ObjectsUnitTest.Magic
             translationMessageRoom = new Mock<ITranslationMessage>();
             translationMessageTarget = new Mock<ITranslationMessage>();
             translationMessagePerformer = new Mock<ITranslationMessage>();
+            stringManipulator = new Mock<IStringManipulator>();
 
             translationMessageRoom.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("roomNotify");
             translationMessageTarget.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("targetNotify");
@@ -67,12 +70,11 @@ namespace ObjectsUnitTest.Magic
             tagWrapper.Setup(e => e.WrapInTag("targetNotify", TagWrapper.TagType.Info)).Returns("target");
             tagWrapper.Setup(e => e.WrapInTag("performNotify", TagWrapper.TagType.Info)).Returns("perform");
             effectParameter.Setup(e => e.Target).Returns(npc.Object);
-
-
-
+            stringManipulator.Setup(e => e.UpdateTargetPerformer(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns((string x, string y, string z) => z);
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
         }
 
         [TestMethod]
@@ -103,7 +105,7 @@ namespace ObjectsUnitTest.Magic
         {
             IResult result = spell.ProcessSpell(npc.Object, command.Object);
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("performNotify", result.ResultMessage);
             notify.Verify(e => e.Room(npc.Object, npc.Object, room.Object, translationMessageRoom.Object, new List<IMobileObject>() { npc.Object }, false, false), Times.Once);
             notify.Verify(e => e.Mob(npc.Object, npc.Object, npc.Object, translationMessageTarget.Object, false, false), Times.Once);
