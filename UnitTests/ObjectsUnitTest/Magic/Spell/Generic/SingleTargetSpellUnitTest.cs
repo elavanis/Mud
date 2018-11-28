@@ -5,6 +5,7 @@ using Objects.Command.Interface;
 using Objects.Effect.Interface;
 using Objects.Global;
 using Objects.Global.FindObjects.Interface;
+using Objects.Global.StringManuplation.Interface;
 using Objects.Interface;
 using Objects.Language.Interface;
 using Objects.Magic.Spell.Generic;
@@ -30,6 +31,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
         Mock<ITagWrapper> tagWrapper;
         Mock<IEffect> effect;
         Mock<ITranslationMessage> translationMessage;
+        Mock<IStringManipulator> stringManipulator;
 
         [TestInitialize]
         public void Setup()
@@ -44,6 +46,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
             tagWrapper = new Mock<ITagWrapper>();
             effect = new Mock<IEffect>();
             translationMessage = new Mock<ITranslationMessage>();
+            stringManipulator = new Mock<IStringManipulator>();
 
             singleTargetSpell.Effect = effect.Object;
             singleTargetSpell.PerformerNotificationSuccess = translationMessage.Object;
@@ -55,9 +58,11 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
             tagWrapper.Setup(e => e.WrapInTag("Unable to find param1.", TagType.Info)).Returns("notFound");
             tagWrapper.Setup(e => e.WrapInTag("Unable to find an opponent to cast the spell on.", TagType.Info)).Returns("failure");
             translationMessage.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("success");
+            stringManipulator.Setup(e => e.UpdateTargetPerformer(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns((string x, string y, string z) => z);
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
 
         }
 
@@ -86,7 +91,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
         {
             IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
             Assert.AreEqual("success", result.ResultMessage);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
         }
 
         [TestMethod]
@@ -98,7 +103,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
 
             IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
             Assert.AreEqual("success", result.ResultMessage);
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
         }
 
         [TestMethod]
