@@ -10,11 +10,12 @@ namespace Objects.Global.Settings.Interface
         int MaxLevel { get; set; }
         int MaxCalculationLevel { get; }
         double Multiplier { get; set; }
+        string AssetsDirectory { get; set; }
+        string BugDirectory { get; set; }
+        string BulletinBoardDirectory { get; set; }
         string PlayerCharacterDirectory { get; set; }
         string VaultDirectory { get; set; }
         string ZoneDirectory { get; set; }
-        string AssetsDirectory { get; set; }
-        string BugDirectory { get; set; }
         string AsciiArt { get; set; }
         int Port { get; set; }
         bool SendMapPosition { get; set; }
