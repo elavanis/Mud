@@ -66,16 +66,17 @@ namespace Objects.Item.Items.BulletinBoard
         {
             try
             {
-                IMessage message = messages[postNumber];
+                IMessage message = messages[postNumber - 1];
 
                 if (message.Poster == performer.KeyWords[0])
                 {
-                    messages.RemoveAt(postNumber);
+                    messages.Remove(message);
 
                     return new Result("You removed your post on the bulletin board.", true);
                 }
                 else if (performer.God)
                 {
+                    messages.Remove(message);
                     return new Result("You removed the post on the bulletin board.", true);
                 }
                 else
@@ -95,7 +96,7 @@ namespace Objects.Item.Items.BulletinBoard
 
             try
             {
-                IMessage message = messages[postNumber];
+                IMessage message = messages[postNumber - 1];
 
                 resultMessage = message.Read();
             }
