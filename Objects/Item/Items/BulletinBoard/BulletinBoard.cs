@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Objects.Item.Items.BulletinBoard
 {
-    public class BulletinBoard : Item
+    public class BulletinBoard : Item, IBulletinBoard
     {
         private List<IMessage> messages { get; set; } = new List<IMessage>();
 
@@ -105,6 +105,27 @@ namespace Objects.Item.Items.BulletinBoard
             }
 
             return new Result(resultMessage, true);
+        }
+
+        public ulong CalculateCost(IMobileObject performer)
+        {
+            ulong cost = 1;
+            int existingMessageCount = 0;
+            foreach (IMessage message in messages)
+            {
+                if (message.Poster == performer.KeyWords[0])
+                {
+                    cost *= 10;
+                    existingMessageCount++;
+                }
+            }
+
+            if (existingMessageCount >= 20)
+            {
+                cost = ulong.MaxValue;
+            }
+
+            return cost;
         }
     }
 }
