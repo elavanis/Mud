@@ -38,12 +38,14 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
             seriliazation = new Mock<ISerialization>();
             tagWrapper = new Mock<ITagWrapper>();
             message = new Mock<IMessage>();
+            messages = new List<IMessage>();
 
             mob.Setup(e => e.KeyWords).Returns(new List<string>() { "mob" });
             settings.Setup(e => e.BulletinBoardDirectory).Returns("bb");
             seriliazation.Setup(e => e.Serialize(It.IsAny<List<IMessage>>())).Returns("serializedMessages");
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             message.Setup(e => e.Poster).Returns("mob");
+            message.Setup(e => e.Read(mob.Object)).Returns("written message");
 
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
@@ -55,12 +57,8 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
             bulletinBoard.Id = 2;
             PropertyInfo propertyInfo = bulletinBoard.GetType().GetProperty("messages", BindingFlags.Instance | BindingFlags.NonPublic);
             messages = (List<IMessage>)propertyInfo.GetValue(bulletinBoard);
-        }
+            messages.Add(message.Object);
 
-        [TestMethod]
-        public void BulletinBoard_WriteUnitTests()
-        {
-            Assert.AreEqual(-1, 0);
         }
 
         [TestMethod]
@@ -80,6 +78,8 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
         [TestMethod]
         public void BulletinBoard_Remove_NoItems()
         {
+            messages.Clear();
+
             IResult result = bulletinBoard.Remove(mob.Object, 1);
 
             Assert.IsTrue(result.AllowAnotherCommand);
@@ -91,7 +91,6 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
         public void BulletinBoard_Remove_NotOurItem()
         {
             message.Setup(e => e.Poster).Returns("notUs");
-            messages.Add(message.Object);
 
             IResult result = bulletinBoard.Remove(mob.Object, 1);
 
@@ -105,7 +104,6 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
         public void BulletinBoard_Remove_GodModeOn()
         {
             message.Setup(e => e.Poster).Returns("notUs");
-            messages.Add(message.Object);
             mob.Setup(e => e.God).Returns(true);
 
             IResult result = bulletinBoard.Remove(mob.Object, 1);
@@ -119,13 +117,40 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
         public void BulletinBoard_Remove_Ours()
         {
             message.Setup(e => e.Poster).Returns("mob");
-            messages.Add(message.Object);
 
             IResult result = bulletinBoard.Remove(mob.Object, 1);
 
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("You removed your post on the bulletin board.", result.ResultMessage);
             Assert.AreEqual(0, messages.Count);
+        }
+
+        [TestMethod]
+        public void BulletinBoard_Read_NotFound()
+        {
+            messages.Clear();
+
+            IResult result = bulletinBoard.Read(mob.Object, 1);
+
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("Unable to find message 1.", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void BulletinBoard_Read_MessageFound()
+        {
+            IResult result = bulletinBoard.Read(mob.Object, 1);
+
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("written message", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void BulletinBoard_CalculateCost()
+        {
+            ulong cost = bulletinBoard.CalculateCost(mob.Object);
+
+            Assert.AreEqual(10u, cost);
         }
     }
 }

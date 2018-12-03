@@ -98,7 +98,7 @@ namespace Objects.Item.Items.BulletinBoard
             {
                 IMessage message = messages[postNumber - 1];
 
-                resultMessage = message.Read();
+                resultMessage = message.Read(performer);
             }
             catch
             {
