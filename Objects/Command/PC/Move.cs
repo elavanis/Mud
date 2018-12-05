@@ -14,6 +14,7 @@ using Objects.Room.Interface;
 using System.Threading;
 using Objects.Zone.Interface;
 using Objects.Command.PC.Interface;
+using Objects.Language;
 
 namespace Objects.Command.PC
 {
@@ -84,6 +85,12 @@ namespace Objects.Command.PC
             {
                 performer.Room = proposedRoom;
                 proposedRoom.Enter(performer);
+
+                //Announce the mob leaving
+                GlobalReference.GlobalValues.Notify.Room(performer, null, room, new TranslationMessage($"{performer.SentenceDescription} leaves {direction}."), null, true);
+
+                //Announce the mob entering
+                GlobalReference.GlobalValues.Notify.Room(performer, null, proposedRoom, new TranslationMessage($"{performer.SentenceDescription} enters the room."), null, true);
 
                 //take the result of the look, change it so they can't move again and return it.  
                 result = GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(performer, new Command());
