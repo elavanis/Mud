@@ -2,6 +2,7 @@
 using Moq;
 using Objects.Command.Interface;
 using Objects.Global;
+using Objects.Global.DefaultValues.Interface;
 using Objects.Global.Serialization.Interface;
 using Objects.Global.Settings.Interface;
 using Objects.Item.Items.BulletinBoard.Interface;
@@ -28,6 +29,7 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
         List<IMessage> messages;
         Mock<ITagWrapper> tagWrapper;
         Mock<IMessage> message;
+        Mock<IDefaultValues> defaultValues;
 
         [TestInitialize]
         public void Setup()
@@ -39,6 +41,7 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
             tagWrapper = new Mock<ITagWrapper>();
             message = new Mock<IMessage>();
             messages = new List<IMessage>();
+            defaultValues = new Mock<IDefaultValues>();
 
             mob.Setup(e => e.KeyWords).Returns(new List<string>() { "mob" });
             settings.Setup(e => e.BulletinBoardDirectory).Returns("bb");
@@ -46,11 +49,13 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             message.Setup(e => e.Poster).Returns("mob");
             message.Setup(e => e.Read(mob.Object)).Returns("written message");
+            fileIO.Setup(e => e.ReadAllText("bb\\1-2.BulletinBoard")).Returns("fileContents");
 
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.Serialization = seriliazation.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
 
             bulletinBoard = new Objects.Item.Items.BulletinBoard.BulletinBoard();
             bulletinBoard.Zone = 1;
@@ -151,6 +156,40 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
             ulong cost = bulletinBoard.CalculateCost(mob.Object);
 
             Assert.AreEqual(10u, cost);
+        }
+
+        [TestMethod]
+        public void BulletinBoard_CalculateCost_MaxPrice()
+        {
+            for (int i = 0; i < 25; i++)
+            {
+                messages.Add(message.Object);
+            }
+
+            ulong cost = bulletinBoard.CalculateCost(mob.Object);
+
+            Assert.AreEqual(ulong.MaxValue, cost);
+        }
+
+        [TestMethod]
+        public void BulletinBoard_FinishLoad()
+        {
+            Mock<IMessage> message1 = new Mock<IMessage>();
+            List<IMessage> localMessages = new List<IMessage>();
+            Mock<IMessage> message2 = new Mock<IMessage>();
+
+            messages.Clear();
+            seriliazation.Setup(e => e.Deserialize<List<IMessage>>("fileContents")).Returns(localMessages);
+            message1.Setup(e => e.PostedDate).Returns(new Objects.GameDateTime.GameDateTime(DateTime.Now));
+            message2.Setup(e => e.PostedDate).Returns(new Objects.GameDateTime.GameDateTime(DateTime.Now.AddDays(-360)));
+            localMessages.Add(message1.Object);
+            localMessages.Add(message2.Object);
+
+            bulletinBoard.FinishLoad();
+
+            Assert.AreEqual(1, messages.Count);
+            Assert.IsTrue(messages.Contains(message1.Object));
+            Assert.IsFalse(messages.Contains(message2.Object));
         }
     }
 }

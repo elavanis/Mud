@@ -12,7 +12,7 @@ namespace Objects.Item.Items.BulletinBoard
 {
     public class BulletinBoard : Item, IBulletinBoard
     {
-        private List<IMessage> messages { get; set; } = new List<IMessage>();
+        private List<IMessage> messages { get; } = new List<IMessage>();
 
         private string FileLocation
         {
@@ -37,7 +37,7 @@ namespace Objects.Item.Items.BulletinBoard
         {
             List<IMessage> tempMessages = GlobalReference.GlobalValues.Serialization.Deserialize<List<IMessage>>(GlobalReference.GlobalValues.FileIO.ReadAllText(FileLocation));
 
-            GameDateTime.GameDateTime toOld = new GameDateTime.GameDateTime(DateTime.Now.AddDays(180));
+            GameDateTime.GameDateTime toOld = new GameDateTime.GameDateTime(DateTime.Now.AddDays(-180));
 
             //remove old messages
             foreach (IMessage message in tempMessages)
