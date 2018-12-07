@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Objects.Item.Interface
 {
-    public interface IItem : IBaseObject, ILoadable
+    public interface IItem : IBaseObject, ILoadable, ICloneable
     {
         List<Item.ItemAttribute> Attributes { get; }
         List<MobileObject.MobileAttribute> AttributesForMobileObjectsWhenEquiped { get; }

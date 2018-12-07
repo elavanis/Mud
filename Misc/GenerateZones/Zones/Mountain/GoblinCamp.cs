@@ -323,8 +323,8 @@ namespace GenerateZones.Zones.Mountain
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 25);
 
-            npc.ExamineDescription = "Goblin Cheif";
-            npc.LookDescription = "Goblin Cheif";
+            npc.ExamineDescription = "Goblin Chief";
+            npc.LookDescription = "Goblin Chief";
             npc.ShortDescription = "The camps chief.";
             npc.SentenceDescription = "goblin";
             npc.KeyWords.Add("goblin");

@@ -1,4 +1,5 @@
 ﻿using Objects.Global;
+using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Mob;
 using System.Collections.Generic;
@@ -31,6 +32,12 @@ namespace Objects.Item
             Value = GlobalReference.GlobalValues.DefaultValues.MoneyForNpcLevel(Level);
         }
 
+        public object Clone()
+        {
+            IItem newItem = GlobalReference.GlobalValues.Serialization.Deserialize<IItem>(
+                                          GlobalReference.GlobalValues.Serialization.Serialize(this));
+            return newItem;
+        }
 
         private List<ItemAttribute> _attributes = null;
         public List<ItemAttribute> Attributes
