@@ -63,7 +63,6 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
             PropertyInfo propertyInfo = bulletinBoard.GetType().GetProperty("messages", BindingFlags.Instance | BindingFlags.NonPublic);
             messages = (List<IMessage>)propertyInfo.GetValue(bulletinBoard);
             messages.Add(message.Object);
-
         }
 
         [TestMethod]
