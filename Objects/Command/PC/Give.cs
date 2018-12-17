@@ -8,9 +8,9 @@ namespace Objects.Command.PC
 {
     public class Give : IMobileObjectCommand
     {
-        public IResult Instructions => throw new NotImplementedException();
+        public IResult Instructions => new Result("Give [Item Name]", true);
 
-        public IEnumerable<string> CommandTrigger => throw new NotImplementedException();
+        public IEnumerable<string> CommandTrigger => new List<string>() { "Give" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {

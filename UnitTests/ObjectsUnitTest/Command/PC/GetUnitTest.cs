@@ -42,7 +42,6 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag("Get [Item Name] {Container}", TagType.Info)).Returns("message");
             engine.Setup(e => e.Event).Returns(mockEvent.Object);
 
-
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
