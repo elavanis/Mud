@@ -6,6 +6,7 @@ using Objects.Global;
 using Shared.TagWrapper.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using static Shared.TagWrapper.TagWrapper;
 
@@ -42,6 +43,14 @@ namespace ObjectsUnitTest.Command.PC
 
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("Give [Item Name]", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void Give_CommandTrigger()
+        {
+            IEnumerable<string> result = command.CommandTrigger;
+            Assert.AreEqual(1, result.Count());
+            Assert.IsTrue(result.Contains("Give"));
         }
     }
 }

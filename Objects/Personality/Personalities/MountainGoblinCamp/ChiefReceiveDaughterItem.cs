@@ -4,13 +4,14 @@ using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Language.Interface;
 using Objects.Mob.Interface;
+using Objects.Personality.Personalities.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Objects.Personality.Personalities.MountainGoblinCamp
 {
-    public class ChiefReceiveDaughterItem
+    public class ChiefReceiveDaughterItem : IReceiver
     {
         public string Process(INonPlayerCharacter npc, string command)
         {
