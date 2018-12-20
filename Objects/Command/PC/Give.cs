@@ -40,7 +40,7 @@ namespace Objects.Command.PC
 
                     if (receiver == null)
                     {
-                        return new Result($"You could not find {command.Parameters[1].ParameterValue} to give {command.Parameters[0].ParameterValue} to.", true);
+                        return new Result($"You could not find {command.Parameters[1].ParameterValue}.", true);
                     }
                 }
 
