@@ -11,6 +11,8 @@ namespace Objects.Personality.Personalities.Interface
 {
     public interface IReceiver : IPersonality
     {
+        IItem Reward { get; set; }
+        string ResponseMessage { get; set; }
         IBaseObjectId TriggerObjectId { get; set; }
         IResult ReceivedItem(IMobileObject performer, IMobileObject receiver, IItem itemReceived);
     }
