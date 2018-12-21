@@ -101,6 +101,8 @@ namespace GenerateZones.Zones
             npc.ShortDescription = "A test mob.";
             npc.SentenceDescription = "test";
 
+            npc.Health = int.MaxValue;
+
             IMagicUser magicUser = new MagicUser();
             magicUser.AddSpells(npc, new Wizard());
             //npc.Personalities.Add(magicUser);
