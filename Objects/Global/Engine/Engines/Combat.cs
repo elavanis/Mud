@@ -145,7 +145,7 @@ namespace Objects.Global.Engine.Engines
 
             GlobalReference.GlobalValues.Engine.Event.DamageDealtBeforeDefense(attacker, defender, totalDamage);
 
-            int damageReceived = defender.TakeDamage(totalDamage, damage, attacker);
+            int damageReceived = defender.TakeCombatDamage(totalDamage, damage, attacker, _combatRound);
 
             GlobalReference.GlobalValues.Engine.Event.DamageDealtAfterDefense(attacker, defender, damageReceived);
 

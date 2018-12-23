@@ -201,6 +201,11 @@ namespace Objects.Mob
             }
         }
 
+        #region Combat Properties
+        private uint CombatRound { get; set; }
+        private int DamageMultiplier { get; set; } = 1;
+        #endregion Combat Properties
+
 
         #region Stats
         [ExcludeFromCodeCoverage]
@@ -483,7 +488,28 @@ namespace Objects.Mob
         }
 
 
-        public virtual int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker)
+        public int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker)
+        {
+            return TakeDamage(totalDamage, damage, attacker, 1);
+        }
+
+        public int TakeCombatDamage(int totalDamage, IDamage damage, IMobileObject attacker, uint combatRound)
+        {
+            if (CombatRound == combatRound)
+            {
+                DamageMultiplier *= 2;
+            }
+            else
+            {
+                CombatRound = combatRound;
+                DamageMultiplier = 1;
+            }
+
+            return TakeDamage(totalDamage, damage, attacker, DamageMultiplier);
+        }
+
+
+        private int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker, int damageMultiplier)
         {
             GlobalReference.GlobalValues.Engine.Event.DamageReceivedBeforeDefense(attacker, this, totalDamage);
 
@@ -537,6 +563,8 @@ namespace Objects.Mob
 
             stoppedDamage += AddDefenseStatBonus(damage);
 
+            stoppedDamage /= damageMultiplier;
+
             //damage can not be negative
             int receivedDamage = Math.Max(0, totalDamage - stoppedDamage);
 
@@ -576,6 +604,8 @@ namespace Objects.Mob
 
             return netDamage;
         }
+
+
 
         private decimal GetTypeModifier(DamageType damageType)
         {
@@ -936,6 +966,8 @@ namespace Objects.Mob
             _commandQueue.TryDequeue(out command);
             return command;
         }
+
+
         #endregion Message/Commands
     }
 }

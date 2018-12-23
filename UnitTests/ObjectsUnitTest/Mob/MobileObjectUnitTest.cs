@@ -888,6 +888,51 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(20, damageDealt);
         }
 
+
+        [TestMethod]
+        public void MobileObject_TakeCombatDamage()
+        {
+            Mock<IRandom> random = new Mock<IRandom>();
+            Mock<IDamage> damage = new Mock<IDamage>();
+            Mock<IDice> dice = new Mock<IDice>();
+            Mock<IArmor> armor = new Mock<IArmor>();
+            Mock<IPlayerCharacter> pc = new Mock<IPlayerCharacter>();
+            Mock<IEngine> engine = new Mock<IEngine>();
+            Mock<IEvent> evnt = new Mock<IEvent>();
+
+            mob.ConstitutionStat = 10;
+            mob.Health = 100;
+            random.Setup(e => e.Next(1)).Returns(1);
+            dice.Setup(e => e.RollDice()).Returns(1);
+            armor.Setup(e => e.Dice).Returns(dice.Object);
+            armor.Setup(e => e.GetTypeModifier(DamageType.Slash)).Returns(10);
+            engine.Setup(e => e.Event).Returns(evnt.Object);
+
+            mob.AddEquipment(armor.Object);
+            GlobalReference.GlobalValues.Random = random.Object;
+            GlobalReference.GlobalValues.Engine = engine.Object;
+
+            //can block perfectly on 1st attack
+            int damageDealt = mob.TakeCombatDamage(10, damage.Object, pc.Object, 1);
+            Assert.AreEqual(100, mob.Health);
+            Assert.AreEqual(0, damageDealt);
+
+            //can block half as well
+            damageDealt = mob.TakeCombatDamage(10, damage.Object, pc.Object, 1);
+            Assert.AreEqual(95, mob.Health);
+            Assert.AreEqual(5, damageDealt);
+
+            //can block half as well as last time
+            damageDealt = mob.TakeCombatDamage(10, damage.Object, pc.Object, 1);
+            Assert.AreEqual(87, mob.Health);
+            Assert.AreEqual(8, damageDealt);
+
+            //new combat round, can block perfectly on 1st attack
+            damageDealt = mob.TakeCombatDamage(10, damage.Object, pc.Object, 2);
+            Assert.AreEqual(87, mob.Health);
+            Assert.AreEqual(0, damageDealt);
+        }
+
         [TestMethod]
         public void MobileObject_AddDefenseStatBonus()
         {
