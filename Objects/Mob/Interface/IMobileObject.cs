@@ -16,6 +16,7 @@ using static Objects.Global.Language.Translator;
 using Objects.Global.Language;
 using Objects.Global.Language.Interface;
 using Objects.Language.Interface;
+using Objects.Damage;
 
 namespace Objects.Mob.Interface
 {
@@ -90,5 +91,7 @@ namespace Objects.Mob.Interface
         void ResetMaxStatValues();
         int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker);
         int TakeCombatDamage(int totalDamage, IDamage damage, IMobileObject attacker, uint combatRound);
+
+        void ProcessCombatRoundDamage(List<DamageDealt> damageDealts);
     }
 }

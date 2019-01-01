@@ -16,6 +16,8 @@ using Objects.Command.Interface;
 using Objects.Command;
 using Objects.Global.Engine.Engines.Interface;
 using Objects.Interface;
+using static Objects.Damage.Damage;
+using Objects.Damage;
 
 namespace Objects.Global.Engine.Engines
 {
@@ -68,21 +70,25 @@ namespace Objects.Global.Engine.Engines
 
         private void ProcessWeapons(IMobileObject attacker, IMobileObject defender)
         {
+            List<DamageDealt> damageDealt = new List<DamageDealt>();
             foreach (IWeapon weapon in attacker.EquipedWeapon)
             {
                 if (_combatRound % weapon.Speed == 0
                     && DetermineIfHit(attacker, defender, weapon.AttackerStat, weapon.DeffenderStat))
                 {
-                    ProcessWeaponDamage(attacker, defender, weapon);
+                    ProcessWeaponDamage(attacker, defender, weapon, damageDealt);
                 }
             }
+
+            defender.ProcessCombatRoundDamage(damageDealt);
         }
 
-        private void ProcessWeaponDamage(IMobileObject attacker, IMobileObject defender, IWeapon weapon)
+        private void ProcessWeaponDamage(IMobileObject attacker, IMobileObject defender, IWeapon weapon, List<DamageDealt> damageDealt)
         {
             foreach (IDamage damage in weapon.DamageList)
             {
-                DealDamage(attacker, defender, damage);
+                int amountOfDamage = DealDamage(attacker, defender, damage);
+                damageDealt.Add(new DamageDealt(damage.Type, amountOfDamage));
             }
         }
 

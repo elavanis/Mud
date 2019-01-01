@@ -487,7 +487,6 @@ namespace Objects.Mob
             return GlobalReference.GlobalValues.Random.Next(GetStatEffective(stat));
         }
 
-
         public int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker)
         {
             return TakeDamage(totalDamage, damage, attacker, 1);
@@ -507,7 +506,6 @@ namespace Objects.Mob
 
             return TakeDamage(totalDamage, damage, attacker, DamageMultiplier);
         }
-
 
         private int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker, int damageMultiplier)
         {
@@ -605,7 +603,10 @@ namespace Objects.Mob
             return netDamage;
         }
 
-
+        public virtual void ProcessCombatRoundDamage(List<DamageDealt> damageDealts)
+        {
+            //default to do nothing
+        }
 
         private decimal GetTypeModifier(DamageType damageType)
         {
@@ -966,8 +967,6 @@ namespace Objects.Mob
             _commandQueue.TryDequeue(out command);
             return command;
         }
-
-
         #endregion Message/Commands
     }
 }
