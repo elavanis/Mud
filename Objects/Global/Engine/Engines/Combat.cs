@@ -70,25 +70,21 @@ namespace Objects.Global.Engine.Engines
 
         private void ProcessWeapons(IMobileObject attacker, IMobileObject defender)
         {
-            List<DamageDealt> damageDealt = new List<DamageDealt>();
             foreach (IWeapon weapon in attacker.EquipedWeapon)
             {
                 if (_combatRound % weapon.Speed == 0
                     && DetermineIfHit(attacker, defender, weapon.AttackerStat, weapon.DeffenderStat))
                 {
-                    ProcessWeaponDamage(attacker, defender, weapon, damageDealt);
+                    ProcessWeaponDamage(attacker, defender, weapon);
                 }
             }
-
-            defender.ProcessCombatRoundDamage(damageDealt);
         }
 
-        private void ProcessWeaponDamage(IMobileObject attacker, IMobileObject defender, IWeapon weapon, List<DamageDealt> damageDealt)
+        private void ProcessWeaponDamage(IMobileObject attacker, IMobileObject defender, IWeapon weapon)
         {
             foreach (IDamage damage in weapon.DamageList)
             {
                 int amountOfDamage = DealDamage(attacker, defender, damage);
-                damageDealt.Add(new DamageDealt(damage.Type, amountOfDamage));
             }
         }
 
