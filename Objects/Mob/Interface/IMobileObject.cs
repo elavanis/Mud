@@ -16,6 +16,7 @@ using static Objects.Global.Language.Translator;
 using Objects.Global.Language;
 using Objects.Global.Language.Interface;
 using Objects.Language.Interface;
+using Objects.Damage;
 
 namespace Objects.Mob.Interface
 {

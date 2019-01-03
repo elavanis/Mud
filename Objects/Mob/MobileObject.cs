@@ -487,13 +487,12 @@ namespace Objects.Mob
             return GlobalReference.GlobalValues.Random.Next(GetStatEffective(stat));
         }
 
-
-        public int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker)
+        public virtual int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker)
         {
             return TakeDamage(totalDamage, damage, attacker, 1);
         }
 
-        public int TakeCombatDamage(int totalDamage, IDamage damage, IMobileObject attacker, uint combatRound)
+        public virtual int TakeCombatDamage(int totalDamage, IDamage damage, IMobileObject attacker, uint combatRound)
         {
             if (CombatRound == combatRound)
             {
@@ -507,7 +506,6 @@ namespace Objects.Mob
 
             return TakeDamage(totalDamage, damage, attacker, DamageMultiplier);
         }
-
 
         private int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker, int damageMultiplier)
         {
@@ -604,8 +602,6 @@ namespace Objects.Mob
 
             return netDamage;
         }
-
-
 
         private decimal GetTypeModifier(DamageType damageType)
         {
@@ -780,6 +776,7 @@ namespace Objects.Mob
 
 
         #endregion Methods
+
         /// <summary>
         /// attributes that are part are temporary in nature
         /// </summary>
@@ -966,8 +963,6 @@ namespace Objects.Mob
             _commandQueue.TryDequeue(out command);
             return command;
         }
-
-
         #endregion Message/Commands
     }
 }

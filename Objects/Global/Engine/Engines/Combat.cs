@@ -16,6 +16,8 @@ using Objects.Command.Interface;
 using Objects.Command;
 using Objects.Global.Engine.Engines.Interface;
 using Objects.Interface;
+using static Objects.Damage.Damage;
+using Objects.Damage;
 
 namespace Objects.Global.Engine.Engines
 {
@@ -82,7 +84,7 @@ namespace Objects.Global.Engine.Engines
         {
             foreach (IDamage damage in weapon.DamageList)
             {
-                DealDamage(attacker, defender, damage);
+                int amountOfDamage = DealDamage(attacker, defender, damage);
             }
         }
 
