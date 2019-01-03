@@ -56,7 +56,7 @@ namespace ObjectsUnitTest.Engine
 
             IResult result = combat.AddCombatPair(attacker.Object, defender.Object);
 
-             Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("success", result.ResultMessage);
         }
 
@@ -194,7 +194,7 @@ namespace ObjectsUnitTest.Engine
             Mock<IEvent> evnt = new Mock<IEvent>();
 
             mMob.Setup(e => e.CalculateDamage(damage.Object)).Returns(2);
-            mMob.Setup(e => e.TakeDamage(2, damage.Object, mMob.Object)).Returns(1);
+            mMob.Setup(e => e.TakeCombatDamage(2, damage.Object, mMob.Object, 0)).Returns(1);
             engine.Setup(e => e.Event).Returns(evnt.Object);
 
             GlobalReference.GlobalValues.Engine = engine.Object;
