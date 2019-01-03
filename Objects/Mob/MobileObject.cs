@@ -151,16 +151,15 @@ namespace Objects.Mob
             }
         }
 
-        //TODO Determine if we need to add attributes this way, seems like we would want to add enchantments etc via the AttributesCurrent like equipment and race are
-        //public void AddAttribute(AttributeMobile attribute)
-        //{
-        //    AttributesMobileObject.Add(attribute);
-        //}
+        public void AddAttribute(MobileAttribute attribute)
+        {
+            AttributesMobileObject.Add(attribute);
+        }
 
-        //public void RemoveAttribute(AttributeMobile attribute)
-        //{
-        //    AttributesMobileObject.Remove(attribute);
-        //}
+        public void RemoveAttribute(MobileAttribute attribute)
+        {
+            AttributesMobileObject.Remove(attribute);
+        }
 
         public IEnumerable<MobileAttribute> AttributesCurrent
         {
@@ -586,13 +585,7 @@ namespace Objects.Mob
             else if (Health <= 0
                         && healthBeforeDamage > 0) //don't let a mob die two or more times.
             {
-                Die();
-                INonPlayerCharacter npc = this as INonPlayerCharacter;
-                IPlayerCharacter pc = attacker as IPlayerCharacter;
-                if (npc != null && attacker != null)
-                {
-                    pc.Experience += npc.EXP;
-                }
+                KillMobAndRewardXP(attacker);
             }
 
             //return received damage minus any absorbed damage (it is negative so we add it)
@@ -601,6 +594,17 @@ namespace Objects.Mob
             GlobalReference.GlobalValues.Engine.Event.DamageReceivedAfterDefense(attacker, this, netDamage);
 
             return netDamage;
+        }
+
+        public void KillMobAndRewardXP(IMobileObject attacker)
+        {
+            Die();
+            INonPlayerCharacter npc = this as INonPlayerCharacter;
+            IPlayerCharacter pc = attacker as IPlayerCharacter;
+            if (npc != null && attacker != null)
+            {
+                pc.Experience += npc.EXP;
+            }
         }
 
         private decimal GetTypeModifier(DamageType damageType)
@@ -787,7 +791,8 @@ namespace Objects.Mob
             Infravision,
             Invisibile,
             NoFlee,
-            SeeInvisible
+            SeeInvisible,
+            NoDisarm
         }
 
         public enum CharacterPosition

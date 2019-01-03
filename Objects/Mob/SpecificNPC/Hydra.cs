@@ -5,9 +5,11 @@ using System.Text;
 using Objects.Damage;
 using Objects.Damage.Interface;
 using Objects.Global;
+using Objects.Item.Items;
 using Objects.Item.Items.Interface;
 using Objects.Language;
 using Objects.Mob.Interface;
+using static Objects.Damage.Damage;
 
 namespace Objects.Mob.SpecificNPC
 {
@@ -17,6 +19,35 @@ namespace Objects.Mob.SpecificNPC
         private int NewHeadsToGrow { get; set; }
         private bool TookFireDamage { get; set; }
 
+        public override int Level
+        {
+            get
+            {
+                return base.Level;
+            }
+
+            set
+            {
+                //remove all the old weapons
+                List<IWeapon> weapons = (List<IWeapon>)EquipedWeapon;
+                foreach (IWeapon weapon in weapons)
+                {
+                    RemoveEquipment(weapon);
+                }
+
+                IWeapon head = new Weapon();
+                Damage.Damage damage = new Damage.Damage() { Type = DamageType.Pierce, Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(Math.Max(1, value - 5)) };
+                head.DamageList.Add(damage);
+
+                for (int i = 0; i < 5; i++)
+                {
+                    AddEquipment(head);
+                }
+
+                base.Level = value;
+            }
+        }
+
         private RoundOfDamage RoundOfDamage { get; set; }
 
         public Hydra() : base()
@@ -24,13 +55,14 @@ namespace Objects.Mob.SpecificNPC
             DamageToGrowNewHead = MaxHealth / 10;
             Personalities.Add(new Personality.Personalities.Hydra());
             RoundOfDamage = new RoundOfDamage();
+            AddAttribute(MobileAttribute.NoDisarm);
         }
 
         public override int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker)
         {
             int takenDamage = base.TakeDamage(totalDamage, damage, attacker);
 
-            if (damage.Type == Damage.Damage.DamageType.Fire)
+            if (damage.Type == DamageType.Fire)
             {
                 TookFireDamage = true;
             }
@@ -80,6 +112,8 @@ namespace Objects.Mob.SpecificNPC
                 //remove a head
                 IWeapon weapon = EquipedWeapon.FirstOrDefault();
                 RemoveEquipment(weapon);
+
+
             }
         }
 
