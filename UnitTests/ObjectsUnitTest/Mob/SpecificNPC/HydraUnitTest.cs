@@ -1,13 +1,19 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Objects.Damage.Interface;
 using Objects.Die.Interface;
 using Objects.Global;
 using Objects.Global.DefaultValues.Interface;
+using Objects.Global.Engine.Engines.Interface;
+using Objects.Global.Engine.Interface;
+using Objects.Mob.Interface;
 using Objects.Mob.SpecificNPC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using static Objects.Damage.Damage;
 
 namespace ObjectsUnitTest.Mob.SpecificNPC
 {
@@ -18,19 +24,44 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         Mock<IDefaultValues> defaultValues;
         Mock<IDice> level1Dice;
         Mock<IDice> level5Dice;
+        Mock<IDamage> damageNonFire;
+        Mock<IDamage> damageFire;
+        Mock<IMobileObject> attacker1;
+        Mock<IMobileObject> attacker2;
+        Mock<IEvent> evnt;
+        Mock<IEngine> engine;
+        PropertyInfo newHeadsToGrow;
+        PropertyInfo tookFireDamage;
+        PropertyInfo roundOfDamage;
         [TestInitialize]
         public void Setup()
         {
             defaultValues = new Mock<IDefaultValues>();
             level1Dice = new Mock<IDice>();
             level5Dice = new Mock<IDice>();
+            damageNonFire = new Mock<IDamage>();
+            damageFire = new Mock<IDamage>();
+            attacker1 = new Mock<IMobileObject>();
+            attacker2 = new Mock<IMobileObject>();
+            evnt = new Mock<IEvent>();
+            engine = new Mock<IEngine>();
 
             defaultValues.Setup(e => e.DiceForWeaponLevel(1)).Returns(level1Dice.Object);
             defaultValues.Setup(e => e.DiceForWeaponLevel(5)).Returns(level5Dice.Object);
+            damageNonFire.Setup(e => e.Type).Returns(DamageType.Acid);
+            damageFire.Setup(e => e.Type).Returns(DamageType.Fire);
+            engine.Setup(e => e.Event).Returns(evnt.Object);
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
+            GlobalReference.GlobalValues.Engine = engine.Object;
 
             hydra = new Hydra();
+            hydra.Level = 20;
+            hydra.ConstitutionStat = 10; //needs to be set so when max stats are reset it will calculate correctly
+
+            newHeadsToGrow = hydra.GetType().GetProperty("NewHeadsToGrow", BindingFlags.Instance | BindingFlags.NonPublic);
+            tookFireDamage = hydra.GetType().GetProperty("TookFireDamage", BindingFlags.Instance | BindingFlags.NonPublic);
+            roundOfDamage = hydra.GetType().GetProperty("RoundOfDamage", BindingFlags.Instance | BindingFlags.NonPublic);
         }
 
         [TestMethod]
@@ -72,6 +103,106 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(5, hydra.EquipedWeapon.Count());
             //verify level 5 dice
             Assert.AreEqual(level5Dice.Object, hydra.EquipedWeapon.FirstOrDefault().DamageList[0].Dice);
+        }
+
+        [TestMethod]
+        public void Hydra_TakeCombatDamage()
+        {
+            hydra.TakeCombatDamage(20, damageNonFire.Object, attacker1.Object, 1);
+
+            Assert.AreEqual(2, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(20, rndOfDamage.TotalDamage);
+            Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
+            Assert.AreEqual(1u, rndOfDamage.CombatRound);
+            Assert.IsTrue(rndOfDamage.HeadCut);
+        }
+
+        [TestMethod]
+        public void Hydra_TakeCombatDamageTwiceSamePerson()
+        {
+            hydra.TakeCombatDamage(20, damageNonFire.Object, attacker1.Object, 1);
+
+            Assert.AreEqual(2, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(20, rndOfDamage.TotalDamage);
+            Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
+            Assert.AreEqual(1u, rndOfDamage.CombatRound);
+            Assert.IsTrue(rndOfDamage.HeadCut);
+
+            hydra.TakeCombatDamage(20, damageNonFire.Object, attacker1.Object, 1);
+
+            Assert.AreEqual(2, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(40, rndOfDamage.TotalDamage);
+            Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
+            Assert.AreEqual(1u, rndOfDamage.CombatRound);
+            Assert.IsTrue(rndOfDamage.HeadCut);
+        }
+
+        [TestMethod]
+        public void Hydra_TakeCombatDamageCumilativeDamage()
+        {
+            hydra.TakeCombatDamage(5, damageNonFire.Object, attacker1.Object, 1);
+
+            Assert.AreEqual(0, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(5, rndOfDamage.TotalDamage);
+            Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
+            Assert.AreEqual(1u, rndOfDamage.CombatRound);
+            Assert.IsFalse(rndOfDamage.HeadCut);
+
+            hydra.TakeCombatDamage(5, damageNonFire.Object, attacker1.Object, 1);
+
+            Assert.AreEqual(2, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(10, rndOfDamage.TotalDamage);
+            Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
+            Assert.AreEqual(1u, rndOfDamage.CombatRound);
+            Assert.IsTrue(rndOfDamage.HeadCut);
+        }
+
+        [TestMethod]
+        public void Hydra_TakeCombatDamageDiffertPerson()
+        {
+            hydra.TakeCombatDamage(20, damageNonFire.Object, attacker1.Object, 1);
+
+            Assert.AreEqual(2, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(20, rndOfDamage.TotalDamage);
+            Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
+            Assert.AreEqual(1u, rndOfDamage.CombatRound);
+            Assert.IsTrue(rndOfDamage.HeadCut);
+
+            hydra.TakeCombatDamage(20, damageNonFire.Object, attacker2.Object, 1);
+
+            Assert.AreEqual(4, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(20, rndOfDamage.TotalDamage);
+            Assert.AreEqual(attacker2.Object, rndOfDamage.LastAttacker);
+            Assert.AreEqual(1u, rndOfDamage.CombatRound);
+            Assert.IsTrue(rndOfDamage.HeadCut);
+        }
+
+        [TestMethod]
+        public void Hydra_TakeCombatDamageFireDamage()
+        {
+            hydra.TakeCombatDamage(20, damageFire.Object, attacker1.Object, 1);
+
+            Assert.AreEqual(0, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsTrue((bool)tookFireDamage.GetValue(hydra));
+            RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(20, rndOfDamage.TotalDamage);
+            Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
+            Assert.AreEqual(1u, rndOfDamage.CombatRound);
+            Assert.IsFalse(rndOfDamage.HeadCut);
         }
     }
 }

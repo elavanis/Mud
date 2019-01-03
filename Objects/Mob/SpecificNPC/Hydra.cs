@@ -15,9 +15,9 @@ namespace Objects.Mob.SpecificNPC
 {
     public class Hydra : NonPlayerCharacter
     {
-        private int DamageToGrowNewHead { get; set; }
         private int NewHeadsToGrow { get; set; }
         private bool TookFireDamage { get; set; }
+        private RoundOfDamage RoundOfDamage { get; set; }
 
         public override int Level
         {
@@ -48,11 +48,9 @@ namespace Objects.Mob.SpecificNPC
             }
         }
 
-        private RoundOfDamage RoundOfDamage { get; set; }
 
         public Hydra() : base()
         {
-            DamageToGrowNewHead = MaxHealth / 10;
             Personalities.Add(new Personality.Personalities.Hydra());
             RoundOfDamage = new RoundOfDamage();
             AddAttribute(MobileAttribute.NoDisarm);
@@ -81,18 +79,18 @@ namespace Objects.Mob.SpecificNPC
         {
             int takenDamage = base.TakeCombatDamage(totalDamage, damage, attacker, combatRound);
 
-            if (damage.Type == Damage.Damage.DamageType.Fire)
+            if (damage.Type == DamageType.Fire)
             {
                 TookFireDamage = true;
             }
 
-            if (RoundOfDamage.LastAttacker == attacker)
+            if (RoundOfDamage.LastAttacker == attacker && RoundOfDamage.CombatRound == combatRound)
             {
                 RoundOfDamage.TotalDamage += Math.Max(0, takenDamage);
             }
             else
             {
-                RoundOfDamage = new RoundOfDamage() { TotalDamage = takenDamage, LastAttacker = attacker };
+                RoundOfDamage = new RoundOfDamage() { TotalDamage = takenDamage, LastAttacker = attacker, CombatRound = combatRound };
             }
 
             ProcessIfHeadCutOff();
@@ -104,7 +102,7 @@ namespace Objects.Mob.SpecificNPC
         {
             if (!TookFireDamage
                 && !RoundOfDamage.HeadCut
-                && RoundOfDamage.TotalDamage >= DamageToGrowNewHead)
+                && RoundOfDamage.TotalDamage >= (MaxHealth / 10))
             {
                 NewHeadsToGrow += 2;                //queue 2 new heads to grow
                 RoundOfDamage.HeadCut = true;       //set the head to cut for this round
@@ -112,8 +110,6 @@ namespace Objects.Mob.SpecificNPC
                 //remove a head
                 IWeapon weapon = EquipedWeapon.FirstOrDefault();
                 RemoveEquipment(weapon);
-
-
             }
         }
 
@@ -125,7 +121,7 @@ namespace Objects.Mob.SpecificNPC
                 for (int i = 0; i < NewHeadsToGrow; i++)
                 {
                     AddEquipment(EquipedWeapon.FirstOrDefault());
-                    Health += (int)(DamageToGrowNewHead * .8);  //add back 80% of the health after growing a pair of heads
+                    Health += (int)(MaxHealth * .08);  //add back 80% of the health it took to loose a head after growing a pair of heads
                 }
 
                 GlobalReference.GlobalValues.Notify.Room(this, null, Room, new TranslationMessage($"{SentenceDescription} grows {NewHeadsToGrow} new heads."));
@@ -136,10 +132,11 @@ namespace Objects.Mob.SpecificNPC
         }
     }
 
-    class RoundOfDamage
+    public class RoundOfDamage
     {
         public int TotalDamage { get; set; }
         public IMobileObject LastAttacker { get; set; }
+        public ulong CombatRound { get; set; }
         public bool HeadCut { get; set; }
     }
 }
