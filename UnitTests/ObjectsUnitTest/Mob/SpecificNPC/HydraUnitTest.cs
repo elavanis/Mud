@@ -6,8 +6,11 @@ using Objects.Global;
 using Objects.Global.DefaultValues.Interface;
 using Objects.Global.Engine.Engines.Interface;
 using Objects.Global.Engine.Interface;
+using Objects.Global.Notify.Interface;
+using Objects.Language.Interface;
 using Objects.Mob.Interface;
 using Objects.Mob.SpecificNPC;
+using Shared.TagWrapper.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +36,8 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         PropertyInfo newHeadsToGrow;
         PropertyInfo tookFireDamage;
         PropertyInfo roundOfDamage;
+        Mock<INotify> notify;
+        Mock<ITagWrapper> tagWrapper;
         [TestInitialize]
         public void Setup()
         {
@@ -45,6 +50,8 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             attacker2 = new Mock<IMobileObject>();
             evnt = new Mock<IEvent>();
             engine = new Mock<IEngine>();
+            notify = new Mock<INotify>();
+            tagWrapper = new Mock<ITagWrapper>();
 
             defaultValues.Setup(e => e.DiceForWeaponLevel(1)).Returns(level1Dice.Object);
             defaultValues.Setup(e => e.DiceForWeaponLevel(5)).Returns(level5Dice.Object);
@@ -54,6 +61,8 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
+            GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             hydra = new Hydra();
             hydra.Level = 20;
@@ -62,12 +71,6 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             newHeadsToGrow = hydra.GetType().GetProperty("NewHeadsToGrow", BindingFlags.Instance | BindingFlags.NonPublic);
             tookFireDamage = hydra.GetType().GetProperty("TookFireDamage", BindingFlags.Instance | BindingFlags.NonPublic);
             roundOfDamage = hydra.GetType().GetProperty("RoundOfDamage", BindingFlags.Instance | BindingFlags.NonPublic);
-        }
-
-        [TestMethod]
-        public void Hydra_WriteTests()
-        {
-            Assert.IsTrue(false);
         }
 
         [TestMethod]
@@ -106,17 +109,26 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         }
 
         [TestMethod]
+        public void Hydra_GetLevel()
+        {
+            Assert.AreEqual(20, hydra.Level);
+        }
+
+        [TestMethod]
         public void Hydra_TakeCombatDamage()
         {
             hydra.TakeCombatDamage(20, damageNonFire.Object, attacker1.Object, 1);
 
             Assert.AreEqual(2, (int)newHeadsToGrow.GetValue(hydra));
             Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(4, hydra.EquipedWeapon.Count());
             RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
             Assert.AreEqual(20, rndOfDamage.TotalDamage);
             Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
+            notify.Verify(e => e.Mob(attacker1.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -126,21 +138,27 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
 
             Assert.AreEqual(2, (int)newHeadsToGrow.GetValue(hydra));
             Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(4, hydra.EquipedWeapon.Count());
             RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
             Assert.AreEqual(20, rndOfDamage.TotalDamage);
             Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
+            notify.Verify(e => e.Mob(attacker1.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
 
             hydra.TakeCombatDamage(20, damageNonFire.Object, attacker1.Object, 1);
 
             Assert.AreEqual(2, (int)newHeadsToGrow.GetValue(hydra));
             Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(4, hydra.EquipedWeapon.Count());
             rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
             Assert.AreEqual(40, rndOfDamage.TotalDamage);
             Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
+            notify.Verify(e => e.Mob(attacker1.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -150,6 +168,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
 
             Assert.AreEqual(0, (int)newHeadsToGrow.GetValue(hydra));
             Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(5, hydra.EquipedWeapon.Count());
             RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
             Assert.AreEqual(5, rndOfDamage.TotalDamage);
             Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
@@ -160,11 +179,14 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
 
             Assert.AreEqual(2, (int)newHeadsToGrow.GetValue(hydra));
             Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(4, hydra.EquipedWeapon.Count());
             rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
             Assert.AreEqual(10, rndOfDamage.TotalDamage);
             Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
+            notify.Verify(e => e.Mob(attacker1.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -174,21 +196,27 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
 
             Assert.AreEqual(2, (int)newHeadsToGrow.GetValue(hydra));
             Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(4, hydra.EquipedWeapon.Count());
             RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
             Assert.AreEqual(20, rndOfDamage.TotalDamage);
             Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
+            notify.Verify(e => e.Mob(attacker1.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
 
             hydra.TakeCombatDamage(20, damageNonFire.Object, attacker2.Object, 1);
 
             Assert.AreEqual(4, (int)newHeadsToGrow.GetValue(hydra));
             Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(3, hydra.EquipedWeapon.Count());
             rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
             Assert.AreEqual(20, rndOfDamage.TotalDamage);
             Assert.AreEqual(attacker2.Object, rndOfDamage.LastAttacker);
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
+            notify.Verify(e => e.Mob(attacker2.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            notify.Verify(e => e.Room(attacker2.Object, hydra, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -197,12 +225,117 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             hydra.TakeCombatDamage(20, damageFire.Object, attacker1.Object, 1);
 
             Assert.AreEqual(0, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.AreEqual(4, hydra.EquipedWeapon.Count());
             Assert.IsTrue((bool)tookFireDamage.GetValue(hydra));
             RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
             Assert.AreEqual(20, rndOfDamage.TotalDamage);
             Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
+            Assert.IsTrue(rndOfDamage.HeadCut);
+            notify.Verify(e => e.Mob(attacker1.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+        }
+
+        [TestMethod]
+        public void Hydra_TakeDamageTwoTimesNotEnoughDamageToGrowAHead()
+        {
+            hydra.TakeDamage(5, damageNonFire.Object, attacker1.Object);
+
+            Assert.AreEqual(0, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(5, hydra.EquipedWeapon.Count());
+            RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(5, rndOfDamage.TotalDamage);
+            Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
+            Assert.AreEqual(0u, rndOfDamage.CombatRound);
             Assert.IsFalse(rndOfDamage.HeadCut);
+
+
+            hydra.TakeDamage(5, damageNonFire.Object, attacker2.Object);
+
+            Assert.AreEqual(0, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(5, hydra.EquipedWeapon.Count());
+            RoundOfDamage rndOfDamage2 = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(5, rndOfDamage2.TotalDamage);
+            Assert.AreEqual(attacker2.Object, rndOfDamage2.LastAttacker);
+            Assert.AreEqual(0u, rndOfDamage2.CombatRound);
+            Assert.IsFalse(rndOfDamage2.HeadCut);
+            Assert.AreNotSame(rndOfDamage, rndOfDamage2);
+        }
+
+        [TestMethod]
+        public void Hydra_TakeDamageTwoTimesEnoughDamageToGrowAHead()
+        {
+            hydra.TakeDamage(20, damageNonFire.Object, attacker1.Object);
+
+            Assert.AreEqual(2, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(4, hydra.EquipedWeapon.Count());
+            RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(20, rndOfDamage.TotalDamage);
+            Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
+            Assert.AreEqual(0u, rndOfDamage.CombatRound);
+            Assert.IsTrue(rndOfDamage.HeadCut);
+            notify.Verify(e => e.Mob(attacker1.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+
+
+            hydra.TakeDamage(20, damageNonFire.Object, attacker2.Object);
+
+            Assert.AreEqual(4, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(3, hydra.EquipedWeapon.Count());
+            RoundOfDamage rndOfDamage2 = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(20, rndOfDamage2.TotalDamage);
+            Assert.AreEqual(attacker2.Object, rndOfDamage2.LastAttacker);
+            Assert.AreEqual(0u, rndOfDamage2.CombatRound);
+            Assert.IsTrue(rndOfDamage2.HeadCut);
+            Assert.AreNotSame(rndOfDamage, rndOfDamage2);
+            notify.Verify(e => e.Mob(attacker2.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            notify.Verify(e => e.Room(attacker2.Object, hydra, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+        }
+
+        [TestMethod]
+        public void Hydra_TakeDamageFireDamage()
+        {
+            hydra.TakeDamage(20, damageFire.Object, attacker1.Object);
+
+            Assert.AreEqual(0, (int)newHeadsToGrow.GetValue(hydra));
+            Assert.IsTrue((bool)tookFireDamage.GetValue(hydra));
+            Assert.AreEqual(4, hydra.EquipedWeapon.Count());
+            RoundOfDamage rndOfDamage = (RoundOfDamage)roundOfDamage.GetValue(hydra);
+            Assert.AreEqual(20, rndOfDamage.TotalDamage);
+            Assert.AreEqual(attacker1.Object, rndOfDamage.LastAttacker);
+            Assert.AreEqual(0u, rndOfDamage.CombatRound);
+            Assert.IsTrue(rndOfDamage.HeadCut);
+            notify.Verify(e => e.Mob(attacker1.Object, It.IsAny<ITranslationMessage>()), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+        }
+
+        [TestMethod]
+        public void Hydra_RegrowHeads()
+        {
+            newHeadsToGrow.SetValue(hydra, 4);
+            hydra.RegrowHeads();
+
+            Assert.AreEqual(9, hydra.EquipedWeapon.Count());
+            Assert.AreEqual(0, newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            notify.Verify(e => e.Room(hydra, null, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+        }
+
+        [TestMethod]
+        public void Hydra_RegrowHeadsAfterFire()
+        {
+            tookFireDamage.SetValue(hydra, true);
+            newHeadsToGrow.SetValue(hydra, 4);
+            hydra.RegrowHeads();
+
+            Assert.AreEqual(5, hydra.EquipedWeapon.Count());
+            Assert.AreEqual(0, newHeadsToGrow.GetValue(hydra));
+            Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
+            notify.Verify(e => e.Room(hydra, null, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Never);
         }
     }
 }
