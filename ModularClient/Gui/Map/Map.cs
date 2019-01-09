@@ -32,7 +32,7 @@ namespace Client.Map
         public void Update(string rawMessage)
         {
             Message message = new Message(rawMessage);
-            string fileName = Path.Combine("Map", $"{message.Zone}-{message.Z}.png");
+            string fileName = Path.Combine("Maps", $"{message.Zone}-{message.Z}.png");
 
             if (_oldMapFileName != fileName) //don't bother reloading the map if it will be the same
             {

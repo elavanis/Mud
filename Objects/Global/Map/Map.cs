@@ -39,7 +39,7 @@ namespace Objects.Global.Map
             _mapPositionCache.TryGetValue(roomKey, out result);
             if (result == null)
             {
-                string file = Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Map", room.Zone + ".MapConversion");
+                string file = Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps", room.Zone + ".MapConversion");
                 if (GlobalReference.GlobalValues.FileIO.Exists(file))
                 {
                     foreach (string line in GlobalReference.GlobalValues.FileIO.ReadLines(file))
