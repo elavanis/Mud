@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Objects.Item;
 using Objects.Item.Interface;
 using Objects.Item.Items;
 using Objects.Item.Items.Interface;
@@ -64,6 +65,7 @@ namespace GenerateZones.Zones.Mountain
             Container chest = Chest();
             chest.ExamineDescription = "The carvings show a mighty lion roaring into the distant.";
             room.AddItemToRoom(chest);
+            chest.Items.Add(Bear());
             return room;
         }
 
@@ -94,6 +96,7 @@ namespace GenerateZones.Zones.Mountain
             Container chest = Chest();
             chest.ExamineDescription = "The carvings show a majestic eagle soaring in the clouds.";
             room.AddItemToRoom(chest);
+            chest.Items.Add(Fish());
             return room;
         }
 
@@ -124,6 +127,7 @@ namespace GenerateZones.Zones.Mountain
             Container chest = Chest();
             chest.ExamineDescription = "The carvings show a bear climbing the tree of life.";
             room.AddItemToRoom(chest);
+            chest.Items.Add(Lion());
             return room;
         }
 
@@ -154,6 +158,7 @@ namespace GenerateZones.Zones.Mountain
             Container chest = Chest();
             chest.ExamineDescription = "The carvings show a large fish swallowing the world.";
             room.AddItemToRoom(chest);
+            chest.Items.Add(Eagle());
             return room;
         }
 
@@ -191,6 +196,57 @@ namespace GenerateZones.Zones.Mountain
             return chest;
         }
 
+        public IItem Lion()
+        {
+            IItem item = CreateItem<Item>();
+            item.ExamineDescription = "The statue shows a male lion with a full mane.";
+            item.LookDescription = "The statue is make of a sandy colored stone material.";
+            item.ShortDescription = "A small statue of a lion.";
+            item.SentenceDescription = "lion statue";
+            item.KeyWords.Add("statue");
+            item.KeyWords.Add("lion");
+
+            return item;
+        }
+
+        public IItem Eagle()
+        {
+            IItem item = CreateItem<Item>();
+            item.ExamineDescription = "The eagle in the statue is taking perched on a branch overlooking a nest of its young.";
+            item.LookDescription = "The statue is make of a sandy colored stone material.";
+            item.ShortDescription = "A small statue of a eagle.";
+            item.SentenceDescription = "eagle statue";
+            item.KeyWords.Add("statue");
+            item.KeyWords.Add("eagle");
+
+            return item;
+        }
+
+        public IItem Bear()
+        {
+            IItem item = CreateItem<Item>();
+            item.ExamineDescription = "A statue depicting bear reaching out on a tree branch to reach a bee's hive.";
+            item.LookDescription = "The statue is make of a sandy colored stone material.";
+            item.ShortDescription = "A small statue of a bear.";
+            item.SentenceDescription = "bear statue";
+            item.KeyWords.Add("statue");
+            item.KeyWords.Add("bear");
+
+            return item;
+        }
+
+        public IItem Fish()
+        {
+            IItem item = CreateItem<Item>();
+            item.ExamineDescription = "The statue shows a fish jumping out of a lake to catch a dragon fly.";
+            item.LookDescription = "The statue is make of a sandy colored stone material.";
+            item.ShortDescription = "A small statue of a fish.";
+            item.SentenceDescription = "fish statue";
+            item.KeyWords.Add("statue");
+            item.KeyWords.Add("fish");
+
+            return item;
+        }
         #endregion Items
 
         private void ConnectRooms()
