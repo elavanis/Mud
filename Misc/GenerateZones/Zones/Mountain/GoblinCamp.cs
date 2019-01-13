@@ -340,7 +340,7 @@ namespace GenerateZones.Zones.Mountain
             Container chest = CreateItem<Container>();
             chest.ExamineDescription = "The chest is a standard issue goblin warrior chest.";
             chest.LookDescription = "The chest is made of wood and reinforced with steel bands.";
-            chest.ShortDescription = "A small chest for storing equipment";
+            chest.ShortDescription = "A small chest for storing equipment.";
             chest.SentenceDescription = "chest";
             chest.KeyWords.Add("chest");
             chest.Attributes.Add(ItemAttribute.NoGet);

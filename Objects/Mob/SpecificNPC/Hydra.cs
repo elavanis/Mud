@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using Objects.Damage;
@@ -15,8 +16,14 @@ namespace Objects.Mob.SpecificNPC
 {
     public class Hydra : NonPlayerCharacter
     {
+
+        [ExcludeFromCodeCoverage]
         private int NewHeadsToGrow { get; set; }
+
+        [ExcludeFromCodeCoverage]
         private bool TookFireDamage { get; set; }
+
+        [ExcludeFromCodeCoverage]
         private RoundOfDamage RoundOfDamage { get; set; }
 
         public override int Level
@@ -69,7 +76,7 @@ namespace Objects.Mob.SpecificNPC
             //not the normal combat action
             RoundOfDamage = new RoundOfDamage() { TotalDamage = takenDamage, LastAttacker = attacker };
 
-            ProcessIfHeadCutOff();
+            ProcessIfHeadCutOff(attacker);
 
             return takenDamage;
         }
@@ -93,23 +100,29 @@ namespace Objects.Mob.SpecificNPC
                 RoundOfDamage = new RoundOfDamage() { TotalDamage = takenDamage, LastAttacker = attacker, CombatRound = combatRound };
             }
 
-            ProcessIfHeadCutOff();
+            ProcessIfHeadCutOff(attacker);
 
             return takenDamage;
         }
 
-        private void ProcessIfHeadCutOff()
+        private void ProcessIfHeadCutOff(IMobileObject attacker)
         {
-            if (!TookFireDamage
-                && !RoundOfDamage.HeadCut
+            if (!RoundOfDamage.HeadCut
                 && RoundOfDamage.TotalDamage >= (MaxHealth / 10))
             {
-                NewHeadsToGrow += 2;                //queue 2 new heads to grow
+                if (!TookFireDamage)
+                {
+                    NewHeadsToGrow += 2;                //queue 2 new heads to grow
+                }
+
                 RoundOfDamage.HeadCut = true;       //set the head to cut for this round
 
                 //remove a head
                 IWeapon weapon = EquipedWeapon.FirstOrDefault();
                 RemoveEquipment(weapon);
+
+                GlobalReference.GlobalValues.Notify.Mob(attacker, new TranslationMessage("You cut off on of the hydras heads."));
+                GlobalReference.GlobalValues.Notify.Room(attacker, this, Room, new TranslationMessage("{performer} cut off on of the hydras heads."));
             }
         }
 
@@ -134,9 +147,17 @@ namespace Objects.Mob.SpecificNPC
 
     public class RoundOfDamage
     {
+
+        [ExcludeFromCodeCoverage]
         public int TotalDamage { get; set; }
+
+        [ExcludeFromCodeCoverage]
         public IMobileObject LastAttacker { get; set; }
+
+        [ExcludeFromCodeCoverage]
         public ulong CombatRound { get; set; }
+
+        [ExcludeFromCodeCoverage]
         public bool HeadCut { get; set; }
     }
 }
