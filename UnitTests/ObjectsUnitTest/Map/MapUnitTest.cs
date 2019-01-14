@@ -43,8 +43,8 @@ namespace ObjectsUnitTest.Map
             room.Setup(e => e.Zone).Returns(1);
             room.Setup(e => e.Id).Returns(2);
             settings.Setup(e => e.AssetsDirectory).Returns("assetsDir");
-            fileIO.Setup(e => e.Exists(@"assetsDir\Map\1.MapConversion")).Returns(true);
-            fileIO.Setup(e => e.ReadLines(@"assetsDir\Map\1.MapConversion")).Returns(new List<string>() { "2|1|90|10" });
+            fileIO.Setup(e => e.Exists(@"assetsDir\Maps\1.MapConversion")).Returns(true);
+            fileIO.Setup(e => e.ReadLines(@"assetsDir\Maps\1.MapConversion")).Returns(new List<string>() { "2|1|90|10" });
             tagwrapper.Setup(e => e.WrapInTag("1|1|90|10", Shared.TagWrapper.TagWrapper.TagType.Map)).Returns("mapInfo");
 
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
@@ -77,7 +77,7 @@ namespace ObjectsUnitTest.Map
         }
 
         [TestMethod]
-        public void Map_SendMapPosition_SettingsOnfMobCanNotSee()
+        public void Map_SendMapPosition_SettingsOnMobCanNotSee()
         {
             settings.Setup(e => e.SendMapPosition).Returns(true);
             canMobDoSomething.Setup(e => e.SeeDueToLight(mob.Object)).Returns(false);

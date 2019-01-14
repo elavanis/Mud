@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ObjectsUnitTest.Command.PC
 {
+    [TestClass]
     public class PutUnitTest
     {
         [TestMethod]
