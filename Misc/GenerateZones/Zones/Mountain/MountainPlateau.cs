@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Objects.Effect;
 using Objects.Item;
 using Objects.Item.Interface;
 using Objects.Item.Items;
 using Objects.Item.Items.Interface;
+using Objects.Magic.Enchantment;
+using Objects.Magic.Interface;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
@@ -65,7 +68,14 @@ namespace GenerateZones.Zones.Mountain
             Container chest = Chest();
             chest.ExamineDescription = "The carvings show a mighty lion roaring into the distant.";
             room.AddItemToRoom(chest);
-            chest.Items.Add(Bear());
+            IItem lion = Lion();
+            chest.Items.Add(lion);
+
+            IEnchantment get = new GetEnchantment();
+            //get.Effect = new Replenish();
+            get.ActivationPercent = 100;
+            lion.Enchantments.Add(get);
+
             return room;
         }
 
@@ -96,7 +106,7 @@ namespace GenerateZones.Zones.Mountain
             Container chest = Chest();
             chest.ExamineDescription = "The carvings show a majestic eagle soaring in the clouds.";
             room.AddItemToRoom(chest);
-            chest.Items.Add(Fish());
+            chest.Items.Add(Eagle());
             return room;
         }
 
@@ -127,7 +137,7 @@ namespace GenerateZones.Zones.Mountain
             Container chest = Chest();
             chest.ExamineDescription = "The carvings show a bear climbing the tree of life.";
             room.AddItemToRoom(chest);
-            chest.Items.Add(Lion());
+            chest.Items.Add(Bear());
             return room;
         }
 
@@ -158,7 +168,7 @@ namespace GenerateZones.Zones.Mountain
             Container chest = Chest();
             chest.ExamineDescription = "The carvings show a large fish swallowing the world.";
             room.AddItemToRoom(chest);
-            chest.Items.Add(Eagle());
+            chest.Items.Add(Fish());
             return room;
         }
 
@@ -256,6 +266,7 @@ namespace GenerateZones.Zones.Mountain
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.North, Zone.Rooms[2]);
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.North, Zone.Rooms[3]);
             ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.North, Zone.Rooms[4]);
+
             ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.North, Zone.Rooms[5]);
             ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.East, Zone.Rooms[6]);
             ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.East, Zone.Rooms[7]);
@@ -270,6 +281,25 @@ namespace GenerateZones.Zones.Mountain
             ZoneHelper.ConnectRoom(Zone.Rooms[15], Direction.West, Zone.Rooms[16]);
             ZoneHelper.ConnectRoom(Zone.Rooms[16], Direction.West, Zone.Rooms[1]);
 
+            ZoneHelper.ConnectZone(Zone.Rooms[3], Direction.East, -1, 1, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", false, "The door depicts a bear standing on its hind legs."));
+            IDoor door = Zone.Rooms[3].East.Door;
+            door.Locked = true;
+            door.Pickable = false;
+
+            ZoneHelper.ConnectZone(Zone.Rooms[7], Direction.South, -1, 1, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", false, "The door depicts a fish swallowing a man."));
+            door = Zone.Rooms[7].South.Door;
+            door.Locked = true;
+            door.Pickable = false;
+
+            ZoneHelper.ConnectZone(Zone.Rooms[11], Direction.West, -1, 1, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", false, "The door depicts a lion killing an antelope."));
+            door = Zone.Rooms[11].West.Door;
+            door.Locked = true;
+            door.Pickable = false;
+
+            ZoneHelper.ConnectZone(Zone.Rooms[15], Direction.North, -1, 1, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", false, "The door depicts a eagle catching a fish."));
+            door = Zone.Rooms[15].North.Door;
+            door.Locked = true;
+            door.Pickable = false;
         }
     }
 }

@@ -167,6 +167,12 @@ namespace Objects.Global.Engine.Engines
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} got {item.SentenceDescription}.");
             RunEnchantments(performer, EventType.Get, new EventParamerters() { Performer = performer, Item = item });
         }
+        public void Put(IMobileObject performer, IItem item)
+        {
+            GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} put {item.SentenceDescription}.");
+            RunEnchantments(performer, EventType.Put, new EventParamerters() { Performer = performer, Item = item });
+        }
+
         public void Relax(IMobileObject performer)
         {
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUGVERBOSE, $"{performer.SentenceDescription} relaxed.");
@@ -426,6 +432,7 @@ namespace Objects.Global.Engine.Engines
             Perform,
             Drop,
             Get,
+            Put,
             Relax,
             Sit,
             Sleep,
