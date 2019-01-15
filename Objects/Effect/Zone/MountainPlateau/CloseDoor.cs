@@ -14,7 +14,7 @@ using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Effect.Zone.MountainPlateau
 {
-    public class OpenDoor : IEffect
+    public class CloseDoor
     {
         [ExcludeFromCodeCoverage]
         public ISound Sound { get; set; }
@@ -46,22 +46,23 @@ namespace Objects.Effect.Zone.MountainPlateau
             {
                 IRoom room = parameter.ObjectRoom;
 
-                OpenIfMatched(room.North?.Door, room);
-                OpenIfMatched(room.East?.Door, room);
-                OpenIfMatched(room.South?.Door, room);
-                OpenIfMatched(room.West?.Door, room);
+                CloseIfMatched(room.North?.Door, room);
+                CloseIfMatched(room.East?.Door, room);
+                CloseIfMatched(room.South?.Door, room);
+                CloseIfMatched(room.West?.Door, room);
             }
         }
 
-        private void OpenIfMatched(IDoor door, IRoom room)
+        private void CloseIfMatched(IDoor door, IRoom room)
         {
             if (door != null)
             {
                 if (door.Zone == Door.Zone
                     && door.Id == Door.Id
-                    && door.Opened == false)
+                    && door.Opened == true)
                 {
-                    door.Opened = true;
+                    door.Opened = false;
+
 
                     string serializeSounds = GlobalReference.GlobalValues.Serialization.Serialize(new List<ISound>() { Sound });
                     GlobalReference.GlobalValues.Notify.Room(null, null, room, new TranslationMessage(serializeSounds, TagType.Sound));

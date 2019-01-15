@@ -81,7 +81,7 @@ namespace GenerateZones.Zones.Mountain
             IEnchantment put = new PutEnchantment();
             OpenDoor openDoor = new OpenDoor();
             openDoor.Chest = new BaseObjectId() { Zone = 22, Id = 1 };
-            openDoor.Statue = new BaseObjectId() { Zone = 22, Id = 2 };
+            openDoor.Statue = new BaseObjectId() { Zone = 22, Id = 6 };
             openDoor.Door = new BaseObjectId() { Zone = 22, Id = 3 };
             put.Effect = openDoor;
             put.ActivationPercent = 100;
