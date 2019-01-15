@@ -41,6 +41,8 @@ namespace Objects.Command.PC
                 IContainer container = itemToPutIn as IContainer;
                 if (container != null)
                 {
+                    GlobalReference.GlobalValues.Engine.Event.Put(performer, item, container);
+
                     container.Items.Add(item);
                     performer.Items.Remove(item);
 

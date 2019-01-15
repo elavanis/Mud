@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Objects;
 using Objects.Effect;
+using Objects.Effect.Zone.MountainPlateau;
 using Objects.Item;
 using Objects.Item.Interface;
 using Objects.Item.Items;
@@ -71,10 +73,20 @@ namespace GenerateZones.Zones.Mountain
             IItem lion = Lion();
             chest.Items.Add(lion);
 
-            IEnchantment get = new GetEnchantment();
-            //get.Effect = new Replenish();
-            get.ActivationPercent = 100;
-            lion.Enchantments.Add(get);
+            //IEnchantment get = new GetEnchantment();
+            ////get.Effect = new Replenish();
+            //get.ActivationPercent = 100;
+            //lion.Enchantments.Add(get);
+
+            IEnchantment put = new PutEnchantment();
+            OpenDoor openDoor = new OpenDoor();
+            openDoor.Chest = new BaseObjectId() { Zone = 22, Id = 1 };
+            openDoor.Statue = new BaseObjectId() { Zone = 22, Id = 2 };
+            openDoor.Door = new BaseObjectId() { Zone = 22, Id = 3 };
+            put.Effect = openDoor;
+            put.ActivationPercent = 100;
+            chest.Enchantments.Add(put);
+
 
             return room;
         }

@@ -9,6 +9,7 @@ using Objects.Mob.Interface;
 using Objects.Die.Interface;
 using Objects.Language.Interface;
 using static Objects.Damage.Damage;
+using Objects.Item.Items.Interface;
 
 namespace Objects.Effect
 {
@@ -42,5 +43,7 @@ namespace Objects.Effect
         public ITranslationMessage RoomMessage { get; set; }
         [ExcludeFromCodeCoverage]
         public IMobileObject Performer { get; set; }
+        [ExcludeFromCodeCoverage]
+        public IContainer Container { get; set; }
     }
 }
