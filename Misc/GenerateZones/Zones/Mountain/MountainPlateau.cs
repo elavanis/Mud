@@ -91,7 +91,6 @@ namespace GenerateZones.Zones.Mountain
             put.ActivationPercent = 100;
             chest.Enchantments.Add(put);
 
-
             return room;
         }
 
@@ -123,6 +122,25 @@ namespace GenerateZones.Zones.Mountain
             chest.ExamineDescription = "The carvings show a majestic eagle soaring in the clouds.";
             room.AddItemToRoom(chest);
             chest.Items.Add(Eagle());
+
+            //IEnchantment get = new GetEnchantment();
+            //CloseDoor closeDoor = new CloseDoor();
+            //closeDoor.Chest = new BaseObjectId() { Zone = 22, Id = 4 };
+            //closeDoor.Statue = new BaseObjectId() { Zone = 22, Id = 11 };
+            //closeDoor.Door = new BaseObjectId() { Zone = 22, Id = 6 };
+            //get.Effect = closeDoor;
+            //get.ActivationPercent = 100;
+            //chest.Enchantments.Add(get);
+
+            //IEnchantment put = new PutEnchantment();
+            //OpenDoor openDoor = new OpenDoor();
+            //openDoor.Chest = new BaseObjectId() { Zone = 22, Id = 4 };
+            //openDoor.Statue = new BaseObjectId() { Zone = 22, Id = 9 };
+            //openDoor.Door = new BaseObjectId() { Zone = 22, Id = 6 };
+            //put.Effect = openDoor;
+            //put.ActivationPercent = 100;
+            //chest.Enchantments.Add(put);
+
             return room;
         }
 
@@ -154,6 +172,25 @@ namespace GenerateZones.Zones.Mountain
             chest.ExamineDescription = "The carvings show a bear climbing the tree of life.";
             room.AddItemToRoom(chest);
             chest.Items.Add(Bear());
+
+            //IEnchantment get = new GetEnchantment();
+            //CloseDoor closeDoor = new CloseDoor();
+            //closeDoor.Chest = new BaseObjectId() { Zone = 22, Id = 3 };
+            //closeDoor.Statue = new BaseObjectId() { Zone = 22, Id = 8 };
+            //closeDoor.Door = new BaseObjectId() { Zone = 22, Id = 5 };
+            //get.Effect = closeDoor;
+            //get.ActivationPercent = 100;
+            //chest.Enchantments.Add(get);
+
+            //IEnchantment put = new PutEnchantment();
+            //OpenDoor openDoor = new OpenDoor();
+            //openDoor.Chest = new BaseObjectId() { Zone = 22, Id = 3 };
+            //openDoor.Statue = new BaseObjectId() { Zone = 22, Id = 8 };
+            //openDoor.Door = new BaseObjectId() { Zone = 22, Id = 5 };
+            //put.Effect = openDoor;
+            //put.ActivationPercent = 100;
+            //chest.Enchantments.Add(put);
+
             return room;
         }
 
@@ -185,6 +222,25 @@ namespace GenerateZones.Zones.Mountain
             chest.ExamineDescription = "The carvings show a large fish swallowing the world.";
             room.AddItemToRoom(chest);
             chest.Items.Add(Fish());
+
+            //IEnchantment get = new GetEnchantment();
+            //CloseDoor closeDoor = new CloseDoor();
+            //closeDoor.Chest = new BaseObjectId() { Zone = 22, Id = 4 };
+            //closeDoor.Statue = new BaseObjectId() { Zone = 22, Id = 8 };
+            //closeDoor.Door = new BaseObjectId() { Zone = 22, Id = 5 };
+            //get.Effect = closeDoor;
+            //get.ActivationPercent = 100;
+            //chest.Enchantments.Add(get);
+
+            //IEnchantment put = new PutEnchantment();
+            //OpenDoor openDoor = new OpenDoor();
+            //openDoor.Chest = new BaseObjectId() { Zone = 22, Id = 4 };
+            //openDoor.Statue = new BaseObjectId() { Zone = 22, Id = 8 };
+            //openDoor.Door = new BaseObjectId() { Zone = 22, Id = 5 };
+            //put.Effect = openDoor;
+            //put.ActivationPercent = 100;
+            //chest.Enchantments.Add(put);
+
             return room;
         }
 
