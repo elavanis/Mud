@@ -163,10 +163,10 @@ namespace Objects.Global.Engine.Engines
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} dropped {item.SentenceDescription}.");
             RunEnchantments(performer, EventType.Drop, new EventParamerters() { Performer = performer, Item = item });
         }
-        public void Get(IMobileObject performer, IItem item)
+        public void Get(IMobileObject performer, IItem item, IContainer container = null)
         {
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} got {item.SentenceDescription}.");
-            RunEnchantments(performer, EventType.Get, new EventParamerters() { Performer = performer, Item = item });
+            RunEnchantments(performer, EventType.Get, new EventParamerters() { Performer = performer, Item = item, Container = container });
         }
         public void Put(IMobileObject performer, IItem item, IContainer container)
         {
@@ -362,7 +362,7 @@ namespace Objects.Global.Engine.Engines
                     enchantment.Equip(paramerter.Performer, paramerter.Item);
                     break;
                 case EventType.Get:
-                    enchantment.Get(paramerter.Performer, paramerter.Item);
+                    enchantment.Get(paramerter.Performer, paramerter.Item, paramerter.Container);
                     break;
                 case EventType.HeartbeatBigTick:
                     enchantment.HeartbeatBigTick(paramerter.Performer);

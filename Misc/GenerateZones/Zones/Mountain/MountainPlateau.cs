@@ -73,10 +73,14 @@ namespace GenerateZones.Zones.Mountain
             IItem lion = Lion();
             chest.Items.Add(lion);
 
-            //IEnchantment get = new GetEnchantment();
-            ////get.Effect = new Replenish();
-            //get.ActivationPercent = 100;
-            //lion.Enchantments.Add(get);
+            IEnchantment get = new GetEnchantment();
+            CloseDoor closeDoor = new CloseDoor();
+            closeDoor.Chest = new BaseObjectId() { Zone = 22, Id = 1 };
+            closeDoor.Statue = new BaseObjectId() { Zone = 22, Id = 6 };
+            closeDoor.Door = new BaseObjectId() { Zone = 22, Id = 3 };
+            get.Effect = closeDoor;
+            get.ActivationPercent = 100;
+            chest.Enchantments.Add(get);
 
             IEnchantment put = new PutEnchantment();
             OpenDoor openDoor = new OpenDoor();

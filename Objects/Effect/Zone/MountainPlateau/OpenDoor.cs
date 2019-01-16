@@ -63,8 +63,11 @@ namespace Objects.Effect.Zone.MountainPlateau
                 {
                     door.Opened = true;
 
-                    string serializeSounds = GlobalReference.GlobalValues.Serialization.Serialize(new List<ISound>() { Sound });
-                    GlobalReference.GlobalValues.Notify.Room(null, null, room, new TranslationMessage(serializeSounds, TagType.Sound));
+                    if (Sound != null)
+                    {
+                        string serializeSounds = GlobalReference.GlobalValues.Serialization.Serialize(new List<ISound>() { Sound });
+                        GlobalReference.GlobalValues.Notify.Room(null, null, room, new TranslationMessage(serializeSounds, TagType.Sound));
+                    }
                 }
             }
         }

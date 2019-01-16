@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ObjectsUnitTest.Effect.Zone.MountainPlateau
 {
-    [TestMethod]
+    [TestClass]
     public class CloseDoorUnitTests
     {
         [TestMethod]

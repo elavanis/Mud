@@ -30,6 +30,7 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IEngine> engine;
         Mock<IEvent> mockEvent;
         Mock<INotify> notify;
+        Mock<IMoneyToCoins> moneyToCoins;
 
         [TestInitialize]
         public void Setup()
@@ -38,13 +39,16 @@ namespace ObjectsUnitTest.Command.PC
             engine = new Mock<IEngine>();
             mockEvent = new Mock<IEvent>();
             notify = new Mock<INotify>();
+            moneyToCoins = new Mock<IMoneyToCoins>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Get [Item Name] {Container}", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             engine.Setup(e => e.Event).Returns(mockEvent.Object);
+            moneyToCoins.Setup(e => e.FormatedAsCoins(It.IsAny<ulong>())).Returns((ulong x) => (x.ToString()));
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
 
             command = new Get();
         }
@@ -55,7 +59,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Get [Item Name] {Container}", result.ResultMessage);
         }
 
         [TestMethod]
@@ -72,12 +76,11 @@ namespace ObjectsUnitTest.Command.PC
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
-            tagWrapper.Setup(e => e.WrapInTag("What would you like to get?", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("What would you like to get?", result.ResultMessage);
         }
 
         [TestMethod]
@@ -99,7 +102,6 @@ namespace ObjectsUnitTest.Command.PC
             findObjects.Setup(e => e.FindItemsInRoom(room.Object, "item", 0)).Returns(item.Object);
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object });
             mob.Setup(e => e.Room).Returns(room.Object);
-            tagWrapper.Setup(e => e.WrapInTag("You pickup the SentenceDescription.", TagType.Info)).Returns("message");
             room.Setup(e => e.Items).Returns(roomItems);
             mob.Setup(e => e.Items).Returns(mobItems);
 
@@ -108,7 +110,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You pickup the SentenceDescription.", result.ResultMessage);
             Assert.IsTrue(mobItems.Contains(item.Object));
             room.Verify(e => e.RemoveItemFromRoom(item.Object));
         }
@@ -139,8 +141,6 @@ namespace ObjectsUnitTest.Command.PC
             findObjects.Setup(e => e.FindItemsInRoom(room.Object, "item2", 0)).Returns(item2.Object);
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object });
             mob.Setup(e => e.Room).Returns(room.Object);
-            tagWrapper.Setup(e => e.WrapInTag("You pickup the SentenceDescription.", TagType.Info)).Returns("message");
-            tagWrapper.Setup(e => e.WrapInTag("You pickup the SentenceDescription2.", TagType.Info)).Returns("message");
             room.Setup(e => e.Items).Returns(roomItems);
             mob.Setup(e => e.Items).Returns(mobItems);
 
@@ -149,8 +149,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual(null, result.ResultMessage);
-            //Assert.AreEqual(0, roomItems.Count);
+            Assert.AreEqual("", result.ResultMessage);
             Assert.IsTrue(mobItems.Contains(item.Object));
             room.Verify(e => e.RemoveItemFromRoom(item.Object));
             room.Verify(e => e.RemoveItemFromRoom(item2.Object));
@@ -175,7 +174,6 @@ namespace ObjectsUnitTest.Command.PC
             findObjects.Setup(e => e.FindItemsInRoom(room.Object, "item", 0)).Returns(item.Object);
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object });
             mob.Setup(e => e.Room).Returns(room.Object);
-            tagWrapper.Setup(e => e.WrapInTag("You were unable to get SentenceDescription.", TagType.Info)).Returns("message");
             room.Setup(e => e.Items).Returns(roomItems);
             mob.Setup(e => e.Items).Returns(mobItems);
 
@@ -184,7 +182,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You were unable to get SentenceDescription.", result.ResultMessage);
             Assert.AreEqual(0, mobItems.Count);
             Assert.IsTrue(roomItems.Contains(item.Object));
         }
@@ -194,7 +192,6 @@ namespace ObjectsUnitTest.Command.PC
         {
             Mock<IItem> item = new Mock<IItem>();
             item.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
-            item.Setup(e => e.Attributes).Returns(new List<ItemAttribute>() { ItemAttribute.NoGet });
             Mock<IRoom> room = new Mock<IRoom>();
             Mock<IParameter> parm1 = new Mock<IParameter>();
             parm1.Setup(e => e.ParameterValue).Returns("item");
@@ -206,7 +203,6 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object });
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.Room).Returns(room.Object);
-            tagWrapper.Setup(e => e.WrapInTag("You were unable to find item.", TagType.Info)).Returns("message");
 
             List<IItem> roomItems = new List<IItem>() { item.Object };
             room.Setup(e => e.Items).Returns(roomItems);
@@ -216,13 +212,13 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You were unable to find item.", result.ResultMessage);
             Assert.AreEqual(0, mobItems.Count);
             Assert.IsTrue(roomItems.Contains(item.Object));
         }
 
         [TestMethod]
-        public void Get_PerformCommand_TwoParameterGetItem()
+        public void Get_PerformCommand_TwoParameterGetItem_NoGet()
         {
             Mock<IItem> item = new Mock<IItem>();
             Mock<IMoney> money = item.As<IMoney>();
@@ -246,7 +242,6 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object, parm2.Object });
             mob.Setup(e => e.Room).Returns(room.Object);
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, false, false, true)).Returns(item2.Object);
-            tagWrapper.Setup(e => e.WrapInTag("You get the coins from the container.", TagType.Info)).Returns("message");
             container.Setup(e => e.Items).Returns(containerItems);
             moneyToCoins.Setup(e => e.FormatedAsCoins(10)).Returns("coins");
 
@@ -256,7 +251,45 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You were unable to get SentenceDescription.", result.ResultMessage);
+            Assert.AreEqual(1, containerItems.Count);
+        }
+
+        [TestMethod]
+        public void Get_PerformCommand_TwoParameterGetItem()
+        {
+            Mock<IItem> item = new Mock<IItem>();
+            Mock<IMoney> money = item.As<IMoney>();
+            Mock<IItem> item2 = new Mock<IItem>();
+            Mock<IContainer> container = item2.As<IContainer>();
+            Mock<IRoom> room = new Mock<IRoom>();
+            Mock<IParameter> parm1 = new Mock<IParameter>();
+            Mock<IParameter> parm2 = new Mock<IParameter>();
+            Mock<ICommand> mockCommand = new Mock<ICommand>();
+            Mock<IMobileObject> mob = new Mock<IMobileObject>();
+            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
+            List<IItem> containerItems = new List<IItem>() { item.Object };
+            Mock<IMoneyToCoins> moneyToCoins = new Mock<IMoneyToCoins>();
+
+            item.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
+            item.Setup(e => e.Attributes).Returns(new List<ItemAttribute>());
+            item.Setup(e => e.KeyWords).Returns(new List<string>() { "item" });
+            money.Setup(e => e.Value).Returns(10);
+            parm1.Setup(e => e.ParameterValue).Returns("item");
+            parm2.Setup(e => e.ParameterValue).Returns("container");
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object, parm2.Object });
+            mob.Setup(e => e.Room).Returns(room.Object);
+            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, false, false, true)).Returns(item2.Object);
+            container.Setup(e => e.Items).Returns(containerItems);
+            moneyToCoins.Setup(e => e.FormatedAsCoins(10)).Returns("coins");
+
+            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
+            GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("You get the coins from the container.", result.ResultMessage);
             Assert.AreEqual(0, containerItems.Count);
             mob.VerifySet(e => e.Money = 10);
         }
@@ -279,7 +312,7 @@ namespace ObjectsUnitTest.Command.PC
             List<IItem> mobItems = new List<IItem>();
 
             item.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
-            item.Setup(e => e.Attributes).Returns(new List<ItemAttribute>() { ItemAttribute.NoGet });
+            item.Setup(e => e.Attributes).Returns(new List<ItemAttribute>());
             item.Setup(e => e.KeyWords).Returns(new List<string>() { "item" });
             item3.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
             item3.Setup(e => e.Attributes).Returns(new List<ItemAttribute>());
@@ -290,7 +323,6 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object, parm2.Object });
             mob.Setup(e => e.Room).Returns(room.Object);
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, false, false, true)).Returns(item2.Object);
-            tagWrapper.Setup(e => e.WrapInTag("You get the item from the container.", TagType.Info)).Returns("message");
             container.Setup(e => e.Items).Returns(containerItems);
             mob.Setup(e => e.Items).Returns(mobItems);
 
@@ -299,7 +331,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual(null, result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
             Assert.AreEqual(0, containerItems.Count);
             mob.VerifySet(e => e.Money = 10);
         }
@@ -330,7 +362,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, false, false, true)).Returns(item2.Object);
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find item item in container container.", TagType.Info)).Returns("message");
 
             List<IItem> containerItems = new List<IItem>();
             container.Setup(e => e.Items).Returns(containerItems);
@@ -339,7 +370,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unable to find item item in container container.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -368,7 +399,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, false, false, false)).Returns<IItem>(null);
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find container container.", TagType.Info)).Returns("message");
 
             List<IItem> containerItems = new List<IItem>();
             container.Setup(e => e.Items).Returns(containerItems);
@@ -377,7 +407,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unable to find container container.", result.ResultMessage);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace ObjectsUnitTest.Magic.Enchantment
     public class PutEnchantmentUnitTest
     {
         [TestMethod]
-        public void PutEnchantment_WriteUnitTests()
+        public void WritePutEnchantmentUnitTests()
         {
             Assert.IsTrue(false);
         }

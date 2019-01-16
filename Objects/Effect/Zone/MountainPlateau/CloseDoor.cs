@@ -14,7 +14,7 @@ using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Effect.Zone.MountainPlateau
 {
-    public class CloseDoor
+    public class CloseDoor : IEffect
     {
         [ExcludeFromCodeCoverage]
         public ISound Sound { get; set; }
@@ -63,9 +63,11 @@ namespace Objects.Effect.Zone.MountainPlateau
                 {
                     door.Opened = false;
 
-
-                    string serializeSounds = GlobalReference.GlobalValues.Serialization.Serialize(new List<ISound>() { Sound });
-                    GlobalReference.GlobalValues.Notify.Room(null, null, room, new TranslationMessage(serializeSounds, TagType.Sound));
+                    if (Sound != null)
+                    {
+                        string serializeSounds = GlobalReference.GlobalValues.Serialization.Serialize(new List<ISound>() { Sound });
+                        GlobalReference.GlobalValues.Notify.Room(null, null, room, new TranslationMessage(serializeSounds, TagType.Sound));
+                    }
                 }
             }
         }

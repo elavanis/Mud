@@ -148,7 +148,7 @@ namespace Objects.Magic
         }
 
         [ExcludeFromCodeCoverage]
-        public virtual void Get(IMobileObject performer, IItem item)
+        public virtual void Get(IMobileObject performer, IItem item, IContainer container = null)
         {
             //do nothing unless overrode
         }
