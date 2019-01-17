@@ -19,6 +19,7 @@ using Shared.Sound.Interface;
 using Objects.Trap.Interface;
 using Objects.Language.Interface;
 using Objects.Language;
+using Objects.Item.Items.Interface;
 
 namespace Objects.Global.Engine.Engines
 {
@@ -162,11 +163,17 @@ namespace Objects.Global.Engine.Engines
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} dropped {item.SentenceDescription}.");
             RunEnchantments(performer, EventType.Drop, new EventParamerters() { Performer = performer, Item = item });
         }
-        public void Get(IMobileObject performer, IItem item)
+        public void Get(IMobileObject performer, IItem item, IContainer container = null)
         {
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} got {item.SentenceDescription}.");
-            RunEnchantments(performer, EventType.Get, new EventParamerters() { Performer = performer, Item = item });
+            RunEnchantments(performer, EventType.Get, new EventParamerters() { Performer = performer, Item = item, Container = container });
         }
+        public void Put(IMobileObject performer, IItem item, IContainer container)
+        {
+            GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} put {item.SentenceDescription}.");
+            RunEnchantments(performer, EventType.Put, new EventParamerters() { Performer = performer, Item = item, Container = container });
+        }
+
         public void Relax(IMobileObject performer)
         {
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUGVERBOSE, $"{performer.SentenceDescription} relaxed.");
@@ -355,7 +362,7 @@ namespace Objects.Global.Engine.Engines
                     enchantment.Equip(paramerter.Performer, paramerter.Item);
                     break;
                 case EventType.Get:
-                    enchantment.Get(paramerter.Performer, paramerter.Item);
+                    enchantment.Get(paramerter.Performer, paramerter.Item, paramerter.Container);
                     break;
                 case EventType.HeartbeatBigTick:
                     enchantment.HeartbeatBigTick(paramerter.Performer);
@@ -374,6 +381,9 @@ namespace Objects.Global.Engine.Engines
                     break;
                 case EventType.ProcessedCommunication:
                     enchantment.ProcessedCommunication(paramerter.Performer, paramerter.Communication);
+                    break;
+                case EventType.Put:
+                    enchantment.Put(paramerter.Performer, paramerter.Item, paramerter.Container);
                     break;
                 case EventType.Relax:
                     enchantment.Relax(paramerter.Performer);
@@ -426,6 +436,7 @@ namespace Objects.Global.Engine.Engines
             Perform,
             Drop,
             Get,
+            Put,
             Relax,
             Sit,
             Sleep,
@@ -448,6 +459,7 @@ namespace Objects.Global.Engine.Engines
             public IMobileObject Defender { get; internal set; }
             public int DamageAmount { get; internal set; }
             public IItem Item { get; internal set; }
+            public IContainer Container { get; internal set; }
             public string Message { get; internal set; }
             public string SkillName { get; internal set; }
             public string Command { get; internal set; }

@@ -282,11 +282,11 @@ namespace ObjectsUnitTest.Global.Engine
 
             logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence got ItemSentence."), Times.Once);
 
-            roomEnchantment.Verify(e => e.Get(pc.Object, item.Object), Times.Once);
-            trapEnchantment.Verify(e => e.Get(pc.Object, item.Object), Times.Once);
-            pcEnchantment.Verify(e => e.Get(pc.Object, item.Object), Times.Once);
-            npcEnchantment.Verify(e => e.Get(pc.Object, item.Object), Times.Once);
-            itemEnchantment.Verify(e => e.Get(pc.Object, item.Object), Times.Once);
+            roomEnchantment.Verify(e => e.Get(pc.Object, item.Object, null), Times.Once);
+            trapEnchantment.Verify(e => e.Get(pc.Object, item.Object, null), Times.Once);
+            pcEnchantment.Verify(e => e.Get(pc.Object, item.Object, null), Times.Once);
+            npcEnchantment.Verify(e => e.Get(pc.Object, item.Object, null), Times.Once);
+            itemEnchantment.Verify(e => e.Get(pc.Object, item.Object, null), Times.Once);
         }
 
         [TestMethod]

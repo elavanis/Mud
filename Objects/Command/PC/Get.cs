@@ -100,20 +100,30 @@ namespace Objects.Command.PC
                         if (foundItems.Count > parameterItem.ParameterNumber)
                         {
                             IItem item = foundItems[parameterItem.ParameterNumber];
-                            container.Items.Remove(item);
-                            AddItemToPerformer(performer, item);
-
                             string message;
-                            if (item is IMoney)
+
+                            if (!item.Attributes.Contains(ItemAttribute.NoGet))
                             {
-                                IMoney money = item as IMoney;
-                                string moneyString = GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(money.Value);
-                                message = string.Format("You get the {0} from the {1}.", moneyString, parameterContainer.ParameterValue);
+                                GlobalReference.GlobalValues.Engine.Event.Get(performer, item, container);
+                                container.Items.Remove(item);
+                                AddItemToPerformer(performer, item);
+
+                                if (item is IMoney)
+                                {
+                                    IMoney money = item as IMoney;
+                                    string moneyString = GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(money.Value);
+                                    message = string.Format("You get the {0} from the {1}.", moneyString, parameterContainer.ParameterValue);
+                                }
+                                else
+                                {
+                                    message = string.Format("You get the {0} from the {1}.", parameterItem.ParameterValue, parameterContainer.ParameterValue);
+                                }
                             }
                             else
                             {
-                                message = string.Format("You get the {0} from the {1}.", parameterItem.ParameterValue, parameterContainer.ParameterValue);
+                                message = string.Format("You were unable to get {0}.", item.SentenceDescription);
                             }
+
                             return new Result(message, false);
                         }
                         else

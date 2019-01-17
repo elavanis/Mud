@@ -43,7 +43,7 @@ namespace ObjectsUnitTest.Magic.Enchantment
 
             GlobalReference.GlobalValues.Random = random.Object;
 
-            enchantment.Get(mob.Object, item.Object);
+            enchantment.Get(mob.Object, item.Object, null);
 
             effect.Verify(e => e.ProcessEffect(parameter.Object), Times.Once);
             parameter.VerifySet(e => e.ObjectRoom = room.Object);

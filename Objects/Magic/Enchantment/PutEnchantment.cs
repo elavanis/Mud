@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Objects.Mob.Interface;
-using Objects.Global;
+﻿using Objects.Global;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
+using Objects.Mob.Interface;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Objects.Magic.Enchantment
 {
-    public class GetEnchantment : BaseEnchantment
+    public class PutEnchantment : BaseEnchantment
     {
-        public override void Get(IMobileObject performer, IItem item, IContainer container)
+        public override void Put(IMobileObject performer, IItem item, IContainer container)
         {
             if (GlobalReference.GlobalValues.Random.PercentDiceRoll(ActivationPercent))
             {
@@ -20,6 +18,7 @@ namespace Objects.Magic.Enchantment
                 Parameter.Item = item;
                 Parameter.Target = performer;
                 Parameter.Container = container;
+
                 Effect.ProcessEffect(Parameter);
             }
         }

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Objects.Effect.Interface;
 using Objects.Magic.Enchantment.DefeatbleInfo;
 using Objects.Magic.Enchantment.DefeatbleInfo.Interface;
+using Objects.Item.Items.Interface;
 
 namespace Objects.Magic
 {
@@ -147,7 +148,13 @@ namespace Objects.Magic
         }
 
         [ExcludeFromCodeCoverage]
-        public virtual void Get(IMobileObject performer, IItem item)
+        public virtual void Get(IMobileObject performer, IItem item, IContainer container = null)
+        {
+            //do nothing unless overrode
+        }
+
+        [ExcludeFromCodeCoverage]
+        public virtual void Put(IMobileObject performer, IItem item, IContainer container)
         {
             //do nothing unless overrode
         }

@@ -2,6 +2,7 @@
 using Objects.Die.Interface;
 using Objects.Interface;
 using Objects.Item.Interface;
+using Objects.Item.Items.Interface;
 using Objects.Language.Interface;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
@@ -24,6 +25,7 @@ namespace Objects.Effect.Interface
         IBaseObjectId RoomId { get; set; }
         IMobileObject Performer { get; set; }
         IBaseObject Target { get; set; }
+        IContainer Container { get; set; }
 
     }
 }
