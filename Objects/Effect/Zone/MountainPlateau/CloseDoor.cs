@@ -18,9 +18,11 @@ namespace Objects.Effect.Zone.MountainPlateau
     {
         [ExcludeFromCodeCoverage]
         public ISound Sound { get; set; }
-
+        [ExcludeFromCodeCoverage]
         public IBaseObjectId Chest { get; set; }
+        [ExcludeFromCodeCoverage]
         public IBaseObjectId Statue { get; set; }
+        [ExcludeFromCodeCoverage]
         public IBaseObjectId Door { get; set; }
 
         public void ProcessEffect(IEffectParameter parameter)
