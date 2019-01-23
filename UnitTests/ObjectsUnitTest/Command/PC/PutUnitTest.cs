@@ -60,8 +60,11 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
             itemParameter.Setup(e => e.ParameterValue).Returns("parmValue");
             containerParameter.Setup(e => e.ParameterValue).Returns("parmValue2");
+            findObjects.Setup(e => e.FindHeldItemsOnMob(performer.Object, It.IsAny<string>())).Returns(new List<IItem>());
             findObjects.Setup(e => e.FindHeldItemsOnMob(performer.Object, itemParameter.Object.ParameterValue)).Returns(new List<IItem>() { item.Object });
+            findObjects.Setup(e => e.FindItemsInRoom(room.Object, It.IsAny<string>())).Returns(new List<IItem>());
             findObjects.Setup(e => e.FindItemsInRoom(room.Object, containerParameter.Object.ParameterValue)).Returns(new List<IItem>() { itemContainer.Object });
+            findObjects.Setup(e => e.FindItemsInRoom(room.Object, itemParameter.Object.ParameterValue)).Returns(new List<IItem>() { item.Object });
             performer.Setup(e => e.Room).Returns(room.Object);
             performer.Setup(e => e.Items).Returns(performerItems);
             engine.Setup(e => e.Event).Returns(eventEngine.Object);
@@ -75,12 +78,6 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.Engine = engine.Object;
 
             command = new Put();
-        }
-
-        [TestMethod]
-        public void Write_PutTest()
-        {
-            Assert.IsTrue(false);
         }
 
         [TestMethod]
@@ -127,6 +124,44 @@ namespace ObjectsUnitTest.Command.PC
             Assert.AreEqual("You put item in container.", result.ResultMessage);
             Assert.IsFalse(performerItems.Contains(item.Object));
             Assert.IsTrue(containerItems.Contains(item.Object));
+        }
+
+        [TestMethod]
+        public void Put_PerformCommand_ItemNotFound()
+        {
+            itemParameter.Setup(e => e.ParameterValue).Returns("not found");
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { itemParameter.Object, containerParameter.Object });
+
+            IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("You do not seem to be carrying not found.", result.ResultMessage);
+            Assert.IsTrue(performerItems.Contains(item.Object));
+            Assert.IsFalse(containerItems.Contains(item.Object));
+        }
+
+        [TestMethod]
+        public void Put_PerformCommand_ContainerNotFound()
+        {
+            containerParameter.Setup(e => e.ParameterValue).Returns("not found");
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { itemParameter.Object, containerParameter.Object });
+
+            IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("You were unable to find not found.", result.ResultMessage);
+            Assert.IsTrue(performerItems.Contains(item.Object));
+            Assert.IsFalse(containerItems.Contains(item.Object));
+        }
+
+        [TestMethod]
+        public void Put_PerformCommand_NotAContainer()
+        {
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { itemParameter.Object, itemParameter.Object });
+
+            IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("You can not put things in item.", result.ResultMessage);
+            Assert.IsTrue(performerItems.Contains(item.Object));
+            Assert.IsFalse(containerItems.Contains(item.Object));
         }
     }
 }

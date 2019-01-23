@@ -35,7 +35,7 @@ namespace Objects.Command.PC
 
                 if (itemToPutIn == null)
                 {
-                    return new Result($"You were unable to find {command.Parameters[1].ParameterValue}.", false);
+                    return new Result($"You were unable to find {command.Parameters[1].ParameterValue}.", true);
                 }
 
                 IContainer container = itemToPutIn as IContainer;
