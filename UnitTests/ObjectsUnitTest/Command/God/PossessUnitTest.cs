@@ -144,6 +144,5 @@ namespace ObjectsUnitTest.Command.God
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("You were unable to find other.", result.ResultMessage);
         }
-
     }
 }

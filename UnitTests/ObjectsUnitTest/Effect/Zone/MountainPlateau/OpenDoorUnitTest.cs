@@ -53,14 +53,8 @@ namespace ObjectsUnitTest.Effect.Zone.MountainPlateau
             room.Setup(e => e.South).Returns(exit.Object);
             room.Setup(e => e.West).Returns(exit.Object);
             exit.Setup(e => e.Door).Returns(door.Object);
-
         }
 
-        [TestMethod]
-        public void WriteOpenDoorUnitTests()
-        {
-            Assert.IsTrue(false);
-        }
 
         [TestMethod]
         public void OpenDoor_ProcessEffect_NoContainer()
