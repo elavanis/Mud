@@ -14,6 +14,7 @@ using Objects.Global.Map.Interface;
 using Objects.Global.MoneyToCoins.Interface;
 using Objects.Global.MultiClassBonus.Interface;
 using Objects.Global.Notify.Interface;
+using Objects.Global.PerformanceCounters;
 using Objects.Global.PerformanceCounters.Interface;
 using Objects.Global.Random.Interface;
 using Objects.Global.Serialization.Interface;
@@ -43,6 +44,10 @@ namespace Objects.Global
 
         [ExcludeFromCodeCoverage]
         public ulong TickCounter { get; set; } = 0;
+
+        [ExcludeFromCodeCoverage]
+        public List<ICounters> CountersLog { get; set; }
+
 
         #region Classes
         [ExcludeFromCodeCoverage]
@@ -149,7 +154,8 @@ namespace Objects.Global
 
             CanMobDoSomething = new CanMobDoSomething.CanMobDoSomething();
             CommandList = new Commands.CommandList();
-            //Counters = new PerformanceCounters.Counters();
+            Counters = new Counters();
+            CountersLog = new List<ICounters>();
             DefaultValues = new DefaultValues.DefaultValues();
             Experience = new Exp.Experience();
             Engine = new Engine.Engine();

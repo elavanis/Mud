@@ -22,5 +22,7 @@ namespace Objects.Global.Settings.Interface
         int OddsOfGeneratingRandomDrop { get; set; }
         int OddsOfDropBeingPlusOne { get; set; }
         List<IPAddress> BannedIps { get; set; }
+        bool LogStats { get; set; }
+        string LogStatsLocation { get; set; }
     }
 }

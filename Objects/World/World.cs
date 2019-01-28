@@ -37,6 +37,7 @@ using static Objects.Global.Direction.Directions;
 using Objects.Command.PC;
 using Objects.Command.PC.Interface;
 using Objects.GameDateTime;
+using Objects.Global.PerformanceCounters;
 
 namespace Objects.World
 {
@@ -47,6 +48,7 @@ namespace Objects.World
         private object _tickPadlock;
         private ConcurrentQueue<IMobileObject> _followMobQueue = new ConcurrentQueue<IMobileObject>();
         private DateTime _lastSave = DateTime.UtcNow;
+        private int _lastLogMinute = -1;
 
         public World()
         {
@@ -681,15 +683,57 @@ namespace Objects.World
 
         private void UpdatePerformanceCounters()
         {
-            if (GlobalReference.GlobalValues.Counters != null)
+            if (GlobalReference.GlobalValues.Settings.LogStats)
             {
+                Counters localCounter = new Counters();
+
                 //we are fine hitting the raw values instead of the property because we are not threading yet
-                GlobalReference.GlobalValues.Counters.ConnnectedPlayers = characters.Count;
-                GlobalReference.GlobalValues.Counters.CPU = (int)Math.Round(GlobalReference.GlobalValues.TickTimes.MedianTime);
-                GlobalReference.GlobalValues.Counters.MaxTickTimeInMs = (int)Math.Round(GlobalReference.GlobalValues.TickTimes.MaxTime);
+                localCounter.ConnnectedPlayers = characters.Count;
+                localCounter.CPU = (int)Math.Round(GlobalReference.GlobalValues.TickTimes.MedianTime);
+                localCounter.MaxTickTimeInMs = (int)Math.Round(GlobalReference.GlobalValues.TickTimes.MaxTime);
 
                 float memoryConsumption = Process.GetCurrentProcess().WorkingSet64 / (1024f * 1024f);
-                GlobalReference.GlobalValues.Counters.Memory = (int)Math.Round(memoryConsumption, 0);
+                localCounter.Memory = (int)Math.Round(memoryConsumption, 0);
+
+                GlobalReference.GlobalValues.Counters = localCounter;
+                GlobalReference.GlobalValues.CountersLog.Add(localCounter);
+
+                //fail safe to not to run out of memory
+                while (GlobalReference.GlobalValues.CountersLog.Count > 1000) //5 min at 2x second is 600 so plenty of space
+                {
+                    GlobalReference.GlobalValues.CountersLog.RemoveAt(0);
+                }
+
+                DateTime currentTime = DateTime.UtcNow;
+                if (_lastLogMinute != currentTime.Minute
+                    && currentTime.Minute % 5 == 0) //only write logs every 5 minutes
+                {
+                    WriteLogStats(currentTime);
+                    _lastLogMinute = currentTime.Minute;
+                    GlobalReference.GlobalValues.CountersLog.Clear();
+                }
+            }
+        }
+
+        private void WriteLogStats(DateTime dateTime)
+        {
+            try
+            {
+                StringBuilder strBldr = new StringBuilder();
+                foreach (Counters counters in GlobalReference.GlobalValues.CountersLog)
+                {
+                    strBldr.AppendLine(GlobalReference.GlobalValues.Serialization.Serialize(counters));
+                }
+
+                GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd")));
+
+                string fileLocation = Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd"), dateTime.ToString("HHmm"));
+
+                GlobalReference.GlobalValues.FileIO.WriteFile(fileLocation, strBldr.ToString());
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 

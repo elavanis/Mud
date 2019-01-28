@@ -24,6 +24,7 @@ using Objects.Global.Map.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Global.ValidateAsset.Interface;
 using Objects.Global.StringManuplation.Interface;
+using System.Collections.Generic;
 
 namespace Objects.Global.Interface
 {
@@ -32,6 +33,7 @@ namespace Objects.Global.Interface
         ICanMobDoSomething CanMobDoSomething { get; set; }
         ICommandList CommandList { get; set; }
         ICounters Counters { get; set; }
+        List<ICounters> CountersLog { get; set; }
         IDefaultValues DefaultValues { get; set; }
         IEngine Engine { get; set; }
         IExperience Experience { get; set; }

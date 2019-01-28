@@ -12,6 +12,8 @@ namespace Server
         public string AssetsDirectory { get; set; }
         public string VaultDirectory { get; set; }
         public string BugDirectory { get; set; }
+        public bool LogStats { get; set; }
+        public string LogStatsLocation { get; set; }
         public int Port { get; set; }
         public bool SendMapPosition { get; set; }
         public string BannedIps { get; set; }

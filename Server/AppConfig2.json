@@ -1,0 +1,15 @@
+{
+  "$type": "Server.ConfigSettings, Server",
+  "PlayerCharacterDirectory": null,
+  "ZoneDirectory": null,
+  "LogDirectory": null,
+  "AssetsDirectory": null,
+  "VaultDirectory": null,
+  "BugDirectory": null,
+  "LogStats": false,
+  "LogStatsLocation": null,
+  "Port": 0,
+  "SendMapPosition": false,
+  "BannedIps": null,
+  "AsciiArt": null
+}

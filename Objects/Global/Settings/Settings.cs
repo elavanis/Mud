@@ -58,5 +58,11 @@ namespace Objects.Global.Settings
 
         [ExcludeFromCodeCoverage]
         public List<IPAddress> BannedIps { get; set; } = new List<IPAddress>();
+
+        [ExcludeFromCodeCoverage]
+        public bool LogStats { get; set; }
+
+        [ExcludeFromCodeCoverage]
+        public string LogStatsLocation { get; set; } = "..\\Stats";
     }
 }

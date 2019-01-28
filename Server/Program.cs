@@ -35,7 +35,7 @@ namespace Server
         private static void LoadServerSettings()
         {
             //ConfigSettings c = new ConfigSettings();
-            //using (TextWriter tw = new StreamWriter(@"C:\c#\Mud\Core\Server\AppConfig.json"))
+            //using (TextWriter tw = new StreamWriter(@"C:\Git\Mud\Server\AppConfig2.json"))
             //{
             //    tw.Write(GlobalReference.GlobalValues.Serialization.Serialize(c));
             //}
@@ -49,6 +49,8 @@ namespace Server
             GlobalReference.GlobalValues.Settings.BugDirectory = config.BugDirectory;
             GlobalReference.GlobalValues.Settings.Port = config.Port;
             GlobalReference.GlobalValues.Settings.SendMapPosition = config.SendMapPosition;
+            GlobalReference.GlobalValues.Settings.LogStats = config.LogStats;
+            GlobalReference.GlobalValues.Settings.LogStatsLocation = config.LogStatsLocation;
 
             string[] ips = config.BannedIps.Split(',');
             foreach (string ip in ips)
