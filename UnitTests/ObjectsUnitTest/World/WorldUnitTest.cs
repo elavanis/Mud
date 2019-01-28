@@ -65,6 +65,9 @@ namespace ObjectsUnitTest.World
         Mock<ITagWrapper> tagWrapper;
         Dictionary<int, IRoom> dictionaryRoom;
         Mock<IGameDateTime> gameDateTime;
+        Mock<ISettings> settings;
+        Mock<ISerialization> serialization;
+        Mock<IFileIO> fileIO;
 
         [TestInitialize]
         public void Setup()
@@ -81,6 +84,9 @@ namespace ObjectsUnitTest.World
             notify = new Mock<INotify>();
             tagWrapper = new Mock<ITagWrapper>();
             gameDateTime = new Mock<IGameDateTime>();
+            settings = new Mock<ISettings>();
+            serialization = new Mock<ISerialization>();
+            fileIO = new Mock<IFileIO>();
 
             Mock<ILogger> logger = new Mock<ILogger>();
             Mock<ICounters> counters = new Mock<ICounters>();
@@ -105,6 +111,9 @@ namespace ObjectsUnitTest.World
             pc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             tickTimes.Setup(e => e.MedianTime).Returns(1m);
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
+            settings.Setup(e => e.LogStats).Returns(true);
+            settings.Setup(e => e.LogStatsLocation).Returns("c:\\");
+            serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
 
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Random = random.Object;
@@ -114,6 +123,10 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.TickTimes = tickTimes.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.Settings = settings.Object;
+            GlobalReference.GlobalValues.CountersLog = new List<ICounters>();
+            GlobalReference.GlobalValues.Serialization = serialization.Object;
+            GlobalReference.GlobalValues.FileIO = fileIO.Object;
 
             world = new Objects.World.World();
             world.Zones.Add(0, zone.Object);
@@ -298,18 +311,16 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void WorldPerformTick_UpdatePerformanceCounters()
         {
-            Mock<ICounters> counter = new Mock<ICounters>();
             Mock<ITickTimes> tickTimes = new Mock<ITickTimes>();
 
-            GlobalReference.GlobalValues.Counters = counter.Object;
             GlobalReference.GlobalValues.TickTimes = tickTimes.Object;
 
             world.PerformTick();
 
-            counter.VerifySet(e => e.ConnnectedPlayers = 0);
-            counter.VerifySet(e => e.CPU = 0);
-            counter.VerifySet(e => e.MaxTickTimeInMs = 0);
-            counter.VerifySet(e => e.Memory = It.IsAny<int>());
+            Assert.AreEqual(0, GlobalReference.GlobalValues.Counters.ConnnectedPlayers);
+            Assert.AreEqual(0, GlobalReference.GlobalValues.Counters.CPU);
+            Assert.AreEqual(0, GlobalReference.GlobalValues.Counters.MaxTickTimeInMs);
+            Assert.AreNotEqual(0, GlobalReference.GlobalValues.Counters.Memory);
         }
         #endregion UpdatePerformanceCounters
 
