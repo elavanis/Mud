@@ -37,9 +37,7 @@ namespace ObjectsUnitTest.Command.PC
             settings = new Mock<ISettings>();
             time = new Mock<ITime>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Bug [Bug Description]", TagType.Info)).Returns("message");
-            tagWrapper.Setup(e => e.WrapInTag("Please describe the bug.", TagType.Info)).Returns("bug");
-            tagWrapper.Setup(e => e.WrapInTag("New bug filed.", TagType.Info)).Returns("success");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             mob.Setup(e => e.KeyWords).Returns(new List<string>() { "mob" });
             settings.Setup(e => e.BugDirectory).Returns("bugDirectory");
             time.Setup(e => e.CurrentDateTime).Returns(new DateTime(2000, 1, 1));
@@ -58,7 +56,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Bug [Bug Description]", result.ResultMessage);
         }
 
         [TestMethod]
@@ -77,7 +75,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("bug", result.ResultMessage);
+            Assert.AreEqual("Please describe the bug.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -91,7 +89,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("success", result.ResultMessage);
+            Assert.AreEqual("New bug filed.", result.ResultMessage);
             fileIO.Verify(e => e.EnsureDirectoryExists("bugDirectory"), Times.Once);
             fileIO.Verify(e => e.WriteFile("bugDirectory\\mob - 20000101120000.bug", "stuff"), Times.Once);
         }

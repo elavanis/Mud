@@ -23,7 +23,7 @@ namespace ObjectsUnitTest.Command.God
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("GameStats", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             command = new GameStats();
@@ -35,7 +35,7 @@ namespace ObjectsUnitTest.Command.God
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("GameStats", result.ResultMessage);
         }
 
         [TestMethod]
@@ -49,9 +49,6 @@ namespace ObjectsUnitTest.Command.God
         [TestMethod]
         public void GameStats_PerformCommand()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-            tagWrapper.Setup(e => e.WrapInTag("Calculating Stats", TagType.Info)).Returns("Calculating Stats");
             Mock<IWorld> world = new Mock<IWorld>();
             GlobalReference.GlobalValues.World = world.Object;
             Mock<IMobileObject> mob = new Mock<IMobileObject>();

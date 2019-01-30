@@ -37,7 +37,6 @@ namespace ObjectsUnitTest.Command.God
         {
             tagWrapper = new Mock<ITagWrapper>();
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
-            tagWrapper.Setup(e => e.WrapInTag("ItemStats [Item Keyword]", TagType.Info)).Returns("message");
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             command = new ItemStats();
@@ -57,7 +56,7 @@ namespace ObjectsUnitTest.Command.God
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("ItemStats [Item Keyword]", result.ResultMessage);
         }
 
         [TestMethod]

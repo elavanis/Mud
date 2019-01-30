@@ -38,10 +38,7 @@ namespace ObjectsUnitTest.Command.God
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Goto [ZoneId] [RoomId] \r\nGoto [PlayerName]", TagType.Info)).Returns("message");
-            tagWrapper.Setup(e => e.WrapInTag("God Enters", TagType.Info)).Returns("enter message");
-            tagWrapper.Setup(e => e.WrapInTag("God Leaves", TagType.Info)).Returns("leave message");
-            tagWrapper.Setup(e => e.WrapInTag("look result", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             pc = new Mock<IPlayerCharacter>();
@@ -93,7 +90,7 @@ namespace ObjectsUnitTest.Command.God
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Goto [ZoneId] [RoomId] \r\nGoto [PlayerName]", result.ResultMessage);
         }
 
         [TestMethod]
@@ -110,12 +107,11 @@ namespace ObjectsUnitTest.Command.God
             Mock<ICommand> mockCommand = new Mock<ICommand>();
 
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
-            tagWrapper.Setup(e => e.WrapInTag("Where would you like to goto?", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Where would you like to goto?", result.ResultMessage);
         }
 
         [TestMethod]
@@ -128,12 +124,11 @@ namespace ObjectsUnitTest.Command.God
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parmeter1.Object, parmeter2.Object });
             parmeter1.Setup(e => e.ParameterValue).Returns("a");
             parmeter2.Setup(e => e.ParameterValue).Returns("a");
-            tagWrapper.Setup(e => e.WrapInTag("Goto [ZoneId] [RoomId]", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Goto [ZoneId] [RoomId]", result.ResultMessage);
         }
 
         [TestMethod]
@@ -146,12 +141,11 @@ namespace ObjectsUnitTest.Command.God
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parmeter1.Object, parmeter2.Object });
             parmeter1.Setup(e => e.ParameterValue).Returns("10");
             parmeter2.Setup(e => e.ParameterValue).Returns("20");
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find zone 10 room 20.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unable to find zone 10 room 20.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -168,7 +162,7 @@ namespace ObjectsUnitTest.Command.God
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("look result", result.ResultMessage);
             notify.Verify(e => e.Room(pc.Object, null, pc.Object.Room, It.IsAny<ITranslationMessage>(), null, true, false), Times.Exactly(2));
         }
     }

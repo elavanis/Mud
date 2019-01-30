@@ -13,6 +13,8 @@ using Objects.Item.Interface;
 using Objects.Item;
 using Objects.Room.Interface;
 using Objects.Global.FindObjects.Interface;
+using Objects.Global.Engine.Engines.Interface;
+using Objects.Global.Engine.Interface;
 
 namespace ObjectsUnitTest.Command.PC
 {
@@ -21,13 +23,21 @@ namespace ObjectsUnitTest.Command.PC
     {
         IMobileObjectCommand command;
         Mock<ITagWrapper> tagWrapper;
+        Mock<IEngine> engine;
+        Mock<IEvent> evnt;
 
         [TestInitialize]
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Drop [Item Name]", TagType.Info)).Returns("message");
+            evnt = new Mock<IEvent>();
+            engine = new Mock<IEngine>();
+
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            engine.Setup(e => e.Event).Returns(evnt.Object);
+
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.Engine = engine.Object;
             command = new Drop();
         }
 
@@ -37,7 +47,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Drop [Item Name]", result.ResultMessage);
         }
 
         [TestMethod]
@@ -51,10 +61,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Drop_PerformCommand_NoParameter()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("What would you like to drop?", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             Mock<IMobileObject> mock = new Mock<IMobileObject>();
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
@@ -63,16 +69,12 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mock.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("What would you like to drop?", result.ResultMessage);
         }
 
         [TestMethod]
         public void Drop_PerformCommand_ItemNotFound()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You were unable to find parm.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
@@ -88,16 +90,12 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You were unable to find parm.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Drop_PerformCommand_ItemFound()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You dropped SentenceDescription.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             List<IItem> items = new List<IItem>();
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.Items).Returns(items);
@@ -121,7 +119,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You dropped SentenceDescription.", result.ResultMessage);
         }
     }
 }

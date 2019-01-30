@@ -72,18 +72,7 @@ namespace ObjectsUnitTest.Command.PC
             parameters = new List<IParameter>();
             dictionaryCommandList = new Dictionary<string, IMobileObjectCommand>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Flee {Direction}", TagType.Info)).Returns("message");
-            tagWrapper.Setup(e => e.WrapInTag("You run around waving your arms and shouting \"Somebody save me.\" but then realize nothing is fighting you.", TagType.Info)).Returns("wave");
-            tagWrapper.Setup(e => e.WrapInTag("looked at new room", TagType.Info)).Returns("looked at new room");
-            tagWrapper.Setup(e => e.WrapInTag("You flee North.", TagType.Info)).Returns("You flee North.");
-            tagWrapper.Setup(e => e.WrapInTag("You flee East.", TagType.Info)).Returns("You flee East.");
-            tagWrapper.Setup(e => e.WrapInTag("You flee South.", TagType.Info)).Returns("You flee South.");
-            tagWrapper.Setup(e => e.WrapInTag("You flee West.", TagType.Info)).Returns("You flee West.");
-            tagWrapper.Setup(e => e.WrapInTag("You flee Up.", TagType.Info)).Returns("You flee Up.");
-            tagWrapper.Setup(e => e.WrapInTag("You flee Down.", TagType.Info)).Returns("You flee Down.");
-            tagWrapper.Setup(e => e.WrapInTag("You tried to flee Up but were unable to instead fled Down.", TagType.Info)).Returns("You tried to flee Up but were unable to instead fled Down.");
-            tagWrapper.Setup(e => e.WrapInTag("You attempt to run away but are not able to.", TagType.Info)).Returns("can't run away");
-
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             performer.Setup(e => e.IsInCombat).Returns(true);
             performer.Setup(e => e.Opponent).Returns(attacker.Object);
             performer.Setup(e => e.DexterityEffective).Returns(100);
@@ -129,7 +118,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Flee {Direction}", result.ResultMessage);
         }
 
         [TestMethod]
@@ -148,7 +137,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("wave", result.ResultMessage);
+            Assert.AreEqual("You run around waving your arms and shouting \"Somebody save me.\" but then realize nothing is fighting you.", result.ResultMessage);
         }
 
         #region Flee Each Direction
@@ -334,7 +323,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("can't run away", result.ResultMessage);
+            Assert.AreEqual("You attempt to run away but are not able to.", result.ResultMessage);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("(C)ast [Spell Name] {Parameter(s)}", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             command = new Cast();
         }
@@ -36,7 +36,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("(C)ast [Spell Name] {Parameter(s)}", result.ResultMessage);
         }
 
         [TestMethod]
@@ -55,13 +55,9 @@ namespace ObjectsUnitTest.Command.PC
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("What spell would you like to cast?", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("What spell would you like to cast?", result.ResultMessage);
         }
 
         [TestMethod]
@@ -75,13 +71,9 @@ namespace ObjectsUnitTest.Command.PC
             parameter.Setup(e => e.ParameterValue).Returns("spell");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You do not know that spell.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You do not know that spell.", result.ResultMessage);
         }
 
         [TestMethod]

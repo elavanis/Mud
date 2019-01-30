@@ -23,7 +23,7 @@ namespace ObjectsUnitTest.Command.God
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("RetrieveGameStats", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             command = new RetrieveGameStats();
@@ -35,7 +35,7 @@ namespace ObjectsUnitTest.Command.God
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("RetrieveGameStats", result.ResultMessage);
         }
 
         [TestMethod]
@@ -49,9 +49,6 @@ namespace ObjectsUnitTest.Command.God
         [TestMethod]
         public void RetrieveGameStats_PerformCommand_Stats()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("GameStats", TagType.Info)).Returns("GameStats");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             ConcurrentDictionary<string, string> dict = new ConcurrentDictionary<string, string>();
             dict.TryAdd("GameStats", "GameStats");
             Mock<IWorld> world = new Mock<IWorld>();
@@ -67,9 +64,6 @@ namespace ObjectsUnitTest.Command.God
         [TestMethod]
         public void RetrieveGameStats_PerformCommand_NoStats()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Unable to retrieve game stats.", TagType.Info)).Returns("Unable to retrieve game stats.");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             ConcurrentDictionary<string, string> dict = new ConcurrentDictionary<string, string>();
             Mock<IWorld> world = new Mock<IWorld>();
             world.Setup(e => e.WorldResults).Returns(dict);

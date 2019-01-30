@@ -35,7 +35,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Disarm [Trap]", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             command = new Disarm();
 
@@ -58,7 +58,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Disarm [Trap]", result.ResultMessage);
         }
 
         [TestMethod]
@@ -72,26 +72,18 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Disarm_PerformCommand_NoParameter()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("What would you like to disarm?", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("What would you like to disarm?", result.ResultMessage);
         }
 
         [TestMethod]
         public void Disarm_PerformCommand_NoTrap()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find a big trap.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
 
@@ -100,16 +92,12 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unable to find a big trap.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Disarm_PerformCommand_TrapSuccessfulDisarm()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You successfully disarm the arrow trap.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
 
@@ -118,16 +106,12 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You successfully disarm the arrow trap.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Disarm_PerformCommand_TrapFailDisarm()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You were unable to disarm the arrow trap.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
 
@@ -137,16 +121,12 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You were unable to disarm the arrow trap.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Disarm_PerformCommand_TrapFailDisarmCustomMessage()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("failure message", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IDamage> damage = new Mock<IDamage>();
@@ -164,17 +144,13 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("failure message", result.ResultMessage);
             performer.Verify(e => e.TakeDamage(0, damage.Object, null));
         }
 
         [TestMethod]
         public void Disarm_PerformCommand_TrapFailDisarmDefaultMessage()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You tried to disarm the trap but accidentally tripped it.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IDamage> damage = new Mock<IDamage>();
@@ -190,18 +166,13 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You tried to disarm the trap but accidentally tripped it.", result.ResultMessage);
             performer.Verify(e => e.TakeDamage(0, damage.Object, null));
         }
-
 
         [TestMethod]
         public void Disarm_PerformCommand_CodeCompletion()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You successfully disarm the arrow trap.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
 

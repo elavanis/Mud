@@ -27,7 +27,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Equip [Item Name]", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             command = new Equip();
         }
@@ -38,7 +38,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Equip [Item Name]", result.ResultMessage);
         }
 
         [TestMethod]
@@ -61,22 +61,14 @@ namespace ObjectsUnitTest.Command.PC
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Wield <Nothing>\r\nHead <Nothing>\r\nNeck <Nothing>\r\nArms <Nothing>\r\nHand <Nothing>\r\nFinger ShortDescription\r\nBody <Nothing>\r\nWaist <Nothing>\r\nLegs <Nothing>\r\nFeet <Nothing>\r\nHeld <Nothing>", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Wield <Nothing>\r\nHead <Nothing>\r\nNeck <Nothing>\r\nArms <Nothing>\r\nHand <Nothing>\r\nFinger ShortDescription\r\nBody <Nothing>\r\nWaist <Nothing>\r\nLegs <Nothing>\r\nFeet <Nothing>\r\nHeld <Nothing>", result.ResultMessage);
         }
 
         [TestMethod]
         public void Equip_PerformCommand_ItemNotFound()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You were unable to find parm.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             List<IItem> items = new List<IItem>();
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.Items).Returns(items);
@@ -97,16 +89,12 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You were unable to find parm.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Equip_PerformCommand_ItemNotEquipment()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You can not equip the SentenceDescription.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             List<IItem> items = new List<IItem>();
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.Items).Returns(items);
@@ -130,16 +118,12 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You can not equip the SentenceDescription.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Equip_PerformCommand_ItemNotWorn()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You can not equip the SentenceDescription.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             List<IItem> items = new List<IItem>();
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.Items).Returns(items);
@@ -164,16 +148,12 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You can not equip the SentenceDescription.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Equip_PerformCommand_AnotherItemAlreadyEquiped()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You already have AlreadyEquipedItemSentenceDescription in the Head position.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             List<IItem> items = new List<IItem>();
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.Items).Returns(items);
@@ -200,20 +180,14 @@ namespace ObjectsUnitTest.Command.PC
             findObjects.Setup(e => e.FindHeldItemsOnMob(mob.Object, "parm", 0)).Returns(item.Object);
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
-
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You already have AlreadyEquipedItemSentenceDescription in the Head position.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Equip_PerformCommand_ItemEquiped()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You equipped the SentenceDescription.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             List<IItem> items = new List<IItem>();
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.Items).Returns(items);
@@ -236,11 +210,9 @@ namespace ObjectsUnitTest.Command.PC
             findObjects.Setup(e => e.FindHeldItemsOnMob(mob.Object, "parm", 0)).Returns(item.Object);
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
-
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You equipped the SentenceDescription.", result.ResultMessage);
             Assert.AreEqual(0, items.Count);
             mob.Verify(e => e.AddEquipment(item.Object), Times.Once);
         }

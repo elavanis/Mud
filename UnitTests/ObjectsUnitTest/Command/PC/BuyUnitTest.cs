@@ -26,7 +26,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Buy {Item Number}", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             command = new Buy();
         }
@@ -37,7 +37,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Buy {Item Number}", result.ResultMessage);
         }
 
         [TestMethod]
@@ -115,10 +115,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Buy_PerformCommand_NoMerchant()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("There is no merchant here to sell to you.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             Mock<IRoom> room = new Mock<IRoom>();
             Mock<INonPlayerCharacter> npc = new Mock<INonPlayerCharacter>();
@@ -133,7 +129,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob.Object, mockedCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("There is no merchant here to sell to you.", result.ResultMessage);
         }
     }
 }

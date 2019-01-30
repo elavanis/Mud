@@ -33,7 +33,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Enchant [Item Name]", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             command = new Enchant();
         }
@@ -44,7 +44,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Enchant [Item Name]", result.ResultMessage);
         }
 
         [TestMethod]
@@ -60,44 +60,36 @@ namespace ObjectsUnitTest.Command.PC
         {
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             Mock<ICommand> mockCommand = new Mock<ICommand>();
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
 
-            tagWrapper.Setup(e => e.WrapInTag("What would you like to enchant?", TagType.Info)).Returns("message");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
-
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("What would you like to enchant?", result.ResultMessage);
         }
 
         [TestMethod]
         public void Enchant_PerformCommand_NoEnchantery()
         {
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
 
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            tagWrapper.Setup(e => e.WrapInTag("There is nothing to enchant with here.", TagType.Info)).Returns("message");
 
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("There is nothing to enchant with here.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Enchant_PerformCommand_NoItem()
         {
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
@@ -105,22 +97,19 @@ namespace ObjectsUnitTest.Command.PC
 
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find the item.", TagType.Info)).Returns("message");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "Enchantery", 0, true, true, true, true, true)).Returns((IBaseObject)enchantery.Object);
 
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unable to find the item.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Enchant_PerformCommand_NotEnoughGold()
         {
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
@@ -131,7 +120,6 @@ namespace ObjectsUnitTest.Command.PC
 
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            tagWrapper.Setup(e => e.WrapInTag("You need correct money to bind the enchantment.", TagType.Info)).Returns("message");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "Enchantery", 0, true, true, true, true, true)).Returns((IBaseObject)enchantery.Object);
             findObjects.Setup(e => e.FindHeldItemsOnMob(mob.Object, "item", 0)).Returns(item.Object);
             item.Setup(e => e.Level).Returns(10);
@@ -139,14 +127,13 @@ namespace ObjectsUnitTest.Command.PC
             settings.Setup(e => e.Multiplier).Returns(2);
             moneyToCoins.Setup(e => e.FormatedAsCoins(10240)).Returns("correct money");
 
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You need correct money to bind the enchantment.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -167,7 +154,6 @@ namespace ObjectsUnitTest.Command.PC
             mob.Setup(e => e.Items).Returns(itemsHeldByMob);
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            tagWrapper.Setup(e => e.WrapInTag("failure", TagType.Info)).Returns("message");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "Enchantery", 0, true, true, true, true, true)).Returns((IBaseObject)enchantery.Object);
             findObjects.Setup(e => e.FindHeldItemsOnMob(mob.Object, "item", 0)).Returns(item.Object);
             item.Setup(e => e.Level).Returns(10);
@@ -184,7 +170,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual(null, result.ResultMessage); //not sure why its doing this
+            Assert.AreEqual("failure", result.ResultMessage);
             Assert.IsFalse(itemsHeldByMob.Contains(item.Object));
             mob.VerifySet(e => e.Money = 0);
         }
@@ -193,7 +179,6 @@ namespace ObjectsUnitTest.Command.PC
         public void Enchant_PerformCommand_EnchantmentSucceed()
         {
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
@@ -207,7 +192,6 @@ namespace ObjectsUnitTest.Command.PC
             mob.Setup(e => e.Items).Returns(itemsHeldByMob);
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            tagWrapper.Setup(e => e.WrapInTag("success", TagType.Info)).Returns("message");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "Enchantery", 0, true, true, true, true, true)).Returns((IBaseObject)enchantery.Object);
             findObjects.Setup(e => e.FindHeldItemsOnMob(mob.Object, "item", 0)).Returns(item.Object);
             item.Setup(e => e.Level).Returns(10);
@@ -217,14 +201,13 @@ namespace ObjectsUnitTest.Command.PC
             moneyToCoins.Setup(e => e.FormatedAsCoins(10240)).Returns("correct money");
             itemsHeldByMob.Add(item.Object);
 
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual(null, result.ResultMessage); //not sure why its doing this
+            Assert.AreEqual("success", result.ResultMessage);
             Assert.IsTrue(itemsHeldByMob.Contains(item.Object));
             mob.VerifySet(e => e.Money = 0);
         }

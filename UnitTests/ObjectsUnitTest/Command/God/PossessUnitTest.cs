@@ -41,12 +41,7 @@ namespace ObjectsUnitTest.Command.God
             pc = new Mock<IPlayerCharacter>();
             parmeter = new Mock<IParameter>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Possess {Mob Keyword}", TagType.Info)).Returns("possess");
-            tagWrapper.Setup(e => e.WrapInTag("You were not possessing anyone.", TagType.Info)).Returns("You were not possessing anyone.");
-            tagWrapper.Setup(e => e.WrapInTag("You release control of mob.", TagType.Info)).Returns("You release control of mob.");
-            tagWrapper.Setup(e => e.WrapInTag("You possessed pc.", TagType.Info)).Returns("You possessed pc.");
-            tagWrapper.Setup(e => e.WrapInTag("You possessed npc.", TagType.Info)).Returns("You possessed npc.");
-            tagWrapper.Setup(e => e.WrapInTag("You were unable to find other.", TagType.Info)).Returns("You were unable to find other.");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             mob.Setup(e => e.SentenceDescription).Returns("mob");
             find.Setup(e => e.FindNpcInRoom(room.Object, "npc")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             find.Setup(e => e.FindNpcInRoom(room.Object, "pc")).Returns(new List<INonPlayerCharacter>());
@@ -68,7 +63,7 @@ namespace ObjectsUnitTest.Command.God
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("possess", result.ResultMessage);
+            Assert.AreEqual("Possess {Mob Keyword}", result.ResultMessage);
         }
 
         [TestMethod]

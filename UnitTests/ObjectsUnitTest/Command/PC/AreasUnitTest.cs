@@ -32,8 +32,7 @@ namespace ObjectsUnitTest.Command.PC
             zone = new Mock<IZone>();
             pc = new Mock<IPlayerCharacter>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Areas", TagType.Info)).Returns("message");
-            tagWrapper.Setup(e => e.WrapInTag("Zone -- Level: 5\r\n", TagType.Info)).Returns("Zone -- Level: 5");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             zone.Setup(e => e.Name).Returns("Zone");
             zone.Setup(e => e.Level).Returns(5);
             Dictionary<int, IZone> zones = new Dictionary<int, IZone>();
@@ -53,7 +52,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Areas", result.ResultMessage);
         }
 
         [TestMethod]
@@ -70,7 +69,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(pc.Object, null);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("Zone -- Level: 5", result.ResultMessage);
+            Assert.AreEqual("Zone -- Level: 5\r\n", result.ResultMessage);
 
         }
 

@@ -25,7 +25,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Abils|Abilities", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             command = new Abilities();
@@ -50,7 +50,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Abils|Abilities", result.ResultMessage);
         }
 
         [TestMethod]
@@ -65,13 +65,9 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Abilities_PerformCommand_Abilities()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Spells\r\nspell\r\n\r\nSkills\r\nskill  - Active\r\nskill2 - Passive", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = command.PerformCommand(mob.Object, null);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Spells\r\nspell\r\n\r\nSkills\r\nskill  - Active\r\nskill2 - Passive", result.ResultMessage);
         }
 
         [TestMethod]
@@ -80,13 +76,9 @@ namespace ObjectsUnitTest.Command.PC
             mob.Setup(e => e.SpellBook).Returns(new Dictionary<string, ISpell>());
             mob.Setup(e => e.KnownSkills).Returns(new Dictionary<string, ISkill>());
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Spells\r\n<None>\r\n\r\nSkills\r\n<None>", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = command.PerformCommand(mob.Object, null);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Spells\r\n<None>\r\n\r\nSkills\r\n<None>", result.ResultMessage);
         }
     }
 }
