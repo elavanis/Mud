@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageParser", "MessagePar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "ModularClient\Gui\Client.csproj", "{1FB5A7E1-4F0D-4198-A287-5150B9B9ED38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatsAnalyzer", "StatsAnalyzer\StatsAnalyzer.csproj", "{6F80A295-AFD5-415D-9DCA-BAC79DB9370B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{1FB5A7E1-4F0D-4198-A287-5150B9B9ED38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FB5A7E1-4F0D-4198-A287-5150B9B9ED38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FB5A7E1-4F0D-4198-A287-5150B9B9ED38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F80A295-AFD5-415D-9DCA-BAC79DB9370B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F80A295-AFD5-415D-9DCA-BAC79DB9370B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F80A295-AFD5-415D-9DCA-BAC79DB9370B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F80A295-AFD5-415D-9DCA-BAC79DB9370B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

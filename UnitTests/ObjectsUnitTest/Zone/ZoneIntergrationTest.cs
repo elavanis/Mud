@@ -32,8 +32,10 @@ namespace ObjectsUnitTest.Zone
             room.AddMobileObjectToRoom(pc);
             npc.Items.Add(item);
             npc.Level = 1;
+            npc.MaxHealth = 10;
             pc.Items.Add(item);
             pc.Level = 1;
+            pc.MaxHealth = 10;
 
             GlobalReference.GlobalValues.World.Zones.Add(0, zone);
 

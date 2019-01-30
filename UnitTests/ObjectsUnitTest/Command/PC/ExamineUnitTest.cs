@@ -26,29 +26,37 @@ namespace ObjectsUnitTest.Command.PC
         Mock<ICanMobDoSomething> cando;
         Mock<IItem> item;
         Mock<ITagWrapper> tagWrapper;
+        Mock<INonPlayerCharacter> npc;
+        Mock<IFindObjects> find;
+
         [TestInitialize]
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Examine {Object Name}", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
-            command = new Examine();
             mob = new Mock<IMobileObject>();
-            mob.Setup(e => e.Position).Returns(CharacterPosition.Stand);
-
             cando = new Mock<ICanMobDoSomething>();
-            cando.Setup(e => e.SeeDueToLight(mob.Object)).Returns(true);
-            GlobalReference.GlobalValues.CanMobDoSomething = cando.Object;
-
             item = new Mock<IItem>();
-            item.Setup(e => e.ExamineDescription).Returns("desc");
+            find = new Mock<IFindObjects>();
+            npc = new Mock<INonPlayerCharacter>();
 
-            Mock<IFindObjects> find = new Mock<IFindObjects>();
+            //tagWrapper.Setup(e => e.WrapInTag("Examine {Object Name}", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Item)).Returns((string x, TagType y) => (x));
+            mob.Setup(e => e.Position).Returns(CharacterPosition.Stand);
+            cando.Setup(e => e.SeeDueToLight(mob.Object)).Returns(true);
+            item.Setup(e => e.ExamineDescription).Returns("desc");
             find.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, true, true, true)).Returns(item.Object);
             find.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 1, true, true, true, true, true)).Returns<IBaseObject>(null);
+            find.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "npc", 0, true, true, true, true, true)).Returns(npc.Object);
             find.Setup(e => e.DetermineFoundObjectTagType(item.Object)).Returns(TagType.Item);
+            find.Setup(e => e.DetermineFoundObjectTagType(npc.Object)).Returns(TagType.Item);
+            npc.Setup(e => e.ExamineDescription).Returns("Examine Description");
+            npc.Setup(e => e.HealthDescription).Returns("Health Description");
+
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.CanMobDoSomething = cando.Object;
             GlobalReference.GlobalValues.FindObjects = find.Object;
+
+            command = new Examine();
         }
 
         [TestMethod]
@@ -86,6 +94,22 @@ namespace ObjectsUnitTest.Command.PC
 
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("message", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void Examine_PerformCommand_FindMob()
+        {
+            Mock<IParameter> parm = new Mock<IParameter>();
+            parm.Setup(e => e.ParameterValue).Returns("npc");
+            parm.Setup(e => e.ParameterNumber).Returns(0);
+
+            Mock<ICommand> mockCommand = new Mock<ICommand>();
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm.Object });
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("Examine Description\r\nHealth Description", result.ResultMessage);
         }
 
         [TestMethod]

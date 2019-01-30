@@ -37,7 +37,7 @@ using static Objects.Global.Direction.Directions;
 using Objects.Command.PC;
 using Objects.Command.PC.Interface;
 using Objects.GameDateTime;
-using Objects.Global.PerformanceCounters;
+using Shared.PerformanceCounters;
 
 namespace Objects.World
 {
@@ -719,21 +719,17 @@ namespace Objects.World
         {
             try
             {
-                StringBuilder strBldr = new StringBuilder();
-                foreach (Counters counters in GlobalReference.GlobalValues.CountersLog)
-                {
-                    strBldr.AppendLine(GlobalReference.GlobalValues.Serialization.Serialize(counters));
-                }
+                string fileContents = GlobalReference.GlobalValues.Serialization.Serialize(GlobalReference.GlobalValues.CountersLog);
 
                 GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd")));
 
                 string fileLocation = Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd"), dateTime.ToString("HHmm"));
 
-                GlobalReference.GlobalValues.FileIO.WriteFile(fileLocation, strBldr.ToString());
+                GlobalReference.GlobalValues.FileIO.WriteFile(fileLocation, fileContents);
             }
             catch (Exception ex)
             {
-
+                GlobalReference.GlobalValues.Logger.Log(LogLevel.ERROR, ex.Message + Environment.NewLine + ex.StackTrace);
             }
         }
 

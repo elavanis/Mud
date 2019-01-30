@@ -1,10 +1,10 @@
-﻿using Objects.Global.PerformanceCounters.Interface;
+﻿using Shared.PerformanceCounters.Interface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace Objects.Global.PerformanceCounters
+namespace Shared.PerformanceCounters
 {
     public class Counters : ICounters
     {

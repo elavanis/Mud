@@ -39,7 +39,16 @@ namespace Objects.Command.PC
                 if (baseObject != null)
                 {
                     TagType tagType = GlobalReference.GlobalValues.FindObjects.DetermineFoundObjectTagType(baseObject);
-                    return new Result(baseObject.ExamineDescription, false, tagType);
+                    IMobileObject mobileObject = baseObject as IMobileObject;
+
+                    if (mobileObject == null)
+                    {
+                        return new Result(baseObject.ExamineDescription, false, tagType);
+                    }
+                    else
+                    {
+                        return new Result(baseObject.ExamineDescription + Environment.NewLine + mobileObject.HealthDescription, false, tagType);
+                    }
                 }
 
                 return new Result("You were unable to find that what you were looking for.", true);

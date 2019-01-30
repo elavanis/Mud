@@ -10,10 +10,10 @@ using Objects.Global;
 using Objects.Damage.Interface;
 using Objects.Die.Interface;
 using Shared.Sound.Interface;
-using Objects.Global.Serialization.Interface;
 using System.Collections.Generic;
 using Objects.Language;
 using Objects.Language.Interface;
+using Objects.Global.Serialization.Interface;
 
 namespace ObjectsUnitTest.Effect
 {

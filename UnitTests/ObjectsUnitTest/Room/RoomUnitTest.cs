@@ -20,9 +20,9 @@ using Objects.Personality.Interface;
 using Objects.LoadPercentage.Interface;
 using System.Linq;
 using Shared.FileIO.Interface;
-using Objects.Global.Serialization.Interface;
 using Objects.Global.Settings.Interface;
 using System.Reflection;
+using Objects.Global.Serialization.Interface;
 
 namespace ObjectsUnitTest.Room
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Objects.Global.PerformanceCounters.Interface
+namespace Shared.PerformanceCounters.Interface
 {
     public interface ICounters
     {

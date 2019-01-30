@@ -42,7 +42,6 @@ namespace ServerTelnetCommunication
         private static void LogConnection(TcpClient clientSocket)
         {
             string line = string.Format("Client connected from {0}.", clientSocket.Client.RemoteEndPoint.ToString());
-            Console.WriteLine(line);
             GlobalReference.GlobalValues.Logger.Log(LogLevel.ALL, line);
         }
     }

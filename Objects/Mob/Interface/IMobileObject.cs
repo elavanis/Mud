@@ -43,6 +43,8 @@ namespace Objects.Mob.Interface
         HashSet<Guild.Guild.Guilds> Guild { get; set; }
         int GuildPoints { get; set; }
         int Health { get; set; }
+        string HealthDescription { get; }
+
         int IntelligenceEffective { get; }
         int IntelligenceStat { get; set; }
         bool IsAlive { get; set; }

@@ -268,6 +268,43 @@ namespace Objects.Mob
         [ExcludeFromCodeCoverage]
         public int Health { get; set; }
 
+        public string HealthDescription
+        {
+            get
+            {
+                int healthPercent = Health * 100 / MaxHealth;
+
+                if (healthPercent >= 100)
+                {
+                    return $"{SentenceDescription} is in perfect health.";
+                }
+                else if (healthPercent >= 80)
+                {
+                    return $"{SentenceDescription} has some light scratches on them but nothing bad.";
+                }
+                else if (healthPercent >= 60)
+                {
+                    return $"{SentenceDescription} has some minor cuts with traces of blood.";
+                }
+                else if (healthPercent >= 40)
+                {
+                    return $"{SentenceDescription} has deep lacerations that will leave scars.";
+                }
+                else if (healthPercent >= 20)
+                {
+                    return $"{SentenceDescription} has been badly beaten.  They have bruises on bruises that are covered in blood from their many open wounds.";
+                }
+                else if (healthPercent >= 0)
+                {
+                    return $"{SentenceDescription} has begun to grow pale from loss of blood.  They may soon be riding on Charon's boat to the underworld.";
+                }
+
+                return ExamineDescription; //should never get this
+
+            }
+        }
+
+
         private int _maxHealth = -1;
         public int MaxHealth
         {
@@ -890,6 +927,7 @@ namespace Objects.Mob
 
         public IMobileObject PossingMob { get; set; }
         public IMobileObject PossedMob { get; set; }
+
 
         public void EnqueueCommand(string message)
         {

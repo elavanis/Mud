@@ -10,7 +10,6 @@ using Objects.Global;
 using Objects.Damage.Interface;
 using Objects.Die.Interface;
 using Shared.Sound.Interface;
-using Objects.Global.Serialization.Interface;
 using System.Collections.Generic;
 using Objects.Item.Interface;
 using Objects.Room.Interface;

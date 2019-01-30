@@ -1598,6 +1598,36 @@ namespace ObjectsUnitTest.Mob
             Assert.IsInstanceOfType(mob.SpellBook, typeof(Dictionary<string, ISpell>));
         }
 
+        [TestMethod]
+        public void MobileObject_HealthDescription()
+        {
+            mob.MaxHealth = 100;
+            mob.SentenceDescription = "Mob";
+            mob.ExamineDescription = "Examine";
+
+            mob.Health = 100;
+            Assert.AreEqual("Mob is in perfect health.", mob.HealthDescription);
+
+            mob.Health = 80;
+            Assert.AreEqual("Mob has some light scratches on them but nothing bad.", mob.HealthDescription);
+
+            mob.Health = 60;
+            Assert.AreEqual("Mob has some minor cuts with traces of blood.", mob.HealthDescription);
+
+            mob.Health = 40;
+            Assert.AreEqual("Mob has deep lacerations that will leave scars.", mob.HealthDescription);
+
+            mob.Health = 20;
+            Assert.AreEqual("Mob has been badly beaten.  They have bruises on bruises that are covered in blood from their many open wounds.", mob.HealthDescription);
+
+            mob.Health = 0;
+            Assert.AreEqual("Mob has begun to grow pale from loss of blood.  They may soon be riding on Charon's boat to the underworld.", mob.HealthDescription);
+
+            mob.Health = -10;
+            Assert.AreEqual("Examine", mob.HealthDescription);
+
+        }
+
         private class UnitTestMobileObject : MobileObject
         {
 
