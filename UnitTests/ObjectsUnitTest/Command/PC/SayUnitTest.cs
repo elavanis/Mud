@@ -39,7 +39,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
             mob.Setup(e => e.Room).Returns(room.Object);
-            tagWrapper.Setup(e => e.WrapInTag("Say [Message]", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
@@ -53,7 +53,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Say [Message]", result.ResultMessage);
         }
 
         [TestMethod]
@@ -67,11 +67,9 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Say_PerformCommand_NoParameters()
         {
-            tagWrapper.Setup(e => e.WrapInTag("What would you like to say?", TagType.Info)).Returns("message");
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("What would you like to say?", result.ResultMessage);
         }
 
         [TestMethod]
@@ -81,8 +79,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<INonPlayerCharacter> npc = new Mock<INonPlayerCharacter>();
             Mock<ICanMobDoSomething> canDoSomething = new Mock<ICanMobDoSomething>();
 
-            tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("message");
-            tagWrapper.Setup(e => e.WrapInTag("SentenceDescription says this is a test message", TagType.Communication)).Returns("this message");
             parameter.Setup(e => e.ParameterValue).Returns("this is a test message");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
@@ -94,7 +90,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
             notify.Verify(e => e.Room(mob.Object, null, mob.Object.Room, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { mob.Object }, false, true), Times.Once);
         }
     }

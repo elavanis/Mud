@@ -31,8 +31,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Search", TagType.Info)).Returns("message");
-            tagWrapper.Setup(e => e.WrapInTag("A trap was found in the pit." + Environment.NewLine + "A trap was found in the arrow.", TagType.Info)).Returns("message2");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -52,7 +51,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Search", result.ResultMessage);
         }
 
         [TestMethod]
@@ -68,12 +67,11 @@ namespace ObjectsUnitTest.Command.PC
         {
             Mock<IParameter> parameter = new Mock<IParameter>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Nothing found was found.", TagType.Info)).Returns("message");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Nothing found was found.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -83,7 +81,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<ITrap> trap1 = new Mock<ITrap>();
             Mock<ITrap> trap2 = new Mock<ITrap>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Nothing found was found.", TagType.Info)).Returns("message");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             trap1.Setup(e => e.DisarmWord).Returns(new List<string>() { "pit", "pit2" });
             trap2.Setup(e => e.DisarmWord).Returns(new List<string>() { "arrow", "arrow2" });
@@ -93,7 +90,8 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message2", result.ResultMessage);
+            Assert.AreEqual(@"A trap was found in the pit.
+A trap was found in the arrow.", result.ResultMessage);
         }
     }
 }

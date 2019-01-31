@@ -13,10 +13,18 @@ namespace ObjectsUnitTest.Item.Items
     public class ContainerUnitTest
     {
         Container container;
+        Mock<ITagWrapper> tagWrapper;
+
 
         [TestInitialize]
         public void Setup()
         {
+            tagWrapper = new Mock<ITagWrapper>();
+
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
             container = new Container();
         }
 
@@ -43,13 +51,9 @@ namespace ObjectsUnitTest.Item.Items
             container.Opened = false;
             container.OpenMessage = "OpenMessage";
 
-            Mock<ITagWrapper> tagwrapper = new Mock<ITagWrapper>();
-            tagwrapper.Setup(e => e.WrapInTag("OpenMessage", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagwrapper.Object;
-
             IResult result = container.Open();
-             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("OpenMessage", result.ResultMessage);
         }
     }
 }
