@@ -43,7 +43,7 @@ namespace ObjectsUnitTest.Command.PC
             craftsmanObject1 = new Mock<ICraftsmanObject>();
             item1 = new Mock<IItem>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Receive", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             pc.Setup(e => e.Room).Returns(room.Object);
             pc.Setup(e => e.CraftsmanObjects).Returns(craftsmanObjects);
             pc.Setup(e => e.Items).Returns(items);
@@ -57,7 +57,6 @@ namespace ObjectsUnitTest.Command.PC
             craftsmanObject1.Setup(e => e.Item).Returns(item1.Object);
             item1.Setup(e => e.KeyWords).Returns(new List<string>() { "item" });
 
-
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             command = new Receive();
@@ -69,7 +68,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Receive", result.ResultMessage);
         }
 
         [TestMethod]
@@ -83,21 +82,17 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Receive_NotPc()
         {
-            tagWrapper.Setup(e => e.WrapInTag("Only player characters can receive.", TagType.Info)).Returns("message");
-
             IResult result = command.PerformCommand(npc.Object, null);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Only player characters can receive.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Receive_NoCraftsman()
         {
-            tagWrapper.Setup(e => e.WrapInTag("No craftsman found at this location.", TagType.Info)).Returns("message");
-
             IResult result = command.PerformCommand(pc.Object, null);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("No craftsman found at this location.", result.ResultMessage);
         }
 
 
@@ -108,11 +103,10 @@ namespace ObjectsUnitTest.Command.PC
             craftsmanObjects.Add(craftsmanObject1.Object);
 
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { craftsman.Object });
-            tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(pc.Object, null);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
             npc.Verify(e => e.EnqueueCommand("Tell pc As promised, here is your item."));
         }
 
@@ -124,11 +118,10 @@ namespace ObjectsUnitTest.Command.PC
 
             craftsmanObject1.Setup(e => e.Completion).Returns(new DateTime(9999, 1, 1));
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { craftsman.Object });
-            tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(pc.Object, null);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
             npc.Verify(e => e.EnqueueCommand("Tell pc Sorry I don't have anything for you to pick up at this time."));
         }
     }

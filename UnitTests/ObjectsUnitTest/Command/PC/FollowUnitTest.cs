@@ -24,7 +24,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Follow {Target}", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             command = new Follow();
@@ -36,7 +36,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Follow {Target}", result.ResultMessage);
         }
 
         [TestMethod]
@@ -55,14 +55,10 @@ namespace ObjectsUnitTest.Command.PC
 
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You are not following anyone.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.AreEqual(true, result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You are not following anyone.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -76,14 +72,10 @@ namespace ObjectsUnitTest.Command.PC
             mob.Setup(e => e.FollowTarget).Returns(target.Object);
             target.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You stop following SentenceDescription.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.AreEqual(false, result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You stop following SentenceDescription.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -105,14 +97,10 @@ namespace ObjectsUnitTest.Command.PC
             findThings.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "mob", 0, false, false, true, true, false)).Returns<IBaseObject>(null);
             GlobalReference.GlobalValues.FindObjects = findThings.Object;
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find mob.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.AreEqual(true, result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unable to find mob.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -134,14 +122,10 @@ namespace ObjectsUnitTest.Command.PC
             findThings.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "mob", 0, false, false, true, true, true)).Returns(target.Object);
             GlobalReference.GlobalValues.FindObjects = findThings.Object;
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You start to follow SentenceDescription.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.AreEqual(false, result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You start to follow SentenceDescription.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -163,14 +147,10 @@ namespace ObjectsUnitTest.Command.PC
             findThings.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "mob", 0, false, false, true, true, true)).Returns(mob.Object);
             GlobalReference.GlobalValues.FindObjects = findThings.Object;
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You probably shouldn't follow yourself.  People might think your strange.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.AreEqual(true, result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You probably shouldn't follow yourself.  People might think your strange.", result.ResultMessage);
         }
     }
 }

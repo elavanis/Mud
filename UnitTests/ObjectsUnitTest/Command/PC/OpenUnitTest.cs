@@ -32,7 +32,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Open [Item Name]", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -48,7 +48,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Open [Item Name]", result.ResultMessage);
         }
 
         [TestMethod]
@@ -62,11 +62,9 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_NoParameter()
         {
-            tagWrapper.Setup(e => e.WrapInTag("While you ponder what to open you let you mouth hang open.  Hey you did open something!", TagType.Info)).Returns("message");
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("While you ponder what to open you let you mouth hang open.  Hey you did open something!", result.ResultMessage);
         }
 
         [TestMethod]
@@ -75,14 +73,13 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
             Mock<IParameter> parameter = new Mock<IParameter>();
 
-            tagWrapper.Setup(e => e.WrapInTag("You were unable to find that what you were looking for.", TagType.Info)).Returns("message");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You were unable to find that what you were looking for.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -92,7 +89,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
             Mock<IParameter> parameter = new Mock<IParameter>();
 
-            tagWrapper.Setup(e => e.WrapInTag("You found what you were looking for but could not figure out how to open it.", TagType.Info)).Returns("message");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(item.Object);
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
@@ -101,7 +97,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You found what you were looking for but could not figure out how to open it.", result.ResultMessage);
         }
 
 
@@ -112,7 +108,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
             Mock<IParameter> parameter = new Mock<IParameter>();
 
-            tagWrapper.Setup(e => e.WrapInTag("The door is locked and will not open.", TagType.Info)).Returns("message");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(door.Object);
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
@@ -123,7 +118,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("The door is locked and will not open.", result.ResultMessage);
         }
 
         [TestMethod]

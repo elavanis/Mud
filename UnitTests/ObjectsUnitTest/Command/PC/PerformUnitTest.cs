@@ -27,7 +27,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("(P)erform [Skill Name] {Parameter(s)}", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -42,7 +42,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("(P)erform [Skill Name] {Parameter(s)}", result.ResultMessage);
         }
 
         [TestMethod]
@@ -57,11 +57,9 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Perform_PerformCommand_NoParameter()
         {
-            tagWrapper.Setup(e => e.WrapInTag("What skill would you like to use?", TagType.Info)).Returns("message");
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("What skill would you like to use?", result.ResultMessage);
         }
 
         [TestMethod]
@@ -70,14 +68,13 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter = new Mock<IParameter>();
             Dictionary<string, ISkill> skills = new Dictionary<string, ISkill>();
 
-            tagWrapper.Setup(e => e.WrapInTag("You do not know that skill.", TagType.Info)).Returns("message");
             parameter.Setup(e => e.ParameterValue).Returns("skill");
             mob.Setup(e => e.KnownSkills).Returns(skills);
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You do not know that skill.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -90,7 +87,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IEngine> engine = new Mock<IEngine>();
             Mock<IResult> mockResult = new Mock<IResult>();
 
-            tagWrapper.Setup(e => e.WrapInTag("You do not know that skill.", TagType.Info)).Returns("message");
             parameter.Setup(e => e.ParameterValue).Returns("skill");
             skills.Add("SKILL", skill.Object);
             skill.Setup(e => e.ProcessSkill(mob.Object, mockCommand.Object)).Returns(mockResult.Object);

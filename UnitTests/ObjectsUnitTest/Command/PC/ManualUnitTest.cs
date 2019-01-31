@@ -25,7 +25,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Do you really need to Man the Manual?", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IPlayerCharacter>();
@@ -42,7 +42,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Do you really need to Man the Manual?", result.ResultMessage);
         }
 
         [TestMethod]
@@ -57,8 +57,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Manual_PerformCommand_AllCommands()
         {
-            tagWrapper.Setup(e => e.WrapInTag("In Game Commands\r\nGod Commands\r\ngod\r\n\r\nMortal Commands\r\npc", TagType.Info)).Returns("message");
-
             Mock<ICommandList> commandList = new Mock<ICommandList>();
             SortedDictionary<string, IMobileObjectCommand> godCommands = new SortedDictionary<string, IMobileObjectCommand>();
             godCommands.Add("god", null);
@@ -71,7 +69,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("In Game Commands\r\nGod Commands\r\ngod\r\n\r\nMortal Commands\r\npc", result.ResultMessage);
         }
 
         [TestMethod]
@@ -131,8 +129,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Manual_PerformCommand_SpecificCommandNotFound()
         {
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find that command.", TagType.Info)).Returns("message");
-
             Mock<IParameter> param = new Mock<IParameter>();
             Mock<ICommandList> commandList = new Mock<ICommandList>();
             Mock<IMobileObjectCommand> godCommand = new Mock<IMobileObjectCommand>();
@@ -155,7 +151,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreSame("message", result.ResultMessage);
+            Assert.AreSame("Unable to find that command.", result.ResultMessage);
         }
     }
 }

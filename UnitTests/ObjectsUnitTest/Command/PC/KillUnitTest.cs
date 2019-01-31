@@ -37,7 +37,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("(K)ill {Target}", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -84,7 +84,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("(K)ill {Target}", result.ResultMessage);
         }
 
         [TestMethod]
@@ -99,11 +99,9 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Kill_PerformCommand_NoParmeterWithNpc()
         {
-            tagWrapper.Setup(e => e.WrapInTag("You begin to attack npc1 sentence.", TagType.Info)).Returns("message");
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You begin to attack npc1 sentence.", result.ResultMessage);
             combatEngine.Verify(e => e.AddCombatPair(mob.Object, npc1.Object), Times.Once);
         }
 
@@ -111,11 +109,10 @@ namespace ObjectsUnitTest.Command.PC
         public void Kill_PerformCommand_NoParmeterNoNpc()
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find anything to kill.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unable to find anything to kill.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -125,11 +122,10 @@ namespace ObjectsUnitTest.Command.PC
             parameter.Setup(e => e.ParameterValue).Returns("npc1");
             parameter.Setup(e => e.ParameterNumber).Returns(0);
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            tagWrapper.Setup(e => e.WrapInTag("You begin to attack npc1 sentence.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You begin to attack npc1 sentence.", result.ResultMessage);
             combatEngine.Verify(e => e.AddCombatPair(mob.Object, npc1.Object), Times.Once);
         }
 
@@ -140,33 +136,30 @@ namespace ObjectsUnitTest.Command.PC
             parameter.Setup(e => e.ParameterValue).Returns("npc2");
             parameter.Setup(e => e.ParameterNumber).Returns(0);
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find anything that matches that description to kill.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unable to find anything that matches that description to kill.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Kill_PerformCommand_PeacefulRoom()
         {
             room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.Peaceful });
-            tagWrapper.Setup(e => e.WrapInTag("You were ready to attack but then you sense of peace rush over you and you decided not to attack.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You were ready to attack but then you sense of peace rush over you and you decided not to attack.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Kill_PerformCommand_Asleep()
         {
             mob.Setup(e => e.Position).Returns(Objects.Mob.MobileObject.CharacterPosition.Sleep);
-            tagWrapper.Setup(e => e.WrapInTag("You can not kill someone while you are asleep.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You can not kill someone while you are asleep.", result.ResultMessage);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Level [Stat] {Amount To Level}", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -47,7 +47,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Level [Stat] {Amount To Level}", result.ResultMessage);
         }
 
         [TestMethod]
@@ -62,11 +62,10 @@ namespace ObjectsUnitTest.Command.PC
         public void Learn_PerformCommand_NoParameter()
         {
             mob.Setup(e => e.LevelPoints).Returns(5);
-            tagWrapper.Setup(e => e.WrapInTag("You have 5 points to spend.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You have 5 points to spend.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -75,11 +74,10 @@ namespace ObjectsUnitTest.Command.PC
             mob.Setup(e => e.LevelPoints).Returns(0);
             Mock<IParameter> parameter = new Mock<IParameter>();
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            tagWrapper.Setup(e => e.WrapInTag("You have no points to spend at this time.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You have no points to spend at this time.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -91,11 +89,10 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter2 = new Mock<IParameter>();
             parameter2.Setup(e => e.ParameterValue).Returns("5");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object, parameter2.Object });
-            tagWrapper.Setup(e => e.WrapInTag("You do not have that many points to spend.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You do not have that many points to spend.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -107,11 +104,10 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter2 = new Mock<IParameter>();
             parameter2.Setup(e => e.ParameterValue).Returns("5");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object, parameter2.Object });
-            tagWrapper.Setup(e => e.WrapInTag("You feel stronger.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You feel stronger.", result.ResultMessage);
             mob.VerifySet(e => e.StrengthStat = 5);
             mob.VerifySet(e => e.LevelPoints = 0);
         }
@@ -125,11 +121,10 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter2 = new Mock<IParameter>();
             parameter2.Setup(e => e.ParameterValue).Returns("5");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object, parameter2.Object });
-            tagWrapper.Setup(e => e.WrapInTag("You feel more agile.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You feel more agile.", result.ResultMessage);
             mob.VerifySet(e => e.DexterityStat = 5);
             mob.VerifySet(e => e.LevelPoints = 0);
         }
@@ -143,11 +138,10 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter2 = new Mock<IParameter>();
             parameter2.Setup(e => e.ParameterValue).Returns("5");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object, parameter2.Object });
-            tagWrapper.Setup(e => e.WrapInTag("You feel healthier.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You feel healthier.", result.ResultMessage);
             mob.VerifySet(e => e.ConstitutionStat = 5);
             mob.VerifySet(e => e.LevelPoints = 0);
         }
@@ -161,11 +155,10 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter2 = new Mock<IParameter>();
             parameter2.Setup(e => e.ParameterValue).Returns("5");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object, parameter2.Object });
-            tagWrapper.Setup(e => e.WrapInTag("You feel smarter.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You feel smarter.", result.ResultMessage);
             mob.VerifySet(e => e.IntelligenceStat = 5);
             mob.VerifySet(e => e.LevelPoints = 0);
         }
@@ -179,11 +172,10 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter2 = new Mock<IParameter>();
             parameter2.Setup(e => e.ParameterValue).Returns("5");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object, parameter2.Object });
-            tagWrapper.Setup(e => e.WrapInTag("You feel wiser.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You feel wiser.", result.ResultMessage);
             mob.VerifySet(e => e.WisdomStat = 5);
             mob.VerifySet(e => e.LevelPoints = 0);
         }
@@ -197,11 +189,10 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter2 = new Mock<IParameter>();
             parameter2.Setup(e => e.ParameterValue).Returns("5");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object, parameter2.Object });
-            tagWrapper.Setup(e => e.WrapInTag("You feel better looking.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You feel better looking.", result.ResultMessage);
             mob.VerifySet(e => e.CharismaStat = 5);
             mob.VerifySet(e => e.LevelPoints = 0);
         }
@@ -215,11 +206,10 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter2 = new Mock<IParameter>();
             parameter2.Setup(e => e.ParameterValue).Returns("5");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object, parameter2.Object });
-            tagWrapper.Setup(e => e.WrapInTag("Unsure which stat to increase.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unsure which stat to increase.", result.ResultMessage);
         }
     }
 }

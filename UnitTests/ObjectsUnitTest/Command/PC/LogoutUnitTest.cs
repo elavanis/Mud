@@ -39,7 +39,8 @@ namespace ObjectsUnitTest.Command.PC
             pcs = new List<IPlayerCharacter>();
             notify = new Mock<INotify>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Logout", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Connection)).Returns((string x, TagType y) => (x));
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
             mob.Setup(e => e.Room).Returns(room.Object);
             room.Setup(e => e.PlayerCharacters).Returns(pcs);
@@ -63,7 +64,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Logout", result.ResultMessage);
         }
 
         [TestMethod]
@@ -77,11 +78,10 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Logout_PerformCommand_NotAPc()
         {
-            tagWrapper.Setup(e => e.WrapInTag("Only PlayerCharacters can logout.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Only PlayerCharacters can logout.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -91,12 +91,9 @@ namespace ObjectsUnitTest.Command.PC
             pc.Setup(e => e.Room).Returns(room.Object);
             pcs.Add(pc.Object);
 
-            tagWrapper.Setup(e => e.WrapInTag("Exit Connection", TagType.Connection)).Returns("message");
-            tagWrapper.Setup(e => e.WrapInTag("You have been successfully logged out.", TagType.Info)).Returns("EnqueueMessage");
-
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Exit Connection", result.ResultMessage);
             room.Verify(e => e.RemoveMobileObjectFromRoom(pc.Object), Times.Once);
             save.Verify(e => e.PerformCommand(pc.Object, mockCommand.Object), Times.Once);
             pc.VerifySet(e => e.Room = null);

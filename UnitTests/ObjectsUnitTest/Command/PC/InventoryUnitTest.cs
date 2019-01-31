@@ -23,7 +23,8 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("(Inv)entory", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Item)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             command = new Inventory();
@@ -35,7 +36,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("(Inv)entory", result.ResultMessage);
         }
 
         [TestMethod]
@@ -55,11 +56,10 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
             Mock<ICommand> mockCommand = new Mock<ICommand>();
-            tagWrapper.Setup(e => e.WrapInTag("ShortDescription", TagType.Item)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("ShortDescription", result.ResultMessage);
         }
 
         [TestMethod]
@@ -68,11 +68,10 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.Items).Returns(new List<IItem>());
             Mock<ICommand> mockCommand = new Mock<ICommand>();
-            tagWrapper.Setup(e => e.WrapInTag("You are not carrying anything.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You are not carrying anything.", result.ResultMessage);
         }
     }
 }

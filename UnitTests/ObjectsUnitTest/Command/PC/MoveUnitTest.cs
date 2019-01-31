@@ -44,7 +44,7 @@ namespace ObjectsUnitTest.Command.PC
             room = new Mock<IRoom>();
             notify = new Mock<INotify>();
 
-            tagWrapper.Setup(e => e.WrapInTag("(N)orth\r\n(E)ast\r\n(S)outh\r\n(W)est\r\n(U)p\r\n(D)own", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
             mob.Setup(e => e.Room).Returns(room.Object);
             mob.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
@@ -62,7 +62,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("(N)orth\r\n(E)ast\r\n(S)outh\r\n(W)est\r\n(U)p\r\n(D)own", result.ResultMessage);
         }
 
         [TestMethod]
@@ -99,13 +99,12 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Move_PerformCommand_NoExit()
         {
-            tagWrapper.Setup(e => e.WrapInTag("There is no obvious way to leave that way.", TagType.Info)).Returns("message");
             mockCommand.Setup(e => e.CommandName).Returns("North");
             room.Setup(e => e.North).Returns<IExit>(null);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("There is no obvious way to leave that way.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -114,7 +113,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IExit> exit = new Mock<IExit>();
             Mock<IDoor> door = new Mock<IDoor>();
 
-            tagWrapper.Setup(e => e.WrapInTag("You will need to open the SentenceDescription first.", TagType.Info)).Returns("message");
             mockCommand.Setup(e => e.CommandName).Returns("North");
             door.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
             door.Setup(e => e.Opened).Returns(false);
@@ -123,7 +121,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You will need to open the SentenceDescription first.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -179,7 +177,6 @@ namespace ObjectsUnitTest.Command.PC
             Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
             Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Look", TagType.Info)).Returns("message");
             room.Setup(e => e.North).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("North");
             room.Setup(e => e.North).Returns(exit.Object);
@@ -218,7 +215,6 @@ namespace ObjectsUnitTest.Command.PC
             Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
             Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Look", TagType.Info)).Returns("message");
             room.Setup(e => e.East).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("East");
             room.Setup(e => e.East).Returns(exit.Object);
@@ -257,7 +253,6 @@ namespace ObjectsUnitTest.Command.PC
             Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
             Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Look", TagType.Info)).Returns("message");
             room.Setup(e => e.South).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("South");
             room.Setup(e => e.South).Returns(exit.Object);
@@ -296,7 +291,6 @@ namespace ObjectsUnitTest.Command.PC
             Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
             Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Look", TagType.Info)).Returns("message");
             room.Setup(e => e.West).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("West");
             room.Setup(e => e.West).Returns(exit.Object);
@@ -335,7 +329,6 @@ namespace ObjectsUnitTest.Command.PC
             Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
             Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Look", TagType.Info)).Returns("message");
             room.Setup(e => e.Up).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("Up");
             room.Setup(e => e.Up).Returns(exit.Object);
@@ -374,7 +367,6 @@ namespace ObjectsUnitTest.Command.PC
             Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
             Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Look", TagType.Info)).Returns("message");
             room.Setup(e => e.Down).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("Down");
             room.Setup(e => e.Down).Returns(exit.Object);

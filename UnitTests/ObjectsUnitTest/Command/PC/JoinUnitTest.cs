@@ -33,7 +33,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Join", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -75,7 +75,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Join", result.ResultMessage);
         }
 
         [TestMethod]
@@ -112,12 +112,11 @@ namespace ObjectsUnitTest.Command.PC
         public void Join_PerformCommand_NoGuildMaster()
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            tagWrapper.Setup(e => e.WrapInTag("There is no Guildmaster here to induct you.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("There is no Guildmaster here to induct you.", result.ResultMessage);
         }
     }
 }

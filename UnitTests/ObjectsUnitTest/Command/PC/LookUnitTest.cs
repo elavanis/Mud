@@ -38,7 +38,11 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("(L)ook {Object To Look At}", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Item)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.NonPlayerCharacter)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.PlayerCharacter)).Returns((string x, TagType y) => (x));
+
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IPlayerCharacter>();
@@ -77,7 +81,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("(L)ook {Object To Look At}", result.ResultMessage);
         }
 
         [TestMethod]
@@ -93,34 +97,26 @@ namespace ObjectsUnitTest.Command.PC
         public void Look_PerformCommand_Sleep()
         {
             mob.Setup(e => e.Position).Returns(CharacterPosition.Sleep);
-            tagWrapper.Setup(e => e.WrapInTag("You can not look while asleep.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You can not look while asleep.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Look_PerformCommand_Dark()
         {
             canDoSomething.Setup(e => e.SeeDueToLight(mob.Object)).Returns(false);
-            tagWrapper.Setup(e => e.WrapInTag("You can not see here because it is to dark.", TagType.Info)).Returns("message");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You can not see here because it is to dark.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Look_PerformCommand_LookAtRoom()
         {
             Mock<IExit> exit = new Mock<IExit>();
-
-            tagWrapper.Setup(e => e.WrapInTag("[Zone0 - Room0]\r\n[RoomShortDescription]\r\nRoomLongDescription\r\nExits:N E S W U D", TagType.Room)).Returns("Room");
-            tagWrapper.Setup(e => e.WrapInTag("ItemShortDescription", TagType.Item)).Returns("Item");
-            tagWrapper.Setup(e => e.WrapInTag("NpcShortDescription", TagType.NonPlayerCharacter)).Returns("NonPlayerCharacter");
-            tagWrapper.Setup(e => e.WrapInTag("PcShortDescription", TagType.PlayerCharacter)).Returns("PlayerCharacter");
-            tagWrapper.Setup(e => e.WrapInTag("Room\r\nItem\r\nNonPlayerCharacter\r\nPlayerCharacter", TagType.Info)).Returns("message");
 
             room.Setup(e => e.Up).Returns(exit.Object);
             room.Setup(e => e.North).Returns(exit.Object);
@@ -131,7 +127,9 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("Room\r\nItem\r\nNonPlayerCharacter\r\nPlayerCharacter", result.ResultMessage);
+            Assert.AreEqual(@"ItemShortDescription
+NpcShortDescription
+PcShortDescription", result.ResultMessage);
         }
 
         [TestMethod]
@@ -139,10 +137,6 @@ namespace ObjectsUnitTest.Command.PC
         {
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-
-            tagWrapper.Setup(e => e.WrapInTag("PcLongDescription", TagType.PlayerCharacter)).Returns("PcLongDescription");
-            tagWrapper.Setup(e => e.WrapInTag("ItemShortDescription", TagType.Item)).Returns("ItemShortDescription");
-            tagWrapper.Setup(e => e.WrapInTag("PcLongDescription\r\nItemShortDescription", TagType.Info)).Returns("message");
 
             parameter.Setup(e => e.ParameterNumber).Returns(0);
             parameter.Setup(e => e.ParameterValue).Returns("pc");
@@ -155,7 +149,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("PcLongDescription\r\nItemShortDescription", result.ResultMessage);
         }
 
         [TestMethod]
@@ -164,9 +158,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
 
-            tagWrapper.Setup(e => e.WrapInTag("NpcLongDescription", TagType.NonPlayerCharacter)).Returns("NpcLongDescription");
-            tagWrapper.Setup(e => e.WrapInTag("ItemShortDescription", TagType.Item)).Returns("ItemShortDescription");
-            tagWrapper.Setup(e => e.WrapInTag("NpcLongDescription\r\nItemShortDescription", TagType.Info)).Returns("message");
             parameter.Setup(e => e.ParameterNumber).Returns(0);
             parameter.Setup(e => e.ParameterValue).Returns("npc");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
@@ -178,7 +169,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("NpcLongDescription\r\nItemShortDescription", result.ResultMessage);
         }
 
         [TestMethod]
@@ -187,8 +178,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
 
-            tagWrapper.Setup(e => e.WrapInTag("LongDescription", TagType.Item)).Returns("LongDescription");
-            tagWrapper.Setup(e => e.WrapInTag("LongDescription", TagType.Info)).Returns("message");
             parameter.Setup(e => e.ParameterNumber).Returns(0);
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
@@ -199,7 +188,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("LongDescription", result.ResultMessage);
         }
 
         [TestMethod]
@@ -210,7 +199,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IItem> containerItem = container.As<IItem>();
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
 
-            tagWrapper.Setup(e => e.WrapInTag("ContainerLongDescription\r\nItemShortDescription", TagType.Item)).Returns("message");
             parameter.Setup(e => e.ParameterNumber).Returns(0);
             parameter.Setup(e => e.ParameterValue).Returns("container");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
@@ -222,7 +210,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("ContainerLongDescription\r\nItemShortDescription", result.ResultMessage);
         }
 
         [TestMethod]
@@ -233,7 +221,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IItem> containerItem = container.As<IItem>();
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
 
-            tagWrapper.Setup(e => e.WrapInTag("LongDescription\r\n<Empty>", TagType.Item)).Returns("message");
             parameter.Setup(e => e.ParameterNumber).Returns(0);
             parameter.Setup(e => e.ParameterValue).Returns("container");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
@@ -246,7 +233,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("LongDescription\r\n<Empty>", result.ResultMessage);
         }
 
         [TestMethod]
@@ -255,7 +242,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find anything that matches that description.", TagType.Info)).Returns("message");
             parameter.Setup(e => e.ParameterNumber).Returns(0);
             parameter.Setup(e => e.ParameterValue).Returns("nothing");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
@@ -265,7 +251,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unable to find anything that matches that description.", result.ResultMessage);
         }
     }
 }

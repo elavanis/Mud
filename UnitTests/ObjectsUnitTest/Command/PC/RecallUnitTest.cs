@@ -33,8 +33,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Recall {Set}", TagType.Info)).Returns("message");
-            tagWrapper.Setup(e => e.WrapInTag("Your body begins to shimmer and become translucent.\r\nThe surroundings begin to fade to black and then new scenery appears before you.\r\nSlowly your body becomes solid again and you can see the recall crystal in front of you.", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -49,7 +48,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Recall {Set}", result.ResultMessage);
         }
 
         [TestMethod]
@@ -63,11 +62,9 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Recall_PerformCommand_NoParameter()
         {
-            tagWrapper.Setup(e => e.WrapInTag("No recall point defined.", TagType.Info)).Returns("message");
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("No recall point defined.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -76,14 +73,13 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IBaseObjectId> roomId = new Mock<IBaseObjectId>();
             Mock<IRoom> room = new Mock<IRoom>();
 
-            tagWrapper.Setup(e => e.WrapInTag("You try to recall but your body is held in place.", TagType.Info)).Returns("message");
             mob.Setup(e => e.RecallPoint).Returns(roomId.Object);
             mob.Setup(e => e.Room).Returns(room.Object);
             room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.NoRecall });
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You try to recall but your body is held in place.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -117,7 +113,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Your body begins to shimmer and become translucent.\r\nThe surroundings begin to fade to black and then new scenery appears before you.\r\nSlowly your body becomes solid again and you can see the recall crystal in front of you.", result.ResultMessage);
             room.Verify(e => e.RemoveMobileObjectFromRoom(pc.Object));
             altRoom.Verify(e => e.AddMobileObjectToRoom(pc.Object));
             pc.VerifySet(e => e.Room = altRoom.Object);
@@ -155,7 +151,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(npc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Your body begins to shimmer and become translucent.\r\nThe surroundings begin to fade to black and then new scenery appears before you.\r\nSlowly your body becomes solid again and you can see the recall crystal in front of you.", result.ResultMessage);
             room.Verify(e => e.RemoveMobileObjectFromRoom(npc.Object));
             altRoom.Verify(e => e.AddMobileObjectToRoom(npc.Object));
             npc.VerifySet(e => e.Room = altRoom.Object);
@@ -168,7 +164,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IRoom> room = new Mock<IRoom>();
             Mock<IBaseObjectId> recallPoint = new Mock<IBaseObjectId>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Invalid recall point defined.", TagType.Info)).Returns("message");
             room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
             mob.Setup(e => e.RecallPoint).Returns(recallPoint.Object);
             mob.Setup(e => e.Room).Returns(room.Object);
@@ -177,7 +172,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Invalid recall point defined.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -188,7 +183,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter = new Mock<IParameter>();
             IRecallBeacon recall = new RecallBeacon();
 
-            tagWrapper.Setup(e => e.WrapInTag("Recall point set.", TagType.Info)).Returns("message");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             parameter.Setup(e => e.ParameterValue).Returns("set");
             room.Setup(e => e.Items).Returns(new List<IItem>() { recall });
@@ -196,7 +190,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Recall point set.", result.ResultMessage);
             mob.VerifySet(e => e.RecallPoint = It.IsAny<IBaseObjectId>());
         }
 
@@ -208,7 +202,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IItem> item = new Mock<IItem>();
 
-            tagWrapper.Setup(e => e.WrapInTag("There is no recall beacon here.", TagType.Info)).Returns("message");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             parameter.Setup(e => e.ParameterValue).Returns("set");
             room.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
@@ -216,7 +209,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("There is no recall beacon here.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -227,7 +220,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<IItem> item = new Mock<IItem>();
 
-            tagWrapper.Setup(e => e.WrapInTag("No recall point defined.", TagType.Info)).Returns("message");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             parameter.Setup(e => e.ParameterValue).Returns("bob");
             room.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
@@ -235,7 +227,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("No recall point defined.", result.ResultMessage);
         }
     }
 }
