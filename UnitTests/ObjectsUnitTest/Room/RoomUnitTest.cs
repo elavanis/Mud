@@ -34,6 +34,7 @@ namespace ObjectsUnitTest.Room
         Mock<IItem> item;
         Mock<ISerialization> serializer;
         Mock<ISettings> settings;
+        Mock<ITagWrapper> tagWrapper;
 
         [TestInitialize]
         public void Setup()
@@ -42,13 +43,16 @@ namespace ObjectsUnitTest.Room
             item = new Mock<IItem>();
             serializer = new Mock<ISerialization>();
             settings = new Mock<ISettings>();
+            tagWrapper = new Mock<ITagWrapper>();
 
             settings.Setup(e => e.VaultDirectory).Returns("vault");
             serializer.Setup(e => e.Serialize(It.IsAny<List<IItem>>())).Returns("serializedList");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Serialization = serializer.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             room = new Objects.Room.Room();
             room.Zone = 1;
@@ -110,32 +114,24 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_CheckEnter_NpcSmall()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("The room is to small to fit another person in there.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             room.Attributes.Add(RoomAttribute.Small);
             room.AddMobileObjectToRoom(new Mock<INonPlayerCharacter>().Object);
             Mock<INonPlayerCharacter> mob = new Mock<INonPlayerCharacter>();
 
             IResult result = room.CheckEnter(mob.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("The room is to small to fit another person in there.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Room_CheckEnter_NoNpc()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Non player characters can not enter here.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             room.Attributes.Add(RoomAttribute.NoNPC);
             Mock<INonPlayerCharacter> mob = new Mock<INonPlayerCharacter>();
 
             IResult result = room.CheckEnter(mob.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Non player characters can not enter here.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -160,26 +156,18 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_CheckEnter_PcSmall()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("The room is to small to fit another person in there.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             room.Attributes.Add(RoomAttribute.Small);
             room.AddMobileObjectToRoom(new Mock<IPlayerCharacter>().Object);
             Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
 
             IResult result = room.CheckEnter(mob.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("The room is to small to fit another person in there.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Room_CheckEnter_NotOwner()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("That property belongs to NotYou and you are not on the guest list.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             room.Owner = "NotYou";
 
             Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
@@ -188,7 +176,7 @@ namespace ObjectsUnitTest.Room
             IResult result = room.CheckEnter(mob.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("That property belongs to NotYou and you are not on the guest list.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -207,10 +195,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_CheckEnter_NotGuest()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("That property belongs to NotYou and you are not on the guest list.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             room.Owner = "NotYou";
             room.Guests.Add("AlsoNotYou");
 
@@ -220,7 +204,7 @@ namespace ObjectsUnitTest.Room
             IResult result = room.CheckEnter(mob.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("That property belongs to NotYou and you are not on the guest list.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -255,13 +239,9 @@ namespace ObjectsUnitTest.Room
             mob.Setup(e => e.MaxStamina).Returns(10);
             room.MovementCost = 5;
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You need to rest before you attempt to leave.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = room.CheckLeave(mob.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You need to rest before you attempt to leave.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -273,13 +253,9 @@ namespace ObjectsUnitTest.Room
             mob.Setup(e => e.MaxStamina).Returns(2);
             room.MovementCost = 5;
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You need to rest before you attempt to leave.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = room.CheckLeave(mob.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You need to rest before you attempt to leave.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -291,10 +267,6 @@ namespace ObjectsUnitTest.Room
             mob.Setup(e => e.MaxStamina).Returns(1);
             room.MovementCost = 5;
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You need to rest before you attempt to leave.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             Assert.IsNull(room.CheckLeave(mob.Object));
         }
 
@@ -302,22 +274,18 @@ namespace ObjectsUnitTest.Room
         public void Room_CheckLeaveDirection_Guard()
         {
             Mock<IMobileObject> mob = new Mock<IMobileObject>();
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
             Mock<IGuard> guard = new Mock<IGuard>();
             Mock<INonPlayerCharacter> npc = new Mock<INonPlayerCharacter>();
 
-            tagWrapper.Setup(e => e.WrapInTag("You can not leave.", TagType.Info)).Returns("message");
             guard.Setup(e => e.GuardDirections).Returns(new HashSet<Direction>() { Direction.North });
             guard.Setup(e => e.BlockLeaveMessage).Returns("You can not leave.");
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { guard.Object });
             mob.Setup(e => e.Room).Returns(room);
             room.AddMobileObjectToRoom(npc.Object);
 
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = room.CheckLeaveDirection(mob.Object, Direction.North);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You can not leave.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -328,14 +296,9 @@ namespace ObjectsUnitTest.Room
             mob.Setup(e => e.Stamina).Returns(1);
             room.MovementCost = 1;
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You can not leave while your fighting for your life.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
-
             IResult result = room.CheckLeave(mob.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You can not leave while your fighting for your life.", result.ResultMessage);
         }
 
         [TestMethod]

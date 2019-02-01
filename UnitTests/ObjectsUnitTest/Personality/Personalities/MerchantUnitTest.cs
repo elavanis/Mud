@@ -21,26 +21,30 @@ namespace ObjectsUnitTest.Personality.Personalities
         Mock<IMobileObject> mockMobileObject;
         Mock<IItem> item;
         Mock<IMoneyToCoins> moneyToCoins;
+        Mock<ITagWrapper> tagWrapper;
+
         [TestInitialize]
         public void Setup()
         {
-            merchant = new Merchant();
+            tagWrapper = new Mock<ITagWrapper>();
             mockMerchant = new Mock<INonPlayerCharacter>();
+            mockMobileObject = new Mock<IMobileObject>();
+            item = new Mock<IItem>();
+            moneyToCoins = new Mock<IMoneyToCoins>();
+
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             mockMerchant.Setup(e => e.Level).Returns(5);
             mockMerchant.Setup(e => e.CharismaEffective).Returns(2);
-
-            mockMobileObject = new Mock<IMobileObject>();
             mockMobileObject.Setup(e => e.CharismaEffective).Returns(1);
-
-            item = new Mock<IItem>();
             item.Setup(e => e.Level).Returns(5);
             item.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
             item.Setup(e => e.ShortDescription).Returns("ShortDescription");
             item.Setup(e => e.Value).Returns(100);
 
-            moneyToCoins = new Mock<IMoneyToCoins>();
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
+            merchant = new Merchant();
         }
 
         [TestMethod]
@@ -54,15 +58,11 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestMethod]
         public void Merchant_Sell_ItemLevelHigherThanMerchant()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("The merchant was unwilling to buy that from you.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             mockMerchant.Setup(e => e.Level).Returns(4);
 
             IResult result = merchant.Sell(mockMerchant.Object, mockMobileObject.Object, item.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("The merchant was unwilling to buy that from you.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -73,16 +73,11 @@ namespace ObjectsUnitTest.Personality.Personalities
             mockMobileObject.Setup(e => e.Money).Returns(0);
             mockMobileObject.Setup(e => e.Items).Returns(items);
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You sold the SentenceDescription for 5.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             moneyToCoins.Setup(e => e.FormatedAsCoins(5)).Returns("5");
-
 
             IResult result = merchant.Sell(mockMerchant.Object, mockMobileObject.Object, item.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You sold the SentenceDescription for 5.", result.ResultMessage);
             mockMobileObject.VerifySet(e => e.Money = 5);
             Assert.AreEqual(0, items.Count);
         }
@@ -95,27 +90,17 @@ namespace ObjectsUnitTest.Personality.Personalities
             mockMobileObject.Setup(e => e.Money).Returns(0);
             mockMobileObject.Setup(e => e.Items).Returns(items);
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("ShortDescription - 5", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
-
             IResult result = merchant.Offer(mockMerchant.Object, mockMobileObject.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("ShortDescription - 5", result.ResultMessage);
         }
 
         [TestMethod]
         public void Merchant_Buy_DoesNotHaveThatManyItems()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("The merchant does not carry that many items.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
-
             IResult result = merchant.Buy(mockMerchant.Object, mockMobileObject.Object, 1);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("The merchant does not carry that many items.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -123,16 +108,11 @@ namespace ObjectsUnitTest.Personality.Personalities
         {
             merchant.Sellables.Add(item.Object);
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You need 2000 to buy the SentenceDescription.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             moneyToCoins.Setup(e => e.FormatedAsCoins(2000)).Returns("2000");
-
 
             IResult result = merchant.Buy(mockMerchant.Object, mockMobileObject.Object, 1);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You need 2000 to buy the SentenceDescription.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -144,16 +124,11 @@ namespace ObjectsUnitTest.Personality.Personalities
             mockMobileObject.Setup(e => e.Money).Returns(2000);
             mockMobileObject.Setup(e => e.Items).Returns(items);
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You bought the SentenceDescription for 2000.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             moneyToCoins.Setup(e => e.FormatedAsCoins(2000)).Returns("2000");
-
 
             IResult result = merchant.Buy(mockMerchant.Object, mockMobileObject.Object, 1);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You bought the SentenceDescription for 2000.", result.ResultMessage);
             mockMobileObject.VerifySet(e => e.Money = 0);
             Assert.AreEqual(1, items.Count);
         }
@@ -163,16 +138,11 @@ namespace ObjectsUnitTest.Personality.Personalities
         {
             merchant.Sellables.Add(item.Object);
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Item Name             Price\r\n1    ShortDescription 2000", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             moneyToCoins.Setup(e => e.FormatedAsCoins(2000)).Returns("2000");
-
 
             IResult result = merchant.List(mockMerchant.Object, mockMobileObject.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Item Name             Price\r\n1    ShortDescription 2000", result.ResultMessage);
         }
     }
 }

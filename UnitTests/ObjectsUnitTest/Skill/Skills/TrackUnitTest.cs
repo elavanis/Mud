@@ -41,9 +41,6 @@ namespace ObjectsUnitTest.Skill.Skills
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
-            track = new Track();
             performer = new Mock<IMobileObject>();
             command = new Mock<ICommand>();
             parameters = new List<IParameter>();
@@ -64,6 +61,7 @@ namespace ObjectsUnitTest.Skill.Skills
             zones = new Dictionary<int, IZone>();
             world = new Mock<IWorld>();
 
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             command.Setup(e => e.CommandName).Returns("Perform");
             command.Setup(e => e.Parameters).Returns(parameters);
             param.Setup(e => e.ParameterValue).Returns("Track");
@@ -89,6 +87,9 @@ namespace ObjectsUnitTest.Skill.Skills
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.World = world.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
+            track = new Track();
         }
 
         [TestMethod]
@@ -103,22 +104,20 @@ namespace ObjectsUnitTest.Skill.Skills
         {
             performer.Setup(e => e.Position).Returns(CharacterPosition.Sleep);
             command.Setup(e => e.Parameters).Returns(parameters);
-            tagWrapper.Setup(e => e.WrapInTag("You can not track while asleep.", TagType.Info)).Returns("expected message");
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("expected message", result.ResultMessage);
+            Assert.AreEqual("You can not track while asleep.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Track_ProcessSkill_NotEnoughParameters()
         {
             command.Setup(e => e.Parameters).Returns(parameters);
-            tagWrapper.Setup(e => e.WrapInTag("What are you trying to track?", TagType.Info)).Returns("expected message");
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("expected message", result.ResultMessage);
+            Assert.AreEqual("What are you trying to track?", result.ResultMessage);
         }
 
         [TestMethod]
@@ -128,12 +127,11 @@ namespace ObjectsUnitTest.Skill.Skills
             param.Setup(e => e.ParameterValue).Returns("target");
             parameters.Add(param.Object);
 
-            tagWrapper.Setup(e => e.WrapInTag("You look up and see the target in front of you.", TagType.Info)).Returns("expected message");
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>() { npc.Object });
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("expected message", result.ResultMessage);
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("You look up and see the target in front of you.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -143,13 +141,12 @@ namespace ObjectsUnitTest.Skill.Skills
             param.Setup(e => e.ParameterValue).Returns("target");
             parameters.Add(param.Object);
 
-            tagWrapper.Setup(e => e.WrapInTag("You look up and see the target in front of you.", TagType.Info)).Returns("expected message");
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>() { pc.Object });
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("expected message", result.ResultMessage);
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("You look up and see the target in front of you.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -159,15 +156,14 @@ namespace ObjectsUnitTest.Skill.Skills
             param.Setup(e => e.ParameterValue).Returns("target");
             parameters.Add(param.Object);
 
-            tagWrapper.Setup(e => e.WrapInTag("You pickup the trail of a target to the East.", TagType.Info)).Returns("expected message");
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>());
 
             findObjects.Setup(e => e.FindNpcInRoom(room2.Object, "target")).Returns(new List<INonPlayerCharacter>() { npc.Object });
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("expected message", result.ResultMessage);
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("You pickup the trail of a target to the East.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -177,7 +173,6 @@ namespace ObjectsUnitTest.Skill.Skills
             param.Setup(e => e.ParameterValue).Returns("target");
             parameters.Add(param.Object);
 
-            tagWrapper.Setup(e => e.WrapInTag("You were unable to pick up a trail to a target.", TagType.Info)).Returns("expected message");
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>());
 
@@ -188,8 +183,8 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindPcInRoom(room3.Object, "target")).Returns(new List<IPlayerCharacter>());
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("expected message", result.ResultMessage);
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("You were unable to pick up a trail to a target.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -199,7 +194,6 @@ namespace ObjectsUnitTest.Skill.Skills
             param.Setup(e => e.ParameterValue).Returns("target");
             parameters.Add(param.Object);
 
-            tagWrapper.Setup(e => e.WrapInTag("You were unable to pick up a trail to a target.", TagType.Info)).Returns("expected message");
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>());
             findObjects.Setup(e => e.FindNpcInRoom(room2.Object, "target")).Returns(new List<INonPlayerCharacter>() { npc.Object });
@@ -208,8 +202,8 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindPcInRoom(room3.Object, "target")).Returns(new List<IPlayerCharacter>());
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("expected message", result.ResultMessage);
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("You were unable to pick up a trail to a target.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -225,8 +219,6 @@ namespace ObjectsUnitTest.Skill.Skills
 
             parameters.Add(param.Object);
 
-
-            tagWrapper.Setup(e => e.WrapInTag("You were unable to pick up a trail to a target.", TagType.Info)).Returns("expected message");
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>());
 
@@ -234,8 +226,8 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindPcInRoom(room2.Object, "target")).Returns(new List<IPlayerCharacter>());
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("expected message", result.ResultMessage);
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("You were unable to pick up a trail to a target.", result.ResultMessage);
             room2.Verify(e => e.Attributes, Times.Once);
         }
 
@@ -252,7 +244,6 @@ namespace ObjectsUnitTest.Skill.Skills
             rooms.Add(3, room3.Object);
             room3.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
 
-            tagWrapper.Setup(e => e.WrapInTag("You pickup the trail of a target to the West.", TagType.Info)).Returns("expected message");
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>());
 
@@ -264,8 +255,8 @@ namespace ObjectsUnitTest.Skill.Skills
             parameters.Add(param.Object);
 
             IResult result = track.ProcessSkill(performer.Object, command.Object);
-             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("expected message", result.ResultMessage);
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("You pickup the trail of a target to the West.", result.ResultMessage);
             room2.Verify(e => e.Attributes, Times.Once);
         }
     }

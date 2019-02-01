@@ -27,7 +27,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         Dictionary<string, ISpell> spellBook;
         Mock<IMobileObject> mob;
         Mock<INonPlayerCharacter> npc;
-        Mock<ITagWrapper> tagwrapper;
+        Mock<ITagWrapper> tagWrapper;
         Mock<IGuildAbilities> guildAbilites;
         [TestInitialize]
         public void Setup()
@@ -42,14 +42,14 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             mob = new Mock<IMobileObject>();
             npc = new Mock<INonPlayerCharacter>();
-            tagwrapper = new Mock<ITagWrapper>();
+            tagWrapper = new Mock<ITagWrapper>();
             guildAbilites = new Mock<IGuildAbilities>();
-            GlobalReference.GlobalValues.TagWrapper = tagwrapper.Object;
 
             mob.Setup(e => e.KeyWords).Returns(new List<string>() { "mob" });
             mob.Setup(e => e.Guild).Returns(guildHashSet);
             mob.Setup(e => e.KnownSkills).Returns(knowSkills);
             mob.Setup(e => e.SpellBook).Returns(spellBook);
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { guildMaster });
 
@@ -68,11 +68,11 @@ namespace ObjectsUnitTest.Personality.Personalities
             spell.Setup(e => e.AbilityName).Returns("spell");
             spells.Add(Guilds.Wizard, new List<GuildAbility>() { new GuildAbility(spell.Object, 5) });
             guildAbilites.Setup(e => e.Spells).Returns(spells);
+
+
             GlobalReference.GlobalValues.GuildAbilities = guildAbilites.Object;
-
-            tagwrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("message");
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
         }
-
 
         [TestMethod]
         public void GuildMaster_Constructor()
@@ -92,7 +92,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             npc.Verify(e => e.EnqueueCommand("Tell mob Welcome to the Wizard guild."), Times.Once);
             mob.VerifySet(e => e.GuildPoints = 0);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
             Assert.IsTrue(guildHashSet.Contains(Guilds.Wizard));
         }
 
@@ -105,7 +105,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You need to gain more experience in the world before I can allow you to join the Wizard guild."), Times.Once);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]
@@ -118,7 +118,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You are already a member of the Wizard guild."), Times.Once);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]
@@ -128,7 +128,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I'm sorry but I can not teach you until you gain more experience and join our guild."), Times.Once);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]
@@ -140,7 +140,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob Please join our guild so that I may teach you our ways."), Times.Once);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]
@@ -152,7 +152,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I can not teach you that."), Times.Once);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]
@@ -164,7 +164,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You are not high enough level for that yet."), Times.Once);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]
@@ -176,7 +176,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You are not high enough level for that yet."), Times.Once);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]
@@ -189,7 +189,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob skill teach message"), Times.Once);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
             Assert.IsTrue(knowSkills.ContainsKey("SKILL"));
         }
 
@@ -203,7 +203,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob spell teach message"), Times.Once);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
             Assert.IsTrue(spellBook.ContainsKey("SPELL"));
         }
 
@@ -218,7 +218,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You already know that skill."), Times.Once);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]
@@ -232,7 +232,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob You already know that spell."), Times.Once);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]
@@ -246,7 +246,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I can teach you the following. \r\nspell"), Times.Once);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]
@@ -260,7 +260,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I can teach you the following. \r\nskill"), Times.Once);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]
@@ -273,7 +273,7 @@ namespace ObjectsUnitTest.Personality.Personalities
 
             npc.Verify(e => e.EnqueueCommand("Tell mob I can not teach you anything at this time."), Times.Once);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("", result.ResultMessage);
         }
 
         [TestMethod]

@@ -14,6 +14,7 @@ using Shared.TagWrapper.Interface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Skill
 {
@@ -77,9 +78,8 @@ namespace ObjectsUnitTest.Skill
             npc.Setup(e => e.Room).Returns(room.Object);
             command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter0.Object });
             parameter0.Setup(e => e.ParameterValue).Returns("param0");
-            tagWrapper.Setup(e => e.WrapInTag("You need 1 stamina to use the skill param0.", TagWrapper.TagType.Info)).Returns("NotEnoughStamina");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             stringManipulator.Setup(e => e.UpdateTargetPerformer(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns((string a, string b, string c) => (c));
-
             effectParameter.Setup(e => e.Target).Returns(npc.Object);
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
@@ -100,7 +100,7 @@ namespace ObjectsUnitTest.Skill
             IResult result = baseSkill.ProcessSkill(npc.Object, command.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("NotEnoughStamina", result.ResultMessage);
+            Assert.AreEqual("You need 1 stamina to use the skill param0.", result.ResultMessage);
         }
 
         [TestMethod]

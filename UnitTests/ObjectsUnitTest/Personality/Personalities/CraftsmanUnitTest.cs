@@ -53,9 +53,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             pc.Setup(e => e.Money).Returns(1000);
             pc.Setup(e => e.CraftsmanObjects).Returns(craftsmanObjects);
             moneyToCoins.Setup(e => e.FormatedAsCoins(20000)).Returns("2 gold");
-            tagWrapper.Setup(e => e.WrapInTag("You need 2 gold to have the item made for you.", TagType.Info)).Returns("not enough money");
-            tagWrapper.Setup(e => e.WrapInTag("", TagType.Info)).Returns("");
-            //inGameDateTime.Setup(e => e.ToString()).Returns("future date");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
@@ -69,7 +67,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Arms, 10, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription");
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("not enough money", result.ResultMessage);
+            Assert.AreEqual("You need 2 gold to have the item made for you.", result.ResultMessage);
         }
 
         [TestMethod]

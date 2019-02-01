@@ -104,7 +104,7 @@ namespace ObjectsUnitTest.World
             npc.Setup(e => e.LastProccessedTick).Returns(1);
             npc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             pc.Setup(e => e.LastProccessedTick).Returns(1);
-            pc.Setup(e => e.CraftsmanObjects).Returns(new List<Objects.Crafting.Interface.ICraftsmanObject>());
+            pc.Setup(e => e.CraftsmanObjects).Returns(new List<ICraftsmanObject>());
             pc.Setup(e => e.Room).Returns(room.Object);
             pc.Setup(e => e.FollowTarget).Returns(npc.Object);
             pc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
@@ -113,6 +113,7 @@ namespace ObjectsUnitTest.World
             settings.Setup(e => e.LogStats).Returns(true);
             settings.Setup(e => e.LogStatsLocation).Returns("c:\\");
             serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Random = random.Object;
@@ -447,7 +448,6 @@ namespace ObjectsUnitTest.World
             parser.Setup(e => e.Parse("say hi")).Returns(command.Object);
             command.Setup(e => e.CommandName).Returns("say");
             commandList.Setup(e => e.GetCommand(npc.Object, "say")).Returns<IMobileObjectCommand>(null);
-            tagWrapper.Setup(e => e.WrapInTag("Unknown command.", TagType.Info)).Returns("result");
 
             GlobalReference.GlobalValues.Parser = parser.Object;
             GlobalReference.GlobalValues.CommandList = commandList.Object;
@@ -553,17 +553,15 @@ namespace ObjectsUnitTest.World
             mobCommand.Setup(e => e.PerformCommand(npc.Object, command.Object)).Returns(result.Object);
             result.Setup(e => e.ResultMessage).Returns("result");
             notify.Setup(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>())).Callback<IMobileObject, ITranslationMessage>((mob, translationMessage) => { message = translationMessage; });
-            tagWrapper.Setup(e => e.WrapInTag(@"Unable to figure out how to 4.
-To see a list of all commands type MAN.
-To see infon on how to use a command type MAN and then the COMMAND.", TagType.Info)).Returns("expectedMessage");
-            tagWrapper.Setup(e => e.WrapInTag("expectedMessage", TagType.Info)).Returns("expectedMessage");
 
             GlobalReference.GlobalValues.Parser = parser.Object;
             GlobalReference.GlobalValues.CommandList = commandList.Object;
 
             world.PerformTick();
 
-            Assert.AreEqual("expectedMessage", message.Message);
+            Assert.AreEqual(@"Unable to figure out how to 4.
+To see a list of all commands type MAN.
+To see infon on how to use a command type MAN and then the COMMAND.", message.Message);
         }
 
         [TestMethod]
@@ -703,7 +701,6 @@ To see infon on how to use a command type MAN and then the COMMAND.", TagType.In
             objectId.Setup(e => e.Zone).Returns(1);
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
             pc.Setup(e => e.CraftsmanObjects).Returns(craftsmanObjects);
-            tagwrapper.Setup(e => e.WrapInTag("\"craftmanDescription\" has completed your item in zone 1.", TagType.Info)).Returns("message");
 
             GlobalReference.GlobalValues.TagWrapper = tagwrapper.Object;
 
@@ -837,8 +834,6 @@ To see infon on how to use a command type MAN and then the COMMAND.", TagType.In
             FieldInfo fieldInfo = world.GetType().GetField("_followMobQueue", BindingFlags.NonPublic | BindingFlags.Instance);
             ((ConcurrentQueue<IMobileObject>)fieldInfo.GetValue(world)).Enqueue(pc.Object);
 
-            tagWrapper.Setup(e => e.WrapInTag("You have lost track of the npc and had to quit following them.", TagType.Info)).Returns("expectedMessage");
-
             Mock<IRoom> room2 = new Mock<IRoom>();
             Mock<IRoom> room3 = new Mock<IRoom>();
             Mock<IRoom> room4 = new Mock<IRoom>();
@@ -895,7 +890,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", TagType.In
 
             world.PerformTick();
             notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()), Times.Once);
-            Assert.AreEqual("expectedMessage", message.Message);
+            Assert.AreEqual("You have lost track of the npc and had to quit following them.", message.Message);
         }
         #endregion ProccessSerialCommands
 
