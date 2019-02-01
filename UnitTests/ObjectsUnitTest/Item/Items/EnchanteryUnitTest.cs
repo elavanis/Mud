@@ -43,6 +43,7 @@ namespace ObjectsUnitTest.Item.Items
             random.Setup(e => e.PercentDiceRoll(100)).Returns(true);
             random.Setup(e => e.PercentDiceRoll(1)).Returns(false);
             defaults.Setup(e => e.DiceForWeaponLevel(0)).Returns(new Dice(1, 2));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
 
             GlobalReference.GlobalValues.Random = random.Object;
@@ -73,38 +74,33 @@ namespace ObjectsUnitTest.Item.Items
         [TestMethod]
         public void Enchantery_Enchant_WeaponSuccess()
         {
-            tagWrapper.Setup(e => e.WrapInTag("The item begins to glow and then flashes a bright light.  The item continues to have a faint glow and hum slightly.", TagType.Info)).Returns("success");
-
             IResult result = enchantery.Enchant(weapon.Object);
 
             Assert.IsTrue(enchantments.Count == 1);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("success", result.ResultMessage);
+            Assert.AreEqual("The item begins to glow and then flashes a bright light.  The item continues to have a faint glow and hum slightly.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Enchantery_Enchant_WeaponFail()
         {
-            tagWrapper.Setup(e => e.WrapInTag("The item begins to glow and then flashes a bright light.  The item is gone and only a charred ring remains.", TagType.Info)).Returns("failure");
             random.Setup(e => e.PercentDiceRoll(100)).Returns(false);
 
             IResult result = enchantery.Enchant(weapon.Object);
 
             Assert.IsTrue(enchantments.Count == 0);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("failure", result.ResultMessage);
+            Assert.AreEqual("The item begins to glow and then flashes a bright light.  The item is gone and only a charred ring remains.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Enchantery_Enchant_ArmorSuccess()
         {
-            tagWrapper.Setup(e => e.WrapInTag("The item begins to glow and then flashes a bright light.  The item continues to have a faint glow and hum slightly.", TagType.Info)).Returns("success");
-
             IResult result = enchantery.Enchant(armor.Object);
 
             Assert.IsTrue(enchantments.Count == 1);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("success", result.ResultMessage);
+            Assert.AreEqual("The item begins to glow and then flashes a bright light.  The item continues to have a faint glow and hum slightly.", result.ResultMessage);
         }
 
 
@@ -112,27 +108,25 @@ namespace ObjectsUnitTest.Item.Items
         public void Enchantery_Enchant_ArmorSuccess2()
         {
             random.Setup(e => e.Next(2)).Returns(1);
-            tagWrapper.Setup(e => e.WrapInTag("The item begins to glow and then flashes a bright light.  The item continues to have a faint glow and hum slightly.", TagType.Info)).Returns("success");
 
             IResult result = enchantery.Enchant(armor.Object);
 
             Assert.IsTrue(enchantments.Count == 1);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("success", result.ResultMessage);
+            Assert.AreEqual("The item begins to glow and then flashes a bright light.  The item continues to have a faint glow and hum slightly.", result.ResultMessage);
         }
 
 
         [TestMethod]
         public void Enchantery_Enchant_ArmorFail()
         {
-            tagWrapper.Setup(e => e.WrapInTag("The item begins to glow and then flashes a bright light.  The item is gone and only a charred ring remains.", TagType.Info)).Returns("failure");
             random.Setup(e => e.PercentDiceRoll(100)).Returns(false);
 
             IResult result = enchantery.Enchant(armor.Object);
 
             Assert.IsTrue(enchantments.Count == 0);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("failure", result.ResultMessage);
+            Assert.AreEqual("The item begins to glow and then flashes a bright light.  The item is gone and only a charred ring remains.", result.ResultMessage);
         }
     }
 }

@@ -78,6 +78,7 @@ namespace ObjectsUnitTest.Global.Engine
             room.Setup(e => e.ToString()).Returns("1-1");
             room.Setup(e => e.SerializedSounds).Returns("SerializedSounds");
             trap.Setup(e => e.Trigger).Returns(TrapTrigger.All);
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Logger = logger.Object;
@@ -103,8 +104,6 @@ namespace ObjectsUnitTest.Global.Engine
         [TestMethod]
         public void Event_OnDeath()
         {
-            tagWrapper.Setup(e => e.WrapInTag("PcSentence has died.", TagType.Info)).Returns("message");
-
             evnt.OnDeath(pc.Object);
 
             logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "Died"), Times.Once);
@@ -128,10 +127,6 @@ namespace ObjectsUnitTest.Global.Engine
         [TestMethod]
         public void Event_DamageDealtAfterDefense()
         {
-            tagWrapper.Setup(e => e.WrapInTag("You hit PcSentence for 10 damage.", TagType.DamageDelt)).Returns("attacker message");
-            tagWrapper.Setup(e => e.WrapInTag("NpcSentence hit you for 10 damage.", TagType.DamageReceived)).Returns("defender message");
-            tagWrapper.Setup(e => e.WrapInTag("NpcSentence attacked PcSentence for 10 damage.", TagType.Info)).Returns("message");
-
             evnt.DamageDealtAfterDefense(npc.Object, pc.Object, 10);
 
             logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "DamageDealtAfterDefense: Attacker-NpcSentence Defender-PcSentence DamageAmount-10."), Times.Once);
@@ -188,8 +183,6 @@ namespace ObjectsUnitTest.Global.Engine
         [TestMethod]
         public void Event_EnterRoom()
         {
-            tagWrapper.Setup(e => e.WrapInTag("SerializedSounds", TagType.Sound)).Returns("sounds");
-
             evnt.EnterRoom(pc.Object);
 
             logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence entered room 1-1."), Times.Once);

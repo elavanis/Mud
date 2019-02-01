@@ -26,7 +26,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Time", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -41,7 +41,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Time", result.ResultMessage);
         }
 
         [TestMethod]
@@ -58,7 +58,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IInGameDateTime> inGameDateTime = new Mock<IInGameDateTime>();
             Mock<IGameDateTime> gameDateTime = new Mock<IGameDateTime>();
 
-            tagWrapper.Setup(e => e.WrapInTag("time", TagType.Info)).Returns("message");
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             gameDateTime.Setup(e => e.ToString()).Returns("time");
 
@@ -66,7 +65,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("time", result.ResultMessage);
         }
     }
 }

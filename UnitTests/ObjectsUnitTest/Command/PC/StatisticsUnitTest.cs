@@ -27,7 +27,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("(Stats) Statistics", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -42,7 +42,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("(Stats) Statistics", result.ResultMessage);
         }
 
         [TestMethod]
@@ -61,8 +61,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IRace> race = new Mock<IRace>();
             Mock<IExperience> exp = new Mock<IExperience>();
             Mock<IMoneyToCoins> moneyToCoins = new Mock<IMoneyToCoins>();
-
-            tagWrapper.Setup(e => e.WrapInTag("MyName   Human\r\nLevel 1\r\nEXP 2   To Next Level -2\r\n\r\nStat  Value    Bonus\r\nSTR:  1       11\r\nDEX:  20      22\r\nCON:  300     33\r\nINT:  4000    44\r\nWIS:  50000   55\r\nCHA:  600000  66", TagType.Info)).Returns("message");
 
             pc.Setup(e => e.Level).Returns(1);
             pc.Setup(e => e.Experience).Returns(2);
@@ -90,7 +88,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("MyName   Human\r\nLevel 1\r\nEXP 2   To Next Level -2\r\n\r\nStat  Value    Bonus\r\nSTR:  1       11\r\nDEX:  20      22\r\nCON:  300     33\r\nINT:  4000    44\r\nWIS:  50000   55\r\nCHA:  600000  66", result.ResultMessage);
         }
 
         [TestMethod]
@@ -99,8 +97,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<INonPlayerCharacter> npc = new Mock<INonPlayerCharacter>();
             Mock<IRace> race = new Mock<IRace>();
             Mock<IMoneyToCoins> moneyToCoins = new Mock<IMoneyToCoins>();
-
-            tagWrapper.Setup(e => e.WrapInTag("Human\r\nLevel 1\r\n\r\nStat  Value\r\nSTR:  1\r\nDEX:  20\r\nCON:  300\r\nINT:  4000\r\nWIS:  50000\r\nCHA:  600000", TagType.Info)).Returns("message");
 
             npc.Setup(e => e.Level).Returns(1);
 
@@ -117,7 +113,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(npc.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Human\r\nLevel 1\r\n\r\nStat  Value\r\nSTR:  1\r\nDEX:  20\r\nCON:  300\r\nINT:  4000\r\nWIS:  50000\r\nCHA:  600000", result.ResultMessage);
         }
     }
 }

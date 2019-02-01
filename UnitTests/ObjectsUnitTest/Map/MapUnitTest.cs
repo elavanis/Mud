@@ -12,6 +12,7 @@ using Shared.TagWrapper.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Map
 {
@@ -23,7 +24,7 @@ namespace ObjectsUnitTest.Map
         Mock<ISettings> settings;
         Mock<ICanMobDoSomething> canMobDoSomething;
         Mock<IRoom> room;
-        Mock<ITagWrapper> tagwrapper;
+        Mock<ITagWrapper> tagWrapper;
         Mock<INotify> notify;
         Objects.Global.Map.Map map;
 
@@ -35,7 +36,7 @@ namespace ObjectsUnitTest.Map
             settings = new Mock<ISettings>();
             canMobDoSomething = new Mock<ICanMobDoSomething>();
             room = new Mock<IRoom>();
-            tagwrapper = new Mock<ITagWrapper>();
+            tagWrapper = new Mock<ITagWrapper>();
             notify = new Mock<INotify>();
             map = new Objects.Global.Map.Map();
 
@@ -45,12 +46,12 @@ namespace ObjectsUnitTest.Map
             settings.Setup(e => e.AssetsDirectory).Returns("assetsDir");
             fileIO.Setup(e => e.Exists(@"assetsDir\Maps\1.MapConversion")).Returns(true);
             fileIO.Setup(e => e.ReadLines(@"assetsDir\Maps\1.MapConversion")).Returns(new List<string>() { "2|1|90|10" });
-            tagwrapper.Setup(e => e.WrapInTag("1|1|90|10", Shared.TagWrapper.TagWrapper.TagType.Map)).Returns("mapInfo");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Map)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.CanMobDoSomething = canMobDoSomething.Object;
-            GlobalReference.GlobalValues.TagWrapper = tagwrapper.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
         }
 
@@ -73,7 +74,7 @@ namespace ObjectsUnitTest.Map
 
             map.SendMapPosition(mob.Object);
 
-            mob.Verify(e => e.EnqueueMessage("mapInfo"), Times.Never);
+            mob.Verify(e => e.EnqueueMessage("1|1|90|10"), Times.Never);
         }
 
         [TestMethod]
@@ -84,7 +85,7 @@ namespace ObjectsUnitTest.Map
 
             map.SendMapPosition(mob.Object);
 
-            mob.Verify(e => e.EnqueueMessage("mapInfo"), Times.Never);
+            mob.Verify(e => e.EnqueueMessage("1|1|90|10"), Times.Never);
         }
     }
 }

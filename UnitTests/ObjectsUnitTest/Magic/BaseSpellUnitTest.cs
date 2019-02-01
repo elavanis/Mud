@@ -15,6 +15,7 @@ using Objects.Room.Interface;
 using static Objects.Global.Language.Translator;
 using Objects.Language.Interface;
 using Objects.Global.StringManuplation.Interface;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Magic
 {
@@ -65,10 +66,7 @@ namespace ObjectsUnitTest.Magic
             npc.Setup(e => e.Room).Returns(room.Object);
             command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter0.Object });
             parameter0.Setup(e => e.ParameterValue).Returns("param0");
-            tagWrapper.Setup(e => e.WrapInTag("You need 1 mana to cast the spell param0.", TagWrapper.TagType.Info)).Returns("NotEnoughMana");
-            tagWrapper.Setup(e => e.WrapInTag("roomNotify", TagWrapper.TagType.Info)).Returns("room");
-            tagWrapper.Setup(e => e.WrapInTag("targetNotify", TagWrapper.TagType.Info)).Returns("target");
-            tagWrapper.Setup(e => e.WrapInTag("performNotify", TagWrapper.TagType.Info)).Returns("perform");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             effectParameter.Setup(e => e.Target).Returns(npc.Object);
             stringManipulator.Setup(e => e.UpdateTargetPerformer(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns((string x, string y, string z) => z);
 
@@ -97,7 +95,7 @@ namespace ObjectsUnitTest.Magic
             IResult result = spell.ProcessSpell(npc.Object, command.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("NotEnoughMana", result.ResultMessage);
+            Assert.AreEqual("You need 1 mana to cast the spell param0.", result.ResultMessage);
         }
 
         [TestMethod]

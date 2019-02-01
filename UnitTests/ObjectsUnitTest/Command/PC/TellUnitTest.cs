@@ -28,7 +28,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Tell [Player Name] [Message]", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -46,7 +46,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Tell [Player Name] [Message]", result.ResultMessage);
         }
 
         [TestMethod]
@@ -60,11 +60,9 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Tell_PerformCommand_NoParameter()
         {
-            tagWrapper.Setup(e => e.WrapInTag("Who would you like to tell what?", TagType.Info)).Returns("message");
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Who would you like to tell what?", result.ResultMessage);
         }
 
         [TestMethod]
@@ -72,13 +70,12 @@ namespace ObjectsUnitTest.Command.PC
         {
             Mock<IParameter> parm1 = new Mock<IParameter>();
 
-            tagWrapper.Setup(e => e.WrapInTag("What would you like to tell them?", TagType.Info)).Returns("message");
             parm1.Setup(e => e.ParameterValue).Returns("pc");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object });
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("What would you like to tell them?", result.ResultMessage);
         }
 
         [TestMethod]
@@ -90,7 +87,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parm2 = new Mock<IParameter>();
             Mock<IParameter> parm3 = new Mock<IParameter>();
 
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find pc to tell them.", TagType.Info)).Returns("message");
             pc.Setup(e => e.KeyWords).Returns(new List<string>());
             world.Setup(e => e.CurrentPlayers).Returns(new List<IPlayerCharacter>() { pc.Object });
             parm1.Setup(e => e.ParameterValue).Returns("pc");
@@ -102,7 +98,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unable to find pc to tell them.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -114,7 +110,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parm2 = new Mock<IParameter>();
             Mock<IParameter> parm3 = new Mock<IParameter>();
 
-            tagWrapper.Setup(e => e.WrapInTag("keyword tells you -- hi there", TagType.Communication)).Returns("message");
             pc.Setup(e => e.KeyWords).Returns(new List<string>() { "PC" });
             mob.Setup(e => e.KeyWords).Returns(new List<string>() { "keyword" });
             world.Setup(e => e.CurrentPlayers).Returns(new List<IPlayerCharacter>() { pc.Object });

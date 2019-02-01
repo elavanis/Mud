@@ -27,7 +27,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Stand", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -42,7 +42,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Stand", result.ResultMessage);
         }
 
         [TestMethod]
@@ -59,14 +59,13 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IEngine> engine = new Mock<IEngine>();
             Mock<IEvent> evnt = new Mock<IEvent>();
 
-            tagWrapper.Setup(e => e.WrapInTag("You stand up.", TagType.Info)).Returns("message");
             engine.Setup(e => e.Event).Returns(evnt.Object);
 
             GlobalReference.GlobalValues.Engine = engine.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You stand up.", result.ResultMessage);
             mob.VerifySet(e => e.Position = CharacterPosition.Stand);
             evnt.Verify(e => e.Stand(mob.Object), Times.Once);
         }

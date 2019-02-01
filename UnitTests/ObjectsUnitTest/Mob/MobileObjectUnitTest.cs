@@ -42,10 +42,29 @@ namespace ObjectsUnitTest.Mob
     public class MobileObjectUnitTest
     {
         UnitTestMobileObject mob;
+        Mock<ITagWrapper> tagWrapper;
+        Mock<IEvent> evnt;
+        Mock<IEngine> engine;
 
         [TestInitialize]
         public void Setup()
         {
+            tagWrapper = new Mock<ITagWrapper>();
+            evnt = new Mock<IEvent>();
+            engine = new Mock<IEngine>();
+
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Health)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Mana)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Stamina)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Data)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.FileValidation)).Returns((string x, TagType y) => (x));
+            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), It.IsAny<string>())).Returns((IMobileObject x, string y) => (y));
+            engine.Setup(e => e.Event).Returns(evnt.Object);
+
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.Engine = engine.Object;
+
             mob = new UnitTestMobileObject();
         }
 
@@ -1230,18 +1249,7 @@ namespace ObjectsUnitTest.Mob
             mob.Stamina = 3;
             mob.MaxStamina = 30;
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("1/10 ", TagType.Health)).Returns("Health");
-            tagWrapper.Setup(e => e.WrapInTag("2/20 ", TagType.Mana)).Returns("Mana");
-            tagWrapper.Setup(e => e.WrapInTag("3/30", TagType.Stamina)).Returns("Stamina");
 
-            Mock<IEvent> evnt = new Mock<IEvent>();
-            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), "test")).Returns("test");
-            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), "\r\nHealthManaStamina\r\n")).Returns("AAA");
-            Mock<IEngine> engine = new Mock<IEngine>();
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-            GlobalReference.GlobalValues.Engine = engine.Object;
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             ConcurrentQueue<string> queue = GetMobMessageQueue(mob);
 
@@ -1252,16 +1260,13 @@ namespace ObjectsUnitTest.Mob
             queue.TryDequeue(out message);
             Assert.AreEqual("test", message);
             queue.TryDequeue(out message);
-            Assert.AreEqual("AAA", message);
+            Assert.AreEqual("\r\n1/10 2/20 3/30\r\n", message);
         }
 
         [TestMethod]
         public void MobileObject_EnqueueMessage_Possessed()
         {
             Mock<IPlayerCharacter> pc = new Mock<IPlayerCharacter>();
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            Mock<IEvent> evnt = new Mock<IEvent>();
-            Mock<IEngine> engine = new Mock<IEngine>();
 
             mob.Health = 1;
             mob.MaxHealth = 10;
@@ -1270,15 +1275,6 @@ namespace ObjectsUnitTest.Mob
             mob.Stamina = 3;
             mob.MaxStamina = 30;
             mob.PossingMob = pc.Object;
-            tagWrapper.Setup(e => e.WrapInTag("1/10 ", TagType.Health)).Returns("Health");
-            tagWrapper.Setup(e => e.WrapInTag("2/20 ", TagType.Mana)).Returns("Mana");
-            tagWrapper.Setup(e => e.WrapInTag("3/30", TagType.Stamina)).Returns("Stamina");
-            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), "test")).Returns("test");
-            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), "\r\nHealthManaStamina\r\n")).Returns("AAA");
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-
-            GlobalReference.GlobalValues.Engine = engine.Object;
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             ConcurrentQueue<string> queue = GetMobMessageQueue(mob);
 
@@ -1289,26 +1285,15 @@ namespace ObjectsUnitTest.Mob
             queue.TryDequeue(out message);
             Assert.AreEqual("test", message);
             queue.TryDequeue(out message);
-            Assert.AreEqual("AAA", message);
+            Assert.AreEqual("\r\n1/10 2/20 3/30\r\n", message);
             pc.Verify(e => e.EnqueueMessage("test"), Times.Once);
-            pc.Verify(e => e.EnqueueMessage("AAA"), Times.Once);
+            pc.Verify(e => e.EnqueueMessage("\r\n1/10 2/20 3/30\r\n"), Times.Once);
         }
 
         [TestMethod]
         public void MobileObject_EnqueueMessage_LevelPoints()
         {
             mob.LevelPoints = 10;
-
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You have 10 level points to spend.", TagType.Info)).Returns("Level");
-
-            Mock<IEvent> evnt = new Mock<IEvent>();
-            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), "test")).Returns("test");
-            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), "Level")).Returns("Level");
-            Mock<IEngine> engine = new Mock<IEngine>();
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-            GlobalReference.GlobalValues.Engine = engine.Object;
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             ConcurrentQueue<string> queue = GetMobMessageQueue(mob);
 
@@ -1319,25 +1304,14 @@ namespace ObjectsUnitTest.Mob
             queue.TryDequeue(out message);
             Assert.AreEqual("test", message);
             queue.TryDequeue(out message);
-            Assert.AreEqual(null, message);
+            Assert.AreEqual("\r\n0/0 0/0 0/0\r\n", message);
             queue.TryDequeue(out message);
-            Assert.AreEqual("Level", message);
+            Assert.AreEqual("You have 10 level points to spend.", message);
         }
 
         [TestMethod]
         public void MobileObject_EnqueueMessage_RemoveMessageOver100()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You have 10 level points to spend.", TagType.Info)).Returns("Level");
-
-            Mock<IEvent> evnt = new Mock<IEvent>();
-            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), "test")).Returns("test");
-            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), "Level")).Returns("Level");
-            Mock<IEngine> engine = new Mock<IEngine>();
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-            GlobalReference.GlobalValues.Engine = engine.Object;
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             ConcurrentQueue<string> queue = GetMobMessageQueue(mob);
 
             for (int i = 0; i < 101; i++)
@@ -1371,15 +1345,13 @@ namespace ObjectsUnitTest.Mob
             Mock<ISettings> settings = new Mock<ISettings>();
             Mock<IFileIO> fileIo = new Mock<IFileIO>();
             Mock<ISerialization> serilization = new Mock<ISerialization>();
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
             Mock<IEngine> engine = new Mock<IEngine>();
             Mock<IEvent> evnt = new Mock<IEvent>();
             Mock<IFileIO> fileIO = new Mock<IFileIO>();
 
             settings.Setup(e => e.AssetsDirectory).Returns(@"c:\");
             fileIo.Setup(e => e.ReadFileBase64(@"c:\test")).Returns("abc123");
-            serilization.Setup(e => e.Serialize(It.IsAny<Data>())).Returns("serilization");
-            tagWrapper.Setup(e => e.WrapInTag("serilization", TagType.Data)).Returns("test");
+            serilization.Setup(e => e.Serialize(It.IsAny<Data>())).Returns("serialization");
             engine.Setup(e => e.Event).Returns(evnt.Object);
             evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), It.IsAny<string>())).Returns((IMobileObject a, string b) => b);
             fileIO.Setup(e => e.Exists("c:\\test")).Returns(true);
@@ -1387,7 +1359,6 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.FileIO = fileIo.Object;
             GlobalReference.GlobalValues.Serialization = serilization.Object;
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
 
@@ -1398,20 +1369,17 @@ namespace ObjectsUnitTest.Mob
             mob.EnqueueCommand(message);
             string result;
             outQueue.TryDequeue(out result);
-            Assert.AreEqual("test", result);
+            Assert.AreEqual("serialization", result);
         }
 
         [TestMethod]
         public void MobileObject_EnqueueCommand_ValidateAsset()
         {
             Mock<IValidateAsset> validateAsset = new Mock<IValidateAsset>();
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
 
             validateAsset.Setup(e => e.GetCheckSum("validateAsset")).Returns("abc");
-            tagWrapper.Setup(e => e.WrapInTag("validateAsset|abc", TagType.FileValidation)).Returns("test");
 
             GlobalReference.GlobalValues.ValidateAsset = validateAsset.Object;
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             ConcurrentQueue<string> queue = GetMobCommunicationQueue(mob);
             ConcurrentQueue<string> outQueue = GetMobMessageQueue(mob);
@@ -1420,7 +1388,7 @@ namespace ObjectsUnitTest.Mob
             mob.EnqueueCommand(message);
             string result;
             outQueue.TryDequeue(out result);
-            Assert.AreEqual("test", result);
+            Assert.AreEqual("validateAsset|abc", result);
         }
 
         [TestMethod]

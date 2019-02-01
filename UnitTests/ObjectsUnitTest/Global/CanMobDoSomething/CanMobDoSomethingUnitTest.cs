@@ -28,7 +28,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         Mock<IMobileObject> mob;
         Mock<IInGameDateTime> inGameDateTime;
         Mock<IGameDateTime> gameDateTime;
-
+        Mock<ITagWrapper> tagWrapper;
         Mock<IRoom> room;
         Mock<IItem> item;
         Mock<IMobileObject> altMob;
@@ -44,14 +44,17 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
             item = new Mock<IItem>();
             altMob = new Mock<IMobileObject>();
             gameDateTime = new Mock<IGameDateTime>();
+            tagWrapper = new Mock<ITagWrapper>();
 
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
             mob.Setup(e => e.Room).Returns(room.Object);
             item.Setup(e => e.Attributes).Returns(new List<ItemAttribute>() { ItemAttribute.Invisible });
             altMob.Setup(e => e.AttributesCurrent).Returns(new List<MobileAttribute>() { MobileAttribute.Invisibile });
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
         }
 
         #region SeeDueToLight
@@ -230,13 +233,9 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         {
             mob.Setup(e => e.Position).Returns(CharacterPosition.Sleep);
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You can not move while asleep.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = canDoSomething.Move(mob.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You can not move while asleep.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -244,13 +243,9 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         {
             mob.Setup(e => e.Position).Returns(CharacterPosition.Sit);
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You can not move while sitting.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = canDoSomething.Move(mob.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You can not move while sitting.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -258,13 +253,9 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         {
             mob.Setup(e => e.Position).Returns(CharacterPosition.Relax);
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You can not move while relaxing.", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             IResult result = canDoSomething.Move(mob.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You can not move while relaxing.", result.ResultMessage);
         }
 
         [TestMethod]

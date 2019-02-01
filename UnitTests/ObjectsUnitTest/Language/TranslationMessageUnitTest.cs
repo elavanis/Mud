@@ -32,11 +32,11 @@ namespace ObjectsUnitTest.Language
             list = new List<ITranslationPair>() { translationPair.Object };
 
             translationPair.Setup(e => e.GetTranslation(mob.Object)).Returns("Worked");
-            tagWrapper.Setup(e => e.WrapInTag("message", TagType.Info)).Returns("wrapped{0}");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
-            translationMessage = new TranslationMessage("message", TagType.Info, list);
+            translationMessage = new TranslationMessage("wrapped{0}", TagType.Info, list);
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace ObjectsUnitTest.Language
         [TestMethod]
         public void TranslationMessage_GetTranslatedMessage_NoList()
         {
-            translationMessage = new TranslationMessage("message", TagType.Info);
+            translationMessage = new TranslationMessage("wrapped{0}", TagType.Info);
 
             string result = translationMessage.GetTranslatedMessage(mob.Object);
             Assert.AreEqual("wrapped{0}", result);

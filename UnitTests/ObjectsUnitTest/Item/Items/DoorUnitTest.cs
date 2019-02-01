@@ -12,10 +12,17 @@ namespace ObjectsUnitTest.Item.Items
     public class DoorUnitTest
     {
         Door door;
+        Mock<ITagWrapper> tagWrapper;
 
         [TestInitialize]
         public void Setup()
         {
+            tagWrapper = new Mock<ITagWrapper>();
+
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
             door = new Door();
         }
 
@@ -31,13 +38,9 @@ namespace ObjectsUnitTest.Item.Items
             door.Opened = false;
             door.OpenMessage = "OpenMessage";
 
-            Mock<ITagWrapper> tagwrapper = new Mock<ITagWrapper>();
-            tagwrapper.Setup(e => e.WrapInTag("OpenMessage", TagType.Info)).Returns("message");
-            GlobalReference.GlobalValues.TagWrapper = tagwrapper.Object;
-
             IResult result = door.Open();
-             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("OpenMessage", result.ResultMessage);
         }
     }
 }

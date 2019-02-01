@@ -33,7 +33,6 @@ namespace ObjectsUnitTest.Effect.Zone.EndlessDesert
         Mock<IGameDateTime> gameDateTime;
         List<Objects.Room.Room.RoomAttribute> roomAttrbuties;
 
-
         DoorwayToUnderworld doorwayToUnderworld;
 
         [TestInitialize]
@@ -66,10 +65,6 @@ namespace ObjectsUnitTest.Effect.Zone.EndlessDesert
         [TestMethod]
         public void DoorwayToUnderworldTest_ProcessEffect_AddDoor()
         {
-            string message = "As the last rays of light disappear over the horizon the crackle of water quickly freezing can be heard originating from a shimmering gray portal that has appeared in the center of the now frozen lake.  The portal gives off an eerie gray light causing everything to look pale as if touched by dead while a cold breeze can be felt emanating from it adding to the effect.";
-
-            tagWrapper.Setup(e => e.WrapInTag(message, TagType.Info)).Returns("message");
-
             doorwayToUnderworld.ProcessEffect(effectParameter.Object);
 
             Assert.IsTrue(roomAttrbuties.Contains(Objects.Room.Room.RoomAttribute.Light));
@@ -81,12 +76,9 @@ namespace ObjectsUnitTest.Effect.Zone.EndlessDesert
         public void DoorwayToUnderworldTest_ProcessEffect_RoomDoor()
         {
             gameDateTime.Setup(e => e.Hour).Returns(1);
-            //Objects.GameDateTime.GameDateTime gameDateTime = new Objects.GameDateTime.GameDateTime(new DateTime(2000, 01, 01, 1, 0, 0));
             Mock<IExit> exit = new Mock<IExit>();
-            string message = "As the sun starts to peek over the dunes the portal in the center of the lake disappears and the lake begins to thaw.";
 
             room.Setup(e => e.Down).Returns(exit.Object);
-            tagWrapper.Setup(e => e.WrapInTag(message, TagType.Info)).Returns("message");
             roomAttrbuties.Add(Objects.Room.Room.RoomAttribute.Light);
 
             doorwayToUnderworld.ProcessEffect(effectParameter.Object);

@@ -27,7 +27,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Setup()
         {
             tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("Unequip [Item Name]", TagType.Info)).Returns("message");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             mob = new Mock<IMobileObject>();
@@ -42,7 +42,7 @@ namespace ObjectsUnitTest.Command.PC
         {
             IResult result = command.Instructions;
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("Unequip [Item Name]", result.ResultMessage);
         }
 
         [TestMethod]
@@ -56,11 +56,9 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Unequip_PerformCommand_NoParameter()
         {
-            tagWrapper.Setup(e => e.WrapInTag("What would you like to unequip?", TagType.Info)).Returns("message");
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("What would you like to unequip?", result.ResultMessage);
         }
 
         [TestMethod]
@@ -68,14 +66,13 @@ namespace ObjectsUnitTest.Command.PC
         {
             Mock<IParameter> parameter = new Mock<IParameter>();
 
-            tagWrapper.Setup(e => e.WrapInTag("You do not appear to have helmet equipped.", TagType.Info)).Returns("message");
             parameter.Setup(e => e.ParameterValue).Returns("helmet");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             mob.Setup(e => e.EquipedEquipment).Returns(new List<IEquipment>());
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You do not appear to have helmet equipped.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -86,7 +83,6 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IEquipment> equipment2 = new Mock<IEquipment>();
             List<IItem> items = new List<IItem>();
 
-            tagWrapper.Setup(e => e.WrapInTag("You removed SentenceDescription.", TagType.Info)).Returns("message");
             parameter.Setup(e => e.ParameterValue).Returns("helmet");
             parameter.Setup(e => e.ParameterNumber).Returns(1);
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
@@ -98,7 +94,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
+            Assert.AreEqual("You removed SentenceDescription.", result.ResultMessage);
             mob.Verify(e => e.RemoveEquipment(equipment2.Object), Times.Once);
             mob.Verify(e => e.ResetMaxStatValues(), Times.Once);
             Assert.AreEqual(1, items.Count);

@@ -54,16 +54,13 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
             parameter1.Setup(e => e.ParameterValue).Returns("param1");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(npc.Object, parameter1.Object.ParameterValue, 0, true, true, true, true, true)).Returns(npc2.Object);
             command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter0.Object, parameter1.Object });
-            tagWrapper.Setup(e => e.WrapInTag("The spell param0 requires a target.", TagType.Info)).Returns("notEnoughParams");
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find param1.", TagType.Info)).Returns("notFound");
-            tagWrapper.Setup(e => e.WrapInTag("Unable to find an opponent to cast the spell on.", TagType.Info)).Returns("failure");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             translationMessage.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("success");
             stringManipulator.Setup(e => e.UpdateTargetPerformer(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns((string x, string y, string z) => z);
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
-
         }
 
         [TestMethod]
@@ -72,7 +69,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
             command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter0.Object });
 
             IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
-            Assert.AreEqual("notEnoughParams", result.ResultMessage);
+            Assert.AreEqual("The spell param0 requires a target.", result.ResultMessage);
             Assert.IsTrue(result.AllowAnotherCommand);
         }
 
@@ -82,7 +79,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(npc.Object, parameter1.Object.ParameterValue, 0, true, true, true, true, true)).Returns((IBaseObject)null);
 
             IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
-            Assert.AreEqual("notFound", result.ResultMessage);
+            Assert.AreEqual("Unable to find param1.", result.ResultMessage);
             Assert.IsTrue(result.AllowAnotherCommand);
         }
 
@@ -113,7 +110,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
             npc.Setup(e => e.IsInCombat).Returns(true);
 
             IResult result = singleTargetSpell.ProcessSpell(npc.Object, command.Object);
-            Assert.AreEqual("failure", result.ResultMessage);
+            Assert.AreEqual("Unable to find an opponent to cast the spell on.", result.ResultMessage);
             Assert.IsTrue(result.AllowAnotherCommand);
         }
     }

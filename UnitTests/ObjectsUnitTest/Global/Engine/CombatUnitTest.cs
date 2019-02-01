@@ -22,6 +22,7 @@ using Objects.Global.Engine.Interface;
 using Objects.Global.Engine.Engines.Interface;
 using Objects.Room.Interface;
 using static Objects.Room.Room;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Engine
 {
@@ -34,6 +35,7 @@ namespace ObjectsUnitTest.Engine
         public void Setup()
         {
             Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             combat = new Combat();
@@ -42,9 +44,6 @@ namespace ObjectsUnitTest.Engine
         [TestMethod]
         public void Combat_AddCombatPair()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You begin to attack target.", TagWrapper.TagType.Info)).Returns("success");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             List<string> keywords = new List<string>();
             Mock<IMobileObject> defender = new Mock<IMobileObject>();
@@ -57,16 +56,12 @@ namespace ObjectsUnitTest.Engine
             IResult result = combat.AddCombatPair(attacker.Object, defender.Object);
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("success", result.ResultMessage);
+            Assert.AreEqual("You begin to attack target.", result.ResultMessage);
         }
 
         [TestMethod]
         public void Combat_AddCombatPair_AllReadyFighting()
         {
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            tagWrapper.Setup(e => e.WrapInTag("You are already attacking target.", TagWrapper.TagType.Info)).Returns("fail");
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-
             List<string> keywords = new List<string>();
             Mock<IMobileObject> defender = new Mock<IMobileObject>();
             defender.Setup(e => e.KeyWords).Returns(keywords);
@@ -78,7 +73,7 @@ namespace ObjectsUnitTest.Engine
             IResult result = combat.AddCombatPair(attacker.Object, defender.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("fail", result.ResultMessage);
+            Assert.AreEqual("You are already attacking target.", result.ResultMessage);
         }
 
         [TestMethod]
@@ -137,8 +132,6 @@ namespace ObjectsUnitTest.Engine
         [TestMethod]
         public void Combat_AreFighting_Mob2()
         {
-            //Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-            //GlobalValues.TagWrapper = tagWrapper.Object;
             Mock<IMobileObject> defender = new Mock<IMobileObject>();
             Mock<IMobileObject> attacker = new Mock<IMobileObject>();
             List<string> keywords = new List<string>();
