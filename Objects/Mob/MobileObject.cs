@@ -272,7 +272,7 @@ namespace Objects.Mob
         {
             get
             {
-                int healthPercent = Health * 100 / MaxHealth;
+                int healthPercent = Health * 100 / Math.Max(1, MaxHealth); //so we don't have division by 0 errors if max health is not set for some reason
 
                 if (healthPercent >= 100)
                 {
