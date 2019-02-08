@@ -14,7 +14,9 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\Memory\Models\" />
+    <Content Update="Views\MemoryView.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
