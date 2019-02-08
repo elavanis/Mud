@@ -92,7 +92,7 @@ namespace GenerateZones.Zones.GrandView
                 }
             }
 
-            int percent = 50 / creatueChoices;
+            int percent = (int)Math.Round(5d / creatueChoices, 0);
             List<int> hoursToSpawnUndead = new List<int>();
             for (int i = 12; i < 24; i++)
             {
