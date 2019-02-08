@@ -31,7 +31,7 @@
         //-------------Line Chart----------------------------------
         var c = document.getElementById("memoryChart");
         var ctx = c.getContext("2d");
-        var tData = $.getValues("../Areas/Memory/Controllers/LineChartData");
+        var tData = $.getValues("/MemoryController/LineChartData");
         var myLineChart = new Chart(ctx, {
             type: 'line',
             data: tData
