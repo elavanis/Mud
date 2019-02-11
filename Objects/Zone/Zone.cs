@@ -84,7 +84,14 @@ namespace Objects.Zone
         /// <param name="zoneObjectSyncValue"></param>
         public override void FinishLoad(int zoneObjectSyncValue = -1)
         {
-            ResetTime = GlobalReference.GlobalValues.GameDateTime.GameDateTime.AddDays(InGameDaysTillReset);
+            if (InGameDaysTillReset != -1)
+            {
+                ResetTime = GlobalReference.GlobalValues.GameDateTime.GameDateTime.AddDays(InGameDaysTillReset);
+            }
+            else
+            {
+                ResetTime = GlobalReference.GlobalValues.GameDateTime.GameDateTime.AddDays(999999); //sets reset to 45 years in real life, close enough to never
+            }
 
             if (ZoneObjectSyncOptions != -1)
             {

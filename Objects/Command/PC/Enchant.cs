@@ -33,7 +33,6 @@ namespace Objects.Command.PC
                     IItem item = obj as IItem;
                     if (item != null)
                     {
-
                         ulong goldCost = (ulong)(enchantery.CostToEnchantLevel1Item * Math.Pow(GlobalReference.GlobalValues.Settings.Multiplier, item.Level));
 
                         if (performer.Money >= goldCost)

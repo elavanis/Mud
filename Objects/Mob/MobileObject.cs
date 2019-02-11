@@ -827,9 +827,9 @@ namespace Objects.Mob
             Hidden,
             Infravision,
             Invisibile,
-            NoFlee,
+            NoFlee,     //prevent other mobs from fleeing in combat
             SeeInvisible,
-            NoDisarm
+            NoDisarm    //can not be disarmed
         }
 
         public enum CharacterPosition
