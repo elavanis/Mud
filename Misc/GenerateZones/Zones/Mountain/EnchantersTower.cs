@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Objects.Item.Items;
+using Objects.Item.Items.Interface;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
@@ -113,6 +114,65 @@ namespace GenerateZones.Zones.Mountain
             return room;
         }
 
+        private IRoom GenerateRoom9()
+        {
+            IRoom room = TowerRoom();
+            room.Attributes.Add(Room.RoomAttribute.Weather);
+
+            room.ShortDescription = "Top Floor";
+            room.ExamineDescription = "The room has a small window over looking the plateau to the east.";
+            room.LookDescription = "A pair of five inch holes exist in the ceiling and the floor.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom10()
+        {
+            IRoom room = Stairs();
+
+            return room;
+        }
+
+        private IRoom GenerateRoom11()
+        {
+            IRoom room = TowerRoom();
+
+            room.ShortDescription = "Enchanting Room";
+            room.ExamineDescription = "The table glows faintly with the residual energy of the thousands of enchantments performed on it.";
+            room.LookDescription = "A small table glows faintly as wisps of energy radiate up into the air before dissipating.";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom12()
+        {
+            IRoom room = TowerRoom();
+
+            room.ShortDescription = "Enchanting Room";
+            room.ExamineDescription = "The table glows faintly with the residual energy of the thousands of enchantments performed on it.";
+            room.LookDescription = "The room is empty save for a table used for enchanting items.";
+
+            room.AddItemToRoom(Enchantery());
+
+            return room;
+        }
+
+        private IEnchantery Enchantery()
+        {
+            IEnchantery enchantery = CreateItem<IEnchantery>();
+            enchantery.Attributes.Add(ItemAttribute.NoGet);
+            enchantery.KeyWords.Add("table");
+            enchantery.SentenceDescription = "table";
+            enchantery.ShortDescription = "The table glows with wisps of energy radiating upward.";
+            enchantery.LookDescription = "The table glows faintly as wisps of energy radiate up into the air before dissipating.";
+            enchantery.ExamineDescription = "The table once was a dark oak but with time and enchantments it has begun to glow a slight blue color casting a blue tint on everything in the room.";
+
+
+            //TODO change this to be a custom enchantery that only works when the focusing stone is in place upstairs
+
+            return enchantery;
+        }
+
         private IRoom Stairs()
         {
             IRoom room = TowerRoom();
@@ -152,6 +212,9 @@ namespace GenerateZones.Zones.Mountain
             ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.Up, Zone.Rooms[6]);
             ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.Up, Zone.Rooms[7]);
             ZoneHelper.ConnectRoom(Zone.Rooms[7], Direction.East, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.East, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.Down, Zone.Rooms[10]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.East, Zone.Rooms[11]);
         }
     }
 }

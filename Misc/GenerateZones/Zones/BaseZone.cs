@@ -112,8 +112,12 @@ namespace GenerateZones.Zones
             {
                 item = new Container();
             }
-
-            item.Id = ItemId++;
+            else if (type == typeof(IEnchantery)
+                || type == typeof(Enchantery))
+            {
+                item = new Enchantery();
+                item.KeyWords.Add("Enchantery");
+            }
 
 
             if (item == null)

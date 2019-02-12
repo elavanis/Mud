@@ -30,6 +30,7 @@ using System.Diagnostics.CodeAnalysis;
 using Objects.Magic.Enchantment;
 using Objects.Effect;
 using Objects.Effect.Zone.GrandViewGarden;
+using Objects.Item.Items.Interface;
 
 namespace GenerateZones.Zones
 {
@@ -104,7 +105,7 @@ namespace GenerateZones.Zones
 
         public IItem Sign()
         {
-            IItem sign = CreateItem<IItem>();
+            IEnchantery sign = CreateItem<IEnchantery>();
             sign.KeyWords.Add("sign");
             sign.Attributes.Add(Item.ItemAttribute.NoGet);
             sign.SentenceDescription = "sign";

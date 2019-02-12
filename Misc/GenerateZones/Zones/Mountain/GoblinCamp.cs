@@ -329,12 +329,28 @@ namespace GenerateZones.Zones.Mountain
             npc.SentenceDescription = "goblin";
             npc.KeyWords.Add("goblin");
             npc.KeyWords.Add("chief");
-
+            IItem focusingCrystal = FocusingCrystal();
+            npc.Items.Add(focusingCrystal);
             return npc;
         }
+
         #endregion NPC
 
         #region Items
+        private IItem FocusingCrystal()
+        {
+            IItem focusingCrystal = CreateItem<IItem>();
+            focusingCrystal.ShortDescription = "A small clear crystal.";
+            focusingCrystal.LookDescription = "The crystal has been cut in such a way to focus all the light entering the crystal through the bottom.";
+            focusingCrystal.ExamineDescription = "Upon closer examination of the crystal you notice a small figurine of a fairy in the center.";
+            focusingCrystal.SentenceDescription = "crystal";
+            focusingCrystal.KeyWords.Add("focus");
+            focusingCrystal.KeyWords.Add("focusing");
+            focusingCrystal.KeyWords.Add("crystal");
+
+            return focusingCrystal;
+        }
+
         private Container Chest()
         {
             Container chest = CreateItem<Container>();
@@ -346,7 +362,6 @@ namespace GenerateZones.Zones.Mountain
             chest.Attributes.Add(ItemAttribute.NoGet);
 
             return chest;
-
         }
 
         private IArmor Arms()
