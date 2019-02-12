@@ -829,7 +829,8 @@ namespace Objects.Mob
             Invisibile,
             NoFlee,     //prevent other mobs from fleeing in combat
             SeeInvisible,
-            NoDisarm    //can not be disarmed
+            NoDisarm,   //can not be disarmed
+            Frozen      //punishment that ignores all commands from the player
         }
 
         public enum CharacterPosition

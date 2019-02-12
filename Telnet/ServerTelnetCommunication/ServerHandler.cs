@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using TelnetCommunication;
 using TelnetCommunication.Interface;
 using static Objects.Global.Logging.LogSettings;
+using static Objects.Mob.MobileObject;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace ServerTelnetCommunication
@@ -143,6 +144,10 @@ namespace ServerTelnetCommunication
                                             {
                                                 continueToLoop = false;
                                             }
+                                        }
+                                        else if (pc.AttributesCurrent.Contains(MobileAttribute.Frozen)) //don't allow frozen players to play
+                                        {
+                                            pc.EnqueueMessage("You are frozen and can not do anything until you thaw.");
                                         }
                                     }
                                     //not sure why we could not find the player character.  Relogin.
