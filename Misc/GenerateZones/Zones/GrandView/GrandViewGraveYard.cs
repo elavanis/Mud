@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using Objects;
 using Objects.Effect;
 using Objects.Interface;
 using Objects.Language;
@@ -122,9 +123,28 @@ namespace GenerateZones.Zones.GrandView
 
             SetRoom13();
 
+            Zone.Rooms.Add(26, Room26());
+
             ZoneHelper.ConnectZone(Zone.Rooms[13], Objects.Global.Direction.Directions.Direction.Down, 20, 1);
+            ZoneHelper.ConnectRoom(Zone.Rooms[25], Objects.Global.Direction.Directions.Direction.East, Zone.Rooms[26]);
 
             return Zone;
+        }
+
+        private IRoom Room26()
+        {
+            IRoom room = CreateRoom();
+            room.Id = 26;
+            room.Zone = Zone.Id;
+            room.Owner = "the grounds keeper";
+            room.Guests.Add("Groundskeeper");
+            room.LookDescription = "You shouldn't see this but since you can some how before you is the groundskeeper house.  It is a simple house with a cooking stove, table and chair and single bed for sleeping.";
+            room.ExamineDescription = "Maybe you should report the bug that you got here.";
+            room.ShortDescription = "GroundsKeeper House";
+
+            room.AddMobileObjectToRoom(GroundsKeeper());
+
+            return room;
         }
 
         private void SetRoom13()
@@ -133,8 +153,6 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "The temple of Charon is shaped like a large mausoleum made of white granite.";
             room.ExamineDescription = "Reliefs of Charon ferrying people to the underworld can be seen carved into the side of the mausoleum.";
             room.ShortDescription = "Temple";
-
-            room.AddMobileObjectToRoom(GroundsKeeper());
         }
 
         private IMobileObject GroundsKeeper()
@@ -165,7 +183,7 @@ namespace GenerateZones.Zones.GrandView
             npc.ExamineDescription = "There air takes on a slight chill as the skeleton turns and looks at you.";
 
             npc.Personalities.Add(new DeathDuringDay());
-            npc.Personalities.Add(new Wanderer());
+            npc.Personalities.Add(Wanderer());
 
             return npc;
         }
@@ -182,7 +200,7 @@ namespace GenerateZones.Zones.GrandView
 
             npc.Personalities.Add(new DeathDuringDay());
             npc.Personalities.Add(new Aggressive());
-            npc.Personalities.Add(new Wanderer());
+            npc.Personalities.Add(Wanderer());
 
             return npc;
         }
@@ -197,7 +215,7 @@ namespace GenerateZones.Zones.GrandView
             npc.ShortDescription = "A black as night crow calls out a warning as you approach.";
             npc.ExamineDescription = "It seems to have been born of the night with black feathers, feet and beak. The small black beady eyes are the only thing to reflect any light.";
 
-            npc.Personalities.Add(new Wanderer());
+            npc.Personalities.Add(Wanderer());
 
             return npc;
         }
@@ -206,6 +224,17 @@ namespace GenerateZones.Zones.GrandView
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other);
             return npc;
+        }
+
+        private Wanderer Wanderer()
+        {
+            Wanderer wanderer = new Wanderer();
+            for (int i = 0; i < 25; i++)
+            {
+                wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, i + 1));
+            }
+
+            return wanderer;
         }
     }
 }

@@ -85,7 +85,7 @@ namespace ObjectsUnitTest.Effect
         }
 
         [TestMethod]
-        public void LoadMob_ProcessEffect_HouseMatch()
+        public void LoadMob_ProcessEffect_HoursMatch()
         {
             loadMob.HoursToLoad = new List<int>() { 1 };
 
@@ -98,7 +98,7 @@ namespace ObjectsUnitTest.Effect
         }
 
         [TestMethod]
-        public void LoadMob_ProcessEffect_HouseDontMatch()
+        public void LoadMob_ProcessEffect_HoursDontMatch()
         {
             loadMob.HoursToLoad = new List<int>() { 2 };
 
