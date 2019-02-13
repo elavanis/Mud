@@ -566,18 +566,18 @@ East: The Training Hall";
             return npc;
         }
 
-        private IWanderer ValidDuckAreaWander()
+        private IWanderer ValidDuckAreaWander(int wanderAmount = 1)
         {
-            IWanderer wanderer = new Wanderer();
+            IWanderer wanderer = new Wanderer(wanderAmount);
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 20));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 21));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 22));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 23));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 24));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 25));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 26));
+            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 27));
             wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 28));
-            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 29));
-            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 30));
-            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 31));
-            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 32));
-            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 33));
-            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 34));
-            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 35));
-            wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 36));
             return wanderer;
         }
 
@@ -587,7 +587,7 @@ East: The Training Hall";
             npc.KeyWords.Add("duck");
             npc.KeyWords.Add("baby");
             npc.KeyWords.Add("mallard");
-            npc.Personalities.Add(new Wanderer(100));
+            npc.Personalities.Add(ValidDuckAreaWander(100));
 
             npc.SentenceDescription = "baby duck";
             npc.ShortDescription = "A baby mallard duck.";

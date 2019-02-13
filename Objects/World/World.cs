@@ -582,7 +582,7 @@ namespace Objects.World
                 if (trail != null)
                 {
                     performer.EnqueueCommand(trail.Direction.ToString());
-                    break;
+                    return;
                 }
             }
 
@@ -595,7 +595,7 @@ namespace Objects.World
                     if (trail != null)
                     {
                         performer.EnqueueCommand(trail.Direction.ToString());
-                        break;
+                        return;
                     }
                 }
             }
