@@ -139,7 +139,9 @@ namespace GenerateZones.Zones.Mountain
 
             room.ShortDescription = "Enchanting Room";
             room.ExamineDescription = "The table glows faintly with the residual energy of the thousands of enchantments performed on it.";
-            room.LookDescription = "A small table glows faintly as wisps of energy radiate up into the air before dissipating.";
+            room.LookDescription = "A small table sits in the center of the room with light filtering down on it form a five inch hole in the ceiling.";
+
+            room.AddItemToRoom(Enchantery());
 
             return room;
         }
@@ -148,11 +150,9 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = TowerRoom();
 
-            room.ShortDescription = "Enchanting Room";
-            room.ExamineDescription = "The table glows faintly with the residual energy of the thousands of enchantments performed on it.";
-            room.LookDescription = "The room is empty save for a table used for enchanting items.";
-
-            room.AddItemToRoom(Enchantery());
+            room.ShortDescription = "Holding Cells";
+            room.LookDescription = "There are several cages along the walls used for holding prisoners.";
+            room.ExamineDescription = "Some of the cages show signs of distress where prisoners have tried to escape.  Whether they were successful or not is anyones guess.";
 
             return room;
         }
