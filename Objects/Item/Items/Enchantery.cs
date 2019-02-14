@@ -26,9 +26,9 @@ namespace Objects.Item.Items
         public string EnchantmentSuccess { get; set; } = "The item begins to glow and then flashes a bright light.  The item continues to have a faint glow and hum slightly.";
         public int CostToEnchantLevel1Item { get; set; } = 1000;
 
-        private static object padlock = new object();
-        private static List<Type> defenseTypes = null;
-        private List<Type> DefenseTypes
+        protected static object padlock = new object();
+        protected static List<Type> defenseTypes = null;
+        protected List<Type> DefenseTypes
         {
             get
             {
@@ -57,7 +57,7 @@ namespace Objects.Item.Items
             }
         }
 
-        public IResult Enchant(IItem item)
+        public virtual IResult Enchant(IItem item)
         {
             IResult result = null;
             int successRate = (int)(Math.Pow(Math.Pow(item.Enchantments.Count + 1, .9), 2) * 100);
@@ -84,7 +84,7 @@ namespace Objects.Item.Items
             return result;
         }
 
-        private IEnchantment MakeRandomEnchantment(IItem item)
+        protected IEnchantment MakeRandomEnchantment(IItem item)
         {
             IEnchantment enchantment = null;
 
@@ -105,7 +105,7 @@ namespace Objects.Item.Items
             return enchantment;
         }
 
-        private IEnchantment EnchantArmor(IItem item)
+        protected IEnchantment EnchantArmor(IItem item)
         {
             IEnchantment enchantment = null;
             IArmor armor = item as IArmor;
@@ -131,14 +131,14 @@ namespace Objects.Item.Items
             return enchantment;
         }
 
-        private IEffect GetRandomDefenseEffect()
+        protected IEffect GetRandomDefenseEffect()
         {
             Type type = DefenseTypes[GlobalReference.GlobalValues.Random.Next(DefenseTypes.Count)];
 
             return (IEffect)Activator.CreateInstance(type);
         }
 
-        private IEnchantment EnchantWeapon(IItem item)
+        protected IEnchantment EnchantWeapon(IItem item)
         {
             IEnchantment enchantment = new DamageDealtBeforeDefenseEnchantment();
             enchantment.Effect = new Effect.Damage();
@@ -149,7 +149,7 @@ namespace Objects.Item.Items
             return enchantment;
         }
 
-        private static Damage.Damage.DamageType GetRandomDamageType()
+        protected static Damage.Damage.DamageType GetRandomDamageType()
         {
             List<Damage.Damage.DamageType> damages = Enum.GetValues(typeof(Damage.Damage.DamageType)).Cast<Damage.Damage.DamageType>().ToList();
             return damages[GlobalReference.GlobalValues.Random.Next(damages.Count)];
