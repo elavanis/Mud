@@ -723,9 +723,9 @@ namespace Objects.World
 
                 GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd")));
 
-                string fileLocation = Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd"), dateTime.ToString("HHmm"));
+                string fileLocation = Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd"), "Stats.stat");
 
-                GlobalReference.GlobalValues.FileIO.WriteFile(fileLocation, fileContents);
+                GlobalReference.GlobalValues.FileIO.AppendFile(fileLocation, fileContents);
             }
             catch (Exception ex)
             {

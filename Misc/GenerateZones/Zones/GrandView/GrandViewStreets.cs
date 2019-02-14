@@ -566,9 +566,13 @@ East: The Training Hall";
             return npc;
         }
 
-        private IWanderer ValidDuckAreaWander(int wanderAmount = 1)
+        private IWanderer ValidDuckAreaWander(int? wanderAmount = null)
         {
-            IWanderer wanderer = new Wanderer(wanderAmount);
+            IWanderer wanderer = new Wanderer();
+            if (wanderAmount != null)
+            {
+                wanderer.MovementPercent = (int)wanderAmount;
+            }
             wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 20));
             wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 21));
             wanderer.NavigableRooms.Add(new RoomId(Zone.Id, 22));
