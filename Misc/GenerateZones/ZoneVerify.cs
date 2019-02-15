@@ -293,6 +293,11 @@ namespace GenerateZones
             {
                 ThrowConfigException(item, type, "Zone = 0");
             }
+
+            if (item.Id == 0)
+            {
+                ThrowConfigException(item, type, "Id = 0");
+            }
         }
 
         private static void ThrowConfigException(IBaseObject item, string type, string message)

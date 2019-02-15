@@ -116,14 +116,17 @@ namespace GenerateZones.Zones
                 || type == typeof(Enchantery))
             {
                 item = new Enchantery();
-                item.KeyWords.Add("Enchantery");
             }
-
 
             if (item == null)
             {
                 throw new Exception($"Unsupported type {type.ToString()}");
             }
+            else
+            {
+                item.Id = ItemId++;
+            }
+
             return (T)item;
         }
         #endregion Item

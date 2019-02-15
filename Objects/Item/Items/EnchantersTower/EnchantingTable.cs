@@ -6,15 +6,20 @@ using Objects.Command;
 using Objects.Command.Interface;
 using Objects.Global;
 using Objects.Item.Interface;
+using Objects.Item.Items.Interface;
 using Objects.Room.Interface;
 
 namespace Objects.Item.Items.EnchantersTower
 {
     public class EnchantingTable : Enchantery
     {
+        public EnchantingTable() : base()
+        {
+
+        }
         public override IResult Enchant(IItem item)
         {
-            IRoom room = GlobalReference.GlobalValues.World.Zones[23].Rooms[7];
+            IRoom room = GlobalReference.GlobalValues.World.Zones[23].Rooms[8];
             Container container = (Container)GlobalReference.GlobalValues.FindObjects.FindItemsInRoom(room, "pedestal").FirstOrDefault();
 
             if (container != null)

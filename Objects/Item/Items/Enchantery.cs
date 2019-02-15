@@ -57,6 +57,11 @@ namespace Objects.Item.Items
             }
         }
 
+        public Enchantery() : base()
+        {
+            KeyWords.Add("Enchantery");
+        }
+
         public virtual IResult Enchant(IItem item)
         {
             IResult result = null;

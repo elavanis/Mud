@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Objects.Item.Items;
+using Objects.Item.Items.EnchantersTower;
 using Objects.Item.Items.Interface;
 using Objects.Room;
 using Objects.Room.Interface;
@@ -159,7 +160,10 @@ namespace GenerateZones.Zones.Mountain
 
         private IEnchantery Enchantery()
         {
-            IEnchantery enchantery = CreateItem<IEnchantery>();
+            IEnchantery tempEnchantery = CreateItem<IEnchantery>();     //do this just to increment the numbers
+            IEnchantery enchantery = new EnchantingTable();     //create the real object we need
+            enchantery.Zone = tempEnchantery.Zone;
+            enchantery.Id = tempEnchantery.Id;
             enchantery.Attributes.Add(ItemAttribute.NoGet);
             enchantery.KeyWords.Add("table");
             enchantery.SentenceDescription = "table";
