@@ -8,6 +8,6 @@ namespace Objects.Item.Items.Interface
     {
         DateTime TimeOfDeath { get; set; }
 
-        ICorpse Clone();
+        new ICorpse Clone();
     }
 }

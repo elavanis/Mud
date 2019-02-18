@@ -517,7 +517,7 @@ East: The Training Hall";
 
         private IItem Sign()
         {
-            IItem item = new Item();
+            IItem item = CreateItem<IItem>();
             item.Attributes.Add(Item.ItemAttribute.NoGet);
             item.KeyWords.Add("sign");
             item.KeyWords.Add("statue");

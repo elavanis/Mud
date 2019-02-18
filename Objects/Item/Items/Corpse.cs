@@ -11,7 +11,7 @@ namespace Objects.Item.Items
         [ExcludeFromCodeCoverage]
         public DateTime TimeOfDeath { get; set; }
 
-        public ICorpse Clone()
+        public new ICorpse Clone()
         {
             Corpse corpse = new Corpse();
             corpse.ExamineDescription = this.ExamineDescription;

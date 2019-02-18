@@ -168,7 +168,7 @@ namespace GenerateZones.Zones.Mountain
 
             room.AddMobileObjectToRoom(GoblinChief());
 
-            room.AddItemToRoom(new RecallBeacon());
+            room.AddItemToRoom(CreateItem<IRecallBeacon>());
             return room;
         }
 
