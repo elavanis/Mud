@@ -19,6 +19,9 @@ using Objects.Material.Materials;
 using Objects.Mob;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities;
+using Objects.Personality.Personalities.Interface;
+using Objects.Personality.Personalities.ResponderMisc;
+using Objects.Personality.Personalities.ResponderMisc.Interface;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone;
@@ -331,6 +334,14 @@ namespace GenerateZones.Zones.Mountain
             npc.KeyWords.Add("chief");
             IItem focusingCrystal = FocusingCrystal();
             npc.Items.Add(focusingCrystal);
+
+            IResponder responder = new Responder();
+            List<IOptionalWords> listOptionalWords = new List<IOptionalWords>();
+            IOptionalWords optionalWords = new OptionalWords();
+            optionalWords.TriggerWords.Add("daughter");
+            responder.Responses.Add(new Response() { RequiredWordSets = listOptionalWords, Message = "The evil enchanter that lives at the top of the mountain has taken my daughter hostage.  If you should retrieve her for me there would be a reward for you." });
+            npc.Personalities.Add(responder);
+
             return npc;
         }
 

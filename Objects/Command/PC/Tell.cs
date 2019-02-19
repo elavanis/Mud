@@ -23,9 +23,14 @@ namespace Objects.Command.PC
             {
                 if (command.Parameters.Count > 1)
                 {
-                    IPlayerCharacter player = FindPlayer(command.Parameters[0].ParameterValue);
+                    IMobileObject mob = FindPlayer(command.Parameters[0].ParameterValue);
 
-                    if (player != null)
+                    if (mob == null)
+                    {
+                        mob = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(performer.Room, command.Parameters[0].ParameterValue).FirstOrDefault();
+                    }
+
+                    if (mob != null)
                     {
                         StringBuilder strBldr = new StringBuilder();
                         for (int i = 1; i < command.Parameters.Count; i++)
@@ -34,12 +39,13 @@ namespace Objects.Command.PC
                         }
 
                         string message = string.Format("{0} tells you -- {1}", performer.KeyWords[0], strBldr.ToString()).Trim();
-                        GlobalReference.GlobalValues.Notify.Mob(player, new TranslationMessage(message, TagType.Communication));
+                        GlobalReference.GlobalValues.Notify.Mob(mob, new TranslationMessage(message, TagType.Communication));
 
                         return new Result("", false);
                     }
                     else
                     {
+
                         string message = string.Format("Unable to find {0} to tell them.", command.Parameters[0].ParameterValue);
                         return new Result(message, true);
                     }
