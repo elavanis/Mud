@@ -21,6 +21,7 @@ namespace GenerateZones
 
         public static void Main(string[] args)
         {
+            List<IZone> compiledZones = new List<IZone>();
             GlobalReference.GlobalValues.Initilize();
             GlobalReference.GlobalValues.Settings.ZoneDirectory = @"C:\Mud\World";
 
@@ -36,9 +37,18 @@ namespace GenerateZones
             foreach (Type type in zones)
             {
                 IZoneCode zone = (IZoneCode)Activator.CreateInstance(type);
-                SaveZone(world, zone.Generate());
+                IZone builtZone = zone.Generate();
+                SaveZone(world, builtZone);
+                compiledZones.Add(builtZone);
             }
 
+            using (TextWriter tw = new StreamWriter("..\\..\\..\\ZonesIds.txt"))
+            {
+                foreach (IZone zone in compiledZones.OrderBy(e => e.Id))
+                {
+                    tw.WriteLine($"{zone.Id}\t{zone.Name}");
+                }
+            }
 
 
             //for (int i = 100; i < 1000; i++)

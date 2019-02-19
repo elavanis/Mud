@@ -45,7 +45,6 @@ namespace Objects.Command.PC
                     }
                     else
                     {
-
                         string message = string.Format("Unable to find {0} to tell them.", command.Parameters[0].ParameterValue);
                         return new Result(message, true);
                     }
