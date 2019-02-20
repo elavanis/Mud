@@ -44,9 +44,25 @@ namespace GenerateZones
 
             using (TextWriter tw = new StreamWriter("..\\..\\..\\ZonesIds.txt"))
             {
+                tw.WriteLine("Id\tLvl\tName");
                 foreach (IZone zone in compiledZones.OrderBy(e => e.Id))
                 {
-                    tw.WriteLine($"{zone.Id}\t{zone.Name}");
+                    List<int> mobLevel = new List<int>();
+                    foreach (IRoom room in zone.Rooms.Values)
+                    {
+                        foreach (INonPlayerCharacter npc in room.NonPlayerCharacters)
+                        {
+                            mobLevel.Add(npc.Level);
+                        }
+                    }
+
+                    int midLevel = 0;
+                    if (mobLevel.Count > 0)
+                    {
+                        midLevel = mobLevel[mobLevel.Count / 2];
+                    }
+
+                    tw.WriteLine($"{zone.Id}\t{midLevel}\t{zone.Name}");
                 }
             }
 

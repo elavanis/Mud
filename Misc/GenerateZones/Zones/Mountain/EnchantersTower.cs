@@ -6,11 +6,14 @@ using System.Text;
 using Objects.Item.Items;
 using Objects.Item.Items.EnchantersTower;
 using Objects.Item.Items.Interface;
+using Objects.Mob.Interface;
+using Objects.Personality.Personalities;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static Objects.Global.Direction.Directions;
 using static Objects.Item.Item;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace GenerateZones.Zones.Mountain
 {
@@ -43,7 +46,7 @@ namespace GenerateZones.Zones.Mountain
             return Zone;
         }
 
-
+        #region Rooms
         private IRoom GenerateRoom1()
         {
             IRoom room = GroundFloor();
@@ -157,6 +160,23 @@ namespace GenerateZones.Zones.Mountain
 
             return room;
         }
+        #endregion Rooms
+
+        #region Npc
+        public INonPlayerCharacter Duster()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other);
+            npc.ShortDescription = "A duster automaton.";
+            npc.LookDescription = "The automaton dust both high and low leaving no dust safe.";
+            npc.ExamineDescription = "The automaton wanders aimlessly around dusting things with a feather duster.";
+            npc.SentenceDescription = "dusting automaton";
+            npc.KeyWords.Add("automaton");
+            npc.KeyWords.Add("duster");
+            npc.Personalities.Add(new Wanderer());
+
+            return npc;
+        }
+        #endregion Npc
 
         private IEnchantery Enchantery()
         {
@@ -170,9 +190,6 @@ namespace GenerateZones.Zones.Mountain
             enchantery.ShortDescription = "The table glows with wisps of energy radiating upward.";
             enchantery.LookDescription = "The table glows faintly as wisps of energy radiate up into the air before dissipating.";
             enchantery.ExamineDescription = "The table once was a dark oak but with time and enchantments it has begun to glow a slight blue color casting a blue tint on everything in the room.";
-
-
-            //TODO change this to be a custom enchantery that only works when the focusing stone is in place upstairs
 
             return enchantery;
         }
