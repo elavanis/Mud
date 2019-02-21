@@ -13,7 +13,7 @@ namespace Shared.PerformanceCounters
         [ExcludeFromCodeCoverage]
         public int ConnnectedPlayers { get; set; }
         [ExcludeFromCodeCoverage]
-        public int CPU { get; set; }
+        public decimal CPU { get; set; }
         [ExcludeFromCodeCoverage]
         public int MaxTickTimeInMs { get; set; }
         [ExcludeFromCodeCoverage]

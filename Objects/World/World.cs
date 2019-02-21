@@ -689,7 +689,7 @@ namespace Objects.World
 
                 //we are fine hitting the raw values instead of the property because we are not threading yet
                 localCounter.ConnnectedPlayers = characters.Count;
-                localCounter.CPU = (int)Math.Round(GlobalReference.GlobalValues.TickTimes.MedianTime);
+                localCounter.CPU = (decimal)Math.Round(GlobalReference.GlobalValues.TickTimes.MedianTime, 2);
                 localCounter.MaxTickTimeInMs = (int)Math.Round(GlobalReference.GlobalValues.TickTimes.MaxTime);
 
                 float memoryConsumption = Process.GetCurrentProcess().WorkingSet64 / (1024f * 1024f);

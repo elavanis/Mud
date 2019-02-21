@@ -6,7 +6,7 @@ namespace Shared.PerformanceCounters.Interface
     {
         DateTime CounterDateTime { get; set; }
         int ConnnectedPlayers { get; set; }
-        int CPU { get; set; }
+        decimal CPU { get; set; }
         int MaxTickTimeInMs { get; set; }
         decimal Memory { get; set; }
     }
