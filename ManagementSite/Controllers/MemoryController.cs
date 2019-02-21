@@ -24,7 +24,7 @@ namespace ManagementSite.Areas.Memory.Controllers
             foreach (ICounters item in counters)
             {
                 xAxis.Add(item.CounterDateTime.ToString());
-                yAxis.Add(item.Memory);
+                yAxis.Add((int)item.Memory);
             }
 
             Chart chart = new Chart();
