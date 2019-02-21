@@ -29,4 +29,10 @@
     </None>
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\Objects\Objects.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>
+
 </Project>
