@@ -2,14 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<script src="~/lib/Chart.js/Chart.js"></script>
+
 
 
 <div class="box">
     <h1>Memory</h1>
     <canvas id="memoryChart" width="400" height="150"></canvas>
-    @*<script src="~/Scripts/Common.js"></script>*@
-    <script>
+
+</div>
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<script>
+    $(document).ready(function () {
+
 
         ////-------------------Bar Chart---------------------------------
         //var c = document.getElementById("barChart");
@@ -31,17 +42,14 @@
         //-------------Line Chart----------------------------------
         var c = document.getElementById("memoryChart");
         var ctx = c.getContext("2d");
-        var tData = $.getValues("/MemoryController/LineChartData");
+        var tData = $.getValues("/Memory/LineChartData");
         var myLineChart = new Chart(ctx, {
             type: 'line',
             data: tData
         });
-    </script>
-</div>
 
 
+    });
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+</script>
