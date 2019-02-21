@@ -42,10 +42,12 @@
         //-------------Line Chart----------------------------------
         var c = document.getElementById("memoryChart");
         var ctx = c.getContext("2d");
-        var tData = $.getValues("/Memory/LineChartData");
+        var result = [];
+        result = getValues("/Memory/LineChartData");
+
         var myLineChart = new Chart(ctx, {
             type: 'line',
-            data: tData
+            data: result
         });
 
 
