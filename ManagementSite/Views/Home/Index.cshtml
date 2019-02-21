@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+
+<div class="box">
+    <h1>Memory</h1>
+    <canvas id="memoryChart" width="400" height="150"></canvas>
+
+</div>
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+
+        ////-------------------Bar Chart---------------------------------
+        //var c = document.getElementById("barChart");
+        //var ctx = c.getContext("2d");
+        //var tData = $.getValues("/BarChart/BarChartData");
+        //var myBarChart = new Chart(ctx, {
+        //    type: 'bar',
+        //    data: tData
+        //});
+        ////-------------Donut Chart----------------------------------
+        //var c = document.getElementById("donutChart");
+        //var ctx = c.getContext("2d");
+        //var tData = $.getValues("/Donut/DonutChartData");
+        //var myDoughnutChart = new Chart(ctx, {
+        //    type: 'doughnut',
+        //    data: tData,
+        //});
+
+        //-------------Line Chart----------------------------------
+        var c = document.getElementById("memoryChart");
+        var ctx = c.getContext("2d");
+        var result = [];
+        result = getValues("/Memory/LineChartData");
+
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: result
+        });
+
+
+    });
+
+
+</script>
