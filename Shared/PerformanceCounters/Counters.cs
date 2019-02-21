@@ -17,7 +17,7 @@ namespace Shared.PerformanceCounters
         [ExcludeFromCodeCoverage]
         public int MaxTickTimeInMs { get; set; }
         [ExcludeFromCodeCoverage]
-        public int Memory { get; set; }
+        public decimal Memory { get; set; }
 
         public override string ToString()
         {
