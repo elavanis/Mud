@@ -28,7 +28,6 @@ namespace GenerateZones.Zones.Mountain
 
         public IZone Generate()
         {
-            Zone.InGameDaysTillReset = 1;
             Zone.Name = nameof(MountainPlateau);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();

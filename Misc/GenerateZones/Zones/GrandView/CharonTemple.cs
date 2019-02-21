@@ -24,7 +24,6 @@ namespace GenerateZones.Zones.GrandView
 
         public IZone Generate()
         {
-            Zone.InGameDaysTillReset = 1;
             Zone.Name = nameof(CharonTemple);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
@@ -141,9 +140,8 @@ namespace GenerateZones.Zones.GrandView
 
         private INonPlayerCharacter Priest()
         {
-            INonPlayerCharacter nonPlayerCharacter = CreateNonplayerCharacter(MobType.Humanoid);
+            INonPlayerCharacter nonPlayerCharacter = CreateNonplayerCharacter(MobType.Humanoid, 20);
             nonPlayerCharacter.Personalities.Add(new Guardian());
-            nonPlayerCharacter.Level = 20;
             nonPlayerCharacter.ExamineDescription = "Clothed in a gray tunic the priest stands in meditation while emitting a humming sound.";
             nonPlayerCharacter.LookDescription = "The priest mostly ignores you as all are welcome to the temple of Charon.";
             nonPlayerCharacter.ShortDescription = "A mediative priest stands in his place the circle.";

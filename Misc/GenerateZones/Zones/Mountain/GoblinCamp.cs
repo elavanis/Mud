@@ -43,7 +43,6 @@ namespace GenerateZones.Zones.Mountain
 
         public IZone Generate()
         {
-            Zone.InGameDaysTillReset = 1;
             Zone.Name = nameof(GoblinCamp);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();

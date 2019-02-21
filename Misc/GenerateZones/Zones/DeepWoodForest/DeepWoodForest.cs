@@ -37,7 +37,6 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         public IZone Generate()
         {
-            Zone.InGameDaysTillReset = 1;
             Zone.Name = nameof(DeepWoodForest);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();

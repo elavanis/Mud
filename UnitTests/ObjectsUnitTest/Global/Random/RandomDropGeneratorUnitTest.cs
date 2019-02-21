@@ -3,6 +3,7 @@ using Moq;
 using Objects.Die;
 using Objects.Global;
 using Objects.Global.DefaultValues.Interface;
+using Objects.Global.FindObjects.Interface;
 using Objects.Global.Random;
 using Objects.Global.Random.Interface;
 using Objects.Global.Settings.Interface;
@@ -40,6 +41,8 @@ namespace ObjectsUnitTest.Global.Random
             defaultValues.Setup(e => e.DiceForWeaponLevel(1)).Returns(new Dice(1, 1));
             defaultValues.Setup(e => e.DiceForWeaponLevel(2)).Returns(new Dice(2, 2));
             random.Setup(e => e.Next(It.IsAny<int>())).Returns(0);
+            random.Setup(e => e.PercentDiceRoll(1)).Returns(true);
+            random.Setup(e => e.PercentDiceRoll(0)).Returns(true);
             npc.Setup(e => e.TypeOfMob).Returns(MobType.Humanoid);
             npc.Setup(e => e.Level).Returns(1);
             settings.Setup(e => e.OddsOfGeneratingRandomDrop).Returns(1);
@@ -62,8 +65,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomDrop_NoRandomDropCreated()
         {
-            settings.Setup(e => e.OddsOfGeneratingRandomDrop).Returns(1);
-            random.Setup(e => e.Next(1)).Returns(1);
+            settings.Setup(e => e.OddsOfGeneratingRandomDrop).Returns(0);
 
             IItem result = randomDropGenerator.GenerateRandomDrop(npc.Object);
             Assert.AreEqual(null, result);
@@ -90,9 +92,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomDrop_HumanoidPlusOneItem()
         {
-            random.SetupSequence(e => e.Next(2))
-                .Returns(0)
-                .Returns(1);
+            settings.SetupSequence(e => e.OddsOfDropBeingPlusOne).Returns(1).Returns(0);
 
             IItem result = randomDropGenerator.GenerateRandomDrop(npc.Object);
             IWeapon weapon = result as IWeapon;

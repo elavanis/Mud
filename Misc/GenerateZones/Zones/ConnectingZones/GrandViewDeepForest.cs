@@ -64,7 +64,6 @@ namespace GenerateZones.Zones.ConnectingZones
             randZoneGen.RoomFlavorText.Add(option);
 
             Zone = randZoneGen.Generate();
-            Zone.InGameDaysTillReset = 1;
             Zone.Name = nameof(GrandViewDeepForest);
 
 

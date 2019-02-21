@@ -98,6 +98,7 @@ namespace GenerateZones
             VerifyIds(npc, type);
             VerifyDescriptions(npc, type);
             VerifyMobType(npc, type);
+            VerifyMobLevel(npc, type);
 
             foreach (IItem item in npc.Items)
             {
@@ -180,6 +181,21 @@ namespace GenerateZones
                     ThrowConfigException(null, type, string.Format("Skill {0} target failure notification is null.", skill.SkillName));
                 }
             }
+        }
+
+        private static void VerifyMobLevel(INonPlayerCharacter npc, string type)
+        {
+            if (npc.Level > 0)
+            {
+                return;
+            }
+
+            if (npc.LevelRange != null)
+            {
+                return;
+            }
+
+            ThrowConfigException(npc, type, $"Mob has no level {npc.SentenceDescription}.");
         }
 
         private static void VerifyMobType(INonPlayerCharacter npc, string type)

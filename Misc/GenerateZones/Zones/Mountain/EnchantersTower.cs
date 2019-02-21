@@ -50,28 +50,28 @@ namespace GenerateZones.Zones.Mountain
         private IRoom GenerateRoom1()
         {
             IRoom room = GroundFloor();
-
+            room.AddMobileObjectToRoom(DusterAutomaton());
             return room;
         }
 
         private IRoom GenerateRoom2()
         {
             IRoom room = GroundFloor();
-
+            room.AddMobileObjectToRoom(DusterAutomaton());
             return room;
         }
 
         private IRoom GenerateRoom3()
         {
             IRoom room = GroundFloor();
-
+            room.AddMobileObjectToRoom(DusterAutomaton());
             return room;
         }
 
         private IRoom GenerateRoom4()
         {
             IRoom room = GroundFloor();
-
+            room.AddMobileObjectToRoom(DusterAutomaton());
             return room;
         }
 
@@ -114,6 +114,7 @@ namespace GenerateZones.Zones.Mountain
             pedestal.Attributes.Add(ItemAttribute.NoGet);
 
             room.AddItemToRoom(pedestal);
+            room.AddMobileObjectToRoom(ButlerAutomaton());
 
             return room;
         }
@@ -127,12 +128,16 @@ namespace GenerateZones.Zones.Mountain
             room.ExamineDescription = "The room has a small window over looking the plateau to the east.";
             room.LookDescription = "A pair of five inch holes exist in the ceiling and the floor.";
 
+            room.AddMobileObjectToRoom(ButlerAutomaton());
+
             return room;
         }
 
         private IRoom GenerateRoom10()
         {
             IRoom room = Stairs();
+
+            room.AddMobileObjectToRoom(ButlerAutomaton());
 
             return room;
         }
@@ -146,6 +151,7 @@ namespace GenerateZones.Zones.Mountain
             room.LookDescription = "A small table sits in the center of the room with light filtering down on it form a five inch hole in the ceiling.";
 
             room.AddItemToRoom(Enchantery());
+            room.AddMobileObjectToRoom(ButlerAutomaton());
 
             return room;
         }
@@ -158,21 +164,40 @@ namespace GenerateZones.Zones.Mountain
             room.LookDescription = "There are several cages along the walls used for holding prisoners.";
             room.ExamineDescription = "Some of the cages show signs of distress where prisoners have tried to escape.  Whether they were successful or not is anyones guess.";
 
+            room.AddMobileObjectToRoom(ButlerAutomaton());
+
             return room;
         }
         #endregion Rooms
 
         #region Npc
-        public INonPlayerCharacter Duster()
+        private INonPlayerCharacter DusterAutomaton()
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other);
+            INonPlayerCharacter npc = GenerateAutomaton();
             npc.ShortDescription = "A duster automaton.";
             npc.LookDescription = "The automaton dust both high and low leaving no dust safe.";
             npc.ExamineDescription = "The automaton wanders aimlessly around dusting things with a feather duster.";
             npc.SentenceDescription = "dusting automaton";
+
+            return npc;
+        }
+
+        private INonPlayerCharacter GenerateAutomaton()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 20);
             npc.KeyWords.Add("automaton");
             npc.KeyWords.Add("duster");
             npc.Personalities.Add(new Wanderer());
+            return npc;
+        }
+
+        private INonPlayerCharacter ButlerAutomaton()
+        {
+            INonPlayerCharacter npc = GenerateAutomaton();
+            npc.ShortDescription = "A butler automaton.";
+            npc.LookDescription = "The automaton walks around tiding up the place and waits for instructions form its master.";
+            npc.ExamineDescription = "The automaton is always alert for the slightest sign that its master needs it to perform a duty.";
+            npc.SentenceDescription = "butler automaton";
 
             return npc;
         }

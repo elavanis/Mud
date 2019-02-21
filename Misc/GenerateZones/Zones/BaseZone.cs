@@ -33,7 +33,7 @@ namespace GenerateZones.Zones
         }
 
         #region NPC
-        public INonPlayerCharacter CreateNonplayerCharacter(MobType typeOfMob, int level = 1)
+        public INonPlayerCharacter CreateNonplayerCharacter(MobType typeOfMob, int level = 0)
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.Id = NpcId++;

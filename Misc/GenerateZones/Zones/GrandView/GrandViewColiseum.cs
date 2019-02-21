@@ -28,7 +28,6 @@ namespace GenerateZones.Zones
 
         public IZone Generate()
         {
-            Zone.InGameDaysTillReset = 1;
             Zone.Name = nameof(GrandViewColiseum);
             Zone.ZoneObjectSyncOptions = 2;
 

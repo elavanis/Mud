@@ -35,7 +35,6 @@ namespace GenerateZones.Zones
 
         public IZone Generate()
         {
-            Zone.InGameDaysTillReset = 1;
             Zone.Name = nameof(GrandViewLibrary);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();

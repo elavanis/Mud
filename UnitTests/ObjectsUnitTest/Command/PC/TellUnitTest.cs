@@ -12,6 +12,8 @@ using System.Linq;
 using Objects.World.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
+using Objects.Global.FindObjects.Interface;
+using Objects.Room.Interface;
 
 namespace ObjectsUnitTest.Command.PC
 {
@@ -23,6 +25,8 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IMobileObject> mob;
         Mock<ICommand> mockCommand;
         Mock<INotify> notify;
+        Mock<IFindObjects> findObjects;
+        Mock<IRoom> room;
 
         [TestInitialize]
         public void Setup()
@@ -35,10 +39,15 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand = new Mock<ICommand>();
             command = new Tell();
             notify = new Mock<INotify>();
+            findObjects = new Mock<IFindObjects>();
+            room = new Mock<IRoom>();
 
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
+            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "pc")).Returns(new List<INonPlayerCharacter>());
+            mob.Setup(e => e.Room).Returns(room.Object);
 
             GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
         }
 
         [TestMethod]

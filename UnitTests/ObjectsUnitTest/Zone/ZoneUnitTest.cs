@@ -23,6 +23,7 @@ namespace ObjectsUnitTest.Zone
         Mock<IItem> item;
         Mock<INonPlayerCharacter> npc;
         Mock<IInGameDateTime> inGameDateTime;
+        Mock<IGameDateTime> gameDateTime;
 
 
         [TestInitialize]
@@ -33,9 +34,12 @@ namespace ObjectsUnitTest.Zone
             item = new Mock<IItem>();
             npc = new Mock<INonPlayerCharacter>();
             inGameDateTime = new Mock<IInGameDateTime>();
+            gameDateTime = new Mock<IGameDateTime>();
 
             room.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
+            gameDateTime.Setup(e => e.AddDays(1)).Returns(gameDateTime.Object);
 
             zone.Rooms.Add(1, room.Object);
             GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
@@ -45,11 +49,6 @@ namespace ObjectsUnitTest.Zone
         [TestMethod]
         public void Zone_FinishLoad_NoZoneSync()
         {
-            Mock<IGameDateTime> gameDateTime = new Mock<IGameDateTime>();
-
-            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
-            gameDateTime.Setup(e => e.AddDays(150)).Returns(gameDateTime.Object);
-
             zone.FinishLoad();
 
             Assert.IsNotNull(zone.ResetTime);

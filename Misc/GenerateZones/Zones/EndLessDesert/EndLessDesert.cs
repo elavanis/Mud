@@ -32,7 +32,6 @@ namespace GenerateZones.Zones.EndLessDesert
             randZoneGen.RoomDescriptions.Add(description);
 
             Zone = randZoneGen.Generate();
-            Zone.InGameDaysTillReset = 1;
             Zone.Name = nameof(EndLessDesert);
 
 

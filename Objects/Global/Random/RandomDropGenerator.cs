@@ -67,7 +67,7 @@ namespace Objects.Global.Random
                 return null;
             }
 
-            if (GlobalReference.GlobalValues.Random.Next(GlobalReference.GlobalValues.Settings.OddsOfGeneratingRandomDrop) == 0)
+            if (GlobalReference.GlobalValues.Random.PercentDiceRoll(GlobalReference.GlobalValues.Settings.OddsOfGeneratingRandomDrop))
             {
                 switch (nonPlayerCharacter.TypeOfMob)
                 {
@@ -93,7 +93,7 @@ namespace Objects.Global.Random
             //verify the setting is set to generate plus items
             if (GlobalReference.GlobalValues.Settings.OddsOfDropBeingPlusOne > 0)
             {
-                while (GlobalReference.GlobalValues.Random.Next(GlobalReference.GlobalValues.Settings.OddsOfDropBeingPlusOne) == 0)
+                while (GlobalReference.GlobalValues.Random.PercentDiceRoll(GlobalReference.GlobalValues.Settings.OddsOfDropBeingPlusOne))
                 {
                     objectGenerateLevelAt++;
                 }

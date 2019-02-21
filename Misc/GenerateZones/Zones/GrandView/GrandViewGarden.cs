@@ -43,7 +43,6 @@ namespace GenerateZones.Zones
         //int npcId = 1;
         public IZone Generate()
         {
-            Zone.InGameDaysTillReset = 1;
             Zone.Name = nameof(GrandViewGarden);
 
             for (int i = 1; i < 20; i++)

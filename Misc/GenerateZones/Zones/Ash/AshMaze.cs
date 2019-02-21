@@ -35,7 +35,6 @@ namespace GenerateZones.Zones.Ash
 
         public IZone Generate()
         {
-            Zone.InGameDaysTillReset = 1;
             Zone.Name = nameof(AshMaze);
 
             baseAddExit = typeof(ZoneHelper).GetMethod("AddExitToRoom", BindingFlags.Static | BindingFlags.NonPublic);

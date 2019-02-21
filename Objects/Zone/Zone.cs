@@ -24,7 +24,7 @@ namespace Objects.Zone
         [ExcludeFromCodeCoverage]
         public int ZoneObjectSyncOptions { get; set; } = -1;
         [ExcludeFromCodeCoverage]
-        public int InGameDaysTillReset { get; set; } = 150;
+        public int InGameDaysTillReset { get; set; } = 1;
 
         [ExcludeFromCodeCoverage]
         public IGameDateTime ResetTime { get; set; } = new GameDateTime.GameDateTime();
