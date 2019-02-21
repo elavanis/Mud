@@ -98,11 +98,12 @@ namespace Objects.Global.TickTimes
 
         private static decimal CalculatePercentUsage(long ticks)
         {
-            Decimal stopWatchTicksPerHeartBeatTick = Convert.ToDecimal(ticks);
+            decimal stopWatchTicksPerHeartBeatTick = Convert.ToDecimal(ticks);
             long totalHeartBeatLength = Stopwatch.Frequency / 2; //divide by 2 because there are 2 ticks at 500ms each second
 
-            decimal result = decimal.Round(stopWatchTicksPerHeartBeatTick / totalHeartBeatLength, 2);
+            decimal result = stopWatchTicksPerHeartBeatTick / totalHeartBeatLength;
             result *= 100; //convert to percent
+            result = decimal.Round(result, 2);
             return result;
         }
 
