@@ -14,13 +14,6 @@
 
 
   <ItemGroup>
-    <Content Update="Views\MemoryView.cshtml">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-
-  <ItemGroup>
     <None Include="wwwroot\js\chart.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>

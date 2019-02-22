@@ -2,14 +2,26 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div class="box">
+    <h1>Players</h1>
+    <canvas id="PlayerChart" width="400" height="150"></canvas>
+</div>
 
+<div class="box">
+    <h1>Cpu</h1>
+    <canvas id="CpuChart" width="400" height="150"></canvas>
+</div>
 
+<div class="box">
+    <h1>MilliSeconds</h1>
+    <canvas id="MsChart" width="400" height="150"></canvas>
+</div>
 
 <div class="box">
     <h1>Memory</h1>
-    <canvas id="memoryChart" width="400" height="150"></canvas>
-
+    <canvas id="MemoryChart" width="400" height="150"></canvas>
 </div>
+
 
 
 
@@ -22,30 +34,38 @@
     $(document).ready(function () {
 
 
-        ////-------------------Bar Chart---------------------------------
-        //var c = document.getElementById("barChart");
-        //var ctx = c.getContext("2d");
-        //var tData = $.getValues("/BarChart/BarChartData");
-        //var myBarChart = new Chart(ctx, {
-        //    type: 'bar',
-        //    data: tData
-        //});
-        ////-------------Donut Chart----------------------------------
-        //var c = document.getElementById("donutChart");
-        //var ctx = c.getContext("2d");
-        //var tData = $.getValues("/Donut/DonutChartData");
-        //var myDoughnutChart = new Chart(ctx, {
-        //    type: 'doughnut',
-        //    data: tData,
-        //});
-
-        //-------------Line Chart----------------------------------
-        var c = document.getElementById("memoryChart");
+        var c = document.getElementById("PlayerChart");
         var ctx = c.getContext("2d");
         var result = [];
-        result = getValues("/Memory/LineChartData");
-
+        result = getValues("/LineChart/Player");
         var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: result
+        });
+
+        c = document.getElementById("CpuChart");
+        ctx = c.getContext("2d");
+        result = [];
+        result = getValues("/LineChart/Cpu");
+        myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: result
+        });
+
+        c = document.getElementById("MsChart");
+        ctx = c.getContext("2d");
+        result = [];
+        result = getValues("/LineChart/TurnTime");
+        myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: result
+        });
+
+        c = document.getElementById("MemoryChart");
+        ctx = c.getContext("2d");
+        result = [];
+        result = getValues("/LineChart/Memory");
+        myLineChart = new Chart(ctx, {
             type: 'line',
             data: result
         });
