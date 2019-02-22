@@ -20,11 +20,11 @@ namespace ManagementSite.Controllers
         {
             List<ICounters> counters = StatsReader.Stats;
             List<string> xAxis = new List<string>();
-            List<int> yAxis = new List<int>();
+            List<decimal> yAxis = new List<decimal>();
             foreach (ICounters item in counters)
             {
                 xAxis.Add(item.CounterDateTime.ToString());
-                yAxis.Add((int)item.ConnnectedPlayers);
+                yAxis.Add(item.ConnnectedPlayers);
             }
 
             Chart chart = CreateChart(xAxis, yAxis, "Players");
@@ -36,11 +36,11 @@ namespace ManagementSite.Controllers
         {
             List<ICounters> counters = StatsReader.Stats;
             List<string> xAxis = new List<string>();
-            List<int> yAxis = new List<int>();
+            List<decimal> yAxis = new List<decimal>();
             foreach (ICounters item in counters)
             {
                 xAxis.Add(item.CounterDateTime.ToString());
-                yAxis.Add((int)item.CPU);
+                yAxis.Add(item.CPU);
             }
 
             Chart chart = CreateChart(xAxis, yAxis, "Cpu %");
@@ -52,11 +52,11 @@ namespace ManagementSite.Controllers
         {
             List<ICounters> counters = StatsReader.Stats;
             List<string> xAxis = new List<string>();
-            List<int> yAxis = new List<int>();
+            List<decimal> yAxis = new List<decimal>();
             foreach (ICounters item in counters)
             {
                 xAxis.Add(item.CounterDateTime.ToString());
-                yAxis.Add((int)item.MaxTickTimeInMs);
+                yAxis.Add(item.MaxTickTimeInMs);
             }
 
             Chart chart = CreateChart(xAxis, yAxis, "Turn In Ms");
@@ -68,11 +68,11 @@ namespace ManagementSite.Controllers
         {
             List<ICounters> counters = StatsReader.Stats;
             List<string> xAxis = new List<string>();
-            List<int> yAxis = new List<int>();
+            List<decimal> yAxis = new List<decimal>();
             foreach (ICounters item in counters)
             {
                 xAxis.Add(item.CounterDateTime.ToString());
-                yAxis.Add((int)item.Memory);
+                yAxis.Add(item.Memory);
             }
 
             Chart chart = CreateChart(xAxis, yAxis, "Megs");
@@ -80,10 +80,11 @@ namespace ManagementSite.Controllers
             return Json(chart);
         }
 
-        private static Chart CreateChart(List<string> xAxis, List<int> yAxis, string label)
+        private static Chart CreateChart(List<string> xAxis, List<decimal> yAxis, string label)
         {
             Chart chart = new Chart();
             chart.labels = xAxis.ToArray();
+
             Datasets dataSet = new Datasets();
             dataSet.label = label;
             dataSet.data = yAxis.ToArray();

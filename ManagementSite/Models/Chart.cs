@@ -17,6 +17,6 @@ namespace ManagementSite.Areas.Shared.Model
         public string[] backgroundColor { get; set; }
         public string[] borderColor { get; set; }
         public string borderWidth { get; set; }
-        public int[] data { get; set; }
+        public decimal[] data { get; set; }
     }
 }

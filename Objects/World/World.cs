@@ -38,6 +38,7 @@ using Objects.Command.PC;
 using Objects.Command.PC.Interface;
 using Objects.GameDateTime;
 using Shared.PerformanceCounters;
+using Shared.PerformanceCounters.Interface;
 
 namespace Objects.World
 {
@@ -719,13 +720,18 @@ namespace Objects.World
         {
             try
             {
-                string fileContents = GlobalReference.GlobalValues.Serialization.Serialize(GlobalReference.GlobalValues.CountersLog);
-
                 GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd")));
-
                 string fileLocation = Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd"), "Stats.stat");
 
-                GlobalReference.GlobalValues.FileIO.AppendFile(fileLocation, fileContents);
+                List<ICounters> counters = new List<ICounters>();
+                if (GlobalReference.GlobalValues.FileIO.Exists(fileLocation))
+                {
+                    GlobalReference.GlobalValues.Serialization.Deserialize<List<ICounters>>(GlobalReference.GlobalValues.FileIO.ReadAllText(fileLocation));
+                }
+                counters.AddRange(GlobalReference.GlobalValues.CountersLog);
+
+                string fileContents = GlobalReference.GlobalValues.Serialization.Serialize(GlobalReference.GlobalValues.CountersLog);
+                GlobalReference.GlobalValues.FileIO.WriteFile(fileLocation, fileContents);
             }
             catch (Exception ex)
             {

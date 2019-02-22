@@ -36,7 +36,7 @@ namespace ManagementSite.BL
         private static List<ICounters> ReloadStats()
         {
             List<string> files = Directory.GetFiles(@"C:\Mud\Stats", "*.*", SearchOption.AllDirectories).ToList();
-            files.Sort();
+            files = files.OrderByDescending(e => e).ToList();
             string fileContents = File.ReadAllText(files[0]);
             List<ICounters> counters = serialization.Deserialize<List<ICounters>>(fileContents);
             return counters;
