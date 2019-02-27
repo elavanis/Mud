@@ -8,6 +8,7 @@ using Objects.Item.Items.EnchantersTower;
 using Objects.Item.Items.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities;
+using Objects.Personality.Personalities.EnchantersTower;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
@@ -165,6 +166,8 @@ namespace GenerateZones.Zones.Mountain
             room.ExamineDescription = "Some of the cages show signs of distress where prisoners have tried to escape.  Whether they were successful or not is anyones guess.";
 
             room.AddMobileObjectToRoom(ButlerAutomaton());
+            room.AddMobileObjectToRoom(GoblinDaughter());
+            room.AddMobileObjectToRoom(GuardAutomaton());
 
             return room;
         }
@@ -174,6 +177,7 @@ namespace GenerateZones.Zones.Mountain
         private INonPlayerCharacter DusterAutomaton()
         {
             INonPlayerCharacter npc = GenerateAutomaton();
+            npc.KeyWords.Add("duster");
             npc.ShortDescription = "A duster automaton.";
             npc.LookDescription = "The automaton dust both high and low leaving no dust safe.";
             npc.ExamineDescription = "The automaton wanders aimlessly around dusting things with a feather duster.";
@@ -186,7 +190,6 @@ namespace GenerateZones.Zones.Mountain
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 20);
             npc.KeyWords.Add("automaton");
-            npc.KeyWords.Add("duster");
             npc.Personalities.Add(new Wanderer());
             return npc;
         }
@@ -194,10 +197,39 @@ namespace GenerateZones.Zones.Mountain
         private INonPlayerCharacter ButlerAutomaton()
         {
             INonPlayerCharacter npc = GenerateAutomaton();
+            npc.KeyWords.Add("butler");
             npc.ShortDescription = "A butler automaton.";
             npc.LookDescription = "The automaton walks around tiding up the place and waits for instructions form its master.";
             npc.ExamineDescription = "The automaton is always alert for the slightest sign that its master needs it to perform a duty.";
             npc.SentenceDescription = "butler automaton";
+
+            return npc;
+        }
+
+        private INonPlayerCharacter GoblinDaughter()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 20);
+            npc.ShortDescription = "Goblin chief daughter.";
+            npc.LookDescription = "The goblin chiefs daughter appears to be in good health.";
+            npc.ExamineDescription = "The goblin chiefs daughter has been crying but have been given free rein of the room.";
+            npc.SentenceDescription = "goblin chief daughter";
+            npc.KeyWords.Add("goblin");
+            npc.KeyWords.Add("daughter");
+
+            npc.Personalities.Add(new FollowPlayerAfterRescue());
+
+            return npc;
+        }
+
+        private INonPlayerCharacter GuardAutomaton()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 20);
+            npc.KeyWords.Add("automaton");
+            npc.KeyWords.Add("guard");
+            npc.ShortDescription = "A guard automaton.";
+            npc.LookDescription = "The guard seems to allow prisoners to roam around the room.";
+            npc.ExamineDescription = "The guard stands at the door ready to keep any of the prisoners from escaping.";
+            npc.SentenceDescription = "guard automaton";
 
             return npc;
         }
@@ -261,6 +293,7 @@ namespace GenerateZones.Zones.Mountain
             ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.East, Zone.Rooms[9]);
             ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.Down, Zone.Rooms[10]);
             ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.East, Zone.Rooms[11]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.East, Zone.Rooms[12]);
         }
     }
 }

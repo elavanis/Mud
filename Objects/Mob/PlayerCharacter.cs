@@ -179,6 +179,7 @@ namespace Objects.Mob
             Stamina = 1;
             EnqueueCommand("Look");
             GlobalReference.GlobalValues.Engine.Event.EnterRoom(this);
+            IsAlive = true; //the player is alive again
 
             return corpse;
         }
