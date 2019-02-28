@@ -18,6 +18,7 @@ namespace Mud
     public class MudInstance
     {
         private int lastTimeRan = -1;
+        private int lastUpdateLength = 0;
 
         private Thread _heartBeatThread { get; set; }
 
@@ -83,7 +84,11 @@ namespace Mud
                 GameStats gs = new GameStats();
                 string s = gs.GenerateGameStats();
                 Console.SetCursorPosition(0, 0);
-                //                Console.Clear();
+                if (s.Length != lastUpdateLength)
+                {
+                    lastUpdateLength = s.Length;
+                    Console.Clear();
+                }
                 Console.Write(s);
             }
         }
