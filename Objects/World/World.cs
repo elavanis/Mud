@@ -726,7 +726,7 @@ namespace Objects.World
                 List<ICounters> counters = new List<ICounters>();
                 if (GlobalReference.GlobalValues.FileIO.Exists(fileLocation))
                 {
-                    GlobalReference.GlobalValues.Serialization.Deserialize<List<ICounters>>(GlobalReference.GlobalValues.FileIO.ReadAllText(fileLocation));
+                    counters = GlobalReference.GlobalValues.Serialization.Deserialize<List<ICounters>>(GlobalReference.GlobalValues.FileIO.ReadAllText(fileLocation));
                 }
                 counters.AddRange(GlobalReference.GlobalValues.CountersLog);
 
