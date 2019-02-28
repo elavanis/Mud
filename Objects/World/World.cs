@@ -730,7 +730,7 @@ namespace Objects.World
                 }
                 counters.AddRange(GlobalReference.GlobalValues.CountersLog);
 
-                string fileContents = GlobalReference.GlobalValues.Serialization.Serialize(GlobalReference.GlobalValues.CountersLog);
+                string fileContents = GlobalReference.GlobalValues.Serialization.Serialize(counters);
                 GlobalReference.GlobalValues.FileIO.WriteFile(fileLocation, fileContents);
             }
             catch (Exception ex)

@@ -18,6 +18,8 @@ namespace ManagementSite.BL
         private static DateTime lastUpdate = new DateTime();
         private static ISerialization serialization = new JsonSerialization();
         private static int maxCounterSize = 100;
+        private static PropertyInfo[] propertyInfos = typeof(ICounters).GetProperties();
+
 
         public static List<ICounters> Stats
         {
@@ -85,7 +87,6 @@ namespace ManagementSite.BL
             int medianPos = smallList.Count / 2;
             ICounters medianCounter = new Counters();
 
-            PropertyInfo[] propertyInfos = medianCounter.GetType().GetProperties();
 
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {

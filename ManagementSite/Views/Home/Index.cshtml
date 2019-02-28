@@ -1,4 +1,8 @@
-﻿@{
+﻿<head>
+    <meta http-equiv="refresh" content="300">
+</head>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -39,27 +43,27 @@
         result = getValues("/LineChart/Player");
         var myLineChart = new Chart(ctx, {
             type: 'line',
-            data: result,
+            data: result
 
-            options: {
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            color: 'rgb(192, 192, 192)'
-                        }
-                    }],
-                    xAxes: [{
-                        gridLines: {
-                            color: 'rgb(64, 64, 64)'
-                        }
-                    }]
-                },
-                legend: {
-                    labels: {
-                        fontColor: 'rgb(192, 192, 192)'
-                    }
-                }
-            }
+            //,options: {
+            //    scales: {
+            //        yAxes: [{
+            //            gridLines: {
+            //                color: 'rgb(192, 192, 192)'
+            //            }
+            //        }],
+            //        xAxes: [{
+            //            gridLines: {
+            //                color: 'rgb(64, 64, 64)'
+            //            }
+            //        }]
+            //    },
+            //    legend: {
+            //        labels: {
+            //            fontColor: 'rgb(192, 192, 192)'
+            //        }
+            //    }
+            //}
         });
 
 
@@ -69,28 +73,27 @@
         result = getValues("/LineChart/Cpu");
         myLineChart = new Chart(ctx, {
             type: 'line',
-            data: result,
+            data: result
 
-
-            options: {
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            color: 'rgb(192, 192, 192)'
-                        }
-                    }],
-                    xAxes: [{
-                        gridLines: {
-                            color: 'rgb(64, 64, 64)'
-                        }
-                    }]
-                },
-                legend: {
-                    labels: {
-                        fontColor: 'rgb(192, 192, 192)'
-                    }
-                }
-            }
+            //,options: {
+            //    scales: {
+            //        yAxes: [{
+            //            gridLines: {
+            //                color: 'rgb(192, 192, 192)'
+            //            }
+            //        }],
+            //        xAxes: [{
+            //            gridLines: {
+            //                color: 'rgb(64, 64, 64)'
+            //            }
+            //        }]
+            //    },
+            //    legend: {
+            //        labels: {
+            //            fontColor: 'rgb(192, 192, 192)'
+            //        }
+            //    }
+            //}
         });
 
         c = document.getElementById("MsChart");
@@ -99,28 +102,27 @@
         result = getValues("/LineChart/TurnTime");
         myLineChart = new Chart(ctx, {
             type: 'line',
-            data: result,
+            data: result
 
-
-            options: {
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            color: 'rgb(192, 192, 192)'
-                        }
-                    }],
-                    xAxes: [{
-                        gridLines: {
-                            color: 'rgb(64, 64, 64)'
-                        }
-                    }]
-                },
-                legend: {
-                    labels: {
-                        fontColor: 'rgb(192, 192, 192)'
-                    }
-                }
-            }
+            //,options: {
+            //    scales: {
+            //        yAxes: [{
+            //            gridLines: {
+            //                color: 'rgb(192, 192, 192)'
+            //            }
+            //        }],
+            //        xAxes: [{
+            //            gridLines: {
+            //                color: 'rgb(64, 64, 64)'
+            //            }
+            //        }]
+            //    },
+            //    legend: {
+            //        labels: {
+            //            fontColor: 'rgb(192, 192, 192)'
+            //        }
+            //    }
+            //}
         });
 
         c = document.getElementById("MemoryChart");
@@ -129,28 +131,27 @@
         result = getValues("/LineChart/Memory");
         myLineChart = new Chart(ctx, {
             type: 'line',
-            data: result,
+            data: result
 
-
-            options: {
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            color: 'rgb(192, 192, 192)'
-                        }
-                    }],
-                    xAxes: [{
-                        gridLines: {
-                            color: 'rgb(64, 64, 64)'
-                        }
-                    }]
-                },
-                legend: {
-                    labels: {
-                        fontColor: 'rgb(192, 192, 192)'
-                    }
-                }
-            }
+            //,options: {
+            //    scales: {
+            //        yAxes: [{
+            //            gridLines: {
+            //                color: 'rgb(192, 192, 192)'
+            //            }
+            //        }],
+            //        xAxes: [{
+            //            gridLines: {
+            //                color: 'rgb(64, 64, 64)'
+            //            }
+            //        }]
+            //    },
+            //    legend: {
+            //        labels: {
+            //            fontColor: 'rgb(192, 192, 192)'
+            //        }
+            //    }
+            //}
         });
 
 
