@@ -15,7 +15,7 @@ namespace Objects.Personality.Personalities.EnchantersTower
                 bool guardFound = false;
                 foreach (INonPlayerCharacter nonPlayerCharacter in npc.Room.NonPlayerCharacters)
                 {
-                    if (nonPlayerCharacter.Zone == npc.Zone && nonPlayerCharacter.Id == 7)
+                    if (nonPlayerCharacter.Zone == npc.Zone && nonPlayerCharacter.Id == 11)
                     {
                         guardFound = true;
                         break;
