@@ -163,6 +163,24 @@ namespace Objects.Mob
                 return armors;
             }
         }
+
+        public virtual IEnumerable<IWeapon> EquipedWeapon
+        {
+            get
+            {
+                List<IWeapon> weapons = new List<IWeapon>();
+                foreach (IItem item in NpcEquipedEquipment)
+                {
+                    IWeapon weapon = item as IWeapon;
+                    if (weapon != null)
+                    {
+                        weapons.Add(weapon);
+                    }
+                }
+                weapons.AddRange(base.EquipedWeapon);
+                return weapons;
+            }
+        }
         #endregion Equipment
 
         private void SetValuesToMax()
@@ -262,7 +280,7 @@ namespace Objects.Mob
 
         private void SetDefaultLevelStat()
         {
-            if (Level == 1 && LevelRange != null)
+            if (Level == 0 && LevelRange != null)
             {
                 Level = GlobalReference.GlobalValues.Random.Next(LevelRange.LowerLevel, LevelRange.UpperLevel + 1);
             }
