@@ -16,7 +16,6 @@ using Objects.Item.Items;
 using Objects.Global;
 using Objects.Global.Stats;
 using Objects.Material.Materials;
-using Objects.Personality.Personalities;
 using Objects.Mob;
 using static Objects.Global.Direction.Directions;
 using Objects.Mob.Interface;
@@ -34,6 +33,7 @@ using Objects.Guild.Guilds;
 using Objects.Guild;
 using Objects.Personality.Personalities.ResponderMisc;
 using static Objects.Mob.NonPlayerCharacter;
+using Objects.Mob.SpecificNPC;
 
 namespace GenerateZones.Zones
 {
@@ -83,56 +83,15 @@ namespace GenerateZones.Zones
         {
             IRoom room = CreateRoom();
 
-            room.AddMobileObjectToRoom(NPC());
+            room.AddMobileObjectToRoom(new Elemental(ElementType.Air) { Id = 1 });
+            room.AddMobileObjectToRoom(new Elemental(ElementType.Earth) { Id = 1 });
+            room.AddMobileObjectToRoom(new Elemental(ElementType.Fire) { Id = 1 });
+            room.AddMobileObjectToRoom(new Elemental(ElementType.Water) { Id = 1 });
 
-            room.Attributes.Add(Room.RoomAttribute.Vault);
             return room;
         }
 
-        private INonPlayerCharacter NPC()
-        {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 1);
 
-            npc.KeyWords.Add("npc");
-
-            npc.ExamineDescription = "A test mob dressed in its finished lab coat.";
-            npc.LookDescription = "A test mob performing tests.";
-            npc.ShortDescription = "A test mob.";
-            npc.SentenceDescription = "test";
-
-            npc.Health = int.MaxValue;
-
-            IMagicUser magicUser = new MagicUser();
-            magicUser.AddSpells(npc, new Wizard());
-            //npc.Personalities.Add(magicUser);
-
-
-            IResponder responder = new Responder();
-            Response response = new Response();
-            response.RequiredWordSets.Add(new OptionalWords() { TriggerWords = new List<string>() { "a" } });
-            response.Message = "aa";
-            responder.Responses.Add(response);
-
-            response = new Response();
-            response.RequiredWordSets.Add(new OptionalWords() { TriggerWords = new List<string>() { "b" } });
-            response.Message = "bb";
-            responder.Responses.Add(response);
-
-            response = new Response();
-            response.RequiredWordSets.Add(new OptionalWords() { TriggerWords = new List<string>() { "1", "2" } });
-            response.Message = "1/2";
-            responder.Responses.Add(response);
-
-            response = new Response();
-            response.RequiredWordSets.Add(new OptionalWords() { TriggerWords = new List<string>() { "x" } });
-            response.RequiredWordSets.Add(new OptionalWords() { TriggerWords = new List<string>() { "y" } });
-            response.Message = "xy";
-            responder.Responses.Add(response);
-
-            npc.Personalities.Add(responder);
-
-            return npc;
-        }
         #endregion Rooms
 
         private void ConnectRooms()
