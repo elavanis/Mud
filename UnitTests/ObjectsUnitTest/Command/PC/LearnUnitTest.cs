@@ -63,7 +63,7 @@ namespace ObjectsUnitTest.Command.PC
             npc1.Setup(e => e.Personalities).Returns(new List<IPersonality>() { guildMaster.Object });
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc1.Object });
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
 
             mob.Setup(e => e.Room).Returns(room.Object);
 

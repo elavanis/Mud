@@ -62,7 +62,7 @@ namespace ObjectsUnitTest.Command.PC
             npc2.Setup(e => e.SentenceDescription).Returns("npc2 sentence");
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc1.Object, npc2.Object });
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
 
             mob.Setup(e => e.Room).Returns(room.Object);
 
@@ -145,7 +145,7 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Kill_PerformCommand_PeacefulRoom()
         {
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.Peaceful });
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>() { RoomAttribute.Peaceful });
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);

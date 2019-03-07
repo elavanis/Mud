@@ -73,9 +73,9 @@ namespace ObjectsUnitTest.Skill.Skills
             exit2.Setup(e => e.Zone).Returns(2);
             room.Setup(e => e.East).Returns(exit.Object);
             room.Setup(e => e.West).Returns(exit2.Object);
-            room2.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room2.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             room3.Setup(e => e.Zone).Returns(2);
-            room3.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room3.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             zone.Setup(e => e.Rooms).Returns(rooms);
             zone2.Setup(e => e.Rooms).Returns(rooms2);
             world.Setup(e => e.Zones).Returns(zones);
@@ -197,7 +197,7 @@ namespace ObjectsUnitTest.Skill.Skills
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>());
             findObjects.Setup(e => e.FindNpcInRoom(room2.Object, "target")).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room2.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.NoTrack });
+            room2.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>() { RoomAttribute.NoTrack });
             findObjects.Setup(e => e.FindNpcInRoom(room3.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room3.Object, "target")).Returns(new List<IPlayerCharacter>());
 
@@ -242,7 +242,7 @@ namespace ObjectsUnitTest.Skill.Skills
             exit.Setup(e => e.Zone).Returns(1);
             room2.Setup(e => e.East).Returns(exit.Object);
             rooms.Add(3, room3.Object);
-            room3.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room3.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
 
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "target")).Returns(new List<INonPlayerCharacter>());
             findObjects.Setup(e => e.FindPcInRoom(room.Object, "target")).Returns(new List<IPlayerCharacter>());

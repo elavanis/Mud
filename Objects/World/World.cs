@@ -39,6 +39,7 @@ using Objects.Command.PC.Interface;
 using Objects.GameDateTime;
 using Shared.PerformanceCounters;
 using Shared.PerformanceCounters.Interface;
+using Objects.Mob.SpecificNPC;
 
 namespace Objects.World
 {
@@ -810,6 +811,37 @@ namespace Objects.World
             foreach (IMobileObject mob in room.PlayerCharacters)
             {
                 ProcessCommonMobStuff(room, notifyWeather, mob);
+            }
+
+            SpawnElementals(room);
+        }
+
+        private static void SpawnElementals(IRoom room)
+        {
+            if (!room.Attributes.Contains(RoomAttribute.NoSpawnElemental))
+            {
+                if (GlobalReference.GlobalValues.Random.PercentDiceRoll(GlobalReference.GlobalValues.Settings.ElementalSpawnPercent))
+                {
+                    if (GlobalReference.GlobalValues.World.Precipitation >= 75)
+                    {
+                        room.AddMobileObjectToRoom(new Elemental(ElementType.Water));
+                    }
+
+                    if (GlobalReference.GlobalValues.World.Precipitation <= 25)
+                    {
+                        room.AddMobileObjectToRoom(new Elemental(ElementType.Fire));
+                    }
+
+                    if (GlobalReference.GlobalValues.World.WindSpeed >= 75)
+                    {
+                        room.AddMobileObjectToRoom(new Elemental(ElementType.Air));
+                    }
+
+                    if (GlobalReference.GlobalValues.World.WindSpeed <= 25)
+                    {
+                        room.AddMobileObjectToRoom(new Elemental(ElementType.Earth));
+                    }
+                }
             }
         }
 

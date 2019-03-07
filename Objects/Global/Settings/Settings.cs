@@ -64,5 +64,8 @@ namespace Objects.Global.Settings
 
         [ExcludeFromCodeCoverage]
         public string LogStatsLocation { get; set; } = "..\\Stats";
+
+        [ExcludeFromCodeCoverage]
+        public int ElementalSpawnPercent { get; set; } = 1;
     }
 }

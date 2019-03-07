@@ -25,7 +25,7 @@ namespace Objects.Room.Interface
         string Owner { get; set; }
         HashSet<string> Guests { get; set; }
 
-        List<Room.RoomAttribute> Attributes { get; }
+        HashSet<Room.RoomAttribute> Attributes { get; }
         IExit North { get; set; }
         IExit East { get; set; }
         IExit South { get; set; }

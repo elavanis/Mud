@@ -75,7 +75,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mob.Setup(e => e.RecallPoint).Returns(roomId.Object);
             mob.Setup(e => e.Room).Returns(room.Object);
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.NoRecall });
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>() { RoomAttribute.NoRecall });
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
@@ -100,7 +100,7 @@ namespace ObjectsUnitTest.Command.PC
             pc.Setup(e => e.RecallPoint).Returns(roomId.Object);
             pc.Setup(e => e.Room).Returns(room.Object);
             pc.Setup(e => e.RecallPoint).Returns(recallPoint.Object);
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             room.Setup(e => e.PlayerCharacters).Returns(pcInRoom);
             world.Setup(e => e.Zones).Returns(zoneDictioanry);
             zone.Setup(e => e.Rooms).Returns(roomDictioanry);
@@ -138,7 +138,7 @@ namespace ObjectsUnitTest.Command.PC
             npc.Setup(e => e.RecallPoint).Returns(roomId.Object);
             npc.Setup(e => e.Room).Returns(room.Object);
             npc.Setup(e => e.RecallPoint).Returns(recallPoint.Object);
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             room.Setup(e => e.NonPlayerCharacters).Returns(npcInRoom);
             world.Setup(e => e.Zones).Returns(zoneDictioanry);
             zone.Setup(e => e.Rooms).Returns(roomDictioanry);
@@ -164,7 +164,7 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IRoom> room = new Mock<IRoom>();
             Mock<IBaseObjectId> recallPoint = new Mock<IBaseObjectId>();
 
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             mob.Setup(e => e.RecallPoint).Returns(recallPoint.Object);
             mob.Setup(e => e.Room).Returns(room.Object);
 

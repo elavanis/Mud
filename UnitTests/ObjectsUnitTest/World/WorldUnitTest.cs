@@ -98,7 +98,7 @@ namespace ObjectsUnitTest.World
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
             room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             zone.Setup(e => e.Rooms).Returns(dictionaryRoom);
             zone.Setup(e => e.ResetTime).Returns(gameDateTime.Object);
             npc.Setup(e => e.LastProccessedTick).Returns(1);
@@ -401,7 +401,7 @@ namespace ObjectsUnitTest.World
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.Weather });
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>() { RoomAttribute.Weather });
             room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             room.Setup(e => e.PrecipitationNotification).Returns("rain");
             room.Setup(e => e.WindSpeedNotification).Returns("wind");
@@ -757,6 +757,12 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         }
 
         [TestMethod]
+        public void World_PerformTick_ProcessRoom_SpawnElemental()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
         public void World_PerformTick_ProcessRoom_CleanupEnchantments_DefeatEnchantment()
         {
             List<IEnchantment> enchantments = new List<IEnchantment>();
@@ -796,6 +802,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             room2.Setup(e => e.Id).Returns(1);
             room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
             room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room2.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
 
             world.PerformTick();
 
@@ -819,6 +826,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
             room2.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+            room2.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             exit.Setup(e => e.Zone).Returns(0);
             exit.Setup(e => e.Room).Returns(2);
             dictionaryRoom.Add(2, room2.Object);
@@ -857,16 +865,21 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             room5.Setup(e => e.North).Returns(exit5.Object);
             room6.Setup(e => e.North).Returns(exit6.Object);
             room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
+            room2.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
             room3.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
             room3.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room3.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             room4.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
             room4.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room4.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             room5.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
             room5.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room5.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             room6.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room6.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
             room6.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+            room6.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
 
             exit.Setup(e => e.Zone).Returns(0);
             exit.Setup(e => e.Room).Returns(2);

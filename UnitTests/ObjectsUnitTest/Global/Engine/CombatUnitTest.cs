@@ -214,7 +214,7 @@ namespace ObjectsUnitTest.Engine
             ConcurrentDictionary<IMobileObject, CombatPair> combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)info.GetValue(combat);
             CombatPair pair = new CombatPair();
 
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             mob1.Setup(e => e.Health).Returns(1);
             mob2.Setup(e => e.Health).Returns(1);
             mob1.Setup(e => e.Room).Returns(room.Object);
@@ -242,7 +242,7 @@ namespace ObjectsUnitTest.Engine
 
             mob1.Setup(e => e.Health).Returns(1);
             mob1.Setup(e => e.Room).Returns(room.Object);
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.Peaceful });
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>() { RoomAttribute.Peaceful });
 
             combat.ProcessCombatRound();
 
@@ -319,7 +319,7 @@ namespace ObjectsUnitTest.Engine
             mob2.Setup(e => e.Health).Returns(1);
             mob1.Setup(e => e.Room).Returns(room.Object);
             mob2.Setup(e => e.Room).Returns(room.Object);
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             pair.Attacker = mob1.Object;
             pair.Defender = mob2.Object;
             combatants.TryAdd(mob1.Object, pair);

@@ -47,7 +47,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
             tagWrapper = new Mock<ITagWrapper>();
 
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>());
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             mob.Setup(e => e.Room).Returns(room.Object);
             item.Setup(e => e.Attributes).Returns(new List<ItemAttribute>() { ItemAttribute.Invisible });
             altMob.Setup(e => e.AttributesCurrent).Returns(new List<MobileAttribute>() { MobileAttribute.Invisibile });
@@ -61,7 +61,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         [TestMethod]
         public void CanMobDoSomething_SeeDueToLight_RoomDark()
         {
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.NoLight });
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>() { RoomAttribute.NoLight });
 
             Assert.IsFalse(canDoSomething.SeeDueToLight(mob.Object));
         }
@@ -79,7 +79,7 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         {
             gameDateTime.Setup(e => e.Hour).Returns(12);
 
-            room.Setup(e => e.Attributes).Returns(new List<RoomAttribute>() { RoomAttribute.Light });
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>() { RoomAttribute.Light });
 
             Assert.IsTrue(canDoSomething.SeeDueToLight(mob.Object));
         }

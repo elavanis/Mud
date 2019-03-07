@@ -24,5 +24,6 @@ namespace Objects.Global.Settings.Interface
         List<IPAddress> BannedIps { get; set; }
         bool LogStats { get; set; }
         string LogStatsLocation { get; set; }
+        int ElementalSpawnPercent { get; set; }
     }
 }

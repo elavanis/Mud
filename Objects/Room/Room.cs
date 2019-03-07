@@ -387,7 +387,7 @@ namespace Objects.Room
         }
 
         [ExcludeFromCodeCoverage]
-        public List<RoomAttribute> Attributes { get; } = new List<RoomAttribute>();
+        public HashSet<RoomAttribute> Attributes { get; } = new HashSet<RoomAttribute>();
 
         public enum RoomAttribute
         {
@@ -422,7 +422,13 @@ namespace Objects.Room
             /// <summary>
             /// Room will save when items are gotten or dropped
             /// </summary>
-            Vault
+            Vault,
+            /// <summary>
+            /// No Elementals will spawn due to weather
+            /// </summary>
+            NoSpawnElemental
+
+
         }
 
         #region Weather

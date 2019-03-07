@@ -16,6 +16,7 @@ using Shared.TagWrapper.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Objects.Room.Room;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Effect.Zone.EndlessDesert
@@ -31,7 +32,7 @@ namespace ObjectsUnitTest.Effect.Zone.EndlessDesert
         Mock<ITagWrapper> tagWrapper;
         Mock<INotify> notify;
         Mock<IGameDateTime> gameDateTime;
-        List<Objects.Room.Room.RoomAttribute> roomAttrbuties;
+        HashSet<RoomAttribute> roomAttrbuties;
 
         DoorwayToUnderworld doorwayToUnderworld;
 
@@ -46,7 +47,7 @@ namespace ObjectsUnitTest.Effect.Zone.EndlessDesert
             mockPc = new Mock<IPlayerCharacter>();
             tagWrapper = new Mock<ITagWrapper>();
             notify = new Mock<INotify>();
-            roomAttrbuties = new List<Objects.Room.Room.RoomAttribute>();
+            roomAttrbuties = new HashSet<RoomAttribute>();
             gameDateTime = new Mock<IGameDateTime>();
 
             room.Setup(e => e.Attributes).Returns(roomAttrbuties);
