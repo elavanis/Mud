@@ -40,6 +40,7 @@ using Objects.GameDateTime;
 using Shared.PerformanceCounters;
 using Shared.PerformanceCounters.Interface;
 using Objects.Mob.SpecificNPC;
+using Objects.Language.Interface;
 
 namespace Objects.World
 {
@@ -824,25 +825,33 @@ namespace Objects.World
                 {
                     if (GlobalReference.GlobalValues.World.Precipitation >= 75)
                     {
-                        room.AddMobileObjectToRoom(new Elemental(ElementType.Water));
+                        SpawnElemental(room, ElementType.Water);
                     }
 
                     if (GlobalReference.GlobalValues.World.Precipitation <= 25)
                     {
-                        room.AddMobileObjectToRoom(new Elemental(ElementType.Fire));
+                        SpawnElemental(room, ElementType.Fire);
                     }
 
                     if (GlobalReference.GlobalValues.World.WindSpeed >= 75)
                     {
-                        room.AddMobileObjectToRoom(new Elemental(ElementType.Air));
+                        SpawnElemental(room, ElementType.Air);
                     }
 
                     if (GlobalReference.GlobalValues.World.WindSpeed <= 25)
                     {
-                        room.AddMobileObjectToRoom(new Elemental(ElementType.Earth));
+                        SpawnElemental(room, ElementType.Earth);
                     }
                 }
             }
+        }
+
+        private static void SpawnElemental(IRoom room, ElementType elementType)
+        {
+            Elemental elemental = new Elemental(elementType);
+            room.AddMobileObjectToRoom(elemental);
+            ITranslationMessage translationMessage = new TranslationMessage($"A {elemental.KeyWords[0]} elemental appears out of nothing.");
+            GlobalReference.GlobalValues.Notify.Room(elemental, null, room, translationMessage, null, true);
         }
 
         private void PerformHeartBeatBigTick(IBaseObject obj)
