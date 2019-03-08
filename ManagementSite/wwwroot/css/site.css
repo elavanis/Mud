@@ -10,11 +10,34 @@ for details on configuring this project to bundle and minify static web assets. 
 
 .box {
     float: left;
-    width: 1000px;
+    width: 500px;
     /*width: 50%;*/
     padding: 5px;
 }
 
-@media (max-width: 1000px) .box {
-    width: 100%;
+
+
+
+@media only screen and (max-width: 4000px) {
+    .box {
+        width: 25%;
+    }
+}
+
+@media only screen and (max-width: 3000px) {
+    .box {
+        width: 33%;
+    }
+}
+
+@media only screen and (max-width: 2000px) {
+    .box {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .box {
+        width: 100%;
+    }
 }
