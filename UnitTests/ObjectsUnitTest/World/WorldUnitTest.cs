@@ -44,6 +44,7 @@ using Objects.Magic.Enchantment.DefeatbleInfo.Interface;
 using static Objects.Global.Stats.Stats;
 using Shared.PerformanceCounters.Interface;
 using Objects.Global.Serialization.Interface;
+using Objects.Global.Interface;
 
 namespace ObjectsUnitTest.World
 {
@@ -67,6 +68,7 @@ namespace ObjectsUnitTest.World
         Mock<ISettings> settings;
         Mock<ISerialization> serialization;
         Mock<IFileIO> fileIO;
+        Mock<IGlobalValues> globalValues;
 
         [TestInitialize]
         public void Setup()
@@ -86,6 +88,7 @@ namespace ObjectsUnitTest.World
             settings = new Mock<ISettings>();
             serialization = new Mock<ISerialization>();
             fileIO = new Mock<IFileIO>();
+            globalValues = new Mock<IGlobalValues>();
 
             Mock<ILogger> logger = new Mock<ILogger>();
             Mock<ICounters> counters = new Mock<ICounters>();
@@ -114,6 +117,7 @@ namespace ObjectsUnitTest.World
             settings.Setup(e => e.LogStatsLocation).Returns("c:\\");
             serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            globalValues.Setup(e => e.TickCounter).Returns(0);
 
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Random = random.Object;
@@ -757,9 +761,51 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         }
 
         [TestMethod]
-        public void World_PerformTick_ProcessRoom_SpawnElemental()
+        public void World_PerformTick_ProcessRoom_SpawnElemental_Water()
         {
-            Assert.AreEqual(1, 2);
+            random.Setup(e => e.PercentDiceRoll(0)).Returns(true);
+            world.Precipitation = 100;
+
+            world.PerformTick();
+
+            room.Verify(e => e.AddMobileObjectToRoom(It.Is<INonPlayerCharacter>(f => f.KeyWords.Contains("water"))), Times.Once);
+            notify.Verify(e => e.Room(It.IsAny<INonPlayerCharacter>(), null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false));
+        }
+
+        [TestMethod]
+        public void World_PerformTick_ProcessRoom_SpawnElemental_Fire()
+        {
+            random.Setup(e => e.PercentDiceRoll(0)).Returns(true);
+            world.Precipitation = 0;
+
+            world.PerformTick();
+
+            room.Verify(e => e.AddMobileObjectToRoom(It.Is<INonPlayerCharacter>(f => f.KeyWords.Contains("fire"))), Times.Once);
+            notify.Verify(e => e.Room(It.IsAny<INonPlayerCharacter>(), null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false));
+        }
+
+        [TestMethod]
+        public void World_PerformTick_ProcessRoom_SpawnElemental_Air()
+        {
+            random.Setup(e => e.PercentDiceRoll(0)).Returns(true);
+            world.WindSpeed = 100;
+
+            world.PerformTick();
+
+            room.Verify(e => e.AddMobileObjectToRoom(It.Is<INonPlayerCharacter>(f => f.KeyWords.Contains("air"))), Times.Once);
+            notify.Verify(e => e.Room(It.IsAny<INonPlayerCharacter>(), null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false));
+        }
+
+        [TestMethod]
+        public void World_PerformTick_ProcessRoom_SpawnElemental_Earth()
+        {
+            random.Setup(e => e.PercentDiceRoll(0)).Returns(true);
+            world.WindSpeed = 0;
+
+            world.PerformTick();
+
+            room.Verify(e => e.AddMobileObjectToRoom(It.Is<INonPlayerCharacter>(f => f.KeyWords.Contains("earth"))), Times.Once);
+            notify.Verify(e => e.Room(It.IsAny<INonPlayerCharacter>(), null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false));
         }
 
         [TestMethod]

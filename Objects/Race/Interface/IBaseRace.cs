@@ -8,6 +8,15 @@ namespace Objects.Race.Interface
         double ExperanceModifier { get; }
         List<MobileObject.MobileAttribute> RaceAttributes { get; }
 
+
+
+        /// <summary>
+        ///Values 1+        = Resistance 
+        ///Values = 1       = Normal Damage
+        ///Values 1 - 0     = Weakness
+        ///Values = 0       = Immune
+        ///Values 0-        = Absorb Damage
+        /// </summary>
         #region DamageType
         decimal Acid { get; set; }
         decimal Bludgeon { get; set; }

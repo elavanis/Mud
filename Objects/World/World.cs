@@ -817,28 +817,28 @@ namespace Objects.World
             SpawnElementals(room);
         }
 
-        private static void SpawnElementals(IRoom room)
+        private void SpawnElementals(IRoom room)
         {
             if (!room.Attributes.Contains(RoomAttribute.NoSpawnElemental))
             {
                 if (GlobalReference.GlobalValues.Random.PercentDiceRoll(GlobalReference.GlobalValues.Settings.ElementalSpawnPercent))
                 {
-                    if (GlobalReference.GlobalValues.World.Precipitation >= 75)
+                    if (Precipitation >= 75)
                     {
                         SpawnElemental(room, ElementType.Water);
                     }
 
-                    if (GlobalReference.GlobalValues.World.Precipitation <= 25)
+                    if (Precipitation <= 25)
                     {
                         SpawnElemental(room, ElementType.Fire);
                     }
 
-                    if (GlobalReference.GlobalValues.World.WindSpeed >= 75)
+                    if (WindSpeed >= 75)
                     {
                         SpawnElemental(room, ElementType.Air);
                     }
 
-                    if (GlobalReference.GlobalValues.World.WindSpeed <= 25)
+                    if (WindSpeed <= 25)
                     {
                         SpawnElemental(room, ElementType.Earth);
                     }

@@ -1,9 +1,11 @@
 ﻿using Objects.Global;
+using Objects.Item.Items.Interface;
 using Objects.Language;
 using Objects.Language.Interface;
 using Objects.Room.Interface;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Objects.Mob.SpecificNPC
@@ -12,12 +14,18 @@ namespace Objects.Mob.SpecificNPC
     {
         //Earth <-> Air 
         //Fire <-> Water
+        [ExcludeFromCodeCoverage]
         public ElementType ElementType { get; set; }
-
+        [ExcludeFromCodeCoverage]
         public WeatherType WeatherType { get; set; }
+        [ExcludeFromCodeCoverage]
         public int WeatherTrigger { get; set; }
+        [ExcludeFromCodeCoverage]
         public WeatherDirection WeatherDirection { get; set; }
 
+        private int RoundTickCounter { get; set; } = 0;
+
+        [ExcludeFromCodeCoverage]
         public Elemental()
         {
 
@@ -53,32 +61,47 @@ namespace Objects.Mob.SpecificNPC
 
         public void ProcessElementalTick()
         {
-            LevelChange levelChange = GetLevelChange();
+            RoundTickCounter++;
+            if (RoundTickCounter % 5 == 0) //only process every 5th round so we don't level up or down ever tick
+            {
+                LevelChange levelChange = GetLevelChange();
 
-            if (levelChange == LevelChange.Up)
-            {
-                if (Level < GlobalReference.GlobalValues.Settings.MaxLevel)
+                if (levelChange == LevelChange.Up)
                 {
-                    Level++;
-                    ResetStats();
-                    FinishLoad();
+                    if (Level < GlobalReference.GlobalValues.Settings.MaxLevel)
+                    {
+                        Level++;
+                        ResetStats();
+                        RemoveEquipment();
+                        FinishLoad();
+                        ITranslationMessage translationMessage = new TranslationMessage($"The {KeyWords[0]} elemental grows stronger.");
+                        GlobalReference.GlobalValues.Notify.Room(this, null, Room, translationMessage, null, true);
+                    }
+                }
+                else if (levelChange == LevelChange.Down)
+                {
+                    if (Level > 1)
+                    {
+                        Level--;
+                        ResetStats();
+                        RemoveEquipment();
+                        FinishLoad();
+                        ITranslationMessage translationMessage = new TranslationMessage($"The {KeyWords[0]} elemental grows weaker.");
+                        GlobalReference.GlobalValues.Notify.Room(this, null, Room, translationMessage, null, true);
+                    }
+                    else
+                    {
+                        ITranslationMessage translationMessage = new TranslationMessage($"The {KeyWords[0]} elemental has grown so weak it can no longer hold its form in this realm and slowly fades away.");
+                        GlobalReference.GlobalValues.Notify.Room(this, null, Room, translationMessage, null, true);
+                        Room.RemoveMobileObjectFromRoom(this);
+                    }
                 }
             }
-            else if (levelChange == LevelChange.Down)
-            {
-                if (Level > 1)
-                {
-                    Level--;
-                    ResetStats();
-                    FinishLoad();
-                }
-                else
-                {
-                    ITranslationMessage translationMessage = new TranslationMessage($"The {KeyWords[0]} elemental has grown so weak it can no longer hold its form in this realm and slowly fades away.");
-                    GlobalReference.GlobalValues.Notify.Room(this, null, Room, translationMessage, null, true);
-                    Room.RemoveMobileObjectFromRoom(this);
-                }
-            }
+        }
+
+        private void RemoveEquipment()
+        {
+            _npcEquipment.Clear();
         }
 
         private void ResetStats()
@@ -142,14 +165,20 @@ namespace Objects.Mob.SpecificNPC
         private void SetEarth()
         {
             KeyWords.Add("earth");
-            LookDescription = "";
-            ExamineDescription = "";
-            ShortDescription = "";
+            LookDescription = "The lumbering earth elemental looks slow but moves surprising fast for its size.";
+            ExamineDescription = "Trace metals run through rock in the earth elemental's body giving the impression of veins.";
+            ShortDescription = "A large earth elemental stands looming above you.";
             SentenceDescription = "earth elemental";
 
-            WeatherType = WeatherType.Wind;
+            WeatherType = WeatherType.Precipitation;
             WeatherTrigger = 25;
             WeatherDirection = WeatherDirection.Low;
+
+            Race.Bludgeon = 1.5M;
+            Race.Pierce = 1.5M;
+            Race.Slash = 1.5M;
+
+            Race.Poison = 0M;
         }
 
         private void SetAir()
@@ -163,6 +192,14 @@ namespace Objects.Mob.SpecificNPC
             WeatherType = WeatherType.Wind;
             WeatherTrigger = 75;
             WeatherDirection = WeatherDirection.High;
+
+            Race.Lightning = 1.5M;
+            Race.Thunder = 1.5M;
+            Race.Bludgeon = 1.5M;
+            Race.Pierce = 1.5M;
+            Race.Slash = 1.5M;
+
+            Race.Poison = 0M;
         }
 
         private void SetFire()
@@ -176,6 +213,13 @@ namespace Objects.Mob.SpecificNPC
             WeatherType = WeatherType.Precipitation;
             WeatherTrigger = 25;
             WeatherDirection = WeatherDirection.Low;
+
+            Race.Bludgeon = 1.5M;
+            Race.Pierce = 1.5M;
+            Race.Slash = 1.5M;
+
+            Race.Fire = 0M;
+            Race.Poison = 0M;
         }
 
         private void SetWater()
@@ -189,6 +233,13 @@ namespace Objects.Mob.SpecificNPC
             WeatherType = WeatherType.Precipitation;
             WeatherTrigger = 75;
             WeatherDirection = WeatherDirection.High;
+
+            Race.Acid = 1.5M;
+            Race.Bludgeon = 1.5M;
+            Race.Pierce = 1.5M;
+            Race.Slash = 1.5M;
+
+            Race.Poison = 0M;
         }
     }
 

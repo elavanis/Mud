@@ -648,31 +648,31 @@ namespace Objects.Mob
         {
             switch (damageType)
             {
-                case Damage.Damage.DamageType.Acid:
+                case DamageType.Acid:
                     return Race.Acid;
-                case Damage.Damage.DamageType.Bludgeon:
+                case DamageType.Bludgeon:
                     return Race.Bludgeon;
-                case Damage.Damage.DamageType.Cold:
+                case DamageType.Cold:
                     return Race.Cold;
-                case Damage.Damage.DamageType.Fire:
+                case DamageType.Fire:
                     return Race.Fire;
-                case Damage.Damage.DamageType.Force:
+                case DamageType.Force:
                     return Race.Force;
-                case Damage.Damage.DamageType.Lightning:
+                case DamageType.Lightning:
                     return Race.Lightning;
-                case Damage.Damage.DamageType.Necrotic:
+                case DamageType.Necrotic:
                     return Race.Necrotic;
-                case Damage.Damage.DamageType.Pierce:
+                case DamageType.Pierce:
                     return Race.Pierce;
-                case Damage.Damage.DamageType.Poison:
+                case DamageType.Poison:
                     return Race.Poison;
-                case Damage.Damage.DamageType.Psychic:
+                case DamageType.Psychic:
                     return Race.Psychic;
-                case Damage.Damage.DamageType.Radiant:
+                case DamageType.Radiant:
                     return Race.Radiant;
-                case Damage.Damage.DamageType.Slash:
+                case DamageType.Slash:
                     return Race.Slash;
-                case Damage.Damage.DamageType.Thunder:
+                case DamageType.Thunder:
                     return Race.Thunder;
                 default:
                     throw new System.Exception("Unknown damage type " + damageType.ToString());

@@ -130,7 +130,7 @@ namespace Objects.Mob
         }
 
         #region Equipment
-        private List<IEquipment> _npcEquipment = null;
+        protected List<IEquipment> _npcEquipment = null;
         /// <summary>
         /// Any equipment placed here will not be dropped when the NPC dies
         /// </summary>

@@ -12,8 +12,7 @@ namespace Objects.Personality.Personalities
         public string Process(INonPlayerCharacter npc, string command)
         {
             Mob.SpecificNPC.Elemental elemental = npc as Mob.SpecificNPC.Elemental;
-            if (elemental != null
-                && GlobalReference.GlobalValues.TickCounter % 10 == 0) //only process every 10 ticks / 5 seconds
+            if (elemental != null)
             {
                 elemental.ProcessElementalTick();
             }
