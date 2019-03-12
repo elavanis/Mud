@@ -2,6 +2,7 @@
 using Objects.Item.Items.Interface;
 using Objects.Language;
 using Objects.Language.Interface;
+using Objects.Mob.SpecificNPC.Interface;
 using Objects.Room.Interface;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Text;
 
 namespace Objects.Mob.SpecificNPC
 {
-    public class Elemental : NonPlayerCharacter
+    public class Elemental : NonPlayerCharacter, IElemental
     {
         //Earth <-> Air 
         //Fire <-> Water

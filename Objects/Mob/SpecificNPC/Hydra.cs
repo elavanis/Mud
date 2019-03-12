@@ -10,13 +10,13 @@ using Objects.Item.Items;
 using Objects.Item.Items.Interface;
 using Objects.Language;
 using Objects.Mob.Interface;
+using Objects.Mob.SpecificNPC.Interface;
 using static Objects.Damage.Damage;
 
 namespace Objects.Mob.SpecificNPC
 {
-    public class Hydra : NonPlayerCharacter
+    public class Hydra : NonPlayerCharacter, IHydra
     {
-
         [ExcludeFromCodeCoverage]
         private int NewHeadsToGrow { get; set; }
 
@@ -55,7 +55,6 @@ namespace Objects.Mob.SpecificNPC
             }
         }
 
-
         public Hydra() : base()
         {
             Personalities.Add(new Personality.Personalities.Hydra());
@@ -80,7 +79,6 @@ namespace Objects.Mob.SpecificNPC
 
             return takenDamage;
         }
-
 
         public override int TakeCombatDamage(int totalDamage, IDamage damage, IMobileObject attacker, uint combatRound)
         {
@@ -126,7 +124,6 @@ namespace Objects.Mob.SpecificNPC
             }
         }
 
-
         public void RegrowHeads()
         {
             if (TookFireDamage == false)
@@ -147,7 +144,6 @@ namespace Objects.Mob.SpecificNPC
 
     public class RoundOfDamage
     {
-
         [ExcludeFromCodeCoverage]
         public int TotalDamage { get; set; }
 

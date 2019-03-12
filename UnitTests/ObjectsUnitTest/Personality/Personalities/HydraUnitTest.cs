@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Objects.Mob.Interface;
 using Objects.Mob.SpecificNPC.Interface;
 using Objects.Personality.Personalities;
 using System;
@@ -10,23 +9,23 @@ using System.Text;
 namespace ObjectsUnitTest.Personality.Personalities
 {
     [TestClass]
-    public class ElementalUnitTest
+    public class HydraUnitTest
     {
-        Elemental elemental;
-        Mock<IElemental> elementalMob;
+        Hydra hydra;
+        Mock<IHydra> hydraMob;
         [TestInitialize]
         public void Setup()
         {
-            elementalMob = new Mock<IElemental>();
-            elemental = new Elemental();
+            hydraMob = new Mock<IHydra>();
+            hydra = new Hydra();
         }
 
         [TestMethod]
-        public void Elemental_Process()
+        public void Hydra_Process()
         {
-            elemental.Process(elementalMob.Object, null);
+            hydra.Process(hydraMob.Object, null);
 
-            elementalMob.Verify(e => e.ProcessElementalTick(), Times.Once);
+            hydraMob.Verify(e => e.RegrowHeads(), Times.Once);
         }
     }
 }
