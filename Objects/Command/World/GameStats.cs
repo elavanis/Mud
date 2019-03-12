@@ -55,13 +55,16 @@ namespace Objects.Command.World
                 itemsPadding = Math.Max(itemsPadding, info.Items.ToString().Length);
                 pcPaddig = Math.Max(pcPaddig, info.Pc.ToString().Length);
                 roomsPadding = Math.Max(roomsPadding, info.Rooms.ToString().Length);
+            }
 
+            foreach (ZoneInfo info in zoneInfo)
+            {
                 strBldr.AppendLine(string.Format("Id:{4} - {0} - Rooms:{5} - Mobs:{1} - Items:{2} - Players:{3}", info.ZoneName.PadRight(zoneNamePadding)
-                                                                                                   , info.Npc.ToString().PadRight(npcPadding)
-                                                                                                   , info.Items.ToString().PadRight(itemsPadding)
-                                                                                                   , info.Pc.ToString().PadRight(pcPaddig)
-                                                                                                   , info.ZoneId.ToString().PadRight(zoneIdPadding)
-                                                                                                   , info.Rooms.ToString().PadRight(roomsPadding)));
+                                                                                                    , info.Npc.ToString().PadRight(npcPadding)
+                                                                                                    , info.Items.ToString().PadRight(itemsPadding)
+                                                                                                    , info.Pc.ToString().PadRight(pcPaddig)
+                                                                                                    , info.ZoneId.ToString().PadRight(zoneIdPadding)
+                                                                                                    , info.Rooms.ToString().PadRight(roomsPadding)));
             }
 
             return strBldr.ToString().Trim();
