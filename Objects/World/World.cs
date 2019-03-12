@@ -849,7 +849,9 @@ namespace Objects.World
         private static void SpawnElemental(IRoom room, ElementType elementType)
         {
             Elemental elemental = new Elemental(elementType);
+            elemental.FinishLoad();
             room.AddMobileObjectToRoom(elemental);
+            elemental.Room = room;
             ITranslationMessage translationMessage = new TranslationMessage($"A {elemental.KeyWords[0]} elemental appears out of nothing.");
             GlobalReference.GlobalValues.Notify.Room(elemental, null, room, translationMessage, null, true);
         }

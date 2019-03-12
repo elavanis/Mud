@@ -102,7 +102,7 @@ namespace Objects.Mob.SpecificNPC
 
         private void RemoveEquipment()
         {
-            _npcEquipment.Clear();
+            _npcEquipment?.Clear();
         }
 
         private void ResetStats()
