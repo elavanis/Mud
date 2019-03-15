@@ -165,6 +165,7 @@ namespace Objects.Mob.SpecificNPC
 
         private void SetEarth()
         {
+            ElementType = ElementType.Earth;
             KeyWords.Add("earth");
             LookDescription = "The lumbering earth elemental looks slow but moves surprising fast for its size.";
             ExamineDescription = "Trace metals run through rock in the earth elemental's body giving the impression of veins.";
@@ -184,6 +185,7 @@ namespace Objects.Mob.SpecificNPC
 
         private void SetAir()
         {
+            ElementType = ElementType.Air;
             KeyWords.Add("air");
             LookDescription = "The air elemental rapidly increases in size and then goes back to normal.  This cycle repeats itself over and over.";
             ExamineDescription = "Thick clouds of swirling wind obscure flashes of light in what appears to be a small thunderstorm.";
@@ -205,6 +207,7 @@ namespace Objects.Mob.SpecificNPC
 
         private void SetFire()
         {
+            ElementType = ElementType.Fire;
             KeyWords.Add("fire");
             LookDescription = "The fire elemental walks around leaving a scorched marks on the ground.";
             ExamineDescription = "Searing heat cause flammable items in the room to smolder.";
@@ -225,6 +228,7 @@ namespace Objects.Mob.SpecificNPC
 
         private void SetWater()
         {
+            ElementType = ElementType.Water;
             KeyWords.Add("water");
             LookDescription = "A water elemental flows around leaving a trail of water behind.";
             ExamineDescription = "The innards of the water elemental churn and flow distorting the image of what is behind it.";

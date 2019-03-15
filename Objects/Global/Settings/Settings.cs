@@ -51,10 +51,13 @@ namespace Objects.Global.Settings
         public bool SendMapPosition { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public int OddsOfGeneratingRandomDrop { get; set; } = 10;
+        public double OddsOfGeneratingRandomDrop { get; set; } = 10;
 
         [ExcludeFromCodeCoverage]
-        public int OddsOfDropBeingPlusOne { get; set; } = 10;
+        public double OddsOfDropBeingPlusOne { get; set; } = 10;
+
+        [ExcludeFromCodeCoverage]
+        public double OddsOfElementalSpawn { get; set; } = .01;
 
         [ExcludeFromCodeCoverage]
         public List<IPAddress> BannedIps { get; set; } = new List<IPAddress>();
@@ -64,8 +67,5 @@ namespace Objects.Global.Settings
 
         [ExcludeFromCodeCoverage]
         public string LogStatsLocation { get; set; } = "..\\Stats";
-
-        [ExcludeFromCodeCoverage]
-        public int ElementalSpawnPercent { get; set; } = 1;
     }
 }

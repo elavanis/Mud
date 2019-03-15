@@ -10,6 +10,7 @@
   "LogStatsLocation":"C:\\Mud\\Stats",
   "Port": 52475,
   "SendMapPosition": "True",
+  "OddsOfElementalSpawn":".01",
   "BannedIps":"",
   "AsciiArt": "                                   ▒▓▓░░▒▒▓░                               
                            ▒▓▓██████████████▓▓▒░                           

@@ -33,30 +33,6 @@ namespace Objects.Global.Random
             }
         }
 
-        ///// <summary>
-        ///// Takes a percentage and rolls a dice to see
-        ///// if the roll is less than/equal to the percent.  
-        ///// If so it returns true.
-        ///// IE 20 returns true 20% of the time and
-        ///// 100 returns true 100% of the time.
-        ///// </summary>
-        ///// <param name="percentSuccessful"></param>
-        ///// <returns></returns>
-        //public bool PercentDiceRoll(int percentSuccessful)
-        //{
-        //    lock (_random)
-        //    {
-        //        if (_random.Next(100) + 1 <= percentSuccessful)
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //}
-
         /// <summary>
         /// Takes a percentage and rolls a dice to see
         /// if the roll is less than/equal to the percent.  

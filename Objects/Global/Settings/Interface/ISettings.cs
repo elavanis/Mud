@@ -19,11 +19,11 @@ namespace Objects.Global.Settings.Interface
         string AsciiArt { get; set; }
         int Port { get; set; }
         bool SendMapPosition { get; set; }
-        int OddsOfGeneratingRandomDrop { get; set; }
-        int OddsOfDropBeingPlusOne { get; set; }
+        double OddsOfGeneratingRandomDrop { get; set; }
+        double OddsOfDropBeingPlusOne { get; set; }
+        double OddsOfElementalSpawn { get; set; }
         List<IPAddress> BannedIps { get; set; }
         bool LogStats { get; set; }
         string LogStatsLocation { get; set; }
-        int ElementalSpawnPercent { get; set; }
     }
 }

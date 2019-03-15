@@ -17,6 +17,7 @@ namespace Server
         public int Port { get; set; }
         public bool SendMapPosition { get; set; }
         public string BannedIps { get; set; }
+        public double ElemenatlSpawnRate { get; set; }
 
         public string AsciiArt { get; set; }
     }
