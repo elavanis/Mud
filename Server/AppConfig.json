@@ -10,7 +10,9 @@
   "LogStatsLocation":"C:\\Mud\\Stats",
   "Port": 52475,
   "SendMapPosition": "True",
-  "OddsOfElementalSpawn":".01",
+  "ElementalSpawnPercent":".01",
+  "RandomDropPercent":"10",
+  "DropBeingPlusOnePercent":"10",
   "BannedIps":"",
   "AsciiArt": "                                   ▒▓▓░░▒▒▓░                               
                            ▒▓▓██████████████▓▓▒░                           

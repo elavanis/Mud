@@ -8,6 +8,7 @@ namespace Objects.Global.Settings.Interface
         int AssignableStatPoints { get; set; }
         int BaseStatValue { get; set; }
         int MaxLevel { get; set; }
+        int MaxPlayerLevel { get; set; }
         int MaxCalculationLevel { get; }
         double Multiplier { get; set; }
         string AssetsDirectory { get; set; }
@@ -19,9 +20,9 @@ namespace Objects.Global.Settings.Interface
         string AsciiArt { get; set; }
         int Port { get; set; }
         bool SendMapPosition { get; set; }
-        double OddsOfGeneratingRandomDrop { get; set; }
-        double OddsOfDropBeingPlusOne { get; set; }
-        double OddsOfElementalSpawn { get; set; }
+        double RandomDropPercent { get; set; }
+        double DropBeingPlusOnePercent { get; set; }
+        double ElementalSpawnPercent { get; set; }
         List<IPAddress> BannedIps { get; set; }
         bool LogStats { get; set; }
         string LogStatsLocation { get; set; }

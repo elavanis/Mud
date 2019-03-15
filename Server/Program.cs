@@ -51,6 +51,9 @@ namespace Server
             GlobalReference.GlobalValues.Settings.SendMapPosition = config.SendMapPosition;
             GlobalReference.GlobalValues.Settings.LogStats = config.LogStats;
             GlobalReference.GlobalValues.Settings.LogStatsLocation = config.LogStatsLocation;
+            GlobalReference.GlobalValues.Settings.ElementalSpawnPercent = config.ElemenatlSpawnPercent;
+            GlobalReference.GlobalValues.Settings.RandomDropPercent = config.RandomDropPercent;
+            GlobalReference.GlobalValues.Settings.DropBeingPlusOnePercent = config.DropBeingPlusOnePercent;
 
             string[] ips = config.BannedIps.Split(',');
             foreach (string ip in ips)

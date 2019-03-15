@@ -18,7 +18,10 @@ namespace Objects.Global.Settings
         public double Multiplier { get; set; } = 1.1d;
 
         [ExcludeFromCodeCoverage]
-        public int MaxLevel { get; set; } = 100;
+        public int MaxLevel { get; set; } = 107; //if this goes higher exp will need to be BigInteger 
+
+        [ExcludeFromCodeCoverage]
+        public int MaxPlayerLevel { get; set; } = 100;
 
         [ExcludeFromCodeCoverage]
         public int MaxCalculationLevel { get; set; } = 130;
@@ -51,13 +54,13 @@ namespace Objects.Global.Settings
         public bool SendMapPosition { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public double OddsOfGeneratingRandomDrop { get; set; } = 10;
+        public double RandomDropPercent { get; set; } = 10;
 
         [ExcludeFromCodeCoverage]
-        public double OddsOfDropBeingPlusOne { get; set; } = 10;
+        public double DropBeingPlusOnePercent { get; set; } = 10;
 
         [ExcludeFromCodeCoverage]
-        public double OddsOfElementalSpawn { get; set; } = .01;
+        public double ElementalSpawnPercent { get; set; } = .01;
 
         [ExcludeFromCodeCoverage]
         public List<IPAddress> BannedIps { get; set; } = new List<IPAddress>();

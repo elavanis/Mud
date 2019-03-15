@@ -45,8 +45,9 @@ namespace ObjectsUnitTest.Global.Random
             random.Setup(e => e.PercentDiceRoll(0)).Returns(true);
             npc.Setup(e => e.TypeOfMob).Returns(MobType.Humanoid);
             npc.Setup(e => e.Level).Returns(1);
-            settings.Setup(e => e.OddsOfGeneratingRandomDrop).Returns(1);
-            settings.Setup(e => e.OddsOfDropBeingPlusOne).Returns(2);
+            settings.Setup(e => e.RandomDropPercent).Returns(1);
+            settings.Setup(e => e.DropBeingPlusOnePercent).Returns(2);
+            settings.Setup(e => e.MaxLevel).Returns(107);
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.Random = random.Object;
@@ -56,7 +57,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomDrop_NoRandomDrops()
         {
-            settings.Setup(e => e.OddsOfGeneratingRandomDrop).Returns(0);
+            settings.Setup(e => e.RandomDropPercent).Returns(0);
 
             IItem result = randomDropGenerator.GenerateRandomDrop(npc.Object);
             Assert.AreEqual(null, result);
@@ -65,7 +66,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomDrop_NoRandomDropCreated()
         {
-            settings.Setup(e => e.OddsOfGeneratingRandomDrop).Returns(0);
+            settings.Setup(e => e.RandomDropPercent).Returns(0);
 
             IItem result = randomDropGenerator.GenerateRandomDrop(npc.Object);
             Assert.AreEqual(null, result);
@@ -83,7 +84,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomDrop_Humanoid()
         {
-            settings.Setup(e => e.OddsOfDropBeingPlusOne).Returns(0);
+            settings.Setup(e => e.DropBeingPlusOnePercent).Returns(0);
 
             IItem result = randomDropGenerator.GenerateRandomDrop(npc.Object);
             Assert.IsNotNull(result);
@@ -92,7 +93,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomDrop_HumanoidPlusOneItem()
         {
-            settings.SetupSequence(e => e.OddsOfDropBeingPlusOne).Returns(1).Returns(0);
+            settings.SetupSequence(e => e.DropBeingPlusOnePercent).Returns(1).Returns(0);
 
             IItem result = randomDropGenerator.GenerateRandomDrop(npc.Object);
             IWeapon weapon = result as IWeapon;

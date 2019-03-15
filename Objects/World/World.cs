@@ -821,7 +821,7 @@ namespace Objects.World
         {
             if (!room.Attributes.Contains(RoomAttribute.NoSpawnElemental))
             {
-                if (GlobalReference.GlobalValues.Random.PercentDiceRoll(GlobalReference.GlobalValues.Settings.OddsOfElementalSpawn))
+                if (GlobalReference.GlobalValues.Random.PercentDiceRoll(GlobalReference.GlobalValues.Settings.ElementalSpawnPercent))
                 {
                     if (Precipitation >= 75)
                     {

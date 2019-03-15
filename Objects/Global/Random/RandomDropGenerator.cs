@@ -62,12 +62,12 @@ namespace Objects.Global.Random
         public IItem GenerateRandomDrop(INonPlayerCharacter nonPlayerCharacter)
         {
             //if the odds of generating an item is 0 then return nothing immediately 
-            if (GlobalReference.GlobalValues.Settings.OddsOfGeneratingRandomDrop == 0)
+            if (GlobalReference.GlobalValues.Settings.RandomDropPercent == 0)
             {
                 return null;
             }
 
-            if (GlobalReference.GlobalValues.Random.PercentDiceRoll(GlobalReference.GlobalValues.Settings.OddsOfGeneratingRandomDrop))
+            if (GlobalReference.GlobalValues.Random.PercentDiceRoll(GlobalReference.GlobalValues.Settings.RandomDropPercent))
             {
                 switch (nonPlayerCharacter.TypeOfMob)
                 {
@@ -91,9 +91,10 @@ namespace Objects.Global.Random
             int objectGenerateLevelAt = nonPlayerCharacter.Level;
 
             //verify the setting is set to generate plus items
-            if (GlobalReference.GlobalValues.Settings.OddsOfDropBeingPlusOne > 0)
+            if (GlobalReference.GlobalValues.Settings.DropBeingPlusOnePercent > 0)
             {
-                while (GlobalReference.GlobalValues.Random.PercentDiceRoll(GlobalReference.GlobalValues.Settings.OddsOfDropBeingPlusOne))
+                while (objectGenerateLevelAt < GlobalReference.GlobalValues.Settings.MaxLevel
+                    && GlobalReference.GlobalValues.Random.PercentDiceRoll(GlobalReference.GlobalValues.Settings.DropBeingPlusOnePercent))
                 {
                     objectGenerateLevelAt++;
                 }
