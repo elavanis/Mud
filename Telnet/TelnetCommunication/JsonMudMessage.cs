@@ -65,7 +65,7 @@ namespace TelnetCommunication
                         IMudMessage mudMessage = StringToMessage(newMessage.Remove(newMessage.Length - 1));
                         parsedMessages.Add(mudMessage.Message);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         //message is invalid json object, throw it away
                     }

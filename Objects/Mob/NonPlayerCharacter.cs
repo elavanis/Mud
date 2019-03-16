@@ -164,7 +164,7 @@ namespace Objects.Mob
             }
         }
 
-        public virtual IEnumerable<IWeapon> EquipedWeapon
+        public override IEnumerable<IWeapon> EquipedWeapon
         {
             get
             {

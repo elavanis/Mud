@@ -5,10 +5,10 @@ namespace Objects.Mob.SpecificNPC.Interface
 {
     public interface IHydra : INonPlayerCharacter
     {
-        int Level { get; set; }
+        new int Level { get; set; }
 
         void RegrowHeads();
-        int TakeCombatDamage(int totalDamage, IDamage damage, IMobileObject attacker, uint combatRound);
-        int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker);
+        new int TakeCombatDamage(int totalDamage, IDamage damage, IMobileObject attacker, uint combatRound);
+        new int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker);
     }
 }
