@@ -35,10 +35,12 @@ namespace Server
         private static void LoadServerSettings()
         {
             //ConfigSettings c = new ConfigSettings();
+            //c.ElemenatlSpawnPercent = .01;
             //using (TextWriter tw = new StreamWriter(@"C:\Git\Mud\Server\AppConfig2.json"))
             //{
             //    tw.Write(GlobalReference.GlobalValues.Serialization.Serialize(c));
             //}
+
             ConfigSettings config = GlobalReference.GlobalValues.Serialization.Deserialize<ConfigSettings>(File.ReadAllText("AppConfig.json"));
 
             GlobalReference.GlobalValues.Settings.AsciiArt = config.AsciiArt;
