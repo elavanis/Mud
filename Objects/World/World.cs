@@ -244,6 +244,7 @@ namespace Objects.World
         #region Zone
         [ExcludeFromCodeCoverage]
         private Dictionary<int, string> _zoneIdToFileMap { get; } = new Dictionary<int, string>();
+
         [ExcludeFromCodeCoverage]
         public Dictionary<int, IZone> Zones { get; } = new Dictionary<int, IZone>();
 
@@ -371,6 +372,7 @@ namespace Objects.World
 
         [ExcludeFromCodeCoverage]
         private object characterLock { get; } = new object();
+
         [ExcludeFromCodeCoverage]
         private List<IPlayerCharacter> characters { get; } = new List<IPlayerCharacter>();
 
@@ -498,7 +500,6 @@ namespace Objects.World
 
             return pc;
         }
-
         #endregion PlayerCharacters
 
         public void PerformTick()

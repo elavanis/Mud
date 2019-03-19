@@ -116,8 +116,11 @@ namespace ObjectsUnitTest.World
             settings.Setup(e => e.LogStats).Returns(true);
             settings.Setup(e => e.LogStatsLocation).Returns("c:\\");
             serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
+            serialization.Setup(e => e.Deserialize<List<ICounters>>("serial")).Returns(new List<ICounters>());
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             globalValues.Setup(e => e.TickCounter).Returns(0);
+            fileIO.Setup(e => e.Exists("c:\\00010101\\Stats.stat")).Returns(true);
+            fileIO.Setup(e => e.ReadAllText("c:\\00010101\\Stats.stat")).Returns("serial");
 
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Random = random.Object;
@@ -326,6 +329,16 @@ namespace ObjectsUnitTest.World
             Assert.AreEqual(0, GlobalReference.GlobalValues.Counters.MaxTickTimeInMs);
             Assert.AreNotEqual(0, GlobalReference.GlobalValues.Counters.Memory);
         }
+
+        [TestMethod]
+        public void WorldPerformTick_UpdatePerformanceCounters_WriteLogStats()
+        {
+            MethodInfo methodInfo = world.GetType().GetMethod("WriteLogStats", BindingFlags.NonPublic | BindingFlags.Instance);
+            methodInfo.Invoke(world, new object[] { new DateTime() });
+
+            serialization.Verify(e => e.Deserialize<List<ICounters>>("serial"), Times.Once);
+            fileIO.Verify(e => e.WriteFile("c:\\00010101\\Stats.stat", "abc"), Times.Once);
+        }
         #endregion UpdatePerformanceCounters
 
         #region SaveCharacters
@@ -391,7 +404,6 @@ namespace ObjectsUnitTest.World
             Assert.IsTrue((DateTime)field.GetValue(world) == startupDateTime);
         }
         #endregion SaveCharacters
-
 
         #region ProcessRoom
         [TestMethod]
@@ -978,8 +990,6 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             Assert.AreEqual("result2", result);
         }
         #endregion DoWorldCommand
-
-
         #endregion PerformTick
 
         [TestMethod]
