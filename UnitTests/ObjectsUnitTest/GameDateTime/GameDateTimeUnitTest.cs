@@ -155,5 +155,40 @@ namespace ObjectsUnitTest.GameDateTime
             Assert.IsFalse(new Objects.GameDateTime.GameDateTime().IsLessThan(new Objects.GameDateTime.GameDateTime()));
             Assert.IsFalse(new Objects.GameDateTime.GameDateTime().IsGreaterThan(new Objects.GameDateTime.GameDateTime()));
         }
+
+        [TestMethod]
+        public void GameDateTime_TotalDaysPastBegining_1Year()
+        {
+            gameDateTime = new Objects.GameDateTime.GameDateTime() { Year = 1 };
+            Assert.AreEqual(360, gameDateTime.TotalDaysPastBegining);
+        }
+
+        [TestMethod]
+        public void GameDateTime_TotalDaysPastBegining_1Month()
+        {
+            gameDateTime = new Objects.GameDateTime.GameDateTime() { Month = 1 };
+            Assert.AreEqual(30, gameDateTime.TotalDaysPastBegining);
+        }
+
+        [TestMethod]
+        public void GameDateTime_TotalDaysPastBegining_1Day()
+        {
+            gameDateTime = new Objects.GameDateTime.GameDateTime() { Day = 1 };
+            Assert.AreEqual(1, gameDateTime.TotalDaysPastBegining);
+        }
+
+        [TestMethod]
+        public void GameDateTime_TotalDaysPastBegining_1Hour()
+        {
+            gameDateTime = new Objects.GameDateTime.GameDateTime() { Hour = 1 };
+            Assert.AreEqual(1 / 24M, gameDateTime.TotalDaysPastBegining);
+        }
+
+        [TestMethod]
+        public void GameDateTime_TotalDaysPastBegining_1Minute()
+        {
+            gameDateTime = new Objects.GameDateTime.GameDateTime() { Minute = 1 };
+            Assert.AreEqual(1 / 1440M, gameDateTime.TotalDaysPastBegining);
+        }
     }
 }
