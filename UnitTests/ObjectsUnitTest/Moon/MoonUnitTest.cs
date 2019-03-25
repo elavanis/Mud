@@ -35,7 +35,7 @@ namespace ObjectsUnitTest.Moon
         public void Moon_PropertyVerification()
         {
             Assert.AreEqual(2, moon.MagicModifier);
-            Assert.AreEqual(5, moon.MoonPhaseCycleDays);
+            Assert.AreEqual(10, moon.MoonPhaseCycleDays);
             Assert.AreEqual("moon", moon.Name);
         }
 
@@ -54,7 +54,7 @@ namespace ObjectsUnitTest.Moon
         }
 
         [TestMethod]
-        public void Moon_MoonModifer1()
+        public void Moon_FulMoonModifer1()
         {
             moon.MagicModifier = 1;
 
