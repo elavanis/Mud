@@ -8,22 +8,42 @@ namespace Objects.Moon
 {
     public class Moons
     {
+        private ulong lastCalculation = ulong.MaxValue;
+        private object padLock = new object();
+
         public List<IMoon> MoonList { get; set; } = new List<IMoon>();
 
+        private decimal totalMagicalAdjustment = 0;
         public decimal TotalMagicAdjustment
         {
             get
             {
-                decimal totalAdjustment = 0;
-
-
-
-                foreach (IMoon moon in MoonList)
+                if (lastCalculation == GlobalReference.GlobalValues.TickCounter)
                 {
-                    totalAdjustment += moon.CurrentMagicModifier;
+                    return totalMagicalAdjustment;
                 }
+                else
+                {
+                    lock (padLock)
+                    {
+                        if (lastCalculation == GlobalReference.GlobalValues.TickCounter)
+                        {
+                            return totalMagicalAdjustment;
+                        }
+                        else
+                        {
+                            totalMagicalAdjustment = 0;
 
-                return totalAdjustment;
+                            foreach (IMoon moon in MoonList)
+                            {
+                                totalMagicalAdjustment += moon.CurrentMagicModifier;
+                            }
+
+                            lastCalculation = GlobalReference.GlobalValues.TickCounter;
+                            return totalMagicalAdjustment;
+                        }
+                    }
+                }
             }
         }
     }

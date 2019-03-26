@@ -84,7 +84,9 @@ namespace Server
             configSettings.SendMapPosition = true;
             configSettings.VaultDirectory = "C:\\Mud\\Vaults";
             configSettings.ZoneDirectory = "C:\\Mud\\World";
-            configSettings.AsciiArt = @"                                   ▒▓▓░░▒▒▓░                               
+            configSettings.AsciiArt =
+
+@"                                   ▒▓▓░░▒▒▓░                               
                            ▒▓▓██████████████▓▓▒░                           
                        ▒████████████████████████████▓░                     
                    ░▓███████████████████████████████████▓▒                 
@@ -130,7 +132,7 @@ namespace Server
                         ░▒▓███████████████████▓▒▒▒▒▒▒▒░                    
                                     ░░░░░░▒▒▒▒▒░░                          ";
 
-            using (TextWriter tw = new StreamWriter(@"C:\Git\Mud\Server\AppConfig2.json"))
+            using (TextWriter tw = new StreamWriter(@"AppConfig2.json"))
             {
                 tw.Write(GlobalReference.GlobalValues.Serialization.Serialize(configSettings));
             }
@@ -138,48 +140,33 @@ namespace Server
 
         private static List<IMoon> GetMoons()
         {
+            //total magnification  is 1.5
+            //this means that magic will be affected by at most 50% yielding a 1.5x increase and a .6666x decrease
+            //IE 100 damage becomes 150 at full bonus and 66 at full decrease
             List<IMoon> moons = new List<IMoon>();
 
             IMoon moon = new Moon();
-            moon.MagicModifier = 1.29M;
+            moon.MagicModifier = 1.14M;
             moon.MoonPhaseCycleDays = 13;
             moon.Name = "Luna";
             moons.Add(moon);
 
             moon = new Moon();
-            moon.MagicModifier = 1.05M;
+            moon.MagicModifier = 1.135M;
             moon.MoonPhaseCycleDays = 28;
             moon.Name = "Selene";
             moons.Add(moon);
 
             moon = new Moon();
-            moon.MagicModifier = 1.18M;
+            moon.MagicModifier = 1.165M;
             moon.MoonPhaseCycleDays = 80;
             moon.Name = "Callisto";
             moons.Add(moon);
 
             moon = new Moon();
-            moon.MagicModifier = 1.22M;
+            moon.MagicModifier = 1.06M;
             moon.MoonPhaseCycleDays = 7;
             moon.Name = "Dione";
-            moons.Add(moon);
-
-            moon = new Moon();
-            moon.MagicModifier = 1.14M;
-            moon.MoonPhaseCycleDays = 61;
-            moon.Name = "Pasiphae";
-            moons.Add(moon);
-
-            moon = new Moon();
-            moon.MagicModifier = 1.09M;
-            moon.MoonPhaseCycleDays = 29;
-            moon.Name = "Elara";
-            moons.Add(moon);
-
-            moon = new Moon();
-            moon.MagicModifier = 1.03M;
-            moon.MoonPhaseCycleDays = 16;
-            moon.Name = "Lysithea";
             moons.Add(moon);
 
             return moons;
