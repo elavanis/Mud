@@ -36,7 +36,7 @@ namespace Server
 
         private static void LoadServerSettings()
         {
-            //WriteNewAppConfigFile();
+            WriteNewAppConfigFile();
             ConfigSettings config = GlobalReference.GlobalValues.Serialization.Deserialize<ConfigSettings>(File.ReadAllText("AppConfig.json"));
 
             GlobalReference.GlobalValues.Settings.AsciiArt = config.AsciiArt;
@@ -146,25 +146,25 @@ namespace Server
             List<IMoon> moons = new List<IMoon>();
 
             IMoon moon = new Moon();
-            moon.MagicModifier = 1.14M;
+            //moon.MagicModifier = 1.14M;
             moon.MoonPhaseCycleDays = 13;
             moon.Name = "Luna";
             moons.Add(moon);
 
             moon = new Moon();
-            moon.MagicModifier = 1.135M;
+            //moon.MagicModifier = 1.135M;
             moon.MoonPhaseCycleDays = 28;
             moon.Name = "Selene";
             moons.Add(moon);
 
             moon = new Moon();
-            moon.MagicModifier = 1.165M;
+            //moon.MagicModifier = 1.165M;
             moon.MoonPhaseCycleDays = 80;
             moon.Name = "Callisto";
             moons.Add(moon);
 
             moon = new Moon();
-            moon.MagicModifier = 1.06M;
+            //moon.MagicModifier = 1.06M;
             moon.MoonPhaseCycleDays = 7;
             moon.Name = "Dione";
             moons.Add(moon);

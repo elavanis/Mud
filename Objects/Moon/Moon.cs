@@ -13,22 +13,22 @@ namespace Objects.Moon
         public string Name { get; set; }
 
         private decimal magicModifier;
-        public decimal MagicModifier
-        {
-            get
-            {
-                return magicModifier;
-            }
-            set
-            {
-                magicModifier = value;
+        //public decimal MagicModifier
+        //{
+        //    get
+        //    {
+        //        return magicModifier;
+        //    }
+        //    set
+        //    {
+        //        magicModifier = value;
 
-                if (magicModifier != 1)
-                {
-                    MagicModifierMultiplier = 50 / (magicModifier - 1);
-                }
-            }
-        }
+        //        if (magicModifier != 1)
+        //        {
+        //            MagicModifierMultiplier = 50 / (magicModifier - 1);
+        //        }
+        //    }
+        //}
 
         private int moonPhaseCycleDays;
         public int MoonPhaseCycleDays
@@ -45,31 +45,31 @@ namespace Objects.Moon
         }
 
 
-        public decimal CurrentMagicModifier
-        {
-            get
-            {
-                if (magicModifier == 1)
-                {
-                    return 1;  //moon does not affect magic
-                }
+        //public decimal CurrentMagicModifier
+        //{
+        //    get
+        //    {
+        //        if (magicModifier == 1)
+        //        {
+        //            return 1;  //moon does not affect magic
+        //        }
 
-                decimal percentFull = Math.Abs(MoonPhasePositionThroughCycle);
+        //        decimal percentFull = Math.Abs(MoonPhasePositionThroughCycle);
 
-                decimal moonMathCalc = percentFull - 50;
+        //        decimal moonMathCalc = percentFull - 50;
 
-                if (moonMathCalc >= 0)
-                {
-                    return moonMathCalc / MagicModifierMultiplier + 1;
-                }
-                else
-                {
-                    moonMathCalc = Math.Abs(moonMathCalc);
-                    decimal divisor = moonMathCalc / MagicModifierMultiplier + 1;
-                    return 1 / divisor;
-                }
-            }
-        }
+        //        if (moonMathCalc >= 0)
+        //        {
+        //            return moonMathCalc / MagicModifierMultiplier + 1;
+        //        }
+        //        else
+        //        {
+        //            moonMathCalc = Math.Abs(moonMathCalc);
+        //            decimal divisor = moonMathCalc / MagicModifierMultiplier + 1;
+        //            return 1 / divisor;
+        //        }
+        //    }
+        //}
 
         private decimal DailyRateOfChange;
         private decimal MagicModifierMultiplier;
@@ -85,8 +85,5 @@ namespace Objects.Moon
                 return phase;
             }
         }
-
-
-
     }
 }

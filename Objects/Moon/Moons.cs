@@ -13,38 +13,38 @@ namespace Objects.Moon
 
         public List<IMoon> MoonList { get; set; } = new List<IMoon>();
 
-        private decimal totalMagicalAdjustment = 0;
-        public decimal TotalMagicAdjustment
-        {
-            get
-            {
-                if (lastCalculation == GlobalReference.GlobalValues.TickCounter)
-                {
-                    return totalMagicalAdjustment;
-                }
-                else
-                {
-                    lock (padLock)
-                    {
-                        if (lastCalculation == GlobalReference.GlobalValues.TickCounter)
-                        {
-                            return totalMagicalAdjustment;
-                        }
-                        else
-                        {
-                            totalMagicalAdjustment = 0;
+        //private decimal totalMagicalAdjustment = 0;
+        //public decimal TotalMagicAdjustment
+        //{
+        //    get
+        //    {
+        //        if (lastCalculation == GlobalReference.GlobalValues.TickCounter)
+        //        {
+        //            return totalMagicalAdjustment;
+        //        }
+        //        else
+        //        {
+        //            lock (padLock)
+        //            {
+        //                if (lastCalculation == GlobalReference.GlobalValues.TickCounter)
+        //                {
+        //                    return totalMagicalAdjustment;
+        //                }
+        //                else
+        //                {
+        //                    totalMagicalAdjustment = 0;
 
-                            foreach (IMoon moon in MoonList)
-                            {
-                                totalMagicalAdjustment += moon.CurrentMagicModifier;
-                            }
+        //                    foreach (IMoon moon in MoonList)
+        //                    {
+        //                        totalMagicalAdjustment += moon.CurrentMagicModifier;
+        //                    }
 
-                            lastCalculation = GlobalReference.GlobalValues.TickCounter;
-                            return totalMagicalAdjustment;
-                        }
-                    }
-                }
-            }
-        }
+        //                    lastCalculation = GlobalReference.GlobalValues.TickCounter;
+        //                    return totalMagicalAdjustment;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
