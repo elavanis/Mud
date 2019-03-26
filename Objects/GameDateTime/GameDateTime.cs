@@ -8,11 +8,12 @@ namespace Objects.GameDateTime
     public class GameDateTime : IGameDateTime
     {
         private static DateTime Start { get; } = new DateTime(2015, 11, 7, 16, 43, 0, DateTimeKind.Utc);
-        //private static DateTime Start { get; } = new DateTime(2015, 11, 7, 16, 43, 0, DateTimeKind.Utc);
         private static int YearCount { get; } = Enum.GetValues(typeof(Years)).Length;
         private static int MonthCount { get; } = Enum.GetValues(typeof(Months)).Length;
         private static int DayCount { get; } = Enum.GetValues(typeof(Days)).Length;
         private static int weeksInMonth { get; } = 5;
+        private static long DaysInYear { get; } = MonthCount * DayCount * weeksInMonth;
+        private static long DaysInMonth { get; } = DayCount * weeksInMonth;
 
         public Years YearName
         {
@@ -48,6 +49,16 @@ namespace Objects.GameDateTime
         public int Hour { get; set; }
         public int Minute { get; set; }
 
+        public decimal TotalDaysPastBegining
+        {
+            get
+            {
+                long years = Year * DaysInYear;
+                long months = Month * DaysInMonth;
+
+                return years + months + Day + Hour / 24M + Minute / 1440M;
+            }
+        }
 
         public GameDateTime()
         {

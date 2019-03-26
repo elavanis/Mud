@@ -41,6 +41,8 @@ using Shared.PerformanceCounters;
 using Shared.PerformanceCounters.Interface;
 using Objects.Mob.SpecificNPC;
 using Objects.Language.Interface;
+using Objects.Mob.SpecificNPC.Interface;
+using System.Threading;
 
 namespace Objects.World
 {
@@ -242,6 +244,7 @@ namespace Objects.World
         #region Zone
         [ExcludeFromCodeCoverage]
         private Dictionary<int, string> _zoneIdToFileMap { get; } = new Dictionary<int, string>();
+
         [ExcludeFromCodeCoverage]
         public Dictionary<int, IZone> Zones { get; } = new Dictionary<int, IZone>();
 
@@ -369,6 +372,7 @@ namespace Objects.World
 
         [ExcludeFromCodeCoverage]
         private object characterLock { get; } = new object();
+
         [ExcludeFromCodeCoverage]
         private List<IPlayerCharacter> characters { get; } = new List<IPlayerCharacter>();
 
@@ -496,7 +500,6 @@ namespace Objects.World
 
             return pc;
         }
-
         #endregion PlayerCharacters
 
         public void PerformTick()
@@ -697,6 +700,44 @@ namespace Objects.World
 
                 float memoryConsumption = Process.GetCurrentProcess().WorkingSet64 / (1024f * 1024f);
                 localCounter.Memory = (decimal)Math.Round(memoryConsumption, 2);
+
+
+#if DEBUG
+                foreach (IZone zone in Zones.Values)
+                {
+                    foreach (IRoom room in zone.Rooms.Values)
+                    {
+                        foreach (INonPlayerCharacter npc in room.NonPlayerCharacters)
+                        {
+                            if (npc is IElemental)
+                            {
+                                localCounter.Elementals++;
+                            }
+                        }
+                    }
+                }
+#else
+                Parallel.ForEach(Zones.Values, zone =>
+                {
+                    Parallel.ForEach(Zones.Values, zone =>
+                    {
+                        foreach (IRoom room in zone.Rooms.Values)
+                        {
+                            foreach (INonPlayerCharacter npc in room.NonPlayerCharacters)
+                            {
+                                if (npc is IElemental)
+                                {
+                                    lock (localCounter)
+                                    {
+                                        localCounter.Elementals++;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+#endif
+
 
                 GlobalReference.GlobalValues.Counters = localCounter;
                 GlobalReference.GlobalValues.CountersLog.Add(localCounter);

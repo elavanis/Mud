@@ -80,6 +80,22 @@ namespace ManagementSite.Controllers
             return Json(chart);
         }
 
+        public JsonResult Elemental()
+        {
+            List<ICounters> counters = StatsReader.Stats;
+            List<string> xAxis = new List<string>();
+            List<decimal> yAxis = new List<decimal>();
+            foreach (ICounters item in counters)
+            {
+                xAxis.Add(item.CounterDateTime.ToString());
+                yAxis.Add(item.Elementals);
+            }
+
+            Chart chart = CreateChart(xAxis, yAxis, "Elementals");
+
+            return Json(chart);
+        }
+
         private static Chart CreateChart(List<string> xAxis, List<decimal> yAxis, string label)
         {
             Chart chart = new Chart();

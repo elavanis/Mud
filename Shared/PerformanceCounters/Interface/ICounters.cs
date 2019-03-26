@@ -9,5 +9,6 @@ namespace Shared.PerformanceCounters.Interface
         decimal CPU { get; set; }
         int MaxTickTimeInMs { get; set; }
         decimal Memory { get; set; }
+        int Elementals { get; set; }
     }
 }

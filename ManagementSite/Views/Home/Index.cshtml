@@ -26,6 +26,10 @@
     <canvas id="MemoryChart" width="400" height="150"></canvas>
 </div>
 
+<div class="box">
+    <h1>Elementals</h1>
+    <canvas id="ElementalChart" width="400" height="150"></canvas>
+</div>
 
 
 
@@ -149,6 +153,15 @@
             //        }
             //    }
             //}
+        });
+
+        c = document.getElementById("ElementalChart");
+        ctx = c.getContext("2d");
+        result = [];
+        result = getValues("/LineChart/Elemental");
+        myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: result
         });
 
 

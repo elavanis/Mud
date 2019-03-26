@@ -12,6 +12,8 @@ namespace Objects.GameDateTime.Interface
         Months MonthName { get; }
         int Year { get; }
         Years YearName { get; }
+        decimal TotalDaysPastBegining { get; }
+
         IGameDateTime AddDays(int days);
 
         bool IsGreaterThan(IGameDateTime other);
