@@ -1,5 +1,7 @@
 ﻿using Mud;
 using Objects.Global;
+using Objects.Moon;
+using Objects.Moon.Interface;
 using ServerTelnetCommunication;
 using System;
 using System.Collections.Generic;
@@ -75,6 +77,7 @@ namespace Server
             configSettings.LogDirectory = "C:\\Mud\\Logs";
             configSettings.LogStats = true;
             configSettings.LogStatsLocation = "C:\\Mud\\Stats";
+            configSettings.Moons = GetMoons();
             configSettings.PlayerCharacterDirectory = "C:\\Mud\\Players";
             configSettings.Port = 52475;
             configSettings.RandomDropPercent = 10;
@@ -129,8 +132,57 @@ namespace Server
 
             using (TextWriter tw = new StreamWriter(@"C:\Git\Mud\Server\AppConfig2.json"))
             {
-                tw.Write(GlobalReference.GlobalValues.Serialization.Serialize(c));
+                tw.Write(GlobalReference.GlobalValues.Serialization.Serialize(configSettings));
             }
+        }
+
+        private static List<IMoon> GetMoons()
+        {
+            List<IMoon> moons = new List<IMoon>();
+
+            IMoon moon = new Moon();
+            moon.MagicModifier = 1.29M;
+            moon.MoonPhaseCycleDays = 13;
+            moon.Name = "Luna";
+            moons.Add(moon);
+
+            moon = new Moon();
+            moon.MagicModifier = 1.05M;
+            moon.MoonPhaseCycleDays = 28;
+            moon.Name = "Selene";
+            moons.Add(moon);
+
+            moon = new Moon();
+            moon.MagicModifier = 1.18M;
+            moon.MoonPhaseCycleDays = 80;
+            moon.Name = "Callisto";
+            moons.Add(moon);
+
+            moon = new Moon();
+            moon.MagicModifier = 1.22M;
+            moon.MoonPhaseCycleDays = 7;
+            moon.Name = "Dione";
+            moons.Add(moon);
+
+            moon = new Moon();
+            moon.MagicModifier = 1.14M;
+            moon.MoonPhaseCycleDays = 61;
+            moon.Name = "Pasiphae";
+            moons.Add(moon);
+
+            moon = new Moon();
+            moon.MagicModifier = 1.09M;
+            moon.MoonPhaseCycleDays = 29;
+            moon.Name = "Elara";
+            moons.Add(moon);
+
+            moon = new Moon();
+            moon.MagicModifier = 1.03M;
+            moon.MoonPhaseCycleDays = 16;
+            moon.Name = "Lysithea";
+            moons.Add(moon);
+
+            return moons;
         }
     }
 }

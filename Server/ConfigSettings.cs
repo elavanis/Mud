@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Objects.Moon.Interface;
 
 namespace Server
 {
@@ -22,5 +23,6 @@ namespace Server
         public double DropBeingPlusOnePercent { get; set; }
 
         public string AsciiArt { get; set; }
+        public List<IMoon> Moons { get; set; }
     }
 }
