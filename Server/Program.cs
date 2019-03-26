@@ -34,11 +34,7 @@ namespace Server
 
         private static void LoadServerSettings()
         {
-            //ConfigSettings c = new ConfigSettings();
-            //using (TextWriter tw = new StreamWriter(@"C:\Git\Mud\Server\AppConfig2.json"))
-            //{
-            //    tw.Write(GlobalReference.GlobalValues.Serialization.Serialize(c));
-            //}
+            WriteNewAppConfigFile();
             ConfigSettings config = GlobalReference.GlobalValues.Serialization.Deserialize<ConfigSettings>(File.ReadAllText("AppConfig.json"));
 
             GlobalReference.GlobalValues.Settings.AsciiArt = config.AsciiArt;
@@ -66,6 +62,75 @@ namespace Server
             }
 
             GlobalReference.GlobalValues.Logger.Settings.LogDirectory = config.LogDirectory;
+        }
+
+        private static void WriteNewAppConfigFile()
+        {
+            ConfigSettings configSettings = new ConfigSettings();
+            configSettings.AssetsDirectory = "C:\\Mud\\Assets";
+            configSettings.BannedIps = "";
+            configSettings.BugDirectory = "C:\\Mud\\Bugs";
+            configSettings.DropBeingPlusOnePercent = 10;
+            configSettings.ElemenatlSpawnPercent = .01;
+            configSettings.LogDirectory = "C:\\Mud\\Logs";
+            configSettings.LogStats = true;
+            configSettings.LogStatsLocation = "C:\\Mud\\Stats";
+            configSettings.PlayerCharacterDirectory = "C:\\Mud\\Players";
+            configSettings.Port = 52475;
+            configSettings.RandomDropPercent = 10;
+            configSettings.SendMapPosition = true;
+            configSettings.VaultDirectory = "C:\\Mud\\Vaults";
+            configSettings.ZoneDirectory = "C:\\Mud\\World";
+            configSettings.AsciiArt = @"                                   ▒▓▓░░▒▒▓░                               
+                           ▒▓▓██████████████▓▓▒░                           
+                       ▒████████████████████████████▓░                     
+                   ░▓███████████████████████████████████▓▒                 
+                 ▓████████████████████▓▓██████████████████████▓▒           
+              ░███████████████▓▒▒          ▒▒▓▓▓▒▒▓▓▓█████████████▒        
+            ▒██████████▓▓░                        ░▓▓▓██████████████       
+          ░██████▓▓██▒                                 ░▓████████████      
+         ▓█████████░                                      ▓███████████░    
+        ██████▓██▒                                         ▒████▒▒█████▓   
+       █████▓▓█▒                                              ▓██  ░█████░ 
+     ░████████                                                  ██    ▒▓▒  
+    ░████████                                                    ▓▓        
+    ████▓██▓                                                         ░     
+   ▓███▓▓█▒                                                          ░░    
+  ░████▓█▒                                                            ░    
+  ████▓█▓                                                              ▒▒  
+  ██████                                                               ▒▓  
+ ▓█████▓                                                                ▓▒ 
+ ██████                                                                 ▓█ 
+▒█████▒                                                                 ▓█░
+▓████▓░                                                                 ▓▓▒
+▒████▒░                                                                 ▓▓▒
+▒████▒                                                                  ▓▓▓
+░████▓▒                                                                 ▓▓▓
+ ████▓                                                                  ▓▒▒
+ ▓████                                                                 ▒▓▒▒
+ ▒████░                                                                █▓▒▓
+  ████▓                                                               ▓█ ▓░
+  ▓████▒                                                              █▓░█ 
+   █████                                                             ██ █▒ 
+   ▒█████                                                           ██ ▒█  
+    ▓█████                                                         ▓█░ █   
+     ▒█████                                                       ▓█░ █▒   
+      ▒█████                                                     ██░ █▓    
+       ▒█████░                                                 ▒██ ▒█▓     
+        ░█████▓                                               ▓█▓ ▓█▓      
+          ▓█████▓                                           ▓██▒░██▒       
+            ██████▓                                       ▓██▓▒▓█▓         
+             ▒██████▓░                                 ▒████▓▓██░          
+               ░███████▓▒                           ▒████▒▒▓▓▒░            
+                  ▓█████████▒░                 ░▓█████▓▓▓▒▒▒░              
+                    ░▓███████████▓▓▓▓▓▓▓▓▓▓███████▓▒▒▒▒▓▒▒░                
+                        ░▒▓███████████████████▓▒▒▒▒▒▒▒░                    
+                                    ░░░░░░▒▒▒▒▒░░                          ";
+
+            using (TextWriter tw = new StreamWriter(@"C:\Git\Mud\Server\AppConfig2.json"))
+            {
+                tw.Write(GlobalReference.GlobalValues.Serialization.Serialize(c));
+            }
         }
     }
 }
