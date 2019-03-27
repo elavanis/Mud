@@ -16,7 +16,6 @@ namespace Objects.Magic.Spell.Damage
                               DamageType.Cold)
         {
             string incantation = GlobalReference.GlobalValues.Translator.Translate(Translator.Languages.AncientMagic, nameof(Freeze));
-
             PerformerNotificationSuccess = new TranslationMessage("Speaking " + incantation + " your hands become cold and numb.  You blow across your hand causing {target} to be engulfed in a blizzard.");
             RoomNotificationSuccess = new TranslationMessage("{performer} speaks the words " + incantation + " before a blizzard at {target}.");
             TargetNotificationSuccess = new TranslationMessage("{performer} speaks " + incantation + " and blows a blizzard at you.");
