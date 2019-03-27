@@ -38,6 +38,7 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void FireBall()
         {
+            defaultValues.Verify(e => e.DiceForSpellLevel(70), Times.Exactly(2));
             Assert.AreEqual("You thrust both hands toward {target} and say {SpellName}.  A fireball leaps through the air and grows until it lands on {target}.", fireball.PerformerNotificationSuccess.Message);
             Assert.AreEqual("{performer} thrust both hands toward {target} and says {SpellName}.  A giant ball of fire flies through the air towards {target} engulfing them in fire.", fireball.RoomNotificationSuccess.Message);
             Assert.AreEqual("{performer} thrust both hands toward you and says {SpellName}.  A giant ball of fire flies through the air towards you.", fireball.TargetNotificationSuccess.Message);

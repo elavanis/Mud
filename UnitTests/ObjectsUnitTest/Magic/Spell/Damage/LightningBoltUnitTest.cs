@@ -38,9 +38,9 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void LightningBolt()
         {
-            Assert.AreEqual("You thrust both hands toward {target} and say {SpellName}.  A fireball leaps through the air and grows until it lands on {target}.", lightningBolt.PerformerNotificationSuccess.Message);
-            Assert.AreEqual("{performer} thrust both hands toward {target} and says {SpellName}.  A giant ball of fire flies through the air towards {target} engulfing them in fire.", lightningBolt.RoomNotificationSuccess.Message);
-            Assert.AreEqual("{performer} thrust both hands toward you and says {SpellName}.  A giant ball of fire flies through the air towards you.", lightningBolt.TargetNotificationSuccess.Message);
+            Assert.AreEqual("finish me.", lightningBolt.PerformerNotificationSuccess.Message);
+            Assert.AreEqual("finish me", lightningBolt.RoomNotificationSuccess.Message);
+            Assert.AreEqual("finish me", lightningBolt.TargetNotificationSuccess.Message);
         }
     }
 }

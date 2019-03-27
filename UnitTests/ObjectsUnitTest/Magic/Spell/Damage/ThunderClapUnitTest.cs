@@ -38,9 +38,9 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void ThunderClap()
         {
-            Assert.AreEqual("You thrust both hands toward {target} and say {SpellName}.  A fireball leaps through the air and grows until it lands on {target}.", thunderClap.PerformerNotificationSuccess.Message);
-            Assert.AreEqual("{performer} thrust both hands toward {target} and says {SpellName}.  A giant ball of fire flies through the air towards {target} engulfing them in fire.", thunderClap.RoomNotificationSuccess.Message);
-            Assert.AreEqual("{performer} thrust both hands toward you and says {SpellName}.  A giant ball of fire flies through the air towards you.", thunderClap.TargetNotificationSuccess.Message);
+            Assert.AreEqual("finish me.", thunderClap.PerformerNotificationSuccess.Message);
+            Assert.AreEqual("finish me", thunderClap.RoomNotificationSuccess.Message);
+            Assert.AreEqual("finish me", thunderClap.TargetNotificationSuccess.Message);
         }
     }
 }

@@ -38,6 +38,7 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void AcidBolt()
         {
+            defaultValues.Verify(e => e.DiceForSpellLevel(20), Times.Exactly(2));
             Assert.AreEqual("Acid leaps from you hands and lands on {target} burning their skin.", acidBolt.PerformerNotificationSuccess.Message);
             Assert.AreEqual("Acid leaps from {performer} arms and lands {target} burning their skin.", acidBolt.RoomNotificationSuccess.Message);
             Assert.AreEqual("Acid leaps from {performer} arms and lands on you burning your skin.", acidBolt.TargetNotificationSuccess.Message);

@@ -38,9 +38,9 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void PoisonBreath()
         {
-            Assert.AreEqual("You thrust both hands toward {target} and say {SpellName}.  A fireball leaps through the air and grows until it lands on {target}.", pyschicScream.PerformerNotificationSuccess.Message);
-            Assert.AreEqual("{performer} thrust both hands toward {target} and says {SpellName}.  A giant ball of fire flies through the air towards {target} engulfing them in fire.", pyschicScream.RoomNotificationSuccess.Message);
-            Assert.AreEqual("{performer} thrust both hands toward you and says {SpellName}.  A giant ball of fire flies through the air towards you.", pyschicScream.TargetNotificationSuccess.Message);
+            Assert.AreEqual("finish me.", pyschicScream.PerformerNotificationSuccess.Message);
+            Assert.AreEqual("finish me", pyschicScream.RoomNotificationSuccess.Message);
+            Assert.AreEqual("finish me", pyschicScream.TargetNotificationSuccess.Message);
         }
     }
 }

@@ -38,9 +38,9 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void MagicMissle()
         {
-            Assert.AreEqual("You thrust both hands toward {target} and say {SpellName}.  A fireball leaps through the air and grows until it lands on {target}.", magicMissle.PerformerNotificationSuccess.Message);
-            Assert.AreEqual("{performer} thrust both hands toward {target} and says {SpellName}.  A giant ball of fire flies through the air towards {target} engulfing them in fire.", magicMissle.RoomNotificationSuccess.Message);
-            Assert.AreEqual("{performer} thrust both hands toward you and says {SpellName}.  A giant ball of fire flies through the air towards you.", magicMissle.TargetNotificationSuccess.Message);
+            Assert.AreEqual("finish me.", magicMissle.PerformerNotificationSuccess.Message);
+            Assert.AreEqual("finish me", magicMissle.RoomNotificationSuccess.Message);
+            Assert.AreEqual("finish me", magicMissle.TargetNotificationSuccess.Message);
         }
     }
 }

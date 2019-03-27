@@ -38,9 +38,9 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void Rot()
         {
-            Assert.AreEqual("You thrust both hands toward {target} and say {SpellName}.  A fireball leaps through the air and grows until it lands on {target}.", rot.PerformerNotificationSuccess.Message);
-            Assert.AreEqual("{performer} thrust both hands toward {target} and says {SpellName}.  A giant ball of fire flies through the air towards {target} engulfing them in fire.", rot.RoomNotificationSuccess.Message);
-            Assert.AreEqual("{performer} thrust both hands toward you and says {SpellName}.  A giant ball of fire flies through the air towards you.", rot.TargetNotificationSuccess.Message);
+            Assert.AreEqual("finish me.", rot.PerformerNotificationSuccess.Message);
+            Assert.AreEqual("finish me", rot.RoomNotificationSuccess.Message);
+            Assert.AreEqual("finish me", rot.TargetNotificationSuccess.Message);
         }
     }
 }
