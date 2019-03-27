@@ -860,7 +860,9 @@ namespace Objects.World
 
         private void SpawnElementals(IRoom room)
         {
-            if (!room.Attributes.Contains(RoomAttribute.NoSpawnElemental))
+            //don't spawn indoors or outdoors where no elementals can spawn
+            if (!room.Attributes.Contains(RoomAttribute.NoSpawnElemental)
+                && !room.Attributes.Contains(RoomAttribute.Indoor))
             {
                 if (GlobalReference.GlobalValues.Random.PercentDiceRoll(GlobalReference.GlobalValues.Settings.ElementalSpawnPercent))
                 {

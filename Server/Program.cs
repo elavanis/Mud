@@ -36,7 +36,7 @@ namespace Server
 
         private static void LoadServerSettings()
         {
-            WriteNewAppConfigFile();
+            //WriteNewAppConfigFile();
             ConfigSettings config = GlobalReference.GlobalValues.Serialization.Deserialize<ConfigSettings>(File.ReadAllText("AppConfig.json"));
 
             GlobalReference.GlobalValues.Settings.AsciiArt = config.AsciiArt;
