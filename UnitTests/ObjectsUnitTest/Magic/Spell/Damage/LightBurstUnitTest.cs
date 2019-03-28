@@ -26,7 +26,7 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
             dice = new Mock<IDice>();
             tagWrapper = new Mock<ITagWrapper>();
 
-            defaultValues.Setup(e => e.DiceForSpellLevel(70)).Returns(dice.Object);
+            defaultValues.Setup(e => e.DiceForSpellLevel(80)).Returns(dice.Object);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
@@ -38,9 +38,10 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void LightBurst()
         {
-            Assert.AreEqual("finish me.", lightBurst.PerformerNotificationSuccess.Message);
-            Assert.AreEqual("finish me", lightBurst.RoomNotificationSuccess.Message);
-            Assert.AreEqual("finish me", lightBurst.TargetNotificationSuccess.Message);
+            defaultValues.Verify(e => e.DiceForSpellLevel(80), Times.Exactly(2));
+            Assert.AreEqual("Circling your hands around an imaginary sphere you push out.  Turning away the imaginary sphere burst into light blinding {target}.", lightBurst.PerformerNotificationSuccess.Message);
+            Assert.AreEqual("{performer} swirls their hands around an imaginary sphere.  They push the sphere towards {target} and quickly before light white blinding burst forth filling the room.", lightBurst.RoomNotificationSuccess.Message);
+            Assert.AreEqual("{performer} swirls their hands around an imaginary sphere and pushes it towards you while quickly turning away.  A moment later bright light burst forth.", lightBurst.TargetNotificationSuccess.Message);
         }
     }
 }
