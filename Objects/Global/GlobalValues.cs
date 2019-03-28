@@ -150,6 +150,7 @@ namespace Objects.Global
             TagWrapper = new TagWrapper();
             World = new World.World();
             Settings = new Settings.Settings();
+            Translator = new Language.Translator(new Language.TranslatorAlgorithm());
 
 
             CanMobDoSomething = new CanMobDoSomething.CanMobDoSomething();
@@ -175,7 +176,6 @@ namespace Objects.Global
             StringManipulator = new StringManuplation.StringManipulator();
             TickTimes = new TickTimes.TickTimes();
             Time = new Time();
-            Translator = new Language.Translator(new Language.TranslatorAlgorithm());
             UpTime = new UpTime.UpTime();
             ValidateAsset = new ValidateAsset.ValidateAsset();
 
