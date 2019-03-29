@@ -719,22 +719,19 @@ namespace Objects.World
 #else
                 Parallel.ForEach(Zones.Values, zone =>
                 {
-                    Parallel.ForEach(Zones.Values, zone =>
+                    foreach (IRoom room in zone.Rooms.Values)
                     {
-                        foreach (IRoom room in zone.Rooms.Values)
+                        foreach (INonPlayerCharacter npc in room.NonPlayerCharacters)
                         {
-                            foreach (INonPlayerCharacter npc in room.NonPlayerCharacters)
+                            if (npc is IElemental)
                             {
-                                if (npc is IElemental)
+                                lock (localCounter)
                                 {
-                                    lock (localCounter)
-                                    {
-                                        localCounter.Elementals++;
-                                    }
+                                    localCounter.Elementals++;
                                 }
                             }
                         }
-                    });
+                    }
                 });
 #endif
 
