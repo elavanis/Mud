@@ -20,8 +20,7 @@ namespace Objects.Effect
 
         public void ProcessEffect(IEffectParameter parameter)
         {
-            IPlayerCharacter pc = parameter.Target as IPlayerCharacter;
-            if (pc != null)
+            if (parameter.Target is IPlayerCharacter pc)
             {
                 pc.RespawnPoint = parameter.ObjectId;
 

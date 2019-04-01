@@ -25,13 +25,10 @@ namespace Objects.Command.PC
             {
                 IBaseObject obj = GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, "Enchantery", 0);
 
-                IEnchantery enchantery = obj as IEnchantery;
-
-                if (enchantery != null)
+                if (obj is IEnchantery enchantery)
                 {
                     obj = GlobalReference.GlobalValues.FindObjects.FindHeldItemsOnMob(performer, command.Parameters[0].ParameterValue, command.Parameters[0].ParameterNumber);
-                    IItem item = obj as IItem;
-                    if (item != null)
+                    if (obj is IItem item)
                     {
                         ulong goldCost = (ulong)(enchantery.CostToEnchantLevel1Item * Math.Pow(GlobalReference.GlobalValues.Settings.Multiplier, item.Level));
 

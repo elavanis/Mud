@@ -31,8 +31,7 @@ namespace Objects.Command.PC
         {
             StringBuilder strBldr = new StringBuilder();
             strBldr.AppendLine("In Game Commands");
-            IPlayerCharacter pc = performer as IPlayerCharacter;
-            if (pc != null
+            if (performer is IPlayerCharacter pc
                 && pc.God)
             {
                 strBldr.AppendLine("God Commands");

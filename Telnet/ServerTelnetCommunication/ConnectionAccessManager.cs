@@ -42,8 +42,7 @@ namespace ServerTelnetCommunication
                     return false;
                 }
 
-                List<DateTime> failedDateTimes;
-                if (failedLogins.TryGetValue(address, out failedDateTimes))
+                if (failedLogins.TryGetValue(address, out List<DateTime> failedDateTimes))
                 {
                     failedDateTimes = RemoveOldItems(failedDateTimes);
                     if (failedDateTimes.Count >= 5)

@@ -52,8 +52,7 @@ namespace Objects.Command.PC
 
             if (item != null)
             {
-                IEquipment equipment = item as IEquipment;
-                if (equipment == null
+                if (!(item is IEquipment equipment)
                     || equipment.ItemPosition == Equipment.AvalableItemPosition.NotWorn)
                 {
                     string message = string.Format("You can not equip the {0}.", item.SentenceDescription);

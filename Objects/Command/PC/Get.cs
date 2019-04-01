@@ -75,9 +75,7 @@ namespace Objects.Command.PC
             else
             {
                 IParameter parameterContainer = command.Parameters[1];
-                IContainer container = GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, parameterContainer.ParameterValue, parameterContainer.ParameterNumber, true, true, false, false) as IContainer;
-
-                if (container != null)
+                if (GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, parameterContainer.ParameterValue, parameterContainer.ParameterNumber, true, true, false, false) is IContainer container)
                 {
                     IParameter parameterItem = command.Parameters[0];
                     if (parameterItem.ParameterValue.ToUpper() == "ALL")
@@ -143,8 +141,7 @@ namespace Objects.Command.PC
 
         private void AddItemToPerformer(IMobileObject performer, IItem item)
         {
-            IMoney money = item as IMoney;
-            if (money == null)
+            if (!(item is IMoney money))
             {
                 performer.Items.Add(item);
             }

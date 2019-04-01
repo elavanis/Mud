@@ -78,8 +78,7 @@ namespace Objects.Command.PC
 
                 if (targetRoom != null)
                 {
-                    IPlayerCharacter pc = performer as IPlayerCharacter;
-                    if (pc != null)
+                    if (performer is IPlayerCharacter pc)
                     {
                         currentRoom.RemoveMobileObjectFromRoom(pc);
                         targetRoom.AddMobileObjectToRoom(pc);

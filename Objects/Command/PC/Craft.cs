@@ -20,8 +20,7 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            IPlayerCharacter pc = performer as IPlayerCharacter;
-            if (pc == null)
+            if (!(performer is IPlayerCharacter pc))
             {
                 return new Result("Only player characters can have craftsman craft items.", true);
             }

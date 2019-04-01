@@ -82,8 +82,7 @@ namespace ServerTelnetCommunication
                     //Handle message from client
                     try
                     {
-                        string messageFromClient;
-                        if (InQueue.TryDequeue(out messageFromClient))
+                        if (InQueue.TryDequeue(out string messageFromClient))
                         {
                             IPAddress address = ((IPEndPoint)_clientSocket.Client.RemoteEndPoint).Address;
 

@@ -20,8 +20,7 @@ namespace Objects.Effect
 
         public void ProcessEffect(IEffectParameter parameter)
         {
-            IMobileObject mob = parameter.Target as IMobileObject;
-            if (mob != null)
+            if (parameter.Target is IMobileObject mob)
             {
                 mob.Mana += parameter.Dice.RollDice();
                 if (mob.Mana > mob.MaxMana)

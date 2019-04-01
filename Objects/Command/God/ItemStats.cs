@@ -91,14 +91,11 @@ namespace Objects.Command.God
 
         private string GetArmorInfo(IItem item)
         {
-            IArmor armor = item as IArmor;
-
-            if (armor != null)
+            if (item is IArmor armor)
             {
                 StringBuilder strBldr = new StringBuilder();
 
-                IShield shield = item as IShield;
-                if (shield != null)
+                if (item is IShield shield)
                 {
                     strBldr.AppendLine("ShieldNegateDamagePercent: " + shield.NegateDamagePercent);
                 }
@@ -120,8 +117,7 @@ namespace Objects.Command.God
 
         private string GetWeaponInfo(IItem item)
         {
-            IWeapon weapon = item as IWeapon;
-            if (weapon != null)
+            if (item is IWeapon weapon)
             {
                 StringBuilder strBldr = new StringBuilder();
                 foreach (IDamage damage in weapon.DamageList)

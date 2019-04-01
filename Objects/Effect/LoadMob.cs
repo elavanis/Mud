@@ -22,10 +22,9 @@ namespace Objects.Effect
 
         public void ProcessEffect(IEffectParameter parameter)
         {
-            IRoom room = parameter.Target as IRoom;
             INonPlayerCharacter nonPlayerCharacter = parameter.Performer as INonPlayerCharacter;
 
-            if (room != null && nonPlayerCharacter != null
+            if (parameter.Target is IRoom room && nonPlayerCharacter != null
                 && (HoursToLoad == null || HoursToLoad.Contains(GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour)))
             {
                 //clone it so we don't keep using the same mob instance

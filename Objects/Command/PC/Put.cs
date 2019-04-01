@@ -38,8 +38,7 @@ namespace Objects.Command.PC
                     return new Result($"You were unable to find {command.Parameters[1].ParameterValue}.", true);
                 }
 
-                IContainer container = itemToPutIn as IContainer;
-                if (container != null)
+                if (itemToPutIn is IContainer container)
                 {
                     GlobalReference.GlobalValues.Engine.Event.Put(performer, item, container);
 

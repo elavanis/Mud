@@ -22,10 +22,9 @@ namespace Objects.Effect.Zone.GrandViewGarden
 
         public void ProcessEffect(IEffectParameter parameter)
         {
-            IMobileObject mob = parameter.Target as IMobileObject;
             INonPlayerCharacter npc = parameter.Target as INonPlayerCharacter;
             IPlayerCharacter pc = parameter.Target as IPlayerCharacter;
-            if (mob != null)
+            if (parameter.Target is IMobileObject mob)
             {
                 IRoom oldRoom = mob.Room;
 

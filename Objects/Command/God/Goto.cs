@@ -26,10 +26,8 @@ namespace Objects.Command.God
         {
             if (command.Parameters.Count >= 2)
             {
-                int zoneId;
-                int roomId;
-                if (int.TryParse(command.Parameters[0].ParameterValue, out zoneId)
-                    && int.TryParse(command.Parameters[1].ParameterValue, out roomId))
+                if (int.TryParse(command.Parameters[0].ParameterValue, out int zoneId)
+                    && int.TryParse(command.Parameters[1].ParameterValue, out int roomId))
                 {
                     try
                     {
@@ -55,8 +53,7 @@ namespace Objects.Command.God
 
         private static IResult MoveToRoom(IMobileObject performer, IRoom newRoom)
         {
-            IPlayerCharacter god = performer as IPlayerCharacter;
-            if (god != null)
+            if (performer is IPlayerCharacter god)
             {
                 #region Leave
                 if (god.God && !string.IsNullOrWhiteSpace(god.GotoLeaveMessage))

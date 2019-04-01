@@ -21,8 +21,7 @@ namespace Objects.Global.ValidateAsset
                 string asset = splitMessage[1];
 
 
-                string hashedValue = null;
-                if (!assetHashes.TryGetValue(asset, out hashedValue))
+                if (!assetHashes.TryGetValue(asset, out string hashedValue))
                 {
                     lock (assetHashes)
                     {

@@ -72,8 +72,7 @@ namespace Objects.Global.CanMobDoSomething
                 return false;
             }
 
-            IItem item = objectToSee as IItem;
-            if (item != null)
+            if (objectToSee is IItem item)
             {
                 if (item.Attributes.Contains(ItemAttribute.Invisible)
                 && !observer.AttributesCurrent.Contains(MobileAttribute.SeeInvisible))
@@ -82,8 +81,7 @@ namespace Objects.Global.CanMobDoSomething
                 }
             }
 
-            IMobileObject mob = objectToSee as IMobileObject;
-            if (mob != null)
+            if (objectToSee is IMobileObject mob)
             {
                 if (mob != null)
                 {

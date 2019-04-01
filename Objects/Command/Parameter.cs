@@ -15,8 +15,7 @@ namespace Objects.Command
             {
                 ParameterValue = parameterRaw.Replace(match.Value, "");
                 string paramNumber = parameterNumber.Match(parameterRaw).Value;
-                int number;
-                int.TryParse(paramNumber, out number);
+                int.TryParse(paramNumber, out int number);
                 ParameterNumber = number;
             }
             else

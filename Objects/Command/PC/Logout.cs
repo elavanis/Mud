@@ -19,8 +19,7 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            IPlayerCharacter pc = performer as IPlayerCharacter;
-            if (pc != null)
+            if (performer is IPlayerCharacter pc)
             {
                 IMobileObjectCommand foundCommand = GlobalReference.GlobalValues.CommandList.PcCommandsLookup["SAVE"];
                 foundCommand.PerformCommand(performer, command);

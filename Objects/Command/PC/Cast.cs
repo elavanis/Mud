@@ -23,8 +23,7 @@ namespace Objects.Command.PC
                 return new Result("What spell would you like to cast?", true);
             }
 
-            ISpell spell;
-            performer.SpellBook.TryGetValue(command.Parameters[0].ParameterValue.ToUpper(), out spell);
+            performer.SpellBook.TryGetValue(command.Parameters[0].ParameterValue.ToUpper(), out ISpell spell);
             if (spell != null)
             {
                 GlobalReference.GlobalValues.Engine.Event.Cast(performer, spell.SpellName);

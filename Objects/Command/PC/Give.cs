@@ -47,14 +47,11 @@ namespace Objects.Command.PC
                 performer.Items.Remove(item);
                 receiver.Items.Add(item);
 
-                INonPlayerCharacter npcReceiver = receiver as INonPlayerCharacter;
-                if (npcReceiver != null)
+                if (receiver is INonPlayerCharacter npcReceiver)
                 {
                     foreach (IPersonality personality in npcReceiver.Personalities)
                     {
-                        IReceiver receiverPersonality = personality as IReceiver;
-
-                        if (receiverPersonality != null)
+                        if (personality is IReceiver receiverPersonality)
                         {
                             return receiverPersonality.ReceivedItem(performer, npcReceiver, item);
                         }

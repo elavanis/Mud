@@ -1256,8 +1256,7 @@ namespace ObjectsUnitTest.Mob
             mob.EnqueueMessage("test");
 
             Assert.AreEqual(2, queue.Count());
-            string message;
-            queue.TryDequeue(out message);
+            queue.TryDequeue(out string message);
             Assert.AreEqual("test", message);
             queue.TryDequeue(out message);
             Assert.AreEqual("\r\n1/10 2/20 3/30\r\n", message);

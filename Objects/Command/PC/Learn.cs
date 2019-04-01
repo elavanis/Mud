@@ -22,8 +22,7 @@ namespace Objects.Command.PC
             {
                 foreach (IPersonality personality in npc.Personalities)
                 {
-                    IGuildMaster guildMasterPersonality = personality as IGuildMaster;
-                    if (guildMasterPersonality != null)
+                    if (personality is IGuildMaster guildMasterPersonality)
                     {
                         if (command.Parameters.Count > 0)
                         {

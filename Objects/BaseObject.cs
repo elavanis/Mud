@@ -128,8 +128,7 @@ namespace Objects
             }
 
 
-            ILoadableItems loadableItem = this as ILoadableItems;
-            if (loadableItem != null)
+            if (this is ILoadableItems loadableItem)
             {
                 if (loadableItem.LoadableItems.Count > 0)
                 {
@@ -147,30 +146,25 @@ namespace Objects
 
         private void AddItem(BaseObject baseObject, IBaseObject @object)
         {
-            IContainer container = baseObject as IContainer;
-            if (container != null)
+            if (baseObject is IContainer container)
             {
-                IItem item = @object as IItem;
-                if (item != null)
+                if (@object is IItem item)
                 {
                     container.Items.Add(item);
                     return;
                 }
             }
 
-            IRoom room = baseObject as IRoom;
-            if (room != null)
+            if (baseObject is IRoom room)
             {
-                INonPlayerCharacter npc = @object as INonPlayerCharacter;
-                if (npc != null)
+                if (@object is INonPlayerCharacter npc)
                 {
                     room.AddMobileObjectToRoom(npc);
                     npc.Room = room;
                     return;
                 }
 
-                IItem item = @object as IItem;
-                if (item != null)
+                if (@object is IItem item)
                 {
                     room.AddItemToRoom(item);
                     return;

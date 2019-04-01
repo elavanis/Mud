@@ -23,13 +23,11 @@ namespace Objects.Command.PC
             {
                 foreach (IPersonality personality in npc.Personalities)
                 {
-                    IMerchant merchantPersonality = personality as IMerchant;
-                    if (merchantPersonality != null)
+                    if (personality is IMerchant merchantPersonality)
                     {
                         if (command.Parameters.Count > 0)
                         {
-                            int item;
-                            int.TryParse(command.Parameters[0].ParameterValue, out item);
+                            int.TryParse(command.Parameters[0].ParameterValue, out int item);
                             if (item > 0)
                             {
                                 return merchantPersonality.Buy(npc, performer, item);

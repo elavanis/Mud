@@ -33,9 +33,7 @@ namespace Objects.Command.PC
             else
             {
                 IParameter paramerter = command.Parameters[0];
-                IMobileObject mob = GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, paramerter.ParameterValue, paramerter.ParameterNumber, false, false, true, true) as IMobileObject;
-
-                if (mob != null)
+                if (GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, paramerter.ParameterValue, paramerter.ParameterNumber, false, false, true, true) is IMobileObject mob)
                 {
                     if (mob == performer)
                     {

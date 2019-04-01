@@ -114,8 +114,7 @@ namespace Objects.Command.PC
 
             StringBuilder strBldr = new StringBuilder();
 
-            IPlayerCharacter playerCharacter = performer as IPlayerCharacter;
-            if (playerCharacter != null && playerCharacter.Debug)
+            if (performer is IPlayerCharacter playerCharacter && playerCharacter.Debug)
             {
                 strBldr.AppendLine(string.Format("[Zone{0} - Room{1}]", room.Zone, room.Id));
             }

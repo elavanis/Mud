@@ -34,9 +34,8 @@ namespace Objects.Global.Map
         {
             string roomKey = room.Zone + "|" + room.Id;
 
-            string result;
 
-            _mapPositionCache.TryGetValue(roomKey, out result);
+            _mapPositionCache.TryGetValue(roomKey, out string result);
             if (result == null)
             {
                 string file = Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps", room.Zone + ".MapConversion");

@@ -17,9 +17,7 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            IPlayerCharacter pc = performer as IPlayerCharacter;
-
-            if (pc == null)
+            if (!(performer is IPlayerCharacter pc))
             {
                 return new Result("Only player characters can receive.", true);
             }
@@ -29,8 +27,7 @@ namespace Objects.Command.PC
             {
                 foreach (IPersonality personality in npc.Personalities)
                 {
-                    ICraftsman craftsman = personality as ICraftsman;
-                    if (craftsman != null)
+                    if (personality is ICraftsman craftsman)
                     {
                         foundCraftsman = new Tuple<INonPlayerCharacter, ICraftsman>(npc, craftsman);
                         break;

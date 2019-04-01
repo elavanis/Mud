@@ -21,8 +21,7 @@ namespace Objects.Effect
 
         public void ProcessEffect(IEffectParameter parameter)
         {
-            IMobileObject mob = parameter.Target as IMobileObject;
-            if (mob != null)
+            if (parameter.Target is IMobileObject mob)
             {
                 mob.Health += parameter.Dice.RollDice();
                 if (mob.Health > mob.MaxHealth)

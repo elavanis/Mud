@@ -28,8 +28,7 @@ namespace Objects.Global.Logging
         {
             if (performer != null)
             {
-                INonPlayerCharacter npc = performer as INonPlayerCharacter;
-                if (npc != null)
+                if (performer is INonPlayerCharacter npc)
                 {
                     if (Settings.ZoneLevel(npc.Zone) <= logLevel)
                     {
@@ -38,8 +37,7 @@ namespace Objects.Global.Logging
                 }
                 else
                 {
-                    IPlayerCharacter pc = performer as IPlayerCharacter;
-                    if (pc != null)
+                    if (performer is IPlayerCharacter pc)
                     {
                         if (Settings.PlayerLevel(pc.Name) <= logLevel)
                         {
@@ -111,8 +109,7 @@ namespace Objects.Global.Logging
                         break;
                 }
 
-                List<string> localQueue;
-                localMessageQueue.TryGetValue(fileName, out localQueue);
+                localMessageQueue.TryGetValue(fileName, out List<string> localQueue);
                 if (localQueue == null)
                 {
                     GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(directory);

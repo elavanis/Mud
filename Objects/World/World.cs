@@ -559,10 +559,9 @@ namespace Objects.World
         #region Follow Methods
         private void ProcessFollowMobs()
         {
-            IMobileObject performer;
             while (_followMobQueue.Count > 0)
             {
-                if (_followMobQueue.TryDequeue(out performer))
+                if (_followMobQueue.TryDequeue(out IMobileObject performer))
                 {
                     HashSet<IRoom> searchedRooms = new HashSet<IRoom>();
                     //double check the room in case the follow target moved into the same room as the follower;

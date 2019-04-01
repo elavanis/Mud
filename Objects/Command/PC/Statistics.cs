@@ -17,12 +17,10 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            IPlayerCharacter pc = performer as IPlayerCharacter;
-
             int colmunPadding = 2;
             string columnPad = "".PadRight(colmunPadding, ' ');
 
-            if (pc != null)
+            if (performer is IPlayerCharacter pc)
             {
                 int column2Width = Math.Max(7, MaxStat(performer).ToString().Length + colmunPadding);
 

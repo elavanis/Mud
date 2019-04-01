@@ -28,8 +28,7 @@ namespace Objects.Global.Engine.Engines
         #region Events
         public void HeartbeatBigTick(IBaseObject performer)
         {
-            IMobileObject mob = performer as IMobileObject;
-            if (mob != null)
+            if (performer is IMobileObject mob)
             {
                 GlobalReference.GlobalValues.Logger.Log(mob, LogLevel.ALL, "Big Heartbeat Tick");
 

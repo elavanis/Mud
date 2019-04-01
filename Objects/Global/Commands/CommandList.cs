@@ -82,10 +82,7 @@ namespace Objects.Global.Commands
 
         public IMobileObjectCommand GetCommand(IMobileObject performer, string command)
         {
-            IMobileObjectCommand iMobileObjectCommand;
-            PcCommandsLookup.TryGetValue(command, out iMobileObjectCommand);
-
-            if (iMobileObjectCommand == null)
+            if (PcCommandsLookup.TryGetValue(command, out IMobileObjectCommand iMobileObjectCommand))
             {
                 if (performer.God)
                 {

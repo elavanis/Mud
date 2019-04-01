@@ -18,8 +18,7 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            IPlayerCharacter pc = performer as IPlayerCharacter;
-            if (pc != null)
+            if (performer is IPlayerCharacter pc)
             {
                 pc.RemoveOldCorpses(DateTime.UtcNow.AddMonths(-1));
                 GlobalReference.GlobalValues.World.SaveCharcter(pc);

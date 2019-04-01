@@ -29,8 +29,7 @@ namespace Objects.Global.Logging
 
         public LogLevel PlayerLevel(string playerName)
         {
-            LogLevel level;
-            if (_playerLogLevel.TryGetValue(playerName, out level))
+            if (_playerLogLevel.TryGetValue(playerName, out LogLevel level))
             {
                 return level;
             }
@@ -46,8 +45,7 @@ namespace Objects.Global.Logging
 
         public LogLevel ZoneLevel(int zoneId)
         {
-            LogLevel level;
-            if (_zoneLogLevel.TryGetValue(zoneId, out level))
+            if (_zoneLogLevel.TryGetValue(zoneId, out LogLevel level))
             {
                 return level;
             }

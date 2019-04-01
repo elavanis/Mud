@@ -166,20 +166,17 @@ namespace Objects.Global.FindObjects
 
         public TagType DetermineFoundObjectTagType(IBaseObject baseObject)
         {
-            IItem item = baseObject as IItem;
-            if (item != null)
+            if (baseObject is IItem item)
             {
                 return TagType.Item;
             }
 
-            INonPlayerCharacter npc = baseObject as INonPlayerCharacter;
-            if (npc != null)
+            if (baseObject is INonPlayerCharacter npc)
             {
                 return TagType.NonPlayerCharacter;
             }
 
-            IPlayerCharacter pc = baseObject as IPlayerCharacter;
-            if (pc != null)
+            if (baseObject is IPlayerCharacter pc)
             {
                 return TagType.PlayerCharacter;
             }

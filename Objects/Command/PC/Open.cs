@@ -32,9 +32,7 @@ namespace Objects.Command.PC
 
             if (foundItem != null)
             {
-                IDoor door = foundItem as IDoor;
-
-                if (door != null)
+                if (foundItem is IDoor door)
                 {
                     IResult result = ProcessDoor(performer, door);
                     if (result != null)
@@ -79,9 +77,7 @@ namespace Objects.Command.PC
                 else
                 {
 
-                    IOpenable openable = foundItem as IOpenable;
-
-                    if (openable != null)
+                    if (foundItem is IOpenable openable)
                     {
                         return openable.Open();
                     }

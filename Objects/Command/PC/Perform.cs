@@ -23,8 +23,7 @@ namespace Objects.Command.PC
                 return new Result("What skill would you like to use?", true);
             }
 
-            ISkill skill;
-            performer.KnownSkills.TryGetValue(command.Parameters[0].ParameterValue.ToUpper(), out skill);
+            performer.KnownSkills.TryGetValue(command.Parameters[0].ParameterValue.ToUpper(), out ISkill skill);
             if (skill != null)
             {
                 GlobalReference.GlobalValues.Engine.Event.Perform(performer, skill.ToString());

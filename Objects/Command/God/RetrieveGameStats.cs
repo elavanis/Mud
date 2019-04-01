@@ -17,8 +17,7 @@ namespace Objects.Command.God
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            string value = null;
-            GlobalReference.GlobalValues.World.WorldResults.TryGetValue("GameStats", out value);
+            GlobalReference.GlobalValues.World.WorldResults.TryGetValue("GameStats", out string value);
 
             if (value != null)
             {

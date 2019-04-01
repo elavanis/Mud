@@ -59,8 +59,7 @@ namespace ObjectsUnitTest.Command.God
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("Calculating Stats", result.ResultMessage);
             Assert.AreEqual(1, queue.Count);
-            string message;
-            queue.TryDequeue(out message);
+            queue.TryDequeue(out string message);
             Assert.AreEqual("GameStats", message);
             mob.Verify(e => e.EnqueueCommand("RetrieveGameStats"), Times.Once);
 

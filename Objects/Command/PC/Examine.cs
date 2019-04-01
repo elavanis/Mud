@@ -39,15 +39,13 @@ namespace Objects.Command.PC
                 if (baseObject != null)
                 {
                     TagType tagType = GlobalReference.GlobalValues.FindObjects.DetermineFoundObjectTagType(baseObject);
-                    IMobileObject mobileObject = baseObject as IMobileObject;
-
-                    if (mobileObject == null)
+                    if (baseObject is IMobileObject mobileObject)
                     {
-                        return new Result(baseObject.ExamineDescription, false, tagType);
+                        return new Result(baseObject.ExamineDescription + Environment.NewLine + mobileObject.HealthDescription, false, tagType);
                     }
                     else
                     {
-                        return new Result(baseObject.ExamineDescription + Environment.NewLine + mobileObject.HealthDescription, false, tagType);
+                        return new Result(baseObject.ExamineDescription, false, tagType);
                     }
                 }
 

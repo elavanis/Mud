@@ -870,8 +870,7 @@ namespace Objects.Mob
 
                     while (_messageQueue.Count >= 100)
                     {
-                        string temp;
-                        _messageQueue.TryDequeue(out temp);
+                        _messageQueue.TryDequeue(out string temp);
                     }
                 }
             }
@@ -909,8 +908,7 @@ namespace Objects.Mob
 
         public string DequeueMessage()
         {
-            string message;
-            _messageQueue.TryDequeue(out message);
+            _messageQueue.TryDequeue(out string message);
             return message;
         }
 
@@ -997,14 +995,12 @@ namespace Objects.Mob
 
         public string DequeueCommunication()
         {
-            string communication;
-            _communicationQueue.TryDequeue(out communication);
+            _communicationQueue.TryDequeue(out string communication);
             return communication;
         }
         public string DequeueCommand()
         {
-            string command;
-            _commandQueue.TryDequeue(out command);
+            _commandQueue.TryDequeue(out string command);
             return command;
         }
         #endregion Message/Commands

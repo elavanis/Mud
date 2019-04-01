@@ -23,8 +23,7 @@ namespace Objects.Command.PC
             {
                 foreach (IPersonality personality in npc.Personalities)
                 {
-                    IMerchant merchantMasterPersonality = personality as IMerchant;
-                    if (merchantMasterPersonality != null)
+                    if (personality is IMerchant merchantMasterPersonality)
                     {
                         if (command.Parameters.Count > 0)
                         {
