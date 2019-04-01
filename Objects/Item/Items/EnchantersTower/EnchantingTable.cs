@@ -20,7 +20,7 @@ namespace Objects.Item.Items.EnchantersTower
         public override IResult Enchant(IItem item)
         {
             IRoom room = GlobalReference.GlobalValues.World.Zones[23].Rooms[8];
-            Container container = (Container)GlobalReference.GlobalValues.FindObjects.FindItemsInRoom(room, "pedestal").FirstOrDefault();
+            IContainer container = GlobalReference.GlobalValues.FindObjects.FindItemsInRoom(room, "pedestal").FirstOrDefault() as IContainer;
 
             if (container != null)
             {
@@ -34,7 +34,7 @@ namespace Objects.Item.Items.EnchantersTower
                 }
             }
 
-            return new Result("The pedestal doesn't seem to be getting enough energy.  Maybe there needs to be something to focus the energy coming down toward it.", true);
+            return new Result("The pedestal doesn't seem to be getting enough energy.  Maybe there needs to be something to focus the energy coming down from the top of the tower.", true);
         }
     }
 }

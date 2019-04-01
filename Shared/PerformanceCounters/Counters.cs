@@ -23,7 +23,7 @@ namespace Shared.PerformanceCounters
 
         public override string ToString()
         {
-            return $"{CounterDateTime.ToString()}|{ConnnectedPlayers}|{CPU}|{MaxTickTimeInMs}|{Memory}";
+            return $"{CounterDateTime.ToString()}|{ConnnectedPlayers}|{CPU}|{MaxTickTimeInMs}|{Memory}|{Elementals}";
         }
     }
 }
