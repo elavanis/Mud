@@ -25,14 +25,14 @@ namespace Objects.Global.Engine.Engines
     {
         private uint _combatRound { get; set; } = 0;
 
-        private ConcurrentDictionary<IMobileObject, CombatPair.CombatPair> combatants { get; } = new ConcurrentDictionary<IMobileObject, CombatPair.CombatPair>();
+        private ConcurrentDictionary<IMobileObject, CombatPair.CombatPair> Combatants { get; } = new ConcurrentDictionary<IMobileObject, CombatPair.CombatPair>();
 
         public void ProcessCombatRound()
         {
             //set the combat round so we can determine if slow weapons need to hit
             _combatRound++;
 
-            List<IMobileObject> combatOrder = combatants.Keys.OrderByDescending(o => o.CalculateAttackOrderRoll()).ToList();
+            List<IMobileObject> combatOrder = Combatants.Keys.OrderByDescending(o => o.CalculateAttackOrderRoll()).ToList();
 
             if (combatOrder.Count > 0)
             {
@@ -45,7 +45,7 @@ namespace Objects.Global.Engine.Engines
 
         private void ProcessAttack(IMobileObject mob)
         {
-            CombatPair.CombatPair pair = combatants[mob];
+            CombatPair.CombatPair pair = Combatants[mob];
             bool invalidComabatPair = RemoveInvalidCombatant(mob, pair);
 
             if (!invalidComabatPair)
@@ -61,7 +61,7 @@ namespace Objects.Global.Engine.Engines
                 || (pair.Attacker.Room != pair.Defender.Room)
                 || pair.Attacker.Room.Attributes.Contains(Room.Room.RoomAttribute.Peaceful))
             {
-                combatants.TryRemove(mob, out pair);
+                Combatants.TryRemove(mob, out pair);
                 return true;
             }
 
@@ -90,7 +90,7 @@ namespace Objects.Global.Engine.Engines
 
         public IResult AddCombatPair(IMobileObject attacker, IMobileObject defender)
         {
-            if (combatants.TryGetValue(attacker, out CombatPair.CombatPair pair))
+            if (Combatants.TryGetValue(attacker, out CombatPair.CombatPair pair))
             {
                 return new Result(string.Format("You are already attacking {0}.", pair.Defender.KeyWords.FirstOrDefault()), true);
             }
@@ -99,7 +99,7 @@ namespace Objects.Global.Engine.Engines
                 pair = new CombatPair.CombatPair();
                 pair.Attacker = attacker;
                 pair.Defender = defender;
-                combatants.TryAdd(attacker, pair);
+                Combatants.TryAdd(attacker, pair);
 
                 //add the defender attacking the attacker
                 AddCombatPairInternal(defender, attacker);
@@ -115,12 +115,12 @@ namespace Objects.Global.Engine.Engines
         /// <param name="defender"></param>
         private void AddCombatPairInternal(IMobileObject attacker, IMobileObject defender)
         {
-            if (!combatants.Keys.Contains(attacker))
+            if (!Combatants.Keys.Contains(attacker))
             {
                 CombatPair.CombatPair pair = new CombatPair.CombatPair();
                 pair.Attacker = attacker;
                 pair.Defender = defender;
-                combatants.TryAdd(attacker, pair);
+                Combatants.TryAdd(attacker, pair);
             }
         }
 
@@ -154,7 +154,7 @@ namespace Objects.Global.Engine.Engines
 
         public bool AreFighting(IMobileObject mob, IMobileObject mob2)
         {
-            if (combatants.TryGetValue(mob, out CombatPair.CombatPair pair))
+            if (Combatants.TryGetValue(mob, out CombatPair.CombatPair pair))
             {
                 if (pair.Defender == mob2)
                 {
@@ -162,7 +162,7 @@ namespace Objects.Global.Engine.Engines
                 }
             }
 
-            if (combatants.TryGetValue(mob2, out pair))
+            if (Combatants.TryGetValue(mob2, out pair))
             {
                 if (pair.Defender == mob)
                 {
@@ -175,12 +175,12 @@ namespace Objects.Global.Engine.Engines
 
         public bool IsInCombat(IMobileObject mob)
         {
-            return combatants.ContainsKey(mob);
+            return Combatants.ContainsKey(mob);
         }
 
         public IMobileObject Opponet(MobileObject mobileObject)
         {
-            if (combatants.TryGetValue(mobileObject, out CombatPair.CombatPair pair))
+            if (Combatants.TryGetValue(mobileObject, out CombatPair.CombatPair pair))
             {
                 return pair.Defender;
             }

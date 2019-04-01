@@ -371,18 +371,18 @@ namespace Objects.World
         public ConcurrentQueue<IPlayerCharacter> AddPlayerQueue { get; } = new ConcurrentQueue<IPlayerCharacter>();
 
         [ExcludeFromCodeCoverage]
-        private object characterLock { get; } = new object();
+        private object CharacterLock { get; } = new object();
 
         [ExcludeFromCodeCoverage]
-        private List<IPlayerCharacter> characters { get; } = new List<IPlayerCharacter>();
+        private List<IPlayerCharacter> Characters { get; } = new List<IPlayerCharacter>();
 
         public List<IPlayerCharacter> CurrentPlayers
         {
             get
             {
-                lock (characterLock)
+                lock (CharacterLock)
                 {
-                    return new List<IPlayerCharacter>(characters);
+                    return new List<IPlayerCharacter>(Characters);
                 }
             }
         }
@@ -390,10 +390,10 @@ namespace Objects.World
         public IPlayerCharacter LoadCharacter(string name)
         {
             string playerCharacterDir = GlobalReference.GlobalValues.Settings.PlayerCharacterDirectory;
-            lock (characterLock)
+            lock (CharacterLock)
             {
                 //if player is already in game
-                foreach (IPlayerCharacter character in characters)
+                foreach (IPlayerCharacter character in Characters)
                 {
                     if (character.Name.ToUpper() == name.ToUpper())
                     {
@@ -442,14 +442,14 @@ namespace Objects.World
 
         public void LogOutCharacter(string name)
         {
-            lock (characterLock)
+            lock (CharacterLock)
             {
-                foreach (IPlayerCharacter character in characters)
+                foreach (IPlayerCharacter character in Characters)
                 {
                     if (character.Name.ToUpper() == name.ToUpper())
                     {
                         SaveCharcter(character);
-                        characters.Remove(character);
+                        Characters.Remove(character);
                         character.Room.RemoveMobileObjectFromRoom(character);
                         break;
                     }
@@ -693,7 +693,7 @@ namespace Objects.World
                 Counters localCounter = new Counters();
 
                 //we are fine hitting the raw values instead of the property because we are not threading yet
-                localCounter.ConnnectedPlayers = characters.Count;
+                localCounter.ConnnectedPlayers = Characters.Count;
                 localCounter.CPU = (decimal)Math.Round(GlobalReference.GlobalValues.TickTimes.MedianTime, 2);
                 localCounter.MaxTickTimeInMs = (int)Math.Round(GlobalReference.GlobalValues.TickTimes.MaxTime);
 
@@ -814,9 +814,9 @@ namespace Objects.World
                     startRoom.Enter(pc);
                 }
 
-                lock (characterLock)
+                lock (CharacterLock)
                 {
-                    characters.Add(pc);
+                    Characters.Add(pc);
                 }
                 pc.EnqueueCommand("Look");
             }
@@ -1168,7 +1168,7 @@ To see infon on how to use a command type MAN and then the COMMAND.";
             //there is no reason to lock this as we lock on the tick 
             //so we will never have more than 1 running at once.
 
-            foreach (IPlayerCharacter pc in characters)
+            foreach (IPlayerCharacter pc in Characters)
             {
                 IRoom pcRoom = pc.Room;
                 if (pcRoom != null
