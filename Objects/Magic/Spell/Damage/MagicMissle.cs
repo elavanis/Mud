@@ -15,9 +15,9 @@ namespace Objects.Magic.Spell.Damage
                            DamageType.Force,
                            0)
         {
-            PerformerNotificationSuccess = new TranslationMessage("{performer} test {target}");
-            RoomNotificationSuccess = new TranslationMessage("{performer} test {target}");
-            TargetNotificationSuccess = new TranslationMessage("{performer} test {target}");
+            PerformerNotificationSuccess = new TranslationMessage("With a flick of your wrist three magical darts fly from your hand striking {target}.");
+            RoomNotificationSuccess = new TranslationMessage("Three magical darts fly from {performer} and strike {target}.");
+            TargetNotificationSuccess = new TranslationMessage("{performer} makes a gesture with their hand causing three magical darts to strike you in the chest.");
         }
     }
 }

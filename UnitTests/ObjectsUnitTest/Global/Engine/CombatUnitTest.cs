@@ -210,7 +210,7 @@ namespace ObjectsUnitTest.Engine
             Mock<IMobileObject> mob1 = new Mock<IMobileObject>();
             Mock<IMobileObject> mob2 = new Mock<IMobileObject>();
             Mock<IRoom> room = new Mock<IRoom>();
-            PropertyInfo info = combat.GetType().GetProperty("combatants", BindingFlags.Instance | BindingFlags.NonPublic);
+            PropertyInfo info = combat.GetType().GetProperty("Combatants", BindingFlags.Instance | BindingFlags.NonPublic);
             ConcurrentDictionary<IMobileObject, CombatPair> combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)info.GetValue(combat);
             CombatPair pair = new CombatPair();
 
@@ -233,7 +233,7 @@ namespace ObjectsUnitTest.Engine
         {
             Mock<IMobileObject> mob1 = new Mock<IMobileObject>();
             Mock<IRoom> room = new Mock<IRoom>();
-            PropertyInfo info = combat.GetType().GetProperty("combatants", BindingFlags.Instance | BindingFlags.NonPublic);
+            PropertyInfo info = combat.GetType().GetProperty("Combatants", BindingFlags.Instance | BindingFlags.NonPublic);
             ConcurrentDictionary<IMobileObject, CombatPair> combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)info.GetValue(combat);
             CombatPair pair = new CombatPair();
             pair.Attacker = mob1.Object;
@@ -256,7 +256,7 @@ namespace ObjectsUnitTest.Engine
             mob1.Setup(e => e.Health).Returns(1);
             Mock<IMobileObject> mob2 = new Mock<IMobileObject>();
             mob2.Setup(e => e.Health).Returns(0);
-            PropertyInfo info = combat.GetType().GetProperty("combatants", BindingFlags.Instance | BindingFlags.NonPublic);
+            PropertyInfo info = combat.GetType().GetProperty("Combatants", BindingFlags.Instance | BindingFlags.NonPublic);
             ConcurrentDictionary<IMobileObject, CombatPair> combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)info.GetValue(combat);
             CombatPair pair = new CombatPair();
             pair.Attacker = mob1.Object;
@@ -276,7 +276,7 @@ namespace ObjectsUnitTest.Engine
         {
             Mock<IMobileObject> mob1 = new Mock<IMobileObject>();
             Mock<IMobileObject> mob2 = new Mock<IMobileObject>();
-            PropertyInfo info = combat.GetType().GetProperty("combatants", BindingFlags.Instance | BindingFlags.NonPublic);
+            PropertyInfo info = combat.GetType().GetProperty("Combatants", BindingFlags.Instance | BindingFlags.NonPublic);
             ConcurrentDictionary<IMobileObject, CombatPair> combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)info.GetValue(combat);
             CombatPair pair = new CombatPair();
             Mock<IRoom> room1 = new Mock<IRoom>();
@@ -304,7 +304,7 @@ namespace ObjectsUnitTest.Engine
             Mock<IMobileObject> mob1 = new Mock<IMobileObject>();
             Mock<IMobileObject> mob2 = new Mock<IMobileObject>();
             Mock<IRoom> room = new Mock<IRoom>();
-            PropertyInfo info = combat.GetType().GetProperty("combatants", BindingFlags.Instance | BindingFlags.NonPublic);
+            PropertyInfo info = combat.GetType().GetProperty("Combatants", BindingFlags.Instance | BindingFlags.NonPublic);
             ConcurrentDictionary<IMobileObject, CombatPair> combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)info.GetValue(combat);
             CombatPair pair = new CombatPair();
             Mock<IWeapon> weapon = new Mock<IWeapon>();

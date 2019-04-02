@@ -364,7 +364,7 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Serialization = serializer.Object;
 
-            PropertyInfo propertyInfo = world.GetType().GetProperty("characters", BindingFlags.Instance | BindingFlags.NonPublic);
+            PropertyInfo propertyInfo = world.GetType().GetProperty("Characters", BindingFlags.Instance | BindingFlags.NonPublic);
             List<IPlayerCharacter> pcList = (List<IPlayerCharacter>)propertyInfo.GetValue(world);
             pcList.Add(pc.Object);
 
@@ -395,7 +395,7 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Serialization = serializer.Object;
 
-            PropertyInfo propertyInfo = world.GetType().GetProperty("characters", BindingFlags.Instance | BindingFlags.NonPublic);
+            PropertyInfo propertyInfo = world.GetType().GetProperty("Characters", BindingFlags.Instance | BindingFlags.NonPublic);
             List<IPlayerCharacter> pcList = (List<IPlayerCharacter>)propertyInfo.GetValue(world);
             pcList.Add(pc.Object);
 
@@ -849,7 +849,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         [TestMethod]
         public void World_PerformTick_CatchPlayersOutSideOfTheWorldDueToReloadedZones()
         {
-            PropertyInfo info = world.GetType().GetProperty("characters", BindingFlags.NonPublic | BindingFlags.Instance);
+            PropertyInfo info = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
             Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
             Mock<IRoom> room2 = new Mock<IRoom>();
 
@@ -1022,7 +1022,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         [TestMethod]
         public void World_LoadCharacter_AllReadyInGame()
         {
-            PropertyInfo info = world.GetType().GetProperty("characters", BindingFlags.NonPublic | BindingFlags.Instance);
+            PropertyInfo info = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
             Mock<ISettings> settings = new Mock<ISettings>();
 
             pc.Setup(e => e.Name).Returns("name");
@@ -1038,7 +1038,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         [TestMethod]
         public void World_LoadCharacter_LoadFromFile()
         {
-            PropertyInfo info = world.GetType().GetProperty("characters", BindingFlags.NonPublic | BindingFlags.Instance);
+            PropertyInfo info = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
             PlayerCharacter realPc = new PlayerCharacter();
             Mock<IFileIO> fileIO = new Mock<IFileIO>();
             Mock<ISerialization> seralizer = new Mock<ISerialization>();
@@ -1223,7 +1223,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         [TestMethod]
         public void World_LogOutCharacter_CharacterFound()
         {
-            PropertyInfo info = world.GetType().GetProperty("characters", BindingFlags.NonPublic | BindingFlags.Instance);
+            PropertyInfo info = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
             List<IPlayerCharacter> listPC = new List<IPlayerCharacter>();
             Mock<ISettings> settings = new Mock<ISettings>();
             Mock<IFileIO> fileIO = new Mock<IFileIO>();
