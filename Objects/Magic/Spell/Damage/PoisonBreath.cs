@@ -15,8 +15,8 @@ namespace Objects.Magic.Spell.Damage
                             DamageType.Poison)
         {
             PerformerNotificationSuccess = new TranslationMessage("Like a blur you rush {target} and pop a pill of poison gas in your mouth.  With a quick bite you blow the gas in {target} face leaving them choking on the poisonous gas.");
-            RoomNotificationSuccess = new TranslationMessage("With a blur {performer} rushes toward {target} as they blow a cloud of green gas in their face.");
-            TargetNotificationSuccess = new TranslationMessage("One second you are fighting {performer} at arms length and the next they are in your face.  with a slightly evil grin they blow a cloud of noxious gas in your face leaving you to chock on the fumes.");
+            RoomNotificationSuccess = new TranslationMessage("Like a blur {performer} rushes toward {target} as they blow a cloud of green gas in their face.");
+            TargetNotificationSuccess = new TranslationMessage("One second you are fighting {performer} at arms length and the next they are in your face.  with a slightly evil grin they blow a cloud of noxious gas in your face leaving you to choke on the fumes.");
         }
     }
 }
