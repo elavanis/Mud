@@ -26,7 +26,7 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
             dice = new Mock<IDice>();
             tagWrapper = new Mock<ITagWrapper>();
 
-            defaultValues.Setup(e => e.DiceForSpellLevel(70)).Returns(dice.Object);
+            defaultValues.Setup(e => e.DiceForSpellLevel(50)).Returns(dice.Object);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
@@ -36,7 +36,7 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         }
 
         [TestMethod]
-        public void PoisonBreath()
+        public void PyschicScreamBreath()
         {
             Assert.AreEqual("finish me.", pyschicScream.PerformerNotificationSuccess.Message);
             Assert.AreEqual("finish me", pyschicScream.RoomNotificationSuccess.Message);

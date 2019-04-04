@@ -26,7 +26,7 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
             dice = new Mock<IDice>();
             tagWrapper = new Mock<ITagWrapper>();
 
-            defaultValues.Setup(e => e.DiceForSpellLevel(70)).Returns(dice.Object);
+            defaultValues.Setup(e => e.DiceForSpellLevel(60)).Returns(dice.Object);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
@@ -38,9 +38,10 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void PoisonBreath()
         {
-            Assert.AreEqual("finish me.", poisonBreath.PerformerNotificationSuccess.Message);
-            Assert.AreEqual("finish me", poisonBreath.RoomNotificationSuccess.Message);
-            Assert.AreEqual("finish me", poisonBreath.TargetNotificationSuccess.Message);
+            defaultValues.Verify(e => e.DiceForSpellLevel(60), Times.Exactly(2));
+            Assert.AreEqual("Like a blur you rush {target} and pop a pill of poison gas in your mouth.  With a quick bite you blow the gas in {target} face leaving them choking on the poisonous gas.", poisonBreath.PerformerNotificationSuccess.Message);
+            Assert.AreEqual("With a blur {performer} rushes toward {target} as they blow a cloud of green gas in their face.", poisonBreath.RoomNotificationSuccess.Message);
+            Assert.AreEqual("One second you are fighting {performer} at arms length and the next they are in your face.  with a slightly evil grin they blow a cloud of noxious gas in your face leaving you to chock on the fumes.", poisonBreath.TargetNotificationSuccess.Message);
         }
     }
 }
