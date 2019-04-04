@@ -38,6 +38,7 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void Rot()
         {
+            defaultValues.Verify(e => e.DiceForSpellLevel(50), Times.Exactly(2));
             Assert.AreEqual("finish me.", rot.PerformerNotificationSuccess.Message);
             Assert.AreEqual("finish me", rot.RoomNotificationSuccess.Message);
             Assert.AreEqual("finish me", rot.TargetNotificationSuccess.Message);

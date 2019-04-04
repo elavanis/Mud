@@ -139,6 +139,7 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.Serialization = serialization.Object;
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
+            GlobalReference.GlobalValues.TickCounter = 0;
 
             world = new Objects.World.World();
             world.Zones.Add(0, zone.Object);
@@ -637,6 +638,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             npc.Setup(e => e.MaxStamina).Returns(10000);
             npc.Setup(e => e.Position).Returns(CharacterPosition.Mounted);
             engine.Setup(e => e.Event).Returns(evnt.Object);
+
 
             world.PerformTick();
 

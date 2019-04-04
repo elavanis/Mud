@@ -38,9 +38,10 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void PyschicScreamBreath()
         {
-            Assert.AreEqual("finish me.", pyschicScream.PerformerNotificationSuccess.Message);
-            Assert.AreEqual("finish me", pyschicScream.RoomNotificationSuccess.Message);
-            Assert.AreEqual("finish me", pyschicScream.TargetNotificationSuccess.Message);
+            defaultValues.Verify(e => e.DiceForSpellLevel(50), Times.Exactly(2));
+            Assert.AreEqual("Closing your eyes you and using your minds voice you scream at {target}.", pyschicScream.PerformerNotificationSuccess.Message);
+            Assert.AreEqual("{performer} closes their eyes and {target} begins to scream in terror covering their ears.", pyschicScream.RoomNotificationSuccess.Message);
+            Assert.AreEqual("{performer} closes their eyes.  Suddenly you hear the sound screaming as if from a banshee.", pyschicScream.TargetNotificationSuccess.Message);
         }
     }
 }

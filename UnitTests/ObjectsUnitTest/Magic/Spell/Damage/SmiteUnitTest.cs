@@ -38,6 +38,7 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestMethod]
         public void Smite()
         {
+            defaultValues.Verify(e => e.DiceForSpellLevel(50), Times.Exactly(2));
             Assert.AreEqual("finish me.", smite.PerformerNotificationSuccess.Message);
             Assert.AreEqual("finish me", smite.RoomNotificationSuccess.Message);
             Assert.AreEqual("finish me", smite.TargetNotificationSuccess.Message);

@@ -14,9 +14,9 @@ namespace Objects.Magic.Spell.Damage
                             GlobalReference.GlobalValues.DefaultValues.DiceForSpellLevel(50).Sides,
                             DamageType.Cold)
         {
-            PerformerNotificationSuccess = new TranslationMessage("{performer} test {target}");
-            RoomNotificationSuccess = new TranslationMessage("{performer} test {target}");
-            TargetNotificationSuccess = new TranslationMessage("{performer} test {target}");
+            PerformerNotificationSuccess = new TranslationMessage("Closing your eyes you and using your minds voice you scream at {target}.");
+            RoomNotificationSuccess = new TranslationMessage("{performer} closes their eyes and {target} begins to scream in terror covering their ears.");
+            TargetNotificationSuccess = new TranslationMessage("{performer} closes their eyes.  Suddenly you hear the sound screaming as if from a banshee.");
         }
     }
 }
