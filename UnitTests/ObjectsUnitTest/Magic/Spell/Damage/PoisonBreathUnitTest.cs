@@ -39,7 +39,7 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         public void PoisonBreath()
         {
             defaultValues.Verify(e => e.DiceForSpellLevel(60), Times.Exactly(2));
-            Assert.AreEqual("Like a blur you rush {target} and pop a pill of poison gas in your mouth.  With a quick bite you blow the gas in {target} face leaving them choking on the poisonous gas.", poisonBreath.PerformerNotificationSuccess.Message);
+            Assert.AreEqual("Like a blur you rush {target} and  blow green gas in {target} face leaving them choking.", poisonBreath.PerformerNotificationSuccess.Message);
             Assert.AreEqual("Like a blur {performer} rushes toward {target} as they blow a cloud of green gas in their face.", poisonBreath.RoomNotificationSuccess.Message);
             Assert.AreEqual("One second you are fighting {performer} at arms length and the next they are in your face.  with a slightly evil grin they blow a cloud of noxious gas in your face leaving you to choke on the fumes.", poisonBreath.TargetNotificationSuccess.Message);
         }
