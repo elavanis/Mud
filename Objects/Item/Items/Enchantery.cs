@@ -1,6 +1,5 @@
 ﻿using Objects.Command;
 using Objects.Command.Interface;
-using Objects.Effect;
 using Objects.Global;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
@@ -9,13 +8,8 @@ using Objects.Magic.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Shared.TagWrapper.TagWrapper;
 using Objects.Effect.Interface;
 using Objects.Attribute.Effect;
-using System.Collections.ObjectModel;
-using static System.Net.Mime.MediaTypeNames;
 using System.Reflection;
 
 namespace Objects.Item.Items

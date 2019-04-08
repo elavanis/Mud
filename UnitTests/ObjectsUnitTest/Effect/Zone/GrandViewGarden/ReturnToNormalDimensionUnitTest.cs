@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Objects.Interface;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Effect.Interface;
 using Moq;
 using Objects.Mob.Interface;
@@ -11,8 +9,6 @@ using Objects.World.Interface;
 using Objects.Zone.Interface;
 using System.Collections.Generic;
 using Objects.Global.Notify.Interface;
-using Objects.Language;
-using static Shared.TagWrapper.TagWrapper;
 using Objects.Language.Interface;
 
 namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden

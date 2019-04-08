@@ -2,10 +2,8 @@
 using Objects.Language;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Global.Map
@@ -34,8 +32,9 @@ namespace Objects.Global.Map
         {
             string roomKey = room.Zone + "|" + room.Id;
 
+            string result;
 
-            _mapPositionCache.TryGetValue(roomKey, out string result);
+            _mapPositionCache.TryGetValue(roomKey, out result);
             if (result == null)
             {
                 string file = Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps", room.Zone + ".MapConversion");

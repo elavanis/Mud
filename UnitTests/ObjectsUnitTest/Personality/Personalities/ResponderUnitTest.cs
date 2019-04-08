@@ -3,9 +3,7 @@ using Moq;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities;
 using Objects.Personality.Personalities.ResponderMisc.Interface;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Personality.Personalities
 {

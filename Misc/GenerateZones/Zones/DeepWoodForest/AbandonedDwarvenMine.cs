@@ -1,28 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Objects.Zone.Interface;
 using Objects.Room.Interface;
 using Objects.Mob.Interface;
-using Objects.Mob;
-using Objects.Zone;
 using Objects.Item.Items.Interface;
 using Objects.Personality.Personalities;
-using Objects.Item.Items;
 using Objects.Damage.Interface;
 using Objects.Global;
 using static Objects.Damage.Damage;
 using Objects.Room;
 using System.Reflection;
-using System.Linq;
 using static Objects.Global.Direction.Directions;
 using Objects.Magic.Interface;
 using Objects.Magic.Enchantment;
 using Objects.Effect.Interface;
 using Objects.Effect;
-using Objects.Die;
 using Objects.Language;
-using static Shared.TagWrapper.TagWrapper;
 using static Objects.Mob.NonPlayerCharacter;
 using static Objects.Item.Items.Weapon;
 

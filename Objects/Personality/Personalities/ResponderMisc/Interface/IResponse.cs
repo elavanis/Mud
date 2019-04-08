@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Objects.Language;
 
 namespace Objects.Personality.Personalities.ResponderMisc.Interface
 {

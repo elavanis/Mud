@@ -1,12 +1,5 @@
-﻿using Objects.Magic.Interface;
-using Objects.Magic.Spell;
-using Objects.Magic.Spell.Damage;
-using Objects.Skill.Interface;
-using System;
+﻿using Objects.Magic.Spell.Damage;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Objects.Guild.Guilds
 {

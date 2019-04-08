@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Objects.Ability.Interface;
-using Objects.Damage;
 using Objects.Die;
 using Objects.Global;
 using Objects.Global.DefaultValues.Interface;
@@ -12,9 +10,7 @@ using Objects.Magic.Spell.Damage;
 using Objects.Magic.Spell.Heal.Health;
 using Objects.Mob.Interface;
 using Shared.TagWrapper.Interface;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Personality.Personalities
 {

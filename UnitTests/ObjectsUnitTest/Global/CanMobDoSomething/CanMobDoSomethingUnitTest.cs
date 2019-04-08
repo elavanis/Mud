@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Mob.Interface;
 using Moq;
 using Objects.Room.Interface;
@@ -8,7 +7,6 @@ using System.Collections.Generic;
 using static Objects.Room.Room;
 using Objects.Global.GameDateTime.Interface;
 using Objects.Global;
-using Objects.Mob;
 using static Objects.Mob.MobileObject;
 using Objects.Item.Items.Interface;
 using static Objects.Item.Items.Equipment;

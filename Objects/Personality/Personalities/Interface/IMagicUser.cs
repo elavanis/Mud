@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Objects.Guild;
 using Objects.Guild.Interface;
 using Objects.Magic.Spell.Damage;
 using Objects.Magic.Spell.Heal.Health;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Objects.Guild.Interface;
-using Objects.Magic.Interface;
-using Objects.Skill.Interface;
+﻿using System.Collections.Generic;
 using Objects.Guild;
 using static Objects.Guild.Guild;
 

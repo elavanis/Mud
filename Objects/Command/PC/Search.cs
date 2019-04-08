@@ -1,12 +1,7 @@
 ﻿using Objects.Command.Interface;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Objects.Mob.Interface;
-using static Shared.TagWrapper.TagWrapper;
-using Objects.Global;
 using Objects.Trap.Interface;
 
 namespace Objects.Command.PC

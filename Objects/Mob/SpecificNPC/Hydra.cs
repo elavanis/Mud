@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
-using Objects.Damage;
 using Objects.Damage.Interface;
 using Objects.Global;
 using Objects.Item.Items;

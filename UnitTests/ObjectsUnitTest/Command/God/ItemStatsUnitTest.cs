@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Shared.TagWrapper.Interface;
@@ -9,7 +7,6 @@ using Objects.Global;
 using Objects.Command.God;
 using Objects.Item.Interface;
 using Objects.Mob.Interface;
-using Objects.Item;
 using Objects.Command.Interface;
 using System.Text.RegularExpressions;
 using Objects.Item.Items.Interface;

@@ -1,18 +1,12 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Command.PC;
 using Objects.Command.Interface;
 using Moq;
 using Shared.TagWrapper.Interface;
 using Objects.Mob.Interface;
-using Objects.Room.Interface;
-using Objects.Personality.Personalities.Interface;
 using Objects.Global;
 using static Shared.TagWrapper.TagWrapper;
 using System.Collections.Generic;
-using Objects.Personality.Interface;
-using static Objects.Room.Room;
-using Objects.Global.Engine.Interface;
 using System.Linq;
 
 namespace ObjectsUnitTest.Command.PC

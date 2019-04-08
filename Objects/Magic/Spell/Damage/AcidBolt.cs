@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Objects.Damage;
-using Objects.Die.Interface;
-using Objects.Global;
+﻿using Objects.Global;
 using Objects.Language;
 using static Objects.Damage.Damage;
 

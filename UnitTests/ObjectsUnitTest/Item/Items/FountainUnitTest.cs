@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Item.Items;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using static Objects.Item.Item;
 
 namespace ObjectsUnitTest.Item.Items

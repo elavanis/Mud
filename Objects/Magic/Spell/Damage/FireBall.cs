@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Objects.Damage;
+﻿using System.Collections.Generic;
 using Objects.Global;
 using Objects.Language;
 using Objects.Language.Interface;

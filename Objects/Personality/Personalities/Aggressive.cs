@@ -1,11 +1,6 @@
 ﻿using Objects.Global;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Objects.Personality.Personalities
 {

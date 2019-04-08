@@ -1,5 +1,4 @@
-﻿using Objects.Mob;
-using Objects.Mob.Interface;
+﻿using Objects.Mob.Interface;
 
 namespace Objects.Personality.Interface
 {

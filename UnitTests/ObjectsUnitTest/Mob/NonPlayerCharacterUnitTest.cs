@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Mob;
 using Moq;
 using Objects.Personality.Interface;
@@ -11,8 +10,6 @@ using Objects.LevelRange;
 using System.Reflection;
 using Objects.Global.DefaultValues.Interface;
 using Objects.Global;
-using Objects.Global.Settings;
-using Objects.Die;
 using Objects.Global.Random.Interface;
 using Objects.Global.Exp.Interface;
 using Objects.Die.Interface;

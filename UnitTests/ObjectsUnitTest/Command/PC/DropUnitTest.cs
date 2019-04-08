@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Command.PC;
 using Moq;
 using Shared.TagWrapper.Interface;
@@ -10,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Objects.Mob.Interface;
 using Objects.Item.Interface;
-using Objects.Item;
 using Objects.Room.Interface;
 using Objects.Global.FindObjects.Interface;
 using Objects.Global.Engine.Engines.Interface;

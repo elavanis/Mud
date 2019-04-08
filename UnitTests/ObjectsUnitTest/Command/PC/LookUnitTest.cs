@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Command.Interface;
 using Shared.TagWrapper.Interface;
 using Moq;
@@ -9,7 +8,6 @@ using static Shared.TagWrapper.TagWrapper;
 using System.Collections.Generic;
 using Objects.Command.PC;
 using System.Linq;
-using Objects.Global.Commands.Interface;
 using Objects.Room.Interface;
 using Objects.Global.CanMobDoSomething.Interface;
 using static Objects.Mob.MobileObject;

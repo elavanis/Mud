@@ -6,9 +6,7 @@ using Objects.Item.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities.Interface;
 using Objects.Personality.Personalities.MountainGoblinCamp;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Personality.Personalities.MountainGoblinCamp
 {

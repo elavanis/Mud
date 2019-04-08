@@ -1,13 +1,9 @@
 ﻿using Objects.Global.Guild.Interface;
 using Objects.Guild;
 using Objects.Guild.Interface;
-using Objects.Magic.Interface;
-using Objects.Skill.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Objects.Guild.Guild;
 
 namespace Objects.Global.Guild

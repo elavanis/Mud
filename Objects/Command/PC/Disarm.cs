@@ -1,14 +1,10 @@
 ﻿using Objects.Command.Interface;
 using Objects.Global;
 using Objects.Global.Stats;
-using Objects.Magic.Interface;
 using Objects.Mob.Interface;
 using Objects.Trap.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Objects.Command.PC
 {

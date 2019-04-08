@@ -1,6 +1,4 @@
-﻿using Objects.Command;
-using Objects.Command.Interface;
-using Objects.Effect;
+﻿using Objects.Effect;
 using Objects.Effect.Interface;
 using Objects.Global;
 using Objects.Language;
@@ -10,12 +8,7 @@ using Objects.Magic.Enchantment.DefeatbleInfo;
 using Objects.Magic.Enchantment.DefeatbleInfo.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob.Interface;
-using Objects.Skill.Skills.Generic;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using static Objects.Damage.Damage;
 using static Objects.Global.Stats.Stats;
 
 namespace Objects.Skill.Skills.CauseOpponentEffect

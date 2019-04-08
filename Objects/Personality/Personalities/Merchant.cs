@@ -1,14 +1,11 @@
 ﻿using Objects.Global;
 using Objects.Item.Interface;
 using Objects.Mob.Interface;
-using Objects.Personality.Interface;
 using Objects.Personality.Personalities.Interface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Objects.Command.Interface;
 using Objects.Command;
 

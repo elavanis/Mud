@@ -6,7 +6,6 @@ using Objects.Mob.Interface;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Objects.Item.Items.BulletinBoard
 {

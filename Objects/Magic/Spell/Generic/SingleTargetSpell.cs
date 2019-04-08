@@ -3,9 +3,6 @@ using Objects.Command.Interface;
 using Objects.Global;
 using Objects.Interface;
 using Objects.Mob.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Objects.Magic.Spell.Generic
 {

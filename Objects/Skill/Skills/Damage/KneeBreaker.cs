@@ -1,9 +1,6 @@
 ﻿using Objects.Global;
 using Objects.Language;
 using Objects.Mob.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using static Objects.Damage.Damage;
 
 namespace Objects.Skill.Skills.Damage

@@ -5,10 +5,6 @@ using Objects.Global.Random.Interface;
 using Objects.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities;
-using Objects.Room.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Personality.Personalities
 {

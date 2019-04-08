@@ -1,9 +1,5 @@
 ﻿using Objects.Personality.Personalities.Interface;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Objects.Global.Direction;
 using Objects.Mob.Interface;
 using System.Diagnostics.CodeAnalysis;

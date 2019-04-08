@@ -2,9 +2,7 @@
 using Objects.Interface;
 using Objects.Item.Interface;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Objects.Crafting
 {

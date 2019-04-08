@@ -1,11 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Objects.Mob.Interface;
 using Objects.Mob.SpecificNPC.Interface;
 using Objects.Personality.Personalities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Personality.Personalities
 {

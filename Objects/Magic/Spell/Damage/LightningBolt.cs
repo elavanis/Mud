@@ -1,9 +1,6 @@
 ﻿using Objects.Global;
 using Objects.Global.Language;
 using Objects.Language;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using static Objects.Damage.Damage;
 
 namespace Objects.Magic.Spell.Damage

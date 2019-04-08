@@ -1,14 +1,7 @@
-﻿using Objects.Magic.Interface;
-using Objects.Magic.Spell;
-using Objects.Skill.Interface;
-using Objects.Skill.Skills;
+﻿using Objects.Skill.Skills;
 using Objects.Skill.Skills.CauseOpponentEffect;
 using Objects.Skill.Skills.Damage;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Objects.Guild.Guilds
 {

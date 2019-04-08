@@ -1,10 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Global.Guild;
 using System.Collections.Generic;
-using Objects.Skill.Interface;
 using static Objects.Guild.Guild;
-using Objects.Magic.Interface;
 using Objects.Guild;
 using Objects.Global;
 using Objects.Global.DefaultValues.Interface;

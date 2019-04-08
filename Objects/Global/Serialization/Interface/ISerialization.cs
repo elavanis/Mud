@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Objects.Global.Serialization.Interface
+﻿namespace Objects.Global.Serialization.Interface
 {
     public interface ISerialization
     {

@@ -1,8 +1,4 @@
-﻿using Objects.Magic.Interface;
-using Objects.Skill.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Objects.Guild.Guilds
 {

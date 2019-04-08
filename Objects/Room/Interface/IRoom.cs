@@ -3,14 +3,9 @@ using Objects.Global.Direction;
 using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Mob.Interface;
-using Objects.Trap;
 using Objects.Trap.Interface;
 using Shared.Sound.Interface;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Objects.Room.Interface
 {

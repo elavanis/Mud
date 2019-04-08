@@ -2,9 +2,6 @@
 using Objects.Global.Stats;
 using Objects.Trap;
 using Objects.Trap.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Trap
 {

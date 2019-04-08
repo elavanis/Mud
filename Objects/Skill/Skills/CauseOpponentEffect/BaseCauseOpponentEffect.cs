@@ -1,7 +1,4 @@
 ﻿using Objects.Skill.Skills.Generic;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Objects.Skill.Skills.CauseOpponentEffect
 {

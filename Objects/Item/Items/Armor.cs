@@ -1,5 +1,4 @@
-﻿using Objects.Die;
-using Objects.Die.Interface;
+﻿using Objects.Die.Interface;
 using Objects.Global;
 using Objects.Item.Items.Interface;
 using Objects.Material.Interface;

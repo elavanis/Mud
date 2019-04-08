@@ -3,9 +3,7 @@ using Objects.Global.Stats;
 using Objects.Magic.Enchantment.DefeatbleInfo.Interface;
 using Objects.Mob.Interface;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Objects.Magic.Enchantment.DefeatbleInfo
 {

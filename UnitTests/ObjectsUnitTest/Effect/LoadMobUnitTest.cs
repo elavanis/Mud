@@ -8,9 +8,7 @@ using Objects.Global.GameDateTime.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Effect
 {

@@ -1,8 +1,6 @@
 ﻿using Objects.Die;
 using Objects.Die.Interface;
 using Objects.Global.DefaultValues.Interface;
-using Objects.Mob;
-using Objects.Mob.Interface;
 using System;
 using System.Collections.Generic;
 

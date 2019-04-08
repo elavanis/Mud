@@ -1,5 +1,4 @@
-﻿using Objects.Damage.Interface;
-using Objects.Effect;
+﻿using Objects.Effect;
 using Objects.Effect.Interface;
 using Objects.Global;
 using Objects.Language;
@@ -8,8 +7,6 @@ using Objects.Magic.Enchantment.DefeatbleInfo.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob.Interface;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using static Objects.Damage.Damage;
 using static Objects.Global.Stats.Stats;
 

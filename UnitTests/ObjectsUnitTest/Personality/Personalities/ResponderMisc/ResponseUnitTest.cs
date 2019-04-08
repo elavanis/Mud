@@ -2,9 +2,7 @@
 using Moq;
 using Objects.Personality.Personalities.ResponderMisc;
 using Objects.Personality.Personalities.ResponderMisc.Interface;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Personality.Personalities.ResponderMisc
 {

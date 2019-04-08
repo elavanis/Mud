@@ -5,17 +5,14 @@ using Objects.Command.Interface;
 using Objects.Command.PC;
 using Objects.Global;
 using Objects.Global.FindObjects.Interface;
-using Objects.Item;
 using Objects.Item.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 using Objects.Personality.Personalities.Interface;
 using Objects.Room.Interface;
 using Shared.TagWrapper.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Command.PC

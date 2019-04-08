@@ -5,9 +5,7 @@ using Objects.Language;
 using Objects.Language.Interface;
 using Objects.Mob.Interface;
 using Shared.TagWrapper.Interface;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Language

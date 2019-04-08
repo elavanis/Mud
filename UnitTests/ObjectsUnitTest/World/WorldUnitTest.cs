@@ -15,7 +15,6 @@ using Objects.Room;
 using Objects.Zone.Interface;
 using System.Reflection;
 using Objects.Item.Interface;
-using System.Diagnostics;
 using static Objects.Room.Room;
 using Objects.Global.Commands.Interface;
 using Objects.Command.Interface;
@@ -31,17 +30,13 @@ using Objects.Global.MultiClassBonus.Interface;
 using Objects.Global.Settings.Interface;
 using Objects.Magic.Interface;
 using Objects.Global.TickTimes.Interface;
-using System.Threading;
-using Objects.Global.Commands;
 using Objects.Crafting.Interface;
 using Objects.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
-using Objects.Language;
 using System.Collections.Concurrent;
 using Objects.GameDateTime.Interface;
 using Objects.Magic.Enchantment.DefeatbleInfo.Interface;
-using static Objects.Global.Stats.Stats;
 using Shared.PerformanceCounters.Interface;
 using Objects.Global.Serialization.Interface;
 using Objects.Global.Interface;
@@ -71,6 +66,7 @@ namespace ObjectsUnitTest.World
         Mock<IFileIO> fileIO;
         Mock<IGlobalValues> globalValues;
         Mock<IDefaultValues> defaultValues;
+        PropertyInfo propertyInfoWorld;
 
         [TestInitialize]
         public void Setup()
@@ -139,10 +135,11 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.Serialization = serialization.Object;
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
-            GlobalReference.GlobalValues.TickCounter = 0;
 
             world = new Objects.World.World();
             world.Zones.Add(0, zone.Object);
+            propertyInfoWorld = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
+
         }
 
         #region PerformTick
@@ -365,8 +362,7 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Serialization = serializer.Object;
 
-            PropertyInfo propertyInfo = world.GetType().GetProperty("Characters", BindingFlags.Instance | BindingFlags.NonPublic);
-            List<IPlayerCharacter> pcList = (List<IPlayerCharacter>)propertyInfo.GetValue(world);
+            List<IPlayerCharacter> pcList = (List<IPlayerCharacter>)propertyInfoWorld.GetValue(world);
             pcList.Add(pc.Object);
 
             FieldInfo field = world.GetType().GetField("_lastSave", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -396,8 +392,7 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Serialization = serializer.Object;
 
-            PropertyInfo propertyInfo = world.GetType().GetProperty("Characters", BindingFlags.Instance | BindingFlags.NonPublic);
-            List<IPlayerCharacter> pcList = (List<IPlayerCharacter>)propertyInfo.GetValue(world);
+            List<IPlayerCharacter> pcList = (List<IPlayerCharacter>)propertyInfoWorld.GetValue(world);
             pcList.Add(pc.Object);
 
             FieldInfo field = world.GetType().GetField("_lastSave", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -639,7 +634,6 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             npc.Setup(e => e.Position).Returns(CharacterPosition.Mounted);
             engine.Setup(e => e.Event).Returns(evnt.Object);
 
-
             world.PerformTick();
 
             npc.VerifySet(e => e.Health = 1, Times.Once);
@@ -851,7 +845,6 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         [TestMethod]
         public void World_PerformTick_CatchPlayersOutSideOfTheWorldDueToReloadedZones()
         {
-            PropertyInfo info = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
             Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
             Mock<IRoom> room2 = new Mock<IRoom>();
 
@@ -862,7 +855,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             rooms.Add(1, room.Object);
             pc.Setup(e => e.Room).Returns(room2.Object);
             pc.Setup(e => e.LastProccessedTick).Returns(1);
-            ((List<IPlayerCharacter>)info.GetValue(world)).Add(pc.Object);
+            ((List<IPlayerCharacter>)propertyInfoWorld.GetValue(world)).Add(pc.Object);
             room2.Setup(e => e.Zone).Returns(1);
             room2.Setup(e => e.Id).Returns(1);
             room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
@@ -1024,11 +1017,10 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         [TestMethod]
         public void World_LoadCharacter_AllReadyInGame()
         {
-            PropertyInfo info = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
             Mock<ISettings> settings = new Mock<ISettings>();
 
             pc.Setup(e => e.Name).Returns("name");
-            ((List<IPlayerCharacter>)info.GetValue(world)).Add(pc.Object);
+            ((List<IPlayerCharacter>)propertyInfoWorld.GetValue(world)).Add(pc.Object);
             settings.Setup(e => e.PlayerCharacterDirectory).Returns("directory");
 
             GlobalReference.GlobalValues.Settings = settings.Object;
@@ -1040,7 +1032,6 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         [TestMethod]
         public void World_LoadCharacter_LoadFromFile()
         {
-            PropertyInfo info = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
             PlayerCharacter realPc = new PlayerCharacter();
             Mock<IFileIO> fileIO = new Mock<IFileIO>();
             Mock<ISerialization> seralizer = new Mock<ISerialization>();
@@ -1049,7 +1040,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
 
             pc.Setup(e => e.Name).Returns("name");
             pc2.Setup(e => e.Name).Returns("bob");
-            ((List<IPlayerCharacter>)info.GetValue(world)).Add(pc2.Object);
+            ((List<IPlayerCharacter>)propertyInfoWorld.GetValue(world)).Add(pc2.Object);
             fileIO.Setup(e => e.GetFilesFromDirectory("directory")).Returns(new string[] { "c:\\name.char" });
             fileIO.Setup(e => e.ReadAllText("c:\\name.char")).Returns("serializedPlayer");
             seralizer.Setup(e => e.Deserialize<PlayerCharacter>("serializedPlayer")).Returns(realPc);
@@ -1225,7 +1216,6 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         [TestMethod]
         public void World_LogOutCharacter_CharacterFound()
         {
-            PropertyInfo info = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
             List<IPlayerCharacter> listPC = new List<IPlayerCharacter>();
             Mock<ISettings> settings = new Mock<ISettings>();
             Mock<IFileIO> fileIO = new Mock<IFileIO>();
@@ -1235,7 +1225,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             pc.Setup(e => e.Room).Returns(room.Object);
             room.Setup(e => e.PlayerCharacters).Returns(listPC);
             listPC.Add(pc.Object);
-            ((List<IPlayerCharacter>)info.GetValue(world)).Add(pc.Object);
+            ((List<IPlayerCharacter>)propertyInfoWorld.GetValue(world)).Add(pc.Object);
             settings.Setup(e => e.PlayerCharacterDirectory).Returns("c:\\");
             serializer.Setup(e => e.Serialize(pc.Object)).Returns("serializedPC");
 
@@ -1245,7 +1235,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
 
             world.LogOutCharacter("name");
 
-            Assert.AreEqual(0, ((List<IPlayerCharacter>)info.GetValue(world)).Count);
+            Assert.AreEqual(0, ((List<IPlayerCharacter>)propertyInfoWorld.GetValue(world)).Count);
             room.Verify(e => e.RemoveMobileObjectFromRoom(pc.Object));
         }
 

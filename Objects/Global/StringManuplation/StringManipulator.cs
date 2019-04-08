@@ -1,7 +1,5 @@
 ﻿using Objects.Global.StringManuplation.Interface;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Objects.Global.StringManuplation
 {

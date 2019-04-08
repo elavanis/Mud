@@ -4,9 +4,6 @@ using Objects.Global;
 using Objects.Global.Random.Interface;
 using Objects.Magic.Enchantment.DefeatbleInfo;
 using Objects.Mob.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using static Objects.Global.Stats.Stats;
 
 namespace ObjectsUnitTest.Magic.Enchantment.DefeatbleInfo
