@@ -6,6 +6,7 @@ using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items;
 using Objects.Item.Items.Interface;
+using Objects.LoadPercentage.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob.Interface;
 using Objects.Race.Interface;
@@ -22,10 +23,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using static Objects.Damage.Damage;
-using static Shared.TagWrapper.TagWrapper;
-using Objects.LoadPercentage.Interface;
 using static Objects.Global.Language.Translator;
 using static Objects.Global.Logging.LogSettings;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Mob
 {
@@ -916,7 +916,14 @@ namespace Objects.Mob
             }
         }
 
+        /// <summary>
+        /// This is the mob possing this mob.
+        /// </summary>
         public IMobileObject PossingMob { get; set; }
+
+        /// <summary>
+        /// This is the mob that this mob is currently possesing.
+        /// </summary>
         public IMobileObject PossedMob { get; set; }
 
 

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace ManagementSite.BL
 {
@@ -40,7 +39,13 @@ namespace ManagementSite.BL
 
         private static List<ICounters> ReloadStats()
         {
-            List<string> files = Directory.GetFiles(@"C:\Mud\Stats", "*.*", SearchOption.AllDirectories).ToList();
+            List<string> files = Directory.GetFiles(@"\\freenas\FreeNas\Mud\Stats\", "*.*", SearchOption.AllDirectories).ToList();
+
+            if (files.Count == 0)
+            {
+                files = Directory.GetFiles(@"C:\Mud\Stats", "*.*", SearchOption.AllDirectories).ToList();
+            }
+
             files = files.OrderByDescending(e => e).ToList();
             string fileContents = File.ReadAllText(files[0]);
             List<ICounters> counters = serialization.Deserialize<List<ICounters>>(fileContents);
