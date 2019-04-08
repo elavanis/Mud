@@ -6,7 +6,6 @@ using Objects.Item.Items.Interface;
 using Objects.Language.Interface;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
-using Shared.Sound.Interface;
 
 namespace Objects.Effect.Interface
 {

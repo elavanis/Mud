@@ -1,5 +1,4 @@
 ﻿using Objects.Command.Interface;
-using Objects.Guild;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 

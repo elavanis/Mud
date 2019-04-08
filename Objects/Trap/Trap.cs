@@ -1,12 +1,7 @@
-﻿using Objects.Magic;
-using Objects.Magic.Interface;
+﻿using Objects.Magic.Interface;
 using Objects.Trap.Interface;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Objects.Global.Stats;
 using static Objects.Trap.Target;
 using Objects.Damage.Interface;

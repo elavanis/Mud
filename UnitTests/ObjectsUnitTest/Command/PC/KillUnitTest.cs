@@ -1,16 +1,13 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Command.Interface;
 using Objects.Command.PC;
 using System.Collections.Generic;
 using Moq;
 using Shared.TagWrapper.Interface;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities.Interface;
 using Objects.Room.Interface;
 using static Shared.TagWrapper.TagWrapper;
 using Objects.Global;
-using Objects.Personality.Interface;
 using System.Linq;
 using static Objects.Room.Room;
 using Objects.Global.Engine.Engines.Interface;

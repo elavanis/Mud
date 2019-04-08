@@ -1,7 +1,6 @@
 ﻿using Objects.Ability.Interface;
 using Objects.Command.Interface;
 using Objects.Interface;
-using Objects.Mob;
 using Objects.Mob.Interface;
 
 namespace Objects.Magic.Interface

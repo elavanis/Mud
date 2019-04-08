@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Objects.Material.Materials
+﻿namespace Objects.Material.Materials
 {
     public class Bone : BaseMaterial
     {

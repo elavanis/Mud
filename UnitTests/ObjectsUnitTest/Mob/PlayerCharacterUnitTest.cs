@@ -6,7 +6,6 @@ using Objects.Global.Engine.Interface;
 using Objects.Global.Exp.Interface;
 using Objects.Global.MoneyToCoins.Interface;
 using Objects.Global.MultiClassBonus.Interface;
-using Objects.Global.Settings;
 using Objects.Global.Settings.Interface;
 using Objects.Interface;
 using Objects.Item.Interface;

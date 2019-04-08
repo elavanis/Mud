@@ -5,7 +5,6 @@ using Objects.Personality.Interface;
 using Objects.Personality.Personalities.Interface;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Objects.Command.PC
 {

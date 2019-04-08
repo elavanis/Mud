@@ -1,8 +1,6 @@
 ﻿using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Objects.Personality.Personalities
 {

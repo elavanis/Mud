@@ -1,15 +1,10 @@
 ﻿using Objects.Effect.Interface;
 using Objects.Global;
-using Objects.Language;
-using Objects.Language.Interface;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
 using Shared.Sound.Interface;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
-using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Effect
 {

@@ -1,11 +1,5 @@
-﻿using Objects.Command.Interface;
-using Objects.Global;
-using Objects.Language;
+﻿using Objects.Global;
 using Objects.Magic.Spell.Generic;
-using Objects.Mob.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using static Objects.Damage.Damage;
 
 namespace Objects.Magic.Spell.Damage

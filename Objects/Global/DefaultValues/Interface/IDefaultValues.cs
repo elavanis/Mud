@@ -1,6 +1,5 @@
 ﻿
 using Objects.Die.Interface;
-using System;
 
 namespace Objects.Global.DefaultValues.Interface
 {

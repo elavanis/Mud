@@ -1,15 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Objects.Mob.Interface;
 using Objects.Effect.Interface;
-using Shared.TagWrapper.Interface;
 using Objects.Effect;
-using static Shared.TagWrapper.TagWrapper;
 using Objects.Global;
-using Objects.Damage.Interface;
-using Objects.Die.Interface;
-using Shared.Sound.Interface;
 using System.Collections.Generic;
 using Objects.Room.Interface;
 using Objects.Item.Interface;

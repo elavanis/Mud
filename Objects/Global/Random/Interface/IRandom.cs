@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using Objects.Item.Interface;
-using Objects.Mob;
-using Objects.Mob.Interface;
-
-namespace Objects.Global.Random.Interface
+﻿namespace Objects.Global.Random.Interface
 {
     public interface IRandom
     {

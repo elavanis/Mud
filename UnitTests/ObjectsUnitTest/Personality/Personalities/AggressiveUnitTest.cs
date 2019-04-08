@@ -1,11 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Personality.Personalities;
 using Objects.Mob.Interface;
 using Moq;
 using Objects.Room.Interface;
 using System.Collections.Generic;
-using Objects.Global.CanMobDoSomething;
 using Objects.Global.CanMobDoSomething.Interface;
 using Objects.Global;
 

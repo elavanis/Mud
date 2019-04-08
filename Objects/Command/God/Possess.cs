@@ -1,10 +1,8 @@
 ﻿using Objects.Command.Interface;
 using Objects.Global;
 using Objects.Mob.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Objects.Command.God
 {

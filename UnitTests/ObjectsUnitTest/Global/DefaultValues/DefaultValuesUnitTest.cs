@@ -2,7 +2,6 @@
 using Objects.Die.Interface;
 using Objects.Global;
 using Objects.Global.Settings;
-using System;
 
 namespace ObjectsUnitTest.Global.DefaultValues
 {

@@ -1,8 +1,6 @@
 ﻿using Objects.Command.Interface;
-using Objects.Damage.Interface;
 using Objects.Effect.Interface;
 using Objects.Language.Interface;
-using Objects.Mob;
 using Objects.Mob.Interface;
 
 namespace Objects.Ability.Interface

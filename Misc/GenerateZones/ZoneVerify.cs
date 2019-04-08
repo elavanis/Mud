@@ -1,24 +1,15 @@
 ﻿using Objects.Damage;
-using Objects.Damage.Interface;
 using Objects.Interface;
 using Objects.Item.Interface;
-using Objects.Item.Items;
 using Objects.Item.Items.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
-using Objects.Personality.Personalities;
 using Objects.Personality.Personalities.Interface;
 using Objects.Room.Interface;
 using Objects.Skill.Interface;
-using Objects.Trap.Interface;
 using Objects.Zone.Interface;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenerateZones
 {

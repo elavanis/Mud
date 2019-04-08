@@ -4,9 +4,6 @@ using Objects.Global;
 using Objects.Global.Language;
 using Objects.Global.Language.Interface;
 using Objects.Global.Random.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Global.Language
 {

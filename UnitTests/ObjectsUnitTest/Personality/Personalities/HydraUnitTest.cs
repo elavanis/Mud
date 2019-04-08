@@ -2,9 +2,6 @@
 using Moq;
 using Objects.Mob.SpecificNPC.Interface;
 using Objects.Personality.Personalities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Personality.Personalities
 {

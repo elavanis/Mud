@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Magic;
 using Moq;
 using Objects.Global.Language.Interface;
@@ -8,11 +7,9 @@ using Objects.Mob.Interface;
 using Objects.Command.Interface;
 using System.Collections.Generic;
 using Shared.TagWrapper.Interface;
-using Shared.TagWrapper;
 using Objects.Effect.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Room.Interface;
-using static Objects.Global.Language.Translator;
 using Objects.Language.Interface;
 using Objects.Global.StringManuplation.Interface;
 using static Shared.TagWrapper.TagWrapper;

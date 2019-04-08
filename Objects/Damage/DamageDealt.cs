@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using static Objects.Damage.Damage;
+﻿using static Objects.Damage.Damage;
 
 namespace Objects.Damage
 {

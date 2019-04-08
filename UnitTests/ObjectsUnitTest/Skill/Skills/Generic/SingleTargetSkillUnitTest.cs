@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Objects.Command;
 using Objects.Command.Interface;
 using Objects.Global;
 using Objects.Global.FindObjects.Interface;
@@ -8,9 +7,7 @@ using Objects.Interface;
 using Objects.Mob.Interface;
 using Objects.Skill.Skills.Generic;
 using Shared.TagWrapper.Interface;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Skill.Skills.Generic

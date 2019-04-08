@@ -1,5 +1,4 @@
 ﻿using Objects.Global;
-using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Mob;
 using System.Collections.Generic;

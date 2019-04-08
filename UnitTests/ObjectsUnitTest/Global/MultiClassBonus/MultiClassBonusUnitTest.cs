@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Objects.Global.Settings;
 using Objects.Global;
 using Objects.Global.Settings.Interface;
 

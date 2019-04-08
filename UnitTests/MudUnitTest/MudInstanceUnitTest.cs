@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects.Global.Interface;
 using Mud;
@@ -11,7 +10,6 @@ using System.Reflection;
 using Mud.Interface;
 using Objects.Global.TickTimes.Interface;
 using System.Threading;
-using Objects.Global.UpTime.Interface;
 
 namespace MudUnitTest
 {

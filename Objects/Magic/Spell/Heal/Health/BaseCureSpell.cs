@@ -1,13 +1,10 @@
-﻿using Objects.Die;
-using Objects.Effect;
+﻿using Objects.Effect;
 using Objects.Global;
 using Objects.Global.Language;
 using Objects.Language;
 using Objects.Language.Interface;
 using Objects.Magic.Spell.Generic;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Magic.Spell.Heal.Health

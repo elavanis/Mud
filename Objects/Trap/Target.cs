@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Objects.Trap
+﻿namespace Objects.Trap
 {
     public class Target
     {

@@ -1,23 +1,14 @@
 ﻿using Objects.Damage.Interface;
-using Objects.Global;
 using Objects.Item.Items.Interface;
 using Objects.Mob;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Objects.Global.Stats.Stats;
-using Objects.Global.Stats;
 using System.Collections.Concurrent;
-using System.Diagnostics.CodeAnalysis;
 using Objects.Mob.Interface;
 using Objects.Command.Interface;
 using Objects.Command;
 using Objects.Global.Engine.Engines.Interface;
-using Objects.Interface;
-using static Objects.Damage.Damage;
-using Objects.Damage;
 
 namespace Objects.Global.Engine.Engines
 {
@@ -90,7 +81,9 @@ namespace Objects.Global.Engine.Engines
 
         public IResult AddCombatPair(IMobileObject attacker, IMobileObject defender)
         {
-            if (Combatants.TryGetValue(attacker, out CombatPair.CombatPair pair))
+            CombatPair.CombatPair pair;
+
+            if (Combatants.TryGetValue(attacker, out pair))
             {
                 return new Result(string.Format("You are already attacking {0}.", pair.Defender.KeyWords.FirstOrDefault()), true);
             }
@@ -154,7 +147,8 @@ namespace Objects.Global.Engine.Engines
 
         public bool AreFighting(IMobileObject mob, IMobileObject mob2)
         {
-            if (Combatants.TryGetValue(mob, out CombatPair.CombatPair pair))
+            CombatPair.CombatPair pair;
+            if (Combatants.TryGetValue(mob, out pair))
             {
                 if (pair.Defender == mob2)
                 {
@@ -180,7 +174,8 @@ namespace Objects.Global.Engine.Engines
 
         public IMobileObject Opponet(MobileObject mobileObject)
         {
-            if (Combatants.TryGetValue(mobileObject, out CombatPair.CombatPair pair))
+            CombatPair.CombatPair pair;
+            if (Combatants.TryGetValue(mobileObject, out pair))
             {
                 return pair.Defender;
             }

@@ -1,10 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Objects.Effect;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects.Mob.Interface;
 using Objects.Effect.Interface;
-using Objects.Room.Interface;
 using Objects.Global.Logging.Interface;
 using Objects.Global;
 using static Objects.Global.Logging.LogSettings;

@@ -3,7 +3,6 @@ using Moq;
 using Objects.Effect;
 using Objects.Effect.Interface;
 using Objects.Global;
-using Objects.Global.Notify;
 using Objects.Global.Notify.Interface;
 using Objects.Global.Random.Interface;
 using Objects.Global.Serialization.Interface;
@@ -15,9 +14,7 @@ using Objects.World.Interface;
 using Objects.Zone.Interface;
 using Shared.Sound.Interface;
 using Shared.TagWrapper.Interface;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Effect
 {

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Personality.Personalities;
 using static Objects.Guild.Guild;
 using Objects.Mob.Interface;
@@ -7,7 +6,6 @@ using Moq;
 using System.Collections.Generic;
 using Objects.Personality.Interface;
 using Objects.Command.Interface;
-using Objects.Guild.Guilds;
 using Shared.TagWrapper.Interface;
 using static Shared.TagWrapper.TagWrapper;
 using Objects.Global;

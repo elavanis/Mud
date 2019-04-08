@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using System.Text;
 using Objects.Item.Interface;
-using Objects.Mob;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities;
 using Objects.Room;

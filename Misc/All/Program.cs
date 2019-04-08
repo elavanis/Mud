@@ -1,15 +1,4 @@
-﻿using Objects.Die;
-using Objects.Effect;
-using Objects.Global;
-using Objects.Global.Language;
-using Objects.Language;
-using Objects.Language.Interface;
-using Objects.Magic.Interface;
-using Objects.Magic.Spell.Generic;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using static Shared.TagWrapper.TagWrapper;
+﻿using Objects.Global;
 
 namespace All
 {

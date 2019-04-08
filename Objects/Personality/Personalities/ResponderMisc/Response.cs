@@ -1,9 +1,7 @@
-﻿using Objects.Language;
-using Objects.Personality.Personalities.ResponderMisc.Interface;
+﻿using Objects.Personality.Personalities.ResponderMisc.Interface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Objects.Personality.Personalities.ResponderMisc
 {

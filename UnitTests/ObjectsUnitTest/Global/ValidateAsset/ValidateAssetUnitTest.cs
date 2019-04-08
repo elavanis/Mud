@@ -3,11 +3,8 @@ using Moq;
 using Objects.Global;
 using Objects.Global.Settings.Interface;
 using Shared.FileIO.Interface;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace ObjectsUnitTest.Global.ValidateAsset
 {

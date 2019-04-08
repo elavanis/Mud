@@ -1,12 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Command.PC;
 using Moq;
 using Shared.TagWrapper.Interface;
 using static Shared.TagWrapper.TagWrapper;
 using Objects.Global;
 using Objects.Mob.Interface;
-using Objects.Magic;
 using Objects.Magic.Interface;
 using System.Collections.Generic;
 using Objects.Skill.Interface;

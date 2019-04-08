@@ -3,9 +3,6 @@ using Moq;
 using Objects.Global;
 using Objects.Global.Random.Interface;
 using Objects.Material.Materials;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectsUnitTest.Material.Materials
 {

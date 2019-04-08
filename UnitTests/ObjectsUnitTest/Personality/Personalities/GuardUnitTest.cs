@@ -1,10 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Personality.Personalities;
 using Moq;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
-using System.Collections.Generic;
 using Objects.Global.Engine.Engines.Interface;
 using Objects.Global.Engine.Interface;
 using Objects.Global;

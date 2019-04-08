@@ -3,10 +3,8 @@ using Objects.Global;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
 using Objects.Mob.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Objects.Command.PC
 {
@@ -38,7 +36,8 @@ namespace Objects.Command.PC
                     return new Result($"You were unable to find {command.Parameters[1].ParameterValue}.", true);
                 }
 
-                if (itemToPutIn is IContainer container)
+                IContainer container = itemToPutIn as IContainer;
+                if (container != null)
                 {
                     GlobalReference.GlobalValues.Engine.Event.Put(performer, item, container);
 

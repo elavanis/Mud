@@ -1,12 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects.Global.Logging.Interface;
 using Objects.Global;
 using Objects.Effect;
 using Objects.Mob.Interface;
 using Objects.Effect.Interface;
-using Objects.Interface;
 using Objects.Die.Interface;
 
 namespace ObjectsUnitTest.Effect

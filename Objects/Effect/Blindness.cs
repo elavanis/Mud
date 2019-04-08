@@ -1,9 +1,6 @@
 ﻿using Objects.Effect.Interface;
 using Shared.Sound.Interface;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Objects.Effect
 {

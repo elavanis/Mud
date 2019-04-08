@@ -1,6 +1,5 @@
 ﻿using Objects.Die.Interface;
 using Objects.Global;
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Objects.Die

@@ -1,5 +1,4 @@
-﻿using Objects.Magic;
-using Objects.Magic.Interface;
+﻿using Objects.Magic.Interface;
 using System.Collections.Generic;
 
 namespace Objects.Interface

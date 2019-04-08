@@ -1,13 +1,8 @@
-﻿using Objects.Language;
-using Objects.Mob.Interface;
-using Objects.Personality.Interface;
+﻿using Objects.Mob.Interface;
 using Objects.Personality.Personalities.Interface;
-using Objects.Personality.Personalities.ResponderMisc;
 using Objects.Personality.Personalities.ResponderMisc.Interface;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Personality.Personalities

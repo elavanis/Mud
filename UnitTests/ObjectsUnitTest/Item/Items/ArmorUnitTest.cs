@@ -5,7 +5,6 @@ using Objects.Global;
 using Objects.Global.DefaultValues.Interface;
 using Objects.Item.Items;
 using Objects.Material.Interface;
-using System;
 using static Objects.Damage.Damage;
 
 namespace ObjectsUnitTest.Item.Items

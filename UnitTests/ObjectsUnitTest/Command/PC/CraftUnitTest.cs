@@ -12,7 +12,6 @@ using Shared.TagWrapper.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using static Objects.Damage.Damage;
 using static Objects.Item.Items.Equipment;
 using static Shared.TagWrapper.TagWrapper;

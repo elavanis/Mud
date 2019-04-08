@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shared.PerformanceCounters;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SharedUnitTest.PerformanceCounters
 {

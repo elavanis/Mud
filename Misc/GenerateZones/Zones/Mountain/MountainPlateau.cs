@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using System.Text;
 using Objects;
-using Objects.Effect;
 using Objects.Effect.Zone.MountainPlateau;
 using Objects.Item;
 using Objects.Item.Interface;

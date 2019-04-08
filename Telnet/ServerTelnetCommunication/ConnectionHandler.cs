@@ -1,15 +1,8 @@
 ﻿using Objects.Global;
-using Shared.FileIO;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using TelnetCommunication.Interface;
 using static Objects.Global.Logging.LogSettings;
 

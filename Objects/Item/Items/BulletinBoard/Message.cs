@@ -3,7 +3,6 @@ using Objects.Global.Language;
 using Objects.Item.Items.BulletinBoard.Interface;
 using Objects.Mob.Interface;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 

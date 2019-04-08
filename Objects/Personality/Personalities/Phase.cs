@@ -2,10 +2,8 @@
 using Objects.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities.Interface;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Objects.Personality.Personalities
 {

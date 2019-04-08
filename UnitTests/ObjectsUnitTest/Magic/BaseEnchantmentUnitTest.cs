@@ -1,9 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Magic;
 using Moq;
 using Objects.Global.Random.Interface;
-using Objects.Mob.Interface;
 using Objects.Global;
 
 namespace ObjectsUnitTest.Magic

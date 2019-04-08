@@ -1,7 +1,4 @@
 ﻿using Objects.Mob.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Objects.Global.Map.Interface
 {

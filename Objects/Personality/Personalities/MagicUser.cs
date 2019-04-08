@@ -4,12 +4,9 @@ using Objects.Guild.Interface;
 using Objects.Magic.Spell.Damage;
 using Objects.Magic.Spell.Heal.Health;
 using Objects.Mob.Interface;
-using Objects.Personality.Interface;
 using Objects.Personality.Personalities.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Objects.Personality.Personalities
 {
