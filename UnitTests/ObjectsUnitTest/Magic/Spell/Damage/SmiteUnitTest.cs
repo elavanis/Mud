@@ -37,8 +37,8 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         {
             defaultValues.Verify(e => e.DiceForSpellLevel(100), Times.Exactly(2));
             Assert.AreEqual("You look at {target} with great anger in your eyes.  A force radiates from you knocking them back.", smite.PerformerNotificationSuccess.Message);
-            Assert.AreEqual("{performer} looks at {target} with a great anger in their eyes.  {target} is knocked back by some type of invisable force.", smite.RoomNotificationSuccess.Message);
-            Assert.AreEqual("{performer} looks at you with anger in his eyes.  Sundenly you are knocked back by a great force.", smite.TargetNotificationSuccess.Message);
+            Assert.AreEqual("{performer} looks at {target} with a great anger in their eyes.  {target} is knocked back by some type of invisible force.", smite.RoomNotificationSuccess.Message);
+            Assert.AreEqual("{performer} looks at you with anger in his eyes.  Suddenly you are knocked back by a great force.", smite.TargetNotificationSuccess.Message);
         }
     }
 }
