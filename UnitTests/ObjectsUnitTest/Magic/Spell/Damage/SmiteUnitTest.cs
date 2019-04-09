@@ -36,9 +36,9 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         public void Smite()
         {
             defaultValues.Verify(e => e.DiceForSpellLevel(100), Times.Exactly(2));
-            Assert.AreEqual("finish me.", smite.PerformerNotificationSuccess.Message);
-            Assert.AreEqual("finish me", smite.RoomNotificationSuccess.Message);
-            Assert.AreEqual("finish me", smite.TargetNotificationSuccess.Message);
+            Assert.AreEqual("{performer} looks at you with anger in his eyes.  Sundenly you are knocked back by a great force.", smite.PerformerNotificationSuccess.Message);
+            Assert.AreEqual("{performer} looks at {target} with a great anger in their eyes.  {target} is knocked back by some type of invisable force.", smite.RoomNotificationSuccess.Message);
+            Assert.AreEqual("{performer} looks at you with great anger.  Suddenly a great force knocks you back.", smite.TargetNotificationSuccess.Message);
         }
     }
 }
