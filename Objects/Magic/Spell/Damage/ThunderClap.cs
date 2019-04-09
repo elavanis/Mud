@@ -11,9 +11,9 @@ namespace Objects.Magic.Spell.Damage
                             GlobalReference.GlobalValues.DefaultValues.DiceForSpellLevel(10).Sides,
                             DamageType.Thunder)
         {
-            PerformerNotificationSuccess = new TranslationMessage("{performer} test {target}");
-            RoomNotificationSuccess = new TranslationMessage("{performer} test {target}");
-            TargetNotificationSuccess = new TranslationMessage("{performer} test {target}");
+            PerformerNotificationSuccess = new TranslationMessage("You clap your hands together at {target} and a large crack like thunder shakes them to the bone.");
+            RoomNotificationSuccess = new TranslationMessage("{performer} claps their hands at {target} and a large crack of thunder fills the air.");
+            TargetNotificationSuccess = new TranslationMessage("{performer} claps their hands in front of them the loud crack of thunder rattles your bones.");
         }
     }
 }
