@@ -6,19 +6,19 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace ObjectsUnitTest.Global.Engine.Group
+namespace ObjectsUnitTest.Global.Engine.AdditionalParty
 {
     [TestClass]
     public class GroupUnitTest
     {
-        Objects.Global.Engine.Engines.Group.Group group;
+        Objects.Global.Engine.Engines.AdditionalParty.Group group;
         List<IMobileObject> groupMembers;
         Mock<IMobileObject> mob1;
         Mock<IMobileObject> mob2;
         [TestInitialize]
         public void Setup()
         {
-            group = new Objects.Global.Engine.Engines.Group.Group();
+            group = new Objects.Global.Engine.Engines.AdditionalParty.Group();
             PropertyInfo groupMembersPropertyInfo = group.GetType().GetProperty("GroupMembers", BindingFlags.NonPublic | BindingFlags.Instance);
             groupMembers = (List<IMobileObject>)groupMembersPropertyInfo.GetValue(group);
             mob1 = new Mock<IMobileObject>();

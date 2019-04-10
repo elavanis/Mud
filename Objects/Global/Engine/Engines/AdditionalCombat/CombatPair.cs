@@ -1,7 +1,7 @@
 ﻿using Objects.Mob.Interface;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Objects.Global.Engine.Engines.CombatPair
+namespace Objects.Global.Engine.Engines.AdditionalCombat
 {
     [ExcludeFromCodeCoverage]
     public class CombatPair

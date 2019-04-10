@@ -13,12 +13,12 @@ using Objects.Item.Items.Interface;
 using Objects.Die.Interface;
 using Objects.Command.Interface;
 using Objects.Global.Engine.Engines;
-using Objects.Global.Engine.Engines.CombatPair;
 using Objects.Global.Engine.Interface;
 using Objects.Global.Engine.Engines.Interface;
 using Objects.Room.Interface;
 using static Objects.Room.Room;
 using static Shared.TagWrapper.TagWrapper;
+using Objects.Global.Engine.Engines.AdditionalCombat;
 
 namespace ObjectsUnitTest.Engine
 {

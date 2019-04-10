@@ -1,11 +1,12 @@
-﻿using Objects.Mob.Interface;
+﻿using Objects.Global.Engine.Engines.AdditionalParty.Interface;
+using Objects.Mob.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Objects.Global.Engine.Engines.Group
+namespace Objects.Global.Engine.Engines.AdditionalParty
 {
-    public class Group
+    public class Group : IGroup
     {
         private List<IMobileObject> GroupMembers { get; } = new List<IMobileObject>();
 

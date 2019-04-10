@@ -9,6 +9,7 @@ using Objects.Mob.Interface;
 using Objects.Command.Interface;
 using Objects.Command;
 using Objects.Global.Engine.Engines.Interface;
+using Objects.Global.Engine.Engines.AdditionalCombat;
 
 namespace Objects.Global.Engine.Engines
 {
@@ -16,7 +17,7 @@ namespace Objects.Global.Engine.Engines
     {
         private uint _combatRound { get; set; } = 0;
 
-        private ConcurrentDictionary<IMobileObject, CombatPair.CombatPair> Combatants { get; } = new ConcurrentDictionary<IMobileObject, CombatPair.CombatPair>();
+        private ConcurrentDictionary<IMobileObject, CombatPair> Combatants { get; } = new ConcurrentDictionary<IMobileObject, CombatPair>();
 
         public void ProcessCombatRound()
         {
@@ -36,7 +37,7 @@ namespace Objects.Global.Engine.Engines
 
         private void ProcessAttack(IMobileObject mob)
         {
-            CombatPair.CombatPair pair = Combatants[mob];
+            CombatPair pair = Combatants[mob];
             bool invalidComabatPair = RemoveInvalidCombatant(mob, pair);
 
             if (!invalidComabatPair)
@@ -46,7 +47,7 @@ namespace Objects.Global.Engine.Engines
             }
         }
 
-        private bool RemoveInvalidCombatant(IMobileObject mob, CombatPair.CombatPair pair)
+        private bool RemoveInvalidCombatant(IMobileObject mob, CombatPair pair)
         {
             if ((pair.Attacker.Health <= 0 || pair.Defender.Health <= 0)
                 || (pair.Attacker.Room != pair.Defender.Room)
@@ -81,7 +82,7 @@ namespace Objects.Global.Engine.Engines
 
         public IResult AddCombatPair(IMobileObject attacker, IMobileObject defender)
         {
-            CombatPair.CombatPair pair;
+            CombatPair pair;
 
             if (Combatants.TryGetValue(attacker, out pair))
             {
@@ -89,7 +90,7 @@ namespace Objects.Global.Engine.Engines
             }
             else
             {
-                pair = new CombatPair.CombatPair();
+                pair = new CombatPair();
                 pair.Attacker = attacker;
                 pair.Defender = defender;
                 Combatants.TryAdd(attacker, pair);
@@ -110,7 +111,7 @@ namespace Objects.Global.Engine.Engines
         {
             if (!Combatants.Keys.Contains(attacker))
             {
-                CombatPair.CombatPair pair = new CombatPair.CombatPair();
+                CombatPair pair = new CombatPair();
                 pair.Attacker = attacker;
                 pair.Defender = defender;
                 Combatants.TryAdd(attacker, pair);
@@ -147,7 +148,7 @@ namespace Objects.Global.Engine.Engines
 
         public bool AreFighting(IMobileObject mob, IMobileObject mob2)
         {
-            CombatPair.CombatPair pair;
+            CombatPair pair;
             if (Combatants.TryGetValue(mob, out pair))
             {
                 if (pair.Defender == mob2)
@@ -174,7 +175,7 @@ namespace Objects.Global.Engine.Engines
 
         public IMobileObject Opponet(MobileObject mobileObject)
         {
-            CombatPair.CombatPair pair;
+            CombatPair pair;
             if (Combatants.TryGetValue(mobileObject, out pair))
             {
                 return pair.Defender;
