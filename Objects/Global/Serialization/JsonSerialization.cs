@@ -14,6 +14,7 @@ namespace Objects.Global.Serialization
                 {
                     JsonSerializerSettings temp = new JsonSerializerSettings();
                     temp.TypeNameHandling = TypeNameHandling.Objects;
+                    temp.NullValueHandling = NullValueHandling.Ignore;
                     _settings = temp;
                 }
                 return _settings;
