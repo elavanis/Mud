@@ -14,13 +14,16 @@ namespace Objects.Global.Engine.Engines.AdditionalParty
         {
             get
             {
-                if (MemberCount > 0)
+                lock (GroupMembers)
                 {
-                    return GroupMembers[0];
-                }
-                else
-                {
-                    return null;
+                    if (MemberCount > 0)
+                    {
+                        return GroupMembers[0];
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
         }
