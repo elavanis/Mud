@@ -90,6 +90,13 @@ namespace Objects.Room
                     }
                 }
             }
+            set //used during deserialization
+            {
+                lock (_nonPlayerCharactersLock)
+                {
+                    _nonPlayerCharacters = new List<INonPlayerCharacter>(value);
+                }
+            }
         }
 
         private object _playerCharactersLock = new object();
@@ -109,6 +116,14 @@ namespace Objects.Room
                     {
                         return new List<IPlayerCharacter>(_playerCharacters).AsReadOnly();
                     }
+                }
+            }
+
+            set //used during deserialization
+            {
+                lock (_playerCharactersLock)
+                {
+                    _playerCharacters = new List<IPlayerCharacter>(value);
                 }
             }
         }

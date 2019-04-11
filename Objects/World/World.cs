@@ -683,8 +683,7 @@ namespace Objects.World
                 localCounter.CPU = (decimal)Math.Round(GlobalReference.GlobalValues.TickTimes.MedianTime, 2);
                 localCounter.MaxTickTimeInMs = (int)Math.Round(GlobalReference.GlobalValues.TickTimes.MaxTime);
 
-                //float memoryConsumption = Process.GetCurrentProcess().WorkingSet64 / (1024f * 1024f);
-                float memoryConsumption = 100;
+                float memoryConsumption = Process.GetCurrentProcess().WorkingSet64 / (1024f * 1024f);
                 localCounter.Memory = (decimal)Math.Round(memoryConsumption, 2);
 
 
