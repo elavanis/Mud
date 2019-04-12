@@ -54,7 +54,7 @@ namespace Objects.Global.Interface
         DateTime StartTime { get; set; }
         IStringManipulator StringManipulator { get; set; }
         ITagWrapper TagWrapper { get; set; }
-        ulong TickCounter { get; set; }
+        uint TickCounter { get; set; }
         ITickTimes TickTimes { get; set; }
         ITime Time { get; set; }
         ITranslator Translator { get; set; }

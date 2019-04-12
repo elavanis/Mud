@@ -68,7 +68,7 @@ namespace ObjectsUnitTest.Global.Engine
             Assert.AreEqual(1, invites.Count);
             Assert.AreEqual(group.Object, invites[0].Group);
             Assert.AreEqual(invited.Object, invites[0].Invited);
-            Assert.AreEqual(100ul, invites[0].InviteTurn);
+            Assert.IsTrue(DateTime.Now.Subtract(invites[0].InviteTime).TotalSeconds <= 1);
             Assert.AreEqual(performer.Object, invites[0].PartyLeader);
         }
 
@@ -119,5 +119,24 @@ namespace ObjectsUnitTest.Global.Engine
             Assert.AreEqual("You need to start a party before you can invite someone.", result.ResultMessage);
             Assert.AreEqual(true, result.AllowAnotherCommand);
         }
+
+        [TestMethod]
+        public void Party_AcceptInvite_Accepted()
+        {
+            Mock<IPartyInvite> partyInvite = new Mock<IPartyInvite>();
+            partyInvite.Setup(e => e.Group).Returns(group.Object);
+            partyInvite.Setup(e => e.PartyLeader).Returns(performer.Object);
+            partyInvite.Setup(e => e.Invited).Returns(invited.Object);
+            invites.Add(partyInvite.Object);
+
+            IResult result = party.AcceptPartyInvite(invited.Object);
+
+            Assert.AreEqual(0, invites.Count);
+            Assert.AreEqual(group.Object, groups[invited.Object]);
+            group.Verify(e => e.AddMember(invited.Object), Times.Once);
+            Assert.AreEqual("You join performer party.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+        }
+
     }
 }

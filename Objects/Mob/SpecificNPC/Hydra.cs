@@ -149,7 +149,7 @@ namespace Objects.Mob.SpecificNPC
         public IMobileObject LastAttacker { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public ulong CombatRound { get; set; }
+        public uint CombatRound { get; set; }
 
         [ExcludeFromCodeCoverage]
         public bool HeadCut { get; set; }

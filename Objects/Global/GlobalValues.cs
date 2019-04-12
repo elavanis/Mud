@@ -40,7 +40,7 @@ namespace Objects.Global
         public DateTime StartTime { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public ulong TickCounter { get; set; } = 0;
+        public uint TickCounter { get; set; } = 0;
 
         [ExcludeFromCodeCoverage]
         public List<ICounters> CountersLog { get; set; }

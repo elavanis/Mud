@@ -13,6 +13,6 @@ namespace Objects.Global.Engine.Engines.AdditionalParty
         public IMobileObject PartyLeader { get; set; }
         public IGroup Group { get; set; }
         public IMobileObject Invited { get; set; }
-        public ulong InviteTurn { get; set; }
+        public DateTime InviteTime { get ; set ; }
     }
 }

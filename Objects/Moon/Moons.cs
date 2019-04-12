@@ -5,7 +5,7 @@ namespace Objects.Moon
 {
     public class Moons
     {
-        private ulong lastCalculation = ulong.MaxValue;
+        private uint lastCalculation = uint.MaxValue;
         private object padLock = new object();
 
         public List<IMoon> MoonList { get; set; } = new List<IMoon>();

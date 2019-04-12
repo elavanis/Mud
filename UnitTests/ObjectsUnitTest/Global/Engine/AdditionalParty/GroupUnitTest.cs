@@ -70,13 +70,20 @@ namespace ObjectsUnitTest.Global.Engine.AdditionalParty
         [TestMethod]
         public void Group_GroupMembers()
         {
-            Assert.AreEqual(1, 2);
+            Assert.AreEqual(2, group.GroupMembers.Count);
+            foreach (var item in group.GroupMembers)
+            {
+                Assert.IsTrue(mob1.Object == item
+                    || mob2.Object == item);
+            }
         }
 
         [TestMethod]
         public void Group_IsMember()
         {
-            Assert.AreEqual(1, 2);
+            groupMembers.Remove(mob1.Object);
+            Assert.IsFalse(group.IsMember(mob1.Object));
+            Assert.IsTrue(group.IsMember(mob2.Object));
         }
     }
 }

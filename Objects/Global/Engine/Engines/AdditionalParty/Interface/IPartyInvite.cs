@@ -1,5 +1,6 @@
 ﻿using Objects.Global.Engine.Engines.AdditionalParty.Interface;
 using Objects.Mob.Interface;
+using System;
 
 namespace Objects.Global.Engine.Engines.AdditionalParty.Interface
 {
@@ -7,7 +8,7 @@ namespace Objects.Global.Engine.Engines.AdditionalParty.Interface
     {
         IGroup Group { get; set; }
         IMobileObject Invited { get; set; }
-        ulong InviteTurn { get; set; }
+        DateTime InviteTime { get; set; }
         IMobileObject PartyLeader { get; set; }
     }
 }

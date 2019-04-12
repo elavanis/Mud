@@ -12,18 +12,25 @@ namespace Objects.Global.Engine.Engines
 {
     public class Party
     {
+        private object padLock = new object();
         private Dictionary<IMobileObject, IGroup> Groups { get; } = new Dictionary<IMobileObject, IGroup>();
         private List<IPartyInvite> Invites { get; } = new List<IPartyInvite>();
 
-
-        public void ProcessPartyInvites()
+        public void RemoveOldPartyInvites()
         {
-
+            for (int i = Invites.Count - 1; i >= 0; i--)
+            {
+                IPartyInvite invite = Invites[i];
+                if (DateTime.UtcNow.Subtract(invite.InviteTime).TotalMinutes >= 5)
+                {
+                    Invites.RemoveAt(i);
+                }
+            }
         }
 
         public IResult Invite(IMobileObject performer, IMobileObject invitedMob)
         {
-            lock (Groups)
+            lock (padLock)
             {
                 if (Groups.TryGetValue(performer, out IGroup group))
                 {
@@ -42,12 +49,9 @@ namespace Objects.Global.Engine.Engines
                             }
                             else
                             {
-                                lock (Invites)
-                                {
-                                    Invites.Add(new PartyInvite() { Group = group, PartyLeader = performer, Invited = invitedMob, InviteTurn = GlobalReference.GlobalValues.TickCounter });
-                                    invitedMob.EnqueueMessage($"{performer.KeyWords[0]} has invited you to their party.");
-                                    return new Result($"{invitedMob.KeyWords[0]} has been invited to the party.", true);
-                                }
+                                Invites.Add(new PartyInvite() { Group = group, PartyLeader = performer, Invited = invitedMob, InviteTime = DateTime.Now });
+                                invitedMob.EnqueueMessage($"{performer.KeyWords[0]} has invited you to their party.");
+                                return new Result($"{invitedMob.KeyWords[0]} has been invited to the party.", true);
                             }
                         }
                     }
@@ -61,6 +65,27 @@ namespace Objects.Global.Engine.Engines
                     return new Result("You need to start a party before you can invite someone.", true);
                 }
             }
+        }
+
+        public IResult AcceptPartyInvite(IMobileObject performer)
+        {
+            lock (padLock)
+            {
+                for (int i = Invites.Count - 1; i >= 0; i--)
+                {
+                    IPartyInvite partyInvite = Invites[i];
+                    if (partyInvite.Invited == performer)
+                    {
+                        partyInvite.Group.AddMember(performer);
+                        Invites.RemoveAt(i);
+                        Groups.Add(performer, partyInvite.Group);
+
+                        return new Result($"You join {partyInvite.PartyLeader.KeyWords[0]} party.", true);
+                    }
+                }
+            }
+
+            return new Result($"You do not have any current party invites.", true);
         }
     }
 }

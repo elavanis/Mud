@@ -46,7 +46,7 @@ namespace Objects.Mob.Interface
         Dictionary<string, ISkill> KnownSkills { get; }
         HashSet<Languages> KnownLanguages { get; set; }
 
-        ulong LastProccessedTick { get; set; }
+        uint LastProccessedTick { get; set; }
         int Level { get; set; }
         int LevelPoints { get; set; }
         int Mana { get; set; }

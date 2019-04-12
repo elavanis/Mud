@@ -60,7 +60,7 @@ namespace Objects.Mob
         public IBaseObjectId RecallPoint { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public ulong LastProccessedTick { get; set; } = 0;
+        public uint LastProccessedTick { get; set; } = 0;
 
         [ExcludeFromCodeCoverage]
         public CharacterPosition Position { get; set; } = CharacterPosition.Stand;
