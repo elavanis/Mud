@@ -138,5 +138,23 @@ namespace ObjectsUnitTest.Global.Engine
             Assert.IsTrue(result.AllowAnotherCommand);
         }
 
+        [TestMethod]
+        public void Party_AcceptInvite_NoInvite()
+        {
+            Mock<IPartyInvite> partyInvite = new Mock<IPartyInvite>();
+            partyInvite.Setup(e => e.Group).Returns(group.Object);
+            partyInvite.Setup(e => e.PartyLeader).Returns(performer.Object);
+            partyInvite.Setup(e => e.Invited).Returns(performer.Object);
+            invites.Add(partyInvite.Object);
+
+            IResult result = party.AcceptPartyInvite(invited.Object);
+
+            Assert.AreEqual(1, invites.Count);
+            Assert.IsFalse(groups.ContainsKey(invited.Object));
+            group.Verify(e => e.AddMember(invited.Object), Times.Never);
+            Assert.AreEqual("You do not have any current party invites.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+        }
+
     }
 }
