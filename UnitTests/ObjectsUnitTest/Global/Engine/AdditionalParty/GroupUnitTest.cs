@@ -15,12 +15,13 @@ namespace ObjectsUnitTest.Global.Engine.AdditionalParty
         List<IMobileObject> groupMembers;
         Mock<IMobileObject> mob1;
         Mock<IMobileObject> mob2;
+
         [TestInitialize]
         public void Setup()
         {
             group = new Objects.Global.Engine.Engines.AdditionalParty.Group();
-            PropertyInfo groupMembersPropertyInfo = group.GetType().GetProperty("GroupMembers", BindingFlags.NonPublic | BindingFlags.Instance);
-            groupMembers = (List<IMobileObject>)groupMembersPropertyInfo.GetValue(group);
+            FieldInfo groupMembersFieldInfo = group.GetType().GetField("groupMembers", BindingFlags.NonPublic | BindingFlags.Instance);
+            groupMembers = (List<IMobileObject>)groupMembersFieldInfo.GetValue(group);
             mob1 = new Mock<IMobileObject>();
             mob2 = new Mock<IMobileObject>();
 
@@ -64,6 +65,18 @@ namespace ObjectsUnitTest.Global.Engine.AdditionalParty
             groupMembers.Clear();
 
             Assert.AreEqual(null, group.GroupLeader);
+        }
+
+        [TestMethod]
+        public void Group_GroupMembers()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void Group_IsMember()
+        {
+            Assert.AreEqual(1, 2);
         }
     }
 }

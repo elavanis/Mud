@@ -8,17 +8,17 @@ namespace Objects.Global.Engine.Engines.AdditionalParty
 {
     public class Group : IGroup
     {
-        private List<IMobileObject> GroupMembers { get; } = new List<IMobileObject>();
+        private List<IMobileObject> groupMembers = new List<IMobileObject>();
 
         public IMobileObject GroupLeader
         {
             get
             {
-                lock (GroupMembers)
+                lock (groupMembers)
                 {
                     if (MemberCount > 0)
                     {
-                        return GroupMembers[0];
+                        return groupMembers[0];
                     }
                     else
                     {
@@ -32,25 +32,43 @@ namespace Objects.Global.Engine.Engines.AdditionalParty
         {
             get
             {
-                return GroupMembers.Count;
+                return groupMembers.Count;
+            }
+        }
+
+        public IReadOnlyList<IMobileObject> GroupMembers
+        {
+            get
+            {
+                lock (groupMembers)
+                {
+                    return new List<IMobileObject>(groupMembers).AsReadOnly();
+                }
             }
         }
 
         public void AddMember(IMobileObject mobileObject)
         {
-            lock (GroupMembers)
+            lock (groupMembers)
             {
-                GroupMembers.Add(mobileObject);
+                groupMembers.Add(mobileObject);
             }
         }
 
         public void RemoveMember(IMobileObject mobileObject)
         {
-            lock (GroupMembers)
+            lock (groupMembers)
             {
-                GroupMembers.Remove(mobileObject);
+                groupMembers.Remove(mobileObject);
             }
         }
 
+        public bool IsMember(IMobileObject mobileObject)
+        {
+            lock (groupMembers)
+            {
+                return groupMembers.Contains(mobileObject);
+            };
+        }
     }
 }

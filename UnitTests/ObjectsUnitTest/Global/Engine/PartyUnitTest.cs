@@ -73,6 +73,43 @@ namespace ObjectsUnitTest.Global.Engine
         }
 
         [TestMethod]
+        public void Party_Invite_AlreadyInvited()
+        {
+            Mock<IPartyInvite> partyInvite = new Mock<IPartyInvite>();
+            partyInvite.Setup(e => e.Invited).Returns(invited.Object);
+            invites.Add(partyInvite.Object);
+
+            IResult result = party.Invite(performer.Object, invited.Object);
+
+            Assert.AreEqual("invited already has an invite and will need to either accept or deny first.", result.ResultMessage);
+            Assert.AreEqual(true, result.AllowAnotherCommand);
+        }
+
+        [TestMethod]
+        public void Party_Invite_AlreadyInAParty()
+        {
+            Mock<IGroup> group = new Mock<IGroup>();
+            group.Setup(e => e.IsMember(invited.Object)).Returns(true);
+            groups.Add(invited.Object, group.Object);
+
+            IResult result = party.Invite(performer.Object, invited.Object);
+
+            Assert.AreEqual("invited is already in a party and will need to leave before you can invite them.", result.ResultMessage);
+            Assert.AreEqual(true, result.AllowAnotherCommand);
+        }
+
+        [TestMethod]
+        public void Party_Invite_NotPartyLeader()
+        {
+            group.Setup(e => e.GroupLeader).Returns(invited.Object);
+
+            IResult result = party.Invite(performer.Object, invited.Object);
+
+            Assert.AreEqual("You need to be the party leader to invite people.", result.ResultMessage);
+            Assert.AreEqual(true, result.AllowAnotherCommand);
+        }
+
+        [TestMethod]
         public void Party_Invite_NoParty()
         {
             groups.Clear();

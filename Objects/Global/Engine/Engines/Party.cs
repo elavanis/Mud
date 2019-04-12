@@ -38,7 +38,7 @@ namespace Objects.Global.Engine.Engines
                         {
                             if (Invites.Where(e => e.Invited == invitedMob).Any())
                             {
-                                return new Result($"{invitedMob.KeyWords[0]} is already has an invite and will need to either accept or deny first.", true);
+                                return new Result($"{invitedMob.KeyWords[0]} already has an invite and will need to either accept or deny first.", true);
                             }
                             else
                             {
