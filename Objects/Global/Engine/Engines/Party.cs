@@ -80,7 +80,26 @@ namespace Objects.Global.Engine.Engines
                         Invites.RemoveAt(i);
                         Groups.Add(performer, partyInvite.Group);
 
-                        return new Result($"You join {partyInvite.PartyLeader.KeyWords[0]} party.", true);
+                        return new Result($"You join {partyInvite.PartyLeader.KeyWords[0]}'s party.", true);
+                    }
+                }
+            }
+
+            return new Result($"You do not have any current party invites.", true);
+        }
+
+        public IResult DeclinePartyInvite(IMobileObject performer)
+        {
+            lock (padLock)
+            {
+                for (int i = Invites.Count - 1; i >= 0; i--)
+                {
+                    IPartyInvite partyInvite = Invites[i];
+                    if (partyInvite.Invited == performer)
+                    {
+                        Invites.RemoveAt(i);
+
+                        return new Result($"You declined {partyInvite.PartyLeader.KeyWords[0]}'s party invite.", true);
                     }
                 }
             }

@@ -52,10 +52,26 @@ namespace ObjectsUnitTest.Global.Engine
         }
 
         [TestMethod]
-        public void Party_WriteUnitTests()
+        public void Party_RemoveOldPartyInvites()
         {
-            Assert.AreEqual(1, 2);
+            Mock<IPartyInvite> partyInvite = new Mock<IPartyInvite>();
+            partyInvite.Setup(e => e.PartyLeader).Returns(performer.Object);
+            partyInvite.Setup(e => e.Invited).Returns(performer.Object);
+            partyInvite.Setup(e => e.InviteTime).Returns(new DateTime());
+            invites.Add(partyInvite.Object);
+
+            partyInvite = new Mock<IPartyInvite>();
+            partyInvite.Setup(e => e.PartyLeader).Returns(invited.Object);
+            partyInvite.Setup(e => e.Invited).Returns(invited.Object);
+            partyInvite.Setup(e => e.InviteTime).Returns(DateTime.UtcNow);
+            invites.Add(partyInvite.Object);
+
+            party.RemoveOldPartyInvites();
+
+            Assert.AreEqual(1, invites.Count);
+            Assert.AreEqual(invited.Object, invites[0].Invited);
         }
+
 
         [TestMethod]
         public void Party_Invite_Success()
@@ -134,7 +150,7 @@ namespace ObjectsUnitTest.Global.Engine
             Assert.AreEqual(0, invites.Count);
             Assert.AreEqual(group.Object, groups[invited.Object]);
             group.Verify(e => e.AddMember(invited.Object), Times.Once);
-            Assert.AreEqual("You join performer party.", result.ResultMessage);
+            Assert.AreEqual("You join performer's party.", result.ResultMessage);
             Assert.IsTrue(result.AllowAnotherCommand);
         }
 
@@ -156,5 +172,36 @@ namespace ObjectsUnitTest.Global.Engine
             Assert.IsTrue(result.AllowAnotherCommand);
         }
 
+        [TestMethod]
+        public void Party_DeclineInvite_Success()
+        {
+            Mock<IPartyInvite> partyInvite = new Mock<IPartyInvite>();
+            partyInvite.Setup(e => e.Group).Returns(group.Object);
+            partyInvite.Setup(e => e.PartyLeader).Returns(performer.Object);
+            partyInvite.Setup(e => e.Invited).Returns(invited.Object);
+            invites.Add(partyInvite.Object);
+
+            IResult result = party.DeclinePartyInvite(invited.Object);
+
+            Assert.AreEqual(0, invites.Count);
+            Assert.AreEqual("You declined performer's party invite.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+        }
+
+        [TestMethod]
+        public void Party_DeclineInvite_NoInvite()
+        {
+            Mock<IPartyInvite> partyInvite = new Mock<IPartyInvite>();
+            partyInvite.Setup(e => e.Group).Returns(group.Object);
+            partyInvite.Setup(e => e.PartyLeader).Returns(performer.Object);
+            partyInvite.Setup(e => e.Invited).Returns(performer.Object);
+            invites.Add(partyInvite.Object);
+
+            IResult result = party.DeclinePartyInvite(invited.Object);
+
+            Assert.AreEqual(1, invites.Count);
+            Assert.AreEqual("You do not have any current party invites.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+        }
     }
 }
