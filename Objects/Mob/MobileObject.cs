@@ -627,13 +627,16 @@ namespace Objects.Mob
 
         public void KillMobAndRewardXP(IMobileObject attacker)
         {
-            Die();
+            ICorpse corpse = Die();
             INonPlayerCharacter npc = this as INonPlayerCharacter;
             IPlayerCharacter pc = attacker as IPlayerCharacter;
             if (npc != null && attacker != null)
             {
                 pc.Experience += npc.EXP;
+
+                throw new Exception("Finish adding party check for gold and exp");
             }
+
         }
 
         private decimal GetTypeModifier(DamageType damageType)

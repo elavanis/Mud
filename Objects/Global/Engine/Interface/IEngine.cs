@@ -1,4 +1,5 @@
-﻿using Objects.Global.Engine.Engines.Interface;
+﻿using Objects.Global.Engine.Engines;
+using Objects.Global.Engine.Engines.Interface;
 
 namespace Objects.Global.Engine.Interface
 {
@@ -6,5 +7,6 @@ namespace Objects.Global.Engine.Interface
     {
         ICombat Combat { get; set; }
         IEvent Event { get; set; }
+        IParty Party { get; set; }
     }
 }

@@ -13,10 +13,14 @@ namespace Objects.Global.Engine
         [ExcludeFromCodeCoverage]
         public IEvent Event { get; set; }
 
+        [ExcludeFromCodeCoverage]
+        public IParty Party { get; set; }
+
         public Engine()
         {
             Combat = new Combat();
             Event = new Event();
+            Party = new Party();
         }
     }
 }

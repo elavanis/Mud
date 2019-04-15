@@ -2,15 +2,15 @@
 using Objects.Command.Interface;
 using Objects.Global.Engine.Engines.AdditionalParty;
 using Objects.Global.Engine.Engines.AdditionalParty.Interface;
+using Objects.Global.Engine.Engines.Interface;
 using Objects.Mob.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Objects.Global.Engine.Engines
 {
-    public class Party
+    public class Party : IParty
     {
         private object padLock = new object();
         private Dictionary<IMobileObject, IGroup> Groups { get; } = new Dictionary<IMobileObject, IGroup>();
@@ -105,6 +105,11 @@ namespace Objects.Global.Engine.Engines
             }
 
             return new Result($"You do not have any current party invites.", true);
+        }
+
+        public List<IMobileObject> CurrentPartyMembers(IMobileObject performer)
+        {
+            throw new NotImplementedException();
         }
     }
 }
