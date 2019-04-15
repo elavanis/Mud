@@ -625,7 +625,7 @@ namespace Objects.Mob
             return netDamage;
         }
 
-        public void KillMobAndRewardXP(IMobileObject attacker)
+        private void KillMobAndRewardXP(IMobileObject attacker)
         {
             ICorpse corpse = Die();
             INonPlayerCharacter npc = this as INonPlayerCharacter;
@@ -636,7 +636,6 @@ namespace Objects.Mob
 
                 throw new Exception("Finish adding party check for gold and exp");
             }
-
         }
 
         private decimal GetTypeModifier(DamageType damageType)

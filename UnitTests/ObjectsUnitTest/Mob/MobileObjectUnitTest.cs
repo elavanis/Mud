@@ -904,6 +904,12 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(20, damageDealt);
         }
 
+        [TestMethod]
+        public void MobileObject_TakeDamage_GiveExp()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
 
         [TestMethod]
         public void MobileObject_TakeCombatDamage()
