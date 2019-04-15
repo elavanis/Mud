@@ -205,13 +205,13 @@ namespace ObjectsUnitTest.Global.Engine
         }
 
         [TestMethod]
-        public void Party_CurrentPartyMembers_NotInParty()
+        public void Party_WriteTests_CurrentPartyMembers_NotInParty()
         {
             Assert.AreEqual(1, 2);
         }
 
         [TestMethod]
-        public void Party_CurrentPartyMembers_InParty()
+        public void Party_WriteTests_CurrentPartyMembers_InParty()
         {
             Assert.AreEqual(1, 2);
         }
