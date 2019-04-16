@@ -104,7 +104,6 @@ namespace ObjectsUnitTest.Global.Engine
         [TestMethod]
         public void Party_Invite_AlreadyInAParty()
         {
-            Mock<IGroup> group = new Mock<IGroup>();
             group.Setup(e => e.IsMember(invited.Object)).Returns(true);
             groups.Add(invited.Object, group.Object);
 
@@ -207,13 +206,18 @@ namespace ObjectsUnitTest.Global.Engine
         [TestMethod]
         public void Party_WriteTests_CurrentPartyMembers_NotInParty()
         {
-            Assert.AreEqual(1, 2);
+            List<IMobileObject> expectedList = new List<IMobileObject>() { performer.Object, invited.Object };
+            group.Setup(e => e.GroupMembers).Returns(expectedList);
+
+            IReadOnlyList<IMobileObject> partyMembers = party.CurrentPartyMembers(performer.Object);
+            Assert.AreSame(expectedList, partyMembers);
         }
 
         [TestMethod]
         public void Party_WriteTests_CurrentPartyMembers_InParty()
         {
-            Assert.AreEqual(1, 2);
+            IReadOnlyList<IMobileObject> partyMembers = party.CurrentPartyMembers(invited.Object);
+            Assert.IsNull(partyMembers);
         }
     }
 }

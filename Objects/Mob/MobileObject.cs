@@ -6,6 +6,8 @@ using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items;
 using Objects.Item.Items.Interface;
+using Objects.Language;
+using Objects.Language.Interface;
 using Objects.LoadPercentage.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob.Interface;
@@ -632,9 +634,45 @@ namespace Objects.Mob
             IPlayerCharacter pc = attacker as IPlayerCharacter;
             if (npc != null && attacker != null)
             {
-                pc.Experience += npc.EXP;
+                IReadOnlyList<IMobileObject> partyMembers = GlobalReference.GlobalValues.Engine.Party.CurrentPartyMembers(attacker);
 
-                throw new Exception("Finish adding party check for gold and exp");
+                if (partyMembers == null)
+                {
+                    pc.Experience += npc.EXP;
+                }
+                else
+                {
+                    HandleGroupExpAndGold(attacker, corpse, npc, partyMembers);
+                }
+            }
+        }
+
+        private void HandleGroupExpAndGold(IMobileObject attacker, ICorpse corpse, INonPlayerCharacter npc, IReadOnlyList<IMobileObject> partyMembers)
+        {
+            int exp = npc.EXP / partyMembers.Count;
+
+            ulong gold = 0;
+            for (int i = corpse.Items.Count - 1; i >= 0; i--)
+            {
+                if (corpse.Items[i] is IMoney money)
+                {
+                    gold += money.Value;
+                    corpse.Items.RemoveAt(i);
+                }
+            }
+            gold = gold / (ulong)partyMembers.Count;
+
+            string message = $"{attacker.KeyWords[0]} killed {this.KeyWords[0]}.  You receive {exp} exp and {GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(gold)}.";
+            ITranslationMessage translationMessage = new TranslationMessage(message);
+
+            foreach (IMobileObject mob in partyMembers)
+            {
+                if (mob is IPlayerCharacter pc2)
+                {
+                    pc2.Experience += exp;
+                    pc2.Money += gold;
+                    GlobalReference.GlobalValues.Notify.Mob(pc2, translationMessage);
+                }
             }
         }
 

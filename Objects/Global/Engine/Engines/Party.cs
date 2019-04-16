@@ -107,9 +107,19 @@ namespace Objects.Global.Engine.Engines
             return new Result($"You do not have any current party invites.", true);
         }
 
-        public List<IMobileObject> CurrentPartyMembers(IMobileObject performer)
+        public IReadOnlyList<IMobileObject> CurrentPartyMembers(IMobileObject performer)
         {
-            throw new NotImplementedException();
+            lock (padLock)
+            {
+                if (Groups.TryGetValue(performer, out IGroup performerGroup))
+                {
+                    return performerGroup.GroupMembers;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
     }
 }

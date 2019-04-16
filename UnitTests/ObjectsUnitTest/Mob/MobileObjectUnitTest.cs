@@ -7,6 +7,7 @@ using Objects.Global.Engine.Engines.Interface;
 using Objects.Global.Engine.Interface;
 using Objects.Global.Logging.Interface;
 using Objects.Global.MoneyToCoins.Interface;
+using Objects.Global.Notify.Interface;
 using Objects.Global.Random.Interface;
 using Objects.Global.Serialization.Interface;
 using Objects.Global.Settings.Interface;
@@ -14,9 +15,12 @@ using Objects.Global.Stats;
 using Objects.Global.ValidateAsset.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
+using Objects.Language.Interface;
+using Objects.LevelRange.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob;
 using Objects.Mob.Interface;
+using Objects.Personality.Interface;
 using Objects.Race.Interface;
 using Objects.Race.Races;
 using Objects.Skill.Interface;
@@ -64,6 +68,8 @@ namespace ObjectsUnitTest.Mob
         Mock<IShield> shield;
         Mock<IWeapon> weapon;
         Mock<IEquipment> equipment;
+        Mock<IParty> party;
+        Mock<INotify> notify;
 
         [TestInitialize]
         public void Setup()
@@ -91,6 +97,8 @@ namespace ObjectsUnitTest.Mob
             shield = new Mock<IShield>();
             weapon = new Mock<IWeapon>();
             equipment = new Mock<IEquipment>();
+            party = new Mock<IParty>();
+            notify = new Mock<INotify>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Health)).Returns((string x, TagType y) => (x));
@@ -101,11 +109,13 @@ namespace ObjectsUnitTest.Mob
             evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), It.IsAny<string>())).Returns((IMobileObject x, string y) => (y));
             engine.Setup(e => e.Event).Returns(evnt.Object);
             engine.Setup(e => e.Combat).Returns(combat.Object);
+            engine.Setup(e => e.Party).Returns(party.Object);
             settings.Setup(e => e.AssetsDirectory).Returns(@"c:\");
             settings.Setup(e => e.Multiplier).Returns(1.1d);
             validateAsset.Setup(e => e.GetCheckSum("validateAsset")).Returns("abc");
             serilization.Setup(e => e.Serialize(It.IsAny<Data>())).Returns("serialization");
             fileIO.Setup(e => e.Exists("c:\\test")).Returns(true);
+            pc.Setup(e => e.KeyWords).Returns(new List<string>() { "pc" });
             armor.Setup(e => e.AttributesForMobileObjectsWhenEquiped).Returns(new List<MobileAttribute>() { MobileAttribute.Fly });
             armor.Setup(e => e.Dice).Returns(dice.Object);
             armor.Setup(e => e.GetTypeModifier(DamageType.Slash)).Returns(1);
@@ -131,6 +141,7 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
             GlobalReference.GlobalValues.Random = random.Object;
+            GlobalReference.GlobalValues.Notify = notify.Object;
 
             mob = new UnitTestMobileObject();
             mob.Items.Add(item.Object);
@@ -697,8 +708,36 @@ namespace ObjectsUnitTest.Mob
         }
 
         [TestMethod]
-        public void MobileObject_WriteTests_TakeDamage_GiveExp()
+        public void MobileObject_TakeDamage_GiveExp_InParty()
         {
+            party.Setup(e => e.CurrentPartyMembers(pc.Object)).Returns(new List<IMobileObject>() { pc.Object, mob2.Object });
+            mob.Health = 3;
+            mob.EXP = 100;
+            mob.Money = 20;
+            mob.KeyWords.Add("mob");
+
+            mob.TakeDamage(10, damage.Object, pc.Object);
+
+            pc.VerifySet(e => e.Experience = 50);
+            pc.VerifySet(e => e.Money = 10);
+            notify.Verify(e => e.Mob(pc.Object, It.Is<ITranslationMessage>(f => f.Message == "pc killed mob.  You receive 50 exp and 10 coins.")), Times.Once);
+        }
+
+        [TestMethod]
+        public void MobileObject_TakeDamage_GiveExp_NotInParty()
+        {
+            party.Setup(e => e.CurrentPartyMembers(pc.Object)).Returns(new List<IMobileObject>() { pc.Object, mob2.Object });
+            mob.Health = 3;
+            mob.EXP = 100;
+            mob.Money = 20;
+            mob.KeyWords.Add("mob");
+
+            mob.TakeDamage(10, damage.Object, pc.Object);
+
+            pc.VerifySet(e => e.Experience = 50);
+            pc.VerifySet(e => e.Money = 10);
+            notify.Verify(e => e.Mob(pc.Object, It.Is<ITranslationMessage>(f => f.Message == "pc killed mob.  You receive 50 exp and 10 coins.")), Times.Once);
+
             Assert.AreEqual(1, 2);
         }
 
@@ -1235,9 +1274,33 @@ namespace ObjectsUnitTest.Mob
 
         }
 
-        private class UnitTestMobileObject : MobileObject
+        private class UnitTestMobileObject : MobileObject, INonPlayerCharacter //needed for exp testing
         {
 
+            public int EXP { get; set; }
+
+
+            public int CharismaMax { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public int CharismaMin { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public int ConstitutionMax { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public int ConstitutionMin { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public int DexterityMax { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public int DexterityMin { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public int IntelligenceMax { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public int IntelligenceMin { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public ILevelRange LevelRange { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public List<IEquipment> NpcEquipedEquipment => throw new NotImplementedException();
+            public List<IPersonality> Personalities => throw new NotImplementedException();
+            public int StrengthMax { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public int StrengthMin { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public int WisdomMax { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public int WisdomMin { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            public NonPlayerCharacter.MobType? TypeOfMob { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+            public object Clone()
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private ConcurrentQueue<string> GetMobMessageQueue(IMobileObject mob)

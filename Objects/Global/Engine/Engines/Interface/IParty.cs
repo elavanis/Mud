@@ -10,6 +10,6 @@ namespace Objects.Global.Engine.Engines.Interface
         IResult DeclinePartyInvite(IMobileObject performer);
         IResult Invite(IMobileObject performer, IMobileObject invitedMob);
         void RemoveOldPartyInvites();
-        List<IMobileObject> CurrentPartyMembers(IMobileObject performer);
+        IReadOnlyList<IMobileObject> CurrentPartyMembers(IMobileObject performer);
     }
 }

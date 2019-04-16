@@ -75,7 +75,7 @@ Party {Message To Send To Party}", true);
 
         private IResult Chat(IMobileObject performer, ICommand command)
         {
-            List<IMobileObject> partyMembers = GlobalReference.GlobalValues.Engine.Party.CurrentPartyMembers(performer);
+            IReadOnlyList<IMobileObject> partyMembers = GlobalReference.GlobalValues.Engine.Party.CurrentPartyMembers(performer);
 
             if (partyMembers == null)
             {
