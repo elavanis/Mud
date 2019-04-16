@@ -726,19 +726,16 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void MobileObject_TakeDamage_GiveExp_NotInParty()
         {
-            party.Setup(e => e.CurrentPartyMembers(pc.Object)).Returns(new List<IMobileObject>() { pc.Object, mob2.Object });
             mob.Health = 3;
             mob.EXP = 100;
-            mob.Money = 20;
+            mob.Money = 10;
             mob.KeyWords.Add("mob");
 
             mob.TakeDamage(10, damage.Object, pc.Object);
 
-            pc.VerifySet(e => e.Experience = 50);
-            pc.VerifySet(e => e.Money = 10);
-            notify.Verify(e => e.Mob(pc.Object, It.Is<ITranslationMessage>(f => f.Message == "pc killed mob.  You receive 50 exp and 10 coins.")), Times.Once);
-
-            Assert.AreEqual(1, 2);
+            pc.VerifySet(e => e.Experience = 100);
+            pc.VerifySet(e => e.Money = 10, Times.Never);
+            notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()), Times.Never);
         }
 
         [TestMethod]
