@@ -39,6 +39,7 @@ Party {Message To Send To Party}", true);
                 }
             }
         }
+
         private IResult Invite(IMobileObject performer, ICommand command)
         {
             if (command.Parameters.Count > 2)
@@ -88,7 +89,7 @@ Party {Message To Send To Party}", true);
                 stringBuilder.Append(parameter.ParameterValue + " ");
             }
 
-            string message = $"{performer.KeyWords} party chats -- {stringBuilder.ToString().Trim()}";
+            string message = $"{performer.KeyWords[0]} party chats: {stringBuilder.ToString().Trim()}";
             ITranslationMessage translationMessage = new TranslationMessage(message, TagType.Communication);
             foreach (IMobileObject mob in partyMembers)
             {
