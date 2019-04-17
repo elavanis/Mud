@@ -2,6 +2,8 @@
 using Moq;
 using Objects.Global;
 using Objects.Global.DefaultValues.Interface;
+using Objects.Global.Serialization.Interface;
+using Objects.Item.Interface;
 using Objects.Mob;
 
 namespace ObjectsUnitTest.Item
@@ -11,10 +13,19 @@ namespace ObjectsUnitTest.Item
     {
 
         Objects.Item.Item item;
+        Mock<ISerialization> serialization;
         [TestInitialize]
         public void Setup()
         {
             item = new Objects.Item.Item();
+
+            serialization = new Mock<ISerialization>();
+
+            serialization.Setup(e => e.Serialize(item)).Returns("serial");
+            serialization.Setup(e => e.Deserialize<IItem>("serial")).Returns(new Objects.Item.Item());
+
+            GlobalReference.GlobalValues.Serialization = serialization.Object;
+
         }
 
         [TestMethod]
@@ -62,6 +73,15 @@ namespace ObjectsUnitTest.Item
 
             Assert.AreEqual(1, item.AttributesForMobileObjectsWhenEquiped.Count);
             Assert.AreEqual(attribute, item.AttributesForMobileObjectsWhenEquiped[0]);
+        }
+
+        [TestMethod]
+        public void Item_Clone()
+        {
+            item.Clone();
+
+            serialization.Verify(e => e.Serialize(item), Times.Once);
+            serialization.Verify(e => e.Deserialize<IItem>("serial"), Times.Once);
         }
     }
 }
