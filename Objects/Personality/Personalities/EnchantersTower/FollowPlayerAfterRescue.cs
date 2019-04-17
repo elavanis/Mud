@@ -7,23 +7,26 @@ namespace Objects.Personality.Personalities.EnchantersTower
     {
         public string Process(INonPlayerCharacter npc, string command)
         {
-            if (npc.FollowTarget == null)
+            if (command == null)
             {
-                bool guardFound = false;
-                foreach (INonPlayerCharacter nonPlayerCharacter in npc.Room.NonPlayerCharacters)
+                if (npc.FollowTarget == null)
                 {
-                    if (nonPlayerCharacter.Zone == npc.Zone && nonPlayerCharacter.Id == 11)
+                    bool guardFound = false;
+                    foreach (INonPlayerCharacter nonPlayerCharacter in npc.Room.NonPlayerCharacters)
                     {
-                        guardFound = true;
-                        break;
+                        if (nonPlayerCharacter.Zone == npc.Zone && nonPlayerCharacter.Id == 11)
+                        {
+                            guardFound = true;
+                            break;
+                        }
                     }
-                }
 
-                if (!guardFound)
-                {
-                    if (npc.Room.PlayerCharacters.Count > 0)
+                    if (!guardFound)
                     {
-                        npc.EnqueueCommand($"Follow {npc.Room.PlayerCharacters[0].KeyWords[0]}");
+                        if (npc.Room.PlayerCharacters.Count > 0)
+                        {
+                            npc.EnqueueCommand($"Follow {npc.Room.PlayerCharacters[0].KeyWords[0]}");
+                        }
                     }
                 }
             }

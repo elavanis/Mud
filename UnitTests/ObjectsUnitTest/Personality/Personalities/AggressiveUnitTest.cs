@@ -37,7 +37,6 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestMethod]
         public void Aggressive_Process_NoPcInRoom()
         {
-
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
 
             Assert.IsNull(aggressive.Process(npc.Object, null));

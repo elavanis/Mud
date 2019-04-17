@@ -72,12 +72,6 @@ namespace ObjectsUnitTest.Command.PC
         }
 
         [TestMethod]
-        public void Party_WritePartyUnitTests()
-        {
-            Assert.AreEqual(1, 2);
-        }
-
-        [TestMethod]
         public void Party_Instructions()
         {
             IResult result = command.Instructions;
