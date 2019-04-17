@@ -25,7 +25,6 @@ namespace ObjectsUnitTest.Item
             serialization.Setup(e => e.Deserialize<IItem>("serial")).Returns(new Objects.Item.Item());
 
             GlobalReference.GlobalValues.Serialization = serialization.Object;
-
         }
 
         [TestMethod]
