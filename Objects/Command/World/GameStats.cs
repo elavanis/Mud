@@ -18,6 +18,7 @@ namespace Objects.Command.World
             float memoryConsumption = Process.GetCurrentProcess().WorkingSet64 / (1024f * 1024f);
             memoryConsumption = (float)Math.Round(memoryConsumption, 2);
 
+            strBldr.AppendLine(GlobalReference.GlobalValues.GameDateTime.GameDateTime.ToString());
             strBldr.AppendLine(string.Format("Memory: {0} Megs", memoryConsumption));
             strBldr.AppendLine(string.Format("UpTime: {0}", GlobalReference.GlobalValues.UpTime.FormatedUpTime(GlobalReference.GlobalValues.StartTime)));
             strBldr.AppendLine(GlobalReference.GlobalValues.TickTimes.Times);

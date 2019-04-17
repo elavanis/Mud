@@ -100,14 +100,14 @@ namespace GenerateZones.Zones.GrandView
             }
 
             HeartbeatBigTickEnchantment enchantmentSkeleton = new HeartbeatBigTickEnchantment();
-            enchantmentSkeleton.ActivationPercent = .4;
+            enchantmentSkeleton.ActivationPercent = .1;
             enchantmentSkeleton.Effect = new LoadMob() { HoursToLoad = hoursToSpawnUndead };
             enchantmentSkeleton.Parameter = new EffectParameter() { Performer = Skeleton(), RoomMessage = new TranslationMessage("The skeleton rises slowly out of its grave.") };
 
             HeartbeatBigTickEnchantment enchantmentZombie = new HeartbeatBigTickEnchantment();
-            enchantmentSkeleton.ActivationPercent = .4;
+            enchantmentSkeleton.ActivationPercent = .1;
             enchantmentZombie.Effect = new LoadMob() { HoursToLoad = hoursToSpawnUndead };
-            enchantmentZombie.Parameter = new EffectParameter() { Performer = Zombie(), RoomMessage = new TranslationMessage("A Zombie burst forth from it grave hungry for brains.") };
+            enchantmentZombie.Parameter = new EffectParameter() { Performer = Zombie(), RoomMessage = new TranslationMessage("A zombie burst forth from it grave hungry for brains.") };
 
             foreach (IRoom room in Zone.Rooms.Values)
             {
