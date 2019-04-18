@@ -42,29 +42,30 @@ namespace Objects.Ability
         }
 
         [ExcludeFromCodeCoverage]
-        public IResult AbilityFailed(IMobileObject performer, IMobileObject target)
+        public virtual IResult RequirementsFailureMessage { get => new Result("Unspecified requirements failure", true); }
+
+
+        [ExcludeFromCodeCoverage]
+        protected IResult AbilityFailed(IMobileObject performer, IMobileObject target)
         {
             throw new NotImplementedException();
         }
 
 
         [ExcludeFromCodeCoverage]
-        public virtual bool MeetRequirments(IMobileObject performer, IMobileObject target)
+        protected virtual bool MeetRequirments(IMobileObject performer, IMobileObject target)
         {
             return true;
         }
 
         [ExcludeFromCodeCoverage]
-        public virtual bool IsSuccessful(IMobileObject performer, IMobileObject target)
+        protected virtual bool IsSuccessful(IMobileObject performer, IMobileObject target)
         {
             return true;
         }
 
         [ExcludeFromCodeCoverage]
-        public virtual IResult RequirementsFailureMessage { get => new Result("Unspecified requirements failure", true); }
-
-        [ExcludeFromCodeCoverage]
-        public virtual void AdditionalEffect(IMobileObject performer, IMobileObject target)
+        protected virtual void AdditionalEffect(IMobileObject performer, IMobileObject target)
         {
 
         }

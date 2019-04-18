@@ -24,7 +24,9 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
 
         public override string TeachMessage => "If your opponent has no weapon then they can't hurt you.";
 
-        public override bool MeetRequirments(IMobileObject performer, IMobileObject target)
+        public override IResult RequirementsFailureMessage => new Result("You can not disarm an unarmed opponent.", true, Shared.TagWrapper.TagWrapper.TagType.Info);
+
+        protected override bool MeetRequirments(IMobileObject performer, IMobileObject target)
         {
             IWeapon weapon = target.EquipedWeapon.FirstOrDefault();
             if (weapon.KeyWords[0] == "BareHands")
@@ -37,10 +39,7 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
             }
         }
 
-        public override IResult RequirementsFailureMessage => new Result("You can not disarm an unarmed opponent.", true, Shared.TagWrapper.TagWrapper.TagType.Info);
-
-
-        public override bool IsSuccessful(IMobileObject performer, IMobileObject target)
+        protected override bool IsSuccessful(IMobileObject performer, IMobileObject target)
         {
             if (GlobalReference.GlobalValues.Random.Next(performer.StrengthEffective)
                 >= GlobalReference.GlobalValues.Random.Next(target.StrengthEffective))
@@ -53,7 +52,7 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
             }
         }
 
-        public override void AdditionalEffect(IMobileObject performer, IMobileObject target)
+        protected override void AdditionalEffect(IMobileObject performer, IMobileObject target)
         {
             foreach (IWeapon weapon in target.EquipedWeapon)
             {

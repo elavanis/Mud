@@ -25,7 +25,7 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
 
         public override string TeachMessage => "Throw some dirt from the ground in your opponent eyes and they will be blinded.";
 
-        public override void AdditionalEffect(IMobileObject performer, IMobileObject target)
+        protected override void AdditionalEffect(IMobileObject performer, IMobileObject target)
         {
             //notify the target what is happening since it doesn't happen earlier;
             ITranslationMessage message = new TranslationMessage(GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(performer.SentenceDescription, target.SentenceDescription, TargetNotificationSuccess.Message));

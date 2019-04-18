@@ -56,25 +56,31 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
         }
 
         [TestMethod]
-        public void SpittingCobra_AdditionalEffect()
+        public void SpittingCobra_WriteTests()
         {
-            spittingCobra.AdditionalEffect(performer.Object, target.Object);
-
-            Assert.AreEqual(1, enchantments.Count);
-
-            IEnchantment addedEnchantment = enchantments[0];
-
-            Assert.AreEqual(100, addedEnchantment.ActivationPercent);
-            Assert.IsTrue(addedEnchantment.Effect is Objects.Effect.Damage);
-            Assert.AreEqual(new DateTime(9999, 1, 1), addedEnchantment.EnchantmentEndingDateTime);
-
-            Assert.AreEqual(Stats.Stat.Constitution, addedEnchantment.DefeatInfo.MobStat);
-            Assert.AreEqual(9, addedEnchantment.DefeatInfo.CurrentEnchantmentPoints);
-
-            Assert.AreEqual("Poison burns your face.", addedEnchantment.Parameter.TargetMessage.Message);
-            Assert.IsNotNull(addedEnchantment.Parameter.Damage);
-            Assert.AreSame(dice.Object, addedEnchantment.Parameter.Damage.Dice);
-            Assert.AreEqual(DamageType.Poison, addedEnchantment.Parameter.Damage.Type);
+            Assert.AreEqual(1, 2);
         }
+
+        //[TestMethod]
+        //public void SpittingCobra_AdditionalEffect()
+        //{
+        //    spittingCobra.AdditionalEffect(performer.Object, target.Object);
+
+        //    Assert.AreEqual(1, enchantments.Count);
+
+        //    IEnchantment addedEnchantment = enchantments[0];
+
+        //    Assert.AreEqual(100, addedEnchantment.ActivationPercent);
+        //    Assert.IsTrue(addedEnchantment.Effect is Objects.Effect.Damage);
+        //    Assert.AreEqual(new DateTime(9999, 1, 1), addedEnchantment.EnchantmentEndingDateTime);
+
+        //    Assert.AreEqual(Stats.Stat.Constitution, addedEnchantment.DefeatInfo.MobStat);
+        //    Assert.AreEqual(9, addedEnchantment.DefeatInfo.CurrentEnchantmentPoints);
+
+        //    Assert.AreEqual("Poison burns your face.", addedEnchantment.Parameter.TargetMessage.Message);
+        //    Assert.IsNotNull(addedEnchantment.Parameter.Damage);
+        //    Assert.AreSame(dice.Object, addedEnchantment.Parameter.Damage.Dice);
+        //    Assert.AreEqual(DamageType.Poison, addedEnchantment.Parameter.Damage.Type);
+        //}
     }
 }

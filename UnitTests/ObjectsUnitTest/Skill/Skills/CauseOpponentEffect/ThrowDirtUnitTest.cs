@@ -59,20 +59,26 @@ namespace ObjectsUnitTest.Skill.Skills.CauseOpponentEffect
             Assert.AreEqual(expected, throwDirt.TeachMessage);
         }
 
-        [TestMethod]
-        public void ThrowDirt_AdditionalEffect()
-        {
-            throwDirt.AdditionalEffect(performer.Object, target.Object);
+        //[TestMethod]
+        //public void ThrowDirt_AdditionalEffect()
+        //{
+        //    throwDirt.AdditionalEffect(performer.Object, target.Object);
 
-            notify.Verify(e => e.Mob(target.Object, It.IsAny<ITranslationMessage>()));
-            Assert.AreEqual(1, enchantments.Count);
-            IEnchantment enchantment = enchantments[0];
-            Assert.IsTrue(enchantment is HeartbeatBigTickEnchantment);
-            Assert.IsTrue(enchantment.Effect is Blindness);
-            Assert.AreEqual(100, enchantment.ActivationPercent);
-            Assert.AreEqual(9999, enchantment.EnchantmentEndingDateTime.Year);
-            Assert.AreEqual(performer.Object.StrengthEffective, enchantment.DefeatInfo.CurrentEnchantmentPoints);
-            Assert.AreEqual(Stat.Constitution, enchantment.DefeatInfo.MobStat);
+        //    notify.Verify(e => e.Mob(target.Object, It.IsAny<ITranslationMessage>()));
+        //    Assert.AreEqual(1, enchantments.Count);
+        //    IEnchantment enchantment = enchantments[0];
+        //    Assert.IsTrue(enchantment is HeartbeatBigTickEnchantment);
+        //    Assert.IsTrue(enchantment.Effect is Blindness);
+        //    Assert.AreEqual(100, enchantment.ActivationPercent);
+        //    Assert.AreEqual(9999, enchantment.EnchantmentEndingDateTime.Year);
+        //    Assert.AreEqual(performer.Object.StrengthEffective, enchantment.DefeatInfo.CurrentEnchantmentPoints);
+        //    Assert.AreEqual(Stat.Constitution, enchantment.DefeatInfo.MobStat);
+        //}
+
+        [TestMethod]
+        public void ThrowDirt_WriteTests()
+        {
+            Assert.AreEqual(1, 2);
         }
     }
 }
