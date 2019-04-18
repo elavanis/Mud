@@ -58,18 +58,24 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
             Assert.AreEqual(expected, thicketOfBlades.TeachMessage);
         }
 
-        [TestMethod]
-        public void ThicketOfBlades_MeetRequirements_True()
-        {
-            Assert.IsTrue(thicketOfBlades.MeetRequirments(performer.Object, target.Object));
-        }
+        //[TestMethod]
+        //public void ThicketOfBlades_MeetRequirements_True()
+        //{
+        //    Assert.IsTrue(thicketOfBlades.MeetRequirments(performer.Object, target.Object));
+        //}
+
+        //[TestMethod]
+        //public void ThicketOfBlades_MeetRequirements_False()
+        //{
+        //    damage.Setup(e => e.Type).Returns(DamageType.Pierce);
+
+        //    Assert.IsFalse(thicketOfBlades.MeetRequirments(performer.Object, target.Object));
+        //}
 
         [TestMethod]
-        public void ThicketOfBlades_MeetRequirements_False()
+        public void ThicketOfBlades_WriteTests()
         {
-            damage.Setup(e => e.Type).Returns(DamageType.Pierce);
-
-            Assert.IsFalse(thicketOfBlades.MeetRequirments(performer.Object, target.Object));
+            Assert.AreEqual(1, 2);
         }
     }
 }

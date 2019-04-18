@@ -42,25 +42,33 @@ namespace Objects.Skill
 
         public virtual IResult ProcessSkill(IMobileObject performer, ICommand command)
         {
-            if (performer.Stamina > StaminaCost)
+            IMobileObject targetMob = Parameter.Target as IMobileObject;
+
+            if (MeetRequirments(performer, targetMob))
             {
-                performer.Stamina -= StaminaCost;
-                SetParameterFields(performer);
-
-                IMobileObject targetMob = Parameter.Target as IMobileObject;
-
-                if (IsSuccessful(performer, targetMob))
+                if (performer.Stamina >= StaminaCost)
                 {
-                    return PerformSuccess(performer, targetMob);
+                    performer.Stamina -= StaminaCost;
+                    SetParameterFields(performer);
+
+
+                    if (IsSuccessful(performer, targetMob))
+                    {
+                        return PerformSuccess(performer, targetMob);
+                    }
+                    else
+                    {
+                        return PerformFailure(performer, targetMob);
+                    }
                 }
                 else
                 {
-                    return PerformFailure(performer, targetMob);
+                    return new Result($"You need {StaminaCost} stamina to use the skill {command.Parameters[0].ParameterValue}.", true);
                 }
             }
             else
             {
-                return new Result($"You need {StaminaCost} stamina to use the skill {command.Parameters[0].ParameterValue}.", true);
+                return RequirementsFailureMessage;
             }
         }
 
@@ -71,8 +79,7 @@ namespace Objects.Skill
             Parameter.RoomMessage = RoomNotificationFailure;
 
             List<IMobileObject> exclusions = new List<IMobileObject>() { performer };
-            if (targetMob != null
-                && !exclusions.Contains(targetMob))
+            if (targetMob != null)
             {
                 exclusions.Add(targetMob);
             }

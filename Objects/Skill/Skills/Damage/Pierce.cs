@@ -23,7 +23,9 @@ namespace Objects.Skill.Skills.Damage
 
         public override string TeachMessage => "Keep the pointy end of the weapon toward your opponent and thrust.";
 
-        public override bool MeetRequirments(IMobileObject performer, IMobileObject target)
+        public override IResult RequirementsFailureMessage => new Result("You must have a piercing weapon equipped.", true, Shared.TagWrapper.TagWrapper.TagType.Info);
+
+        protected override bool MeetRequirments(IMobileObject performer, IMobileObject target)
         {
             foreach (IWeapon weapon in performer.EquipedWeapon)
             {
@@ -39,6 +41,5 @@ namespace Objects.Skill.Skills.Damage
             return false;
         }
 
-        public override IResult RequirementsFailureMessage => new Result("You must have a piercing weapon equipped.", true, Shared.TagWrapper.TagWrapper.TagType.Info);
     }
 }

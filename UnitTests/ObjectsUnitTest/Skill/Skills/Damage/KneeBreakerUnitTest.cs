@@ -14,7 +14,8 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
     public class KneeBreakerUnitTest
     {
         KneeBreaker kneeBreaker;
-        Mock<IMobileObject> mob;
+        Mock<IMobileObject> performer;
+        Mock<IMobileObject> target;
         Mock<IDefaultValues> defaultValue;
         Mock<IDice> dice;
         Mock<ITagWrapper> tagWrapper;
@@ -24,7 +25,8 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            mob = new Mock<IMobileObject>();
+            performer = new Mock<IMobileObject>();
+            target = new Mock<IMobileObject>();
             defaultValue = new Mock<IDefaultValues>();
             dice = new Mock<IDice>();
             tagWrapper = new Mock<ITagWrapper>();
@@ -40,6 +42,13 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
 
         [TestMethod]
         public void KneeBreaker_TeachMessage()
+        {
+            string expected = "Kicking the opponents knee will cause them to loose mobility.";
+            Assert.AreEqual(expected, kneeBreaker.TeachMessage);
+        }
+
+        [TestMethod]
+        public void KneeBreaker_AdditioanlEffect()
         {
             string expected = "Kicking the opponents knee will cause them to loose mobility.";
             Assert.AreEqual(expected, kneeBreaker.TeachMessage);

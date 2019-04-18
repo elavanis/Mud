@@ -21,15 +21,12 @@ namespace Objects.Ability.Interface
         IEffectParameter Parameter { get; set; }
 
         IResult PerformAbility(IMobileObject performer, ICommand command);
-        IResult AbilityFailed(IMobileObject performer, IMobileObject target);
-
-        bool MeetRequirments(IMobileObject performer, IMobileObject target);
-
-        bool IsSuccessful(IMobileObject performer, IMobileObject target);
-
-
         IResult RequirementsFailureMessage { get; }
 
-        void AdditionalEffect(IMobileObject performer, IMobileObject target);
+        //IResult AbilityFailed(IMobileObject performer, IMobileObject target);
+
+        //bool MeetRequirments(IMobileObject performer, IMobileObject target);
+
+        //bool IsSuccessful(IMobileObject performer, IMobileObject target);
     }
 }

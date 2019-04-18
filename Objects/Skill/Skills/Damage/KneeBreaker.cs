@@ -19,7 +19,7 @@ namespace Objects.Skill.Skills.Damage
 
         public override string TeachMessage => "Kicking the opponents knee will cause them to loose mobility.";
 
-        public override void AdditionalEffect(IMobileObject performer, IMobileObject target)
+        protected override void AdditionalEffect(IMobileObject performer, IMobileObject target)
         {
             target.Stamina = target.Stamina / 2;
         }

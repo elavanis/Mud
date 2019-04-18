@@ -26,7 +26,7 @@ namespace Objects.Skill.Skills.Damage
 
         public override string TeachMessage => "Sometimes when fighting we look to animals for inspiration.  Put this pill in your mouth.  Crush it and spit its contents in your opponent's face like a spitting cobra.";
 
-        public override void AdditionalEffect(IMobileObject performer, IMobileObject target)
+        protected override void AdditionalEffect(IMobileObject performer, IMobileObject target)
         {
             IEnchantment enchantment = new Magic.Enchantment.HeartbeatBigTickEnchantment();
             IEffect effect = new Objects.Effect.Damage();

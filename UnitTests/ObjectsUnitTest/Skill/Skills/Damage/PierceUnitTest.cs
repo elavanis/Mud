@@ -50,25 +50,31 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
         }
 
         [TestMethod]
-        public void Pierce_MeetRequirments_Fail()
+        public void Pierce_WriteTests()
         {
-            Assert.IsFalse(pierce.MeetRequirments(mob.Object, mob.Object));
+            Assert.AreEqual(1, 2);
         }
 
-        [TestMethod]
-        public void Pierce_MeetRequirments_Pass()
-        {
-            List<IWeapon> weapons = new List<IWeapon>();
-            Mock<IWeapon> weapon = new Mock<IWeapon>();
-            Mock<IDamage> damage = new Mock<IDamage>();
+        //[TestMethod]
+        //public void Pierce_MeetRequirments_Fail()
+        //{
+        //    Assert.IsFalse(pierce.MeetRequirments(mob.Object, mob.Object));
+        //}
 
-            weapons.Add(weapon.Object);
-            weapon.Setup(e => e.DamageList).Returns(new List<IDamage>() { damage.Object });
-            damage.Setup(e => e.Type).Returns(Objects.Damage.Damage.DamageType.Pierce);
-            mob.Setup(e => e.EquipedWeapon).Returns(weapons);
+        //[TestMethod]
+        //public void Pierce_MeetRequirments_Pass()
+        //{
+        //    List<IWeapon> weapons = new List<IWeapon>();
+        //    Mock<IWeapon> weapon = new Mock<IWeapon>();
+        //    Mock<IDamage> damage = new Mock<IDamage>();
 
-            Assert.IsTrue(pierce.MeetRequirments(mob.Object, mob.Object));
-        }
+        //    weapons.Add(weapon.Object);
+        //    weapon.Setup(e => e.DamageList).Returns(new List<IDamage>() { damage.Object });
+        //    damage.Setup(e => e.Type).Returns(Objects.Damage.Damage.DamageType.Pierce);
+        //    mob.Setup(e => e.EquipedWeapon).Returns(weapons);
+
+        //    Assert.IsTrue(pierce.MeetRequirments(mob.Object, mob.Object));
+        //}
 
         [TestMethod]
         public void Pierce_RequirementsFailureMessage()
