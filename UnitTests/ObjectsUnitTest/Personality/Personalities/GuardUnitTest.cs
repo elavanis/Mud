@@ -24,6 +24,8 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             guard = new Guard();
             npc = new Mock<INonPlayerCharacter>();
             npc2 = new Mock<INonPlayerCharacter>();

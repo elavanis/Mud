@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Mob;
 using Objects.Race.Races;
 
@@ -12,6 +13,8 @@ namespace ObjectsUnitTest.Race
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             angel = new Angel();
         }
 

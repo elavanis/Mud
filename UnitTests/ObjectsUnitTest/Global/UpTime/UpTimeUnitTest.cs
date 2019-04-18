@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 
 namespace ObjectsUnitTest.Global.UpTime
 {
@@ -11,6 +12,8 @@ namespace ObjectsUnitTest.Global.UpTime
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             updtime = new Objects.Global.UpTime.UpTime();
         }
 

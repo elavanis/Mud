@@ -19,6 +19,8 @@ namespace ObjectsUnitTest.Global.ValidateAsset
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             validateAsset = new Objects.Global.ValidateAsset.ValidateAsset();
             FieldInfo fieldInfo = validateAsset.GetType().GetField("assetHashes", BindingFlags.NonPublic | BindingFlags.Instance);
             assetHashes = (ConcurrentDictionary<string, string>)fieldInfo.GetValue(validateAsset);

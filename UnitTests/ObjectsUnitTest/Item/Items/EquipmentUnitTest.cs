@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Item.Items;
 using static Objects.Item.Items.Equipment;
 
@@ -12,6 +13,8 @@ namespace ObjectsUnitTest.Item.Items
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             equipment = new Equipment();
         }
 

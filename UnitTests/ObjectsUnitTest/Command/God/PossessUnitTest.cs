@@ -30,6 +30,8 @@ namespace ObjectsUnitTest.Command.God
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             tagWrapper = new Mock<ITagWrapper>();
             mob = new Mock<IMobileObject>();
             commandMock = new Mock<ICommand>();

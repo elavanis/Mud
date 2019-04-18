@@ -25,6 +25,8 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             tagWrapper = new Mock<ITagWrapper>();
             mockMerchant = new Mock<INonPlayerCharacter>();
             mockMobileObject = new Mock<IMobileObject>();

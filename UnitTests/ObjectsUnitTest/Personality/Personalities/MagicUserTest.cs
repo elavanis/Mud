@@ -30,6 +30,8 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             defaultValues = new Mock<IDefaultValues>();
             tagwrapper = new Mock<ITagWrapper>();
             defaultValues.Setup(e => e.ReduceValues(1, 2)).Returns(new Dice(1, 2));

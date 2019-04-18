@@ -22,6 +22,8 @@ namespace ObjectsUnitTest.Magic.Spell.Damage
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             defaultValues = new Mock<IDefaultValues>();
             dice = new Mock<IDice>();
             tagWrapper = new Mock<ITagWrapper>();

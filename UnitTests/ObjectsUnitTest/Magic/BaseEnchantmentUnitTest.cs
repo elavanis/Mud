@@ -15,6 +15,8 @@ namespace ObjectsUnitTest.Magic
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             enchantment = new UnitTestBaseEnchantment();
             random = new Mock<IRandom>();
             random.Setup(e => e.PercentDiceRoll(0)).Returns(false);

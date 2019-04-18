@@ -28,6 +28,8 @@ namespace ObjectsUnitTest.Global.Random
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             randomDropGenerator = new RandomDropGenerator();
             defaultValues = new Mock<IDefaultValues>();
             random = new Mock<IRandom>();

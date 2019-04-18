@@ -28,6 +28,8 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             singleTargetSkill = new Mock<SingleTargetSkill>("abc");
             npc = new Mock<INonPlayerCharacter>();
             npc2 = new Mock<INonPlayerCharacter>();

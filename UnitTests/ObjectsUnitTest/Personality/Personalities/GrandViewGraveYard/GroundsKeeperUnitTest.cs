@@ -26,6 +26,8 @@ namespace ObjectsUnitTest.Personality.Personalities.GrandViewGraveYard
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             groundsKeeper = new GroundsKeeper();
             npc = new Mock<INonPlayerCharacter>();
             room = new Mock<IRoom>();

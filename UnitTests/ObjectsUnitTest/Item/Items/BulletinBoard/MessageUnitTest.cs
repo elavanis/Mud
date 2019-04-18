@@ -18,6 +18,8 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             mob = new Mock<IMobileObject>();
             translator = new Mock<ITranslator>();
 

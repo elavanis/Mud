@@ -28,6 +28,8 @@ namespace ObjectsUnitTest.Effect
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             say = new Message();
             effectParameter = new Mock<IEffectParameter>();
             room = new Mock<IRoom>();

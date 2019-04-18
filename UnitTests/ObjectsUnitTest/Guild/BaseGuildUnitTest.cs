@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Guild;
 using System.Collections.Generic;
 
@@ -12,6 +13,8 @@ namespace ObjectsUnitTest.Guild
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             baseGuild = new UnitTestBaseGuild();
         }
 

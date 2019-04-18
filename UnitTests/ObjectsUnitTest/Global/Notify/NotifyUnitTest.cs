@@ -26,6 +26,8 @@ namespace ObjectsUnitTest.Global.Notify
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             notify = new Objects.Global.Notify.Notify();
             npc = new Mock<INonPlayerCharacter>();
             pc = new Mock<IPlayerCharacter>();

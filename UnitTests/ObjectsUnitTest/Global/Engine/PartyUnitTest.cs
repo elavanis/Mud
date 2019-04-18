@@ -29,6 +29,8 @@ namespace ObjectsUnitTest.Global.Engine
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             party = new Party();
             performer = new Mock<IMobileObject>();
             invited = new Mock<IMobileObject>();

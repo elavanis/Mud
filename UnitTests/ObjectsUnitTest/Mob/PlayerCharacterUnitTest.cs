@@ -29,6 +29,8 @@ namespace ObjectsUnitTest.Mob
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             pc = new PlayerCharacter();
             settings = new Mock<ISettings>();
 

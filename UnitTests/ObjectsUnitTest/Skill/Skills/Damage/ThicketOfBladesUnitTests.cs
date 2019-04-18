@@ -29,6 +29,8 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             defaultValue = new Mock<IDefaultValues>();
             dice = new Mock<IDice>();
             tagWrapper = new Mock<ITagWrapper>();

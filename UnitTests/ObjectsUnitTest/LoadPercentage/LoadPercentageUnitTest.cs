@@ -11,6 +11,12 @@ namespace ObjectsUnitTest.LoadPercentage
     [TestClass]
     public class LoadPercentageUnitTest
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            GlobalReference.GlobalValues = new GlobalValues();
+        }
+
         [TestMethod]
         public void LoadPercentage_Load()
         {

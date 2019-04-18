@@ -38,6 +38,8 @@ namespace ObjectsUnitTest.Item.Items.EnchantersTower
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             enchantingTable = new EnchantingTable();
             item = new Mock<IItem>();
             room = new Mock<IRoom>();

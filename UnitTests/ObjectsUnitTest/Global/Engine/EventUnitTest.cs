@@ -42,6 +42,8 @@ namespace ObjectsUnitTest.Global.Engine
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             evnt = new Event();
             tagWrapper = new Mock<ITagWrapper>();
             logger = new Mock<ILogger>();

@@ -31,6 +31,8 @@ namespace ObjectsUnitTest.Command.PC
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             tagWrapper = new Mock<ITagWrapper>();
             mob = new Mock<IMobileObject>();
             cando = new Mock<ICanMobDoSomething>();

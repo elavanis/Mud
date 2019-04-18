@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 using System.Collections.Generic;
+using Objects.Global;
 
 namespace ObjectsUnitTest.Global.TickTimes
 {
@@ -13,6 +14,8 @@ namespace ObjectsUnitTest.Global.TickTimes
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             tickTimes = new Objects.Global.TickTimes.TickTimes();
         }
 

@@ -20,6 +20,8 @@ namespace ObjectsUnitTest.Effect
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             respawn = new Objects.Effect.SetRespawnPoint();
             pc = new Mock<IPlayerCharacter>();
             parameter = new Mock<IEffectParameter>();

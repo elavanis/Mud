@@ -24,6 +24,8 @@ namespace ObjectsUnitTest.Language
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             mob = new Mock<IMobileObject>();
             translationPair = new Mock<ITranslationPair>();
             tagWrapper = new Mock<ITagWrapper>();

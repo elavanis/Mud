@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Objects.Global;
 using Objects.Personality.Personalities.ResponderMisc;
 using Objects.Personality.Personalities.ResponderMisc.Interface;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace ObjectsUnitTest.Personality.Personalities.ResponderMisc
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             response = new Response();
             optionalWords = new Mock<IOptionalWords>();
             optionalWords2 = new Mock<IOptionalWords>();

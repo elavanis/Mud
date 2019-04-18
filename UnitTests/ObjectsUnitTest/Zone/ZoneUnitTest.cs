@@ -28,6 +28,8 @@ namespace ObjectsUnitTest.Zone
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             zone = new Objects.Zone.Zone();
             room = new Mock<IRoom>();
             item = new Mock<IItem>();

@@ -19,6 +19,8 @@ namespace ObjectsUnitTest.Global.Commands
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             GlobalReference.GlobalValues.TagWrapper = new Mock<ITagWrapper>().Object;
 
             commandList = new CommandList();

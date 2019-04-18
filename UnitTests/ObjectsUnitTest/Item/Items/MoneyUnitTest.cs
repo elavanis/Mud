@@ -14,6 +14,8 @@ namespace ObjectsUnitTest.Item.Items
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             Mock<IMoneyToCoins> moneyToCoins = new Mock<IMoneyToCoins>();
             moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("Zero");
             moneyToCoins.Setup(e => e.FormatedAsCoins(1)).Returns("One");

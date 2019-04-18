@@ -24,6 +24,8 @@ namespace ObjectsUnitTest.Effect
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             tell = new Objects.Effect.Tell();
             pc = new Mock<IPlayerCharacter>();
             npc = new Mock<INonPlayerCharacter>();

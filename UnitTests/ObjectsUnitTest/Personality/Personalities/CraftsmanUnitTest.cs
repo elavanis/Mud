@@ -32,6 +32,8 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             craftsman = new Craftsman();
             npc = new Mock<INonPlayerCharacter>();
             pc = new Mock<IPlayerCharacter>();

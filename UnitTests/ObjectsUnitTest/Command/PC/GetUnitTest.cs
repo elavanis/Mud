@@ -33,6 +33,8 @@ namespace ObjectsUnitTest.Command.PC
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             tagWrapper = new Mock<ITagWrapper>();
             engine = new Mock<IEngine>();
             mockEvent = new Mock<IEvent>();

@@ -22,6 +22,8 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             healer = new Healer();
             npc = new Mock<INonPlayerCharacter>();
             room = new Mock<IRoom>();

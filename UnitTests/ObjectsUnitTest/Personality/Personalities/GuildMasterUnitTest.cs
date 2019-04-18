@@ -30,6 +30,8 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             guildMaster = new GuildMaster();
             guildMaster.Guild = Guilds.Wizard;
 

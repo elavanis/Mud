@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Objects.Global;
 using Objects.Mob.SpecificNPC.Interface;
 using Objects.Personality.Personalities;
 
@@ -13,6 +14,8 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             elementalMob = new Mock<IElemental>();
             elemental = new Elemental();
         }

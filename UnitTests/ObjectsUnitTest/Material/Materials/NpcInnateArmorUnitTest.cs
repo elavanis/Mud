@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Objects.Global;
 using Objects.Material.Materials;
 using Objects.Mob.Interface;
 using Objects.Race.Interface;
@@ -14,6 +15,8 @@ namespace ObjectsUnitTest.Material.Materials
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             npc = new Mock<INonPlayerCharacter>();
             Mock<IRace> race = new Mock<IRace>();
             race.Setup(e => e.Bludgeon).Returns(1);

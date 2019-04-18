@@ -32,6 +32,8 @@ namespace ObjectsUnitTest.Skill.Skills.CauseOpponentEffect
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             mob = new Mock<IMobileObject>();
             tagWrapper = new Mock<ITagWrapper>();
             target = new Mock<IMobileObject>();

@@ -15,6 +15,8 @@ namespace ObjectsUnitTest
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             //because base object is abstract...
             baseObject = new UnitTestBaseObject();
         }

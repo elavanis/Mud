@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 
 namespace ObjectsUnitTest.Global.Random
 {
@@ -10,6 +11,8 @@ namespace ObjectsUnitTest.Global.Random
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             random = new Objects.Global.Random.Random();
         }
 

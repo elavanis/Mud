@@ -33,6 +33,8 @@ namespace ObjectsUnitTest.Effect.Zone.EndlessDesert
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             doorwayToUnderworld = new DoorwayToUnderworld();
             room = new Mock<IRoom>();
             effectParameter = new Mock<IEffectParameter>();

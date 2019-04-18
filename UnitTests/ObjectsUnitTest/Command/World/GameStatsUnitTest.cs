@@ -23,6 +23,8 @@ namespace ObjectsUnitTest.Command.World
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             gameStats = new GameStats();
         }
 

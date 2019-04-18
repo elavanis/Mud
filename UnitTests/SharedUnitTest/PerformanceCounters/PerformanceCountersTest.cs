@@ -11,6 +11,9 @@ namespace SharedUnitTest.PerformanceCounters
         [TestInitialize]
         public void Setup()
         {
+            //We actually don't need to reference GlobalValues but I want this here to make sure I didn't miss it
+            //GlobalReference.GlobalValues = new GlobalValues();
+
             counters = new Counters();
             counters.CounterDateTime = new DateTime(2000, 01, 02, 03, 04, 05);
             counters.ConnnectedPlayers = 1;

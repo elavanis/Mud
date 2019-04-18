@@ -34,6 +34,8 @@ namespace ObjectsUnitTest.Global.CanMobDoSomething
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             canDoSomething = new Objects.Global.CanMobDoSomething.CanMobDoSomething();
 
             mob = new Mock<IMobileObject>();

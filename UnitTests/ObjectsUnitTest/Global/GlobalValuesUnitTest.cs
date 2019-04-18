@@ -6,6 +6,12 @@ namespace ObjectsUnitTest.Global
     [TestClass]
     public class GlobalValuesUnitTest
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            GlobalReference.GlobalValues = new GlobalValues();
+        }
+
         [TestMethod]
         public void GlobalValues_SetDefaultValues()
         {

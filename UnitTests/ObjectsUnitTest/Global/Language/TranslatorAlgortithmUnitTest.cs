@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Global.Language;
 
 namespace ObjectsUnitTest.Global.Language
@@ -12,6 +13,8 @@ namespace ObjectsUnitTest.Global.Language
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             algorithm = new TranslatorAlgorithm();
         }
 

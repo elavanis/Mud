@@ -14,6 +14,8 @@ namespace ObjectsUnitTest.Material
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             material = new UnitTestMaterial();
         }
 

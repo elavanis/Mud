@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Race;
 
 namespace ObjectsUnitTest.Race
@@ -11,6 +12,8 @@ namespace ObjectsUnitTest.Race
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             race = new UnitTestRace();
         }
 

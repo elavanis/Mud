@@ -18,6 +18,8 @@ namespace ObjectsUnitTest.Magic.Enchantment
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             enchantment = new EnterRoomEnchantment();
             effect = new Mock<IEffect>();
             parameter = new Mock<IEffectParameter>();

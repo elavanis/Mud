@@ -1,12 +1,19 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects.Die.Interface;
+using Objects.Global;
 
 namespace ObjectsUnitTest.Damage
 {
     [TestClass]
     public class DamageUnitTest
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            GlobalReference.GlobalValues = new GlobalValues();
+        }
+
         [TestMethod]
         public void Damage_Constructor()
         {

@@ -39,6 +39,8 @@ namespace ObjectsUnitTest.Command.PC
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             tagWrapper = new Mock<ITagWrapper>();
             performer = new Mock<IMobileObject>();
             mockCommand = new Mock<ICommand>();

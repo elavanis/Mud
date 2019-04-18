@@ -21,6 +21,8 @@ namespace ObjectsUnitTest.Effect
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             mobDie = new MobDie();
             pc = new Mock<IPlayerCharacter>();
             parameter = new Mock<IEffectParameter>();

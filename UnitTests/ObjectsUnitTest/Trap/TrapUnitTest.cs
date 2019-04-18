@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Global.Stats;
 using Objects.Trap;
 using Objects.Trap.Interface;
@@ -8,6 +9,12 @@ namespace ObjectsUnitTest.Trap
     [TestClass]
     public class TrapUnitTest
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            GlobalReference.GlobalValues = new GlobalValues();
+        }
+
         [TestMethod]
         public void Trap_Initialize()
         {

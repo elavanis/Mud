@@ -38,6 +38,8 @@ namespace ObjectsUnitTest.Skill
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             baseSkill = new UnitTestSkill();
             npc = new Mock<INonPlayerCharacter>();
             command = new Mock<ICommand>();

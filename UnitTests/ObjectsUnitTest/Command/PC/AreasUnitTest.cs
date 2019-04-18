@@ -24,6 +24,8 @@ namespace ObjectsUnitTest.Command.PC
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             tagWrapper = new Mock<ITagWrapper>();
             world = new Mock<IWorld>();
             zone = new Mock<IZone>();

@@ -27,6 +27,8 @@ namespace ObjectsUnitTest.Item.Items
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             enchantery = new Enchantery();
             weapon = new Mock<IWeapon>();
             armor = new Mock<IArmor>();

@@ -33,6 +33,8 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             singleTargetSpell = new SingleTargetSpell();
             npc = new Mock<INonPlayerCharacter>();
             npc2 = new Mock<INonPlayerCharacter>();

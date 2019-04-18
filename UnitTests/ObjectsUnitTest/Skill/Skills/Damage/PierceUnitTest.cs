@@ -26,6 +26,8 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             mob = new Mock<IMobileObject>();
             defaultValue = new Mock<IDefaultValues>();
             dice = new Mock<IDice>();

@@ -10,6 +10,9 @@ namespace SharedUnitTest.Sound
         [TestInitialize]
         public void Setup()
         {
+            //We actually don't need to reference GlobalValues but I want this here to make sure I didn't miss it
+            //GlobalReference.GlobalValues = new GlobalValues();
+
             sound = new Shared.Sound.Sound();
         }
 

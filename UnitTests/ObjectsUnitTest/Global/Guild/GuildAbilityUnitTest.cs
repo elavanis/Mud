@@ -20,6 +20,8 @@ namespace ObjectsUnitTest.Global.Guild
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
             Mock<IDice> dice = new Mock<IDice>();
             Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();

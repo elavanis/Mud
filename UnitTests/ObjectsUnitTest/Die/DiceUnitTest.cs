@@ -13,6 +13,8 @@ namespace ObjectsUnitTest.Die
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             dice = new Dice(2, 1);
         }
 

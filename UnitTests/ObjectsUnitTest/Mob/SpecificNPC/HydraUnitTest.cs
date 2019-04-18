@@ -38,6 +38,8 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             defaultValues = new Mock<IDefaultValues>();
             level1Dice = new Mock<IDice>();
             level5Dice = new Mock<IDice>();

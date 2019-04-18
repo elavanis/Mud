@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Objects.Global;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities;
 using Objects.Personality.Personalities.ResponderMisc.Interface;
@@ -18,6 +19,8 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             responder = new Responder();
             npc = new Mock<INonPlayerCharacter>();
             response = new Mock<IResponse>();

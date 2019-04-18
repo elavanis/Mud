@@ -27,6 +27,8 @@ namespace ObjectsUnitTest.Effect
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             sound = new Mock<ISound>();
             damage = new Objects.Effect.Damage(sound.Object);
             pc = new Mock<IPlayerCharacter>();

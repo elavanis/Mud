@@ -8,6 +8,7 @@ using static Shared.TagWrapper.TagWrapper;
 using Objects.Item.Items.Interface;
 using Objects.Interface;
 using Objects.Global.FindObjects;
+using Objects.Global;
 
 namespace ObjectsUnitTest.Global.FindThings
 {
@@ -19,6 +20,8 @@ namespace ObjectsUnitTest.Global.FindThings
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             findObjects = new FindObjects();
         }
 

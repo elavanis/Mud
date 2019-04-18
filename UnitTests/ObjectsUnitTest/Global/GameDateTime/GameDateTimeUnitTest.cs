@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Global.GameDateTime.Interface;
 using Moq;
 using Objects.GameDateTime;
+using Objects.Global;
 
 namespace ObjectsUnitTest.Global.GameDateTime
 {
@@ -14,6 +15,8 @@ namespace ObjectsUnitTest.Global.GameDateTime
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             Mock<ITime> time = new Mock<ITime>();
             time.Setup(e => e.CurrentDateTime).Returns(new DateTime(2015, 11, 7, 16, 43, 0, DateTimeKind.Utc));
             gameDateTime = new Objects.Global.GameDateTime.InGameDateTime(time.Object);

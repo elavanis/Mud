@@ -43,6 +43,8 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             wander = new Wanderer();
             npc = new Mock<INonPlayerCharacter>();
             random = new Mock<IRandom>();

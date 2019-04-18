@@ -18,6 +18,8 @@ namespace ObjectsUnitTest.Magic.Enchantment.DefeatbleInfo
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             defeatInfo = new DefeatInfo();
             mob = new Mock<IMobileObject>();
             random = new Mock<IRandom>();

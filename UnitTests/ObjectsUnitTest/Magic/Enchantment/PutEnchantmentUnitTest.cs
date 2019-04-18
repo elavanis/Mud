@@ -26,6 +26,8 @@ namespace ObjectsUnitTest.Magic.Enchantment
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             random = new Mock<IRandom>();
             performer = new Mock<IMobileObject>();
             item = new Mock<IItem>();

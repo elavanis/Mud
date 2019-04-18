@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using System;
 
 namespace ObjectsUnitTest.GameDateTime
@@ -11,6 +12,8 @@ namespace ObjectsUnitTest.GameDateTime
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             gameDateTime = new Objects.GameDateTime.GameDateTime(new DateTime(2015, 11, 7, 16, 43, 0, DateTimeKind.Utc));
         }
 

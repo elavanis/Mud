@@ -21,6 +21,7 @@ namespace MudUnitTest
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
             mud = new MudInstance();
         }
 

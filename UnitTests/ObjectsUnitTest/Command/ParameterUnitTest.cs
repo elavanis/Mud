@@ -1,11 +1,18 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Command;
+using Objects.Global;
 
 namespace ObjectsUnitTest.Command
 {
     [TestClass]
     public class ParameterUnitTest
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            GlobalReference.GlobalValues = new GlobalValues();
+        }
+
         [TestMethod]
         public void Parameter_Constructor_NoParamNumber()
         {

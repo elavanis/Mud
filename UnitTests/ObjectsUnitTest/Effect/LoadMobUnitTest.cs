@@ -27,6 +27,8 @@ namespace ObjectsUnitTest.Effect
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             loadMob = new LoadMob();
             effectParameter = new Mock<IEffectParameter>();
             room = new Mock<IRoom>();

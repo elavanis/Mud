@@ -23,6 +23,8 @@ namespace ObjectsUnitTest.Magic.Spell.Heal.Health
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             defaultValues = new Mock<IDefaultValues>();
             translator = new Mock<ITranslator>();
             tagWrapper = new Mock<ITagWrapper>();

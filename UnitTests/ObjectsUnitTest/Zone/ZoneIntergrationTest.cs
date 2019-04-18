@@ -13,6 +13,12 @@ namespace ObjectsUnitTest.Zone
     [TestClass]
     public class ZoneIntergrationTest
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            GlobalReference.GlobalValues = new GlobalValues();
+        }
+
         [TestMethod]
         public void Zone_SeralizeDeserialize()
         {

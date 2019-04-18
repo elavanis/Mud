@@ -17,6 +17,8 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             speaker = new Speaker();
             npc = new Mock<INonPlayerCharacter>();
             random = new Mock<IRandom>();

@@ -32,6 +32,8 @@ namespace ObjectsUnitTest.Mob
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             Mock<IDice> dice = new Mock<IDice>();
             Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
             Mock<ISettings> settings = new Mock<ISettings>();

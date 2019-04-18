@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Skill;
 
 namespace ObjectsUnitTest.Skill
@@ -11,6 +12,8 @@ namespace ObjectsUnitTest.Skill
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             passiveSkill = new UnitTestPassiveSkill();
         }
 

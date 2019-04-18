@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects.Command.Interface;
+using Objects.Global;
 using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Mob.Interface;
@@ -23,6 +24,8 @@ namespace ObjectsUnitTest.Personality.Personalities.MountainGoblinCamp
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             receiverPersonality = new ChiefReceiveDaughterItem();
             performer = new Mock<IMobileObject>();
             receiver = new Mock<IMobileObject>();

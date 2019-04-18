@@ -17,6 +17,8 @@ namespace ObjectsUnitTest.Item
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             item = new Objects.Item.Item();
 
             serialization = new Mock<ISerialization>();

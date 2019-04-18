@@ -38,6 +38,8 @@ namespace ObjectsUnitTest.Room
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             fileIO = new Mock<IFileIO>();
             item = new Mock<IItem>();
             serializer = new Mock<ISerialization>();

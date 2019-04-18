@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Objects.Global;
 using Objects.Mob.Interface;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace ObjectsUnitTest.Global.Engine.AdditionalParty
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             group = new Objects.Global.Engine.Engines.AdditionalParty.Group();
             FieldInfo groupMembersFieldInfo = group.GetType().GetField("groupMembers", BindingFlags.NonPublic | BindingFlags.Instance);
             groupMembers = (List<IMobileObject>)groupMembersFieldInfo.GetValue(group);

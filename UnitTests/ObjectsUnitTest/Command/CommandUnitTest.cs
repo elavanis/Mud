@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Command.Interface;
+using Objects.Global;
 using System.Collections.Generic;
 
 namespace ObjectsUnitTest.Command
@@ -12,6 +13,8 @@ namespace ObjectsUnitTest.Command
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             command = new Objects.Command.Command();
         }
 

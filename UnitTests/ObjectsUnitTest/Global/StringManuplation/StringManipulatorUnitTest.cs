@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using System.Collections.Generic;
 
 namespace ObjectsUnitTest.Global.StringManuplation
@@ -11,6 +12,8 @@ namespace ObjectsUnitTest.Global.StringManuplation
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             stringManipulator = new Objects.Global.StringManuplation.StringManipulator();
         }
 

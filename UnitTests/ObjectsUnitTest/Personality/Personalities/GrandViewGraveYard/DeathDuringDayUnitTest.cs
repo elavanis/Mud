@@ -26,6 +26,8 @@ namespace ObjectsUnitTest.Personality.Personalities.GrandViewGraveYard
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             deathDuringDay = new DeathDuringDay();
             ingameDateTime = new Mock<IInGameDateTime>();
             npc = new Mock<INonPlayerCharacter>();

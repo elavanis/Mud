@@ -39,6 +39,8 @@ namespace ObjectsUnitTest.Effect
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             message = new Message();
             notify = new Mock<INotify>();
             effectParameter = new Mock<IEffectParameter>();

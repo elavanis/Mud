@@ -17,6 +17,8 @@ namespace ObjectsUnitTest.Item.Items
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             armor = new Armor();
         }
 

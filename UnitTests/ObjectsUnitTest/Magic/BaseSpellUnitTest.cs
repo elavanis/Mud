@@ -36,6 +36,8 @@ namespace ObjectsUnitTest.Magic
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             spell = new UnitTestSpell();
             npc = new Mock<INonPlayerCharacter>();
             command = new Mock<ICommand>();

@@ -22,6 +22,8 @@ namespace ObjectsUnitTest.Effect
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             effect = new Replenish();
             parameter = new Mock<IEffectParameter>();
             item = new Mock<IItem>();

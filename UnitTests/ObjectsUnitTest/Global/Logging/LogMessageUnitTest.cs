@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Global.Logging;
 using static Objects.Global.Logging.LogMessage;
 
@@ -7,6 +8,12 @@ namespace ObjectsUnitTest.Global.Logging
     [TestClass]
     public class LogMessageUnitTest
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            GlobalReference.GlobalValues = new GlobalValues();
+        }
+
         [TestMethod]
         public void LogMessage_Constructor()
         {

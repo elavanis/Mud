@@ -31,6 +31,8 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             world = new Mock<IWorld>();
             settings = new Mock<ISettings>();
             defaultValues = new Mock<IDefaultValues>();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Room;
 using Objects.Room.Interface;
 
@@ -12,6 +13,8 @@ namespace ObjectsUnitTest.Room
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             roomId = new RoomId();
         }
 

@@ -14,6 +14,8 @@ namespace ObjectsUnitTest.Global.Exp
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             Mock<ISettings> settings = new Mock<ISettings>();
             settings.Setup(e => e.MaxLevel).Returns(100);
             settings.Setup(e => e.Multiplier).Returns(1.1d);

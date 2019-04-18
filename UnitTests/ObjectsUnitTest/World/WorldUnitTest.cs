@@ -71,6 +71,8 @@ namespace ObjectsUnitTest.World
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             engine = new Mock<IEngine>();
             evnt = new Mock<IEvent>();
             combat = new Mock<ICombat>();

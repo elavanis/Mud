@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Damage;
+using Objects.Global;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,12 @@ namespace ObjectsUnitTest.Damage
     [TestClass]
     public class DamageDealtUnitTest
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            GlobalReference.GlobalValues = new GlobalValues();
+        }
+
         [TestMethod]
         public void DamageDealt_Constructor()
         {

@@ -13,6 +13,8 @@ namespace ObjectsUnitTest.Material.Materials
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             Mock<IRandom> random = new Mock<IRandom>();
             random.Setup(e => e.Next(6, 9)).Returns(1);
             random.Setup(e => e.Next(9, 12)).Returns(2);

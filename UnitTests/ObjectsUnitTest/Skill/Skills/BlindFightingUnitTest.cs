@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Skill.Skills;
 
 namespace ObjectsUnitTest.Skill.Skills
@@ -11,6 +12,9 @@ namespace ObjectsUnitTest.Skill.Skills
         [TestInitialize]
         public void Setup()
         {
+
+            GlobalReference.GlobalValues = new GlobalValues();
+
             blindFighting = new BlindFighting();
         }
 

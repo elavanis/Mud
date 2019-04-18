@@ -2,6 +2,7 @@
 using Moq;
 using Objects.Effect.Interface;
 using Objects.Effect.Zone.MountainPlateau;
+using Objects.Global;
 using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
@@ -27,6 +28,8 @@ namespace ObjectsUnitTest.Effect.Zone.MountainPlateau
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             openDoor = new OpenDoor();
             effectParameter = new Mock<IEffectParameter>();
             chestId = new Mock<IBaseObjectId>();

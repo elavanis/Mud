@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Moon;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace ObjectsUnitTest.Moon
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             moons = new Moons();
         }
 

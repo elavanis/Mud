@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 using Objects.Personality.Personalities.ResponderMisc;
 
 namespace ObjectsUnitTest.Personality.Personalities.ResponderMisc
@@ -6,6 +7,12 @@ namespace ObjectsUnitTest.Personality.Personalities.ResponderMisc
     [TestClass]
     public class OptionalWordsUnitTest
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            GlobalReference.GlobalValues = new GlobalValues();
+        }
+
         [TestMethod]
         public void OptionalWords_TriggerWords_Set()
         {

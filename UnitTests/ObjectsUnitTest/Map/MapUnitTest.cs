@@ -29,6 +29,8 @@ namespace ObjectsUnitTest.Map
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             fileIO = new Mock<IFileIO>();
             mob = new Mock<IMobileObject>();
             settings = new Mock<ISettings>();

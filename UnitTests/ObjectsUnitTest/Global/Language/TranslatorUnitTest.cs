@@ -15,6 +15,8 @@ namespace ObjectsUnitTest.Global.Language
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             Mock<IRandom> random = new Mock<IRandom>();
             random.Setup(e => e.Next(1, 10)).Returns(5);
             GlobalReference.GlobalValues.Random = random.Object;

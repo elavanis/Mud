@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Objects.Global;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities.EnchantersTower;
 using Objects.Room.Interface;
@@ -21,6 +22,8 @@ namespace ObjectsUnitTest.Personality.Personalities.EnchantersTower
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             npc = new Mock<INonPlayerCharacter>();
             room = new Mock<IRoom>();
             guard = new Mock<INonPlayerCharacter>();

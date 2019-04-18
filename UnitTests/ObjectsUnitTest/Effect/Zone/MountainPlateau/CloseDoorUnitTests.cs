@@ -39,6 +39,8 @@ namespace ObjectsUnitTest.Effect.Zone.MountainPlateau
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             closeDoor = new CloseDoor();
             effectParameter = new Mock<IEffectParameter>();
             chestId = new Mock<IBaseObjectId>();

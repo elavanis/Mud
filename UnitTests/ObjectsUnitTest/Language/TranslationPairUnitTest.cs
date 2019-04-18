@@ -18,6 +18,8 @@ namespace ObjectsUnitTest.Language
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             translationPair = new TranslationPair(Languages.Magic, "magic");
             mob = new Mock<IMobileObject>();
             translate = new Mock<ITranslator>();

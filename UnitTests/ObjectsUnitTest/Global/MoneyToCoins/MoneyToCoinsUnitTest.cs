@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Objects.Global;
 
 namespace ObjectsUnitTest.Global.MoneyToCoins
 {
@@ -10,6 +11,8 @@ namespace ObjectsUnitTest.Global.MoneyToCoins
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             money = new Objects.Global.MoneyToCoins.MoneyToCoins();
         }
 

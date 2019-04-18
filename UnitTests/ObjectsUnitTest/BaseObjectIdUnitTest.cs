@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects;
+using Objects.Global;
 using Objects.Interface;
 
 namespace ObjectsUnitTest
@@ -14,6 +15,8 @@ namespace ObjectsUnitTest
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             baseObjectId = new BaseObjectId();
             baseObject = new Mock<IBaseObject>();
 

@@ -74,6 +74,8 @@ namespace ObjectsUnitTest.Mob
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             tagWrapper = new Mock<ITagWrapper>();
             evnt = new Mock<IEvent>();
             engine = new Mock<IEngine>();

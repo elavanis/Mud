@@ -19,6 +19,8 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             phase = new Phase();
             npc = new Mock<INonPlayerCharacter>();
             room = new Mock<IBaseObjectId>();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects.Damage.Interface;
+using Objects.Global;
 using Objects.Item.Items;
 
 namespace ObjectsUnitTest.Item.Items
@@ -13,6 +14,8 @@ namespace ObjectsUnitTest.Item.Items
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             weapon = new Weapon();
         }
 

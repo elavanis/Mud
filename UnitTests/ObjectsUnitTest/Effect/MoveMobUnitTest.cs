@@ -29,6 +29,8 @@ namespace ObjectsUnitTest.Effect
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             sound = new Mock<ISound>();
             effect = new MoveMob(sound.Object);
             pc = new Mock<IPlayerCharacter>();

@@ -40,6 +40,8 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             Mock<INonPlayerCharacter> mockPerformerNpc = new Mock<INonPlayerCharacter>();
             Mock<IPlayerCharacter> mockPerformerPc = new Mock<IPlayerCharacter>();
             Mock<IWorld> world = new Mock<IWorld>();
