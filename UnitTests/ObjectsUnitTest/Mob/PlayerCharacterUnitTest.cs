@@ -6,17 +6,23 @@ using Objects.Global.Engine.Interface;
 using Objects.Global.Exp.Interface;
 using Objects.Global.MoneyToCoins.Interface;
 using Objects.Global.MultiClassBonus.Interface;
+using Objects.Global.Notify.Interface;
+using Objects.Global.Serialization.Interface;
 using Objects.Global.Settings.Interface;
 using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
+using Objects.Language.Interface;
 using Objects.Mob;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
 using Objects.World.Interface;
 using Objects.Zone.Interface;
+using Shared.Sound.Interface;
+using Shared.TagWrapper.Interface;
 using System;
 using System.Collections.Generic;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Mob
 {
@@ -25,6 +31,25 @@ namespace ObjectsUnitTest.Mob
     {
         PlayerCharacter pc;
         Mock<ISettings> settings;
+        Mock<IExperience> exp;
+        Mock<IMultiClassBonus> multiClassBonus;
+        Mock<IMoneyToCoins> moneyToCoins;
+        Mock<IRoom> room;
+        Mock<IRoom> room2;
+        List<IPlayerCharacter> pcs;
+        List<IPlayerCharacter> pcs2;
+        Mock<IWorld> world;
+        Mock<IZone> zone;
+        Dictionary<int, IZone> zoneDictionary;
+        Dictionary<int, IRoom> roomDictionary;
+        Mock<IEngine> engine;
+        Mock<IEvent> evnt;
+        Mock<IBaseObjectId> roomId;
+        Mock<ICorpse> corpse;
+        Mock<ITagWrapper> tagWrapper;
+        Mock<INotify> notify;
+        Mock<ISerialization> serializtion;
+
 
         [TestInitialize]
         public void Setup()
@@ -33,119 +58,27 @@ namespace ObjectsUnitTest.Mob
 
             pc = new PlayerCharacter();
             settings = new Mock<ISettings>();
+            exp = new Mock<IExperience>();
+            multiClassBonus = new Mock<IMultiClassBonus>();
+            moneyToCoins = new Mock<IMoneyToCoins>();
+            room = new Mock<IRoom>();
+            room2 = new Mock<IRoom>();
+            pcs = new List<IPlayerCharacter>();
+            pcs2 = new List<IPlayerCharacter>();
+            world = new Mock<IWorld>();
+            zone = new Mock<IZone>();
+            zoneDictionary = new Dictionary<int, IZone>();
+            roomDictionary = new Dictionary<int, IRoom>();
+            engine = new Mock<IEngine>();
+            evnt = new Mock<IEvent>();
+            roomId = new Mock<IBaseObjectId>();
+            corpse = new Mock<ICorpse>();
+            tagWrapper = new Mock<ITagWrapper>();
+            notify = new Mock<INotify>();
+            serializtion = new Mock<ISerialization>();
 
             settings.Setup(e => e.Multiplier).Returns(1);
-
-            GlobalReference.GlobalValues.Settings = settings.Object;
-        }
-
-        [TestMethod]
-        public void PlayerCharacter_Experience_DoesNotLevel()
-        {
-            Mock<IExperience> exp = new Mock<IExperience>();
-            exp.Setup(e => e.GetExpForLevel(0)).Returns(1000);
-            GlobalReference.GlobalValues.Experience = exp.Object;
-
-            pc.Experience += 100;
-            Assert.AreEqual(100, pc.Experience);
-        }
-
-        [TestMethod]
-        public void PlayerCharacter_Experience_DoesLevel()
-        {
-            Mock<IExperience> exp = new Mock<IExperience>();
-            exp.Setup(e => e.GetExpForLevel(0)).Returns(100);
-            GlobalReference.GlobalValues.Experience = exp.Object;
-            Mock<ISettings> settings = new Mock<ISettings>();
-            settings.Setup(e => e.Multiplier).Returns(1.1d);
-            GlobalReference.GlobalValues.Settings = settings.Object;
-
-            pc.Experience += 100;
-            Assert.AreEqual(100, pc.Experience);
-        }
-
-        [TestMethod]
-        public void PlayerCharacter_StrengthEffective()
-        {
-            Mock<IMultiClassBonus> multiClassBonus = new Mock<IMultiClassBonus>();
             multiClassBonus.Setup(e => e.CalculateBonus(1, 0)).Returns(1);
-            GlobalReference.GlobalValues.MultiClassBonus = multiClassBonus.Object;
-
-            Assert.AreEqual(1, pc.StrengthEffective);
-        }
-
-        [TestMethod]
-        public void PlayerCharacter_DexterityEffective()
-        {
-            Mock<IMultiClassBonus> multiClassBonus = new Mock<IMultiClassBonus>();
-            multiClassBonus.Setup(e => e.CalculateBonus(1, 0)).Returns(1);
-            GlobalReference.GlobalValues.MultiClassBonus = multiClassBonus.Object;
-
-            Assert.AreEqual(1, pc.DexterityEffective);
-        }
-
-        [TestMethod]
-        public void PlayerCharacter_ConstitutionEffective()
-        {
-            Mock<IMultiClassBonus> multiClassBonus = new Mock<IMultiClassBonus>();
-            multiClassBonus.Setup(e => e.CalculateBonus(1, 0)).Returns(1);
-            GlobalReference.GlobalValues.MultiClassBonus = multiClassBonus.Object;
-
-            Assert.AreEqual(1, pc.ConstitutionEffective);
-        }
-
-        [TestMethod]
-        public void PlayerCharacter_IntelligenceEffective()
-        {
-            Mock<IMultiClassBonus> multiClassBonus = new Mock<IMultiClassBonus>();
-            multiClassBonus.Setup(e => e.CalculateBonus(1, 0)).Returns(1);
-            GlobalReference.GlobalValues.MultiClassBonus = multiClassBonus.Object;
-
-            Assert.AreEqual(1, pc.IntelligenceEffective);
-        }
-
-        [TestMethod]
-        public void PlayerCharacter_WisdomEffective()
-        {
-            Mock<IMultiClassBonus> multiClassBonus = new Mock<IMultiClassBonus>();
-            multiClassBonus.Setup(e => e.CalculateBonus(1, 0)).Returns(1);
-            GlobalReference.GlobalValues.MultiClassBonus = multiClassBonus.Object;
-
-            Assert.AreEqual(1, pc.WisdomEffective);
-        }
-
-        [TestMethod]
-        public void PlayerCharacter_CharismaEffective()
-        {
-            Mock<IMultiClassBonus> multiClassBonus = new Mock<IMultiClassBonus>();
-            multiClassBonus.Setup(e => e.CalculateBonus(1, 0)).Returns(1);
-            GlobalReference.GlobalValues.MultiClassBonus = multiClassBonus.Object;
-
-            Assert.AreEqual(1, pc.CharismaEffective);
-        }
-
-        [TestMethod]
-        public void PlayerCharacter_Corpses()
-        {
-            Assert.AreEqual(0, pc.Corpses.Count);
-        }
-
-        [TestMethod]
-        public void PlayerCharacter_Die()
-        {
-            Mock<IMoneyToCoins> moneyToCoins = new Mock<IMoneyToCoins>();
-            Mock<IRoom> room = new Mock<IRoom>();
-            Mock<IRoom> room2 = new Mock<IRoom>();
-            List<IPlayerCharacter> pcs = new List<IPlayerCharacter>();
-            List<IPlayerCharacter> pcs2 = new List<IPlayerCharacter>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> zoneDictionary = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> roomDictionary = new Dictionary<int, IRoom>();
-            Mock<IEngine> engine = new Mock<IEngine>();
-            Mock<IEvent> evnt = new Mock<IEvent>();
-            Mock<IBaseObjectId> roomId = new Mock<IBaseObjectId>();
-
             roomId.Setup(e => e.Zone).Returns(1);
             roomId.Setup(e => e.Id).Returns(1);
             pc.Room = room.Object;
@@ -158,11 +91,90 @@ namespace ObjectsUnitTest.Mob
             zoneDictionary.Add(1, zone.Object);
             roomDictionary.Add(1, room.Object);
             engine.Setup(e => e.Event).Returns(evnt.Object);
+            corpse.Setup(e => e.TimeOfDeath).Returns(new DateTime(2000, 1, 1));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            serializtion.Setup(e => e.Serialize(It.IsAny<List<ISound>>())).Returns("sound");
 
+            GlobalReference.GlobalValues.Settings = settings.Object;
+            GlobalReference.GlobalValues.Experience = exp.Object;
+            GlobalReference.GlobalValues.MultiClassBonus = multiClassBonus.Object;
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.Serialization = serializtion.Object;
 
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_Experience_DoesNotLevel()
+        {
+            exp.Setup(e => e.GetExpForLevel(0)).Returns(1000);
+
+            pc.Experience += 100;
+            Assert.AreEqual(100, pc.Experience);
+            serializtion.Verify(e => e.Serialize(It.IsAny<List<ISound>>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_Experience_DoesLevel()
+        {
+            exp.Setup(e => e.GetExpForLevel(0)).Returns(100);
+            settings.Setup(e => e.Multiplier).Returns(1.1d);
+
+            pc.Experience += 100;
+            Assert.AreEqual(100, pc.Experience);
+            notify.Verify(e => e.Mob(null, null, pc, It.Is<ITranslationMessage>(f => f.Message == "You gain a level."), false, false), Times.Once);
+            serializtion.Verify(e => e.Serialize(It.IsAny<List<ISound>>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_StrengthEffective()
+        {
+            Assert.AreEqual(1, pc.StrengthEffective);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_DexterityEffective()
+        {
+            Assert.AreEqual(1, pc.DexterityEffective);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_ConstitutionEffective()
+        {
+            Assert.AreEqual(1, pc.ConstitutionEffective);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_IntelligenceEffective()
+        {
+            Assert.AreEqual(1, pc.IntelligenceEffective);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_WisdomEffective()
+        {
+
+            Assert.AreEqual(1, pc.WisdomEffective);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_CharismaEffective()
+        {
+            Assert.AreEqual(1, pc.CharismaEffective);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_Corpses()
+        {
+            Assert.AreEqual(0, pc.Corpses.Count);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_Die()
+        {
             pc.Die();
             room.Verify(e => e.AddItemToRoom(It.IsAny<IItem>(), 0));
             Assert.AreEqual(1, pc.Corpses.Count);
@@ -173,10 +185,6 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void PlayerCharacter_RemoveOldCorpses()
         {
-            Mock<ICorpse> corpse = new Mock<ICorpse>();
-            corpse.Setup(e => e.TimeOfDeath).Returns(new DateTime(2000, 1, 1));
-            pc.Corpses.Add(corpse.Object);
-
             pc.RemoveOldCorpses(new DateTime(2001, 1, 1));
             Assert.AreEqual(0, pc.Corpses.Count);
         }
