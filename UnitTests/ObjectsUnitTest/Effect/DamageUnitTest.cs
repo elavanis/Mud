@@ -11,6 +11,7 @@ using Shared.Sound.Interface;
 using System.Collections.Generic;
 using Objects.Language.Interface;
 using Objects.Global.Serialization.Interface;
+using Objects.Global.Notify.Interface;
 
 namespace ObjectsUnitTest.Effect
 {
@@ -18,11 +19,16 @@ namespace ObjectsUnitTest.Effect
     public class DamageUnitTest
     {
         Objects.Effect.Damage damage;
-        Mock<IPlayerCharacter> pc;
+        Mock<IMobileObject> performer;
+        Mock<IMobileObject> target;
         Mock<IEffectParameter> parameter;
         Mock<ISound> sound;
         Mock<ITranslationMessage> translationMessage;
         Mock<ITagWrapper> tagWrapper;
+        Mock<INotify> notify;
+        Mock<IDamage> mockDamage;
+        Mock<IDice> dice;
+        Mock<ISerialization> serialization;
 
         [TestInitialize]
         public void Setup()
@@ -31,15 +37,30 @@ namespace ObjectsUnitTest.Effect
 
             sound = new Mock<ISound>();
             damage = new Objects.Effect.Damage(sound.Object);
-            pc = new Mock<IPlayerCharacter>();
+            performer = new Mock<IMobileObject>();
+            target = new Mock<IMobileObject>();
             parameter = new Mock<IEffectParameter>();
             translationMessage = new Mock<ITranslationMessage>();
+            notify = new Mock<INotify>();
+            mockDamage = new Mock<IDamage>();
+            dice = new Mock<IDice>();
+            serialization = new Mock<ISerialization>();
 
             parameter.Setup(e => e.TargetMessage).Returns(translationMessage.Object);
+            parameter.Setup(e => e.Damage).Returns(mockDamage.Object);
+            parameter.Setup(e => e.Target).Returns(target.Object);
+            parameter.Setup(e => e.Performer).Returns(performer.Object);
             translationMessage.Setup(e => e.GetTranslatedMessage(null)).Returns("test message");
             tagWrapper = new Mock<ITagWrapper>();
+            mockDamage.Setup(e => e.Dice).Returns(dice.Object);
+            dice.Setup(e => e.RollDice()).Returns(1);
+
+            serialization.Setup(e => e.Serialize(It.IsAny<List<ISound>>())).Returns("abc");
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.Serialization = serialization.Object;
+
         }
 
         [TestMethod]
@@ -51,22 +72,13 @@ namespace ObjectsUnitTest.Effect
         [TestMethod]
         public void Damage_ProcessEffect()
         {
-            Mock<IDamage> mockDamage = new Mock<IDamage>();
-            Mock<IDice> dice = new Mock<IDice>();
-            Mock<ISerialization> serialization = new Mock<ISerialization>();
-
-            mockDamage.Setup(e => e.Dice).Returns(dice.Object);
-            dice.Setup(e => e.RollDice()).Returns(1);
-            parameter.Setup(e => e.Damage).Returns(mockDamage.Object);
-            parameter.Setup(e => e.Target).Returns(pc.Object);
-            serialization.Setup(e => e.Serialize(It.IsAny<List<ISound>>())).Returns("abc");
-
-            GlobalReference.GlobalValues.Serialization = serialization.Object;
-
             damage.ProcessEffect(parameter.Object);
 
-            pc.Verify(e => e.TakeDamage(1, mockDamage.Object, null), Times.Once, null);
+            target.Verify(e => e.TakeDamage(1, mockDamage.Object, null), Times.Once, null);
             tagWrapper.Verify(e => e.WrapInTag("abc", TagType.Sound));
+            notify.Verify(e => e.Mob(performer.Object, target.Object, target.Object, translationMessage.Object, false, false));
+            serialization.Verify(e => e.Serialize(new List<ISound>() { sound.Object }));
+            notify.Verify(e => e.Mob(target.Object, It.IsAny<ITranslationMessage>()));
         }
     }
 }
