@@ -8,6 +8,8 @@ using Objects.Global.DefaultValues.Interface;
 using Moq;
 using Objects.Die.Interface;
 using Shared.TagWrapper.Interface;
+using Objects.Global.Language.Interface;
+using static Objects.Global.Language.Translator;
 
 namespace ObjectsUnitTest.Global.Guild
 {
@@ -16,21 +18,28 @@ namespace ObjectsUnitTest.Global.Guild
     public class GuildAbilityUnitTest
     {
         GuildAbilities abiltites;
+        Mock<IDefaultValues> defaultValues;
+        Mock<IDice> dice;
+        Mock<ITagWrapper> tagWrapper;
+        Mock<ITranslator> translator;
 
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
-            Mock<IDice> dice = new Mock<IDice>();
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
+            defaultValues = new Mock<IDefaultValues>();
+            dice = new Mock<IDice>();
+            tagWrapper = new Mock<ITagWrapper>();
+            translator = new Mock<ITranslator>();
 
             defaultValues.Setup(e => e.DiceForSpellLevel(It.IsAny<int>())).Returns(dice.Object);
             defaultValues.Setup(e => e.DiceForSkillLevel(It.IsAny<int>())).Returns(dice.Object);
+            translator.Setup(e => e.Translate(It.IsAny<Languages>(), It.IsAny<string>())).Returns((Languages x, string y) => (y));
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.Translator = translator.Object;
 
             abiltites = new GuildAbilities();
         }
