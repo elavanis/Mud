@@ -10,23 +10,25 @@ using Objects.Zone.Interface;
 using System.Collections.Generic;
 using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
+using Shared.TagWrapper.Interface;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
 {
     [TestClass]
     public class MoveToOtherDimensionUnitTest
     {
-        private IEffectParameter param;
-        private List<INonPlayerCharacter> lNpc;
-        private List<IPlayerCharacter> lPc;
-        private List<INonPlayerCharacter> lNpc2;
-        private List<IPlayerCharacter> lPc2;
-        private INonPlayerCharacter npc;
-        private IPlayerCharacter pc;
-        private INonPlayerCharacter npc2;
-        private IPlayerCharacter pc2;
-        private INonPlayerCharacter performerNpc;
-        private IPlayerCharacter performerPc;
+        IEffectParameter param;
+        List<INonPlayerCharacter> lNpc;
+        List<IPlayerCharacter> lPc;
+        List<INonPlayerCharacter> lNpc2;
+        List<IPlayerCharacter> lPc2;
+        INonPlayerCharacter npc;
+        IPlayerCharacter pc;
+        INonPlayerCharacter npc2;
+        IPlayerCharacter pc2;
+        INonPlayerCharacter performerNpc;
+        IPlayerCharacter performerPc;
         Mock<INonPlayerCharacter> mockNpc;
         Mock<IPlayerCharacter> mockPc;
         Mock<INonPlayerCharacter> mockNpc2;
@@ -34,7 +36,12 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
         Mock<IRoom> room;
         Mock<IRoom> room2;
         Mock<INotify> notify;
-        Mock<IEffectParameter> effect = new Mock<IEffectParameter>();
+        Mock<IEffectParameter> effect;
+        Mock<INonPlayerCharacter> mockPerformerNpc;
+        Mock<IPlayerCharacter> mockPerformerPc;
+        Mock<IWorld> world;
+        Mock<IZone> zone;
+        Mock<ITagWrapper> tagWrapper;
 
         MoveToOtherDimension moveToOtherDimension;
         [TestInitialize]
@@ -42,10 +49,6 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            Mock<INonPlayerCharacter> mockPerformerNpc = new Mock<INonPlayerCharacter>();
-            Mock<IPlayerCharacter> mockPerformerPc = new Mock<IPlayerCharacter>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
             room = new Mock<IRoom>();
             room2 = new Mock<IRoom>();
             mockNpc = new Mock<INonPlayerCharacter>();
@@ -53,6 +56,14 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
             mockNpc2 = new Mock<INonPlayerCharacter>();
             mockPc2 = new Mock<IPlayerCharacter>();
             notify = new Mock<INotify>();
+            effect = new Mock<IEffectParameter>();
+            mockPerformerNpc = new Mock<INonPlayerCharacter>();
+            mockPerformerPc = new Mock<IPlayerCharacter>();
+            world = new Mock<IWorld>();
+            zone = new Mock<IZone>();
+            tagWrapper = new Mock<ITagWrapper>();
+
+
             Dictionary<int, IZone> zoneDict = new Dictionary<int, IZone>();
             Dictionary<int, IRoom> roomDict = new Dictionary<int, IRoom>();
 
@@ -79,6 +90,7 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
             zone.Setup(e => e.Rooms).Returns(roomDict);
             mockPerformerNpc.Setup(e => e.SentenceDescription).Returns("npc");
             mockPerformerPc.Setup(e => e.SentenceDescription).Returns("pc");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             performerNpc = mockPerformerNpc.Object;
             performerPc = mockPerformerPc.Object;
@@ -92,8 +104,10 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
             lPc.Add(pc);
             lNpc2.Add(npc2);
             lPc2.Add(pc2);
+
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
 
             moveToOtherDimension = new MoveToOtherDimension();
