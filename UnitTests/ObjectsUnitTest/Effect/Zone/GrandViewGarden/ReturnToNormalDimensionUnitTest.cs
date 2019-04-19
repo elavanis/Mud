@@ -10,31 +10,32 @@ using Objects.Zone.Interface;
 using System.Collections.Generic;
 using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
+using Shared.TagWrapper.Interface;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
 {
     [TestClass]
     public class ReturnToNormalDimensionUnitTest
     {
-        private IEffectParameter param;
-        private List<INonPlayerCharacter> lNpc;
-        private List<IPlayerCharacter> lPc;
-        private List<INonPlayerCharacter> lNpc2;
-        private List<IPlayerCharacter> lPc2;
-        private INonPlayerCharacter npc;
-        private IPlayerCharacter pc;
-        private INonPlayerCharacter npc2;
-        private IPlayerCharacter pc2;
-        private INonPlayerCharacter performerNpc;
-        private IPlayerCharacter performerPc;
-        Mock<INonPlayerCharacter> mockNpc;
-        Mock<IPlayerCharacter> mockPc;
-        Mock<INonPlayerCharacter> mockNpc2;
-        Mock<IPlayerCharacter> mockPc2;
+        IEffectParameter param;
+        List<INonPlayerCharacter> lNpc;
+        List<IPlayerCharacter> lPc;
+        List<INonPlayerCharacter> lNpc2;
+        List<IPlayerCharacter> lPc2;
+        Mock<INonPlayerCharacter> npc;
+        Mock<IPlayerCharacter> pc;
+        Mock<INonPlayerCharacter> npc2;
+        Mock<IPlayerCharacter> pc2;
+        Mock<INonPlayerCharacter> performerNpc;
+        Mock<IPlayerCharacter> performerPc;
         Mock<IRoom> room;
         Mock<IRoom> room2;
         Mock<INotify> notify;
         Mock<IEffectParameter> effect = new Mock<IEffectParameter>();
+        Mock<IWorld> world;
+        Mock<IZone> zone;
+        Mock<ITagWrapper> tagWrapper;
 
         ReturnToNormalDimension returnToNormalDimension;
         [TestInitialize]
@@ -42,17 +43,19 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            Mock<INonPlayerCharacter> mockPerformerNpc = new Mock<INonPlayerCharacter>();
-            Mock<IPlayerCharacter> mockPerformerPc = new Mock<IPlayerCharacter>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
             room = new Mock<IRoom>();
             room2 = new Mock<IRoom>();
-            mockNpc = new Mock<INonPlayerCharacter>();
-            mockPc = new Mock<IPlayerCharacter>();
-            mockNpc2 = new Mock<INonPlayerCharacter>();
-            mockPc2 = new Mock<IPlayerCharacter>();
+            npc = new Mock<INonPlayerCharacter>();
+            pc = new Mock<IPlayerCharacter>();
+            npc2 = new Mock<INonPlayerCharacter>();
+            pc2 = new Mock<IPlayerCharacter>();
+            performerNpc = new Mock<INonPlayerCharacter>();
+            performerPc = new Mock<IPlayerCharacter>();
             notify = new Mock<INotify>();
+            world = new Mock<IWorld>();
+            zone = new Mock<IZone>();
+            tagWrapper = new Mock<ITagWrapper>();
+
             Dictionary<int, IZone> zoneDict = new Dictionary<int, IZone>();
             Dictionary<int, IRoom> roomDict = new Dictionary<int, IRoom>();
 
@@ -73,27 +76,23 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
             room2.Setup(e => e.Id).Returns(11);
             room2.Setup(e => e.NonPlayerCharacters).Returns(lNpc2);
             room2.Setup(e => e.PlayerCharacters).Returns(lPc2);
-            mockPerformerNpc.Setup(e => e.Room).Returns(room2.Object);
-            mockPerformerPc.Setup(e => e.Room).Returns(room2.Object);
+            performerNpc.Setup(e => e.Room).Returns(room2.Object);
+            performerPc.Setup(e => e.Room).Returns(room2.Object);
             world.Setup(e => e.Zones).Returns(zoneDict);
             zone.Setup(e => e.Rooms).Returns(roomDict);
-            mockPerformerNpc.Setup(e => e.SentenceDescription).Returns("npc");
-            mockPerformerPc.Setup(e => e.SentenceDescription).Returns("pc");
+            performerNpc.Setup(e => e.SentenceDescription).Returns("npc");
+            performerPc.Setup(e => e.SentenceDescription).Returns("pc");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
-            performerNpc = mockPerformerNpc.Object;
-            performerPc = mockPerformerPc.Object;
             param = effect.Object;
-            npc = mockNpc.Object;
-            pc = mockPc.Object;
-            npc2 = mockNpc2.Object;
-            pc2 = mockPc2.Object;
 
-            lNpc.Add(npc);
-            lPc.Add(pc);
-            lNpc2.Add(npc2);
-            lPc2.Add(pc2);
+            lNpc.Add(npc.Object);
+            lPc.Add(pc.Object);
+            lNpc2.Add(npc2.Object);
+            lPc2.Add(pc2.Object);
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             returnToNormalDimension = new ReturnToNormalDimension();
         }
@@ -101,27 +100,27 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
         [TestMethod]
         public void ReturnToNormalDimension_ProcessEffect_Npc()
         {
-            effect.Setup(e => e.Target).Returns(performerNpc);
-            lNpc2.Add(performerNpc);
+            effect.Setup(e => e.Target).Returns(performerNpc.Object);
+            lNpc2.Add(performerNpc.Object);
 
             returnToNormalDimension.ProcessEffect(param);
 
-            room2.Verify(e => e.RemoveMobileObjectFromRoom(performerNpc));
-            room.Verify(e => e.AddMobileObjectToRoom(performerNpc));
-            notify.Verify(e => e.Room(null, null, room.Object, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { performerNpc }, true, false), Times.Once);
+            room2.Verify(e => e.RemoveMobileObjectFromRoom(performerNpc.Object));
+            room.Verify(e => e.AddMobileObjectToRoom(performerNpc.Object));
+            notify.Verify(e => e.Room(null, null, room.Object, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { performerNpc.Object }, true, false), Times.Once);
         }
 
         [TestMethod]
         public void ReturnToNormalDimension_ProcessEffect_Pc()
         {
-            effect.Setup(e => e.Target).Returns(performerPc);
-            lPc2.Add(performerPc);
+            effect.Setup(e => e.Target).Returns(performerPc.Object);
+            lPc2.Add(performerPc.Object);
 
             returnToNormalDimension.ProcessEffect(param);
 
-            room2.Verify(e => e.RemoveMobileObjectFromRoom(performerPc));
-            room.Verify(e => e.AddMobileObjectToRoom(performerPc));
-            notify.Verify(e => e.Room(null, null, room.Object, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { performerPc }, true, false), Times.Once);
+            room2.Verify(e => e.RemoveMobileObjectFromRoom(performerPc.Object));
+            room.Verify(e => e.AddMobileObjectToRoom(performerPc.Object));
+            notify.Verify(e => e.Room(null, null, room.Object, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { performerPc.Object }, true, false), Times.Once);
         }
     }
 }
