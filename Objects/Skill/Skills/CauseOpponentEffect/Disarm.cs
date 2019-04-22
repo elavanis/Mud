@@ -56,7 +56,7 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
         {
             foreach (IWeapon weapon in target.EquipedWeapon)
             {
-                if (!weapon.KeyWords.Contains("BareHands"))
+                if (weapon.KeyWords[0] != "BareHands")
                 {
                     target.RemoveEquipment(weapon);
                     target.Items.Add(weapon);

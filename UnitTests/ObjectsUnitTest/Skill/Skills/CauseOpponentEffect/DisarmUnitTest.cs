@@ -146,39 +146,18 @@ namespace ObjectsUnitTest.Skill.Skills.CauseOpponentEffect
         }
 
         [TestMethod]
+        public void Disarm_ProcessSkill_AdditionalEffect()
+        {
+            IResult result = disarm.ProcessSkill(performer.Object, command.Object);
+
+            target.Verify(e => e.RemoveEquipment(weapon.Object), Times.Once);
+            Assert.IsTrue(heldItems.Contains(weapon.Object));
+        }
+
+        [TestMethod]
         public void Disarm_WriteTests()
         {
             Assert.AreEqual(1, 2);
         }
-
-        //[TestMethod]
-        //public void Disarm_MeetRequirments_True()
-        //{
-        //    Assert.IsTrue(disarm.MeetRequirments(performer.Object, target.Object));
-        //}
-
-
-
-
-        //[TestMethod]
-        //public void Disarm_IsSuccessful_True()
-        //{
-        //    random.SetupSequence(e => e.Next(0)).Returns(2).Returns(1);
-        //    Assert.IsTrue(disarm.IsSuccessful(performer.Object, target.Object));
-        //}
-
-        //[TestMethod]
-        //public void Disarm_IsSuccessful_False()
-        //{
-        //    Assert.IsFalse(disarm.IsSuccessful(performer.Object, target.Object));
-        //}
-
-        //[TestMethod]
-        //public void Disarm_AdditionalEffect()
-        //{
-        //    disarm.AdditionalEffect(performer.Object, target.Object);
-
-        //    target.Verify(e => e.RemoveEquipment(weapon.Object), Times.Once);
-        //}
     }
 }
