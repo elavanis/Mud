@@ -29,7 +29,7 @@ namespace Objects.Skill.Skills.Damage
         protected override void AdditionalEffect(IMobileObject performer, IMobileObject target)
         {
             IEnchantment enchantment = new Magic.Enchantment.HeartbeatBigTickEnchantment();
-            IEffect effect = new Objects.Effect.Damage();
+            IEffect effect = new Effect.Damage();
             IEffectParameter effectParameter = new EffectParameter();
             IDefeatInfo defeatInfo = new DefeatInfo();
 
