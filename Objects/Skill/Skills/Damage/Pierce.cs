@@ -40,6 +40,5 @@ namespace Objects.Skill.Skills.Damage
 
             return false;
         }
-
     }
 }

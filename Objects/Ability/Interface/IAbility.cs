@@ -20,13 +20,7 @@ namespace Objects.Ability.Interface
         IEffect Effect { get; set; }
         IEffectParameter Parameter { get; set; }
 
-        IResult PerformAbility(IMobileObject performer, ICommand command);
+        //IResult PerformAbility(IMobileObject performer, ICommand command);
         IResult RequirementsFailureMessage { get; }
-
-        //IResult AbilityFailed(IMobileObject performer, IMobileObject target);
-
-        //bool MeetRequirments(IMobileObject performer, IMobileObject target);
-
-        //bool IsSuccessful(IMobileObject performer, IMobileObject target);
     }
 }

@@ -36,7 +36,7 @@ namespace Objects.Ability
 
 
         [ExcludeFromCodeCoverage]
-        public IResult PerformAbility(IMobileObject performer, ICommand command)
+        protected IResult PerformAbility(IMobileObject performer, ICommand command)
         {
             throw new NotImplementedException();
         }
