@@ -153,11 +153,5 @@ namespace ObjectsUnitTest.Skill.Skills.CauseOpponentEffect
             target.Verify(e => e.RemoveEquipment(weapon.Object), Times.Once);
             Assert.IsTrue(heldItems.Contains(weapon.Object));
         }
-
-        [TestMethod]
-        public void Disarm_WriteTests()
-        {
-            Assert.AreEqual(1, 2);
-        }
     }
 }
