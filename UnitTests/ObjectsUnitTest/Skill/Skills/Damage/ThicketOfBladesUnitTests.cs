@@ -17,7 +17,7 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
     [TestClass]
     public class ThicketOfBladesUnitTests
     {
-        ThicketOfBlades thicketOfBlades;
+        LocalThicketOfBlades thicketOfBlades;
         Mock<IDefaultValues> defaultValue;
         Mock<IDice> dice;
         Mock<ITagWrapper> tagWrapper;
@@ -48,7 +48,7 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
             GlobalReference.GlobalValues.DefaultValues = defaultValue.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
-            thicketOfBlades = new ThicketOfBlades();
+            thicketOfBlades = new LocalThicketOfBlades();
         }
 
         [TestMethod]
@@ -58,24 +58,26 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
             Assert.AreEqual(expected, thicketOfBlades.TeachMessage);
         }
 
-        //[TestMethod]
-        //public void ThicketOfBlades_MeetRequirements_True()
-        //{
-        //    Assert.IsTrue(thicketOfBlades.MeetRequirments(performer.Object, target.Object));
-        //}
-
-        //[TestMethod]
-        //public void ThicketOfBlades_MeetRequirements_False()
-        //{
-        //    damage.Setup(e => e.Type).Returns(DamageType.Pierce);
-
-        //    Assert.IsFalse(thicketOfBlades.MeetRequirments(performer.Object, target.Object));
-        //}
+        [TestMethod]
+        public void ThicketOfBlades_MeetRequirements_True()
+        {
+            Assert.IsTrue(thicketOfBlades.Testable_MeetRequirements(performer.Object, target.Object));
+        }
 
         [TestMethod]
-        public void ThicketOfBlades_WriteTests()
+        public void ThicketOfBlades_MeetRequirements_False()
         {
-            Assert.AreEqual(1, 2);
+            damage.Setup(e => e.Type).Returns(DamageType.Pierce);
+
+            Assert.IsFalse(thicketOfBlades.Testable_MeetRequirements(performer.Object, target.Object));
+        }
+
+        public class LocalThicketOfBlades : ThicketOfBlades
+        {
+            public bool Testable_MeetRequirements(IMobileObject performer, IMobileObject target)
+            {
+                return base.MeetRequirments(performer, target);
+            }
         }
     }
 }

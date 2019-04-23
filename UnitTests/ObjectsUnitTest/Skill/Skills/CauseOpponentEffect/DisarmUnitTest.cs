@@ -23,7 +23,7 @@ namespace ObjectsUnitTest.Skill.Skills.CauseOpponentEffect
 
     public class DisarmUnitTest
     {
-        Disarm disarm;
+        LocalDisarm disarm;
         Mock<IDefaultValues> defaultValue;
         Mock<IDice> dice;
         Mock<ITagWrapper> tagWrapper;
@@ -32,13 +32,6 @@ namespace ObjectsUnitTest.Skill.Skills.CauseOpponentEffect
         Mock<IWeapon> weapon;
         Mock<IRandom> random;
         List<IItem> heldItems;
-        Mock<ICommand> command;
-        Mock<IParameter> parameterCommandName;
-        Mock<IParameter> parameterTarget;
-        Mock<IFindObjects> findObjects;
-        Mock<INotify> notify;
-        Mock<IRoom> room;
-        Mock<IStringManipulator> stringManipulator;
 
         [TestInitialize]
         public void Setup()
@@ -53,13 +46,6 @@ namespace ObjectsUnitTest.Skill.Skills.CauseOpponentEffect
             performer = new Mock<IMobileObject>();
             random = new Mock<IRandom>();
             heldItems = new List<IItem>();
-            command = new Mock<ICommand>();
-            parameterCommandName = new Mock<IParameter>();
-            parameterTarget = new Mock<IParameter>();
-            findObjects = new Mock<IFindObjects>();
-            notify = new Mock<INotify>();
-            room = new Mock<IRoom>();
-            stringManipulator = new Mock<IStringManipulator>();
 
             defaultValue.Setup(e => e.DiceForSkillLevel(80)).Returns(dice.Object);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
@@ -69,25 +55,16 @@ namespace ObjectsUnitTest.Skill.Skills.CauseOpponentEffect
             target.Setup(e => e.SentenceDescription).Returns("target");
             performer.Setup(e => e.Stamina).Returns(200);
             performer.Setup(e => e.StrengthEffective).Returns(10);
-            performer.Setup(e => e.Room).Returns(room.Object);
             performer.Setup(e => e.SentenceDescription).Returns("performer");
             weapon.Setup(e => e.KeyWords).Returns(new List<string>() { "Sword" });
             random.SetupSequence(e => e.Next(0)).Returns(1).Returns(2);
             random.Setup(e => e.Next(It.IsAny<int>())).Returns((int x) => (x));
-            command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameterCommandName.Object, parameterTarget.Object });
-            parameterCommandName.Setup(e => e.ParameterValue).Returns("commandName");
-            parameterTarget.Setup(e => e.ParameterValue).Returns("target");
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(performer.Object, parameterTarget.Object.ParameterValue, 0, true, true, true, true, true)).Returns(target.Object);
-            stringManipulator.Setup(e => e.UpdateTargetPerformer("performer", "target", "You try to stun {target} causing them to drop their weapon but fail.")).Returns("message");
 
             GlobalReference.GlobalValues.DefaultValues = defaultValue.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Random = random.Object;
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
-            GlobalReference.GlobalValues.Notify = notify.Object;
-            GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
 
-            disarm = new Disarm();
+            disarm = new LocalDisarm();
         }
 
         [TestMethod]
@@ -106,52 +83,61 @@ namespace ObjectsUnitTest.Skill.Skills.CauseOpponentEffect
             Assert.IsTrue(result.AllowAnotherCommand);
         }
 
+        [TestMethod]
+        public void Disarm_MeetRequirments_True()
+        {
+            Assert.IsTrue(disarm.Testable_MeetsRequirments(performer.Object, target.Object));
+        }
 
         [TestMethod]
-        public void Disarm_ProcessSkill_DoesNotMeetRequirments()
+        public void Disarm_MeetRequirments_False()
         {
             weapon.Setup(e => e.KeyWords).Returns(new List<string>() { "BareHands" });
 
-            IResult result = disarm.ProcessSkill(performer.Object, command.Object);
+            Assert.IsFalse(disarm.Testable_MeetsRequirments(performer.Object, target.Object));
+        }
 
-            Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("You can not disarm an unarmed opponent.", result.ResultMessage);
-            performer.VerifySet(e => e.Stamina = It.IsAny<int>(), Times.Never);
+
+        [TestMethod]
+        public void Disarm_IsSuccessful_True()
+        {
+            random.SetupSequence(e => e.Next(0)).Returns(2).Returns(1);
+
+            Assert.IsTrue(disarm.Testable_IsSuccessful(performer.Object, target.Object));
         }
 
         [TestMethod]
-        public void Disarm_ProcessSkill_NotEnoughStamina()
+        public void Disarm_IsSuccessful_False()
         {
-            performer.Setup(e => e.Stamina).Returns(199);
+            target.Setup(e => e.StrengthEffective).Returns(50);
 
-            IResult result = disarm.ProcessSkill(performer.Object, command.Object);
-
-            Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("You need 200 stamina to use the skill commandName.", result.ResultMessage);
-            performer.VerifySet(e => e.Stamina = It.IsAny<int>(), Times.Never);
+            Assert.IsFalse(disarm.Testable_IsSuccessful(performer.Object, target.Object));
         }
 
         [TestMethod]
-        public void Disarm_ProcessSkill_IsNotSuccessful()
+        public void Disarm_AdditionalEffect()
         {
-            target.Setup(e => e.StrengthEffective).Returns(20);
-
-            IResult result = disarm.ProcessSkill(performer.Object, command.Object);
-
-            Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual("message", result.ResultMessage);
-            performer.VerifySet(e => e.Stamina = 0);
-            notify.Verify(e => e.Mob(target.Object, disarm.TargetNotificationFailure), Times.Once);
-            notify.Verify(e => e.Room(performer.Object, target.Object, room.Object, disarm.RoomNotificationFailure, new List<IMobileObject>() { performer.Object, target.Object }, false, false));
-        }
-
-        [TestMethod]
-        public void Disarm_ProcessSkill_AdditionalEffect()
-        {
-            IResult result = disarm.ProcessSkill(performer.Object, command.Object);
+            disarm.Testable_AdditionalEffect(performer.Object, target.Object);
 
             target.Verify(e => e.RemoveEquipment(weapon.Object), Times.Once);
-            Assert.IsTrue(heldItems.Contains(weapon.Object));
+        }
+
+        public class LocalDisarm : Disarm
+        {
+            public bool Testable_MeetsRequirments(IMobileObject performer, IMobileObject target)
+            {
+                return base.MeetRequirments(performer, target);
+            }
+
+            public bool Testable_IsSuccessful(IMobileObject performer, IMobileObject target)
+            {
+                return base.IsSuccessful(performer, target);
+            }
+
+            public void Testable_AdditionalEffect(IMobileObject performer, IMobileObject target)
+            {
+                base.AdditionalEffect(performer, target);
+            }
         }
     }
 }
