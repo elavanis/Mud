@@ -50,8 +50,7 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
         [TestMethod]
         public void KneeBreaker_AdditioanlEffect()
         {
-            string expected = "Kicking the opponents knee will cause them to loose mobility.";
-            Assert.AreEqual(expected, kneeBreaker.TeachMessage);
+            Assert.AreEqual(1, 2);
         }
     }
 }

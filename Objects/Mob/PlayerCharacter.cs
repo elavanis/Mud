@@ -160,8 +160,9 @@ namespace Objects.Mob
 
         public List<ICraftsmanObject> CraftsmanObjects { get; } = new List<ICraftsmanObject>();
 
-
+        [ExcludeFromCodeCoverage]
         public string GotoEnterMessage { get; set; }
+        [ExcludeFromCodeCoverage]
         public string GotoLeaveMessage { get; set; }
 
         public override ICorpse Die()

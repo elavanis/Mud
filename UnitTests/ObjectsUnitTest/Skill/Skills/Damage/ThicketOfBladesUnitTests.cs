@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Objects.Command.Interface;
 using Objects.Damage.Interface;
 using Objects.Die.Interface;
 using Objects.Global;
@@ -56,6 +57,15 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
         {
             string expected = "Move your blade in a circular path like this.  Good now faster, faster.  Perfect.";
             Assert.AreEqual(expected, thicketOfBlades.TeachMessage);
+        }
+
+        [TestMethod]
+        public void ThicketOfBlades_RequirementsFailureMessage()
+        {
+            IResult result = thicketOfBlades.RequirementsFailureMessage;
+
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("You must have a slashing weapon equipped.", result.ResultMessage);
         }
 
         [TestMethod]
