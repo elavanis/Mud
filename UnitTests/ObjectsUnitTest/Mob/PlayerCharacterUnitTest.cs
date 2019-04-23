@@ -185,6 +185,8 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void PlayerCharacter_RemoveOldCorpses()
         {
+            pc.Corpses.Add(corpse.Object);
+
             pc.RemoveOldCorpses(new DateTime(2001, 1, 1));
             Assert.AreEqual(0, pc.Corpses.Count);
         }

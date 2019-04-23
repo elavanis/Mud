@@ -19,6 +19,9 @@ using Objects.Global.Settings.Interface;
 using Objects.Global.Engine.Interface;
 using Objects.Global.Engine.Engines.Interface;
 using Objects.Item.Interface;
+using System.Collections.Concurrent;
+using Shared.TagWrapper.Interface;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Mob
 {
@@ -26,41 +29,88 @@ namespace ObjectsUnitTest.Mob
     public class NonPlayerCharacterUnitTest
     {
         NonPlayerCharacter npc;
+        Mock<INonPlayerCharacter> oldFollowTarget;
+        Mock<INonPlayerCharacter> newFollowTarget;
         Mock<IRandomDropGenerator> randomDropGenerator;
         Mock<IItem> item;
+        Mock<IDice> dice;
+        Mock<IDefaultValues> defaultValues;
+        Mock<ISettings> settings;
+        Mock<IRandom> random;
+        Mock<IExperience> experience;
+        Mock<IPersonality> personality;
+        Mock<IEquipment> equipment;
+        Mock<IArmor> armor;
+        Mock<IMoneyToCoins> moneyToCoins;
+        Mock<IRoom> room;
+        Mock<IEngine> engine;
+        Mock<IEvent> evnt;
+        List<INonPlayerCharacter> npcList;
+        Mock<ITagWrapper> tagWrapper;
 
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            Mock<IDice> dice = new Mock<IDice>();
-            Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
-            Mock<ISettings> settings = new Mock<ISettings>();
             randomDropGenerator = new Mock<IRandomDropGenerator>();
             item = new Mock<IItem>();
+            dice = new Mock<IDice>();
+            defaultValues = new Mock<IDefaultValues>();
+            settings = new Mock<ISettings>();
+            random = new Mock<IRandom>();
+            experience = new Mock<IExperience>();
+            personality = new Mock<IPersonality>();
+            equipment = new Mock<IEquipment>();
+            armor = new Mock<IArmor>();
+            moneyToCoins = new Mock<IMoneyToCoins>();
+            room = new Mock<IRoom>();
+            engine = new Mock<IEngine>();
+            evnt = new Mock<IEvent>();
+            oldFollowTarget = new Mock<INonPlayerCharacter>();
+            newFollowTarget = new Mock<INonPlayerCharacter>();
+            npcList = new List<INonPlayerCharacter>();
+            tagWrapper = new Mock<ITagWrapper>();
 
             dice.Setup(e => e.Die).Returns(1);
             dice.Setup(e => e.Sides).Returns(2);
             defaultValues.Setup(e => e.MoneyForNpcLevel(1)).Returns(1);
             defaultValues.Setup(e => e.DiceForArmorLevel(1)).Returns(dice.Object);
             settings.Setup(e => e.BaseStatValue).Returns(7);
+            settings.Setup(e => e.AssignableStatPoints).Returns(1);
+            settings.Setup(e => e.Multiplier).Returns(1.1);
             randomDropGenerator.Setup(e => e.GenerateRandomDrop(npc)).Returns(item.Object);
+            random.Setup(e => e.Next(1, 3)).Returns(1);
+            experience.Setup(e => e.GetDefaultNpcExpForLevel(1)).Returns(1);
+            moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("0");
+            room.Setup(e => e.NonPlayerCharacters).Returns(npcList);
+            engine.Setup(e => e.Event).Returns(evnt.Object);
+            npcList.Add(newFollowTarget.Object);
+            oldFollowTarget.Setup(e => e.Id).Returns(2);
+            oldFollowTarget.Setup(e => e.IsAlive).Returns(true);
+            newFollowTarget.Setup(e => e.Id).Returns(2);
+            newFollowTarget.Setup(e => e.IsAlive).Returns(true);
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => x);
+            evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), It.IsAny<string>())).Returns((IMobileObject x, string y) => y);
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.RandomDropGenerator = randomDropGenerator.Object;
+            GlobalReference.GlobalValues.Random = random.Object;
+            GlobalReference.GlobalValues.Experience = experience.Object;
+            GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
+            GlobalReference.GlobalValues.Engine = engine.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             npc = new NonPlayerCharacter();
+            npc.Room = room.Object;
+            npcList.Add(npc);
+
         }
 
         [TestMethod]
         public void NonPlayerCharacter_EXP()
         {
-            Mock<IExperience> experience = new Mock<IExperience>();
-            experience.Setup(e => e.GetDefaultNpcExpForLevel(1)).Returns(1);
-            GlobalReference.GlobalValues.Experience = experience.Object;
-
             npc.Level = 1;
 
             Assert.AreEqual(1, npc.EXP);
@@ -80,7 +130,6 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_Personalities_Populated()
         {
-            Mock<IPersonality> personality = new Mock<IPersonality>();
             npc.Personalities.Add(personality.Object);
 
             Assert.AreEqual(1, npc.Personalities.Count);
@@ -96,7 +145,6 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_NpcEquipedEquipment_Populated()
         {
-            Mock<IEquipment> equipment = new Mock<IEquipment>();
             npc.NpcEquipedEquipment.Add(equipment.Object);
 
             Assert.AreEqual(1, npc.NpcEquipedEquipment.Count);
@@ -112,8 +160,7 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_NpcEquipedEquipment_PopulatedNpcEquipedEquipment()
         {
-            Mock<IArmor> equipment = new Mock<IArmor>();
-            npc.NpcEquipedEquipment.Add(equipment.Object);
+            npc.NpcEquipedEquipment.Add(armor.Object);
 
             Assert.AreEqual(1, npc.EquipedArmor.Count());
         }
@@ -121,8 +168,7 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_NpcEquipedEquipment_PopulatedEquipedEquipment()
         {
-            Mock<IArmor> equipment = new Mock<IArmor>();
-            npc.AddEquipment(equipment.Object);
+            npc.AddEquipment(armor.Object);
 
             Assert.AreEqual(1, npc.EquipedArmor.Count());
         }
@@ -130,7 +176,6 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_FinsihLoad()
         {
-            Mock<IItem> item = new Mock<IItem>();
             npc.Items.Add(item.Object);
 
             npc.Level = 1;
@@ -144,10 +189,6 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_SetDefaultStats_StatRange()
         {
-            Mock<IRandom> random = new Mock<IRandom>();
-            random.Setup(e => e.Next(1, 3)).Returns(1);
-            GlobalReference.GlobalValues.Random = random.Object;
-
             npc.Level = 1;
             npc.StrengthMin = 1;
             npc.StrengthMax = 2;
@@ -175,15 +216,6 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_SetDefaultStats_LevelRange()
         {
-            Mock<IRandom> random = new Mock<IRandom>();
-            random.Setup(e => e.Next(1, 3)).Returns(1);
-            GlobalReference.GlobalValues.Random = random.Object;
-
-            Mock<ISettings> settings = new Mock<ISettings>();
-            settings.Setup(e => e.BaseStatValue).Returns(7);
-            settings.Setup(e => e.AssignableStatPoints).Returns(1);
-            GlobalReference.GlobalValues.Settings = settings.Object;
-
             npc.LevelRange = new LevelRange() { LowerLevel = 1, UpperLevel = 2 };
             npc.Level = 1;
 
@@ -201,25 +233,6 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_SetDefaultStats_Level2()
         {
-            Mock<IRandom> random = new Mock<IRandom>();
-            random.Setup(e => e.Next(1, 3)).Returns(1);
-            GlobalReference.GlobalValues.Random = random.Object;
-
-            Mock<IDice> dice = new Mock<IDice>();
-            dice.Setup(e => e.Die).Returns(1);
-            dice.Setup(e => e.Sides).Returns(2);
-
-            Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
-            defaultValues.Setup(e => e.MoneyForNpcLevel(1)).Returns(1);
-            defaultValues.Setup(e => e.DiceForArmorLevel(2)).Returns(dice.Object);
-            GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
-
-            Mock<ISettings> settings = new Mock<ISettings>();
-            settings.Setup(e => e.BaseStatValue).Returns(7);
-            settings.Setup(e => e.AssignableStatPoints).Returns(1);
-            settings.Setup(e => e.Multiplier).Returns(1.1);
-            GlobalReference.GlobalValues.Settings = settings.Object;
-
             npc.Level = 2;
 
             npc.FinishLoad();
@@ -238,15 +251,7 @@ namespace ObjectsUnitTest.Mob
         {
             npc.Level = 1;
 
-            Mock<ISettings> settings = new Mock<ISettings>();
-            settings.Setup(e => e.BaseStatValue).Returns(7);
-            settings.Setup(e => e.AssignableStatPoints).Returns(1);
-            GlobalReference.GlobalValues.Settings = settings.Object;
-
-            Mock<IRandom> random = new Mock<IRandom>();
             random.Setup(e => e.Next(6)).Returns(0);
-            GlobalReference.GlobalValues.Random = random.Object;
-
 
             npc.FinishLoad();
             Assert.AreEqual(8, npc.StrengthStat);
@@ -257,15 +262,7 @@ namespace ObjectsUnitTest.Mob
         {
             npc.Level = 1;
 
-            Mock<ISettings> settings = new Mock<ISettings>();
-            settings.Setup(e => e.BaseStatValue).Returns(7);
-            settings.Setup(e => e.AssignableStatPoints).Returns(1);
-            GlobalReference.GlobalValues.Settings = settings.Object;
-
-            Mock<IRandom> random = new Mock<IRandom>();
             random.Setup(e => e.Next(6)).Returns(1);
-            GlobalReference.GlobalValues.Random = random.Object;
-
 
             npc.FinishLoad();
             Assert.AreEqual(8, npc.DexterityStat);
@@ -276,15 +273,7 @@ namespace ObjectsUnitTest.Mob
         {
             npc.Level = 1;
 
-            Mock<ISettings> settings = new Mock<ISettings>();
-            settings.Setup(e => e.BaseStatValue).Returns(7);
-            settings.Setup(e => e.AssignableStatPoints).Returns(1);
-            GlobalReference.GlobalValues.Settings = settings.Object;
-
-            Mock<IRandom> random = new Mock<IRandom>();
             random.Setup(e => e.Next(6)).Returns(2);
-            GlobalReference.GlobalValues.Random = random.Object;
-
 
             npc.FinishLoad();
             Assert.AreEqual(8, npc.ConstitutionStat);
@@ -295,15 +284,7 @@ namespace ObjectsUnitTest.Mob
         {
             npc.Level = 1;
 
-            Mock<ISettings> settings = new Mock<ISettings>();
-            settings.Setup(e => e.BaseStatValue).Returns(7);
-            settings.Setup(e => e.AssignableStatPoints).Returns(1);
-            GlobalReference.GlobalValues.Settings = settings.Object;
-
-            Mock<IRandom> random = new Mock<IRandom>();
             random.Setup(e => e.Next(6)).Returns(3);
-            GlobalReference.GlobalValues.Random = random.Object;
-
 
             npc.FinishLoad();
             Assert.AreEqual(8, npc.IntelligenceStat);
@@ -314,15 +295,7 @@ namespace ObjectsUnitTest.Mob
         {
             npc.Level = 1;
 
-            Mock<ISettings> settings = new Mock<ISettings>();
-            settings.Setup(e => e.BaseStatValue).Returns(7);
-            settings.Setup(e => e.AssignableStatPoints).Returns(1);
-            GlobalReference.GlobalValues.Settings = settings.Object;
-
-            Mock<IRandom> random = new Mock<IRandom>();
             random.Setup(e => e.Next(6)).Returns(4);
-            GlobalReference.GlobalValues.Random = random.Object;
-
 
             npc.FinishLoad();
             Assert.AreEqual(8, npc.WisdomStat);
@@ -333,15 +306,7 @@ namespace ObjectsUnitTest.Mob
         {
             npc.Level = 1;
 
-            Mock<ISettings> settings = new Mock<ISettings>();
-            settings.Setup(e => e.BaseStatValue).Returns(7);
-            settings.Setup(e => e.AssignableStatPoints).Returns(1);
-            GlobalReference.GlobalValues.Settings = settings.Object;
-
-            Mock<IRandom> random = new Mock<IRandom>();
             random.Setup(e => e.Next(6)).Returns(5);
-            GlobalReference.GlobalValues.Random = random.Object;
-
 
             npc.FinishLoad();
             Assert.AreEqual(8, npc.CharismaStat);
@@ -354,10 +319,7 @@ namespace ObjectsUnitTest.Mob
             MethodInfo mi = npc.GetType().GetMethod("LevelRandomStat", BindingFlags.Instance | BindingFlags.NonPublic);
             npc.LevelPoints = 20;
 
-            Mock<IRandom> random = new Mock<IRandom>();
             random.Setup(e => e.Next(6)).Returns(0);
-            GlobalReference.GlobalValues.Random = random.Object;
-
 
             mi.Invoke(npc, null);
 
@@ -392,7 +354,6 @@ namespace ObjectsUnitTest.Mob
         public void NonPlayerCharacter_LoadNpcEquipment_0()
         {
             npc.Level = 1;
-            Mock<IArmor> armor = new Mock<IArmor>();
             npc.AddEquipment(armor.Object);
 
             npc.FinishLoad();
@@ -403,21 +364,6 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_Die()
         {
-            Mock<IMoneyToCoins> moneyToCoins = new Mock<IMoneyToCoins>();
-            GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
-            Mock<IRoom> room = new Mock<IRoom>();
-            List<INonPlayerCharacter> npcList = new List<INonPlayerCharacter>();
-            Mock<IEngine> engine = new Mock<IEngine>();
-            Mock<IEvent> evnt = new Mock<IEvent>();
-
-            moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("0");
-            npcList.Add(npc);
-            room.Setup(e => e.NonPlayerCharacters).Returns(npcList);
-            npc.Room = room.Object;
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-
-            GlobalReference.GlobalValues.Engine = engine.Object;
-
             npc.Die();
 
             room.Verify(e => e.RemoveMobileObjectFromRoom(npc));
@@ -429,23 +375,37 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_UpdateFollowerToCurrentReference()
         {
-            Mock<IRoom> room = new Mock<IRoom>();
-            List<INonPlayerCharacter> npcList = new List<INonPlayerCharacter>();
-            room.Setup(e => e.NonPlayerCharacters).Returns(npcList);
-            npcList.Add(npc);
-            npc.Room = room.Object;
-
-            NonPlayerCharacter target = new NonPlayerCharacter();
-            target.Id = 2;
-            npcList.Add(target);
-
-            NonPlayerCharacter follower = new NonPlayerCharacter();
-            follower.Id = 2;
-            npc.FollowTarget = follower;
+            npc.FollowTarget = oldFollowTarget.Object;
 
             npc.FinishLoad();
 
-            Assert.AreSame(target, npc.FollowTarget);
+            Assert.AreSame(newFollowTarget.Object, npc.FollowTarget);
+        }
+
+        [TestMethod]
+        public void NonPlayerCharacter_EnqueueMessage_NoPossessor()
+        {
+            npc.EnqueueMessage("1");
+
+            PropertyInfo propertyInfo = npc.GetType().GetProperty("_messageQueue", BindingFlags.NonPublic | BindingFlags.Instance);
+            ConcurrentQueue<string> concurrentQueue = (ConcurrentQueue<string>)propertyInfo.GetValue(npc);
+
+            Assert.AreEqual(0, concurrentQueue.Count);
+        }
+
+        [TestMethod]
+        public void NonPlayerCharacter_EnqueueMessage_Possessed()
+        {
+            npc.PossingMob = oldFollowTarget.Object;
+
+            npc.EnqueueMessage("1");
+
+            PropertyInfo propertyInfo = npc.GetType().GetProperty("_messageQueue", BindingFlags.NonPublic | BindingFlags.Instance);
+            ConcurrentQueue<string> concurrentQueue = (ConcurrentQueue<string>)propertyInfo.GetValue(npc);
+
+            string message;
+            concurrentQueue.TryDequeue(out message);
+            Assert.AreEqual("1", message);
         }
     }
 }

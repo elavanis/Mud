@@ -13,9 +13,9 @@ using static Shared.TagWrapper.TagWrapper;
 namespace ObjectsUnitTest.Skill.Skills.Damage
 {
     [TestClass]
-    public class RagingBullUnitTest
+    public class SunShineUnitTest
     {
-        RagingBull ragingBull;
+        SunShine sunShine;
         Mock<IDefaultValues> defaultValue;
         Mock<IDice> dice;
         Mock<ITagWrapper> tagWrapper;
@@ -27,21 +27,21 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
             dice = new Mock<IDice>();
             tagWrapper = new Mock<ITagWrapper>();
 
-            defaultValue.Setup(e => e.DiceForSkillLevel(1)).Returns(dice.Object);
+            defaultValue.Setup(e => e.DiceForSkillLevel(60)).Returns(dice.Object);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.DefaultValues = defaultValue.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
-            ragingBull = new RagingBull();
+            sunShine = new SunShine();
         }
 
         [TestMethod]
-        public void RagingBull_TeachMethod()
+        public void SunShine_TeachMethod()
         {
-            string result = ragingBull.TeachMessage;
+            string result = sunShine.TeachMessage;
 
-            Assert.AreEqual("Lower your head and charge your enemy like a raging bull.  Finger horns are optional but encouraged.", result);
+            Assert.AreEqual("Trick your opponent to lower their guard and make them pay for it.", result);
         }
     }
 }
