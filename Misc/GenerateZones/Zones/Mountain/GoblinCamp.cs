@@ -516,6 +516,8 @@ namespace GenerateZones.Zones.Mountain
             ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.North, Zone.Rooms[13]);
             ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.South, Zone.Rooms[14]);
             ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.East, Zone.Rooms[15]);
+
+            ZoneHelper.ConnectZone(Zone.Rooms[15], Direction.East, 19, 1);
         }
     }
 }

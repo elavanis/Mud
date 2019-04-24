@@ -56,9 +56,7 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
             target.VerifySet(e => e.Stamina = 5);
         }
 
-
-
-        public class LocalKneeBreaker : KneeBreaker
+        private class LocalKneeBreaker : KneeBreaker
         {
             public void Testable_AdditionalEffect(IMobileObject performer, IMobileObject target)
             {

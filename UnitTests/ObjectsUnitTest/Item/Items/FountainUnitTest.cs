@@ -4,9 +4,9 @@ using static Objects.Item.Item;
 
 namespace ObjectsUnitTest.Item.Items
 {
+    [TestClass]
     public class FountainUnitTest
     {
-
         [TestMethod]
         public void Fountain_Constructor()
         {

@@ -125,7 +125,6 @@ namespace Objects
                 }
             }
 
-
             if (this is ILoadableItems loadableItem)
             {
                 if (loadableItem.LoadableItems.Count > 0)

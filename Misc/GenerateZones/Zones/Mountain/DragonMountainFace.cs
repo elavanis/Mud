@@ -464,6 +464,15 @@ namespace GenerateZones.Zones.Mountain
             ZoneHelper.ConnectRoom(Zone.Rooms[18], Direction.Up, Zone.Rooms[23]);
             ZoneHelper.ConnectRoom(Zone.Rooms[19], Direction.Up, Zone.Rooms[24]);
             ZoneHelper.ConnectRoom(Zone.Rooms[20], Direction.Up, Zone.Rooms[25]);
+
+
+            ZoneHelper.ConnectZone(Zone.Rooms[21], Direction.North, 22, 1);
+            ZoneHelper.ConnectZone(Zone.Rooms[22], Direction.North, 22, 16);
+            ZoneHelper.ConnectZone(Zone.Rooms[23], Direction.North, 22, 15);
+            ZoneHelper.ConnectZone(Zone.Rooms[24], Direction.North, 22, 14);
+            ZoneHelper.ConnectZone(Zone.Rooms[25], Direction.North, 22, 13);
+
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 16, 15);
             #endregion Rock Face
 
             #region Path

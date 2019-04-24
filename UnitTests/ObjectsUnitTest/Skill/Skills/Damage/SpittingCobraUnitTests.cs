@@ -85,7 +85,7 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
             Assert.AreEqual(DamageType.Poison, addedEnchantment.Parameter.Damage.Type);
         }
 
-        public class LocalSpittingCobra : SpittingCobra
+        private class LocalSpittingCobra : SpittingCobra
         {
             public void Testable_AdditionalEffect(IMobileObject performer, IMobileObject target)
             {

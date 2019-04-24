@@ -57,7 +57,7 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
             Assert.AreEqual(staminaCost, baseDamage.StaminaCost);
         }
 
-        public class LocalBaseDamageSkill : BaseDamageSkill
+        private class LocalBaseDamageSkill : BaseDamageSkill
         {
             public LocalBaseDamageSkill(string skillName, int die, int sides, DamageType damageType, int statminaCost = -1)
                 : base(skillName, die, sides, damageType, statminaCost)

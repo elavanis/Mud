@@ -82,7 +82,7 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
             Assert.IsFalse(thicketOfBlades.Testable_MeetRequirements(performer.Object, target.Object));
         }
 
-        public class LocalThicketOfBlades : ThicketOfBlades
+        private class LocalThicketOfBlades : ThicketOfBlades
         {
             public bool Testable_MeetRequirements(IMobileObject performer, IMobileObject target)
             {

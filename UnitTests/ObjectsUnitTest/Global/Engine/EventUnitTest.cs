@@ -5,7 +5,9 @@ using Objects.Global.Engine.Engines;
 using Objects.Global.Logging.Interface;
 using Objects.Global.Map.Interface;
 using Objects.Global.Notify.Interface;
+using Objects.Interface;
 using Objects.Item.Interface;
+using Objects.Item.Items.Interface;
 using Objects.Language.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob.Interface;
@@ -38,6 +40,8 @@ namespace ObjectsUnitTest.Global.Engine
         Mock<IEnchantment> itemEnchantment;
         Mock<INotify> notify;
         Mock<IMap> map;
+        Mock<IContainer> container;
+        Mock<IBaseObject> baseObjectContainer;
 
         [TestInitialize]
         public void Setup()
@@ -59,6 +63,8 @@ namespace ObjectsUnitTest.Global.Engine
             itemEnchantment = new Mock<IEnchantment>();
             notify = new Mock<INotify>();
             map = new Mock<IMap>();
+            container = new Mock<IContainer>();
+            baseObjectContainer = container.As<IBaseObject>();
 
             npc.Setup(e => e.Room).Returns(room.Object);
             npc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>() { npcEnchantment.Object });
@@ -78,6 +84,7 @@ namespace ObjectsUnitTest.Global.Engine
             room.Setup(e => e.SerializedSounds).Returns("SerializedSounds");
             trap.Setup(e => e.Trigger).Returns(TrapTrigger.All);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            baseObjectContainer.Setup(e => e.SentenceDescription).Returns("ContainerSentence");
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Logger = logger.Object;
@@ -279,6 +286,20 @@ namespace ObjectsUnitTest.Global.Engine
             pcEnchantment.Verify(e => e.Get(pc.Object, item.Object, null), Times.Once);
             npcEnchantment.Verify(e => e.Get(pc.Object, item.Object, null), Times.Once);
             itemEnchantment.Verify(e => e.Get(pc.Object, item.Object, null), Times.Once);
+        }
+
+        [TestMethod]
+        public void Event_Put()
+        {
+            evnt.Put(pc.Object, item.Object, (IContainer)baseObjectContainer.Object);
+
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence put ItemSentence in ContainerSentence."), Times.Once);
+
+            roomEnchantment.Verify(e => e.Put(pc.Object, item.Object, (IContainer)baseObjectContainer.Object), Times.Once);
+            trapEnchantment.Verify(e => e.Put(pc.Object, item.Object, (IContainer)baseObjectContainer.Object), Times.Once);
+            pcEnchantment.Verify(e => e.Put(pc.Object, item.Object, (IContainer)baseObjectContainer.Object), Times.Once);
+            npcEnchantment.Verify(e => e.Put(pc.Object, item.Object, (IContainer)baseObjectContainer.Object), Times.Once);
+            itemEnchantment.Verify(e => e.Put(pc.Object, item.Object, (IContainer)baseObjectContainer.Object), Times.Once);
         }
 
         [TestMethod]

@@ -79,7 +79,7 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
             Assert.AreEqual("You must have a piercing weapon equipped.", result.ResultMessage);
         }
 
-        public class LocalPierce : Pierce
+        private class LocalPierce : Pierce
         {
             public bool Testable_MeetRequirments(IMobileObject performer, IMobileObject target)
             {

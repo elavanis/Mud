@@ -130,8 +130,6 @@ namespace Objects.Mob
             }
         }
 
-
-
         private List<MobileAttribute> _mobileAttributes = null;
         private List<MobileAttribute> AttributesMobileObject
         {

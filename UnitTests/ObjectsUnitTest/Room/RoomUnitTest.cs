@@ -22,6 +22,7 @@ using Shared.FileIO.Interface;
 using Objects.Global.Settings.Interface;
 using System.Reflection;
 using Objects.Global.Serialization.Interface;
+using Objects.Interface;
 
 namespace ObjectsUnitTest.Room
 {
@@ -34,6 +35,8 @@ namespace ObjectsUnitTest.Room
         Mock<ISerialization> serializer;
         Mock<ISettings> settings;
         Mock<ITagWrapper> tagWrapper;
+        Mock<ILoadableItems> loadableItem;
+        Mock<ILoadPercentage> loadPercentage;
 
         [TestInitialize]
         public void Setup()
@@ -45,10 +48,14 @@ namespace ObjectsUnitTest.Room
             serializer = new Mock<ISerialization>();
             settings = new Mock<ISettings>();
             tagWrapper = new Mock<ITagWrapper>();
+            loadableItem = new Mock<ILoadableItems>();
+            loadPercentage = new Mock<ILoadPercentage>();
 
             settings.Setup(e => e.VaultDirectory).Returns("vault");
             serializer.Setup(e => e.Serialize(It.IsAny<List<IItem>>())).Returns("serializedList");
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            loadPercentage.Setup(e => e.Load).Returns(true);
+            loadPercentage.Setup(e => e.Object).Returns(item.Object);
 
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Serialization = serializer.Object;

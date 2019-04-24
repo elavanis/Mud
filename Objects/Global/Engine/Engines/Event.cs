@@ -163,7 +163,7 @@ namespace Objects.Global.Engine.Engines
         }
         public void Put(IMobileObject performer, IItem item, IContainer container)
         {
-            GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} put {item.SentenceDescription}.");
+            GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} put {item.SentenceDescription} in {(container as IBaseObject).SentenceDescription}.");
             RunEnchantments(performer, EventType.Put, new EventParamerters() { Performer = performer, Item = item, Container = container });
         }
 

@@ -47,7 +47,6 @@ namespace Objects.Skill.Skills
                     return new Result(string.Format("You look up and see the {0} in front of you.", target), false);
                 }
 
-
                 HashSet<IRoom> searchedRooms = new HashSet<IRoom>();
                 searchedRooms.Add(performer.Room);
                 return SearchOtherRooms(target, performer, searchedRooms);
@@ -84,7 +83,6 @@ namespace Objects.Skill.Skills
                     return new Result(string.Format("You pickup the trail of a {0} to the {1}.", target, trail.Direction), false);
                 }
             }
-
 
             while (newTrails.Count > 0)
             {

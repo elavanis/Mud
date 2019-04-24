@@ -1,4 +1,5 @@
-﻿using Objects.LoadPercentage.Interface;
+﻿using Objects.Item.Interface;
+using Objects.LoadPercentage.Interface;
 using System.Collections.Generic;
 
 namespace Objects.Interface
