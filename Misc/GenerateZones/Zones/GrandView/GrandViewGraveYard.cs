@@ -14,6 +14,7 @@ using Objects.Personality.Personalities.GrandViewGraveYard;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static GenerateZones.RandomZoneGeneration;
+using static Objects.Global.Direction.Directions;
 using static Objects.Mob.NonPlayerCharacter;
 using static Objects.Room.Room;
 
@@ -124,10 +125,17 @@ namespace GenerateZones.Zones.GrandView
 
             Zone.Rooms.Add(26, Room26());
 
-            ZoneHelper.ConnectZone(Zone.Rooms[13], Objects.Global.Direction.Directions.Direction.Down, 20, 1);
-            ZoneHelper.ConnectRoom(Zone.Rooms[25], Objects.Global.Direction.Directions.Direction.East, Zone.Rooms[26]);
+            ConnectRooms();
 
             return Zone;
+        }
+
+        private void ConnectRooms()
+        {
+            ZoneHelper.ConnectZone(Zone.Rooms[13], Direction.Down, 20, 1);
+            ZoneHelper.ConnectRoom(Zone.Rooms[25], Direction.East, Zone.Rooms[26]);
+
+            ZoneHelper.ConnectZone(Zone.Rooms[5], Direction.North, 5, 29);
         }
 
         private IRoom Room26()

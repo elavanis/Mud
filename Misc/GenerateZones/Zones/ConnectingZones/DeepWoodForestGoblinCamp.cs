@@ -51,6 +51,13 @@ namespace GenerateZones.Zones.ConnectingZones
             ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.West, Zone.Rooms[5]);
             ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.West, Zone.Rooms[6]);
             ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.South, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.East, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[8], Direction.East, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.North, Zone.Rooms[10]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.East, Zone.Rooms[11]);
+
+            ZoneHelper.ConnectZone(Zone.Rooms[11], Direction.East, 16, 1);
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 8, 80);
         }
 
         #region Rooms
@@ -127,6 +134,46 @@ namespace GenerateZones.Zones.ConnectingZones
             IRoom room = ZoneRoom(100);
             room.ExamineDescription = "There is a half eaten goat in one corner along with several other unidentifiable animals.";
             room.LookDescription = "The cave has a large pile of straw in one corner.";
+            room.ShortDescription = "In a ravine";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom8()
+        {
+            IRoom room = ZoneRoom(100);
+            room.ExamineDescription = "The bottom of the ravine is covered in dirt from above.";
+            room.LookDescription = "Here the path looks less traveled.";
+            room.ShortDescription = "In a ravine";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom9()
+        {
+            IRoom room = ZoneRoom(100);
+            room.ExamineDescription = "The bottom of the ravine is covered in dirt from above.";
+            room.LookDescription = "Here the path looks less traveled.";
+            room.ShortDescription = "In a ravine";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom10()
+        {
+            IRoom room = ZoneRoom(100);
+            room.ExamineDescription = "More dirt has fallen down from above.  As if something is causing the dirt to fall.";
+            room.LookDescription = "A small shrub grows out of a small rock cropping.";
+            room.ShortDescription = "In a ravine";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom11()
+        {
+            IRoom room = ZoneRoom(100);
+            room.ExamineDescription = "A few small foot prints can be seen in the dirt but it hard to tell what made them or how long ago.";
+            room.LookDescription = "A mound of dirt has been built up to the point it causes a natural stairs out of the ravine.";
             room.ShortDescription = "In a ravine";
 
             return room;

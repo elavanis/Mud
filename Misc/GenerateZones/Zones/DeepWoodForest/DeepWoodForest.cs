@@ -170,6 +170,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
             return room;
         }
+
         private IRoom GenerateRoom10()
         {
             IRoom room = ZoneRoom(5);
@@ -1134,6 +1135,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 9, 80);
             ZoneHelper.ConnectZone(Zone.Rooms[36], Direction.North, 10, 1);
             ZoneHelper.ConnectZone(Zone.Rooms[80], Direction.South, 12, 1);
+            ZoneHelper.ConnectZone(Zone.Rooms[80], Direction.East, 17, 1);
 
             for (int h = 0; h < 5; h++)
             {

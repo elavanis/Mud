@@ -666,6 +666,7 @@ East: The Training Hall";
             ZoneHelper.ConnectZone(Zone.Rooms[19], Direction.East, 3, 1);
             ZoneHelper.ConnectZone(Zone.Rooms[4], Direction.South, 7, 5);
             ZoneHelper.ConnectZone(Zone.Rooms[30], Direction.South, 11, 9);
+            ZoneHelper.ConnectZone(Zone.Rooms[29], Direction.South, 21, 5);
 
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.North, Zone.Rooms[2]);
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.North, Zone.Rooms[3]);

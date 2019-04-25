@@ -140,7 +140,7 @@ namespace GenerateZones.Zones.GrandView
             nonPlayerCharacter.Personalities.Add(new Guardian());
             nonPlayerCharacter.ExamineDescription = "Clothed in a gray tunic the priest stands in meditation while emitting a humming sound.";
             nonPlayerCharacter.LookDescription = "The priest mostly ignores you as all are welcome to the temple of Charon.";
-            nonPlayerCharacter.ShortDescription = "A mediative priest stands in his place the circle.";
+            nonPlayerCharacter.ShortDescription = "A mediative priest stands in his place in the circle.";
             nonPlayerCharacter.SentenceDescription = "priest";
             nonPlayerCharacter.KeyWords.Add("Priest");
 
