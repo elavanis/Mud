@@ -127,6 +127,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Give_PerformCommand_NoPerson()
         {
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, parameter2.Object.ParameterValue)).Returns(new List<INonPlayerCharacter>());
+            findObjects.Setup(e => e.FindPcInRoom(room.Object, parameter2.Object.ParameterValue)).Returns(new List<IPlayerCharacter>());
 
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
             Assert.AreEqual("You could not find npc.", result.ResultMessage);

@@ -109,7 +109,7 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The club looks to well balanced with a frayed leather grip.", weapon.LookDescription);
             Assert.AreEqual("The stout wooden club looks to be well balanced.", weapon.ShortDescription);
             Assert.AreEqual("club", weapon.SentenceDescription);
-            Assert.IsTrue(weapon.KeyWords.Contains("Club"));
+            Assert.IsTrue(weapon.KeyWords.Contains("club"));
             Assert.AreEqual(1, weapon.DamageList.Count);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
@@ -124,7 +124,7 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The shaft of the mace is smooth and the head of the polished.", weapon.LookDescription);
             Assert.AreEqual("The metal mace has an ornate head used for bashing things.", weapon.ShortDescription);
             Assert.AreEqual("mace", weapon.SentenceDescription);
-            Assert.IsTrue(weapon.KeyWords.Contains("Mace"));
+            Assert.IsTrue(weapon.KeyWords.Contains("mace"));
             Assert.AreEqual(1, weapon.DamageList.Count);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
@@ -139,8 +139,9 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The wooden staff has gnarled fingers for a head.", weapon.LookDescription);
             Assert.AreEqual("The wizards staff hums with a deep sound that resonates deep in your body.", weapon.ShortDescription);
             Assert.AreEqual("wizard staff", weapon.SentenceDescription);
-            Assert.IsTrue(weapon.KeyWords.Contains("Wizard"));
-            Assert.IsTrue(weapon.KeyWords.Contains("Staff"));
+            Assert.IsTrue(weapon.KeyWords.Contains("wizard"));
+            Assert.IsTrue(weapon.KeyWords.Contains("staff"));
+            Assert.IsTrue(weapon.KeyWords.Contains("wizard staff"));
             Assert.AreEqual(1, weapon.DamageList.Count);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
@@ -155,7 +156,7 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The axe could have been used by a great warrior of days or the local peasant down the road.  It is hard tell the history just from its looks.", weapon.LookDescription);
             Assert.AreEqual("The axe has a large head and strong wooden handle.", weapon.ShortDescription);
             Assert.AreEqual("axe", weapon.SentenceDescription);
-            Assert.IsTrue(weapon.KeyWords.Contains("Axe"));
+            Assert.IsTrue(weapon.KeyWords.Contains("axe"));
             Assert.AreEqual(1, weapon.DamageList.Count);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
@@ -170,7 +171,7 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The blade is pitted and has one side sharpened.", weapon.LookDescription);
             Assert.AreEqual("A short sword used to cut down ones foes.", weapon.ShortDescription);
             Assert.AreEqual("sword", weapon.SentenceDescription);
-            Assert.IsTrue(weapon.KeyWords.Contains("Sword"));
+            Assert.IsTrue(weapon.KeyWords.Contains("sword"));
             Assert.AreEqual(1, weapon.DamageList.Count);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
@@ -185,7 +186,7 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The blade is pitted and has a small fuller running the length of the blade.", weapon.LookDescription);
             Assert.AreEqual("The dagger is short sharp and pointy.  Perfect for concealing on your person.", weapon.ShortDescription);
             Assert.AreEqual("dagger", weapon.SentenceDescription);
-            Assert.IsTrue(weapon.KeyWords.Contains("Dagger"));
+            Assert.IsTrue(weapon.KeyWords.Contains("dagger"));
             Assert.AreEqual(1, weapon.DamageList.Count);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
@@ -200,8 +201,9 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("This pick has a large grooved hammer head and a sharp pick on the back.", weapon.LookDescription);
             Assert.AreEqual("This war pick is a versatile weapon used to fight against armored opponents.", weapon.ShortDescription);
             Assert.AreEqual("war pick", weapon.SentenceDescription);
-            Assert.IsTrue(weapon.KeyWords.Contains("War"));
-            Assert.IsTrue(weapon.KeyWords.Contains("Pick"));
+            Assert.IsTrue(weapon.KeyWords.Contains("war pick"));
+            Assert.IsTrue(weapon.KeyWords.Contains("war"));
+            Assert.IsTrue(weapon.KeyWords.Contains("pick"));
             Assert.AreEqual(1, weapon.DamageList.Count);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
@@ -216,7 +218,7 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The spear head is pointed and about nine inches long.", weapon.LookDescription);
             Assert.AreEqual("A large pointed spear that can be used to poke holes in ones foes or pick up trash.", weapon.ShortDescription);
             Assert.AreEqual("spear", weapon.SentenceDescription);
-            Assert.IsTrue(weapon.KeyWords.Contains("Spear"));
+            Assert.IsTrue(weapon.KeyWords.Contains("spear"));
             Assert.AreEqual(1, weapon.DamageList.Count);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Die);
             Assert.AreEqual(1, weapon.DamageList[0].Dice.Sides);
@@ -227,7 +229,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Head()
         {
-            random.Setup(e => e.Next(12)).Returns(1);
+            random.Setup(e => e.Next(11)).Returns(1);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -235,14 +237,14 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The helmet is hard and light but well padded giving the ultimate compromise between protection and usability.", armor.LookDescription);
             Assert.AreEqual("A well made helmet that looks like it might fit.", armor.ShortDescription);
             Assert.AreEqual("helmet", armor.SentenceDescription);
-            Assert.IsTrue(armor.KeyWords.Contains("Helmet"));
+            Assert.IsTrue(armor.KeyWords.Contains("helmet"));
             Assert.AreEqual(AvalableItemPosition.Head, armor.ItemPosition);
         }
 
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Necklace()
         {
-            random.Setup(e => e.Next(12)).Returns(2);
+            random.Setup(e => e.Next(11)).Returns(2);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -250,14 +252,14 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The necklace has a stone attached to it via a round pendent.", armor.LookDescription);
             Assert.AreEqual("A delicate necklace fit for any royal lady to wear to any party.", armor.ShortDescription);
             Assert.AreEqual("necklace", armor.SentenceDescription);
-            Assert.IsTrue(armor.KeyWords.Contains("Necklace"));
+            Assert.IsTrue(armor.KeyWords.Contains("necklace"));
             Assert.AreEqual(AvalableItemPosition.Neck, armor.ItemPosition);
         }
 
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Arms()
         {
-            random.Setup(e => e.Next(12)).Returns(3);
+            random.Setup(e => e.Next(11)).Returns(3);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -265,14 +267,14 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("Just a hair longer than your arm these bracers look to be a perfect fit.", armor.LookDescription);
             Assert.AreEqual("A pair of bracers that look to offer good protection for your arms.", armor.ShortDescription);
             Assert.AreEqual("bracer", armor.SentenceDescription);
-            Assert.IsTrue(armor.KeyWords.Contains("Bracer"));
+            Assert.IsTrue(armor.KeyWords.Contains("bracer"));
             Assert.AreEqual(AvalableItemPosition.Arms, armor.ItemPosition);
         }
 
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Hand()
         {
-            random.Setup(e => e.Next(12)).Returns(4);
+            random.Setup(e => e.Next(11)).Returns(4);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -280,14 +282,14 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The gloves have a spider web design on the back and a spider for the design on the inside.", armor.LookDescription);
             Assert.AreEqual("The gloves look to be thin and not offer much protection.", armor.ShortDescription);
             Assert.AreEqual("gloves", armor.SentenceDescription);
-            Assert.IsTrue(armor.KeyWords.Contains("Gloves"));
+            Assert.IsTrue(armor.KeyWords.Contains("gloves"));
             Assert.AreEqual(AvalableItemPosition.Hand, armor.ItemPosition);
         }
 
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Finger()
         {
-            random.Setup(e => e.Next(12)).Returns(5);
+            random.Setup(e => e.Next(11)).Returns(5);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -295,14 +297,14 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The ring is smooth on the outside.", armor.LookDescription);
             Assert.AreEqual("The ring is a simple ring with no special markings or anything to suggest it is magical.", armor.ShortDescription);
             Assert.AreEqual("ring", armor.SentenceDescription);
-            Assert.IsTrue(armor.KeyWords.Contains("Ring"));
+            Assert.IsTrue(armor.KeyWords.Contains("ring"));
             Assert.AreEqual(AvalableItemPosition.Finger, armor.ItemPosition);
         }
 
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Body()
         {
-            random.Setup(e => e.Next(12)).Returns(6);
+            random.Setup(e => e.Next(11)).Returns(6);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -319,7 +321,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Waist()
         {
-            random.Setup(e => e.Next(12)).Returns(7);
+            random.Setup(e => e.Next(11)).Returns(7);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -327,14 +329,14 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The belt is prismatic.  The color shifts through the rainbow as you move relative to it.", armor.LookDescription);
             Assert.AreEqual("The belt is a prismatic color that shifts wildly.", armor.ShortDescription);
             Assert.AreEqual("belt", armor.SentenceDescription);
-            Assert.IsTrue(armor.KeyWords.Contains("Belt"));
+            Assert.IsTrue(armor.KeyWords.Contains("belt"));
             Assert.AreEqual(AvalableItemPosition.Waist, armor.ItemPosition);
         }
 
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Legs()
         {
-            random.Setup(e => e.Next(12)).Returns(8);
+            random.Setup(e => e.Next(11)).Returns(8);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -342,14 +344,14 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("The leggings have are a dark gray color with delicately carved curving lines on the front forming a intricate pattern.", armor.LookDescription);
             Assert.AreEqual("A pair of leggings.", armor.ShortDescription);
             Assert.AreEqual("legging", armor.SentenceDescription);
-            Assert.IsTrue(armor.KeyWords.Contains("Legging"));
+            Assert.IsTrue(armor.KeyWords.Contains("legging"));
             Assert.AreEqual(AvalableItemPosition.Legs, armor.ItemPosition);
         }
 
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Feet()
         {
-            random.Setup(e => e.Next(12)).Returns(9);
+            random.Setup(e => e.Next(11)).Returns(9);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -357,7 +359,7 @@ namespace ObjectsUnitTest.Global.Random
             Assert.AreEqual("Made of supple leather the boots are soft and easy to wear at the expense of some protection.", armor.LookDescription);
             Assert.AreEqual("A pair of leather boots.", armor.ShortDescription);
             Assert.AreEqual("boot", armor.SentenceDescription);
-            Assert.IsTrue(armor.KeyWords.Contains("Boot"));
+            Assert.IsTrue(armor.KeyWords.Contains("boot"));
             Assert.AreEqual(AvalableItemPosition.Feet, armor.ItemPosition);
         }
     }

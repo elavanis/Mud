@@ -15,6 +15,7 @@ using Objects.Material.Materials;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities;
 using Objects.Personality.Personalities.Interface;
+using Objects.Personality.Personalities.MountainGoblinCamp;
 using Objects.Personality.Personalities.ResponderMisc;
 using Objects.Personality.Personalities.ResponderMisc.Interface;
 using Objects.Room;
@@ -326,6 +327,9 @@ namespace GenerateZones.Zones.Mountain
             npc.KeyWords.Add("chief");
             IItem focusingCrystal = FocusingCrystal();
             npc.Items.Add(focusingCrystal);
+
+            npc.Personalities.Add(new ChiefDaughterPresent());
+            npc.Personalities.Add(new ChiefReceiveDaughterItem());
 
             IResponder responder = new Responder();
             List<IOptionalWords> listOptionalWords = new List<IOptionalWords>();

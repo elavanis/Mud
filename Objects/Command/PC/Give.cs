@@ -33,7 +33,7 @@ namespace Objects.Command.PC
                 IMobileObject receiver = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(performer.Room, command.Parameters[1].ParameterValue).FirstOrDefault();
                 if (receiver == null)
                 {
-                    receiver = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(performer.Room, command.Parameters[1].ParameterValue).FirstOrDefault();
+                    receiver = GlobalReference.GlobalValues.FindObjects.FindPcInRoom(performer.Room, command.Parameters[1].ParameterValue).FirstOrDefault();
 
                     if (receiver == null)
                     {

@@ -85,7 +85,6 @@ namespace GenerateZones.Zones.ConnectingZones
             room.LookDescription = "The walls are jagged enough to climb twenty or thirty feet but then the next sixty or seventy is smooth making it impossible to climb.";
             room.ShortDescription = "In a ravine";
 
-            room.Attributes.Add(Room.RoomAttribute.NoNPC);
             return room;
         }
 
