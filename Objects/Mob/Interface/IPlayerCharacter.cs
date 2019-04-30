@@ -30,5 +30,8 @@ namespace Objects.Mob.Interface
         IBaseObjectId RespawnPoint { get; set; }
         string GotoEnterMessage { get; set; }
         string GotoLeaveMessage { get; set; }
+        string Title { get; set; }
+        HashSet<string> AvailableTitles { get; }
+        void AddTitle(string title);
     }
 }

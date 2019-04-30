@@ -139,24 +139,10 @@ namespace Objects.Mob
         [ExcludeFromCodeCoverage]
         public bool Debug { get; set; }
 
-
-
         [ExcludeFromCodeCoverage]
         public IBaseObjectId RespawnPoint { get; set; } = new RoomId(1, 1);
 
-
-        private List<ICorpse> _corpses;
-        public List<ICorpse> Corpses
-        {
-            get
-            {
-                if (_corpses == null)
-                {
-                    _corpses = new List<ICorpse>();
-                }
-                return _corpses;
-            }
-        }
+        public List<ICorpse> Corpses { get; } = new List<ICorpse>();
 
         public List<ICraftsmanObject> CraftsmanObjects { get; } = new List<ICraftsmanObject>();
 
@@ -164,9 +150,25 @@ namespace Objects.Mob
         public string GotoEnterMessage { get; set; }
         [ExcludeFromCodeCoverage]
         public string GotoLeaveMessage { get; set; }
+        [ExcludeFromCodeCoverage]
+        public string Title { get; set; }
+        [ExcludeFromCodeCoverage]
+        public HashSet<string> AvailableTitles { get; } = new HashSet<string>();
+
+        public void AddTitle(string title)
+        {
+            if (!AvailableTitles.Contains(title))
+            {
+                string updatedTitle = GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(KeyWords[0], null, title);
+                GlobalReference.GlobalValues.Notify.Mob(this, new TranslationMessage($"New title available: {updatedTitle}"));
+                AvailableTitles.Add(title);
+            }
+        }
 
         public override ICorpse Die()
         {
+            AddTitle("{performer} the resurrected.");
+
             ICorpse corpse = base.Die();
             Corpses.Add(corpse.Clone());  //because if someone picks something up out of the corpse it will be reflected here
 
@@ -195,5 +197,7 @@ namespace Objects.Mob
                 }
             }
         }
+
+
     }
 }

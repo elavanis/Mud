@@ -9,6 +9,7 @@ using Objects.Global.MultiClassBonus.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Global.Serialization.Interface;
 using Objects.Global.Settings.Interface;
+using Objects.Global.StringManuplation.Interface;
 using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
@@ -49,7 +50,7 @@ namespace ObjectsUnitTest.Mob
         Mock<ITagWrapper> tagWrapper;
         Mock<INotify> notify;
         Mock<ISerialization> serializtion;
-
+        Mock<IStringManipulator> stringManipulator;
 
         [TestInitialize]
         public void Setup()
@@ -76,6 +77,7 @@ namespace ObjectsUnitTest.Mob
             tagWrapper = new Mock<ITagWrapper>();
             notify = new Mock<INotify>();
             serializtion = new Mock<ISerialization>();
+            stringManipulator = new Mock<IStringManipulator>();
 
             settings.Setup(e => e.Multiplier).Returns(1);
             multiClassBonus.Setup(e => e.CalculateBonus(1, 0)).Returns(1);
@@ -83,6 +85,7 @@ namespace ObjectsUnitTest.Mob
             roomId.Setup(e => e.Id).Returns(1);
             pc.Room = room.Object;
             pc.RespawnPoint = roomId.Object;
+            pc.KeyWords.Add("pc");
             pcs.Add(pc);
             room.Setup(e => e.PlayerCharacters).Returns(pcs);
             room2.Setup(e => e.PlayerCharacters).Returns(pcs2);
@@ -94,6 +97,7 @@ namespace ObjectsUnitTest.Mob
             corpse.Setup(e => e.TimeOfDeath).Returns(new DateTime(2000, 1, 1));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             serializtion.Setup(e => e.Serialize(It.IsAny<List<ISound>>())).Returns("sound");
+            stringManipulator.Setup(e => e.UpdateTargetPerformer("pc", null, "{performer} title")).Returns("pc title");
 
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.Experience = exp.Object;
@@ -104,7 +108,7 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.Serialization = serializtion.Object;
-
+            GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
         }
 
         [TestMethod]
@@ -189,6 +193,24 @@ namespace ObjectsUnitTest.Mob
 
             pc.RemoveOldCorpses(new DateTime(2001, 1, 1));
             Assert.AreEqual(0, pc.Corpses.Count);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_AddTitle_NotAlreadyInList()
+        {
+            pc.AddTitle("{performer} title");
+
+            Assert.IsTrue(pc.AvailableTitles.Contains("{performer} title"));
+            notify.Verify(e => e.Mob(pc, It.Is<ITranslationMessage>(f => f.Message == "pc title")), Times.Once);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_AddTitle_AlreadyInList()
+        {
+            pc.AvailableTitles.Add("{performer} title");
+
+            Assert.IsTrue(pc.AvailableTitles.Contains("{performer} title"));
+            notify.Verify(e => e.Mob(pc, It.Is<ITranslationMessage>(f => f.Message == "pc title")), Times.Never);
         }
     }
 }

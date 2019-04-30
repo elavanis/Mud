@@ -20,6 +20,11 @@ namespace Objects.Command.PC
         {
             if (performer.IsInCombat)
             {
+                if (performer is IPlayerCharacter pc)
+                {
+                    pc.AddTitle("Brave Sir Robin");
+                }
+
                 int attackerRoll = 0;
                 int performerRoll = 0;
                 IMobileObject attacker = performer.Opponent;
