@@ -157,11 +157,12 @@ namespace Objects.Mob
 
         public void AddTitle(string title)
         {
-            if (!AvailableTitles.Contains(title))
+            string updatedTitle = GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(KeyWords[0], null, title);
+
+            if (!AvailableTitles.Contains(updatedTitle))
             {
-                string updatedTitle = GlobalReference.GlobalValues.StringManipulator.UpdateTargetPerformer(KeyWords[0], null, title);
                 GlobalReference.GlobalValues.Notify.Mob(this, new TranslationMessage($"New title available: {updatedTitle}"));
-                AvailableTitles.Add(title);
+                AvailableTitles.Add(updatedTitle);
             }
         }
 

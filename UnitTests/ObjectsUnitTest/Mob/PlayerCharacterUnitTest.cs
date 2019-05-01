@@ -200,8 +200,8 @@ namespace ObjectsUnitTest.Mob
         {
             pc.AddTitle("{performer} title");
 
-            Assert.IsTrue(pc.AvailableTitles.Contains("{performer} title"));
-            notify.Verify(e => e.Mob(pc, It.Is<ITranslationMessage>(f => f.Message == "pc title")), Times.Once);
+            Assert.IsTrue(pc.AvailableTitles.Contains("pc title"));
+            notify.Verify(e => e.Mob(pc, It.Is<ITranslationMessage>(f => f.Message == "New title available: pc title")), Times.Once);
         }
 
         [TestMethod]
