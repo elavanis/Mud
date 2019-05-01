@@ -198,7 +198,5 @@ namespace Objects.Mob
                 }
             }
         }
-
-
     }
 }
