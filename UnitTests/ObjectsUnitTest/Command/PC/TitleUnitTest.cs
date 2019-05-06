@@ -107,5 +107,15 @@ namespace ObjectsUnitTest.Command.PC
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("Title {Message Id}", result.ResultMessage);
         }
+
+        [TestMethod]
+        public void Title_NoTitles()
+        {
+            pc.Setup(e => e.AvailableTitles).Returns(new HashSet<string>());
+
+            IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("Sorry, you have not earned any titles yet.", result.ResultMessage);
+        }
     }
 }

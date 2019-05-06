@@ -23,6 +23,12 @@ namespace Objects.Command.PC
 
             if (command.Parameters.Count == 0)
             {
+                if (pc.AvailableTitles.Count == 0)
+                {
+                    return new Result("Sorry, you have not earned any titles yet.", true);
+                }
+
+
                 StringBuilder stringBuilder = new StringBuilder();
                 int titlePosition = 0;
                 foreach (string title in pc.AvailableTitles)
