@@ -57,7 +57,7 @@ namespace MessageParser
 
                                 ParsedMessage parsedMessage = new ParsedMessage();
                                 parsedMessage.TagType = tagTypeStack.Peek();
-                                parsedMessage.Message = line.Substring(previousPos, i - previousPos).Trim();
+                                parsedMessage.Message = line.Substring(previousPos, i - previousPos);
                                 parsedInfo.Add(parsedMessage);
                             }
                             previousPos = i + ParsedTagTypes[key].Item1.Length;
@@ -79,7 +79,7 @@ namespace MessageParser
 
                                 ParsedMessage parsedMessage = new ParsedMessage();
                                 parsedMessage.TagType = tagTypeStack.Peek();
-                                parsedMessage.Message = line.Substring(previousPos, i - previousPos).Trim();
+                                parsedMessage.Message = line.Substring(previousPos, i - previousPos);
                                 parsedInfo.Add(parsedMessage);
                             }
                             previousPos = i + ParsedTagTypes[key].Item2.Length;
