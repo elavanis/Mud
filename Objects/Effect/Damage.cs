@@ -27,16 +27,22 @@ namespace Objects.Effect
 
         public void ProcessEffect(IEffectParameter parameter)
         {
-            if (parameter.Target is IMobileObject mob)
+            if (parameter.Target is IMobileObject target)
             {
-                GlobalReference.GlobalValues.Notify.Mob(parameter.Performer, parameter.Target, mob, parameter.TargetMessage);
+                GlobalReference.GlobalValues.Notify.Mob(parameter.Performer, parameter.Target, target, parameter.TargetMessage);
 
-                mob.TakeDamage(parameter.Damage.Dice.RollDice(), parameter.Damage, null);
+                int damageReceived = target.TakeDamage(parameter.Damage.Dice.RollDice(), parameter.Damage, null);
 
-                if (Sound != null)
+                if (parameter.Performer is IMobileObject performer)
                 {
-                    string serializeSounds = GlobalReference.GlobalValues.Serialization.Serialize(new List<ISound>() { Sound });
-                    GlobalReference.GlobalValues.Notify.Mob(mob, new TranslationMessage(serializeSounds, TagType.Sound));
+                    GlobalReference.GlobalValues.Engine.Combat.AddCombatPair(performer, target);
+                    GlobalReference.GlobalValues.Engine.Event.DamageDealtAfterDefense(performer, target, damageReceived);
+
+                    if (Sound != null)
+                    {
+                        string serializeSounds = GlobalReference.GlobalValues.Serialization.Serialize(new List<ISound>() { Sound });
+                        GlobalReference.GlobalValues.Notify.Mob(target, new TranslationMessage(serializeSounds, TagType.Sound));
+                    }
                 }
             }
         }

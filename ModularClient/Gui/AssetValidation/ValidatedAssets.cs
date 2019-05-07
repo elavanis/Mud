@@ -40,7 +40,16 @@ namespace Client.AssetValidation
                 }
                 else
                 {
-                    AssetHashes.Add(file, hashedValue);
+                    try
+                    {
+                        AssetHashes.Add(file, hashedValue);
+                    }
+                    catch (Exception ex)
+                    {
+                        //We really shouldn't get this but I came across this error while holding key 
+                        //so I guess it requested the map 2x before it had received it.
+                        //Either way don't crash the app because of this.
+                    }
                 }
             }
         }
