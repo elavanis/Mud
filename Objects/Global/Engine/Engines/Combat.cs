@@ -137,11 +137,7 @@ namespace Objects.Global.Engine.Engines
         {
             int totalDamage = attacker.CalculateDamage(damage);
 
-            GlobalReference.GlobalValues.Engine.Event.DamageDealtBeforeDefense(attacker, defender, totalDamage);
-
             int damageReceived = defender.TakeCombatDamage(totalDamage, damage, attacker, _combatRound);
-
-            GlobalReference.GlobalValues.Engine.Event.DamageDealtAfterDefense(attacker, defender, damageReceived);
 
             return damageReceived;
         }

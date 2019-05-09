@@ -69,7 +69,8 @@ namespace Objects.Global.Engine.Engines
 
             message = $"{CapitializeFirstLetter(attacker?.SentenceDescription ?? "unknown")} attacked {defender.SentenceDescription} for {damageAmount} damage.";
             ITranslationMessage translationMessage = new TranslationMessage(message);
-            GlobalReference.GlobalValues.Notify.Room(attacker, defender, attacker.Room, translationMessage, new List<IMobileObject>() { attacker, defender });
+            IRoom room = attacker != null ? attacker.Room : defender.Room;
+            GlobalReference.GlobalValues.Notify.Room(attacker, defender, room, translationMessage, new List<IMobileObject>() { attacker, defender });
             #endregion damage messages
         }
 

@@ -41,6 +41,9 @@ namespace Objects.Mob
         private void AddExperience(int newExperience)
         {
             int currentLevel = Level;
+            int gainedExp = newExperience - _experience;
+            GlobalReference.GlobalValues.Notify.Mob(null, null, this, new TranslationMessage($"You gain {gainedExp} experience."));
+
             //when experience is added it adds the existing experience; basically doubling the pc experience each time
             _experience += newExperience - _experience;
             if (GlobalReference.GlobalValues.Experience.GetExpForLevel(currentLevel) <= _experience)
