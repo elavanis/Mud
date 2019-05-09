@@ -119,6 +119,7 @@ namespace ObjectsUnitTest.Mob
             pc.Experience += 100;
             Assert.AreEqual(100, pc.Experience);
             serializtion.Verify(e => e.Serialize(It.IsAny<List<ISound>>()), Times.Once);
+            notify.Verify(e => e.Mob(null, null, pc, It.Is<ITranslationMessage>(f => f.Message == "You gain 100 experience."), false, false), Times.Once);
         }
 
         [TestMethod]
@@ -131,6 +132,7 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(100, pc.Experience);
             notify.Verify(e => e.Mob(null, null, pc, It.Is<ITranslationMessage>(f => f.Message == "You gain a level."), false, false), Times.Once);
             serializtion.Verify(e => e.Serialize(It.IsAny<List<ISound>>()), Times.Once);
+            notify.Verify(e => e.Mob(null, null, pc, It.Is<ITranslationMessage>(f => f.Message == "You gain 100 experience."), false, false), Times.Once);
         }
 
         [TestMethod]

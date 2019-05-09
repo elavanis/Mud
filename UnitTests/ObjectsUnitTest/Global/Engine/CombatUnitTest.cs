@@ -26,34 +26,57 @@ namespace ObjectsUnitTest.Engine
     public class CombatUnitTest
     {
         Combat combat;
-        PropertyInfo propertyInfoCombatants;
-
+        ConcurrentDictionary<IMobileObject, CombatPair> combatants;
+        List<string> keywords;
+        Mock<ITagWrapper> tagWrapper;
+        Mock<IMobileObject> defender;
+        Mock<IMobileObject> attacker;
+        Mock<IMobileObject> nonCombatant;
+        Mock<IMobileObject> attacker2;
+        Mock<IRoom> room;
+        Mock<IRoom> room2;
+        Mock<IWeapon> weapon;
+        Mock<IDamage> damage;
 
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
+            keywords = new List<string>();
+            tagWrapper = new Mock<ITagWrapper>();
+            defender = new Mock<IMobileObject>();
+            attacker = new Mock<IMobileObject>();
+            nonCombatant = new Mock<IMobileObject>();
+            attacker2 = new Mock<IMobileObject>();
+            room = new Mock<IRoom>();
+            room2 = new Mock<IRoom>();
+            weapon = new Mock<IWeapon>();
+            damage = new Mock<IDamage>();
+
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            defender.Setup(e => e.KeyWords).Returns(keywords);
+            defender.Object.KeyWords.Add("target");
+            defender.Setup(e => e.Health).Returns(1);
+            defender.Setup(e => e.Room).Returns(room.Object);
+            defender.Setup(e => e.EquipedWeapon).Returns(new List<IWeapon>() { weapon.Object });
+            attacker.Setup(e => e.Health).Returns(1);
+            attacker.Setup(e => e.Room).Returns(room.Object);
+            attacker.Setup(e => e.EquipedWeapon).Returns(new List<IWeapon>() { weapon.Object });
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
+            weapon.Setup(e => e.Speed).Returns(1);
+            weapon.Setup(e => e.DamageList).Returns(new List<IDamage>() { damage.Object });
+
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
             combat = new Combat();
-            propertyInfoCombatants = combat.GetType().GetProperty("Combatants", BindingFlags.Instance | BindingFlags.NonPublic);
+            PropertyInfo propertyInfoCombatants = combat.GetType().GetProperty("Combatants", BindingFlags.Instance | BindingFlags.NonPublic);
+            combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)propertyInfoCombatants.GetValue(combat);
         }
 
         [TestMethod]
         public void Combat_AddCombatPair()
         {
-
-            List<string> keywords = new List<string>();
-            Mock<IMobileObject> defender = new Mock<IMobileObject>();
-            defender.Setup(e => e.KeyWords).Returns(keywords);
-            Mock<IMobileObject> attacker = new Mock<IMobileObject>();
-
-
-            defender.Object.KeyWords.Add("target");
-
             IResult result = combat.AddCombatPair(attacker.Object, defender.Object);
 
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -63,13 +86,6 @@ namespace ObjectsUnitTest.Engine
         [TestMethod]
         public void Combat_AddCombatPair_AllReadyFighting()
         {
-            List<string> keywords = new List<string>();
-            Mock<IMobileObject> defender = new Mock<IMobileObject>();
-            defender.Setup(e => e.KeyWords).Returns(keywords);
-            Mock<IMobileObject> attacker = new Mock<IMobileObject>();
-
-            defender.Object.KeyWords.Add("target");
-
             combat.AddCombatPair(attacker.Object, defender.Object);
             IResult result = combat.AddCombatPair(attacker.Object, defender.Object);
 
@@ -80,12 +96,8 @@ namespace ObjectsUnitTest.Engine
         [TestMethod]
         public void Combat_IsInCombat_Attacker()
         {
-            Mock<IMobileObject> defender = new Mock<IMobileObject>();
-            Mock<IMobileObject> attacker = new Mock<IMobileObject>();
-            List<string> keywords = new List<string>();
-            defender.Setup(e => e.KeyWords).Returns(keywords);
-
-            combat.AddCombatPair(attacker.Object, defender.Object);
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
+            combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
 
             Assert.IsTrue(combat.IsInCombat(attacker.Object));
         }
@@ -93,12 +105,8 @@ namespace ObjectsUnitTest.Engine
         [TestMethod]
         public void Combat_IsInCombat_Defender()
         {
-            Mock<IMobileObject> defender = new Mock<IMobileObject>();
-            Mock<IMobileObject> attacker = new Mock<IMobileObject>();
-            List<string> keywords = new List<string>();
-            defender.Setup(e => e.KeyWords).Returns(keywords);
-
-            combat.AddCombatPair(attacker.Object, defender.Object);
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
+            combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
 
             Assert.IsTrue(combat.IsInCombat(defender.Object));
         }
@@ -106,26 +114,17 @@ namespace ObjectsUnitTest.Engine
         [TestMethod]
         public void Combat_IsInCombat_NonCombatant()
         {
-            Mock<IMobileObject> defender = new Mock<IMobileObject>();
-            Mock<IMobileObject> attacker = new Mock<IMobileObject>();
-            List<string> keywords = new List<string>();
-            defender.Setup(e => e.KeyWords).Returns(keywords);
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
+            combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
 
-            IMobileObject nonCombatant = new NonPlayerCharacter();
-            combat.AddCombatPair(attacker.Object, defender.Object);
-
-            Assert.IsFalse(combat.IsInCombat(nonCombatant));
+            Assert.IsFalse(combat.IsInCombat(nonCombatant.Object));
         }
 
         [TestMethod]
         public void Combat_AreFighting_Mob1()
         {
-            Mock<IMobileObject> defender = new Mock<IMobileObject>();
-            Mock<IMobileObject> attacker = new Mock<IMobileObject>();
-            List<string> keywords = new List<string>();
-            defender.Setup(e => e.KeyWords).Returns(keywords);
-
-            combat.AddCombatPair(attacker.Object, defender.Object);
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
+            combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
 
             Assert.IsTrue(combat.AreFighting(attacker.Object, defender.Object));
         }
@@ -133,67 +132,44 @@ namespace ObjectsUnitTest.Engine
         [TestMethod]
         public void Combat_AreFighting_Mob2()
         {
-            Mock<IMobileObject> defender = new Mock<IMobileObject>();
-            Mock<IMobileObject> attacker = new Mock<IMobileObject>();
-            List<string> keywords = new List<string>();
-            defender.Setup(e => e.KeyWords).Returns(keywords);
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
+            combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
+            combatants.TryAdd(attacker2.Object, new CombatPair() { Attacker = attacker2.Object, Defender = defender.Object });
+            combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker2.Object });
 
-            combat.AddCombatPair(attacker.Object, defender.Object);
-            IMobileObject attacker2 = new NonPlayerCharacter();
-            combat.AddCombatPair(attacker2, defender.Object);
-
-            Assert.IsTrue(combat.AreFighting(defender.Object, attacker2));
+            Assert.IsTrue(combat.AreFighting(defender.Object, attacker2.Object));
         }
 
         [TestMethod]
         public void Combat_AreFighting_NotFighting()
         {
-            Mock<IMobileObject> defender = new Mock<IMobileObject>();
-            Mock<IMobileObject> attacker = new Mock<IMobileObject>();
-            List<string> keywords = new List<string>();
-            defender.Setup(e => e.KeyWords).Returns(keywords);
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
+            combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
 
-            combat.AddCombatPair(attacker.Object, defender.Object);
-            IMobileObject nonCombatant = new NonPlayerCharacter();
-
-            Assert.IsFalse(combat.AreFighting(attacker.Object, nonCombatant));
+            Assert.IsFalse(combat.AreFighting(attacker.Object, nonCombatant.Object));
         }
 
         [TestMethod]
         public void Combat_DetermineIfHit_Hit()
         {
-            Mock<IMobileObject> mMob = new Mock<IMobileObject>();
-            mMob.Setup(e => e.CalculateToHitRoll(Stat.Dexterity)).Returns(1);
-            mMob.Setup(e => e.CalculateToDodgeRoll(Stat.Dexterity)).Returns(1);
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
+            combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
 
-            Assert.IsTrue(combat.DetermineIfHit(mMob.Object, mMob.Object, Stat.Dexterity, Stat.Dexterity));
+            combat.ProcessCombatRound();
+
+            defender.Verify(e => e.TakeCombatDamage(0, damage.Object, attacker.Object, 1), Times.Once);
         }
 
         [TestMethod]
         public void Combat_DetermineIfHit_Miss()
         {
-            Mock<IMobileObject> mMob = new Mock<IMobileObject>();
-            mMob.Setup(e => e.CalculateToHitRoll(Stat.Dexterity)).Returns(0);
-            mMob.Setup(e => e.CalculateToDodgeRoll(Stat.Dexterity)).Returns(1);
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
+            combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
+            defender.Setup(e => e.CalculateToDodgeRoll(Stat.Strength)).Returns(1);
 
-            Assert.IsFalse(combat.DetermineIfHit(mMob.Object, mMob.Object, Stat.Dexterity, Stat.Dexterity));
-        }
+            combat.ProcessCombatRound();
 
-        [TestMethod]
-        public void Combat_DealDamage()
-        {
-            Mock<IDamage> damage = new Mock<IDamage>();
-            Mock<IMobileObject> mMob = new Mock<IMobileObject>();
-            Mock<IEngine> engine = new Mock<IEngine>();
-            Mock<IEvent> evnt = new Mock<IEvent>();
-
-            mMob.Setup(e => e.CalculateDamage(damage.Object)).Returns(2);
-            mMob.Setup(e => e.TakeCombatDamage(2, damage.Object, mMob.Object, 0)).Returns(1);
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-
-            GlobalReference.GlobalValues.Engine = engine.Object;
-
-            Assert.AreEqual(1, combat.DealDamage(mMob.Object, mMob.Object, damage.Object));
+            defender.Verify(e => e.TakeCombatDamage(0, damage.Object, attacker.Object, 1), Times.Never);
         }
 
         [TestMethod]
@@ -208,20 +184,7 @@ namespace ObjectsUnitTest.Engine
         [TestMethod]
         public void Combat_ProcessAttack_AddDefendingMobToCombat()
         {
-            Mock<IMobileObject> mob1 = new Mock<IMobileObject>();
-            Mock<IMobileObject> mob2 = new Mock<IMobileObject>();
-            Mock<IRoom> room = new Mock<IRoom>();
-            ConcurrentDictionary<IMobileObject, CombatPair> combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)propertyInfoCombatants.GetValue(combat);
-            CombatPair pair = new CombatPair();
-
-            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
-            mob1.Setup(e => e.Health).Returns(1);
-            mob2.Setup(e => e.Health).Returns(1);
-            mob1.Setup(e => e.Room).Returns(room.Object);
-            mob2.Setup(e => e.Room).Returns(room.Object);
-            pair.Attacker = mob1.Object;
-            pair.Defender = mob2.Object;
-            combatants.TryAdd(mob1.Object, pair);
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
 
             combat.ProcessCombatRound();
 
@@ -231,17 +194,8 @@ namespace ObjectsUnitTest.Engine
         [TestMethod]
         public void Combat_ProcessAttack_RemoveFightingInPeacefulRoom()
         {
-            Mock<IMobileObject> mob1 = new Mock<IMobileObject>();
-            Mock<IRoom> room = new Mock<IRoom>();
-            ConcurrentDictionary<IMobileObject, CombatPair> combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)propertyInfoCombatants.GetValue(combat);
-            CombatPair pair = new CombatPair();
-            pair.Attacker = mob1.Object;
-            pair.Defender = mob1.Object;
-            combatants.TryAdd(mob1.Object, pair);
-
-            mob1.Setup(e => e.Health).Returns(1);
-            mob1.Setup(e => e.Room).Returns(room.Object);
             room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>() { RoomAttribute.Peaceful });
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
 
             combat.ProcessCombatRound();
 
@@ -251,19 +205,8 @@ namespace ObjectsUnitTest.Engine
         [TestMethod]
         public void Combat_RemoveDeadCombatant()
         {
-            Mock<IMobileObject> mob1 = new Mock<IMobileObject>();
-            mob1.Setup(e => e.Health).Returns(1);
-            Mock<IMobileObject> mob2 = new Mock<IMobileObject>();
-            mob2.Setup(e => e.Health).Returns(0);
-            ConcurrentDictionary<IMobileObject, CombatPair> combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)propertyInfoCombatants.GetValue(combat);
-            CombatPair pair = new CombatPair();
-            pair.Attacker = mob1.Object;
-            pair.Defender = mob2.Object;
-            combatants.TryAdd(mob1.Object, pair);
-            pair = new CombatPair();
-            pair.Attacker = mob2.Object;
-            pair.Defender = mob1.Object;
-            combatants.TryAdd(mob2.Object, pair);
+            defender.Setup(e => e.Health).Returns(0);
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
 
             combat.ProcessCombatRound();
             Assert.AreEqual(0, combatants.Count);
@@ -272,67 +215,29 @@ namespace ObjectsUnitTest.Engine
         [TestMethod]
         public void Combat_RemoveCombatantInDifferentRoom()
         {
-            Mock<IMobileObject> mob1 = new Mock<IMobileObject>();
-            Mock<IMobileObject> mob2 = new Mock<IMobileObject>();
-            ConcurrentDictionary<IMobileObject, CombatPair> combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)propertyInfoCombatants.GetValue(combat);
-            CombatPair pair = new CombatPair();
-            Mock<IRoom> room1 = new Mock<IRoom>();
-            Mock<IRoom> room2 = new Mock<IRoom>();
-
-            mob1.Setup(e => e.Health).Returns(1);
-            mob1.Setup(e => e.Room).Returns(room1.Object);
-            mob2.Setup(e => e.Health).Returns(1);
-            mob2.Setup(e => e.Room).Returns(room2.Object);
-            pair.Attacker = mob1.Object;
-            pair.Defender = mob2.Object;
-            combatants.TryAdd(mob1.Object, pair);
-            pair = new CombatPair();
-            pair.Attacker = mob2.Object;
-            pair.Defender = mob1.Object;
-            combatants.TryAdd(mob2.Object, pair);
+            defender.Setup(e => e.Room).Returns(room2.Object);
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
 
             combat.ProcessCombatRound();
             Assert.AreEqual(0, combatants.Count);
         }
 
         [TestMethod]
-        public void Combat_ProcessWeapons_()
+        public void Combat_Opponet_InCombat()
         {
-            Mock<IMobileObject> mob1 = new Mock<IMobileObject>();
-            Mock<IMobileObject> mob2 = new Mock<IMobileObject>();
-            Mock<IRoom> room = new Mock<IRoom>();
-            ConcurrentDictionary<IMobileObject, CombatPair> combatants = (ConcurrentDictionary<IMobileObject, CombatPair>)propertyInfoCombatants.GetValue(combat);
-            CombatPair pair = new CombatPair();
-            Mock<IWeapon> weapon = new Mock<IWeapon>();
-            List<IWeapon> weapons = new List<IWeapon>() { weapon.Object, weapon.Object };
-            Mock<IDamage> damage = new Mock<IDamage>();
-            Mock<IDice> dice = new Mock<IDice>();
-            List<IDamage> damages = new List<IDamage>() { damage.Object };
-            Mock<IEngine> engine = new Mock<IEngine>();
-            Mock<IEvent> evnt = new Mock<IEvent>();
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
 
-            mob1.Setup(e => e.Health).Returns(1);
-            mob2.Setup(e => e.Health).Returns(1);
-            mob1.Setup(e => e.Room).Returns(room.Object);
-            mob2.Setup(e => e.Room).Returns(room.Object);
-            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
-            pair.Attacker = mob1.Object;
-            pair.Defender = mob2.Object;
-            combatants.TryAdd(mob1.Object, pair);
-            weapon.Setup(e => e.Speed).Returns(1);
-            mob1.Setup(e => e.EquipedWeapon).Returns(weapons);
-            damage.Setup(e => e.Dice).Returns(dice.Object);
-            weapon.Setup(e => e.DamageList).Returns(damages);
-            engine.Setup(e => e.Event).Returns(evnt.Object);
+            IMobileObject result = combat.Opponet(attacker.Object);
+            Assert.AreSame(defender.Object, result);
+        }
 
-            GlobalReference.GlobalValues.Engine = engine.Object;
+        [TestMethod]
+        public void Combat_Opponet_NotInCombat()
+        {
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
 
-            combat.ProcessCombatRound();
-
-            weapon.Verify(e => e.DamageList, Times.Exactly(2));
-            mob1.Verify(e => e.CalculateDamage(damage.Object), Times.Exactly(2));
-            evnt.Verify(e => e.DamageDealtBeforeDefense(mob1.Object, mob2.Object, 0));
-            evnt.Verify(e => e.DamageDealtAfterDefense(mob1.Object, mob2.Object, 0));
+            IMobileObject result = combat.Opponet(defender.Object);
+            Assert.IsNull(result);
         }
     }
 }

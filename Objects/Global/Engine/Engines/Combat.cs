@@ -35,6 +35,68 @@ namespace Objects.Global.Engine.Engines
             }
         }
 
+        public IResult AddCombatPair(IMobileObject attacker, IMobileObject defender)
+        {
+            CombatPair pair;
+
+            if (Combatants.TryGetValue(attacker, out pair))
+            {
+                return new Result(string.Format("You are already attacking {0}.", pair.Defender.KeyWords.FirstOrDefault()), true);
+            }
+            else
+            {
+                pair = new CombatPair();
+                pair.Attacker = attacker;
+                pair.Defender = defender;
+                Combatants.TryAdd(attacker, pair);
+
+                //add the defender attacking the attacker
+                AddCombatPairInternal(defender, attacker);
+
+                return new Result(string.Format("You begin to attack {0}.", defender.KeyWords.FirstOrDefault()), false);
+            }
+        }
+
+        public bool AreFighting(IMobileObject mob, IMobileObject mob2)
+        {
+            CombatPair pair;
+            if (Combatants.TryGetValue(mob, out pair))
+            {
+                if (pair.Defender == mob2)
+                {
+                    return true;
+                }
+            }
+
+            if (Combatants.TryGetValue(mob2, out pair))
+            {
+                if (pair.Defender == mob)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsInCombat(IMobileObject mob)
+        {
+            return Combatants.ContainsKey(mob);
+        }
+
+        public IMobileObject Opponet(IMobileObject mobileObject)
+        {
+            CombatPair pair;
+            if (Combatants.TryGetValue(mobileObject, out pair))
+            {
+                return pair.Defender;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         private void ProcessAttack(IMobileObject mob)
         {
             CombatPair pair = Combatants[mob];
@@ -80,28 +142,6 @@ namespace Objects.Global.Engine.Engines
             }
         }
 
-        public IResult AddCombatPair(IMobileObject attacker, IMobileObject defender)
-        {
-            CombatPair pair;
-
-            if (Combatants.TryGetValue(attacker, out pair))
-            {
-                return new Result(string.Format("You are already attacking {0}.", pair.Defender.KeyWords.FirstOrDefault()), true);
-            }
-            else
-            {
-                pair = new CombatPair();
-                pair.Attacker = attacker;
-                pair.Defender = defender;
-                Combatants.TryAdd(attacker, pair);
-
-                //add the defender attacking the attacker
-                AddCombatPairInternal(defender, attacker);
-
-                return new Result(string.Format("You begin to attack {0}.", defender.KeyWords.FirstOrDefault()), false);
-            }
-        }
-
         /// <summary>
         /// Version that is used for internal that will not try to add the opposite attack order
         /// </summary>
@@ -118,7 +158,7 @@ namespace Objects.Global.Engine.Engines
             }
         }
 
-        public bool DetermineIfHit(IMobileObject attacker, IMobileObject defender, Stat attackerStat, Stat defenderStat)
+        private bool DetermineIfHit(IMobileObject attacker, IMobileObject defender, Stat attackerStat, Stat defenderStat)
         {
             int hitRoll = attacker.CalculateToHitRoll(attackerStat);
             int defenseRoll = defender.CalculateToDodgeRoll(defenderStat);
@@ -133,7 +173,7 @@ namespace Objects.Global.Engine.Engines
             }
         }
 
-        public int DealDamage(IMobileObject attacker, IMobileObject defender, IDamage damage)
+        private int DealDamage(IMobileObject attacker, IMobileObject defender, IDamage damage)
         {
             int totalDamage = attacker.CalculateDamage(damage);
 
@@ -142,44 +182,6 @@ namespace Objects.Global.Engine.Engines
             return damageReceived;
         }
 
-        public bool AreFighting(IMobileObject mob, IMobileObject mob2)
-        {
-            CombatPair pair;
-            if (Combatants.TryGetValue(mob, out pair))
-            {
-                if (pair.Defender == mob2)
-                {
-                    return true;
-                }
-            }
 
-            if (Combatants.TryGetValue(mob2, out pair))
-            {
-                if (pair.Defender == mob)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public bool IsInCombat(IMobileObject mob)
-        {
-            return Combatants.ContainsKey(mob);
-        }
-
-        public IMobileObject Opponet(MobileObject mobileObject)
-        {
-            CombatPair pair;
-            if (Combatants.TryGetValue(mobileObject, out pair))
-            {
-                return pair.Defender;
-            }
-            else
-            {
-                return null;
-            }
-        }
     }
 }
