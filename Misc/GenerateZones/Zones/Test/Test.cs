@@ -4,6 +4,11 @@ using Objects.Zone.Interface;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Mob.SpecificNPC;
+using Objects.Item.Items.Interface;
+using Objects.Item.Items;
+using Objects.Damage.Interface;
+using Objects.Damage;
+using Objects.Die;
 
 namespace GenerateZones.Zones
 {
@@ -46,6 +51,8 @@ namespace GenerateZones.Zones
             room.LookDescription = "This room looks very much like a test.";
             room.ShortDescription = "Test Room";
 
+            room.AddItemToRoom(Weapon());
+
             return room;
         }
 
@@ -67,6 +74,25 @@ namespace GenerateZones.Zones
         private void ConnectRooms()
         {
             Zone.RecursivelySetZone();
+        }
+
+        private IWeapon Weapon()
+        {
+            IWeapon weapon = CreateWeapon(Objects.Item.Items.Weapon.WeaponType.Axe, 1);
+            IDamage damage = new Damage();
+            damage.Dice = new Dice(10, 10);
+            for (int i = 0; i < 1000; i++)
+            {
+                weapon.DamageList.Add(damage);
+            }
+
+            weapon.ExamineDescription = "examine";
+            weapon.LookDescription = "look";
+            weapon.SentenceDescription = "sentence";
+            weapon.ShortDescription = "short";
+            weapon.KeyWords.Add("weapon");
+
+            return weapon;
         }
     }
 }

@@ -543,6 +543,10 @@ namespace Objects.Mob
             int stoppedDamage = 0;
             int mobReceivedDamage = 0;
             bool shieldBlocked = false;
+            if (damageMultiplier <= 0)
+            {
+                damageMultiplier = int.MaxValue;
+            }
 
             int healthBeforeDamage = Health;
 

@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using Objects.Language.Interface;
 using Objects.Global.Serialization.Interface;
 using Objects.Global.Notify.Interface;
+using Objects.Global.Engine.Engines.Interface;
+using Objects.Global.Engine.Interface;
 
 namespace ObjectsUnitTest.Effect
 {
@@ -29,6 +31,9 @@ namespace ObjectsUnitTest.Effect
         Mock<IDamage> mockDamage;
         Mock<IDice> dice;
         Mock<ISerialization> serialization;
+        Mock<ICombat> combat;
+        Mock<IEngine> engine;
+        Mock<IEvent> evnt;
 
         [TestInitialize]
         public void Setup()
@@ -45,6 +50,9 @@ namespace ObjectsUnitTest.Effect
             mockDamage = new Mock<IDamage>();
             dice = new Mock<IDice>();
             serialization = new Mock<ISerialization>();
+            combat = new Mock<ICombat>();
+            engine = new Mock<IEngine>();
+            evnt = new Mock<IEvent>();
 
             parameter.Setup(e => e.TargetMessage).Returns(translationMessage.Object);
             parameter.Setup(e => e.Damage).Returns(mockDamage.Object);
@@ -54,13 +62,15 @@ namespace ObjectsUnitTest.Effect
             tagWrapper = new Mock<ITagWrapper>();
             mockDamage.Setup(e => e.Dice).Returns(dice.Object);
             dice.Setup(e => e.RollDice()).Returns(1);
+            engine.Setup(e => e.Combat).Returns(combat.Object);
+            engine.Setup(e => e.Event).Returns(evnt.Object);
 
             serialization.Setup(e => e.Serialize(It.IsAny<List<ISound>>())).Returns("abc");
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.Serialization = serialization.Object;
-
+            GlobalReference.GlobalValues.Engine = engine.Object;
         }
 
         [TestMethod]
@@ -79,6 +89,8 @@ namespace ObjectsUnitTest.Effect
             notify.Verify(e => e.Mob(performer.Object, target.Object, target.Object, translationMessage.Object, false, false));
             serialization.Verify(e => e.Serialize(new List<ISound>() { sound.Object }));
             notify.Verify(e => e.Mob(target.Object, It.IsAny<ITranslationMessage>()));
+            combat.Verify(e => e.AddCombatPair(performer.Object, target.Object));
+            evnt.Verify(e => e.DamageDealtAfterDefense(performer.Object, target.Object, 0));
         }
     }
 }
