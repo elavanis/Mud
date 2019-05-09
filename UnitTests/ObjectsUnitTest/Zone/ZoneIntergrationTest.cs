@@ -13,21 +13,22 @@ namespace ObjectsUnitTest.Zone
     [TestClass]
     public class ZoneIntergrationTest
     {
+        IZone zone;
+        IRoom room;
+        IItem item;
+        INonPlayerCharacter npc;
+        IPlayerCharacter pc;
+
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
-        }
 
-        [TestMethod]
-        public void Zone_SeralizeDeserialize()
-        {
-            IZone zone = new Objects.Zone.Zone();
-            IRoom room = new Objects.Room.Room();
-            IItem item = new Objects.Item.Item();
-            INonPlayerCharacter npc = new Objects.Mob.NonPlayerCharacter();
-            IPlayerCharacter pc = new Objects.Mob.PlayerCharacter();
-            GlobalReference.GlobalValues.Initilize();
+            zone = new Objects.Zone.Zone();
+            room = new Objects.Room.Room();
+            item = new Objects.Item.Item();
+            npc = new Objects.Mob.NonPlayerCharacter();
+            pc = new Objects.Mob.PlayerCharacter();
 
             zone.Id = 0;
             room.Id = 0;
@@ -42,9 +43,15 @@ namespace ObjectsUnitTest.Zone
             pc.Items.Add(item);
             pc.Level = 1;
             pc.MaxHealth = 10;
+            pc.Name = "pc";
 
+            GlobalReference.GlobalValues.Initilize();
             GlobalReference.GlobalValues.World.Zones.Add(0, zone);
+        }
 
+        [TestMethod]
+        public void Zone_SeralizeDeserialize()
+        {
             string serializedZone = GlobalReference.GlobalValues.Serialization.Serialize(zone);
 
             IZone zone2 = GlobalReference.GlobalValues.Serialization.Deserialize<Objects.Zone.Zone>(serializedZone);
