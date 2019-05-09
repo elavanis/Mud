@@ -66,13 +66,13 @@ namespace Objects.Magic
         }
 
         [ExcludeFromCodeCoverage]
-        public virtual void DamageDealtBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
+        public virtual void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
         {
             //do nothing unless overrode
         }
 
         [ExcludeFromCodeCoverage]
-        public virtual void DamageDealtAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
+        public virtual void DamageAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
         {
             //do nothing unless overrode
         }

@@ -2,6 +2,7 @@
 using Moq;
 using Objects.Global;
 using Objects.Global.DefaultValues.Interface;
+using Objects.Global.MoneyToCoins.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Global.Settings.Interface;
 using Objects.Language.Interface;
@@ -28,6 +29,8 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         Mock<ITagWrapper> tagWrapper;
         Mock<INotify> notify;
         Mock<IRoom> room;
+        Mock<IMoneyToCoins> moneyToCoins;
+
         [TestInitialize]
         public void Setup()
         {
@@ -39,18 +42,20 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             tagWrapper = new Mock<ITagWrapper>();
             notify = new Mock<INotify>();
             room = new Mock<IRoom>();
+            moneyToCoins = new Mock<IMoneyToCoins>();
 
             world.Setup(e => e.Precipitation).Returns(100);
             world.Setup(e => e.WindSpeed).Returns(100);
             settings.Setup(e => e.MaxLevel).Returns(100);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
-
+            moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("0 coins");
 
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
 
             elemental = new Elemental(ElementType.Air);
             roundTickCounter = elemental.GetType().GetProperty("RoundTickCounter", BindingFlags.NonPublic | BindingFlags.Instance);

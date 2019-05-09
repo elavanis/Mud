@@ -90,7 +90,7 @@ namespace ObjectsUnitTest.Effect
             serialization.Verify(e => e.Serialize(new List<ISound>() { sound.Object }));
             notify.Verify(e => e.Mob(target.Object, It.IsAny<ITranslationMessage>()));
             combat.Verify(e => e.AddCombatPair(performer.Object, target.Object));
-            evnt.Verify(e => e.DamageDealtAfterDefense(performer.Object, target.Object, 0));
+            evnt.Verify(e => e.DamageAfterDefense(performer.Object, target.Object, 0));
         }
     }
 }

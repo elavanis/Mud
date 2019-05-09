@@ -67,8 +67,30 @@ namespace Objects.Mob
         [ExcludeFromCodeCoverage]
         public CharacterPosition Position { get; set; } = CharacterPosition.Stand;
 
-        [ExcludeFromCodeCoverage]
-        public ulong Money { get; set; }
+        private ulong _money;
+        public ulong Money
+        {
+            get
+            {
+                return _money;
+            }
+
+            set
+            {
+                ulong currentMoney = _money;
+                if (value >= currentMoney)
+                {
+                    ulong difference = value - currentMoney;
+                    GlobalReference.GlobalValues.Notify.Mob(null, null, this, new TranslationMessage($"You gain {GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(difference)}."));
+                }
+                else
+                {
+                    ulong difference = currentMoney - value;
+                    GlobalReference.GlobalValues.Notify.Mob(null, null, this, new TranslationMessage($"You loose {GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(difference)}."));
+                }
+                _money = value;
+            }
+        }
 
         [ExcludeFromCodeCoverage]
         public string CorpseLongDescription { get; set; }
@@ -537,8 +559,7 @@ namespace Objects.Mob
 
         private int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker, int damageMultiplier)
         {
-            GlobalReference.GlobalValues.Engine.Event.DamageDealtBeforeDefense(attacker, this, totalDamage);  //this will log the raw damage
-            GlobalReference.GlobalValues.Engine.Event.DamageReceivedBeforeDefense(attacker, this, totalDamage); //this will fire off defensive enchantments
+            GlobalReference.GlobalValues.Engine.Event.DamageBeforeDefense(attacker, this, totalDamage);  //this will log the damage and trigger enchantments
 
             int absoredDamage = 0;
             int stoppedDamage = 0;
@@ -612,12 +633,12 @@ namespace Objects.Mob
             //return received damage minus any absorbed damage (it is negative so we add it)
             int netDamage = mobReceivedDamage + absoredDamage;
 
-            GlobalReference.GlobalValues.Engine.Event.DamageReceivedAfterDefense(attacker, this, netDamage); //this will fire off more defensive enchantments
-            GlobalReference.GlobalValues.Engine.Event.DamageDealtAfterDefense(attacker, this, netDamage); //this will log the actual damage, and alert players of the outcome
-
             //absoredDamage is negative because of the previous multipliers being negative
             //so we want to subtract the damage to make it positive
             Health -= absoredDamage;
+
+            GlobalReference.GlobalValues.Engine.Event.DamageAfterDefense(attacker, this, netDamage); //this will log the actual damage, and alert players of the outcome and trigger enchantments
+
             if (Health > MaxHealth)
             {
                 Health = MaxHealth;

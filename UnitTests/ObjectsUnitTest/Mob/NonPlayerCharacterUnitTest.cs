@@ -22,6 +22,7 @@ using Objects.Item.Interface;
 using System.Collections.Concurrent;
 using Shared.TagWrapper.Interface;
 using static Shared.TagWrapper.TagWrapper;
+using Objects.Global.Notify.Interface;
 
 namespace ObjectsUnitTest.Mob
 {
@@ -47,6 +48,7 @@ namespace ObjectsUnitTest.Mob
         Mock<IEvent> evnt;
         List<INonPlayerCharacter> npcList;
         Mock<ITagWrapper> tagWrapper;
+        Mock<INotify> notify;
 
         [TestInitialize]
         public void Setup()
@@ -71,6 +73,7 @@ namespace ObjectsUnitTest.Mob
             newFollowTarget = new Mock<INonPlayerCharacter>();
             npcList = new List<INonPlayerCharacter>();
             tagWrapper = new Mock<ITagWrapper>();
+            notify = new Mock<INotify>();
 
             dice.Setup(e => e.Die).Returns(1);
             dice.Setup(e => e.Sides).Returns(2);
@@ -101,6 +104,7 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.Notify = notify.Object;
 
             npc = new NonPlayerCharacter();
             npc.Room = room.Object;

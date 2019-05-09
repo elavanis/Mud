@@ -14,7 +14,7 @@ namespace Objects.Magic.Enchantment
             TargetIsDefender = targetIsDefender;
         }
 
-        public override void DamageDealtBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
+        public override void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
         {
             if (GlobalReference.GlobalValues.Random.PercentDiceRoll(ActivationPercent))
             {

@@ -124,40 +124,22 @@ namespace ObjectsUnitTest.Global.Engine
         [TestMethod]
         public void Event_DamageDealtBeforeDefense()
         {
-            evnt.DamageDealtBeforeDefense(npc.Object, pc.Object, 10);
+            evnt.DamageBeforeDefense(npc.Object, pc.Object, 10);
 
             logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "DamageDealtBeforeDefense: Attacker-NpcSentence Defender-PcSentence DamageAmount-10."), Times.Once);
-            npcEnchantment.Verify(e => e.DamageDealtBeforeDefense(npc.Object, pc.Object, 10), Times.Once);
+            npcEnchantment.Verify(e => e.DamageBeforeDefense(npc.Object, pc.Object, 10), Times.Once);
         }
 
         [TestMethod]
         public void Event_DamageDealtAfterDefense()
         {
-            evnt.DamageDealtAfterDefense(npc.Object, pc.Object, 10);
+            evnt.DamageAfterDefense(npc.Object, pc.Object, 10);
 
             logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "DamageDealtAfterDefense: Attacker-NpcSentence Defender-PcSentence DamageAmount-10."), Times.Once);
-            npcEnchantment.Verify(e => e.DamageDealtAfterDefense(npc.Object, pc.Object, 10), Times.Once);
+            npcEnchantment.Verify(e => e.DamageAfterDefense(npc.Object, pc.Object, 10), Times.Once);
             notify.Verify(e => e.Mob(npc.Object, pc.Object, npc.Object, It.IsAny<ITranslationMessage>(), false, false));
             notify.Verify(e => e.Mob(npc.Object, pc.Object, pc.Object, It.IsAny<ITranslationMessage>(), false, false));
             notify.Verify(e => e.Room(npc.Object, pc.Object, room.Object, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { npc.Object, pc.Object }, false, false), Times.Once);
-        }
-
-        [TestMethod]
-        public void Event_DamageReceivedBeforeDefense()
-        {
-            evnt.DamageReceivedBeforeDefense(npc.Object, pc.Object, 10);
-
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "DamageReceivedBeforeDefense: Attacker-NpcSentence Defender-PcSentence DamageAmount-10."), Times.Once);
-            pcEnchantment.Verify(e => e.DamageReceivedBeforeDefense(npc.Object, pc.Object, 10), Times.Once);
-        }
-
-        [TestMethod]
-        public void Event_DamageReceivedAfterDefense()
-        {
-            evnt.DamageReceivedAfterDefense(npc.Object, pc.Object, 10);
-
-            logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "DamageReceivedAfterDefense: Attacker-NpcSentence Defender-PcSentence DamageAmount-10."), Times.Once);
-            pcEnchantment.Verify(e => e.DamageReceivedAfterDefense(npc.Object, pc.Object, 10), Times.Once);
         }
 
         [TestMethod]

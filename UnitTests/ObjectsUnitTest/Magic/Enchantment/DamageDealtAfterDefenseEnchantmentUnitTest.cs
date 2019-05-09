@@ -47,7 +47,7 @@ namespace ObjectsUnitTest.Magic.Enchantment
         {
             random.Setup(e => e.PercentDiceRoll(100)).Returns(true);
 
-            enchantment.DamageDealtAfterDefense(attacker.Object, defender.Object, 10);
+            enchantment.DamageAfterDefense(attacker.Object, defender.Object, 10);
 
             effect.Verify(e => e.ProcessEffect(parameter.Object), Times.Once);
             parameter.VerifySet(e => e.ObjectRoom = room.Object);
@@ -63,7 +63,7 @@ namespace ObjectsUnitTest.Magic.Enchantment
 
             random.Setup(e => e.PercentDiceRoll(100)).Returns(true);
 
-            enchantment.DamageDealtAfterDefense(attacker.Object, defender.Object, 10);
+            enchantment.DamageAfterDefense(attacker.Object, defender.Object, 10);
 
             effect.Verify(e => e.ProcessEffect(parameter.Object), Times.Once);
             parameter.VerifySet(e => e.ObjectRoom = room.Object);

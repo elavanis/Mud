@@ -110,6 +110,12 @@ namespace ServerTelnetCommunication
                                     {
                                         if (pc.Password == _password)
                                         {
+                                            //clear out the exp and money message from loading
+                                            while (pc.DequeueMessage() != null)
+                                            {
+
+                                            }
+
                                             GlobalReference.GlobalValues.Logger.Log(LogLevel.ALL, string.Format("{0} logged in successfully.", _userName));
                                             GlobalReference.GlobalValues.World.AddPlayerQueue.Enqueue(pc);
                                             GuidToCharacter.AddOrUpdate(_guid, pc, (k, v) => v = pc);

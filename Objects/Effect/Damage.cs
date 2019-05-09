@@ -36,7 +36,7 @@ namespace Objects.Effect
                 if (parameter.Performer is IMobileObject performer)
                 {
                     GlobalReference.GlobalValues.Engine.Combat.AddCombatPair(performer, target);
-                    GlobalReference.GlobalValues.Engine.Event.DamageDealtAfterDefense(performer, target, damageReceived);
+                    GlobalReference.GlobalValues.Engine.Event.DamageAfterDefense(performer, target, damageReceived);
 
                     if (Sound != null)
                     {

@@ -44,8 +44,10 @@ namespace Objects.Global.Logging
                 //room will be null if the player is logging out
                 if (performer.Room != null)
                 {
-                    IZone zone = GlobalReference.GlobalValues.World.Zones[performer.Room.Zone];
-                    Log(zone, logLevel, message);
+                    if (GlobalReference.GlobalValues.World.Zones.TryGetValue(performer.Room.Zone, out IZone zone))
+                    {
+                        Log(zone, logLevel, message);
+                    }
                 }
             }
             else

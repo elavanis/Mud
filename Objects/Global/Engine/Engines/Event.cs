@@ -40,20 +40,20 @@ namespace Objects.Global.Engine.Engines
             GlobalReference.GlobalValues.Notify.Room(performer, null, performer.Room, translationMessage, new List<IMobileObject>() { performer });
         }
 
-        public void DamageDealtBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
+        public void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
         {
             string message = $"DamageDealtBeforeDefense: Attacker-{attacker?.SentenceDescription ?? "unknown"} Defender-{defender.SentenceDescription} DamageAmount-{damageAmount}.";
             GlobalReference.GlobalValues.Logger.Log(attacker, LogLevel.DEBUGVERBOSE, message);
 
-            RunEnchantments(attacker, EventType.DamageDealtBeforeDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount });
+            RunEnchantments(attacker, EventType.DamageBeforeDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount });
         }
 
-        public void DamageDealtAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
+        public void DamageAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
         {
             string message = $"DamageDealtAfterDefense: Attacker-{attacker?.SentenceDescription ?? "unknown"} Defender-{defender.SentenceDescription} DamageAmount-{damageAmount}.";
             GlobalReference.GlobalValues.Logger.Log(attacker, LogLevel.DEBUGVERBOSE, message);
 
-            RunEnchantments(attacker, EventType.DamageDealtAfterDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount });
+            RunEnchantments(attacker, EventType.DamageAfterDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount });
 
             #region damage messages
             //attacker?.EnqueueMessage(GlobalReference.GlobalValues.TagWrapper.WrapInTag($"You hit {defender.SentenceDescription} for {damageAmount} damage.", TagType.DamageDelt));
@@ -72,22 +72,6 @@ namespace Objects.Global.Engine.Engines
             IRoom room = attacker != null ? attacker.Room : defender.Room;
             GlobalReference.GlobalValues.Notify.Room(attacker, defender, room, translationMessage, new List<IMobileObject>() { attacker, defender });
             #endregion damage messages
-        }
-
-        public void DamageReceivedBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
-        {
-            string message = $"DamageReceivedBeforeDefense: Attacker-{attacker?.SentenceDescription ?? "unknown"} Defender-{defender.SentenceDescription} DamageAmount-{damageAmount}.";
-            GlobalReference.GlobalValues.Logger.Log(attacker, LogLevel.DEBUGVERBOSE, message);
-
-            RunEnchantments(attacker, EventType.DamageReceivedBeforeDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount });
-        }
-
-        public void DamageReceivedAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
-        {
-            string message = $"DamageReceivedAfterDefense: Attacker-{attacker?.SentenceDescription ?? "unknown"} Defender-{defender.SentenceDescription} DamageAmount-{damageAmount}.";
-            GlobalReference.GlobalValues.Logger.Log(attacker, LogLevel.DEBUGVERBOSE, message);
-
-            RunEnchantments(attacker, EventType.DamageReceivedAfterDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount });
         }
 
         public string EnqueueMessage(IMobileObject performer, string message)
@@ -222,19 +206,31 @@ namespace Objects.Global.Engine.Engines
 
         private static void RunEnchantments(IMobileObject performer, EventType eventType, EventParamerters paramerter)
         {
-            if (eventType == EventType.DamageReceivedBeforeDefense
-                || eventType == EventType.DamageReceivedAfterDefense)
-            {
-                foreach (IEnchantment enchantment in paramerter.Defender.Enchantments)
-                {
-                    RunEnchantment(enchantment, eventType, paramerter);
-                }
-            }
-            else if (eventType == EventType.DamageDealtBeforeDefense
-                    || eventType == EventType.DamageDealtAfterDefense)
+            if (eventType == EventType.DamageBeforeDefense)
             {
                 if (performer != null)
                 {
+                    foreach (IEnchantment enchantment in performer.Enchantments)
+                    {
+                        RunEnchantment(enchantment, eventType, paramerter);
+                    }
+
+                    foreach (IEnchantment enchantment in paramerter.Defender.Enchantments)
+                    {
+                        RunEnchantment(enchantment, eventType, paramerter);
+                    }
+                }
+            }
+
+            else if (eventType == EventType.DamageAfterDefense)
+            {
+                if (performer != null)
+                {
+                    foreach (IEnchantment enchantment in paramerter.Defender.Enchantments)
+                    {
+                        RunEnchantment(enchantment, eventType, paramerter);
+                    }
+
                     foreach (IEnchantment enchantment in performer.Enchantments)
                     {
                         RunEnchantment(enchantment, eventType, paramerter);
@@ -334,17 +330,11 @@ namespace Objects.Global.Engine.Engines
                 case EventType.Cast:
                     enchantment.Cast(paramerter.Performer, paramerter.SpellName);
                     break;
-                case EventType.DamageDealtAfterDefense:
-                    enchantment.DamageDealtAfterDefense(paramerter.Attacker, paramerter.Defender, paramerter.DamageAmount);
+                case EventType.DamageAfterDefense:
+                    enchantment.DamageAfterDefense(paramerter.Attacker, paramerter.Defender, paramerter.DamageAmount);
                     break;
-                case EventType.DamageDealtBeforeDefense:
-                    enchantment.DamageDealtBeforeDefense(paramerter.Attacker, paramerter.Defender, paramerter.DamageAmount);
-                    break;
-                case EventType.DamageReceivedAfterDefense:
-                    enchantment.DamageReceivedAfterDefense(paramerter.Attacker, paramerter.Defender, paramerter.DamageAmount);
-                    break;
-                case EventType.DamageReceivedBeforeDefense:
-                    enchantment.DamageReceivedBeforeDefense(paramerter.Attacker, paramerter.Defender, paramerter.DamageAmount);
+                case EventType.DamageBeforeDefense:
+                    enchantment.DamageBeforeDefense(paramerter.Attacker, paramerter.Defender, paramerter.DamageAmount);
                     break;
                 case EventType.Drop:
                     enchantment.Drop(paramerter.Performer, paramerter.Item);
@@ -414,10 +404,8 @@ namespace Objects.Global.Engine.Engines
 
         public enum EventType
         {
-            DamageDealtBeforeDefense,
-            DamageDealtAfterDefense,
-            DamageReceivedBeforeDefense,
-            DamageReceivedAfterDefense,
+            DamageBeforeDefense,
+            DamageAfterDefense,
             EnqueueMessage,
             HeartbeatBigTick,
             OnDeath,

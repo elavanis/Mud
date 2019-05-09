@@ -41,6 +41,7 @@ using Shared.PerformanceCounters.Interface;
 using Objects.Global.Serialization.Interface;
 using Objects.Global.Interface;
 using Objects.Global.DefaultValues.Interface;
+using Objects.Global.MoneyToCoins.Interface;
 
 namespace ObjectsUnitTest.World
 {
@@ -66,6 +67,7 @@ namespace ObjectsUnitTest.World
         Mock<IFileIO> fileIO;
         Mock<IGlobalValues> globalValues;
         Mock<IDefaultValues> defaultValues;
+        Mock<IMoneyToCoins> moneyToCoins;
         PropertyInfo propertyInfoWorld;
 
         [TestInitialize]
@@ -90,6 +92,7 @@ namespace ObjectsUnitTest.World
             fileIO = new Mock<IFileIO>();
             globalValues = new Mock<IGlobalValues>();
             defaultValues = new Mock<IDefaultValues>();
+            moneyToCoins = new Mock<IMoneyToCoins>();
 
             Mock<ILogger> logger = new Mock<ILogger>();
             Mock<ICounters> counters = new Mock<ICounters>();
@@ -123,6 +126,7 @@ namespace ObjectsUnitTest.World
             fileIO.Setup(e => e.Exists("c:\\00010101\\Stats.stat")).Returns(true);
             fileIO.Setup(e => e.ReadAllText("c:\\00010101\\Stats.stat")).Returns("serial");
             defaultValues.Setup(e => e.MoneyForNpcLevel(1)).Returns(100);
+            moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("0 coins");
 
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Random = random.Object;
@@ -137,6 +141,7 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.Serialization = serialization.Object;
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
+            GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
 
             world = new Objects.World.World();
             world.Zones.Add(0, zone.Object);
