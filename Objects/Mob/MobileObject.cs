@@ -537,7 +537,8 @@ namespace Objects.Mob
 
         private int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker, int damageMultiplier)
         {
-            GlobalReference.GlobalValues.Engine.Event.DamageReceivedBeforeDefense(attacker, this, totalDamage);
+            GlobalReference.GlobalValues.Engine.Event.DamageDealtBeforeDefense(attacker, this, totalDamage);  //this will log the raw damage
+            GlobalReference.GlobalValues.Engine.Event.DamageReceivedBeforeDefense(attacker, this, totalDamage); //this will fire off defensive enchantments
 
             int absoredDamage = 0;
             int stoppedDamage = 0;
@@ -608,6 +609,12 @@ namespace Objects.Mob
                 Health -= mobReceivedDamage;
             }
 
+            //return received damage minus any absorbed damage (it is negative so we add it)
+            int netDamage = mobReceivedDamage + absoredDamage;
+
+            GlobalReference.GlobalValues.Engine.Event.DamageReceivedAfterDefense(attacker, this, netDamage); //this will fire off more defensive enchantments
+            GlobalReference.GlobalValues.Engine.Event.DamageDealtAfterDefense(attacker, this, netDamage); //this will log the actual damage, and alert players of the outcome
+
             //absoredDamage is negative because of the previous multipliers being negative
             //so we want to subtract the damage to make it positive
             Health -= absoredDamage;
@@ -620,11 +627,6 @@ namespace Objects.Mob
             {
                 KillMobAndRewardXP(attacker);
             }
-
-            //return received damage minus any absorbed damage (it is negative so we add it)
-            int netDamage = mobReceivedDamage + absoredDamage;
-
-            GlobalReference.GlobalValues.Engine.Event.DamageReceivedAfterDefense(attacker, this, netDamage);
 
             return netDamage;
         }

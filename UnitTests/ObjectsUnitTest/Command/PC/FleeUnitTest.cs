@@ -25,7 +25,7 @@ namespace ObjectsUnitTest.Command.PC
     {
         IMobileObjectCommand command;
         Mock<ITagWrapper> tagWrapper;
-        Mock<IMobileObject> performer;
+        Mock<IPlayerCharacter> performer;
         Mock<IMobileObject> attacker;
         Mock<ICommand> mockCommand;
         Mock<IRandom> random;
@@ -51,7 +51,7 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues = new GlobalValues();
 
             tagWrapper = new Mock<ITagWrapper>();
-            performer = new Mock<IMobileObject>();
+            performer = new Mock<IPlayerCharacter>();
             attacker = new Mock<IMobileObject>();
             mockCommand = new Mock<ICommand>();
             random = new Mock<IRandom>();
@@ -149,6 +149,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee North.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -160,6 +161,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee East.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -171,6 +173,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee South.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -182,6 +185,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee West.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -193,6 +197,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee Up.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -204,6 +209,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee Down.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
         #endregion Flee Each Direction
 
@@ -219,6 +225,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee North.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -232,6 +239,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee East.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -245,6 +253,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee South.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -258,6 +267,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee West.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -271,6 +281,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee Up.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -284,6 +295,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee Down.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -297,6 +309,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You tried to flee Up but were unable to instead fled Down.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
 
         [TestMethod]
@@ -310,6 +323,7 @@ namespace ObjectsUnitTest.Command.PC
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
             Assert.AreEqual("You flee Down.", message.Message);
+            performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
         }
         #endregion Flee Specify Each Direction
 
