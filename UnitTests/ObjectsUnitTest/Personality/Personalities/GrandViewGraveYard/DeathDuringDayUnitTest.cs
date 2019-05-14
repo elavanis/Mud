@@ -53,7 +53,7 @@ namespace ObjectsUnitTest.Personality.Personalities.GrandViewGraveYard
             string result = deathDuringDay.Process(npc.Object, null);
 
             Assert.AreEqual("", result);
-            npc.Verify(e => e.Die(), Times.Once);
+            npc.Verify(e => e.Die(null), Times.Once);
             //corpseItems.Verify(e => e.Clear(), Times.Once);
         }
 
@@ -66,7 +66,7 @@ namespace ObjectsUnitTest.Personality.Personalities.GrandViewGraveYard
             string result = deathDuringDay.Process(npc.Object, null);
 
             Assert.AreEqual(null, result);
-            npc.Verify(e => e.Die(), Times.Never);
+            npc.Verify(e => e.Die(null), Times.Never);
             //corpseItems.Verify(e => e.Clear(), Times.Once);
         }
 
@@ -80,7 +80,7 @@ namespace ObjectsUnitTest.Personality.Personalities.GrandViewGraveYard
             string result = deathDuringDay.Process(npc.Object, null);
 
             Assert.AreEqual("", result);
-            npc.Verify(e => e.Die(), Times.Once);
+            npc.Verify(e => e.Die(null), Times.Once);
             room.Verify(e => e.RemoveItemFromRoom(corpse.Object), Times.Once);
             //corpseItems.Verify(e => e.Clear(), Times.Once);
         }

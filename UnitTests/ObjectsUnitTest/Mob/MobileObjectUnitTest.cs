@@ -70,6 +70,7 @@ namespace ObjectsUnitTest.Mob
         Mock<IEquipment> equipment;
         Mock<IParty> party;
         Mock<INotify> notify;
+        Mock<IMobileObject> attacker;
 
         [TestInitialize]
         public void Setup()
@@ -101,6 +102,7 @@ namespace ObjectsUnitTest.Mob
             equipment = new Mock<IEquipment>();
             party = new Mock<IParty>();
             notify = new Mock<INotify>();
+            attacker = new Mock<IMobileObject>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Health)).Returns((string x, TagType y) => (x));
@@ -818,7 +820,7 @@ namespace ObjectsUnitTest.Mob
             mob.Money = 10;
             mob.Enchantments.Add(enchantment.Object);
 
-            ICorpse corpse = mob.Die();
+            ICorpse corpse = mob.Die(attacker.Object);
 
             Assert.IsFalse(mob.IsAlive);
             Assert.AreEqual("A corpse lies here.", corpse.ShortDescription);
@@ -829,6 +831,7 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(3, corpse.Items.Count);
             Assert.IsTrue(corpse.Items.Contains(item.Object));
             Assert.IsTrue(corpse.Items.Contains(armor.Object));
+            Assert.AreSame(attacker.Object, corpse.Killer);
 
             IMoney corpseMoney = null;
             foreach (IItem localItem in corpse.Items)
@@ -856,7 +859,7 @@ namespace ObjectsUnitTest.Mob
             mob.PossingMob = pc.Object;
             mob.Money = 10;
 
-            mob.Die();
+            mob.Die(null);
 
             pc.Verify(e => e.EnqueueCommand("Look"), Times.Once);
             pc.VerifySet(e => e.PossedMob = null);
@@ -870,7 +873,7 @@ namespace ObjectsUnitTest.Mob
             EquipedEquipment(mob).Add(armor.Object);
             mob.Money = 10;
 
-            ICorpse corpse = mob.Die();
+            ICorpse corpse = mob.Die(null);
 
             Assert.IsFalse(mob.IsAlive);
             Assert.AreEqual("A corpse lies here.", corpse.ShortDescription);

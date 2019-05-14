@@ -1,5 +1,6 @@
 ﻿using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
+using Objects.Mob.Interface;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -9,6 +10,9 @@ namespace Objects.Item.Items
     {
         [ExcludeFromCodeCoverage]
         public DateTime TimeOfDeath { get; set; }
+
+        [ExcludeFromCodeCoverage]
+        public IMobileObject Killer { get; set; }
 
         public new ICorpse Clone()
         {

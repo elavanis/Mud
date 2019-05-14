@@ -76,7 +76,7 @@ namespace Objects.Mob.Interface
         string DequeueCommand();
         string DequeueCommunication();
         string DequeueMessage();
-        ICorpse Die();
+        ICorpse Die(IMobileObject attacker);
         void EnqueueCommand(string message);
         void EnqueueMessage(string message);
         int GetStatEffective(Stats.Stat? stat);

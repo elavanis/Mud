@@ -654,7 +654,7 @@ namespace Objects.Mob
 
         private void KillMobAndRewardXP(IMobileObject attacker)
         {
-            ICorpse corpse = Die();
+            ICorpse corpse = Die(attacker);
             INonPlayerCharacter npc = this as INonPlayerCharacter;
             IPlayerCharacter pc = attacker as IPlayerCharacter;
             if (npc != null && attacker != null)
@@ -806,7 +806,7 @@ namespace Objects.Mob
         /// Causes the mobile to die and returns the corpse
         /// </summary>
         /// <returns></returns>
-        public virtual ICorpse Die()
+        public virtual ICorpse Die(IMobileObject attacker)
         {
             GlobalReference.GlobalValues.Engine.Event.OnDeath(this);
             IsAlive = false;
@@ -820,10 +820,11 @@ namespace Objects.Mob
 
             foreach (IEnchantment enchantment in Enchantments)
             {
-                enchantment.EnchantmentEndingDateTime = new DateTime();  //set the end date to the past so its not fired and wil be cleaned up 
+                enchantment.EnchantmentEndingDateTime = new DateTime();  //set the end date to the past so its not fired and will be cleaned up 
             }
 
             Corpse corpse = new Corpse();
+            corpse.Killer = attacker;
             corpse.TimeOfDeath = DateTime.UtcNow;
             corpse.ShortDescription = "A corpse lies here.";
             corpse.LookDescription = CorpseLongDescription ?? "This corpse once was living but no life exists here now.";

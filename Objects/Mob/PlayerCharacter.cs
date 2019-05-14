@@ -169,11 +169,11 @@ namespace Objects.Mob
             }
         }
 
-        public override ICorpse Die()
+        public override ICorpse Die(IMobileObject attacker)
         {
             AddTitle("{performer} the resurrected.");
 
-            ICorpse corpse = base.Die();
+            ICorpse corpse = base.Die(attacker);
             Corpses.Add(corpse.Clone());  //because if someone picks something up out of the corpse it will be reflected here
 
             Room.RemoveMobileObjectFromRoom(this);

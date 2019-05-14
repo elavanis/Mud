@@ -51,6 +51,7 @@ namespace ObjectsUnitTest.Mob
         Mock<INotify> notify;
         Mock<ISerialization> serializtion;
         Mock<IStringManipulator> stringManipulator;
+        Mock<IMobileObject> attacker;
 
         [TestInitialize]
         public void Setup()
@@ -78,6 +79,7 @@ namespace ObjectsUnitTest.Mob
             notify = new Mock<INotify>();
             serializtion = new Mock<ISerialization>();
             stringManipulator = new Mock<IStringManipulator>();
+            attacker = new Mock<IMobileObject>();
 
             settings.Setup(e => e.Multiplier).Returns(1);
             multiClassBonus.Setup(e => e.CalculateBonus(1, 0)).Returns(1);
@@ -181,11 +183,12 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void PlayerCharacter_Die()
         {
-            pc.Die();
+            ICorpse corpse = pc.Die(attacker.Object);
             room.Verify(e => e.AddItemToRoom(It.IsAny<IItem>(), 0));
             Assert.AreEqual(1, pc.Corpses.Count);
             evnt.Verify(e => e.OnDeath(pc), Times.Once);
             evnt.Verify(e => e.EnterRoom(pc), Times.Once);
+            Assert.AreSame(attacker.Object, corpse.Killer);
         }
 
         [TestMethod]

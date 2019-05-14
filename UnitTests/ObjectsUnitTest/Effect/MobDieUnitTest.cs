@@ -41,7 +41,7 @@ namespace ObjectsUnitTest.Effect
         {
             mobDie.ProcessEffect(parameter.Object);
 
-            pc.Verify(e => e.Die(), Times.Once);
+            pc.Verify(e => e.Die(null), Times.Once);
             notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()));
         }
 
@@ -52,7 +52,7 @@ namespace ObjectsUnitTest.Effect
 
             mobDie.ProcessEffect(parameter.Object);
 
-            pc.Verify(e => e.Die(), Times.Never);
+            pc.Verify(e => e.Die(null), Times.Never);
         }
     }
 }

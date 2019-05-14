@@ -24,7 +24,7 @@ namespace Objects.Effect
 
                 GlobalReference.GlobalValues.Notify.Mob(mob, parameter.TargetMessage);
 
-                mob.Die();
+                mob.Die(parameter.Attacker);
             }
         }
     }

@@ -359,9 +359,9 @@ namespace Objects.Mob
             LevelPoints -= amount;
         }
 
-        public override ICorpse Die()
+        public override ICorpse Die(IMobileObject attacker)
         {
-            ICorpse corpse = base.Die();
+            ICorpse corpse = base.Die(attacker);
 
             IItem item = GlobalReference.GlobalValues.RandomDropGenerator.GenerateRandomDrop(this);
             if (item != null)

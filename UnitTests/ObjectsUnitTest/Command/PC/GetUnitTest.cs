@@ -409,5 +409,17 @@ namespace ObjectsUnitTest.Command.PC
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("Unable to find container container.", result.ResultMessage);
         }
+
+        [TestMethod]
+        public void Get_PerformCommand_OnlyAllowGetCorpserThatYouKilled()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void Get_PerformCommand_OnlyAllowLootCorpserThatYouKilled()
+        {
+            Assert.AreEqual(1, 2);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Objects.Personality.Personalities.GrandViewGraveYard
             //if its 12am or then the mobs need to die since its daylight
             if (GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour < 12)
             {
-                npc.Die();
+                npc.Die(null);
 
                 IContainer corpse = npc.Room.Items[0] as IContainer;
                 if (corpse != null)

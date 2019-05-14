@@ -49,6 +49,7 @@ namespace ObjectsUnitTest.Mob
         List<INonPlayerCharacter> npcList;
         Mock<ITagWrapper> tagWrapper;
         Mock<INotify> notify;
+        Mock<IMobileObject> attacker;
 
         [TestInitialize]
         public void Setup()
@@ -74,6 +75,7 @@ namespace ObjectsUnitTest.Mob
             npcList = new List<INonPlayerCharacter>();
             tagWrapper = new Mock<ITagWrapper>();
             notify = new Mock<INotify>();
+            attacker = new Mock<IMobileObject>();
 
             dice.Setup(e => e.Die).Returns(1);
             dice.Setup(e => e.Sides).Returns(2);
@@ -368,12 +370,12 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void NonPlayerCharacter_Die()
         {
-            npc.Die();
+            ICorpse corpse = npc.Die(attacker.Object);
 
             room.Verify(e => e.RemoveMobileObjectFromRoom(npc));
             room.Verify(e => e.AddItemToRoom(It.IsAny<IItem>(), 0));
             evnt.Verify(e => e.OnDeath(npc));
-
+            Assert.AreSame(attacker.Object, corpse.Killer);
         }
 
         [TestMethod]
