@@ -48,6 +48,15 @@ namespace Objects.Command.PC
                     {
                         if (!item.Attributes.Contains(ItemAttribute.NoGet))
                         {
+                            if (item is ICorpse corpse)
+                            {
+                                if (corpse.Killer != performer)
+                                {
+                                    return new Result($"Unable to pickup the corpse belonging to {corpse.Killer.KeyWords[0]}.", true);
+                                }
+                            }
+
+
                             IRoom room = performer.Room;
                             GlobalReference.GlobalValues.Engine.Event.Get(performer, item);
                             room.RemoveItemFromRoom(item);
@@ -74,6 +83,14 @@ namespace Objects.Command.PC
                 IParameter parameterContainer = command.Parameters[1];
                 if (GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, parameterContainer.ParameterValue, parameterContainer.ParameterNumber, true, true, false, false) is IContainer container)
                 {
+                    if (container is ICorpse corpse)
+                    {
+                        if (corpse.Killer != performer)
+                        {
+                            return new Result($"Unable to get items from the corpse belonging to {corpse.Killer.KeyWords[0]}", true);
+                        }
+                    }
+
                     IParameter parameterItem = command.Parameters[0];
                     if (parameterItem.ParameterValue.ToUpper() == "ALL")
                     {
