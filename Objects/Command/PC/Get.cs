@@ -87,7 +87,7 @@ namespace Objects.Command.PC
                     {
                         if (corpse.Killer != performer)
                         {
-                            return new Result($"Unable to get items from the corpse belonging to {corpse.Killer.KeyWords[0]}", true);
+                            return new Result($"Unable to get items from the corpse belonging to {corpse.Killer.KeyWords[0]}.", true);
                         }
                     }
 

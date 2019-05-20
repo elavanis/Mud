@@ -31,6 +31,7 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IMoneyToCoins> moneyToCoins;
         Mock<ICommand> mockCommand;
         Mock<IMobileObject> mob;
+        Mock<IMobileObject> mob2;
         Mock<IRoom> room;
         Mock<IItem> item;
         Mock<IItem> itemMoney;
@@ -42,7 +43,8 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IFindObjects> findObjects;
         Mock<IItem> item2;
         Mock<IItem> item3;
-
+        Mock<IItem> itemCorpse;
+        Mock<ICorpse> corpse;
 
         List<IItem> mobItems;
         List<IItem> roomItems;
@@ -61,6 +63,7 @@ namespace ObjectsUnitTest.Command.PC
             moneyToCoins = new Mock<IMoneyToCoins>();
             mockCommand = new Mock<ICommand>();
             mob = new Mock<IMobileObject>();
+            mob2 = new Mock<IMobileObject>();
             room = new Mock<IRoom>();
             item = new Mock<IItem>();
             itemMoney = new Mock<IItem>();
@@ -72,6 +75,8 @@ namespace ObjectsUnitTest.Command.PC
             findObjects = new Mock<IFindObjects>();
             item2 = new Mock<IItem>();
             item3 = new Mock<IItem>();
+            itemCorpse = new Mock<IItem>();
+            corpse = itemCorpse.As<ICorpse>();
 
             mobItems = new List<IItem>();
             roomItems = new List<IItem>() { item.Object };
@@ -82,6 +87,7 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object });
             mob.Setup(e => e.Room).Returns(room.Object);
             mob.Setup(e => e.Items).Returns(mobItems);
+            mob2.Setup(e => e.KeyWords).Returns(new List<string>() { "mob2" });
             item.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
             item.Setup(e => e.Attributes).Returns(new List<ItemAttribute>());
             item.Setup(e => e.KeyWords).Returns(new List<string>() { "item" });
@@ -100,6 +106,11 @@ namespace ObjectsUnitTest.Command.PC
             item3.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
             item3.Setup(e => e.Attributes).Returns(new List<ItemAttribute>());
             item3.Setup(e => e.KeyWords).Returns(new List<string>() { "item3" });
+            corpse.Setup(e => e.Killer).Returns(mob.Object);
+            corpse.Setup(e => e.Items).Returns(containerItems);
+            itemCorpse.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
+            itemCorpse.Setup(e => e.Attributes).Returns(new List<ItemAttribute>());
+            itemCorpse.Setup(e => e.KeyWords).Returns(new List<string>() { "item" });
 
             room.Setup(e => e.Items).Returns(roomItems);
             money.Setup(e => e.Value).Returns(10);
@@ -268,15 +279,63 @@ namespace ObjectsUnitTest.Command.PC
         }
 
         [TestMethod]
+        public void Get_PerformCommand_GetCorpse()
+        {
+            findObjects.Setup(e => e.FindItemsInRoom(room.Object, "item", 0)).Returns(itemCorpse.Object);
+            roomItems = new List<IItem>() { itemCorpse.Object };
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("You pickup the SentenceDescription.", result.ResultMessage);
+            Assert.IsTrue(mobItems.Contains(itemCorpse.Object));
+            room.Verify(e => e.RemoveItemFromRoom(itemCorpse.Object));
+        }
+
+        [TestMethod]
         public void Get_PerformCommand_OnlyAllowGetCorpserThatYouKilled()
         {
-            Assert.AreEqual(1, 2);
+            corpse.Setup(e => e.Killer).Returns(mob2.Object);
+            findObjects.Setup(e => e.FindItemsInRoom(room.Object, "item", 0)).Returns(itemCorpse.Object);
+            roomItems = new List<IItem>() { itemCorpse.Object };
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("Unable to pickup the corpse belonging to mob2.", result.ResultMessage);
+            Assert.IsFalse(mobItems.Contains(itemCorpse.Object));
+            room.Verify(e => e.RemoveItemFromRoom(itemCorpse.Object), Times.Never);
+        }
+
+        [TestMethod]
+        public void Get_PerformCommand_LootCorpse()
+        {
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object, parm2.Object });
+            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, false, false, true)).Returns(itemCorpse.Object);
+            roomItems = new List<IItem>() { itemCorpse.Object };
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("You get the item from the container.", result.ResultMessage);
+            Assert.IsTrue(mobItems.Contains(item.Object));
+            Assert.IsFalse(containerItems.Contains(item.Object));
         }
 
         [TestMethod]
         public void Get_PerformCommand_OnlyAllowLootCorpserThatYouKilled()
         {
-            Assert.AreEqual(1, 2);
+            corpse.Setup(e => e.Killer).Returns(mob2.Object);
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object, parm2.Object });
+            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, false, false, true)).Returns(itemCorpse.Object);
+            roomItems = new List<IItem>() { itemCorpse.Object };
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("Unable to get items from the corpse belonging to mob2.", result.ResultMessage);
+            Assert.IsFalse(mobItems.Contains(item.Object));
+            Assert.IsTrue(containerItems.Contains(item.Object));
         }
     }
 }
