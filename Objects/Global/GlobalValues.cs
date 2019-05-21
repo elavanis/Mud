@@ -9,6 +9,8 @@ using Objects.Global.GameDateTime.Interface;
 using Objects.Global.Guild.Interface;
 using Objects.Global.Interface;
 using Objects.Global.Language.Interface;
+using Objects.Global.LevelDifference;
+using Objects.Global.LevelDifference.Interface;
 using Objects.Global.Logging.Interface;
 using Objects.Global.Map.Interface;
 using Objects.Global.MoneyToCoins.Interface;
@@ -60,10 +62,13 @@ namespace Objects.Global
         public IDefaultValues DefaultValues { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public IExperience Experience { get; set; }
+        public IEngine Engine { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public IEngine Engine { get; set; }
+        public IEvaluateLevelDifference EvaluateLevelDifference { get; set; }
+
+        [ExcludeFromCodeCoverage]
+        public IExperience Experience { get; set; }
 
         [ExcludeFromCodeCoverage]
         public IFindObjects FindObjects { get; set; }
@@ -155,8 +160,9 @@ namespace Objects.Global
             Counters = new Counters();
             CountersLog = new List<ICounters>();
             DefaultValues = new DefaultValues.DefaultValues();
-            Experience = new Exp.Experience();
             Engine = new Engine.Engine();
+            EvaluateLevelDifference = new EvaluateLevelDifference();
+            Experience = new Exp.Experience();
             FindObjects = new FindObjects.FindObjects();
             FileIO = new FileIO();
             GameDateTime = new InGameDateTime(new Time());

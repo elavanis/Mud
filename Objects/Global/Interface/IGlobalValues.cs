@@ -25,6 +25,7 @@ using Objects.Global.StringManuplation.Interface;
 using System.Collections.Generic;
 using Shared.PerformanceCounters.Interface;
 using Objects.Global.Serialization.Interface;
+using Objects.Global.LevelDifference.Interface;
 
 namespace Objects.Global.Interface
 {
@@ -36,6 +37,7 @@ namespace Objects.Global.Interface
         List<ICounters> CountersLog { get; set; }
         IDefaultValues DefaultValues { get; set; }
         IEngine Engine { get; set; }
+        IEvaluateLevelDifference EvaluateLevelDifference { get; set; }
         IExperience Experience { get; set; }
         IFileIO FileIO { get; set; }
         IFindObjects FindObjects { get; set; }
