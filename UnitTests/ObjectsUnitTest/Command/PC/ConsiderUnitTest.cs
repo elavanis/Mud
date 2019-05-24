@@ -44,9 +44,11 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object });
             parm1.Setup(e => e.ParameterValue).Returns("mob");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob1.Object, "mob", 0, false, false, true, true, false)).Returns(mob2.Object);
+            evaluateLevel.Setup(e => e.Evalute(mob1.Object, mob2.Object)).Returns("eval message");
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
+            GlobalReference.GlobalValues.EvaluateLevelDifference = evaluateLevel.Object;
 
             command = new Consider();
         }
@@ -88,14 +90,18 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(mob1.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("Who would you like to consider attacking?", result.ResultMessage);
+            Assert.AreEqual("eval message", result.ResultMessage);
         }
 
-
         [TestMethod]
-        public void Consider_WriteUnitTests()
+        public void Consider_MobNotFound()
         {
-            Assert.AreEqual(1, 2);
+            parm1.Setup(e => e.ParameterValue).Returns("notFound");
+
+            IResult result = command.PerformCommand(mob1.Object, mockCommand.Object);
+
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("You were unable to find notFound.", result.ResultMessage);
         }
     }
 }
