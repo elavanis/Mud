@@ -16,6 +16,6 @@ namespace Objects.Skill.Skills.Damage
             TargetNotificationSuccess = new TranslationMessage("{performer} briefly lowered their head before crashing into you.");
         }
 
-        public override string TeachMessage => "Lower your head and charge your enemy like a raging bull.  Finger horns are optional but encouraged.";
+        public override string TeachMessage {get;} = "Lower your head and charge your enemy like a raging bull.  Finger horns are optional but encouraged.";
     }
 }

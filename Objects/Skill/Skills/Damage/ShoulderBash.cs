@@ -16,6 +16,6 @@ namespace Objects.Skill.Skills.Damage
             TargetNotificationSuccess = new TranslationMessage("{performer} knocks their shoulder into you knocking you back slightly.");
         }
 
-        public override string TeachMessage => "The trick to a good shoulder bash it to get a firm stance before making contact with your opponent.";
+        public override string TeachMessage {get;} = "The trick to a good shoulder bash it to get a firm stance before making contact with your opponent.";
     }
 }

@@ -21,9 +21,9 @@ namespace Objects.Skill.Skills.Damage
             TargetNotificationSuccess = new TranslationMessage("{performer} takes the pointy end of their weapon and in a blink of an eye uses it to pierce you.");
         }
 
-        public override string TeachMessage => "Keep the pointy end of the weapon toward your opponent and thrust.";
+        public override string TeachMessage {get;} = "Keep the pointy end of the weapon toward your opponent and thrust.";
 
-        public override IResult RequirementsFailureMessage => new Result("You must have a piercing weapon equipped.", true, Shared.TagWrapper.TagWrapper.TagType.Info);
+        public override IResult RequirementsFailureMessage {get;} = new Result("You must have a piercing weapon equipped.", true, Shared.TagWrapper.TagWrapper.TagType.Info);
 
         protected override bool MeetRequirments(IMobileObject performer, IMobileObject target)
         {

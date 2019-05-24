@@ -17,7 +17,7 @@ namespace Objects.Skill.Skills.Damage
             TargetNotificationSuccess = new TranslationMessage("{performer} lifts their foot and brings it down on your knee.");
         }
 
-        public override string TeachMessage => "Kicking the opponents knee will cause them to loose mobility.";
+        public override string TeachMessage {get;} = "Kicking the opponents knee will cause them to loose mobility.";
 
         protected override void AdditionalEffect(IMobileObject performer, IMobileObject target)
         {

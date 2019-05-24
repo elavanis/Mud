@@ -16,6 +16,6 @@ namespace Objects.Skill.Skills.Damage
             TargetNotificationSuccess = new TranslationMessage("{performer} hits you with their pummel.");
         }
 
-        public override string TeachMessage => "Take the pummel of your weapon and the opponent over the head like this. //thud";
+        public override string TeachMessage {get;} = "Take the pummel of your weapon and the opponent over the head like this. //thud";
     }
 }

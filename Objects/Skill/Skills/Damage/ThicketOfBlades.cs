@@ -21,9 +21,9 @@ namespace Objects.Skill.Skills.Damage
             TargetNotificationSuccess = new TranslationMessage("{performer} begins to move so fast their blade disappears and becomes a flashing light that feels like your running through a thicket of thorns.");
         }
 
-        public override string TeachMessage => "Move your blade in a circular path like this.  Good now faster, faster.  Perfect.";
+        public override string TeachMessage {get;} = "Move your blade in a circular path like this.  Good now faster, faster.  Perfect.";
 
-        public override IResult RequirementsFailureMessage => new Result("You must have a slashing weapon equipped.", true, Shared.TagWrapper.TagWrapper.TagType.Info);
+        public override IResult RequirementsFailureMessage {get;} = new Result("You must have a slashing weapon equipped.", true, Shared.TagWrapper.TagWrapper.TagType.Info);
 
         protected override bool MeetRequirments(IMobileObject performer, IMobileObject target)
         {

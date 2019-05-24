@@ -22,9 +22,9 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
             TargetNotificationFailure = new TranslationMessage("{performer} tries to stun you causing you to drop your weapon but fails.");
         }
 
-        public override string TeachMessage => "If your opponent has no weapon then they can't hurt you.";
+        public override string TeachMessage { get; } = "If your opponent has no weapon then they can't hurt you.";
 
-        public override IResult RequirementsFailureMessage => new Result("You can not disarm an unarmed opponent.", true, Shared.TagWrapper.TagWrapper.TagType.Info);
+        public override IResult RequirementsFailureMessage { get; } = new Result("You can not disarm an unarmed opponent.", true, Shared.TagWrapper.TagWrapper.TagType.Info);
 
         protected override bool MeetRequirments(IMobileObject performer, IMobileObject target)
         {

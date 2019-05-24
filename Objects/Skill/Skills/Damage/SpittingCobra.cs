@@ -24,7 +24,7 @@ namespace Objects.Skill.Skills.Damage
             TargetNotificationSuccess = new TranslationMessage("{performer} spits a purple liquid onto your face.");
         }
 
-        public override string TeachMessage => "Sometimes when fighting we look to animals for inspiration.  Put this pill in your mouth.  Crush it and spit its contents in your opponent's face like a spitting cobra.";
+        public override string TeachMessage {get;} = "Sometimes when fighting we look to animals for inspiration.  Put this pill in your mouth.  Crush it and spit its contents in your opponent's face like a spitting cobra.";
 
         protected override void AdditionalEffect(IMobileObject performer, IMobileObject target)
         {

@@ -16,6 +16,6 @@ namespace Objects.Skill.Skills.Damage
             TargetNotificationSuccess = new TranslationMessage("{performer} charges toward you.  You quickly attempt to brace for the impact but it never comes instead {performer} slides between your legs and hits you where the sun don't shine.");
         }
 
-        public override string TeachMessage => "Trick your opponent to lower their guard and make them pay for it.";
+        public override string TeachMessage {get;} = "Trick your opponent to lower their guard and make them pay for it.";
     }
 }
