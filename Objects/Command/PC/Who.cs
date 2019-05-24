@@ -10,9 +10,9 @@ namespace Objects.Command.PC
 {
     public class Who : IMobileObjectCommand
     {
-        public IResult Instructions => new Result("Who", true);
+        public IResult Instructions { get; } = new Result("Who", true);
 
-        public IEnumerable<string> CommandTrigger => new List<string>() { "Who" };
+        public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Who" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {

@@ -10,9 +10,9 @@ namespace Objects.Command.PC
 {
     public class Put : IMobileObjectCommand
     {
-        public IResult Instructions => new Result("Put [Item Name] [Container]", true);
+        public IResult Instructions { get; } = new Result("Put [Item Name] [Container]", true);
 
-        public IEnumerable<string> CommandTrigger => new List<string>() { "Put" };
+        public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Put" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {

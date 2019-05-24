@@ -33,7 +33,6 @@ namespace Objects.Global.LevelDifference
                     return $"{pronoun} should be victorious but badly wounded.";
                 case 2:
                     return $"{pronoun} should win.";
-                    break;
                 case 3:
                 case 4:
                     if (differnce > 0)
@@ -58,8 +57,6 @@ namespace Objects.Global.LevelDifference
                         return "MEDIC!!!";
                     }
             }
-
-            return null;
         }
     }
 }

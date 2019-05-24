@@ -11,9 +11,9 @@ namespace Objects.Command.PC
 {
     public class Give : IMobileObjectCommand
     {
-        public IResult Instructions => new Result("Give [Item Name] [Person]", true);
+        public IResult Instructions { get; } = new Result("Give [Item Name] [Person]", true);
 
-        public IEnumerable<string> CommandTrigger => new List<string>() { "Give" };
+        public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Give" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
