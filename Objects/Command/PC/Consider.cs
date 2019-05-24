@@ -21,7 +21,7 @@ namespace Objects.Command.PC
             }
 
             IParameter parm = command.Parameters[0];
-            IMobileObject mob = GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, parm.ParameterValue, parm.ParameterNumber, false, false, true, true) as IMobileObject;
+            IMobileObject mob = GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, parm.ParameterValue, parm.ParameterNumber, false, false, true, true, false) as IMobileObject;
 
             if (mob != null)
             {
