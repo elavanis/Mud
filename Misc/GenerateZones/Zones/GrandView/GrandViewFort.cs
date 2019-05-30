@@ -26,6 +26,8 @@ namespace GenerateZones.Zones.GrandView
             room.ExamineDescription = "The stone walls were carved in place from the side of the mountain.  This leads to their strength as it is on solid piece of stone. ";
             room.LookDescription = "The original fort's stone gate still stands strong.";
             room.ShortDescription = "Front Gate";
+
+            return room;
         }
 
         #endregion Rooms
