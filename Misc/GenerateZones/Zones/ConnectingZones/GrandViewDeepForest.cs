@@ -9,6 +9,7 @@ using System.Reflection;
 using Objects.Interface;
 using Objects.LoadPercentage;
 using static Objects.Mob.NonPlayerCharacter;
+using static Objects.Room.Room;
 
 namespace GenerateZones.Zones.ConnectingZones
 {
@@ -59,7 +60,11 @@ namespace GenerateZones.Zones.ConnectingZones
 
             Zone = randZoneGen.Generate();
             Zone.Name = nameof(GrandViewDeepForest);
-
+            foreach (IRoom localRoom in Zone.Rooms.Values)
+            {
+                localRoom.Attributes.Add(RoomAttribute.Outdoor);
+                localRoom.Attributes.Add(RoomAttribute.Weather);
+            }
 
             description = new RoomDescription();
             description.LookDescription = "A road runs through the farm lands.";

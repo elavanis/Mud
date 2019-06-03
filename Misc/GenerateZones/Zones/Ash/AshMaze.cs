@@ -14,6 +14,7 @@ using Objects.Zone.Interface;
 using Shared.Sound;
 using static Objects.Global.Direction.Directions;
 using static Objects.Mob.NonPlayerCharacter;
+using static Objects.Room.Room;
 
 namespace GenerateZones.Zones.Ash
 {
@@ -103,6 +104,8 @@ namespace GenerateZones.Zones.Ash
             room.ShortDescription = "A world of ash.";
             room.ExamineDescription = "Flakes of ash fall like gray snow on the ground from some unseen fire.";
             room.LookDescription = "Ash floats through the air making it hard to see and breath.";
+            room.Attributes.Add(RoomAttribute.Outdoor);
+            room.Attributes.Add(RoomAttribute.Weather);
 
             return room;
         }

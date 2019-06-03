@@ -29,7 +29,7 @@ namespace GenerateZones.Zones.GrandView
                 MethodInfo method = this.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
                 if (method != null)
                 {
-                    Room room = (Room)method.Invoke(this, null);
+                    IRoom room = (IRoom)method.Invoke(this, null);
                     room.Zone = Zone.Id;
                     ZoneHelper.AddRoom(Zone, room);
                 }

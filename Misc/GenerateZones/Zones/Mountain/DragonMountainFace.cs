@@ -4,6 +4,7 @@ using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static Objects.Global.Direction.Directions;
+using static Objects.Room.Room;
 
 namespace GenerateZones.Zones.Mountain
 {
@@ -24,7 +25,7 @@ namespace GenerateZones.Zones.Mountain
                 MethodInfo method = this.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
                 if (method != null)
                 {
-                    IRoom room = (Room)method.Invoke(this, null);
+                    IRoom room = (IRoom)method.Invoke(this, null);
                     room.Zone = Zone.Id;
                     ZoneHelper.AddRoom(Zone, room);
                 }
@@ -383,29 +384,29 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom RockFace()
         {
-            IRoom room = CreateRoom(100);
+            IRoom room = OutSide(100);
             room.ShortDescription = "Mountain Face";
             return room;
         }
 
         private IRoom RockPath()
         {
-            IRoom room = CreateRoom(1);
+            IRoom room = OutSide(1);
             room.ShortDescription = "Path up the side of the mountain";
             return room;
         }
 
-        private IRoom OutSide()
+        private IRoom OutSide(int movementCost)
         {
-            IRoom room = GenerateRoom();
+            IRoom room = GenerateRoom(movementCost);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
             room.Attributes.Add(Room.RoomAttribute.Weather);
             return room;
         }
 
-        private IRoom GenerateRoom()
+        private IRoom GenerateRoom(int movementCost)
         {
-            IRoom room = CreateRoom();
+            IRoom room = CreateRoom(movementCost);
             return room;
         }
 

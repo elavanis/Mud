@@ -41,6 +41,11 @@ namespace GenerateZones
                 VerifyNpc(npc);
             }
 
+            if (room.Attributes.Count == 0)
+            {
+                ThrowConfigException(room, type, "Room attributes blank.");
+            }
+
             CheckRoomDoors(room);
         }
 

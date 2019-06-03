@@ -6,6 +6,7 @@ using Objects.Zone.Interface;
 using System;
 using static GenerateZones.RandomZoneGeneration;
 using static Objects.Global.Direction.Directions;
+using static Objects.Room.Room;
 
 namespace GenerateZones.Zones.EndLessDesert
 {
@@ -27,7 +28,11 @@ namespace GenerateZones.Zones.EndLessDesert
 
             Zone = randZoneGen.Generate();
             Zone.Name = nameof(EndLessDesert);
-
+            foreach (IRoom localRoom in Zone.Rooms.Values)
+            {
+                localRoom.Attributes.Add(RoomAttribute.Outdoor);
+                localRoom.Attributes.Add(RoomAttribute.Weather);
+            }
 
             Random random = new Random(Zone.Id);
             IRoom room = Zone.Rooms[random.Next(Zone.Rooms.Count) + 1];
