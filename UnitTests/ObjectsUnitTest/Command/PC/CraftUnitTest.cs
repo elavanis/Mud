@@ -63,6 +63,7 @@ namespace ObjectsUnitTest.Command.PC
             pc.Setup(e => e.Room).Returns(room.Object);
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { craftsman.Object });
+            npc.Setup(e => e.Level).Returns(2);
             mockCommand.Setup(e => e.Parameters).Returns(parameters);
             level.Setup(e => e.ParameterValue).Returns("1");
             keyword.Setup(e => e.ParameterValue).Returns("keyword");
@@ -492,6 +493,12 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("Please verify all parameters and try again.", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void Craft_PerformCommand_CraftmanNotHighEnoughLevel()
+        {
+            Assert.AreEqual(1, 2);
         }
     }
 }

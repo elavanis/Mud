@@ -56,6 +56,12 @@ namespace Objects.Command.PC
                     damageType = GetDamageType(command.Parameters[7].ParameterValue);
                 }
 
+                if (level > craftsman.Level)
+                {
+                    craftsman.EnqueueCommand($"Tell {performer.KeyWords} That is above my skill level.  You will need to find someone a higher level to craft such an item.");
+                    return new Result(null, false);
+                }
+
                 return craftsmanPersonality.Build(craftsman, pc, position, level, keyword, sentenceDescription, shortDescription, longDescription, examineDescription, damageType);
             }
             catch (Exception ex)
