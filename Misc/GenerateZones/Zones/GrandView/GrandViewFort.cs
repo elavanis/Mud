@@ -46,7 +46,7 @@ namespace GenerateZones.Zones.GrandView
         {
             IRoom room = OutSideRoom();
 
-            room.ExamineDescription = "The stone walls were carved in place from the side of the mountain.  This leads to their strength as it is on solid piece of stone. ";
+            room.ExamineDescription = "The stone walls were carved in place from the side of the mountain.  This leads to their strength as it is on solid piece of stone.";
             room.LookDescription = "The original fort's stone gate still stands strong.";
             room.ShortDescription = "Front Gate";
 
@@ -65,12 +65,29 @@ namespace GenerateZones.Zones.GrandView
             return room;
         }
 
-        //private IRoom GenerateRoom2()
-        //{
-        //    IRoom room = OutSideRoom();
+        private IRoom GenerateRoom2()
+        {
+            IRoom room = OutSideRoom();
 
-        //    return room;
-        //}
+            room.ExamineDescription = "Standing in the center of the barbican you get a sense of dread for anyone who get trapped here attacking the fort.";
+            room.LookDescription = "Walls of stone rise up on all sides with places for guards to fire arrows as well as dump fire down on you if you were an attacker.";
+            room.ShortDescription = "Inside the barbican.";
+
+
+            return room;
+        }
+
+        private IRoom GenerateRoom3()
+        {
+            IRoom room = OutSideRoom();
+
+            room.ExamineDescription = "The inside of the fort court yard you begin to realize the amount of work that went into creating this fort.  Tons of raw stone was removed from the mountain side just to clear the area  ";
+            room.LookDescription = "The court yard extends a ways to the north before disappearing into the mountain.  The blacksmith and enchanter is to west.  The captains quarters, and stables are to the east. ";
+            room.ShortDescription = "The courtyard.";
+
+
+            return room;
+        }
         #endregion Rooms
 
         private INonPlayerCharacter Guard()

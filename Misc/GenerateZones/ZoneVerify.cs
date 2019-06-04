@@ -10,6 +10,7 @@ using Objects.Room.Interface;
 using Objects.Skill.Interface;
 using Objects.Zone.Interface;
 using System;
+using static Objects.Room.Room;
 
 namespace GenerateZones
 {
@@ -44,6 +45,13 @@ namespace GenerateZones
             if (room.Attributes.Count == 0)
             {
                 ThrowConfigException(room, type, "Room attributes blank.");
+            }
+            else if (room.Attributes.Contains(RoomAttribute.Outdoor))
+            {
+                if (!room.Attributes.Contains(RoomAttribute.Weather))
+                {
+                    Console.WriteLine($"Room {room.Zone} - {room.Id} has outdoors but not weather.");
+                }
             }
 
             CheckRoomDoors(room);
