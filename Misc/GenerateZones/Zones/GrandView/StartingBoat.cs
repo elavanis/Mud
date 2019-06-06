@@ -99,6 +99,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = OnDeck();
             room.Attributes.Add(RoomAttribute.Outdoor);
+            room.Attributes.Add(RoomAttribute.Weather);
 
             room.ExamineDescription = "The crew scramble around trying to put out fires, attack the dragons as they dive in for an attack and get to the one remaining life boat on the west side of the ship.";
             room.LookDescription = "A pair of dragons circle above taking turns breathing fire onto the ship.";
@@ -114,6 +115,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = OnDeck();
             room.Attributes.Add(RoomAttribute.Outdoor);
+            room.Attributes.Add(RoomAttribute.Weather);
 
             room.ExamineDescription = "Standing in the middle of the ship you can see that the ship is lost.  The center mast is engulfed in flames, the sails long burned away, both the aft and stern of the ship is ablaze.  It is only a matter of time before she burns enough to allow water into her hull or fire reaches the gunpowder magazine and the ship is blown apart.";
             room.LookDescription = "Flames are beginning to make the deck unstable.  Holes are opening up as barrels fall through the floor.";
@@ -129,6 +131,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = OnDeck();
             room.Attributes.Add(RoomAttribute.Outdoor);
+            room.Attributes.Add(RoomAttribute.Weather);
 
             room.ExamineDescription = "Looking around one last time at {shipName} you bid it fairwell. She had been home to you for the last several weeks but she will be no more.";
             room.LookDescription = "Several feet below you is the last life boat.  Passengers and members of the crew are offering you words of encouragement to get in the boat.";
@@ -146,6 +149,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = OnDeck();
             room.Attributes.Add(RoomAttribute.Outdoor);
+            room.Attributes.Add(RoomAttribute.Weather);
 
             EnterRoomEnchantment enter = new EnterRoomEnchantment();
             enter.ActivationPercent = 100;

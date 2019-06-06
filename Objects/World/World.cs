@@ -509,6 +509,17 @@ namespace Objects.World
                 {
                     ProcessRooms(zone);
                 });
+
+
+                //var rangePartitioner = Partitioner.Create(0, Zones.Values.Count);
+                //Parallel.ForEach(rangePartitioner, (range, loopState) =>
+                //{
+                //    // Loop over each range element without a delegate invocation.
+                //    for (int i = range.Item1; i < range.Item2; i++)
+                //    {
+                //        ProcessRooms()
+                //    }
+                //});
 #endif
 
                 CatchPlayersOutSideOfTheWorldDueToReloadedZones();

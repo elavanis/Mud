@@ -65,6 +65,7 @@ namespace GenerateZones.Zones.ConnectingZones
         {
             IRoom room = CreateRoom(movementCost);
             room.Attributes.Add(Room.RoomAttribute.Outdoor);
+            room.Attributes.Add(Room.RoomAttribute.Weather);
             return room;
         }
 
