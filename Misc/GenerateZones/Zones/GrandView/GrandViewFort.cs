@@ -183,6 +183,8 @@ namespace GenerateZones.Zones.GrandView
 
             npc.Personalities.Add(new Craftsman());
             npc.Personalities.Add(merchant);
+
+            return npc;
         }
         #endregion NPC
 
