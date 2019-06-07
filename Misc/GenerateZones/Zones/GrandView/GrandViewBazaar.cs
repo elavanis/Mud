@@ -15,6 +15,7 @@ using Objects.Item.Items.Interface;
 using static Objects.Mob.NonPlayerCharacter;
 using static Objects.Item.Items.Weapon;
 using static Objects.Item.Items.Equipment;
+using Objects.Damage.Interface;
 
 namespace GenerateZones.Zones
 {
@@ -287,7 +288,7 @@ namespace GenerateZones.Zones
             dagger.AttackerStat = Stats.Stat.Dexterity;
             dagger.DeffenderStat = Stats.Stat.Dexterity;
 
-            Damage damage = new Damage();
+            IDamage damage = new Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(dagger.Level);
             damage.Type = Damage.DamageType.Slash;
             dagger.DamageList.Add(damage);

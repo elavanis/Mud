@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Objects.Damage;
+using Objects.Damage.Interface;
+using Objects.Global;
+using Objects.Item.Interface;
+using Objects.Item.Items.Interface;
+using Objects.Material.Materials;
 using Objects.Mob.Interface;
+using Objects.Personality.Interface;
 using Objects.Personality.Personalities;
+using Objects.Personality.Personalities.Interface;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static Objects.Global.Direction.Directions;
+using static Objects.Item.Items.Weapon;
 using static Objects.Room.Room;
 
 namespace GenerateZones.Zones.GrandView
@@ -74,6 +83,15 @@ namespace GenerateZones.Zones.GrandView
             return room;
         }
 
+        private IRoom InsideSideRoom()
+        {
+            IRoom room = CreateRoom();
+            room.Attributes.Add(RoomAttribute.Indoor);
+            room.Attributes.Add(RoomAttribute.Light);
+
+            return room;
+        }
+
         private IRoom GenerateRoom2()
         {
             IRoom room = OutSideRoom();
@@ -118,9 +136,20 @@ namespace GenerateZones.Zones.GrandView
             return room;
         }
 
+        private IRoom GenerateRoom6()
+        {
+            IRoom room = InsideSideRoom();
+
+            room.ExamineDescription = "Different wares are hung from the wall.  Swords, axes, leggings and a kite shield with a potato painted on it...";
+            room.LookDescription = "The sound of a fire and clanging can be heard in the back.";
+            room.ShortDescription = "Ye Old Shoppe.";
+
+            return room;
+        }
+
         #endregion Rooms
 
-
+        #region NPC
         private INonPlayerCharacter Guard()
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(Objects.Mob.NonPlayerCharacter.MobType.Humanoid, 21);
@@ -135,5 +164,59 @@ namespace GenerateZones.Zones.GrandView
             return npc;
         }
 
+        private INonPlayerCharacter ShoppeKeep()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(Objects.Mob.NonPlayerCharacter.MobType.Humanoid, 40);
+            npc.ShortDescription = "A shoppe keep tidies the place.";
+            npc.LookDescription = "The shoppe keep is young.  He probably doesn't own the shop as much as work the front while the master makes the wares in the back.";
+            npc.ExamineDescription = "Standing five feet tall with dusty blond hair you can tell the boy is young.  His hands are calloused which indicates he works in the back after the shop closes.";
+            npc.SentenceDescription = "shoppekeep";
+            npc.KeyWords.Add("shop");
+            npc.KeyWords.Add("shoppe");
+            npc.KeyWords.Add("keep");
+            npc.KeyWords.Add("shopkeep");
+            npc.KeyWords.Add("shoppekeep");
+
+            IMerchant merchant = new Merchant();
+            merchant.Sellables.Add(Shield());
+            merchant.Sellables.Add(Sword());
+
+            npc.Personalities.Add(new Craftsman());
+            npc.Personalities.Add(merchant);
+        }
+        #endregion NPC
+
+        #region Items
+        private IEquipment Shield()
+        {
+            IShield item = CreateShield(35, new Wood());
+            item.KeyWords.Add("Shield");
+            item.KeyWords.Add("Potato");
+            item.ShortDescription = "A large wooden kite shield with a potato painted on the front.";
+            item.LookDescription = "The potato seems rather out of place as if the maker really liked potatoes.";
+            item.ExamineDescription = "Standing four and half feet tall this shield is almost as tall as the shoppekeep.";
+            item.SentenceDescription = "potato kite shield";
+            item.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(item.Level);
+            item.FinishLoad();
+            return item;
+        }
+
+        private IEquipment Sword()
+        {
+            IWeapon item = CreateWeapon(WeaponType.Sword, 28);
+            item.KeyWords.Add("sword");
+            item.ShortDescription = "A well balanced sword.";
+            item.LookDescription = "The sword in remarkable if only in being unremarkable.";
+            item.ExamineDescription = "The sword is nothing special and appears to be a mass produced sword for the soldiers stationed at the fort.";
+            item.SentenceDescription = "sword";
+
+            IDamage damage = new Damage();
+            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(item.Level);
+            damage.Type = Damage.DamageType.Slash;
+            item.DamageList.Add(damage);
+            item.FinishLoad();
+            return item;
+        }
+        #endregion Items
     }
 }
