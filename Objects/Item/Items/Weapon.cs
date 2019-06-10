@@ -57,7 +57,6 @@ namespace Objects.Item.Items
             Dagger,
             Pick,
             Spear
-
             #endregion Pierce
         }
     }

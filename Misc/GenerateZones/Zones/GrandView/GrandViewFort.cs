@@ -17,6 +17,7 @@ using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static Objects.Global.Direction.Directions;
+using static Objects.Item.Items.Equipment;
 using static Objects.Item.Items.Weapon;
 using static Objects.Room.Room;
 
@@ -180,6 +181,8 @@ namespace GenerateZones.Zones.GrandView
             IMerchant merchant = new Merchant();
             merchant.Sellables.Add(Shield());
             merchant.Sellables.Add(Sword());
+            merchant.Sellables.Add(SplitMail());
+            merchant.Sellables.Add(Gloves());
 
             npc.Personalities.Add(new Craftsman());
             npc.Personalities.Add(merchant);
@@ -216,6 +219,35 @@ namespace GenerateZones.Zones.GrandView
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(item.Level);
             damage.Type = Damage.DamageType.Slash;
             item.DamageList.Add(damage);
+            item.FinishLoad();
+            return item;
+        }
+
+        private IEquipment SplitMail()
+        {
+            IArmor item = CreateArmor(AvalableItemPosition.Body, 30);
+            item.KeyWords.Add("splint");
+            item.KeyWords.Add("mail");
+            item.KeyWords.Add("green");
+            item.ShortDescription = "A green splint mail.";
+            item.LookDescription = "The green piece of splint mail still has the new look.";
+            item.ExamineDescription = "Each piece of mail has been carefully place riveted into place.";
+            item.SentenceDescription = "splint mail";
+            item.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(item.Level);
+            item.FinishLoad();
+            return item;
+        }
+
+        private IEquipment Gloves()
+        {
+            IArmor item = CreateArmor(AvalableItemPosition.Hand, 26);
+            item.KeyWords.Add("gloves");
+            item.KeyWords.Add("eel");
+            item.ShortDescription = "A pair of gloves.";
+            item.LookDescription = "Each glove has a slight iridescent color that changes from green to brown and back again.";
+            item.ExamineDescription = "The gloves are made of eel skin and have a green brown color that is hard to describe.";
+            item.SentenceDescription = "gloves";
+            item.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(item.Level);
             item.FinishLoad();
             return item;
         }
