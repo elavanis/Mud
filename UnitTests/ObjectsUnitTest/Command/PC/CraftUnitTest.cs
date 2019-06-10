@@ -61,6 +61,7 @@ namespace ObjectsUnitTest.Command.PC
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             pc.Setup(e => e.Room).Returns(room.Object);
+            pc.Setup(e => e.KeyWords).Returns(new List<string>() { "pc" });
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { craftsman.Object });
             npc.Setup(e => e.Level).Returns(2);
@@ -498,7 +499,22 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Craft_PerformCommand_CraftmanNotHighEnoughLevel()
         {
-            Assert.AreEqual(1, 2);
+            level.Setup(e => e.ParameterValue).Returns("3");
+            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            position.Setup(e => e.ParameterValue).Returns("Head");
+            parameters.Add(position.Object);
+            parameters.Add(level.Object);
+            parameters.Add(keyword.Object);
+            parameters.Add(sentenceDescription.Object);
+            parameters.Add(shortDescription.Object);
+            parameters.Add(longDescription.Object);
+            parameters.Add(examineDescription.Object);
+            parameters.Add(damageType.Object);
+
+            IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(null, result.ResultMessage);
+            npc.Verify(e => e.EnqueueCommand("Tell pc That is above my skill level.  You will need to find someone a higher level to craft such an item."));
         }
     }
 }

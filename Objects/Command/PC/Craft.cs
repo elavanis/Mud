@@ -58,8 +58,8 @@ namespace Objects.Command.PC
 
                 if (level > craftsman.Level)
                 {
-                    craftsman.EnqueueCommand($"Tell {performer.KeyWords} That is above my skill level.  You will need to find someone a higher level to craft such an item.");
-                    return new Result(null, false);
+                    craftsman.EnqueueCommand($"Tell {performer.KeyWords[0]} That is above my skill level.  You will need to find someone a higher level to craft such an item.");
+                    return new Result(null, true);
                 }
 
                 return craftsmanPersonality.Build(craftsman, pc, position, level, keyword, sentenceDescription, shortDescription, longDescription, examineDescription, damageType);
