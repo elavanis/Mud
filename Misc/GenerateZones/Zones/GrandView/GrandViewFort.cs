@@ -145,6 +145,21 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "The sound of a fire and clanging can be heard in the back.";
             room.ShortDescription = "Ye Old Shoppe.";
 
+            room.AddMobileObjectToRoom(ShoppeKeep());
+
+            return room;
+        }
+
+        private IRoom GenerateRoom7()
+        {
+            IRoom room = InsideSideRoom();
+
+            room.ExamineDescription = "The room surprisingly does not have any lights and is instead lit by the soft glow of the enchanted items for sale. ";
+            room.LookDescription = "upon entering the room you notice the items for sale slowly drift around the room.";
+            room.ShortDescription = "The Magic Circle.";
+
+            room.AddMobileObjectToRoom(Enchantress());
+
             return room;
         }
 
@@ -189,6 +204,25 @@ namespace GenerateZones.Zones.GrandView
 
             return npc;
         }
+
+        private INonPlayerCharacter Enchantress()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(Objects.Mob.NonPlayerCharacter.MobType.Humanoid, 40);
+            npc.ShortDescription = "An enchantress works on enchanting an small medallion.";
+            npc.LookDescription = "She is dressed in a blue dress that seems to be made of some type of material that is so light it almost hangs on her. ";
+            npc.ExamineDescription = "She  very intently stares at the work in front of her as she put says an incantation and pours a oil onto the medallion.";
+            npc.SentenceDescription = "enchantress";
+            npc.KeyWords.Add("enchantress");
+
+            IMerchant merchant = new Merchant();
+            npc.Personalities.Add(merchant);
+
+            IItem enchantery = Enchantery();
+
+            return npc;
+        }
+
+
         #endregion NPC
 
         #region Items
@@ -250,6 +284,11 @@ namespace GenerateZones.Zones.GrandView
             item.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(item.Level);
             item.FinishLoad();
             return item;
+        }
+
+        private IItem Enchantery()
+        {
+            throw new NotImplementedException();
         }
         #endregion Items
     }
