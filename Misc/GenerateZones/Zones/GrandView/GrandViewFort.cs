@@ -6,6 +6,7 @@ using System.Text;
 using Objects.Damage;
 using Objects.Damage.Interface;
 using Objects.Global;
+using Objects.Item;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
 using Objects.Material.Materials;
@@ -17,6 +18,7 @@ using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static Objects.Global.Direction.Directions;
+using static Objects.Item.Item;
 using static Objects.Item.Items.Equipment;
 using static Objects.Item.Items.Weapon;
 using static Objects.Room.Room;
@@ -53,28 +55,17 @@ namespace GenerateZones.Zones.GrandView
 
         private void ConnectRooms()
         {
+            Zone.RecursivelySetZone();
+
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.West, Zone.Rooms[2]);
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.West, Zone.Rooms[3]);
             ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.South, Zone.Rooms[4]);
             ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.South, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.West, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.West, Zone.Rooms[7]);
         }
 
         #region Rooms
-
-        private IRoom GenerateRoom1()
-        {
-            IRoom room = OutSideRoom();
-
-            room.ExamineDescription = "The stone walls were carved in place from the side of the mountain.  This leads to their strength as it is on solid piece of stone.";
-            room.LookDescription = "The original fort's stone gate still stands strong.";
-            room.ShortDescription = "Front Gate";
-
-            room.AddMobileObjectToRoom(Guard());
-            room.AddMobileObjectToRoom(Guard());
-
-            return room;
-        }
-
         private IRoom OutSideRoom()
         {
             IRoom room = CreateRoom();
@@ -89,6 +80,20 @@ namespace GenerateZones.Zones.GrandView
             IRoom room = CreateRoom();
             room.Attributes.Add(RoomAttribute.Indoor);
             room.Attributes.Add(RoomAttribute.Light);
+
+            return room;
+        }
+
+        private IRoom GenerateRoom1()
+        {
+            IRoom room = OutSideRoom();
+
+            room.ExamineDescription = "The stone walls were carved in place from the side of the mountain.  This leads to their strength as it is on solid piece of stone.";
+            room.LookDescription = "The original fort's stone gate still stands strong.";
+            room.ShortDescription = "Front Gate";
+
+            room.AddMobileObjectToRoom(Guard());
+            room.AddMobileObjectToRoom(Guard());
 
             return room;
         }
@@ -159,6 +164,18 @@ namespace GenerateZones.Zones.GrandView
             room.ShortDescription = "The Magic Circle.";
 
             room.AddMobileObjectToRoom(Enchantress());
+            room.AddItemToRoom(Enchantery());
+
+            return room;
+        }
+
+        private IRoom GenerateRoom8()
+        {
+            IRoom room = OutSideRoom();
+
+            room.ExamineDescription = "A large barn with rows of stalls used for keeping horses.";
+            room.LookDescription = "Walking into the alley immediately tells you that you have found the horses stables.";
+            room.ShortDescription = "Side alley.";
 
             return room;
         }
@@ -217,12 +234,8 @@ namespace GenerateZones.Zones.GrandView
             IMerchant merchant = new Merchant();
             npc.Personalities.Add(merchant);
 
-            IItem enchantery = Enchantery();
-
             return npc;
         }
-
-
         #endregion NPC
 
         #region Items
@@ -260,6 +273,7 @@ namespace GenerateZones.Zones.GrandView
         private IEquipment SplitMail()
         {
             IArmor item = CreateArmor(AvalableItemPosition.Body, 30);
+            item.Material = new Steel();
             item.KeyWords.Add("splint");
             item.KeyWords.Add("mail");
             item.KeyWords.Add("green");
@@ -275,6 +289,7 @@ namespace GenerateZones.Zones.GrandView
         private IEquipment Gloves()
         {
             IArmor item = CreateArmor(AvalableItemPosition.Hand, 26);
+            item.Material = new Leather();
             item.KeyWords.Add("gloves");
             item.KeyWords.Add("eel");
             item.ShortDescription = "A pair of gloves.";
@@ -288,7 +303,17 @@ namespace GenerateZones.Zones.GrandView
 
         private IItem Enchantery()
         {
-            throw new NotImplementedException();
+            IEnchantery item = CreateItem<IEnchantery>();
+            item.KeyWords.Add("table");
+            item.KeyWords.Add("enchant");
+            item.KeyWords.Add("enchanting");
+            item.Attributes.Add(ItemAttribute.NoGet);
+            item.ShortDescription = "An enchanting table.";
+            item.LookDescription = "The table at one time was nothing more than some wood but has gain magical energy from hundreds nay thousands of enchantments.";
+            item.ExamineDescription = "Green filaments of energy spark out from the table about an inch forming arches before falling back and being reabsorbed.";
+            item.SentenceDescription = "enchanting table";
+
+            return item;
         }
         #endregion Items
     }
