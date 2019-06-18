@@ -63,6 +63,8 @@ namespace GenerateZones.Zones.GrandView
             ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.South, Zone.Rooms[5]);
             ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.West, Zone.Rooms[6]);
             ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.West, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.North, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[8], Direction.North, Zone.Rooms[9]);
         }
 
         #region Rooms
@@ -179,6 +181,18 @@ namespace GenerateZones.Zones.GrandView
 
             return room;
         }
+
+        private IRoom GenerateRoom9()
+        {
+            IRoom room = OutSideRoom();
+
+            room.ExamineDescription = "While a permanent structure the captains quarter is a quickly built wooden building.";
+            room.LookDescription = "The captains building stands in front of you.";
+            room.ShortDescription = "Side alley.";
+
+            return room;
+        }
+
 
         #endregion Rooms
 
