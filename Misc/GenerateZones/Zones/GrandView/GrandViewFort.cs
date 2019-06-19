@@ -106,7 +106,7 @@ namespace GenerateZones.Zones.GrandView
 
             room.ExamineDescription = "Standing in the center of the barbican you get a sense of dread for anyone who get trapped here attacking the fort.";
             room.LookDescription = "Walls of stone rise up on all sides with places for guards to fire arrows as well as dump fire down on you if you were an attacker.";
-            room.ShortDescription = "Inside the barbican.";
+            room.ShortDescription = "Inside the barbican";
 
             return room;
         }
@@ -117,7 +117,7 @@ namespace GenerateZones.Zones.GrandView
 
             room.ExamineDescription = "The inside of the fort court yard you begin to realize the amount of work that went into creating this fort.  Tons of raw stone was removed from the mountain side just to clear the area for this courtyard.";
             room.LookDescription = "The court yard extends a ways to the west before disappearing into the mountain.  The blacksmith and enchanter is to south.  The captains quarters, and stables are to the north.";
-            room.ShortDescription = "The courtyard.";
+            room.ShortDescription = "The courtyard";
 
             return room;
         }
@@ -128,7 +128,7 @@ namespace GenerateZones.Zones.GrandView
 
             room.ExamineDescription = "A rather large wooden structure stand here with a sign reading \"Ye Old Shoppe\" hangs above the doorway.";
             room.LookDescription = "A small ally is formed by the shops and the forts walls.";
-            room.ShortDescription = "Side alley.";
+            room.ShortDescription = "Side alley";
 
             return room;
         }
@@ -139,7 +139,7 @@ namespace GenerateZones.Zones.GrandView
 
             room.ExamineDescription = "As you stand in front of the enchanters shop a large boom can be heard from the back of shop.  Black smoke can be seen pouring out of the front door.";
             room.LookDescription = "The ally stretches around the corner of the enchanters shop.";
-            room.ShortDescription = "Side alley.";
+            room.ShortDescription = "Side alley";
 
             return room;
         }
@@ -150,7 +150,7 @@ namespace GenerateZones.Zones.GrandView
 
             room.ExamineDescription = "Different wares are hung from the wall.  Swords, axes, leggings and a kite shield with a potato painted on it...";
             room.LookDescription = "The sound of a fire and clanging can be heard in the back.";
-            room.ShortDescription = "Ye Old Shoppe.";
+            room.ShortDescription = "Ye Old Shoppe";
 
             room.AddMobileObjectToRoom(ShoppeKeep());
 
@@ -163,7 +163,7 @@ namespace GenerateZones.Zones.GrandView
 
             room.ExamineDescription = "The room surprisingly does not have any lights and is instead lit by the soft glow of the enchanted items for sale. ";
             room.LookDescription = "upon entering the room you notice the items for sale slowly drift around the room.";
-            room.ShortDescription = "The Magic Circle.";
+            room.ShortDescription = "The Magic Circle";
 
             room.AddMobileObjectToRoom(Enchantress());
             room.AddItemToRoom(Enchantery());
@@ -177,7 +177,7 @@ namespace GenerateZones.Zones.GrandView
 
             room.ExamineDescription = "A large barn with rows of stalls used for keeping horses.";
             room.LookDescription = "Walking into the alley immediately tells you that you have found the horses stables.";
-            room.ShortDescription = "Side alley.";
+            room.ShortDescription = "Side alley";
 
             return room;
         }
@@ -186,9 +186,31 @@ namespace GenerateZones.Zones.GrandView
         {
             IRoom room = OutSideRoom();
 
-            room.ExamineDescription = "While a permanent structure the captains quarter is a quickly built wooden building.";
+            room.ExamineDescription = "The captains quarters are testament to what can be done with superb craftsmanship.";
             room.LookDescription = "The captains building stands in front of you.";
-            room.ShortDescription = "Side alley.";
+            room.ShortDescription = "Side alley";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom10()
+        {
+            IRoom room = InsideSideRoom();
+
+            room.ExamineDescription = "Each stall has two sets of doors.  The inside doors let the animals be lead to center of the stables and the outside doors lets the animals go outside and frolic in the area around the stables. ";
+            room.LookDescription = "Walking up and down the isle you can see the name of each horse on a placard hanging above their stall. Rapidflame, Autumn, Maverick and Shadowbolt to name a few.";
+            room.ShortDescription = "Stables";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom11()
+        {
+            IRoom room = InsideSideRoom();
+
+            room.ExamineDescription = "The floor has a beautiful inlay of different types of wood.  Each piece was carefully placed to form a crane in mid flight.";
+            room.LookDescription = "You stand in the entrance of the captains quarters.  To the left is a meeting room and to the right is smaller waiting room.  In the back is a hall leading to the sleeping area.";
+            room.ShortDescription = "Captains Quarters";
 
             return room;
         }
