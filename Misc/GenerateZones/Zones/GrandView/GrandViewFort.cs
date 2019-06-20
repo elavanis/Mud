@@ -21,6 +21,7 @@ using static Objects.Global.Direction.Directions;
 using static Objects.Item.Item;
 using static Objects.Item.Items.Equipment;
 using static Objects.Item.Items.Weapon;
+using static Objects.Mob.NonPlayerCharacter;
 using static Objects.Room.Room;
 
 namespace GenerateZones.Zones.GrandView
@@ -65,6 +66,10 @@ namespace GenerateZones.Zones.GrandView
             ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.West, Zone.Rooms[7]);
             ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.North, Zone.Rooms[8]);
             ZoneHelper.ConnectRoom(Zone.Rooms[8], Direction.North, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[8], Direction.West, Zone.Rooms[10]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.West, Zone.Rooms[11]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.South, Zone.Rooms[12]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.North, Zone.Rooms[13]);
         }
 
         #region Rooms
@@ -212,16 +217,39 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "You stand in the entrance of the captains quarters.  To the left is a meeting room and to the right is smaller waiting room.  In the back is a hall leading to the sleeping area.";
             room.ShortDescription = "Captains Quarters";
 
+            room.AddMobileObjectToRoom(Captain());
+
             return room;
         }
 
+        private IRoom GenerateRoom12()
+        {
+            IRoom room = InsideSideRoom();
+
+            room.ExamineDescription = "The table is made of oak and has a large vase of flowers in the center.  Several torches light the room causing shadows to dance on the walls.";
+            room.LookDescription = "The large round table dominates the meeting room.";
+            room.ShortDescription = "Captains Quarters";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom13()
+        {
+            IRoom room = InsideSideRoom();
+
+            room.ExamineDescription = "A small set of desks are arranged in a u shape with a map of the mines on the far wall.";
+            room.LookDescription = "The small room feels cramped with three desks filling up the room.";
+            room.ShortDescription = "Captains Quarters";
+
+            return room;
+        }
 
         #endregion Rooms
 
         #region NPC
         private INonPlayerCharacter Guard()
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(Objects.Mob.NonPlayerCharacter.MobType.Humanoid, 21);
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 21);
             npc.ShortDescription = "A motionless guard.";
             npc.LookDescription = "The guard stands motionless while watching people move in and out of the fort.";
             npc.ExamineDescription = "The guard's face is blank but you almost detect a hint of boredom.";
@@ -235,7 +263,7 @@ namespace GenerateZones.Zones.GrandView
 
         private INonPlayerCharacter ShoppeKeep()
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(Objects.Mob.NonPlayerCharacter.MobType.Humanoid, 40);
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 40);
             npc.ShortDescription = "A shoppe keep tidies the place.";
             npc.LookDescription = "The shoppe keep is young.  He probably doesn't own the shop as much as work the front while the master makes the wares in the back.";
             npc.ExamineDescription = "Standing five feet tall with dusty blond hair you can tell the boy is young.  His hands are calloused which indicates he works in the back after the shop closes.";
@@ -260,15 +288,27 @@ namespace GenerateZones.Zones.GrandView
 
         private INonPlayerCharacter Enchantress()
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(Objects.Mob.NonPlayerCharacter.MobType.Humanoid, 40);
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 40);
             npc.ShortDescription = "An enchantress works on enchanting an small medallion.";
             npc.LookDescription = "She is dressed in a blue dress that seems to be made of some type of material that is so light it almost hangs on her. ";
-            npc.ExamineDescription = "She  very intently stares at the work in front of her as she put says an incantation and pours a oil onto the medallion.";
+            npc.ExamineDescription = "She very intently stares at the work in front of her as she put says an incantation and pours a oil onto the medallion.";
             npc.SentenceDescription = "enchantress";
             npc.KeyWords.Add("enchantress");
 
             IMerchant merchant = new Merchant();
             npc.Personalities.Add(merchant);
+
+            return npc;
+        }
+
+        private INonPlayerCharacter Captain()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 55);
+            npc.ShortDescription = "The captain doesn't notice you at first as you walk in the room.  He quickly glances up at you and then returns to his job.";
+            npc.LookDescription = "The captain is busy doing paper work and has a large pile of papers on his desk labeled in.";
+            npc.ExamineDescription = "The captain is dressed in standard military garb.  Nothing indicates he is a high ranking official other than he was sitting behind the desk when you walked in.";
+            npc.SentenceDescription = "captain";
+            npc.KeyWords.Add("captain");
 
             return npc;
         }
