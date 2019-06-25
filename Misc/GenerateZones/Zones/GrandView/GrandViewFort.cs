@@ -380,6 +380,8 @@ namespace GenerateZones.Zones.GrandView
         private IItem Enchantery()
         {
             IEnchantery item = CreateItem<IEnchantery>();
+            item.SuccessRate = -.85M;
+            item.CostToEnchantLevel1Item = 1100;
             item.KeyWords.Add("table");
             item.KeyWords.Add("enchant");
             item.KeyWords.Add("enchanting");

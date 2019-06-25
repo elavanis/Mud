@@ -7,5 +7,6 @@ namespace Objects.Item.Items.Interface
     {
         IResult Enchant(IItem item);
         int CostToEnchantLevel1Item { get; set; }
+        decimal SuccessRate { get; set; }
     }
 }

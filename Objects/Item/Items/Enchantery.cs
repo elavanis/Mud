@@ -19,6 +19,7 @@ namespace Objects.Item.Items
         public string EnchantmentFail { get; set; } = "The item begins to glow and then flashes a bright light.  The item is gone and only a charred ring remains.";
         public string EnchantmentSuccess { get; set; } = "The item begins to glow and then flashes a bright light.  The item continues to have a faint glow and hum slightly.";
         public int CostToEnchantLevel1Item { get; set; } = 1000;
+        public decimal SuccessRate { get; set; } = -1;
 
         protected static object padlock = new object();
         protected static List<Type> defenseTypes = null;
@@ -59,9 +60,8 @@ namespace Objects.Item.Items
         public virtual IResult Enchant(IItem item)
         {
             IResult result = null;
-            int successRate = (int)(Math.Pow(Math.Pow(item.Enchantments.Count + 1, .9), 2) * 100);
 
-            if (GlobalReference.GlobalValues.Random.PercentDiceRoll(successRate))
+            if (Success(item))
             {
                 IEnchantment randomEnchantment = MakeRandomEnchantment(item);
 
@@ -81,6 +81,17 @@ namespace Objects.Item.Items
             }
 
             return result;
+        }
+
+        public virtual bool Success(IItem item)
+        {
+            return GlobalReference.GlobalValues.Random.PercentDiceRoll(CaluclateSuccessRate(item));
+        }
+
+        protected virtual int CaluclateSuccessRate(IItem item)
+        {
+            int successRate = (int)(Math.Pow(item.Enchantments.Count + 1, -1) * 100);
+            return successRate;
         }
 
         protected IEnchantment MakeRandomEnchantment(IItem item)
