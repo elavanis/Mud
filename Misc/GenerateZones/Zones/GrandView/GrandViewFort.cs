@@ -70,6 +70,7 @@ namespace GenerateZones.Zones.GrandView
             ZoneHelper.ConnectRoom(Zone.Rooms[9], Direction.West, Zone.Rooms[11]);
             ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.South, Zone.Rooms[12]);
             ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.North, Zone.Rooms[13]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.West, Zone.Rooms[14]);
         }
 
         #region Rooms
@@ -244,6 +245,17 @@ namespace GenerateZones.Zones.GrandView
             return room;
         }
 
+        private IRoom GenerateRoom14()
+        {
+            IRoom room = InsideSideRoom();
+
+            room.ExamineDescription = "There is a writing desk with a couple of papers on it.  One of them lists the attacks on miners from monsters in the mine.";
+            room.LookDescription = "A modest but decent size bed is in one side of the room under with a window over looking the court yard.";
+            room.ShortDescription = "Captains Quarters";
+
+            return room;
+        }
+
         #endregion Rooms
 
         #region NPC
@@ -381,7 +393,7 @@ namespace GenerateZones.Zones.GrandView
         {
             IEnchantery item = CreateItem<IEnchantery>();
             item.SuccessRate = -.85M;
-            item.CostToEnchantLevel1Item = 1100;
+            item.CostToEnchantLevel1Item = (int)(1.1 * item.CostToEnchantLevel1Item);
             item.KeyWords.Add("table");
             item.KeyWords.Add("enchant");
             item.KeyWords.Add("enchanting");

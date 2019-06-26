@@ -15,7 +15,9 @@
         android:gravity="bottom"
         android:background="#ff000000"
         android:enabled="false"
-        android:textColor="#fffafafa" />
+        android:textColor="#fffafafa"
+		android:scrollbars="vertical"
+		android:maxLines="10" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="75.00dp"
