@@ -17,12 +17,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/addressLabel"
         android:textColor="#ffffffff" />
-    <EditText
-        android:layout_marginTop="30dp"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/address"
-        android:background="#ffffffff" />
+	<EditText
+		android:layout_marginTop="30dp"
+		android:layout_width="400dp"
+		android:layout_height="wrap_content"
+		android:id="@+id/address"
+		android:background="#ffffffff"/>
     <TextView
         android:text="Port"
         android:layout_marginTop="90dp"
@@ -31,12 +31,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/portLable"
         android:textColor="#ffffffff" />
-    <EditText
-        android:layout_marginTop="120dp"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/port"
-        android:background="#ffffffff" />
+	<EditText
+		android:layout_marginTop="120dp"
+		android:layout_width="400dp"
+		android:layout_height="wrap_content"
+		android:id="@+id/port"
+		android:background="#ffffffff"/>
     <TextView
         android:text="Save"
         android:layout_marginTop="200dp"

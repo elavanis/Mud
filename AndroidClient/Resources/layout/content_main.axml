@@ -14,9 +14,9 @@
 		android:layout_marginTop="0.0dp"
 		android:gravity="bottom"
 		android:background="#ff000000"
-		android:enabled="false"
+		android:enabled="true"
 		android:textColor="#fffafafa"
-		android:scrollbars="none|vertical"
+		android:scrollbars="vertical"
 		android:maxLines="100" 
 	
 	/>
