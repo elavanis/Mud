@@ -50,17 +50,29 @@ namespace AndroidClient
             _inputText = FindViewById<EditText>(Resource.Id.InputText);
             _inputText.TextChanged += InputChanged;
 
-            _telnetHandler = new ClientHandler(Settings.Address, Settings.Port, new JsonMudMessage());
+            try
+            {
+                _telnetHandler = new ClientHandler(Settings.Address, Settings.Port, new JsonMudMessage());
 
-            _timer = new Timer();
-            _timer.Interval = 100;
-            _timer.Elapsed += UpdateDisplayedText;
-            _timer.Start();
+                _timer = new Timer();
+                _timer.Interval = 100;
+                _timer.Elapsed += UpdateDisplayedText;
+                _timer.Start();
 
-            _timer2 = new Timer();
-            _timer2.Interval = 10;
-            _timer2.Elapsed += _timer2_Elapsed;
-            _timer2.Start();
+                _timer2 = new Timer();
+                _timer2.Interval = 10;
+                _timer2.Elapsed += _timer2_Elapsed;
+                _timer2.Start();
+            }
+            catch
+            {
+                Android.App.AlertDialog.Builder builder = new Android.App.AlertDialog.Builder(this);
+                Android.App.AlertDialog alertDialog = builder.Create();
+                alertDialog.SetTitle("Error Connecting");
+                alertDialog.SetMessage($"Error connecting to '{Settings.Address}' port {Settings.Port}");
+                alertDialog.SetButton("OK", (c, ev) => { });
+                alertDialog.Show();
+            }
         }
 
         private void _timer2_Elapsed(object sender, ElapsedEventArgs e)
