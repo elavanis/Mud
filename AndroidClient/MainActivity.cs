@@ -87,7 +87,6 @@ namespace AndroidClient
             //only do the rest if the height changed
             if (_oldHeight == _relativeLayout.Height)
             {
-
                 return;
             }
             else
@@ -95,14 +94,13 @@ namespace AndroidClient
                 _oldHeight = _relativeLayout.Height;
             }
 
-
             Display display = WindowManager.DefaultDisplay;
             DisplayMetrics metrics = new DisplayMetrics();
             display.GetMetrics(metrics);
 
             int relativeLayoutHeight = _relativeLayout.Height;
-            int _inputTextHeight = _inputText.Height;
-
+            //int _inputTextHeight = _inputText.Height;
+            int _inputTextHeight = 150;
             RunOnUiThread(() =>
             {
                 _displayText.Bottom = relativeLayoutHeight - _inputTextHeight;
@@ -110,6 +108,24 @@ namespace AndroidClient
                 _inputText.Top = relativeLayoutHeight - _inputTextHeight;
                 _inputText.Bottom = relativeLayoutHeight;
             });
+
+
+            //            string message = $@"relativeLayoutHeight: {relativeLayoutHeight}
+            //_inputTextHeight: {_inputTextHeight}
+            //_inputText.Top: {relativeLayoutHeight - _inputTextHeight}
+            //_inputText.Bottom: {relativeLayoutHeight}";
+
+
+
+            //            SpannableString spannableString = DisplayFormatter.FormatText(new List<ParsedMessage>() { new ParsedMessage() { Message = message, TagType = TagType.Info } });
+
+            //            RunOnUiThread(() =>
+            //            {
+            //                _displayText.SetText(spannableString, BufferType.Spannable);
+
+            //                //this allows the screen to update
+            //                _displayText.Append("\n");
+            //            });
         }
 
         private void UpdateDisplayedText(object sender, ElapsedEventArgs e)
