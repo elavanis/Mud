@@ -100,7 +100,7 @@ namespace AndroidClient
 
             int relativeLayoutHeight = _relativeLayout.Height;
             //int _inputTextHeight = _inputText.Height;
-            int _inputTextHeight = 150;
+            int _inputTextHeight = 90;
             RunOnUiThread(() =>
             {
                 _displayText.Bottom = relativeLayoutHeight - _inputTextHeight;
@@ -110,22 +110,22 @@ namespace AndroidClient
             });
 
 
-            //            string message = $@"relativeLayoutHeight: {relativeLayoutHeight}
+            //string message = $@"relativeLayoutHeight: {relativeLayoutHeight}
             //_inputTextHeight: {_inputTextHeight}
             //_inputText.Top: {relativeLayoutHeight - _inputTextHeight}
             //_inputText.Bottom: {relativeLayoutHeight}";
 
 
 
-            //            SpannableString spannableString = DisplayFormatter.FormatText(new List<ParsedMessage>() { new ParsedMessage() { Message = message, TagType = TagType.Info } });
+            //SpannableString spannableString = DisplayFormatter.FormatText(new List<ParsedMessage>() { new ParsedMessage() { Message = message, TagType = TagType.Info } });
 
-            //            RunOnUiThread(() =>
-            //            {
-            //                _displayText.SetText(spannableString, BufferType.Spannable);
+            //RunOnUiThread(() =>
+            //{
+            //    _displayText.SetText(spannableString, BufferType.Spannable);
 
-            //                //this allows the screen to update
-            //                _displayText.Append("\n");
-            //            });
+            //    //this allows the screen to update
+            //    _displayText.Append("\n");
+            //});
         }
 
         private void UpdateDisplayedText(object sender, ElapsedEventArgs e)
