@@ -29,6 +29,7 @@ namespace AndroidClient
         private Timer _timer;
         private Timer _timer2;
         private List<ParsedMessage> parsedMessagesCache = new List<ParsedMessage>();
+        private int _oldHeight;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -60,7 +61,7 @@ namespace AndroidClient
                 _timer.Start();
 
                 _timer2 = new Timer();
-                _timer2.Interval = 10;
+                _timer2.Interval = 100;
                 _timer2.Elapsed += _timer2_Elapsed;
                 _timer2.Start();
             }
@@ -78,11 +79,23 @@ namespace AndroidClient
         private void _timer2_Elapsed(object sender, ElapsedEventArgs e)
         {
             UpdateUISize();
-            _timer2.Stop();
+            //_timer2.Stop();
         }
 
         private void UpdateUISize()
         {
+            //only do the rest if the height changed
+            if (_oldHeight == _relativeLayout.Height)
+            {
+
+                return;
+            }
+            else
+            {
+                _oldHeight = _relativeLayout.Height;
+            }
+
+
             Display display = WindowManager.DefaultDisplay;
             DisplayMetrics metrics = new DisplayMetrics();
             display.GetMetrics(metrics);
