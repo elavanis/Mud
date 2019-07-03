@@ -40,6 +40,7 @@ namespace Objects.World
         private ConcurrentQueue<IMobileObject> _followMobQueue = new ConcurrentQueue<IMobileObject>();
         private DateTime _lastSave = DateTime.UtcNow;
         private int _lastLogMinute = -1;
+        private List<IMount> _loadedMounts = new List<IMount>();
 
         public World()
         {
@@ -535,23 +536,9 @@ namespace Objects.World
             }
         }
 
-        private void AutoSaveCharacters()
-        {
-            if (DateTime.UtcNow.Subtract(_lastSave).TotalMinutes >= 15)
-            {
-                foreach (IPlayerCharacter pc in CurrentPlayers)
-                {
-                    SaveCharcter(pc);
-                }
 
-                _lastSave = DateTime.UtcNow;
-            }
-        }
 
-        private void ProcessSerialCommands()
-        {
-            ProcessFollowMobs();
-        }
+
 
         #region Follow Methods
         private void ProcessFollowMobs()
@@ -682,6 +669,36 @@ namespace Objects.World
         }
 
         #endregion Follow Methods
+
+        #region Tick Methods
+        #region Mounts
+        private void MoveMounts()
+        {
+            foreach (IMount mount in _loadedMounts)
+            {
+                ProcessCommonMobStuff(mount.Room, false, mount);
+            }
+        }
+        #endregion Mounts
+
+        private void AutoSaveCharacters()
+        {
+            if (DateTime.UtcNow.Subtract(_lastSave).TotalMinutes >= 15)
+            {
+                foreach (IPlayerCharacter pc in CurrentPlayers)
+                {
+                    SaveCharcter(pc);
+                }
+
+                _lastSave = DateTime.UtcNow;
+            }
+        }
+
+        private void ProcessSerialCommands()
+        {
+            ProcessFollowMobs();
+            MoveMounts();
+        }
 
         private void UpdatePerformanceCounters()
         {
@@ -1176,5 +1193,6 @@ To see infon on how to use a command type MAN and then the COMMAND.";
                 }
             }
         }
+        #endregion Tick Methods
     }
 }

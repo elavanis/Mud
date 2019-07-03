@@ -28,10 +28,13 @@ namespace Objects.Room.Interface
         IExit Up { get; set; }
         IExit Down { get; set; }
         IReadOnlyList<IItem> Items { get; }
+        IReadOnlyList<INonPlayerCharacter> NonPlayerCharacters { get; }
+        IReadOnlyList<IMobileObject> OtherMobs { get; }
+
+        IReadOnlyList<IPlayerCharacter> PlayerCharacters { get; }
         List<ITrap> Traps { get; }
         int MovementCost { get; set; }
-        IReadOnlyList<INonPlayerCharacter> NonPlayerCharacters { get; }
-        IReadOnlyList<IPlayerCharacter> PlayerCharacters { get; }
+
         List<ISound> Sounds { get; }
         string SerializedSounds { get; }
         string PrecipitationNotification { get; }

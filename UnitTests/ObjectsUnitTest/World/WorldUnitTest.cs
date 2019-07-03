@@ -1196,7 +1196,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             Mock<IFileIO> fileIO = new Mock<IFileIO>();
             Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
             List<IPlayerCharacter> pcList = new List<IPlayerCharacter>();
-            Mock<ISerialization> xmlSerializer = new Mock<ISerialization>();
+            Mock<ISerialization> serializer = new Mock<ISerialization>();
             Mock<ISettings> settings = new Mock<ISettings>();
 
             rooms.Add(0, room.Object);
@@ -1205,12 +1205,12 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(pcList);
             pcList.Add(pc.Object);
-            xmlSerializer.Setup(e => e.Serialize(zone.Object)).Returns("serializedZone");
+            serializer.Setup(e => e.Serialize(zone.Object)).Returns("serializedZone");
             world.Zones.Add(0, zone.Object);
             settings.Setup(e => e.ZoneDirectory).Returns("c:\\");
 
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
-            GlobalReference.GlobalValues.Serialization = xmlSerializer.Object;
+            GlobalReference.GlobalValues.Serialization = serializer.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
 
             world.SaveWorld();

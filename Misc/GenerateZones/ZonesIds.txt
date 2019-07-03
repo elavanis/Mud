@@ -23,4 +23,4 @@ Id	Lvl	Name
 21	30	GrandViewGraveYard
 22	0	MountainPlateau
 23	20	EnchantersTower
-24	21	GrandViewFort
+24	40	GrandViewFort

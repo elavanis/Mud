@@ -120,7 +120,6 @@ namespace Objects.Mob
             }
         }
 
-
         public bool AreFighting(IMobileObject mob)
         {
             return GlobalReference.GlobalValues.Engine.Combat.AreFighting(this, mob);
@@ -213,6 +212,9 @@ namespace Objects.Mob
                 followTarget = value;
             }
         }
+
+        public List<IMount> Mounts { get; set; } = new List<IMount>();
+
 
         #region Combat Properties
         private uint CombatRound { get; set; }
@@ -991,7 +993,6 @@ namespace Objects.Mob
         /// This is the mob that this mob is currently possesing.
         /// </summary>
         public IMobileObject PossedMob { get; set; }
-
 
         public void EnqueueCommand(string message)
         {

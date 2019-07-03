@@ -99,6 +99,37 @@ namespace Objects.Room
             }
         }
 
+
+        private object _otherMobsLock = new object();
+        private List<IMobileObject> _otherMobs = new List<IMobileObject>();
+        [ExcludeFromCodeCoverage]
+        public IReadOnlyList<IMobileObject> OtherMobs
+        {
+            get
+            {
+                lock (_otherMobsLock)
+                {
+                    if (_otherMobs.Count == 0)
+                    {
+                        return BlankPlayerCharacters;   //save memory allocations when returning a blank list
+                    }
+                    else
+                    {
+                        return new List<IMobileObject>(_otherMobs).AsReadOnly();
+                    }
+                }
+            }
+
+            set //used during deserialization
+            {
+                lock (_otherMobsLock)
+                {
+                    _otherMobs = new List<IMobileObject>(value);
+                }
+            }
+        }
+
+
         private object _playerCharactersLock = new object();
         private List<IPlayerCharacter> _playerCharacters = new List<IPlayerCharacter>();
         [ExcludeFromCodeCoverage]
@@ -127,6 +158,7 @@ namespace Objects.Room
                 }
             }
         }
+
 
         [ExcludeFromCodeCoverage]
         public string Owner { get; set; }
@@ -283,17 +315,22 @@ namespace Objects.Room
                 {
                     _nonPlayerCharacters.Add(npc);
                 }
+                return;
             }
-            else
+
+            IPlayerCharacter pc = mob as IPlayerCharacter;
+            if (pc != null)
             {
-                IPlayerCharacter pc = mob as IPlayerCharacter;
-                if (pc != null)
+                lock (_playerCharactersLock)
                 {
-                    lock (_playerCharactersLock)
-                    {
-                        _playerCharacters.Add(pc);
-                    }
+                    _playerCharacters.Add(pc);
                 }
+                return;
+            }
+
+            lock (_otherMobsLock)
+            {
+                _otherMobs.Add(mob);
             }
         }
 
@@ -712,7 +749,6 @@ namespace Objects.Room
                 return GetWeatherMessage("WindSpeed");
             }
         }
-
 
 
         private string GetWeatherMessage(string weatherType)
