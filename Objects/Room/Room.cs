@@ -21,6 +21,7 @@ namespace Objects.Room
     {
         private static ReadOnlyCollection<INonPlayerCharacter> BlankNonPlayerCharacters { get; } = new List<INonPlayerCharacter>().AsReadOnly();
         private static ReadOnlyCollection<IPlayerCharacter> BlankPlayerCharacters { get; } = new List<IPlayerCharacter>().AsReadOnly();
+        private static ReadOnlyCollection<IMobileObject> BlankMobs { get; } = new List<IMobileObject>().AsReadOnly();
         private static ReadOnlyCollection<IItem> BlankItems { get; } = new List<IItem>().AsReadOnly();
 
         public Room()
@@ -99,37 +100,6 @@ namespace Objects.Room
             }
         }
 
-
-        private object _otherMobsLock = new object();
-        private List<IMobileObject> _otherMobs = new List<IMobileObject>();
-        [ExcludeFromCodeCoverage]
-        public IReadOnlyList<IMobileObject> OtherMobs
-        {
-            get
-            {
-                lock (_otherMobsLock)
-                {
-                    if (_otherMobs.Count == 0)
-                    {
-                        return BlankPlayerCharacters;   //save memory allocations when returning a blank list
-                    }
-                    else
-                    {
-                        return new List<IMobileObject>(_otherMobs).AsReadOnly();
-                    }
-                }
-            }
-
-            set //used during deserialization
-            {
-                lock (_otherMobsLock)
-                {
-                    _otherMobs = new List<IMobileObject>(value);
-                }
-            }
-        }
-
-
         private object _playerCharactersLock = new object();
         private List<IPlayerCharacter> _playerCharacters = new List<IPlayerCharacter>();
         [ExcludeFromCodeCoverage]
@@ -159,6 +129,34 @@ namespace Objects.Room
             }
         }
 
+        private object _otherMobsLock = new object();
+        private List<IMobileObject> _otherMobs = new List<IMobileObject>();
+        [ExcludeFromCodeCoverage]
+        public IReadOnlyList<IMobileObject> OtherMobs
+        {
+            get
+            {
+                lock (_otherMobsLock)
+                {
+                    if (_otherMobs.Count == 0)
+                    {
+                        return BlankMobs;   //save memory allocations when returning a blank list
+                    }
+                    else
+                    {
+                        return new List<IMobileObject>(_otherMobs).AsReadOnly();
+                    }
+                }
+            }
+
+            set //used during deserialization
+            {
+                lock (_otherMobsLock)
+                {
+                    _otherMobs = new List<IMobileObject>(value);
+                }
+            }
+        }
 
         [ExcludeFromCodeCoverage]
         public string Owner { get; set; }
@@ -330,6 +328,7 @@ namespace Objects.Room
 
             lock (_otherMobsLock)
             {
+
                 _otherMobs.Add(mob);
             }
         }

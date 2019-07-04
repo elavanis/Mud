@@ -197,8 +197,6 @@ namespace Objects.Command.PC
             {
                 masterBuilder.AppendLine(GlobalReference.GlobalValues.TagWrapper.WrapInTag(line, TagType.PlayerCharacter));
             }
-
-            string message = masterBuilder.ToString().Trim();
             #endregion PC
 
             #region Mobs
@@ -218,6 +216,7 @@ namespace Objects.Command.PC
             }
             #endregion Mobs
 
+            string message = masterBuilder.ToString().Trim();
             return new Result(message, true, null);
         }
     }
