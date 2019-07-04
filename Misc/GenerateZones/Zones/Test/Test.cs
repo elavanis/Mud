@@ -9,6 +9,8 @@ using Objects.Item.Items;
 using Objects.Damage.Interface;
 using Objects.Damage;
 using Objects.Die;
+using Objects.Mob.Interface;
+using Objects.Mob;
 
 namespace GenerateZones.Zones
 {
@@ -53,6 +55,18 @@ namespace GenerateZones.Zones
 
             room.AddItemToRoom(Weapon());
 
+            IMount mount = new Mount();
+            mount.Level = 1;
+            mount.FinishLoad();
+            mount.ShortDescription = "mob short description";
+            mount.LookDescription = "mob look description";
+            mount.ExamineDescription = "mob examine descritpiton";
+            mount.SentenceDescription = "mob sentince description";
+
+            room.AddMobileObjectToRoom(mount);
+
+            room.AddMobileObjectToRoom(new PlayerCharacter() { ShortDescription = "pc short" });
+
             return room;
         }
 
@@ -61,9 +75,9 @@ namespace GenerateZones.Zones
             IRoom room = CreateRoom();
 
             room.AddMobileObjectToRoom(new Elemental(ElementType.Air) { Id = 1 });
-            room.AddMobileObjectToRoom(new Elemental(ElementType.Earth) { Id = 1 });
-            room.AddMobileObjectToRoom(new Elemental(ElementType.Fire) { Id = 1 });
-            room.AddMobileObjectToRoom(new Elemental(ElementType.Water) { Id = 1 });
+            //room.AddMobileObjectToRoom(new Elemental(ElementType.Earth) { Id = 1 });
+            //room.AddMobileObjectToRoom(new Elemental(ElementType.Fire) { Id = 1 });
+            //room.AddMobileObjectToRoom(new Elemental(ElementType.Water) { Id = 1 });
 
             return room;
         }

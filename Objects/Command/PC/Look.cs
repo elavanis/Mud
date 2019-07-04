@@ -197,9 +197,26 @@ namespace Objects.Command.PC
             {
                 masterBuilder.AppendLine(GlobalReference.GlobalValues.TagWrapper.WrapInTag(line, TagType.PlayerCharacter));
             }
+            #endregion PC
+
+            #region Mobs
+            strBldr.Clear();
+            foreach (IMobileObject mob in room.OtherMobs)
+            {
+                if (GlobalReference.GlobalValues.CanMobDoSomething.SeeObject(performer, mob))
+                {
+                    strBldr.AppendLine(mob.ShortDescription);
+                }
+            }
+
+            line = strBldr.ToString().Trim();
+            if (line.Length > 0)
+            {
+                masterBuilder.AppendLine(GlobalReference.GlobalValues.TagWrapper.WrapInTag(line, TagType.Mob));
+            }
+            #endregion Mobs
 
             string message = masterBuilder.ToString().Trim();
-            #endregion PC
             return new Result(message, true, null);
         }
     }

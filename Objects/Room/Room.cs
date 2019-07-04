@@ -21,6 +21,7 @@ namespace Objects.Room
     {
         private static ReadOnlyCollection<INonPlayerCharacter> BlankNonPlayerCharacters { get; } = new List<INonPlayerCharacter>().AsReadOnly();
         private static ReadOnlyCollection<IPlayerCharacter> BlankPlayerCharacters { get; } = new List<IPlayerCharacter>().AsReadOnly();
+        private static ReadOnlyCollection<IMobileObject> BlankMobs { get; } = new List<IMobileObject>().AsReadOnly();
         private static ReadOnlyCollection<IItem> BlankItems { get; } = new List<IItem>().AsReadOnly();
 
         public Room()
@@ -124,6 +125,35 @@ namespace Objects.Room
                 lock (_playerCharactersLock)
                 {
                     _playerCharacters = new List<IPlayerCharacter>(value);
+                }
+            }
+        }
+
+        private object _otherMobsLock = new object();
+        private List<IMobileObject> _otherMobs = new List<IMobileObject>();
+        [ExcludeFromCodeCoverage]
+        public IReadOnlyList<IMobileObject> OtherMobs
+        {
+            get
+            {
+                lock (_otherMobsLock)
+                {
+                    if (_otherMobs.Count == 0)
+                    {
+                        return BlankMobs;   //save memory allocations when returning a blank list
+                    }
+                    else
+                    {
+                        return new List<IMobileObject>(_otherMobs).AsReadOnly();
+                    }
+                }
+            }
+
+            set //used during deserialization
+            {
+                lock (_otherMobsLock)
+                {
+                    _otherMobs = new List<IMobileObject>(value);
                 }
             }
         }
@@ -283,17 +313,23 @@ namespace Objects.Room
                 {
                     _nonPlayerCharacters.Add(npc);
                 }
+                return;
             }
-            else
+
+            IPlayerCharacter pc = mob as IPlayerCharacter;
+            if (pc != null)
             {
-                IPlayerCharacter pc = mob as IPlayerCharacter;
-                if (pc != null)
+                lock (_playerCharactersLock)
                 {
-                    lock (_playerCharactersLock)
-                    {
-                        _playerCharacters.Add(pc);
-                    }
+                    _playerCharacters.Add(pc);
                 }
+                return;
+            }
+
+            lock (_otherMobsLock)
+            {
+
+                _otherMobs.Add(mob);
             }
         }
 
@@ -712,7 +748,6 @@ namespace Objects.Room
                 return GetWeatherMessage("WindSpeed");
             }
         }
-
 
 
         private string GetWeatherMessage(string weatherType)
