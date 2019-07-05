@@ -19,9 +19,9 @@ namespace Objects.Mob
         private List<string> Unicorn = new List<string>() { "Uni", "Arryn", "Julius" "Wrynn", "Lancelot", "Linus", "Mawu" };
         private List<string> Nightmare = new List<string>() { "Orkiz", "Brog'drallin", "Megmes", "Xeglomoth", "Uz'gonnath", "Tukillian," "Ezzorith", "Igdruzoth", "Boggun", "Xugthozog" };
         private List<string> Elephant = new List<string>() { "Skitters", "Hanno", "Jumbo", "Peanut", "Tiny", "Tusks" };
-        private List<string> Elk = new List<string>() { "" };
-        private List<string> Panther = new List<string>() { "" };
-        private List<string> Gryphon = new List<string>() { "" };
+        private List<string> Elk = new List<string>() { "Addax", "Adder", "Buck", "Cabrilla", "Roe" };
+        private List<string> Panther = new List<string>() { "Storm", "Fyre", "Axe", "Ghost", "Fang", "Reaper", "Domino", "Enigma", "Neko", "Maya", "Paws", "Rawr", "Smokey" };
+        private List<string> Griffin = new List<string>() { "Apollo", "Hyperion", "Dreamwings", "Petalfeather", "Oswald", "Thanatos", "Brightbeak", "Ebonfeathers", "Torr", "Tiki" };
 
         #endregion Names
 
@@ -72,12 +72,12 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomName(Panther));
                     break;
-                case DefaultValues.Gryphon:
+                case DefaultValues.Griffin:
                     Movement = 3;
                     StaminaMultiplier = 7;
                     TypeOfSummon = SummonType.Summon;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(Gryphon));
+                    KeyWords.Add(RandomName(Griffin));
                     break;
 
             }
@@ -91,7 +91,7 @@ namespace Objects.Mob
             Elephant,
             Elk,
             Panther,
-            Gryphon
+            Griffin
 
         }
 
