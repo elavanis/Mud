@@ -74,6 +74,9 @@ namespace AndroidClient
                 case TagType.PlayerCharacter:
                     color = Color.Orange;
                     break;
+                case TagType.Mob:
+                    color = Color.Cyan;
+                    break;
                 case TagType.Room:
                     color = Color.Green;
                     break;
