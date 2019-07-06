@@ -43,6 +43,7 @@ namespace ObjectsUnitTest.Command.PC
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Item)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.NonPlayerCharacter)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.PlayerCharacter)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Mob)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
@@ -72,6 +73,7 @@ namespace ObjectsUnitTest.Command.PC
             canDoSomething.Setup(e => e.SeeObject(mob.Object, item.Object)).Returns(true);
             canDoSomething.Setup(e => e.SeeObject(mob.Object, npc.Object)).Returns(true);
             canDoSomething.Setup(e => e.SeeObject(mob.Object, pc.Object)).Returns(true);
+            canDoSomething.Setup(e => e.SeeObject(mob.Object, otherMob.Object)).Returns(true);
 
             GlobalReference.GlobalValues.CanMobDoSomething = canDoSomething.Object;
 
@@ -132,7 +134,8 @@ namespace ObjectsUnitTest.Command.PC
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual(@"ItemShortDescription
 NpcShortDescription
-PcShortDescription", result.ResultMessage);
+PcShortDescription
+OtherMobShortDescription", result.ResultMessage);
         }
 
         [TestMethod]
