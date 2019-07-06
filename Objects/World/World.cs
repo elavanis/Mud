@@ -29,6 +29,7 @@ using Shared.PerformanceCounters.Interface;
 using Objects.Mob.SpecificNPC;
 using Objects.Language.Interface;
 using Objects.Mob.SpecificNPC.Interface;
+using Objects.Skill.Skills;
 
 namespace Objects.World
 {
@@ -678,6 +679,19 @@ namespace Objects.World
             {
                 for (int i = 0; i < mount.Movement; i++)
                 {
+                    if (mount.Summoned)
+                    {
+                        if (mount.TypeOfSummon == Mount.SummonType.Track)
+                        {
+                            string direction = GetMountTrackDirection(mount);
+
+                            if (direction != null)
+                            {
+                                mount.EnqueueCommand(direction);
+                            }
+                        }
+                    }
+
                     if (mount.CommmandQueueCount > 0)
                     {
                         ProcessMobCommand(mount);
@@ -688,6 +702,50 @@ namespace Objects.World
                     }
                 }
             }
+        }
+
+        private static string GetMountTrackDirection(IMount mount)
+        {
+            string trackCommand = $"Track {mount.PersonSummoning}";
+
+            ICommand command = GlobalReference.GlobalValues.Parser.Parse(trackCommand);
+            if (command != null
+                && !string.IsNullOrEmpty(command.CommandName))
+            {
+                IMobileObjectCommand mobCommand = GlobalReference.GlobalValues.CommandList.GetCommand(mount, command.CommandName);
+                if (mobCommand != null)
+                {
+                    IResult result = mobCommand.PerformCommand(mount, command);
+
+                    if (result.ResultMessage.Contains("North"))
+                    {
+                        return "North";
+                    }
+                    else if (result.ResultMessage.Contains("East"))
+                    {
+                        return "East";
+                    }
+                    else if (result.ResultMessage.Contains("South"))
+                    {
+                        return "South";
+                    }
+                    else if (result.ResultMessage.Contains("West"))
+                    {
+                        return "West";
+                    }
+                    else if (result.ResultMessage.Contains("Up"))
+                    {
+                        return "Up";
+                    }
+                    else if (result.ResultMessage.Contains("Down"))
+                    {
+                        return "Down";
+                    }
+                }
+            }
+
+            //no path found, return null
+            return null;
         }
         #endregion Mounts
 

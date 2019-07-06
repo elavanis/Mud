@@ -10,14 +10,16 @@ namespace Objects.Mob
     {
         public int Movement { get; set; } = 2;
         public int StaminaMultiplier { get; set; } = 10;
-        public SummonType TypeOfSummon { get; set; } = SummonType.Call;
+        public SummonType TypeOfSummon { get; set; } = SummonType.Track;
+        public bool Summoned { get; set; }
+        public IMobileObject PersonSummoning { get; set; }
         public int MaxRiders { get; set; } = 1;
         public List<IMobileObject> Riders { get; set; } = new List<IMobileObject>();
 
         #region Names
         private List<string> Horse = new List<string>() { "Kisses", "Tang", "Fleetbolt", "Shadows", "Zephyr", "Snapdraon", "Sugar Blossom" };
-        private List<string> Unicorn = new List<string>() { "Uni", "Arryn", "Julius" "Wrynn", "Lancelot", "Linus", "Mawu" };
-        private List<string> Nightmare = new List<string>() { "Orkiz", "Brog'drallin", "Megmes", "Xeglomoth", "Uz'gonnath", "Tukillian," "Ezzorith", "Igdruzoth", "Boggun", "Xugthozog" };
+        private List<string> Unicorn = new List<string>() { "Uni", "Arryn", "Julius", "Wrynn", "Lancelot", "Linus", "Mawu" };
+        private List<string> Nightmare = new List<string>() { "Orkiz", "Brog'drallin", "Megmes", "Xeglomoth", "Uz'gonnath", "Tukillian,", "Ezzorith", "Igdruzoth", "Boggun", "Xugthozog" };
         private List<string> Elephant = new List<string>() { "Skitters", "Hanno", "Jumbo", "Peanut", "Tiny", "Tusks" };
         private List<string> Elk = new List<string>() { "Addax", "Adder", "Buck", "Cabrilla", "Roe" };
         private List<string> Panther = new List<string>() { "Storm", "Fyre", "Axe", "Ghost", "Fang", "Reaper", "Domino", "Enigma", "Neko", "Maya", "Paws", "Rawr", "Smokey" };
@@ -33,14 +35,14 @@ namespace Objects.Mob
                 case DefaultValues.Horse:
                     Movement = 2;
                     StaminaMultiplier = 10;
-                    TypeOfSummon = SummonType.Call;
+                    TypeOfSummon = SummonType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomName(Horse));
                     break;
                 case DefaultValues.Unicorn:
                     Movement = 2;
                     StaminaMultiplier = 12;
-                    TypeOfSummon = SummonType.Call;
+                    TypeOfSummon = SummonType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomName(Unicorn));
                     break;
@@ -54,21 +56,21 @@ namespace Objects.Mob
                 case DefaultValues.Elephant:
                     Movement = 1;
                     StaminaMultiplier = 20;
-                    TypeOfSummon = SummonType.Call;
+                    TypeOfSummon = SummonType.Track;
                     MaxRiders = 5;
                     KeyWords.Add(RandomName(Elephant));
                     break;
                 case DefaultValues.Elk:
                     Movement = 3;
                     StaminaMultiplier = 7;
-                    TypeOfSummon = SummonType.Call;
+                    TypeOfSummon = SummonType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomName(Elk));
                     break;
                 case DefaultValues.Panther:
                     Movement = 5;
                     StaminaMultiplier = 5;
-                    TypeOfSummon = SummonType.Call;
+                    TypeOfSummon = SummonType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomName(Panther));
                     break;
@@ -98,7 +100,7 @@ namespace Objects.Mob
         public enum SummonType
         {
             Summon,
-            Call,
+            Track,
             None
         }
 

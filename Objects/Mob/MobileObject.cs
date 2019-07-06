@@ -1064,6 +1064,7 @@ namespace Objects.Mob
             _communicationQueue.TryDequeue(out string communication);
             return communication;
         }
+
         public string DequeueCommand()
         {
             _commandQueue.TryDequeue(out string command);
