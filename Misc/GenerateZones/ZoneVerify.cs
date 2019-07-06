@@ -42,6 +42,18 @@ namespace GenerateZones
                 VerifyNpc(npc);
             }
 
+            foreach (IMobileObject mobileObject in room.OtherMobs)
+            {
+                if (mobileObject is IMount)
+                {
+                    VerifyMount(mobileObject as IMount);
+                }
+                else
+                {
+                    VerifyMob(mobileObject);
+                }
+            }
+
             if (room.Attributes.Count == 0)
             {
                 ThrowConfigException(room, type, "Room attributes blank.");
@@ -55,6 +67,27 @@ namespace GenerateZones
             }
 
             CheckRoomDoors(room);
+        }
+
+        private static void VerifyMount(IMount mount)
+        {
+            VerifyMob(mount);
+
+            string type = "Mount";
+            if (mount.Movement == -1)
+            {
+                ThrowConfigException(mount, type, $"Mount has no movement {mount.SentenceDescription}.");
+            }
+
+            if (mount.StaminaMultiplier == -1)
+            {
+                ThrowConfigException(mount, type, $"Mount has no stamina multiplier {mount.SentenceDescription}.");
+            }
+
+            if (mount.MaxRiders == -1)
+            {
+                ThrowConfigException(mount, type, $"Mount has no max riders {mount.SentenceDescription}.");
+            }
         }
 
         private static void CheckRoomDoors(IRoom room)
@@ -96,46 +129,23 @@ namespace GenerateZones
             }
         }
 
-        private static void VerifyNpc(INonPlayerCharacter npc)
+        private static void VerifyMob(IMobileObject mob)
         {
-            string type = "NPC";
-            VerifyIds(npc, type);
-            VerifyDescriptions(npc, type);
-            VerifyMobType(npc, type);
-            VerifyMobLevel(npc, type);
+            string type = "MOB";
+            VerifyIds(mob, type);
+            VerifyDescriptions(mob, type);
 
-            foreach (IItem item in npc.Items)
+            foreach (IItem item in mob.Items)
             {
                 VerifyItem(item);
             }
 
-            foreach (IItem item in npc.EquipedEquipment)
+            foreach (IItem item in mob.EquipedEquipment)
             {
                 VerifyItem(item);
             }
 
-            foreach (IPersonality personality in npc.Personalities)
-            {
-                IMerchant merchant = personality as IMerchant;
-                if (merchant != null)
-                {
-                    foreach (IItem item in merchant.Sellables)
-                    {
-                        VerifyItem(item);
-                    }
-                }
-
-                IPhase phase = personality as IPhase;
-                if (phase != null)
-                {
-                    if (!npc.God)
-                    {
-                        ThrowConfigException(npc, type, string.Format($"Npc {npc.ShortDescription} needs to have God mode turned on."));
-                    }
-                }
-            }
-
-            foreach (ISpell spell in npc.SpellBook.Values)
+            foreach (ISpell spell in mob.SpellBook.Values)
             {
                 if (spell.PerformerNotificationSuccess == null)
                 {
@@ -153,7 +163,7 @@ namespace GenerateZones
                 }
             }
 
-            foreach (ISkill skill in npc.KnownSkills.Values)
+            foreach (ISkill skill in mob.KnownSkills.Values)
             {
                 if (skill.PerformerNotificationSuccess == null)
                 {
@@ -187,7 +197,37 @@ namespace GenerateZones
             }
         }
 
-        private static void VerifyMobLevel(INonPlayerCharacter npc, string type)
+        private static void VerifyNpc(INonPlayerCharacter npc)
+        {
+            VerifyMob(npc);
+
+            string type = "NPC";
+            VerifyNpcType(npc, type);
+            VerifyNpcLevel(npc, type);
+
+            foreach (IPersonality personality in npc.Personalities)
+            {
+                IMerchant merchant = personality as IMerchant;
+                if (merchant != null)
+                {
+                    foreach (IItem item in merchant.Sellables)
+                    {
+                        VerifyItem(item);
+                    }
+                }
+
+                IPhase phase = personality as IPhase;
+                if (phase != null)
+                {
+                    if (!npc.God)
+                    {
+                        ThrowConfigException(npc, type, string.Format($"Npc {npc.ShortDescription} needs to have God mode turned on."));
+                    }
+                }
+            }
+        }
+
+        private static void VerifyNpcLevel(INonPlayerCharacter npc, string type)
         {
             if (npc.Level > 0)
             {
@@ -202,7 +242,7 @@ namespace GenerateZones
             ThrowConfigException(npc, type, $"Mob has no level {npc.SentenceDescription}.");
         }
 
-        private static void VerifyMobType(INonPlayerCharacter npc, string type)
+        private static void VerifyNpcType(INonPlayerCharacter npc, string type)
         {
             if (npc.TypeOfMob == null)
             {

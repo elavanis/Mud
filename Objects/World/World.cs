@@ -679,9 +679,9 @@ namespace Objects.World
             {
                 for (int i = 0; i < mount.Movement; i++)
                 {
-                    if (mount.Summoned)
+                    if (mount.Called)
                     {
-                        if (mount.TypeOfSummon == Mount.SummonType.Track)
+                        if (mount.TypeOfCall == Mount.CallType.Track)
                         {
                             string direction = GetMountTrackDirection(mount);
 
@@ -706,7 +706,7 @@ namespace Objects.World
 
         private static string GetMountTrackDirection(IMount mount)
         {
-            string trackCommand = $"Track {mount.PersonSummoning}";
+            string trackCommand = $"Track {mount.PersonCalling}";
 
             ICommand command = GlobalReference.GlobalValues.Parser.Parse(trackCommand);
             if (command != null

@@ -85,6 +85,6 @@ namespace Objects.Mob.Interface
         void ResetMaxStatValues();
         int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker);
         int TakeCombatDamage(int totalDamage, IDamage damage, IMobileObject attacker, uint combatRound);
-        List<IMount> Mounts { get; set; }
+        IMount Mount { get; set; }
     }
 }

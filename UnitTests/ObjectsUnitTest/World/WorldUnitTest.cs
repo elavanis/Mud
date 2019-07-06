@@ -970,6 +970,13 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()), Times.Once);
             Assert.AreEqual("You have lost track of the npc and had to quit following them.", message.Message);
         }
+
+        [TestMethod]
+        public void World_PerformTick_ProccessSerialCommands_Mounts()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
         #endregion ProccessSerialCommands
 
         #region DoWorldCommand

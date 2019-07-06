@@ -9,9 +9,9 @@ namespace Objects.Mob.Interface
     {
         int Movement { get; set; }
         int StaminaMultiplier { get; set; }
-        bool Summoned { get; set; }
-        SummonType TypeOfSummon { get; set; }
-        IMobileObject PersonSummoning { get; set; }
+        bool Called { get; set; }
+        CallType TypeOfCall { get; set; }
+        IMobileObject PersonCalling { get; set; }
         int MaxRiders { get; set; }
         List<IMobileObject> Riders { get; set; }
 

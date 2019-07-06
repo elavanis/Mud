@@ -104,6 +104,9 @@ namespace Objects.Mob
         [ExcludeFromCodeCoverage]
         public bool God { get; set; }
 
+        [ExcludeFromCodeCoverage]
+        public IMount Mount { get; set; }
+
         public bool IsInCombat
         {
             get
@@ -213,14 +216,10 @@ namespace Objects.Mob
             }
         }
 
-        public List<IMount> Mounts { get; set; } = new List<IMount>();
-
-
         #region Combat Properties
         private uint CombatRound { get; set; }
         private int DamageMultiplier { get; set; } = 1;
         #endregion Combat Properties
-
 
         #region Stats
         [ExcludeFromCodeCoverage]
