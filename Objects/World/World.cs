@@ -676,7 +676,17 @@ namespace Objects.World
         {
             foreach (IMount mount in _loadedMounts)
             {
-                ProcessCommonMobStuff(mount.Room, false, mount);
+                for (int i = 0; i < mount.Movement; i++)
+                {
+                    if (mount.CommmandQueueCount > 0)
+                    {
+                        ProcessMobCommand(mount);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
         }
         #endregion Mounts
