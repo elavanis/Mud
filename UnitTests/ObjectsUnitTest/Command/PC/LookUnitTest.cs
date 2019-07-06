@@ -31,6 +31,7 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IEquipment> item;
         Mock<INonPlayerCharacter> npc;
         Mock<IPlayerCharacter> pc;
+        Mock<IMobileObject> otherMob;
 
         [TestInitialize]
         public void Setup()
@@ -47,12 +48,12 @@ namespace ObjectsUnitTest.Command.PC
 
             mob = new Mock<IPlayerCharacter>();
             mockCommand = new Mock<ICommand>();
-
             room = new Mock<IRoom>();
             canDoSomething = new Mock<ICanMobDoSomething>();
             item = new Mock<IEquipment>();
             npc = new Mock<INonPlayerCharacter>();
             pc = new Mock<IPlayerCharacter>();
+            otherMob = new Mock<IMobileObject>();
 
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
             mob.Setup(e => e.Room).Returns(room.Object);
@@ -60,9 +61,11 @@ namespace ObjectsUnitTest.Command.PC
             item.Setup(e => e.ShortDescription).Returns("ItemShortDescription");
             npc.Setup(e => e.ShortDescription).Returns("NpcShortDescription");
             pc.Setup(e => e.ShortDescription).Returns("PcShortDescription");
+            otherMob.Setup(e => e.ShortDescription).Returns("OtherMobShortDescription");
             room.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { mob.Object, pc.Object });
+            room.Setup(e => e.OtherMobs).Returns(new List<IMobileObject>() { otherMob.Object });
             room.Setup(e => e.ShortDescription).Returns("RoomShortDescription");
             room.Setup(e => e.LookDescription).Returns("RoomLongDescription");
             canDoSomething.Setup(e => e.SeeDueToLight(mob.Object)).Returns(true);
