@@ -190,5 +190,12 @@ Party {Message To Send To Party}", result.ResultMessage);
             notify.Verify(e => e.Mob(mob.Object, It.Is<ITranslationMessage>(f => f.Message == "performer party chats: decline other1 other2")), Times.Once);
             notify.Verify(e => e.Mob(pc.Object, It.Is<ITranslationMessage>(f => f.Message == "performer party chats: decline other1 other2")), Times.Once);
         }
+
+        [TestMethod]
+        public void Party_UnableToStartParty()
+        {
+            //Can't start a party due to no party existing...
+            Assert.AreEqual(1, 2);
+        }
     }
 }
