@@ -14,7 +14,9 @@ namespace Objects.Command.PC
     {
         public IResult Instructions { get; } = new Result(@"Party Invite {Person To Invite}
 Party Decline
-Party {Message To Send To Party}", true);
+Party {Message To Send To Party}
+Party Start
+Party Leave", true);
 
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Party" };

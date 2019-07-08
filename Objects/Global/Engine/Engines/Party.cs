@@ -121,5 +121,42 @@ namespace Objects.Global.Engine.Engines
                 }
             }
         }
+
+        public IResult Start(IMobileObject performer)
+        {
+            lock (padLock)
+            {
+                IGroup group = Groups[performer];
+                if (group == null)
+                {
+                    group = new Group();
+                    group.AddMember(performer);
+                    Groups.Add(performer, group);
+                    return new Result("You started a party and are the leader, now invite other members.", true);
+                }
+                else
+                {
+                    return new Result("You can not start a party as you are already in one.", true);
+                }
+            }
+        }
+
+        public IResult Leave(IMobileObject performer)
+        {
+            lock (padLock)
+            {
+                IGroup group = Groups[performer];
+                if (group != null)
+                {
+                    group.RemoveMember(performer);
+                    Groups.Remove(performer);
+                    return new Result("You left the party.", true);
+                }
+                else
+                {
+                    return new Result("You are not in a party.", true);
+                }
+            }
+        }
     }
 }

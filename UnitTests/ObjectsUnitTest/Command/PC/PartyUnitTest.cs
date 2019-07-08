@@ -192,9 +192,14 @@ Party {Message To Send To Party}", result.ResultMessage);
         }
 
         [TestMethod]
-        public void Party_UnableToStartParty()
+        public void Party_Start()
         {
-            //Can't start a party due to no party existing...
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void Party_Leave()
+        {
             Assert.AreEqual(1, 2);
         }
     }

@@ -206,7 +206,7 @@ namespace ObjectsUnitTest.Global.Engine
         }
 
         [TestMethod]
-        public void Party_WriteTests_CurrentPartyMembers_NotInParty()
+        public void Party_CurrentPartyMembers_NotInParty()
         {
             List<IMobileObject> expectedList = new List<IMobileObject>() { performer.Object, invited.Object };
             group.Setup(e => e.GroupMembers).Returns(expectedList);
@@ -216,10 +216,22 @@ namespace ObjectsUnitTest.Global.Engine
         }
 
         [TestMethod]
-        public void Party_WriteTests_CurrentPartyMembers_InParty()
+        public void Party_CurrentPartyMembers_InParty()
         {
             IReadOnlyList<IMobileObject> partyMembers = party.CurrentPartyMembers(invited.Object);
             Assert.IsNull(partyMembers);
+        }
+
+        [TestMethod]
+        public void Party_Start()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void Party_Leave()
+        {
+            Assert.AreEqual(1, 2);
         }
     }
 }

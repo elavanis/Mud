@@ -11,5 +11,7 @@ namespace Objects.Global.Engine.Engines.Interface
         IResult Invite(IMobileObject performer, IMobileObject invitedMob);
         void RemoveOldPartyInvites();
         IReadOnlyList<IMobileObject> CurrentPartyMembers(IMobileObject performer);
+        IResult Start(IMobileObject performer);
+        IResult Leave(IMobileObject performer);
     }
 }
