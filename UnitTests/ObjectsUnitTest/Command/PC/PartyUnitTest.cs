@@ -29,6 +29,8 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IParameter> parameterDeclineInvite;
         Mock<IParameter> parameterOther1;
         Mock<IParameter> parameterOther2;
+        Mock<IParameter> parameterStart;
+        Mock<IParameter> parameterLeave;
         Mock<IPlayerCharacter> pc;
         Mock<IWorld> world;
         Mock<IParty> party;
@@ -51,6 +53,8 @@ namespace ObjectsUnitTest.Command.PC
             parameterDeclineInvite = new Mock<IParameter>();
             parameterOther1 = new Mock<IParameter>();
             parameterOther2 = new Mock<IParameter>();
+            parameterStart = new Mock<IParameter>();
+            parameterLeave = new Mock<IParameter>();
             pc = new Mock<IPlayerCharacter>();
             world = new Mock<IWorld>();
             party = new Mock<IParty>();
@@ -61,6 +65,8 @@ namespace ObjectsUnitTest.Command.PC
             parameterDeclineInvite.Setup(e => e.ParameterValue).Returns("decline");
             parameterOther1.Setup(e => e.ParameterValue).Returns("other1");
             parameterOther2.Setup(e => e.ParameterValue).Returns("other2");
+            parameterStart.Setup(e => e.ParameterValue).Returns("start");
+            parameterLeave.Setup(e => e.ParameterValue).Returns("leave");
             pc.Setup(e => e.KeyWords).Returns(new List<string>() { "other1" });
             world.Setup(e => e.CurrentPlayers).Returns(new List<IPlayerCharacter>() { pc.Object });
             engine.Setup(e => e.Party).Returns(party.Object);
@@ -81,7 +87,9 @@ namespace ObjectsUnitTest.Command.PC
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual(@"Party Invite {Person To Invite}
 Party Decline
-Party {Message To Send To Party}", result.ResultMessage);
+Party {Message To Send To Party}
+Party Start
+Party Leave", result.ResultMessage);
         }
 
         [TestMethod]
@@ -102,7 +110,9 @@ Party {Message To Send To Party}", result.ResultMessage);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual(@"Party Invite {Person To Invite}
 Party Decline
-Party {Message To Send To Party}", result.ResultMessage);
+Party {Message To Send To Party}
+Party Start
+Party Leave", result.ResultMessage);
         }
 
         [TestMethod]
@@ -192,15 +202,23 @@ Party {Message To Send To Party}", result.ResultMessage);
         }
 
         [TestMethod]
-        public void Party_Start()
+        public void Party_PerformCommand_Start()
         {
-            Assert.AreEqual(1, 2);
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameterStart.Object});
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+
+            party.Verify(e => e.Start(mob.Object), Times.Once);
         }
 
         [TestMethod]
-        public void Party_Leave()
+        public void Party_PerformCommand_Leave()
         {
-            Assert.AreEqual(1, 2);
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameterLeave.Object });
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+
+            party.Verify(e => e.Leave(mob.Object), Times.Once);
         }
     }
 }

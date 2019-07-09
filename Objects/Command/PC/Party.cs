@@ -36,12 +36,19 @@ Party Leave", true);
                         return Invite(performer, command);
                     case "DECLINE":
                         return Decline(performer, command);
+                    case "START":
+                        return Start(performer, command);
+                    case "LEAVE":
+                        return Leave(performer, command);
                     default:
                         return Chat(performer, command);
                 }
             }
         }
 
+      
+
+     
         private IResult Invite(IMobileObject performer, ICommand command)
         {
             if (command.Parameters.Count > 2)
@@ -74,6 +81,28 @@ Party Leave", true);
             }
 
             return GlobalReference.GlobalValues.Engine.Party.DeclinePartyInvite(performer);
+        }
+
+        private IResult Start(IMobileObject performer, ICommand command)
+        {
+            if (command.Parameters.Count > 1)
+            {
+                //oops we have a chat command inside starting with decline
+                return Chat(performer, command);
+            }
+
+            return GlobalReference.GlobalValues.Engine.Party.Start(performer);
+        }
+
+        private IResult Leave(IMobileObject performer, ICommand command)
+        {
+            if (command.Parameters.Count > 1)
+            {
+                //oops we have a chat command inside starting with decline
+                return Chat(performer, command);
+            }
+
+            return GlobalReference.GlobalValues.Engine.Party.Leave(performer);
         }
 
         private IResult Chat(IMobileObject performer, ICommand command)
