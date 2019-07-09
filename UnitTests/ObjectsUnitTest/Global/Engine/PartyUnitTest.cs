@@ -206,7 +206,7 @@ namespace ObjectsUnitTest.Global.Engine
         }
 
         [TestMethod]
-        public void Party_CurrentPartyMembers_NotInParty()
+        public void Party_CurrentPartyMembers_InParty()
         {
             List<IMobileObject> expectedList = new List<IMobileObject>() { performer.Object, invited.Object };
             group.Setup(e => e.GroupMembers).Returns(expectedList);
@@ -216,22 +216,50 @@ namespace ObjectsUnitTest.Global.Engine
         }
 
         [TestMethod]
-        public void Party_CurrentPartyMembers_InParty()
+        public void Party_CurrentPartyMembers_NotInParty()
         {
             IReadOnlyList<IMobileObject> partyMembers = party.CurrentPartyMembers(invited.Object);
             Assert.IsNull(partyMembers);
         }
 
         [TestMethod]
-        public void Party_Start()
+        public void Party_Start_NotInParty()
         {
-            Assert.AreEqual(1, 2);
+            groups.Clear();
+
+            IResult result = party.Start(performer.Object);
+            Assert.AreEqual("You started a party and are the leader, now invite other members.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.IsTrue(groups.ContainsKey(performer.Object));
         }
 
         [TestMethod]
-        public void Party_Leave()
+        public void Party_Start_InParty()
         {
-            Assert.AreEqual(1, 2);
+            IResult result = party.Start(performer.Object);
+            Assert.AreEqual("You can not start a party as you are already in one.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.IsTrue(groups.ContainsKey(performer.Object));
+        }
+
+        [TestMethod]
+        public void Party_Leave_NotInParty()
+        {
+            groups.Clear();
+
+            IResult result = party.Leave(performer.Object);
+            Assert.AreEqual("You are not in a party.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.IsFalse(groups.ContainsKey(performer.Object));
+        }
+
+        [TestMethod]
+        public void Party_Leave_InParty()
+        {
+            IResult result = party.Leave(performer.Object);
+            Assert.AreEqual("You left the party.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.IsFalse(groups.ContainsKey(performer.Object));
         }
     }
 }

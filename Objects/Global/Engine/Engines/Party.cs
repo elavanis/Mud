@@ -126,7 +126,8 @@ namespace Objects.Global.Engine.Engines
         {
             lock (padLock)
             {
-                IGroup group = Groups[performer];
+                IGroup group;
+                Groups.TryGetValue(performer, out group);
                 if (group == null)
                 {
                     group = new Group();
@@ -145,7 +146,8 @@ namespace Objects.Global.Engine.Engines
         {
             lock (padLock)
             {
-                IGroup group = Groups[performer];
+                IGroup group;
+                Groups.TryGetValue(performer, out group);
                 if (group != null)
                 {
                     group.RemoveMember(performer);
