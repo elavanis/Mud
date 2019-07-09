@@ -37,6 +37,7 @@ namespace Objects.Mob
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomName(Horse));
+                    KeyWords.Add("Horse");
                     break;
                 case DefaultValues.Unicorn:
                     Movement = 2;
@@ -44,6 +45,7 @@ namespace Objects.Mob
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomName(Unicorn));
+                    KeyWords.Add("Unicorn");
                     break;
                 case DefaultValues.Nightmare:
                     Movement = 3;
@@ -51,6 +53,7 @@ namespace Objects.Mob
                     TypeOfCall = CallType.Summon;
                     MaxRiders = 1;
                     KeyWords.Add(RandomName(Nightmare));
+                    KeyWords.Add("Nightmare");
                     break;
                 case DefaultValues.Elephant:
                     Movement = 1;
@@ -58,6 +61,7 @@ namespace Objects.Mob
                     TypeOfCall = CallType.Track;
                     MaxRiders = 5;
                     KeyWords.Add(RandomName(Elephant));
+                    KeyWords.Add("Elephant");
                     break;
                 case DefaultValues.Elk:
                     Movement = 3;
@@ -65,6 +69,7 @@ namespace Objects.Mob
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomName(Elk));
+                    KeyWords.Add("Elk");
                     break;
                 case DefaultValues.Panther:
                     Movement = 5;
@@ -72,6 +77,7 @@ namespace Objects.Mob
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomName(Panther));
+                    KeyWords.Add("Panther");
                     break;
                 case DefaultValues.Griffin:
                     Movement = 3;
@@ -79,6 +85,7 @@ namespace Objects.Mob
                     TypeOfCall = CallType.Summon;
                     MaxRiders = 1;
                     KeyWords.Add(RandomName(Griffin));
+                    KeyWords.Add("Griffin");
                     break;
 
             }
@@ -93,7 +100,6 @@ namespace Objects.Mob
             Elk,
             Panther,
             Griffin
-
         }
 
         public enum CallType
