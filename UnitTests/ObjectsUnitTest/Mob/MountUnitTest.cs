@@ -52,6 +52,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Uni", mount.KeyWords[0]);
             Assert.AreEqual("Unicorn", mount.KeyWords[1]);
+            Assert.AreEqual("", mount.SentenceDescription);
+            Assert.AreEqual("", mount.ShortDescription);
         }
 
         [TestMethod]
@@ -65,6 +67,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Orkiz", mount.KeyWords[0]);
             Assert.AreEqual("Nightmare", mount.KeyWords[1]);
+            Assert.AreEqual("", mount.SentenceDescription);
+            Assert.AreEqual("", mount.ShortDescription);
         }
 
         [TestMethod]
@@ -78,6 +82,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(5, mount.MaxRiders);
             Assert.AreEqual("Skitters", mount.KeyWords[0]);
             Assert.AreEqual("Elephant", mount.KeyWords[1]);
+            Assert.AreEqual("", mount.SentenceDescription);
+            Assert.AreEqual("", mount.ShortDescription);
         }
 
         [TestMethod]
@@ -91,6 +97,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Addax", mount.KeyWords[0]);
             Assert.AreEqual("Elk", mount.KeyWords[1]);
+            Assert.AreEqual("", mount.SentenceDescription);
+            Assert.AreEqual("", mount.ShortDescription);
         }
 
         [TestMethod]
@@ -104,6 +112,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Storm", mount.KeyWords[0]);
             Assert.AreEqual("Panther", mount.KeyWords[1]);
+            Assert.AreEqual("", mount.SentenceDescription);
+            Assert.AreEqual("", mount.ShortDescription);
         }
 
         [TestMethod]
@@ -117,6 +127,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Apollo", mount.KeyWords[0]);
             Assert.AreEqual("Griffin", mount.KeyWords[1]);
+            Assert.AreEqual("", mount.SentenceDescription);
+            Assert.AreEqual("", mount.ShortDescription);
         }
 
         [TestMethod]

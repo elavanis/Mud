@@ -16,16 +16,20 @@ namespace Objects.Mob
         public int MaxRiders { get; set; } = -1;
         public List<IMobileObject> Riders { get; set; } = new List<IMobileObject>();
 
+        #region AnimalInfo
         #region Names
-        private List<string> Horse = new List<string>() { "Kisses", "Tang", "Fleetbolt", "Shadows", "Zephyr", "Snapdraon", "Sugar Blossom" };
-        private List<string> Unicorn = new List<string>() { "Uni", "Arryn", "Julius", "Wrynn", "Lancelot", "Linus", "Mawu" };
-        private List<string> Nightmare = new List<string>() { "Orkiz", "Brog'drallin", "Megmes", "Xeglomoth", "Uz'gonnath", "Tukillian,", "Ezzorith", "Igdruzoth", "Boggun", "Xugthozog" };
-        private List<string> Elephant = new List<string>() { "Skitters", "Hanno", "Jumbo", "Peanut", "Tiny", "Tusks" };
-        private List<string> Elk = new List<string>() { "Addax", "Adder", "Buck", "Cabrilla", "Roe" };
-        private List<string> Panther = new List<string>() { "Storm", "Fyre", "Axe", "Ghost", "Fang", "Reaper", "Domino", "Enigma", "Neko", "Maya", "Paws", "Rawr", "Smokey" };
-        private List<string> Griffin = new List<string>() { "Apollo", "Hyperion", "Dreamwings", "Petalfeather", "Oswald", "Thanatos", "Brightbeak", "Ebonfeathers", "Torr", "Tiki" };
+        private List<string> HorseNames = new List<string>() { "Kisses", "Tang", "Fleetbolt", "Shadows", "Zephyr", "Snapdraon", "Sugar Blossom" };
+        private List<string> UnicornNames = new List<string>() { "Uni", "Arryn", "Julius", "Wrynn", "Lancelot", "Linus", "Mawu" };
+        private List<string> NightmareNames = new List<string>() { "Orkiz", "Brog'drallin", "Megmes", "Xeglomoth", "Uz'gonnath", "Tukillian,", "Ezzorith", "Igdruzoth", "Boggun", "Xugthozog" };
+        private List<string> ElephantNames = new List<string>() { "Skitters", "Hanno", "Jumbo", "Peanut", "Tiny", "Tusks" };
+        private List<string> ElkNames = new List<string>() { "Addax", "Adder", "Buck", "Cabrilla", "Roe" };
+        private List<string> PantherNames = new List<string>() { "Storm", "Fyre", "Axe", "Ghost", "Fang", "Reaper", "Domino", "Enigma", "Neko", "Maya", "Paws", "Rawr", "Smokey" };
+        private List<string> GriffinNames = new List<string>() { "Apollo", "Hyperion", "Dreamwings", "Petalfeather", "Oswald", "Thanatos", "Brightbeak", "Ebonfeathers", "Torr", "Tiki" };
         #endregion Names
 
+        #region Descriptions
+        #endregion Descriptions
+        #endregion AnimalInfo
 
         public void LoadDefaultValues(DefaultValues defaultValues)
         {
@@ -36,7 +40,7 @@ namespace Objects.Mob
                     StaminaMultiplier = 10;
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(Horse));
+                    KeyWords.Add(RandomName(HorseNames));
                     KeyWords.Add("Horse");
                     break;
                 case DefaultValues.Unicorn:
@@ -44,7 +48,7 @@ namespace Objects.Mob
                     StaminaMultiplier = 12;
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(Unicorn));
+                    KeyWords.Add(RandomName(UnicornNames));
                     KeyWords.Add("Unicorn");
                     break;
                 case DefaultValues.Nightmare:
@@ -52,7 +56,7 @@ namespace Objects.Mob
                     StaminaMultiplier = 15;
                     TypeOfCall = CallType.Summon;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(Nightmare));
+                    KeyWords.Add(RandomName(NightmareNames));
                     KeyWords.Add("Nightmare");
                     break;
                 case DefaultValues.Elephant:
@@ -60,7 +64,7 @@ namespace Objects.Mob
                     StaminaMultiplier = 20;
                     TypeOfCall = CallType.Track;
                     MaxRiders = 5;
-                    KeyWords.Add(RandomName(Elephant));
+                    KeyWords.Add(RandomName(ElephantNames));
                     KeyWords.Add("Elephant");
                     break;
                 case DefaultValues.Elk:
@@ -68,7 +72,7 @@ namespace Objects.Mob
                     StaminaMultiplier = 7;
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(Elk));
+                    KeyWords.Add(RandomName(ElkNames));
                     KeyWords.Add("Elk");
                     break;
                 case DefaultValues.Panther:
@@ -76,7 +80,7 @@ namespace Objects.Mob
                     StaminaMultiplier = 5;
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(Panther));
+                    KeyWords.Add(RandomName(PantherNames));
                     KeyWords.Add("Panther");
                     break;
                 case DefaultValues.Griffin:
@@ -84,7 +88,7 @@ namespace Objects.Mob
                     StaminaMultiplier = 7;
                     TypeOfCall = CallType.Summon;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(Griffin));
+                    KeyWords.Add(RandomName(GriffinNames));
                     KeyWords.Add("Griffin");
                     break;
 
