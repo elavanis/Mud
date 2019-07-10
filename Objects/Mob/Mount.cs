@@ -28,6 +28,13 @@ namespace Objects.Mob
         #endregion Names
 
         #region Descriptions
+        private List<string> HorseDescription = new List<string>() { "A large black horse.", "A brown horse with black mane.", "Standing at fifteen hands tall is a white horse with brown spots.", "This horse is white like snow." };
+        private List<string> UnicornDescription = new List<string>() { "The white unicorn looks at you." };
+        private List<string> NightmareDescription = new List<string>() { "Flames burn brightly from the mane and hooves of this black as night horse." };
+        private List<string> ElephantDescription = new List<string>() { "The elephants trunk reaches down toward the ground looking for food." };
+        private List<string> ElkDescription = new List<string>() { "The elk has a large rack with two reigns tied off on a saddle." };
+        private List<string> PantherDescription = new List<string>() { "Yellow eyes almost glow against the black panthers fur." };
+        private List<string> GriffinDescription = new List<string>() { "A majestic griffin stands at the ready." };
         #endregion Descriptions
         #endregion AnimalInfo
 
@@ -40,56 +47,63 @@ namespace Objects.Mob
                     StaminaMultiplier = 10;
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(HorseNames));
+                    KeyWords.Add(RandomValue(HorseNames));
                     KeyWords.Add("Horse");
+                    ShortDescription = RandomValue(HorseDescription);
                     break;
                 case DefaultValues.Unicorn:
                     Movement = 2;
                     StaminaMultiplier = 12;
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(UnicornNames));
+                    KeyWords.Add(RandomValue(UnicornNames));
                     KeyWords.Add("Unicorn");
+                    ShortDescription = RandomValue(UnicornDescription);
                     break;
                 case DefaultValues.Nightmare:
                     Movement = 3;
                     StaminaMultiplier = 15;
                     TypeOfCall = CallType.Summon;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(NightmareNames));
+                    KeyWords.Add(RandomValue(NightmareNames));
                     KeyWords.Add("Nightmare");
+                    ShortDescription = RandomValue(NightmareDescription);
                     break;
                 case DefaultValues.Elephant:
                     Movement = 1;
                     StaminaMultiplier = 20;
                     TypeOfCall = CallType.Track;
                     MaxRiders = 5;
-                    KeyWords.Add(RandomName(ElephantNames));
+                    KeyWords.Add(RandomValue(ElephantNames));
                     KeyWords.Add("Elephant");
+                    ShortDescription = RandomValue(ElephantDescription);
                     break;
                 case DefaultValues.Elk:
                     Movement = 3;
                     StaminaMultiplier = 7;
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(ElkNames));
+                    KeyWords.Add(RandomValue(ElkNames));
                     KeyWords.Add("Elk");
+                    ShortDescription = RandomValue(ElkDescription);
                     break;
                 case DefaultValues.Panther:
                     Movement = 5;
                     StaminaMultiplier = 5;
                     TypeOfCall = CallType.Track;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(PantherNames));
+                    KeyWords.Add(RandomValue(PantherNames));
                     KeyWords.Add("Panther");
+                    ShortDescription = RandomValue(PantherDescription);
                     break;
                 case DefaultValues.Griffin:
                     Movement = 3;
                     StaminaMultiplier = 7;
                     TypeOfCall = CallType.Summon;
                     MaxRiders = 1;
-                    KeyWords.Add(RandomName(GriffinNames));
+                    KeyWords.Add(RandomValue(GriffinNames));
                     KeyWords.Add("Griffin");
+                    ShortDescription = RandomValue(GriffinDescription);
                     break;
 
             }
@@ -112,10 +126,10 @@ namespace Objects.Mob
             Track
         }
 
-        private string RandomName(List<string> names)
+        private string RandomValue(List<string> list)
         {
-            int pos = GlobalReference.GlobalValues.Random.Next(names.Count);
-            return names[pos];
+            int pos = GlobalReference.GlobalValues.Random.Next(list.Count);
+            return list[pos];
         }
     }
 }
