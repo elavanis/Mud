@@ -78,7 +78,7 @@ Mount [pickup] [Mob Name]", false);
             }
             else
             {
-                return new Result($"Unable to find {parameter.ParameterValue}.", true)
+                return new Result($"Unable to find {parameter.ParameterValue}.", true);
             }
 
         }
