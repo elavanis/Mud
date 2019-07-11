@@ -14,3 +14,4 @@ namespace ObjectsUnitTest.Command.PC
             Assert.AreEqual(1, 2);
         }
     }
+}
