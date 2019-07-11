@@ -2,18 +2,26 @@
 using Objects.Mob.Interface;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Objects.Mob
 {
     public class Mount : MobileObject, IMount
     {
+        [ExcludeFromCodeCoverage]
         public int Movement { get; set; } = -1;
+        [ExcludeFromCodeCoverage]
         public int StaminaMultiplier { get; set; } = -1;
+        [ExcludeFromCodeCoverage]
         public CallType TypeOfCall { get; set; } = CallType.Track;
+        [ExcludeFromCodeCoverage]
         public bool Called { get; set; }
+        [ExcludeFromCodeCoverage]
         public IMobileObject PersonCalling { get; set; }
+        [ExcludeFromCodeCoverage]
         public int MaxRiders { get; set; } = -1;
+        [ExcludeFromCodeCoverage]
         public List<IMobileObject> Riders { get; set; } = new List<IMobileObject>();
 
         #region AnimalInfo
