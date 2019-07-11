@@ -28,7 +28,7 @@ namespace Objects.Mob
         #endregion Names
 
         #region Descriptions
-        private List<string> HorseDescription = new List<string>() { "A large black horse.", "A brown horse with black mane.", "Standing at fifteen hands tall is a white horse with brown spots.", "This horse is white like snow." };
+        private List<string> HorseDescription = new List<string>() { "A large black horse.", "A brown horse with black mane.", "Standing at fifteen hands tall is a white horse with brown spots.", "A horse is white like snow." };
         private List<string> UnicornDescription = new List<string>() { "The white unicorn looks at you." };
         private List<string> NightmareDescription = new List<string>() { "Flames burn brightly from the mane and hooves of this black as night horse." };
         private List<string> ElephantDescription = new List<string>() { "The elephants trunk reaches down toward the ground looking for food." };
@@ -50,6 +50,7 @@ namespace Objects.Mob
                     KeyWords.Add(RandomValue(HorseNames));
                     KeyWords.Add("Horse");
                     ShortDescription = RandomValue(HorseDescription);
+                    SentenceDescription = "horse";
                     break;
                 case DefaultValues.Unicorn:
                     Movement = 2;
@@ -59,6 +60,7 @@ namespace Objects.Mob
                     KeyWords.Add(RandomValue(UnicornNames));
                     KeyWords.Add("Unicorn");
                     ShortDescription = RandomValue(UnicornDescription);
+                    SentenceDescription = "unicorn";
                     break;
                 case DefaultValues.Nightmare:
                     Movement = 3;
@@ -68,6 +70,7 @@ namespace Objects.Mob
                     KeyWords.Add(RandomValue(NightmareNames));
                     KeyWords.Add("Nightmare");
                     ShortDescription = RandomValue(NightmareDescription);
+                    SentenceDescription = "nightmare";
                     break;
                 case DefaultValues.Elephant:
                     Movement = 1;
@@ -77,6 +80,7 @@ namespace Objects.Mob
                     KeyWords.Add(RandomValue(ElephantNames));
                     KeyWords.Add("Elephant");
                     ShortDescription = RandomValue(ElephantDescription);
+                    SentenceDescription = "elephant";
                     break;
                 case DefaultValues.Elk:
                     Movement = 3;
@@ -86,6 +90,7 @@ namespace Objects.Mob
                     KeyWords.Add(RandomValue(ElkNames));
                     KeyWords.Add("Elk");
                     ShortDescription = RandomValue(ElkDescription);
+                    SentenceDescription = "elk";
                     break;
                 case DefaultValues.Panther:
                     Movement = 5;
@@ -95,6 +100,7 @@ namespace Objects.Mob
                     KeyWords.Add(RandomValue(PantherNames));
                     KeyWords.Add("Panther");
                     ShortDescription = RandomValue(PantherDescription);
+                    SentenceDescription = "panther";
                     break;
                 case DefaultValues.Griffin:
                     Movement = 3;
@@ -104,6 +110,7 @@ namespace Objects.Mob
                     KeyWords.Add(RandomValue(GriffinNames));
                     KeyWords.Add("Griffin");
                     ShortDescription = RandomValue(GriffinDescription);
+                    SentenceDescription = "griffin";
                     break;
 
             }

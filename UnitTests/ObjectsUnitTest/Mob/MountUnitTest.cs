@@ -37,8 +37,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Kisses", mount.KeyWords[0]);
             Assert.AreEqual("Horse", mount.KeyWords[1]);
-            Assert.AreEqual("", mount.SentenceDescription);
-            Assert.AreEqual("", mount.ShortDescription);
+            Assert.AreEqual("A large black horse.", mount.ShortDescription);
+            Assert.AreEqual("horse", mount.SentenceDescription);
         }
 
         [TestMethod]
@@ -52,8 +52,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Uni", mount.KeyWords[0]);
             Assert.AreEqual("Unicorn", mount.KeyWords[1]);
-            Assert.AreEqual("", mount.SentenceDescription);
-            Assert.AreEqual("", mount.ShortDescription);
+            Assert.AreEqual("The white unicorn looks at you.", mount.ShortDescription);
+            Assert.AreEqual("unicorn", mount.SentenceDescription);
         }
 
         [TestMethod]
@@ -67,8 +67,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Orkiz", mount.KeyWords[0]);
             Assert.AreEqual("Nightmare", mount.KeyWords[1]);
-            Assert.AreEqual("", mount.SentenceDescription);
-            Assert.AreEqual("", mount.ShortDescription);
+            Assert.AreEqual("Flames burn brightly from the mane and hooves of this black as night horse.", mount.ShortDescription);
+            Assert.AreEqual("nightmare", mount.SentenceDescription);
         }
 
         [TestMethod]
@@ -82,8 +82,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(5, mount.MaxRiders);
             Assert.AreEqual("Skitters", mount.KeyWords[0]);
             Assert.AreEqual("Elephant", mount.KeyWords[1]);
-            Assert.AreEqual("", mount.SentenceDescription);
-            Assert.AreEqual("", mount.ShortDescription);
+            Assert.AreEqual("The elephants trunk reaches down toward the ground looking for food.", mount.ShortDescription);
+            Assert.AreEqual("elephant", mount.SentenceDescription);
         }
 
         [TestMethod]
@@ -97,8 +97,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Addax", mount.KeyWords[0]);
             Assert.AreEqual("Elk", mount.KeyWords[1]);
-            Assert.AreEqual("", mount.SentenceDescription);
-            Assert.AreEqual("", mount.ShortDescription);
+            Assert.AreEqual("The elk has a large rack with two reigns tied off on a saddle.", mount.ShortDescription);
+            Assert.AreEqual("elk", mount.SentenceDescription);
         }
 
         [TestMethod]
@@ -112,8 +112,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Storm", mount.KeyWords[0]);
             Assert.AreEqual("Panther", mount.KeyWords[1]);
-            Assert.AreEqual("", mount.SentenceDescription);
-            Assert.AreEqual("", mount.ShortDescription);
+            Assert.AreEqual("Yellow eyes almost glow against the black panthers fur.", mount.ShortDescription);
+            Assert.AreEqual("panther", mount.SentenceDescription);
         }
 
         [TestMethod]
@@ -127,14 +127,8 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Apollo", mount.KeyWords[0]);
             Assert.AreEqual("Griffin", mount.KeyWords[1]);
-            Assert.AreEqual("", mount.SentenceDescription);
-            Assert.AreEqual("", mount.ShortDescription);
-        }
-
-        [TestMethod]
-        public void Mount_WriteTests()
-        {
-            Assert.AreEqual(1, 2);
+            Assert.AreEqual("A majestic griffin stands at the ready.", mount.ShortDescription);
+            Assert.AreEqual("griffin", mount.SentenceDescription);
         }
     }
 }
