@@ -68,7 +68,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { mob.Object, pc.Object });
             room.Setup(e => e.OtherMobs).Returns(new List<IMobileObject>() { otherMob.Object });
             room.Setup(e => e.ShortDescription).Returns("RoomShortDescription");
-            room.Setup(e => e.LookDescription).Returns("RoomLongDescription");
+            room.Setup(e => e.LookDescription).Returns("RoomLookDescription");
             canDoSomething.Setup(e => e.SeeDueToLight(mob.Object)).Returns(true);
             canDoSomething.Setup(e => e.SeeObject(mob.Object, item.Object)).Returns(true);
             canDoSomething.Setup(e => e.SeeObject(mob.Object, npc.Object)).Returns(true);
@@ -148,14 +148,14 @@ OtherMobShortDescription", result.ResultMessage);
             parameter.Setup(e => e.ParameterValue).Returns("pc");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "pc", 0, true, true, true, true, true)).Returns(pc.Object);
-            pc.Setup(e => e.LookDescription).Returns("PcLongDescription");
+            pc.Setup(e => e.LookDescription).Returns("PcLookDescription");
             pc.Setup(e => e.EquipedEquipment).Returns(new List<IEquipment>() { item.Object });
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("PcLongDescription\r\nItemShortDescription", result.ResultMessage);
+            Assert.AreEqual("PcLookDescription\r\nItemShortDescription", result.ResultMessage);
         }
 
         [TestMethod]
@@ -168,14 +168,14 @@ OtherMobShortDescription", result.ResultMessage);
             parameter.Setup(e => e.ParameterValue).Returns("npc");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "npc", 0, true, true, true, true, true)).Returns(npc.Object);
-            npc.Setup(e => e.LookDescription).Returns("NpcLongDescription");
+            npc.Setup(e => e.LookDescription).Returns("NpcLookDescription");
             npc.Setup(e => e.EquipedEquipment).Returns(new List<IEquipment>() { item.Object });
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("NpcLongDescription\r\nItemShortDescription", result.ResultMessage);
+            Assert.AreEqual("NpcLookDescription\r\nItemShortDescription", result.ResultMessage);
         }
 
         [TestMethod]
@@ -188,13 +188,13 @@ OtherMobShortDescription", result.ResultMessage);
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, true, true, true)).Returns(item.Object);
-            item.Setup(e => e.LookDescription).Returns("LongDescription");
+            item.Setup(e => e.LookDescription).Returns("LookDescription");
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("LongDescription", result.ResultMessage);
+            Assert.AreEqual("LookDescription", result.ResultMessage);
         }
 
         [TestMethod]
@@ -209,14 +209,14 @@ OtherMobShortDescription", result.ResultMessage);
             parameter.Setup(e => e.ParameterValue).Returns("container");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             container.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
-            containerItem.Setup(e => e.LookDescription).Returns("ContainerLongDescription");
+            containerItem.Setup(e => e.LookDescription).Returns("ContainerLookDescription");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, true, true, true)).Returns(containerItem.Object);
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("ContainerLongDescription\r\nItemShortDescription", result.ResultMessage);
+            Assert.AreEqual("ContainerLookDescription\r\nItemShortDescription", result.ResultMessage);
         }
 
         [TestMethod]
@@ -231,15 +231,15 @@ OtherMobShortDescription", result.ResultMessage);
             parameter.Setup(e => e.ParameterValue).Returns("container");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             container.Setup(e => e.Items).Returns(new List<IItem>());
-            containerItem.Setup(e => e.LookDescription).Returns("LongDescription");
+            containerItem.Setup(e => e.LookDescription).Returns("LookDescription");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, true, true, true)).Returns(containerItem.Object);
-            item.Setup(e => e.LookDescription).Returns("LongDescription");
+            item.Setup(e => e.LookDescription).Returns("LookDescription");
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("LongDescription\r\n<Empty>", result.ResultMessage);
+            Assert.AreEqual("LookDescription\r\n<Empty>", result.ResultMessage);
         }
 
         [TestMethod]

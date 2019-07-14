@@ -87,7 +87,6 @@ Mount [pickup] [Mob Name]", false);
         {
             if (performer.Mount != null)
             {
-                performer.Mount.Called = true;
                 return new Result("You mount has been called.", true);
             }
             else

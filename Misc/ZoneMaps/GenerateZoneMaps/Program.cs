@@ -64,7 +64,7 @@ namespace GenerateZoneMaps
         {
             //RandomZoneGeneration randomZoneGeneration = new RandomZoneGeneration(10, 10, zone.Id);
             //RoomDescription description = new RoomDescription();
-            //description.LongDescription = "";
+            //description.LookDescription = "";
             //description.ExamineDescription = "";
             //description.ShortDescription = "";
             //randomZoneGeneration.RoomDescriptions.Add(description);

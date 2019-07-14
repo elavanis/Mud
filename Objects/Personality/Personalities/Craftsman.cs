@@ -22,7 +22,7 @@ namespace Objects.Personality.Personalities
         [ExcludeFromCodeCoverage]
         public double SellToPcIncrease { get; set; } = 10;
 
-        public IResult Build(INonPlayerCharacter craftsman, IPlayerCharacter performer, AvalableItemPosition position, int level, string keyword, string sentenceDescription, string shortDescription, string longDescription, string examineDescription, DamageType damageType = DamageType.Slash)
+        public IResult Build(INonPlayerCharacter craftsman, IPlayerCharacter performer, AvalableItemPosition position, int level, string keyword, string sentenceDescription, string shortDescription, string lookDescription, string examineDescription, DamageType damageType = DamageType.Slash)
         {
             IResult result;
             IItem item = null;
@@ -31,12 +31,12 @@ namespace Objects.Personality.Personalities
             {
                 case Equipment.AvalableItemPosition.Held:
                     IEquipment equipment = new Equipment();
-                    result = BuildItem(craftsman, performer, position, level, keyword, sentenceDescription, shortDescription, longDescription, examineDescription, equipment);
+                    result = BuildItem(craftsman, performer, position, level, keyword, sentenceDescription, shortDescription, lookDescription, examineDescription, equipment);
                     item = equipment;
                     break;
                 case Equipment.AvalableItemPosition.Wield:
                     IWeapon weapon = new Weapon();
-                    result = BuildItem(craftsman, performer, position, level, keyword, sentenceDescription, shortDescription, longDescription, examineDescription, weapon);
+                    result = BuildItem(craftsman, performer, position, level, keyword, sentenceDescription, shortDescription, lookDescription, examineDescription, weapon);
                     IDamage damage = new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level));
                     damage.Type = damageType;
                     weapon.DamageList.Add(damage);
@@ -48,7 +48,7 @@ namespace Objects.Personality.Personalities
                     break;
                 default:
                     IArmor armor = new Armor();
-                    result = BuildItem(craftsman, performer, position, level, keyword, sentenceDescription, shortDescription, longDescription, examineDescription, armor);
+                    result = BuildItem(craftsman, performer, position, level, keyword, sentenceDescription, shortDescription, lookDescription, examineDescription, armor);
                     item = armor;
                     break;
             }
@@ -66,7 +66,7 @@ namespace Objects.Personality.Personalities
             return result;
         }
 
-        private IResult BuildItem(INonPlayerCharacter craftsman, IMobileObject performer, Equipment.AvalableItemPosition position, int level, string keyword, string sentenceDescription, string shortDescription, string longDescription, string examineDescription, IEquipment equipment)
+        private IResult BuildItem(INonPlayerCharacter craftsman, IMobileObject performer, Equipment.AvalableItemPosition position, int level, string keyword, string sentenceDescription, string shortDescription, string lookDescription, string examineDescription, IEquipment equipment)
         {
             IResult result = null;
             result = CheckMoney(craftsman, performer, level, equipment);
@@ -79,7 +79,7 @@ namespace Objects.Personality.Personalities
             equipment.KeyWords.Add(keyword);
             equipment.SentenceDescription = sentenceDescription;
             equipment.ShortDescription = shortDescription;
-            equipment.LookDescription = longDescription;
+            equipment.LookDescription = lookDescription;
             equipment.ExamineDescription = examineDescription;
 
             equipment.FinishLoad();

@@ -85,12 +85,12 @@ namespace ObjectsUnitTest
         public void BaseObject_FinishLoad_ZoneObjectSyncLoad()
         {
             baseObject.ShortDescription = "short";
-            baseObject.LookDescription = "long";
+            baseObject.LookDescription = "look";
             baseObject.ExamineDescription = "examine";
             baseObject.SentenceDescription = "sentence";
 
             baseObject.ZoneSyncOptions.Add("short", new List<string>() { "a", "ShortDescription" });
-            baseObject.ZoneSyncOptions.Add("long", new List<string>() { "a", "LongDescription" });
+            baseObject.ZoneSyncOptions.Add("look", new List<string>() { "a", "LookDescription" });
             baseObject.ZoneSyncOptions.Add("examine", new List<string>() { "a", "ExamineDescription" });
             baseObject.ZoneSyncOptions.Add("sentence", new List<string>() { "a", "SentenceDescription" });
             baseObject.ZoneSyncOptions.Add("ZoneSyncKeywords", new List<string>() { "a", "KeyWords" });
@@ -98,7 +98,7 @@ namespace ObjectsUnitTest
             baseObject.FinishLoad(1);
 
             Assert.AreEqual("ShortDescription", baseObject.ShortDescription);
-            Assert.AreEqual("LongDescription", baseObject.LookDescription);
+            Assert.AreEqual("LookDescription", baseObject.LookDescription);
             Assert.AreEqual("ExamineDescription", baseObject.ExamineDescription);
             Assert.AreEqual("SentenceDescription", baseObject.SentenceDescription);
             Assert.AreEqual("KeyWords", baseObject.KeyWords[0]);

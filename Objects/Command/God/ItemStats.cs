@@ -74,7 +74,7 @@ namespace Objects.Command.God
 
             strBldr.AppendLine("SentenceDescription: " + item.SentenceDescription);
             strBldr.AppendLine("ShortDescription: " + item.ShortDescription);
-            strBldr.AppendLine("LongDescription: " + item.LookDescription);
+            strBldr.AppendLine("LookDescription: " + item.LookDescription);
             strBldr.AppendLine("ExamineDescription: " + item.ExamineDescription);
 
             strBldr.AppendLine("Weight :" + item.Weight);

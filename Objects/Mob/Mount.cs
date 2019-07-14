@@ -14,12 +14,6 @@ namespace Objects.Mob
         [ExcludeFromCodeCoverage]
         public int StaminaMultiplier { get; set; } = -1;
         [ExcludeFromCodeCoverage]
-        public CallType TypeOfCall { get; set; } = CallType.Track;
-        [ExcludeFromCodeCoverage]
-        public bool Called { get; set; }
-        [ExcludeFromCodeCoverage]
-        public IMobileObject PersonCalling { get; set; }
-        [ExcludeFromCodeCoverage]
         public int MaxRiders { get; set; } = -1;
         [ExcludeFromCodeCoverage]
         public List<IMobileObject> Riders { get; set; } = new List<IMobileObject>();
@@ -46,14 +40,20 @@ namespace Objects.Mob
         #endregion Descriptions
         #endregion AnimalInfo
 
-        public void LoadDefaultValues(DefaultValues defaultValues)
+        public Mount()        {        }
+
+        public Mount(DefaultValues defaultValue)
         {
-            switch (defaultValues)
+            LoadDefaultValues(defaultValue);
+        }
+
+        private void LoadDefaultValues(DefaultValues defaultValue)
+        {
+            switch (defaultValue)
             {
                 case DefaultValues.Horse:
                     Movement = 2;
                     StaminaMultiplier = 10;
-                    TypeOfCall = CallType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(HorseNames));
                     KeyWords.Add("Horse");
@@ -63,7 +63,6 @@ namespace Objects.Mob
                 case DefaultValues.Unicorn:
                     Movement = 2;
                     StaminaMultiplier = 12;
-                    TypeOfCall = CallType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(UnicornNames));
                     KeyWords.Add("Unicorn");
@@ -73,7 +72,6 @@ namespace Objects.Mob
                 case DefaultValues.Nightmare:
                     Movement = 3;
                     StaminaMultiplier = 15;
-                    TypeOfCall = CallType.Summon;
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(NightmareNames));
                     KeyWords.Add("Nightmare");
@@ -83,7 +81,6 @@ namespace Objects.Mob
                 case DefaultValues.Elephant:
                     Movement = 1;
                     StaminaMultiplier = 20;
-                    TypeOfCall = CallType.Track;
                     MaxRiders = 5;
                     KeyWords.Add(RandomValue(ElephantNames));
                     KeyWords.Add("Elephant");
@@ -93,7 +90,6 @@ namespace Objects.Mob
                 case DefaultValues.Elk:
                     Movement = 3;
                     StaminaMultiplier = 7;
-                    TypeOfCall = CallType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(ElkNames));
                     KeyWords.Add("Elk");
@@ -103,7 +99,6 @@ namespace Objects.Mob
                 case DefaultValues.Panther:
                     Movement = 5;
                     StaminaMultiplier = 5;
-                    TypeOfCall = CallType.Track;
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(PantherNames));
                     KeyWords.Add("Panther");
@@ -113,15 +108,16 @@ namespace Objects.Mob
                 case DefaultValues.Griffin:
                     Movement = 3;
                     StaminaMultiplier = 7;
-                    TypeOfCall = CallType.Summon;
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(GriffinNames));
                     KeyWords.Add("Griffin");
                     ShortDescription = RandomValue(GriffinDescription);
                     SentenceDescription = "griffin";
                     break;
-
             }
+
+            ExamineDescription = "you should not see this";
+            LookDescription = "you should not see this";
         }
 
         public enum DefaultValues
@@ -133,12 +129,6 @@ namespace Objects.Mob
             Elk,
             Panther,
             Griffin
-        }
-
-        public enum CallType
-        {
-            Summon,
-            Track
         }
 
         private string RandomValue(List<string> list)

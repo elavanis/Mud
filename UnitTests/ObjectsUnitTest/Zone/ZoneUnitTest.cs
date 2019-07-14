@@ -39,6 +39,7 @@ namespace ObjectsUnitTest.Zone
 
             room.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            room.Setup(e=>e.OtherMobs).Returns(new List<IMobileObject>() { npc.Object});
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             gameDateTime.Setup(e => e.AddDays(1)).Returns(gameDateTime.Object);
 
@@ -129,11 +130,11 @@ namespace ObjectsUnitTest.Zone
 
             room.VerifySet(e => e.Zone = 1, Times.Once);
             item.VerifySet(e => e.Zone = 1, Times.Once);
-            equippedItem.VerifySet(e => e.Zone = 1, Times.Once);
+            equippedItem.VerifySet(e => e.Zone = 1, Times.Exactly(2));
             sellItem.VerifySet(e => e.Zone = 1, Times.Once);
-            npcItem.VerifySet(e => e.Zone = 1, Times.Once);
-            npcItem2.VerifySet(e => e.Zone = 1, Times.Once);
-            npcItem3.VerifySet(e => e.Zone = 1, Times.Once);
+            npcItem.VerifySet(e => e.Zone = 1, Times.Exactly(2));
+            npcItem2.VerifySet(e => e.Zone = 1, Times.Exactly(2));
+            npcItem3.VerifySet(e => e.Zone = 1, Times.Exactly(2));
         }
     }
 }

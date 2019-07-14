@@ -936,7 +936,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
             npc.KeyWords.Add("Kobold");
             npc.KeyWords.Add("Guard");
-            npc.CorpseLongDescription = "He died while defending his den and did not run like most kobolds would.";
+            npc.CorpseLookDescription = "He died while defending his den and did not run like most kobolds would.";
             npc.LookDescription = "The kobold has a few scars where it has been through tough training.";
             npc.SentenceDescription = "kobold guard";
             npc.ShortDescription = "The guard snarls at you trying to make you leave but it does not advance from the entrance.";

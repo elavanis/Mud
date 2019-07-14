@@ -869,7 +869,7 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void MobileObject_Die_CorpseDescriptionSet()
         {
-            mob.CorpseLongDescription = "corp desc";
+            mob.CorpseLookDescription = "corp desc";
             EquipedEquipment(mob).Add(armor.Object);
             mob.Money = 10;
 

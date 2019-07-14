@@ -93,7 +93,7 @@ namespace Objects.Mob
         }
 
         [ExcludeFromCodeCoverage]
-        public string CorpseLongDescription { get; set; }
+        public string CorpseLookDescription { get; set; }
 
         [ExcludeFromCodeCoverage]
         public List<IItem> Items { get; } = new List<IItem>();
@@ -828,8 +828,8 @@ namespace Objects.Mob
             corpse.Killer = attacker;
             corpse.TimeOfDeath = DateTime.UtcNow;
             corpse.ShortDescription = "A corpse lies here.";
-            corpse.LookDescription = CorpseLongDescription ?? "This corpse once was living but no life exists here now.";
-            corpse.ExamineDescription = CorpseLongDescription ?? "This corpse once was living but no life exists here now.";
+            corpse.LookDescription = CorpseLookDescription ?? "This corpse once was living but no life exists here now.";
+            corpse.ExamineDescription = CorpseLookDescription ?? "This corpse once was living but no life exists here now.";
             corpse.KeyWords.Add("Corpse");
             corpse.SentenceDescription = "corpse";
 

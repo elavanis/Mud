@@ -55,17 +55,21 @@ namespace GenerateZones.Zones
 
             room.AddItemToRoom(Weapon());
 
-            IMount mount = new Mount();
+            IMount mount = new Mount(Mount.DefaultValues.Elephant);
+            mount.Id = 1;
             mount.Level = 1;
+            //mount.Movement = 1;
+            //mount.StaminaMultiplier = 10;
+            //mount.KeyWords.Add("mount");
+            //mount.ShortDescription = "mob short description";
+            //mount.LookDescription = "mob look description";
+            //mount.ExamineDescription = "mob examine descritpiton";
+            //mount.SentenceDescription = "mob sentince description";
             mount.FinishLoad();
-            mount.ShortDescription = "mob short description";
-            mount.LookDescription = "mob look description";
-            mount.ExamineDescription = "mob examine descritpiton";
-            mount.SentenceDescription = "mob sentince description";
 
             room.AddMobileObjectToRoom(mount);
 
-            room.AddMobileObjectToRoom(new PlayerCharacter() { ShortDescription = "pc short" });
+           // room.AddMobileObjectToRoom(new PlayerCharacter() { ShortDescription = "pc short" });
 
             return room;
         }
@@ -74,7 +78,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = CreateRoom();
 
-            room.AddMobileObjectToRoom(new Elemental(ElementType.Air) { Id = 1 });
+            //room.AddMobileObjectToRoom(new Elemental(ElementType.Air) { Id = 1 });
             //room.AddMobileObjectToRoom(new Elemental(ElementType.Earth) { Id = 1 });
             //room.AddMobileObjectToRoom(new Elemental(ElementType.Fire) { Id = 1 });
             //room.AddMobileObjectToRoom(new Elemental(ElementType.Water) { Id = 1 });

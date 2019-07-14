@@ -64,7 +64,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         [TestMethod]
         public void Craftsman_Build_NotEnoughMoney()
         {
-            IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Arms, 10, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription");
+            IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Arms, 10, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription");
 
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("You need 2 gold to have the item made for you.", result.ResultMessage);
@@ -74,7 +74,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         public void Craftsman_Build_Armor()
         {
             DateTime start = DateTime.Now;
-            IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Feet, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription");
+            IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Feet, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription");
 
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("", result.ResultMessage);
@@ -88,7 +88,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             Assert.AreEqual("keyword", item.KeyWords[0]);
             Assert.AreEqual("sentenceDescription", item.SentenceDescription);
             Assert.AreEqual("shortDescription", item.ShortDescription);
-            Assert.AreEqual("longDescription", item.LookDescription);
+            Assert.AreEqual("lookDescription", item.LookDescription);
             Assert.AreEqual("examineDescription", item.ExamineDescription);
             Assert.AreEqual(1, craftsmanObject.CraftsmanId.Zone);
             Assert.AreEqual(2, craftsmanObject.CraftsmanId.Id);
@@ -102,7 +102,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         public void Craftsman_Build_Held()
         {
             DateTime start = DateTime.Now;
-            IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Held, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription");
+            IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Held, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription");
 
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("", result.ResultMessage);
@@ -116,7 +116,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             Assert.AreEqual("keyword", item.KeyWords[0]);
             Assert.AreEqual("sentenceDescription", item.SentenceDescription);
             Assert.AreEqual("shortDescription", item.ShortDescription);
-            Assert.AreEqual("longDescription", item.LookDescription);
+            Assert.AreEqual("lookDescription", item.LookDescription);
             Assert.AreEqual("examineDescription", item.ExamineDescription);
             Assert.AreEqual(1, craftsmanObject.CraftsmanId.Zone);
             Assert.AreEqual(2, craftsmanObject.CraftsmanId.Id);
@@ -130,7 +130,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         public void Craftsman_Build_Weapon()
         {
             DateTime start = DateTime.Now;
-            IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Pierce);
+            IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Pierce);
 
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("", result.ResultMessage);
@@ -144,7 +144,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             Assert.AreEqual("keyword", item.KeyWords[0]);
             Assert.AreEqual("sentenceDescription", item.SentenceDescription);
             Assert.AreEqual("shortDescription", item.ShortDescription);
-            Assert.AreEqual("longDescription", item.LookDescription);
+            Assert.AreEqual("lookDescription", item.LookDescription);
             Assert.AreEqual("examineDescription", item.ExamineDescription);
             Assert.AreEqual(1, craftsmanObject.CraftsmanId.Zone);
             Assert.AreEqual(2, craftsmanObject.CraftsmanId.Id);
@@ -167,7 +167,7 @@ namespace ObjectsUnitTest.Personality.Personalities
         public void Craftsman_Build_NotWorn()
         {
             DateTime start = DateTime.Now;
-            IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.NotWorn, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Pierce);
+            IResult result = craftsman.Build(npc.Object, pc.Object, AvalableItemPosition.NotWorn, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Pierce);
 
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("", result.ResultMessage);

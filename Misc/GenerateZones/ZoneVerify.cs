@@ -320,7 +320,7 @@ namespace GenerateZones
 
             if (item.LookDescription == null)
             {
-                ThrowConfigException(item, type, "LongDescription = null");
+                ThrowConfigException(item, type, "LookDescription = null");
             }
 
             if (item.ShortDescription == null)

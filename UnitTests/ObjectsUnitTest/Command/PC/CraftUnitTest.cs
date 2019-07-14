@@ -34,7 +34,7 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IParameter> keyword;
         Mock<IParameter> sentenceDescription;
         Mock<IParameter> shortDescription;
-        Mock<IParameter> longDescription;
+        Mock<IParameter> lookDescription;
         Mock<IParameter> examineDescription;
         Mock<IParameter> damageType;
 
@@ -55,7 +55,7 @@ namespace ObjectsUnitTest.Command.PC
             keyword = new Mock<IParameter>();
             sentenceDescription = new Mock<IParameter>();
             shortDescription = new Mock<IParameter>();
-            longDescription = new Mock<IParameter>();
+            lookDescription = new Mock<IParameter>();
             examineDescription = new Mock<IParameter>();
             damageType = new Mock<IParameter>();
 
@@ -70,7 +70,7 @@ namespace ObjectsUnitTest.Command.PC
             keyword.Setup(e => e.ParameterValue).Returns("keyword");
             sentenceDescription.Setup(e => e.ParameterValue).Returns("sentenceDescription");
             shortDescription.Setup(e => e.ParameterValue).Returns("shortDescription");
-            longDescription.Setup(e => e.ParameterValue).Returns("longDescription");
+            lookDescription.Setup(e => e.ParameterValue).Returns("lookDescription");
             examineDescription.Setup(e => e.ParameterValue).Returns("examineDescription");
             damageType.Setup(e => e.ParameterValue).Returns("slash");
 
@@ -85,7 +85,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("Craft [Position] [Level] [Keyword] [\"SentenceDescription\"] [\"ShortDescription\"] [\"LongDescription\"] [\"ExamineDescription\"] {DamageType}", result.ResultMessage);
+            Assert.AreEqual("Craft [Position] [Level] [Keyword] [\"SentenceDescription\"] [\"ShortDescription\"] [\"LookDescription\"] [\"ExamineDescription\"] {DamageType}", result.ResultMessage);
         }
 
         [TestMethod]
@@ -131,7 +131,7 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
@@ -150,12 +150,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Arms, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Arms, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -171,12 +171,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Body, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Body, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -192,12 +192,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Feet, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Feet, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -213,12 +213,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Finger, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Finger, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -234,12 +234,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Hand, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Hand, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -255,12 +255,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Head, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Head, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -276,12 +276,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Held, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Held, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -297,12 +297,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Legs, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Legs, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -318,12 +318,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Neck, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Neck, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -339,12 +339,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Waist, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Waist, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Acid)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -362,12 +362,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Bludgeon)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Bludgeon)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -385,12 +385,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Pierce)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Pierce)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -406,12 +406,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Slash)).Returns(new Result("", false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Slash)).Returns(new Result("", false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -427,12 +427,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Slash)).Returns(new Result(null, false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Slash)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
@@ -460,12 +460,12 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Slash)).Returns(new Result(null, false));
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Slash)).Returns(new Result(null, false));
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
@@ -483,13 +483,13 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "longDescription", "examineDescription", DamageType.Slash)).Throws(new Exception());
+            craftsman.Setup(e => e.Build(npc.Object, pc.Object, AvalableItemPosition.Wield, 1, "keyword", "sentenceDescription", "shortDescription", "lookDescription", "examineDescription", DamageType.Slash)).Throws(new Exception());
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
@@ -507,7 +507,7 @@ namespace ObjectsUnitTest.Command.PC
             parameters.Add(keyword.Object);
             parameters.Add(sentenceDescription.Object);
             parameters.Add(shortDescription.Object);
-            parameters.Add(longDescription.Object);
+            parameters.Add(lookDescription.Object);
             parameters.Add(examineDescription.Object);
             parameters.Add(damageType.Object);
 

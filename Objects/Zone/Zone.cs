@@ -175,16 +175,7 @@ namespace Objects.Zone
 
                 foreach (INonPlayerCharacter npc in room.NonPlayerCharacters)
                 {
-                    npc.Zone = Id;
-                    foreach (IItem item in npc.Items)
-                    {
-                        SetItemId(item);
-                    }
-
-                    foreach (IItem item in npc.EquipedEquipment)
-                    {
-                        SetItemId(item);
-                    }
+                    SetCommonMobValues(npc);
 
                     foreach (IPersonality personality in npc.Personalities)
                     {
@@ -198,6 +189,25 @@ namespace Objects.Zone
                         }
                     }
                 }
+
+                foreach (IMobileObject mob in room.OtherMobs)
+                {
+                    SetCommonMobValues(mob);
+                }
+            }
+        }
+
+        private void SetCommonMobValues(IMobileObject mob)
+        {
+            mob.Zone = Id;
+            foreach (IItem item in mob.Items)
+            {
+                SetItemId(item);
+            }
+
+            foreach (IItem item in mob.EquipedEquipment)
+            {
+                SetItemId(item);
             }
         }
 

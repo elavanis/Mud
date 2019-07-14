@@ -1,5 +1,5 @@
 Id	Lvl	Name
--1	1	Test
+-1	0	Test
 1	20	StartingBoat
 2	2	GrandViewLibrary
 3	0	GrandViewColiseum

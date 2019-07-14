@@ -27,13 +27,12 @@ namespace ObjectsUnitTest.Mob
         }
 
         [TestMethod]
-        public void Mount_LoadDefaultValues_Horse()
+        public void Mount_Constructor_Horse()
         {
-            mount.LoadDefaultValues(DefaultValues.Horse);
+            mount = new Mount(DefaultValues.Horse);
 
             Assert.AreEqual(2, mount.Movement);
             Assert.AreEqual(10, mount.StaminaMultiplier);
-            Assert.AreEqual(CallType.Track, mount.TypeOfCall);
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Kisses", mount.KeyWords[0]);
             Assert.AreEqual("Horse", mount.KeyWords[1]);
@@ -42,13 +41,12 @@ namespace ObjectsUnitTest.Mob
         }
 
         [TestMethod]
-        public void Mount_LoadDefaultValues_Unicorn()
+        public void Mount_Constructor_Unicorn()
         {
-            mount.LoadDefaultValues(DefaultValues.Unicorn);
+            mount = new Mount(DefaultValues.Unicorn);
 
             Assert.AreEqual(2, mount.Movement);
             Assert.AreEqual(12, mount.StaminaMultiplier);
-            Assert.AreEqual(CallType.Track, mount.TypeOfCall);
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Uni", mount.KeyWords[0]);
             Assert.AreEqual("Unicorn", mount.KeyWords[1]);
@@ -57,13 +55,12 @@ namespace ObjectsUnitTest.Mob
         }
 
         [TestMethod]
-        public void Mount_LoadDefaultValues_Nightmare()
+        public void Mount_Constructor_Nightmare()
         {
-            mount.LoadDefaultValues(DefaultValues.Nightmare);
+            mount = new Mount(DefaultValues.Nightmare);
 
             Assert.AreEqual(3, mount.Movement);
             Assert.AreEqual(15, mount.StaminaMultiplier);
-            Assert.AreEqual(CallType.Summon, mount.TypeOfCall);
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Orkiz", mount.KeyWords[0]);
             Assert.AreEqual("Nightmare", mount.KeyWords[1]);
@@ -72,13 +69,12 @@ namespace ObjectsUnitTest.Mob
         }
 
         [TestMethod]
-        public void Mount_LoadDefaultValues_Elephant()
+        public void Mount_Constructor_Elephant()
         {
-            mount.LoadDefaultValues(DefaultValues.Elephant);
+            mount = new Mount(DefaultValues.Elephant);
 
             Assert.AreEqual(1, mount.Movement);
             Assert.AreEqual(20, mount.StaminaMultiplier);
-            Assert.AreEqual(CallType.Track, mount.TypeOfCall);
             Assert.AreEqual(5, mount.MaxRiders);
             Assert.AreEqual("Skitters", mount.KeyWords[0]);
             Assert.AreEqual("Elephant", mount.KeyWords[1]);
@@ -87,13 +83,12 @@ namespace ObjectsUnitTest.Mob
         }
 
         [TestMethod]
-        public void Mount_LoadDefaultValues_Elk()
+        public void Mount_Constructor_Elk()
         {
-            mount.LoadDefaultValues(DefaultValues.Elk);
+            mount = new Mount(DefaultValues.Elk);
 
             Assert.AreEqual(3, mount.Movement);
             Assert.AreEqual(7, mount.StaminaMultiplier);
-            Assert.AreEqual(CallType.Track, mount.TypeOfCall);
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Addax", mount.KeyWords[0]);
             Assert.AreEqual("Elk", mount.KeyWords[1]);
@@ -102,13 +97,12 @@ namespace ObjectsUnitTest.Mob
         }
 
         [TestMethod]
-        public void Mount_LoadDefaultValues_Panther()
+        public void Mount_Constructor_Panther()
         {
-            mount.LoadDefaultValues(DefaultValues.Panther);
+            mount = new Mount(DefaultValues.Panther);
 
             Assert.AreEqual(5, mount.Movement);
             Assert.AreEqual(5, mount.StaminaMultiplier);
-            Assert.AreEqual(CallType.Track, mount.TypeOfCall);
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Storm", mount.KeyWords[0]);
             Assert.AreEqual("Panther", mount.KeyWords[1]);
@@ -117,13 +111,12 @@ namespace ObjectsUnitTest.Mob
         }
 
         [TestMethod]
-        public void Mount_LoadDefaultValues_Griffin()
+        public void Mount_Constructor_Griffin()
         {
-            mount.LoadDefaultValues(DefaultValues.Griffin);
+            mount = new Mount(DefaultValues.Griffin);
 
             Assert.AreEqual(3, mount.Movement);
             Assert.AreEqual(7, mount.StaminaMultiplier);
-            Assert.AreEqual(CallType.Summon, mount.TypeOfCall);
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Apollo", mount.KeyWords[0]);
             Assert.AreEqual("Griffin", mount.KeyWords[1]);

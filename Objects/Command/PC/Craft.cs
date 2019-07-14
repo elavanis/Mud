@@ -11,7 +11,7 @@ namespace Objects.Command.PC
 {
     public class Craft : IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result("Craft [Position] [Level] [Keyword] [\"SentenceDescription\"] [\"ShortDescription\"] [\"LongDescription\"] [\"ExamineDescription\"] {DamageType}", true);
+        public IResult Instructions { get; } = new Result("Craft [Position] [Level] [Keyword] [\"SentenceDescription\"] [\"ShortDescription\"] [\"LookDescription\"] [\"ExamineDescription\"] {DamageType}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Craft" };
 
@@ -48,7 +48,7 @@ namespace Objects.Command.PC
                 string keyword = command.Parameters[2].ParameterValue;
                 string sentenceDescription = command.Parameters[3].ParameterValue;
                 string shortDescription = command.Parameters[4].ParameterValue;
-                string longDescription = command.Parameters[5].ParameterValue;
+                string lookDescription = command.Parameters[5].ParameterValue;
                 string examineDescription = command.Parameters[6].ParameterValue;
                 DamageType damageType = DamageType.Acid;
                 if (position == AvalableItemPosition.Wield)
@@ -62,7 +62,7 @@ namespace Objects.Command.PC
                     return new Result(null, true);
                 }
 
-                return craftsmanPersonality.Build(craftsman, pc, position, level, keyword, sentenceDescription, shortDescription, longDescription, examineDescription, damageType);
+                return craftsmanPersonality.Build(craftsman, pc, position, level, keyword, sentenceDescription, shortDescription, lookDescription, examineDescription, damageType);
             }
             catch (Exception ex)
             {
