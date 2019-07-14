@@ -40,7 +40,9 @@ namespace Objects.Mob
         #endregion Descriptions
         #endregion AnimalInfo
 
-        public Mount()        {        }
+        public Mount()
+        {
+        }
 
         public Mount(DefaultValues defaultValue)
         {

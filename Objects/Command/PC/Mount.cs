@@ -10,7 +10,7 @@ namespace Objects.Command.PC
     public class Mount : IMobileObjectCommand
     {
         public IResult Instructions { get; } = new Result(@"Mount {call}
-Mount [pickup] [Mob Name]", false);
+Mount [pickup] [Mob Name]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Mount" };
 
