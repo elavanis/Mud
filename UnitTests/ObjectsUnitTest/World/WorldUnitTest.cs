@@ -1286,5 +1286,11 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             Assert.AreEqual(1, result.GuildPoints);
             Assert.AreEqual(1, world.AddPlayerQueue.Count);
         }
+
+        [TestMethod]
+        public void World_WriteMountUnitTests()
+        {
+            Assert.AreEqual(1, 2);
+        }
     }
 }

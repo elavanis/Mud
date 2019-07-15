@@ -78,6 +78,24 @@ namespace ObjectsUnitTest.Room
         }
 
         [TestMethod]
+        public void Room_AddMobToRoom_Npc()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void Room_AddMobToRoom_Pc()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void Room_AddMobToRoom_OtherMob()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
         public void Room_RemoveItemFromRoom_ValutContentsWritten()
         {
             FieldInfo fieldInfo = room.GetType().GetField("_items", BindingFlags.Instance | BindingFlags.NonPublic);

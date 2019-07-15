@@ -34,26 +34,17 @@ namespace Objects.Ability
         [ExcludeFromCodeCoverage]
         public string AbilityName { get; set; }
 
-
-        [ExcludeFromCodeCoverage]
-        protected IResult PerformAbility(IMobileObject performer, ICommand command)
-        {
-            throw new NotImplementedException();
-        }
-
         [ExcludeFromCodeCoverage]
         public virtual IResult RequirementsFailureMessage
         {
             get => new Result("Unspecified requirements failure", true);
         }
 
-
         [ExcludeFromCodeCoverage]
         protected IResult AbilityFailed(IMobileObject performer, IMobileObject target)
         {
             throw new NotImplementedException();
         }
-
 
         [ExcludeFromCodeCoverage]
         protected virtual bool MeetRequirments(IMobileObject performer, IMobileObject target)

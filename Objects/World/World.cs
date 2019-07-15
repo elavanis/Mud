@@ -690,6 +690,23 @@ namespace Objects.World
                 }
             }
         }
+
+        public void AddMountToWorld(IMount mount)
+        {
+            lock (_loadedMounts)
+            {
+                _loadedMounts.Add(mount);
+            }
+        }
+
+        public void RemoveMountFromWorld(IMount mount)
+        {
+            lock (_loadedMounts)
+            {
+                _loadedMounts.Remove(mount);
+            }
+        }
+
         #endregion Mounts
 
         private void AutoSaveCharacters()
@@ -1204,6 +1221,8 @@ To see infon on how to use a command type MAN and then the COMMAND.";
                 }
             }
         }
+
+    
         #endregion Tick Methods
     }
 }

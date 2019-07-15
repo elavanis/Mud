@@ -85,36 +85,34 @@ Mount [pickup] [Mob Name]", true);
 
         private IResult SummonMount(IMobileObject performer)
         {
-            if (performer.Mount != null)
-            {
-                return new Result("You mount has been called.", true);
-            }
-            else
-            {
-                return new Result("You do not own a mount.", true);
-            }
+            IMount mount = performer.Mount;
+            GlobalReference.GlobalValues.World.AddMountToWorld(mount);
+            mount.Riders.Clear();
+            performer.Mount.Room.AddMobileObjectToRoom(mount);
+            mount.Room = performer.Room;
+
+            return new Result("Your mount has been called.", true);
         }
 
         private IResult MountYourMount(IMobileObject performer)
         {
-            if (performer.Mount == null)
-            {
-                return new Result("You do not own a mount.", true);
-            }
+            IMount mount = performer.Mount;
 
-            if (performer.Mount.Room != performer.Room)
-            {
-                return new Result("Your mount is not in the same room as you.", true);
-            }
-
-            if (performer.Mount.Riders.Count > 0
-                && performer.Mount.Riders[0] == performer)
+            if (mount.Riders.Count > 0
+                && mount.Riders[0] == performer)
             {
                 return new Result($"You are already mounted on your {performer.Mount.SentenceDescription}.", true);
             }
 
-            performer.Mount.Riders.Add(performer);
-            return new Result($"You mount your {performer.Mount.SentenceDescription}.", true);
+            mount.Riders.Insert(0,performer);
+
+            while (mount.Riders.Count > mount.MaxRiders)
+            {
+                mount.Riders.RemoveAt(mount.Riders.Count - 1);
+            }
+
+
+            return new Result($"You mount your {performer.Mount.SentenceDescription}.", false);
         }
     }
 }

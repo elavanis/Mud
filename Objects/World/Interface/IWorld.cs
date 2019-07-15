@@ -53,6 +53,8 @@ namespace Objects.World.Interface
         void SaveWorld();
         string SerializePlayerCharacter(IPlayerCharacter character);
         string SerializeZone(IZone zone);
+        void AddMountToWorld(IMount mount);
+        void RemoveMountFromWorld(IMount mount);
 
         ConcurrentDictionary<string, string> WorldResults { get; }
         ConcurrentQueue<string> WorldCommands { get; }
