@@ -10,6 +10,7 @@ namespace Objects.Command.PC
     public class Mount : IMobileObjectCommand
     {
         public IResult Instructions { get; } = new Result(@"Mount {call}
+Mount {mount}
 Mount [pickup] [Mob Name]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Mount" };
@@ -18,23 +19,12 @@ Mount [pickup] [Mob Name]", true);
         {
             if (command.Parameters.Count <= 0)
             {
-                if (performer.Mount == null)
-                {
-                    return new Result("You do not own a mount.", true);
-                }
-
-                if (performer.Mount.Room == performer.Room)
-                {
-                    return MountYourMount(performer);
-                }
-                else
-                {
-                    return SummonMount(performer);
-                }
+                return MountOrCall(performer);
             }
-            else if (command.Parameters[0].ParameterValue.ToUpper() == "CALL")
+            else if (command.Parameters[0].ParameterValue.ToUpper() == "CALL"
+                    || (command.Parameters[0].ParameterValue.ToUpper() == "MOUNT"))
             {
-                return SummonMount(performer);
+                return MountOrCall(performer);
             }
             else if (command.Parameters[0].ParameterValue.ToUpper() == "PICKUP"
                 && command.Parameters.Count == 2)
@@ -45,42 +35,64 @@ Mount [pickup] [Mob Name]", true);
             else return (Instructions);
         }
 
-
-
-        private IResult PickupRider(IMobileObject performer, IParameter parameter)
+        private IResult MountOrCall(IMobileObject performer)
         {
             if (performer.Mount == null)
             {
                 return new Result("You do not own a mount.", true);
             }
 
-            if (performer.Mount.Room != performer.Room)
+            if (performer.Mount.Room == performer.Room)
+            {
+                return MountYourMount(performer);
+            }
+            else
+            {
+                return SummonMount(performer);
+            }
+        }
+
+        private IResult PickupRider(IMobileObject performer, IParameter parameter)
+        {
+            IMount mount = performer.Mount;
+
+            if (mount == null)
+            {
+                return new Result("You do not own a mount.", true);
+            }
+
+            if (mount.Room != performer.Room)
             {
                 return new Result("Your mount is not in the same room as you.", true);
             }
 
-            if (performer.Mount.Riders.Count == 0)
+            if (mount.Riders.Count == 0
+                || mount.Riders[0] != performer)
             {
                 return new Result("You need to mount your mount before picking up additional riders.", true);
             }
 
-            if (performer.Mount.MaxRiders >= performer.Mount.Riders.Count)
+            if (mount.MaxRiders <= mount.Riders.Count)
             {
                 return new Result("Your mount can not carry additional riders.", true);
             }
 
-            IMobileObject mobToPickup = GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, parameter.ParameterValue, parameter.ParameterNumber, false, true, true, true, false) as IMobileObject;
+            IMobileObject mobToPickup = GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, parameter.ParameterValue, parameter.ParameterNumber, false, false, true, true, false) as IMobileObject;
 
             if (mobToPickup != null)
             {
-                performer.Mount.Riders.Add(mobToPickup);
+                if (mount.Riders.Contains(mobToPickup))
+                {
+                    return new Result($"{mobToPickup.SentenceDescription} is already riding with you.", true);
+                }
+
+                mount.Riders.Add(mobToPickup);
                 return new Result($"You pickup {mobToPickup.SentenceDescription}.", true);
             }
             else
             {
                 return new Result($"Unable to find {parameter.ParameterValue}.", true);
             }
-
         }
 
         private IResult SummonMount(IMobileObject performer)
@@ -88,7 +100,8 @@ Mount [pickup] [Mob Name]", true);
             IMount mount = performer.Mount;
             GlobalReference.GlobalValues.World.AddMountToWorld(mount);
             mount.Riders.Clear();
-            performer.Mount.Room.AddMobileObjectToRoom(mount);
+            mount.Room.RemoveMobileObjectFromRoom(mount);
+            performer.Room.AddMobileObjectToRoom(mount);
             mount.Room = performer.Room;
 
             return new Result("Your mount has been called.", true);
@@ -104,7 +117,7 @@ Mount [pickup] [Mob Name]", true);
                 return new Result($"You are already mounted on your {performer.Mount.SentenceDescription}.", true);
             }
 
-            mount.Riders.Insert(0,performer);
+            mount.Riders.Insert(0, performer);
 
             while (mount.Riders.Count > mount.MaxRiders)
             {
