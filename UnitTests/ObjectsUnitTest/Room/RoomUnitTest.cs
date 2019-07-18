@@ -37,6 +37,13 @@ namespace ObjectsUnitTest.Room
         Mock<ITagWrapper> tagWrapper;
         Mock<ILoadableItems> loadableItem;
         Mock<ILoadPercentage> loadPercentage;
+        Mock<INonPlayerCharacter> npc;
+        Mock<IPlayerCharacter> pc;
+        Mock<IMount> mount;
+
+        List<INonPlayerCharacter> lNpc;
+        List<IPlayerCharacter> lPc;
+        List<IMobileObject> lOtherMob;
 
         [TestInitialize]
         public void Setup()
@@ -50,6 +57,9 @@ namespace ObjectsUnitTest.Room
             tagWrapper = new Mock<ITagWrapper>();
             loadableItem = new Mock<ILoadableItems>();
             loadPercentage = new Mock<ILoadPercentage>();
+            npc = new Mock<INonPlayerCharacter>();
+            pc = new Mock<IPlayerCharacter>();
+            mount = new Mock<IMount>();
 
             settings.Setup(e => e.VaultDirectory).Returns("vault");
             serializer.Setup(e => e.Serialize(It.IsAny<List<IItem>>())).Returns("serializedList");
@@ -65,6 +75,13 @@ namespace ObjectsUnitTest.Room
             room = new Objects.Room.Room();
             room.Zone = 1;
             room.Id = 2;
+
+            FieldInfo fieldInfo = room.GetType().GetField("_nonPlayerCharacters", BindingFlags.Instance | BindingFlags.NonPublic);
+            lNpc = (List<INonPlayerCharacter>)fieldInfo.GetValue(room);
+            fieldInfo = room.GetType().GetField("_playerCharacters", BindingFlags.Instance | BindingFlags.NonPublic);
+            lPc = (List<IPlayerCharacter>)fieldInfo.GetValue(room);
+            fieldInfo = room.GetType().GetField("_otherMobs", BindingFlags.Instance | BindingFlags.NonPublic);
+            lOtherMob = (List<IMobileObject>)fieldInfo.GetValue(room);
         }
 
         [TestMethod]
@@ -80,37 +97,74 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_AddMobToRoom_Npc()
         {
-            Assert.AreEqual(1, 2);
+            room.AddMobileObjectToRoom(npc.Object);
+
+            Assert.AreEqual(1, lNpc.Count());
+            Assert.AreEqual(0, lPc.Count());
+            Assert.AreEqual(0, lOtherMob.Count());
+            Assert.IsTrue(room.NonPlayerCharacters.Contains(npc.Object));
         }
 
         [TestMethod]
         public void Room_AddMobToRoom_Pc()
         {
-            Assert.AreEqual(1, 2);
+            room.AddMobileObjectToRoom(pc.Object);
+
+            Assert.AreEqual(0, lNpc.Count());
+            Assert.AreEqual(1, lPc.Count());
+            Assert.AreEqual(0, lOtherMob.Count());
+            Assert.IsTrue(room.PlayerCharacters.Contains(pc.Object));
         }
 
         [TestMethod]
         public void Room_AddMobToRoom_OtherMob()
         {
-            Assert.AreEqual(1, 2);
+            room.AddMobileObjectToRoom(mount.Object);
+
+            Assert.AreEqual(0, lNpc.Count());
+            Assert.AreEqual(0, lPc.Count());
+            Assert.AreEqual(1, lOtherMob.Count());
+            Assert.IsTrue(room.OtherMobs.Contains(mount.Object));
         }
 
         [TestMethod]
         public void Room_RemoveMobToRoom_Npc()
         {
-            Assert.AreEqual(1, 2);
+            lNpc.Add(npc.Object);
+
+            room.RemoveMobileObjectFromRoom(npc.Object);
+
+            Assert.AreEqual(0, lNpc.Count());
+            Assert.AreEqual(0, lPc.Count());
+            Assert.AreEqual(0, lOtherMob.Count());
         }
 
         [TestMethod]
         public void Room_RemoveMobToRoom_Pc()
         {
-            Assert.AreEqual(1, 2);
+            {
+                lPc.Add(pc.Object);
+
+                room.RemoveMobileObjectFromRoom(pc.Object);
+
+                Assert.AreEqual(0, lNpc.Count());
+                Assert.AreEqual(0, lPc.Count());
+                Assert.AreEqual(0, lOtherMob.Count());
+            }
         }
 
         [TestMethod]
         public void Room_RemoveMobToRoom_OtherMob()
         {
-            Assert.AreEqual(1, 2);
+            {
+                lOtherMob.Add(mount.Object);
+
+                room.RemoveMobileObjectFromRoom(mount.Object);
+
+                Assert.AreEqual(0, lNpc.Count());
+                Assert.AreEqual(0, lPc.Count());
+                Assert.AreEqual(0, lOtherMob.Count());
+            }
         }
 
         [TestMethod]

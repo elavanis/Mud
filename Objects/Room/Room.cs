@@ -372,19 +372,20 @@ namespace Objects.Room
                     return _nonPlayerCharacters.Remove(npc);
                 }
             }
-            else
+
+            IPlayerCharacter pc = mob as IPlayerCharacter;
+            if (pc != null)
             {
-                IPlayerCharacter pc = mob as IPlayerCharacter;
-                if (pc != null)
+                lock (_playerCharactersLock)
                 {
-                    lock (_playerCharactersLock)
-                    {
-                        return _playerCharacters.Remove(pc);
-                    }
+                    return _playerCharacters.Remove(pc);
                 }
             }
 
-            return false;
+            lock (_otherMobs)
+            {
+                return _otherMobs.Remove(mob);
+            }
         }
 
         public bool RemoveItemFromRoom(IItem item)

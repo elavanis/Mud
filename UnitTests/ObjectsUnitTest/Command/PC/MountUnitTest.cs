@@ -292,11 +292,5 @@ Mount [pickup] [Mob Name]", result.ResultMessage);
 Mount {mount}
 Mount [pickup] [Mob Name]", result.ResultMessage);
         }
-
-        [TestMethod]
-        public void Mount_WriteUnitTest()
-        {
-            Assert.AreEqual(1, 2);
-        }
     }
 }
