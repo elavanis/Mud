@@ -80,6 +80,7 @@ namespace ObjectsUnitTest.Command.PC
 
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual(@"Mount {call}
+Mount {mount}
 Mount [pickup] [Mob Name]", result.ResultMessage);
         }
 
@@ -235,7 +236,7 @@ Mount [pickup] [Mob Name]", result.ResultMessage);
         }
 
         [TestMethod]
-        public void Mount_PerformCommand_PickupParameter_AddRider()
+        public void Mount_PerformCommand_PickupParameter_AlreadyRiding()
         {
             parameters.Add(parameter1.Object);
             parameters.Add(parameter2.Object);
@@ -248,13 +249,49 @@ Mount [pickup] [Mob Name]", result.ResultMessage);
             Assert.AreEqual("otherMob is already riding with you.", result.ResultMessage);
         }
 
+        [TestMethod]
+        public void Mount_PerformCommand_PickupParameter_AddRider()
+        {
+            parameters.Add(parameter1.Object);
+            parameters.Add(parameter2.Object);
+            riders.Add(performer.Object);
+            mount.Setup(e => e.MaxRiders).Returns(3);
+
+            IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("You pickup otherMob.", result.ResultMessage);
+            Assert.IsTrue(riders.Contains(otherMob.Object));
+        }
 
 
+        [TestMethod]
+        public void Mount_PerformCommand_PickupParameter_CantFindRider()
+        {
+            parameter2.Setup(e => e.ParameterValue).Returns("notFound");
+            parameters.Add(parameter1.Object);
+            parameters.Add(parameter2.Object);
+            riders.Add(performer.Object);
+            mount.Setup(e => e.MaxRiders).Returns(3);
 
+            IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("Unable to find notFound.", result.ResultMessage);
+        }
 
+        [TestMethod]
+        public void Mount_PerformCommand_TooManyParameters()
+        {
+            parameters.Add(parameter1.Object);
+            parameters.Add(parameter2.Object);
+            parameters.Add(parameter1.Object);
 
+            IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
-
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(@"Mount {call}
+Mount {mount}
+Mount [pickup] [Mob Name]", result.ResultMessage);
+        }
 
         [TestMethod]
         public void Mount_WriteUnitTest()
