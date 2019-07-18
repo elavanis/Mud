@@ -41,7 +41,7 @@ namespace Objects.World
         private ConcurrentQueue<IMobileObject> _followMobQueue = new ConcurrentQueue<IMobileObject>();
         private DateTime _lastSave = DateTime.UtcNow;
         private int _lastLogMinute = -1;
-        private List<IMount> _loadedMounts = new List<IMount>();
+        private HashSet<IMount> _loadedMounts = new HashSet<IMount>();
 
         public World()
         {
@@ -1222,7 +1222,7 @@ To see infon on how to use a command type MAN and then the COMMAND.";
             }
         }
 
-    
+
         #endregion Tick Methods
     }
 }

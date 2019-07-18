@@ -68,7 +68,9 @@ namespace ObjectsUnitTest.World
         Mock<IGlobalValues> globalValues;
         Mock<IDefaultValues> defaultValues;
         Mock<IMoneyToCoins> moneyToCoins;
-        PropertyInfo propertyInfoWorld;
+        Mock<IMount> mount;
+        List<IPlayerCharacter> pcList;
+        HashSet<IMount> loadedMounts;
 
         [TestInitialize]
         public void Setup()
@@ -93,6 +95,7 @@ namespace ObjectsUnitTest.World
             globalValues = new Mock<IGlobalValues>();
             defaultValues = new Mock<IDefaultValues>();
             moneyToCoins = new Mock<IMoneyToCoins>();
+            mount = new Mock<IMount>();
 
             Mock<ILogger> logger = new Mock<ILogger>();
             Mock<ICounters> counters = new Mock<ICounters>();
@@ -145,7 +148,10 @@ namespace ObjectsUnitTest.World
 
             world = new Objects.World.World();
             world.Zones.Add(0, zone.Object);
-            propertyInfoWorld = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
+            PropertyInfo propertyInfoWorld = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
+            pcList = (List<IPlayerCharacter>)propertyInfoWorld.GetValue(world);
+            FieldInfo fieldInfo = world.GetType().GetField("_loadedMounts", BindingFlags.NonPublic | BindingFlags.Instance);
+            loadedMounts = (HashSet<IMount>)fieldInfo.GetValue(world);
 
         }
 
@@ -369,7 +375,7 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Serialization = serializer.Object;
 
-            List<IPlayerCharacter> pcList = (List<IPlayerCharacter>)propertyInfoWorld.GetValue(world);
+
             pcList.Add(pc.Object);
 
             FieldInfo field = world.GetType().GetField("_lastSave", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -399,7 +405,6 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Serialization = serializer.Object;
 
-            List<IPlayerCharacter> pcList = (List<IPlayerCharacter>)propertyInfoWorld.GetValue(world);
             pcList.Add(pc.Object);
 
             FieldInfo field = world.GetType().GetField("_lastSave", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -862,7 +867,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             rooms.Add(1, room.Object);
             pc.Setup(e => e.Room).Returns(room2.Object);
             pc.Setup(e => e.LastProccessedTick).Returns(1);
-            ((List<IPlayerCharacter>)propertyInfoWorld.GetValue(world)).Add(pc.Object);
+            pcList.Add(pc.Object);
             room2.Setup(e => e.Zone).Returns(1);
             room2.Setup(e => e.Id).Returns(1);
             room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
@@ -1034,7 +1039,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             Mock<ISettings> settings = new Mock<ISettings>();
 
             pc.Setup(e => e.Name).Returns("name");
-            ((List<IPlayerCharacter>)propertyInfoWorld.GetValue(world)).Add(pc.Object);
+            pcList.Add(pc.Object);
             settings.Setup(e => e.PlayerCharacterDirectory).Returns("directory");
 
             GlobalReference.GlobalValues.Settings = settings.Object;
@@ -1054,7 +1059,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
 
             pc.Setup(e => e.Name).Returns("name");
             pc2.Setup(e => e.Name).Returns("bob");
-            ((List<IPlayerCharacter>)propertyInfoWorld.GetValue(world)).Add(pc2.Object);
+            pcList.Add(pc2.Object);
             fileIO.Setup(e => e.GetFilesFromDirectory("directory")).Returns(new string[] { "c:\\name.char" });
             fileIO.Setup(e => e.ReadAllText("c:\\name.char")).Returns("serializedPlayer");
             seralizer.Setup(e => e.Deserialize<PlayerCharacter>("serializedPlayer")).Returns(realPc);
@@ -1239,7 +1244,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
             pc.Setup(e => e.Room).Returns(room.Object);
             room.Setup(e => e.PlayerCharacters).Returns(listPC);
             listPC.Add(pc.Object);
-            ((List<IPlayerCharacter>)propertyInfoWorld.GetValue(world)).Add(pc.Object);
+            pcList.Add(pc.Object);
             settings.Setup(e => e.PlayerCharacterDirectory).Returns("c:\\");
             serializer.Setup(e => e.Serialize(pc.Object)).Returns("serializedPC");
 
@@ -1249,7 +1254,7 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
 
             world.LogOutCharacter("name");
 
-            Assert.AreEqual(0, ((List<IPlayerCharacter>)propertyInfoWorld.GetValue(world)).Count);
+            Assert.AreEqual(0, pcList.Count);
             room.Verify(e => e.RemoveMobileObjectFromRoom(pc.Object));
         }
 
@@ -1288,9 +1293,23 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         }
 
         [TestMethod]
-        public void World_WriteMountUnitTests()
+        public void World_AddMountToWorld()
         {
-            Assert.AreEqual(1, 2);
+            world.AddMountToWorld(mount.Object);
+
+            Assert.AreEqual(1, loadedMounts.Count);
+            Assert.IsTrue(loadedMounts.Contains(mount.Object));
+        }
+
+        [TestMethod]
+        public void World_RemoveMountFromWorld()
+        {
+            loadedMounts.Add(mount.Object);
+
+            world.RemoveMountFromWorld(mount.Object);
+
+            Assert.AreEqual(0, loadedMounts.Count);
+            Assert.IsFalse(loadedMounts.Contains(mount.Object));
         }
     }
 }
