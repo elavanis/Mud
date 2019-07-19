@@ -610,7 +610,7 @@ namespace ObjectsUnitTest.World
 
             Assert.AreEqual(@"Unable to figure out how to 4.
 To see a list of all commands type MAN.
-To see infon on how to use a command type MAN and then the COMMAND.", message.Message);
+To see info on how to use a command type MAN and then the COMMAND.", message.Message);
         }
 
         [TestMethod]
