@@ -1187,7 +1187,7 @@ namespace Objects.World
                         {
                             string message = $@"Unable to figure out how to {command.CommandName}.
 To see a list of all commands type MAN.
-To see infon on how to use a command type MAN and then the COMMAND.";
+To see info on how to use a command type MAN and then the COMMAND.";
                             result = new Result(message, true);
                         }
 

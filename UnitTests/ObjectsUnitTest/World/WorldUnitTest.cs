@@ -69,6 +69,11 @@ namespace ObjectsUnitTest.World
         Mock<IDefaultValues> defaultValues;
         Mock<IMoneyToCoins> moneyToCoins;
         Mock<IMount> mount;
+        Mock<IParser> parser;
+        Mock<ICommand> command;
+        Mock<ICommandList> commandList;
+        Mock<IMobileObjectCommand> mobCommand;
+        Mock<IResult> result;
         List<IPlayerCharacter> pcList;
         HashSet<IMount> loadedMounts;
 
@@ -96,6 +101,11 @@ namespace ObjectsUnitTest.World
             defaultValues = new Mock<IDefaultValues>();
             moneyToCoins = new Mock<IMoneyToCoins>();
             mount = new Mock<IMount>();
+            parser = new Mock<IParser>();
+            command = new Mock<ICommand>();
+            commandList = new Mock<ICommandList>();
+            mobCommand = new Mock<IMobileObjectCommand>();
+            result = new Mock<IResult>();
 
             Mock<ILogger> logger = new Mock<ILogger>();
             Mock<ICounters> counters = new Mock<ICounters>();
@@ -130,6 +140,14 @@ namespace ObjectsUnitTest.World
             fileIO.Setup(e => e.ReadAllText("c:\\00010101\\Stats.stat")).Returns("serial");
             defaultValues.Setup(e => e.MoneyForNpcLevel(1)).Returns(100);
             moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("0 coins");
+            mount.Setup(e => e.Movement).Returns(4);
+            mount.Setup(e => e.CommmandQueueCount).Returns(1);
+            mount.Setup(e => e.DequeueCommand()).Returns("South");
+            parser.Setup(e => e.Parse("South")).Returns(command.Object);
+            command.Setup(e => e.CommandName).Returns("South");
+            commandList.Setup(e => e.GetCommand(mount.Object, "South")).Returns(mobCommand.Object);
+            mobCommand.Setup(e => e.PerformCommand(mount.Object, command.Object)).Returns(result.Object);
+
 
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Random = random.Object;
@@ -145,6 +163,8 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
+            GlobalReference.GlobalValues.Parser = parser.Object;
+            GlobalReference.GlobalValues.CommandList = commandList.Object;
 
             world = new Objects.World.World();
             world.Zones.Add(0, zone.Object);
@@ -979,7 +999,11 @@ To see infon on how to use a command type MAN and then the COMMAND.", message.Me
         [TestMethod]
         public void World_PerformTick_ProccessSerialCommands_Mounts()
         {
-            Assert.AreEqual(1, 2);
+            loadedMounts.Add(mount.Object);
+
+            world.PerformTick();
+
+            mount.Verify(e => e.DequeueCommand(), Times.Exactly(4));
         }
 
         #endregion ProccessSerialCommands
