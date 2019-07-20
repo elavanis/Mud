@@ -100,7 +100,7 @@ Mount [pickup] [Mob Name]", true);
             IMount mount = performer.Mount;
             GlobalReference.GlobalValues.World.AddMountToWorld(mount);
             mount.Riders.Clear();
-            mount.Room.RemoveMobileObjectFromRoom(mount);
+            mount.Room?.RemoveMobileObjectFromRoom(mount);
             performer.Room.AddMobileObjectToRoom(mount);
             mount.Room = performer.Room;
 

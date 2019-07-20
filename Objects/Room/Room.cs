@@ -328,7 +328,6 @@ namespace Objects.Room
 
             lock (_otherMobsLock)
             {
-
                 _otherMobs.Add(mob);
             }
         }
