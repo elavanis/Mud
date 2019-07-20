@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Objects.Command.Interface;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using static Objects.Mob.Mount;
@@ -11,7 +12,5 @@ namespace Objects.Mob.Interface
         int StaminaMultiplier { get; set; }
         int MaxRiders { get; set; }
         List<IMobileObject> Riders { get; set; }
-
-
     }
 }

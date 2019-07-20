@@ -30,6 +30,22 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            //check to see if they are mounted on their mount
+            if (performer.Mount != null 
+                && performer.Mount.Room == performer.Room
+                && performer.Mount.Riders.Contains(performer))
+            {
+                //they are mounted, send the move to command to their mount
+                performer.Mount.EnqueueCommand(command.Parameters[0].ParameterValue);
+                
+            }
+
+
+
+
+
+
+
             IResult result = GlobalReference.GlobalValues.CanMobDoSomething.Move(performer);
             if (result != null)
             {
