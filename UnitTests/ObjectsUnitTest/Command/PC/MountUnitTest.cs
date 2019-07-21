@@ -263,7 +263,6 @@ Mount [pickup] [Mob Name]", result.ResultMessage);
             Assert.IsTrue(riders.Contains(otherMob.Object));
         }
 
-
         [TestMethod]
         public void Mount_PerformCommand_PickupParameter_CantFindRider()
         {
@@ -291,6 +290,12 @@ Mount [pickup] [Mob Name]", result.ResultMessage);
             Assert.AreEqual(@"Mount {call}
 Mount {mount}
 Mount [pickup] [Mob Name]", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void Mount_WriteTestForMounts()
+        {
+            Assert.AreEqual(1, 2);
         }
     }
 }

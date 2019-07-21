@@ -5,12 +5,11 @@ using Objects.Mob.Interface;
 using Objects.Global;
 using static Objects.Global.Direction.Directions;
 using Objects.Room.Interface;
-using Objects.Command.PC.Interface;
 using Objects.Language;
 
 namespace Objects.Command.PC
 {
-    public class Move : IMobileObjectCommand, IMove
+    public class Move : IMobileObjectCommand
     {
         public IResult Instructions { get; } = new Result(InstructionText(), true);
 
@@ -31,57 +30,72 @@ namespace Objects.Command.PC
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
             //check to see if they are mounted on their mount
-            if (performer.Mount != null 
+            if (performer.Mount != null
                 && performer.Mount.Room == performer.Room
                 && performer.Mount.Riders.Contains(performer))
             {
                 //they are mounted, send the move to command to their mount
                 performer.Mount.EnqueueCommand(command.Parameters[0].ParameterValue);
-                
+
+                return null;
             }
-
-
-
-
-
-
-
-            IResult result = GlobalReference.GlobalValues.CanMobDoSomething.Move(performer);
-            if (result != null)
+            else
             {
-                return result;
+                IResult result = GlobalReference.GlobalValues.CanMobDoSomething.Move(performer);
+                if (result != null)
+                {
+                    return result;
+                }
+
+                IRoom room = performer.Room;
+
+                Direction direction = FindDirection(command);
+                IExit exit = FindExit(direction, room);
+
+                result = ValidateExit(exit);
+                if (result != null)
+                {
+                    return result;
+                }
+
+                result = room.CheckLeave(performer);
+                if (result != null)
+                {
+                    return result;
+                }
+
+                result = room.CheckLeaveDirection(performer, direction);
+                if (result != null)
+                {
+                    return result;
+                }
+
+                IRoom proposedRoom = GlobalReference.GlobalValues.World.Zones[exit.Zone].Rooms[exit.Room];
+
+                //we are safe to cross zones because we make a copy of each pc/npc list before processing it in a thread safe manor
+                return MoveToRoom(performer, room, direction, proposedRoom);
             }
-
-            IRoom room = performer.Room;
-
-            Direction direction = FindDirection(command);
-            IExit exit = FindExit(direction, room);
-
-            result = ValidateExit(exit);
-            if (result != null)
-            {
-                return result;
-            }
-
-            result = room.CheckLeave(performer);
-            if (result != null)
-            {
-                return result;
-            }
-
-            result = room.CheckLeaveDirection(performer, direction);
-            if (result != null)
-            {
-                return result;
-            }
-
-            IRoom proposedRoom = GlobalReference.GlobalValues.World.Zones[exit.Zone].Rooms[exit.Room];
-
-            //we are safe to cross zones because we make a copy of each pc/npc list before processing it in a thread safe manor
-            return MoveToRoom(performer, room, direction, proposedRoom);
         }
 
-        public IResult MoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)
+        private IResult MoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)
+        {
+            IResult result = TryToMoveToRoom(performer, room, direction, proposedRoom);
+
+            IMount mount = performer as IMount;
+            if (mount != null)
+            {
+                if (mount.Riders.Count > 0)
+                {
+                    mount.Riders[0].EnqueueMessage(result.ResultMessage);
+                }
+            }
+            else
+            {
+                return result;
+            }
+        }
+
+        private static IResult TryToMoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)
         {
             IResult result = proposedRoom.CheckEnter(performer);
             if (result != null)
@@ -109,9 +123,6 @@ namespace Objects.Command.PC
             //the character was moved before they could move to the desired room.
             return new Result("", false);
         }
-
-
-
 
         private Direction FindDirection(ICommand command)
         {
