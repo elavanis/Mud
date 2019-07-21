@@ -89,10 +89,8 @@ namespace Objects.Command.PC
                     mount.Riders[0].EnqueueMessage(result.ResultMessage);
                 }
             }
-            else
-            {
-                return result;
-            }
+
+            return result;
         }
 
         private static IResult TryToMoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)
