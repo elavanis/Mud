@@ -133,6 +133,12 @@ namespace Objects.Zone
                     npc.ZoneObjectSyncLoad(zoneObjectSyncValue);
                 }
 
+                foreach (IMobileObject mob in room.OtherMobs)
+                {
+                    mob.FinishLoad(zoneObjectSyncValue);
+                    mob.ZoneObjectSyncLoad(zoneObjectSyncValue);
+                }
+
                 foreach (IItem item in room.Items)
                 {
                     item.FinishLoad(zoneObjectSyncValue);

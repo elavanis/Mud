@@ -19,6 +19,22 @@ namespace Objects.Mob
         [ExcludeFromCodeCoverage]
         public List<IMobileObject> Riders { get; set; } = new List<IMobileObject>();
 
+        public override int MaxStamina
+        {
+            get
+            {
+                if (_maxStamina == -1)
+                {
+                    _maxStamina = ConstitutionEffective * 10 * StaminaMultiplier;
+                }
+                return _maxStamina;
+            }
+            set
+            {
+                _maxStamina = value;
+            }
+        }
+
         #region AnimalInfo
         #region Names
         private List<string> HorseNames = new List<string>() { "Kisses", "Tang", "Fleetbolt", "Shadows", "Zephyr", "Snapdraon", "Sugar Blossom" };
@@ -48,6 +64,40 @@ namespace Objects.Mob
         public Mount(DefaultValues defaultValue)
         {
             LoadDefaultValues(defaultValue);
+        }
+
+        public override void FinishLoad(int zoneObjectSyncValue = -1)
+        {
+            base.FinishLoad(zoneObjectSyncValue);
+
+            if (Level >= 1)
+            {
+                StrengthStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+                DexterityStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+                ConstitutionStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+                IntelligenceStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+                WisdomStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+                CharismaStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
+
+                LevelPoints = GlobalReference.GlobalValues.Settings.AssignableStatPoints;
+
+                while (LevelPoints > 0)
+                {
+                    LevelRandomStat();
+                }
+
+                for (int i = 1; i < Level; i++)
+                {
+                    LevelMobileObject();
+                    //puts the level back to what it was before so this will eventually stop leveling 
+                    //when we get to the desired level
+                    Level--;
+                    while (LevelPoints > 0)
+                    {
+                        LevelRandomStat();
+                    }
+                }
+            }
         }
 
         private void LoadDefaultValues(DefaultValues defaultValue)

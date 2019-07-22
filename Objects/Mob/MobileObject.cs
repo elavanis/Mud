@@ -360,8 +360,8 @@ namespace Objects.Mob
         [ExcludeFromCodeCoverage]
         public int Stamina { get; set; }
 
-        private int _maxStamina = -1;
-        public int MaxStamina
+        protected int _maxStamina = -1;
+        public virtual int MaxStamina
         {
             get
             {
@@ -872,6 +872,39 @@ namespace Objects.Mob
             LevelPoints += average;
             Level++;
             ResetMaxStatValues();
+        }
+
+        protected void LevelRandomStat()
+        {
+            int amount = 1;
+            if (LevelPoints > 10)
+            {
+                amount = LevelPoints / 10;
+            }
+
+            switch (GlobalReference.GlobalValues.Random.Next(6))
+            {
+                case 0:
+                    StrengthStat += amount;
+                    break;
+                case 1:
+                    DexterityStat += amount;
+                    break;
+                case 2:
+                    ConstitutionStat += amount;
+                    break;
+                case 3:
+                    IntelligenceStat += amount;
+                    break;
+                case 4:
+                    WisdomStat += amount;
+                    break;
+                case 5:
+                    CharismaStat += amount;
+                    break;
+            }
+
+            LevelPoints -= amount;
         }
 
 

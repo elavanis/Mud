@@ -42,6 +42,14 @@ namespace Objects.World
         private DateTime _lastSave = DateTime.UtcNow;
         private int _lastLogMinute = -1;
         private HashSet<IMount> _loadedMounts = new HashSet<IMount>();
+        private bool RegerateTick
+        {
+            get
+            {
+                return GlobalReference.GlobalValues.TickCounter % 18 == 0;
+            }
+        }
+
 
         public World()
         {
@@ -458,8 +466,26 @@ namespace Objects.World
         public string SerializePlayerCharacter(IPlayerCharacter character)
         {
             character.Room = null;
+            IMount mount = character.Mount;
+            IRoom mountRoom = null;
+            List<IMobileObject> riders = null;
+            if (mount != null)
+            {
+                riders = mount.Riders;
+                mountRoom = mount.Room;
+                mount.Riders = null;
+                mount.Room = null;
+            }
 
-            return GlobalReference.GlobalValues.Serialization.Serialize(character);
+            string result = GlobalReference.GlobalValues.Serialization.Serialize(character);
+
+            if (mount != null)
+            {
+                character.Mount.Riders = riders;
+                mount.Room = mountRoom;
+            }
+
+            return result;
         }
 
         public IPlayerCharacter CreateCharacter(string userName, string password)
@@ -687,6 +713,11 @@ namespace Objects.World
                     {
                         break;
                     }
+                }
+
+                if (RegerateTick)
+                {
+                    MobRegenerate(mount);
                 }
             }
         }
@@ -969,7 +1000,7 @@ namespace Objects.World
 
                 CleanupEnchantments(mob);
 
-                if (GlobalReference.GlobalValues.TickCounter % 18 == 0)
+                if (RegerateTick)
                 {
                     MobRegenerate(mob);
                 }

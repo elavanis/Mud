@@ -58,6 +58,7 @@ namespace GenerateZones.Zones
             IMount mount = new Mount(Mount.DefaultValues.Elephant);
             mount.Id = 1;
             mount.Level = 1;
+            mount.StaminaMultiplier = 10;
             //mount.Movement = 1;
             //mount.StaminaMultiplier = 10;
             //mount.KeyWords.Add("mount");
@@ -69,7 +70,7 @@ namespace GenerateZones.Zones
 
             room.AddMobileObjectToRoom(mount);
 
-           // room.AddMobileObjectToRoom(new PlayerCharacter() { ShortDescription = "pc short" });
+            // room.AddMobileObjectToRoom(new PlayerCharacter() { ShortDescription = "pc short" });
 
             return room;
         }

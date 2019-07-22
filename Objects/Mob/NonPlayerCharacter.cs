@@ -326,38 +326,6 @@ namespace Objects.Mob
             }
         }
 
-        private void LevelRandomStat()
-        {
-            int amount = 1;
-            if (LevelPoints > 10)
-            {
-                amount = LevelPoints / 10;
-            }
-
-            switch (GlobalReference.GlobalValues.Random.Next(6))
-            {
-                case 0:
-                    StrengthStat += amount;
-                    break;
-                case 1:
-                    DexterityStat += amount;
-                    break;
-                case 2:
-                    ConstitutionStat += amount;
-                    break;
-                case 3:
-                    IntelligenceStat += amount;
-                    break;
-                case 4:
-                    WisdomStat += amount;
-                    break;
-                case 5:
-                    CharismaStat += amount;
-                    break;
-            }
-
-            LevelPoints -= amount;
-        }
 
         public override ICorpse Die(IMobileObject attacker)
         {

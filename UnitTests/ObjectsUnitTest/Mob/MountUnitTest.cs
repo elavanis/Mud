@@ -123,5 +123,17 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual("A majestic griffin stands at the ready.", mount.ShortDescription);
             Assert.AreEqual("griffin", mount.SentenceDescription);
         }
+
+        [TestMethod]
+        public void Mount_FinishLoad()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void Mount_MaxStamina()
+        {
+            Assert.AreEqual(1, 2);
+        }
     }
 }
