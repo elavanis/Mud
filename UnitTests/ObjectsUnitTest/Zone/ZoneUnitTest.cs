@@ -21,6 +21,7 @@ namespace ObjectsUnitTest.Zone
         Mock<IRoom> room;
         Mock<IItem> item;
         Mock<INonPlayerCharacter> npc;
+        Mock<IMobileObject> otherMob;
         Mock<IInGameDateTime> inGameDateTime;
         Mock<IGameDateTime> gameDateTime;
 
@@ -34,12 +35,13 @@ namespace ObjectsUnitTest.Zone
             room = new Mock<IRoom>();
             item = new Mock<IItem>();
             npc = new Mock<INonPlayerCharacter>();
+            otherMob = new Mock<IMobileObject>();
             inGameDateTime = new Mock<IInGameDateTime>();
             gameDateTime = new Mock<IGameDateTime>();
 
             room.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room.Setup(e=>e.OtherMobs).Returns(new List<IMobileObject>() { npc.Object});
+            room.Setup(e => e.OtherMobs).Returns(new List<IMobileObject>() { otherMob.Object });
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             gameDateTime.Setup(e => e.AddDays(1)).Returns(gameDateTime.Object);
 
@@ -55,6 +57,7 @@ namespace ObjectsUnitTest.Zone
 
             Assert.IsNotNull(zone.ResetTime);
             npc.Verify(e => e.FinishLoad(-1), Times.Once);
+            otherMob.Verify(e => e.FinishLoad(-1), Times.Once);
             item.Verify(e => e.FinishLoad(-1), Times.Once);
             room.Verify(e => e.FinishLoad(-1), Times.Once);
         }

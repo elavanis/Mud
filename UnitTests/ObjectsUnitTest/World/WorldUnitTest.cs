@@ -56,6 +56,7 @@ namespace ObjectsUnitTest.World
         Mock<IInGameDateTime> inGameDateTime;
         Mock<INonPlayerCharacter> npc;
         Mock<IPlayerCharacter> pc;
+        Mock<IMobileObject> otherMob;
         Mock<IRoom> room;
         Mock<IZone> zone;
         Mock<INotify> notify;
@@ -89,6 +90,7 @@ namespace ObjectsUnitTest.World
             inGameDateTime = new Mock<IInGameDateTime>();
             npc = new Mock<INonPlayerCharacter>();
             pc = new Mock<IPlayerCharacter>();
+            otherMob = new Mock<IMobileObject>();
             room = new Mock<IRoom>();
             zone = new Mock<IZone>();
             notify = new Mock<INotify>();
@@ -1179,6 +1181,7 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
             realZone.Rooms.Add(1, room.Object);
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.Items).Returns(new List<IItem>());
+            room.Setup(e => e.OtherMobs).Returns(new List<IMobileObject>() { otherMob.Object });
             settings.Setup(e => e.ZoneDirectory).Returns("zonelocation");
 
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
