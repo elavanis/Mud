@@ -36,14 +36,9 @@ namespace Objects.Command.PC
                 && performer.Mount.Riders.Contains(performer))
             {
                 //they are mounted, send the move to command to their mount
-                performer.Mount.EnqueueCommand(command.Parameters[0].ParameterValue);
-                
+                performer.Mount.EnqueueCommand(command.CommandName);
+                return null;
             }
-
-
-
-
-
 
 
             IResult result = GlobalReference.GlobalValues.CanMobDoSomething.Move(performer);
