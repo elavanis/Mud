@@ -352,9 +352,12 @@ namespace Objects.Room
             }
         }
 
-        public bool Leave(IMobileObject performer, Direction direction)
+        public bool Leave(IMobileObject performer, Direction direction, bool mounted)
         {
-            performer.Stamina -= MovementCost;
+            if (!mounted)
+            {
+                performer.Stamina -= MovementCost;
+            }
 
             GlobalReference.GlobalValues.Engine.Event.LeaveRoom(performer, direction);
 

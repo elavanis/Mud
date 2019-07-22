@@ -38,61 +38,43 @@ namespace Objects.Command.PC
                 performer.Mount.EnqueueCommand(command.CommandName);
                 return null;
             }
-            else
+
+            IResult result = GlobalReference.GlobalValues.CanMobDoSomething.Move(performer);
+            if (result != null)
             {
-                IResult result = GlobalReference.GlobalValues.CanMobDoSomething.Move(performer);
-                if (result != null)
-                {
-                    return result;
-                }
-
-                IRoom room = performer.Room;
-
-                Direction direction = FindDirection(command);
-                IExit exit = FindExit(direction, room);
-
-                result = ValidateExit(exit);
-                if (result != null)
-                {
-                    return result;
-                }
-
-                result = room.CheckLeave(performer);
-                if (result != null)
-                {
-                    return result;
-                }
-
-                result = room.CheckLeaveDirection(performer, direction);
-                if (result != null)
-                {
-                    return result;
-                }
-
-                IRoom proposedRoom = GlobalReference.GlobalValues.World.Zones[exit.Zone].Rooms[exit.Room];
-
-                //we are safe to cross zones because we make a copy of each pc/npc list before processing it in a thread safe manor
-                return MoveToRoom(performer, room, direction, proposedRoom);
-            }
-        }
-
-        private IResult MoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)
-        {
-            IResult result = TryToMoveToRoom(performer, room, direction, proposedRoom);
-
-            IMount mount = performer as IMount;
-            if (mount != null)
-            {
-                if (mount.Riders.Count > 0)
-                {
-                    mount.Riders[0].EnqueueMessage(result.ResultMessage);
-                }
+                return result;
             }
 
-            return result;
+            IRoom room = performer.Room;
+
+            Direction direction = FindDirection(command);
+            IExit exit = FindExit(direction, room);
+
+            result = ValidateExit(exit);
+            if (result != null)
+            {
+                return result;
+            }
+
+            result = room.CheckLeave(performer);
+            if (result != null)
+            {
+                return result;
+            }
+
+            result = room.CheckLeaveDirection(performer, direction);
+            if (result != null)
+            {
+                return result;
+            }
+
+            IRoom proposedRoom = GlobalReference.GlobalValues.World.Zones[exit.Zone].Rooms[exit.Room];
+
+            //we are safe to cross zones because we make a copy of each pc/npc list before processing it in a thread safe manor
+            return MoveToRoom(performer, room, direction, proposedRoom);
         }
 
-        private static IResult TryToMoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)
+        private static IResult MoveToRoom(IMobileObject performer, IRoom room, Direction direction, IRoom proposedRoom)
         {
             IResult result = proposedRoom.CheckEnter(performer);
             if (result != null)
@@ -100,7 +82,7 @@ namespace Objects.Command.PC
                 return result;
             }
 
-            if (room.Leave(performer, direction))
+            if (room.Leave(performer, direction, false))
             {
                 performer.Room = proposedRoom;
                 proposedRoom.Enter(performer);
@@ -110,6 +92,18 @@ namespace Objects.Command.PC
 
                 //Announce the mob entering
                 GlobalReference.GlobalValues.Notify.Room(performer, null, proposedRoom, new TranslationMessage($"{performer.SentenceDescription} enters the room."), null, true);
+
+                IMount mount = performer as IMount;
+                if (mount != null)
+                {
+                    foreach (IMobileObject mob in mount.Riders)
+                    {
+                        room.Leave(mob, direction, true);
+                        proposedRoom.Enter(mob);
+                        //have each mob do a look instead of the mount in case its dark or something
+                        mob.EnqueueMessage(GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(mob, new Command()).ResultMessage);
+                    }
+                }
 
                 //take the result of the look, change it so they can't move again and return it.  
                 result = GlobalReference.GlobalValues.CommandList.PcCommandsLookup["LOOK"].PerformCommand(performer, new Command());

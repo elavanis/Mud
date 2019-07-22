@@ -84,12 +84,12 @@ namespace ObjectsUnitTest.Command.PC
             exit.Setup(e => e.Room).Returns(2);
             exit2.Setup(e => e.Zone).Returns(1);
             exit2.Setup(e => e.Room).Returns(3);
-            room.Setup(e => e.Leave(performer.Object, Direction.North)).Returns(true);
-            room.Setup(e => e.Leave(performer.Object, Direction.East)).Returns(true);
-            room.Setup(e => e.Leave(performer.Object, Direction.South)).Returns(true);
-            room.Setup(e => e.Leave(performer.Object, Direction.West)).Returns(true);
-            room.Setup(e => e.Leave(performer.Object, Direction.Up)).Returns(true);
-            room.Setup(e => e.Leave(performer.Object, Direction.Down)).Returns(true);
+            room.Setup(e => e.Leave(performer.Object, Direction.North, false)).Returns(true);
+            room.Setup(e => e.Leave(performer.Object, Direction.East, false)).Returns(true);
+            room.Setup(e => e.Leave(performer.Object, Direction.South, false)).Returns(true);
+            room.Setup(e => e.Leave(performer.Object, Direction.West, false)).Returns(true);
+            room.Setup(e => e.Leave(performer.Object, Direction.Up, false)).Returns(true);
+            room.Setup(e => e.Leave(performer.Object, Direction.Down, false)).Returns(true);
             rooms.Add(2, room2.Object);
             rooms.Add(3, room3.Object);
             zones.Add(1, zone.Object);

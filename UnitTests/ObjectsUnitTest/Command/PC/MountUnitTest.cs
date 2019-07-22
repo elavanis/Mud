@@ -291,11 +291,5 @@ Mount [pickup] [Mob Name]", result.ResultMessage);
 Mount {mount}
 Mount [pickup] [Mob Name]", result.ResultMessage);
         }
-
-        [TestMethod]
-        public void Mount_WriteTestForMounts()
-        {
-            Assert.AreEqual(1, 2);
-        }
     }
 }

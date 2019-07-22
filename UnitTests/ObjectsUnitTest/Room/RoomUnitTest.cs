@@ -446,7 +446,7 @@ namespace ObjectsUnitTest.Room
             engine.Setup(e => e.Event).Returns(evnt.Object);
             GlobalReference.GlobalValues.Engine = engine.Object;
 
-            room.Leave(npc.Object, Direction.East);
+            room.Leave(npc.Object, Direction.East, false);
 
             Assert.AreEqual(0, room.PlayerCharacters.Count);
             evnt.Verify(e => e.LeaveRoom(npc.Object, Direction.East), Times.Once);
@@ -463,10 +463,16 @@ namespace ObjectsUnitTest.Room
             engine.Setup(e => e.Event).Returns(evnt.Object);
             GlobalReference.GlobalValues.Engine = engine.Object;
 
-            room.Leave(pc.Object, Direction.East);
+            room.Leave(pc.Object, Direction.East, false);
 
             Assert.AreEqual(0, room.PlayerCharacters.Count);
             evnt.Verify(e => e.LeaveRoom(pc.Object, Direction.East), Times.Once);
+        }
+
+        [TestMethod]
+        public void Room_Leave_WriteTestWhereMounted()
+        {
+            Assert.AreEqual(1, 2);
         }
 
         [TestMethod]
@@ -516,6 +522,8 @@ namespace ObjectsUnitTest.Room
 
             Assert.IsTrue(room.Items.Contains(item.Object));
         }
+
+
 
         #region Weather
         #region Properties

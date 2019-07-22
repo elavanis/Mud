@@ -126,7 +126,7 @@ namespace Objects.Command.PC
 
                 IRoom proposedRoom = GetProposedRoom(performer.Room, chosenDirection);
 
-                if (performer.Room.Leave(performer, chosenDirection))
+                if (performer.Room.Leave(performer, chosenDirection, false))
                 {
                     performer.Room = proposedRoom;
                     proposedRoom.Enter(performer);

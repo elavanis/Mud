@@ -179,7 +179,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.North).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("North");
             room.Setup(e => e.North).Returns(exit.Object);
-            room.Setup(e => e.Leave(mob.Object, Direction.North)).Returns(true);
+            room.Setup(e => e.Leave(mob.Object, Direction.North, false)).Returns(true);
             dZone.Add(0, zone.Object);
             world.Setup(e => e.Zones).Returns(dZone);
             dRoom.Add(0, differntRoom.Object);
@@ -193,7 +193,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(failedMockResponse.Object, result);
-            room.Verify(e => e.Leave(mob.Object, Direction.North), Times.Once);
+            room.Verify(e => e.Leave(mob.Object, Direction.North, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
             notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
@@ -217,7 +217,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.East).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("East");
             room.Setup(e => e.East).Returns(exit.Object);
-            room.Setup(e => e.Leave(mob.Object, Direction.East)).Returns(true);
+            room.Setup(e => e.Leave(mob.Object, Direction.East, false)).Returns(true);
             dZone.Add(0, zone.Object);
             world.Setup(e => e.Zones).Returns(dZone);
             dRoom.Add(0, differntRoom.Object);
@@ -231,7 +231,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(failedMockResponse.Object, result);
-            room.Verify(e => e.Leave(mob.Object, Direction.East), Times.Once);
+            room.Verify(e => e.Leave(mob.Object, Direction.East, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
             notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
@@ -255,7 +255,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.South).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("South");
             room.Setup(e => e.South).Returns(exit.Object);
-            room.Setup(e => e.Leave(mob.Object, Direction.South)).Returns(true);
+            room.Setup(e => e.Leave(mob.Object, Direction.South, false)).Returns(true);
             dZone.Add(0, zone.Object);
             world.Setup(e => e.Zones).Returns(dZone);
             dRoom.Add(0, differntRoom.Object);
@@ -269,7 +269,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(failedMockResponse.Object, result);
-            room.Verify(e => e.Leave(mob.Object, Direction.South), Times.Once);
+            room.Verify(e => e.Leave(mob.Object, Direction.South, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
             notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
@@ -293,7 +293,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.West).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("West");
             room.Setup(e => e.West).Returns(exit.Object);
-            room.Setup(e => e.Leave(mob.Object, Direction.West)).Returns(true);
+            room.Setup(e => e.Leave(mob.Object, Direction.West, false)).Returns(true);
             dZone.Add(0, zone.Object);
             world.Setup(e => e.Zones).Returns(dZone);
             dRoom.Add(0, differntRoom.Object);
@@ -307,7 +307,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(failedMockResponse.Object, result);
-            room.Verify(e => e.Leave(mob.Object, Direction.West), Times.Once);
+            room.Verify(e => e.Leave(mob.Object, Direction.West, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
             notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
@@ -331,7 +331,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.Up).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("Up");
             room.Setup(e => e.Up).Returns(exit.Object);
-            room.Setup(e => e.Leave(mob.Object, Direction.Up)).Returns(true);
+            room.Setup(e => e.Leave(mob.Object, Direction.Up, false)).Returns(true);
             dZone.Add(0, zone.Object);
             world.Setup(e => e.Zones).Returns(dZone);
             dRoom.Add(0, differntRoom.Object);
@@ -345,7 +345,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(failedMockResponse.Object, result);
-            room.Verify(e => e.Leave(mob.Object, Direction.Up), Times.Once);
+            room.Verify(e => e.Leave(mob.Object, Direction.Up, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
             notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
@@ -369,7 +369,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.Down).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("Down");
             room.Setup(e => e.Down).Returns(exit.Object);
-            room.Setup(e => e.Leave(mob.Object, Direction.Down)).Returns(true);
+            room.Setup(e => e.Leave(mob.Object, Direction.Down, false)).Returns(true);
             dZone.Add(0, zone.Object);
             world.Setup(e => e.Zones).Returns(dZone);
             dRoom.Add(0, differntRoom.Object);
@@ -383,7 +383,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(failedMockResponse.Object, result);
-            room.Verify(e => e.Leave(mob.Object, Direction.Down), Times.Once);
+            room.Verify(e => e.Leave(mob.Object, Direction.Down, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
             notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);

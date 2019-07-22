@@ -61,7 +61,7 @@ namespace Objects.Room.Interface
         IResult CheckLeave(IMobileObject mobileObject);
         IResult CheckLeaveDirection(IMobileObject mobileObject, Directions.Direction direction);
         void Enter(IMobileObject performer);
-        bool Leave(IMobileObject performer, Directions.Direction direction);
+        bool Leave(IMobileObject performer, Directions.Direction direction, bool mounted);
 
     }
 }
