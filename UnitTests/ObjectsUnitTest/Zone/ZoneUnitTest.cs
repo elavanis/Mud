@@ -123,11 +123,12 @@ namespace ObjectsUnitTest.Zone
             npc.Setup(e => e.Items).Returns(new List<IItem>() { npcItem.Object });
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { merchant.Object });
             npc.Setup(e => e.EquipedEquipment).Returns(new List<IEquipment>() { equippedItem.Object });
+            otherMob.Setup(e => e.Items).Returns(new List<IItem>() { npcItem.Object });
+            otherMob.Setup(e => e.EquipedEquipment).Returns(new List<IEquipment>() { equippedItem.Object });
             merchant.Setup(e => e.Sellables).Returns(new List<IItem>() { sellItem.Object });
             container1.Setup(e => e.Items).Returns(new List<IItem>() { npcItem2.Object });
             container2.Setup(e => e.Items).Returns(new List<IItem>() { npcItem3.Object });
             container3.Setup(e => e.Items).Returns(new List<IItem>());
-
 
             zone.RecursivelySetZone();
 
