@@ -39,11 +39,21 @@ namespace ObjectsUnitTest.Room
         Mock<ILoadPercentage> loadPercentage;
         Mock<INonPlayerCharacter> npc;
         Mock<IPlayerCharacter> pc;
-        Mock<IMount> mount;
+        Mock<IMobileObject> mob;
+        Mock<IWorld> world;
+        Mock<IZone> zone;
+        Mock<IEvent> evnt;
+        Mock<IEngine> engine;
+        Mock<IGuard> guard;
+
+
+
+
 
         List<INonPlayerCharacter> lNpc;
         List<IPlayerCharacter> lPc;
         List<IMobileObject> lOtherMob;
+        List<IItem> lItems;
 
         [TestInitialize]
         public void Setup()
@@ -59,22 +69,38 @@ namespace ObjectsUnitTest.Room
             loadPercentage = new Mock<ILoadPercentage>();
             npc = new Mock<INonPlayerCharacter>();
             pc = new Mock<IPlayerCharacter>();
-            mount = new Mock<IMount>();
+            mob = new Mock<IMobileObject>();
+            world = new Mock<IWorld>();
+            zone = new Mock<IZone>();
+            evnt = new Mock<IEvent>();
+            engine = new Mock<IEngine>();
+            guard = new Mock<IGuard>();
 
             settings.Setup(e => e.VaultDirectory).Returns("vault");
             serializer.Setup(e => e.Serialize(It.IsAny<List<IItem>>())).Returns("serializedList");
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             loadPercentage.Setup(e => e.Load).Returns(true);
             loadPercentage.Setup(e => e.Object).Returns(item.Object);
+            npc.Setup(e => e.Stamina).Returns(10);
+            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { guard.Object });
+            pc.Setup(e => e.Stamina).Returns(10);
+            pc.Setup(e => e.KeyWords).Returns(new List<string>() { "PC" });
+            mob.Setup(e => e.Stamina).Returns(10);
+            engine.Setup(e => e.Event).Returns(evnt.Object);
+            guard.Setup(e => e.GuardDirections).Returns(new HashSet<Direction>() { Direction.North });
+            guard.Setup(e => e.BlockLeaveMessage).Returns("You can not leave.");
 
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Serialization = serializer.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.Engine = engine.Object;
 
             room = new Objects.Room.Room();
             room.Zone = 1;
             room.Id = 2;
+            room.MovementCost = 1;
+
 
             FieldInfo fieldInfo = room.GetType().GetField("_nonPlayerCharacters", BindingFlags.Instance | BindingFlags.NonPublic);
             lNpc = (List<INonPlayerCharacter>)fieldInfo.GetValue(room);
@@ -82,6 +108,13 @@ namespace ObjectsUnitTest.Room
             lPc = (List<IPlayerCharacter>)fieldInfo.GetValue(room);
             fieldInfo = room.GetType().GetField("_otherMobs", BindingFlags.Instance | BindingFlags.NonPublic);
             lOtherMob = (List<IMobileObject>)fieldInfo.GetValue(room);
+            fieldInfo = room.GetType().GetField("_items", BindingFlags.Instance | BindingFlags.NonPublic);
+            lItems = (List<IItem>)fieldInfo.GetValue(room);
+
+            SetupWeather();
+            npc.Setup(e => e.Room).Returns(room);
+            pc.Setup(e => e.Room).Returns(room);
+            mob.Setup(e => e.Room).Returns(room);
         }
 
         [TestMethod]
@@ -119,12 +152,12 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_AddMobToRoom_OtherMob()
         {
-            room.AddMobileObjectToRoom(mount.Object);
+            room.AddMobileObjectToRoom(mob.Object);
 
             Assert.AreEqual(0, lNpc.Count());
             Assert.AreEqual(0, lPc.Count());
             Assert.AreEqual(1, lOtherMob.Count());
-            Assert.IsTrue(room.OtherMobs.Contains(mount.Object));
+            Assert.IsTrue(room.OtherMobs.Contains(mob.Object));
         }
 
         [TestMethod]
@@ -142,38 +175,32 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RemoveMobToRoom_Pc()
         {
-            {
-                lPc.Add(pc.Object);
+            lPc.Add(pc.Object);
 
-                room.RemoveMobileObjectFromRoom(pc.Object);
+            room.RemoveMobileObjectFromRoom(pc.Object);
 
-                Assert.AreEqual(0, lNpc.Count());
-                Assert.AreEqual(0, lPc.Count());
-                Assert.AreEqual(0, lOtherMob.Count());
-            }
+            Assert.AreEqual(0, lNpc.Count());
+            Assert.AreEqual(0, lPc.Count());
+            Assert.AreEqual(0, lOtherMob.Count());
         }
 
         [TestMethod]
         public void Room_RemoveMobToRoom_OtherMob()
         {
-            {
-                lOtherMob.Add(mount.Object);
+            lOtherMob.Add(mob.Object);
 
-                room.RemoveMobileObjectFromRoom(mount.Object);
+            room.RemoveMobileObjectFromRoom(mob.Object);
 
-                Assert.AreEqual(0, lNpc.Count());
-                Assert.AreEqual(0, lPc.Count());
-                Assert.AreEqual(0, lOtherMob.Count());
-            }
+            Assert.AreEqual(0, lNpc.Count());
+            Assert.AreEqual(0, lPc.Count());
+            Assert.AreEqual(0, lOtherMob.Count());
         }
 
         [TestMethod]
         public void Room_RemoveItemFromRoom_ValutContentsWritten()
         {
-            FieldInfo fieldInfo = room.GetType().GetField("_items", BindingFlags.Instance | BindingFlags.NonPublic);
-            List<IItem> items = (List<IItem>)fieldInfo.GetValue(room);
-            items.Add(item.Object);
-            items.Add(item.Object);
+            lItems.Add(item.Object);
+            lItems.Add(item.Object);
 
             room.Attributes.Add(RoomAttribute.Vault);
 
@@ -194,29 +221,25 @@ namespace ObjectsUnitTest.Room
         public void Room_CheckEnter_NoNpcSmall()
         {
             room.Attributes.Add(RoomAttribute.Small);
-            Mock<INonPlayerCharacter> mob = new Mock<INonPlayerCharacter>();
 
-            Assert.IsNull(room.CheckEnter(mob.Object));
+            Assert.IsNull(room.CheckEnter(npc.Object));
         }
 
         [TestMethod]
         public void Room_CheckEnter_NpcNotSmall()
         {
-            Mock<INonPlayerCharacter> mob = new Mock<INonPlayerCharacter>();
+            lNpc.Add(new Mock<INonPlayerCharacter>().Object);
 
-            room.AddMobileObjectToRoom(new Mock<INonPlayerCharacter>().Object);
-
-            Assert.IsNull(room.CheckEnter(mob.Object));
+            Assert.IsNull(room.CheckEnter(npc.Object));
         }
 
         [TestMethod]
         public void Room_CheckEnter_NpcSmall()
         {
             room.Attributes.Add(RoomAttribute.Small);
-            room.AddMobileObjectToRoom(new Mock<INonPlayerCharacter>().Object);
-            Mock<INonPlayerCharacter> mob = new Mock<INonPlayerCharacter>();
+            lNpc.Add(new Mock<INonPlayerCharacter>().Object);
 
-            IResult result = room.CheckEnter(mob.Object);
+            IResult result = room.CheckEnter(npc.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("The room is to small to fit another person in there.", result.ResultMessage);
         }
@@ -225,9 +248,8 @@ namespace ObjectsUnitTest.Room
         public void Room_CheckEnter_NoNpc()
         {
             room.Attributes.Add(RoomAttribute.NoNPC);
-            Mock<INonPlayerCharacter> mob = new Mock<INonPlayerCharacter>();
 
-            IResult result = room.CheckEnter(mob.Object);
+            IResult result = room.CheckEnter(npc.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("Non player characters can not enter here.", result.ResultMessage);
         }
@@ -236,29 +258,25 @@ namespace ObjectsUnitTest.Room
         public void Room_CheckEnter_NoPcSmall()
         {
             room.Attributes.Add(RoomAttribute.Small);
-            Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
 
-            Assert.IsNull(room.CheckEnter(mob.Object));
+            Assert.IsNull(room.CheckEnter(pc.Object));
         }
 
         [TestMethod]
         public void Room_CheckEnter_PcNotSmall()
         {
-            Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
+            lPc.Add(new Mock<IPlayerCharacter>().Object);
 
-            room.AddMobileObjectToRoom(new Mock<IPlayerCharacter>().Object);
-
-            Assert.IsNull(room.CheckEnter(mob.Object));
+            Assert.IsNull(room.CheckEnter(pc.Object));
         }
 
         [TestMethod]
         public void Room_CheckEnter_PcSmall()
         {
             room.Attributes.Add(RoomAttribute.Small);
-            room.AddMobileObjectToRoom(new Mock<IPlayerCharacter>().Object);
-            Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
+            lPc.Add(new Mock<IPlayerCharacter>().Object);
 
-            IResult result = room.CheckEnter(mob.Object);
+            IResult result = room.CheckEnter(pc.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("The room is to small to fit another person in there.", result.ResultMessage);
         }
@@ -268,10 +286,7 @@ namespace ObjectsUnitTest.Room
         {
             room.Owner = "NotYou";
 
-            Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
-            mob.Setup(e => e.KeyWords).Returns(new List<string>() { "PC" });
-
-            IResult result = room.CheckEnter(mob.Object);
+            IResult result = room.CheckEnter(pc.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("That property belongs to NotYou and you are not on the guest list.", result.ResultMessage);
@@ -281,11 +296,9 @@ namespace ObjectsUnitTest.Room
         public void Room_CheckEnter_Owner()
         {
             room.Owner = "NotYou";
+            pc.Setup(e => e.KeyWords).Returns(new List<string>() { "NotYou" });
 
-            Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
-            mob.Setup(e => e.KeyWords).Returns(new List<string>() { "NotYou" });
-
-            IResult result = room.CheckEnter(mob.Object);
+            IResult result = room.CheckEnter(pc.Object);
 
             Assert.IsNull(result);
         }
@@ -296,10 +309,9 @@ namespace ObjectsUnitTest.Room
             room.Owner = "NotYou";
             room.Guests.Add("AlsoNotYou");
 
-            Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
-            mob.Setup(e => e.KeyWords).Returns(new List<string>() { "PC" });
+            pc.Setup(e => e.KeyWords).Returns(new List<string>() { "PC" });
 
-            IResult result = room.CheckEnter(mob.Object);
+            IResult result = room.CheckEnter(pc.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("That property belongs to NotYou and you are not on the guest list.", result.ResultMessage);
@@ -311,10 +323,9 @@ namespace ObjectsUnitTest.Room
             room.Owner = "NotYou";
             room.Guests.Add("PC");
 
-            Mock<IPlayerCharacter> mob = new Mock<IPlayerCharacter>();
-            mob.Setup(e => e.KeyWords).Returns(new List<string>() { "PC" });
+            pc.Setup(e => e.KeyWords).Returns(new List<string>() { "PC" });
 
-            IResult result = room.CheckEnter(mob.Object);
+            IResult result = room.CheckEnter(pc.Object);
 
             Assert.IsNull(result);
         }
@@ -322,7 +333,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_CheckLeave_Pass()
         {
-            Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.IsInCombat).Returns(false);
 
             Assert.IsNull(room.CheckLeave(mob.Object));
@@ -331,7 +341,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_CheckLeave_NotEnoughStamina()
         {
-            Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.IsInCombat).Returns(false);
             mob.Setup(e => e.Stamina).Returns(1);
             mob.Setup(e => e.MaxStamina).Returns(10);
@@ -345,7 +354,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_CheckLeave_NeverEnoughStaminaNotFull()
         {
-            Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.IsInCombat).Returns(false);
             mob.Setup(e => e.Stamina).Returns(1);
             mob.Setup(e => e.MaxStamina).Returns(2);
@@ -359,7 +367,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_CheckLeave_NeverEnoughStaminaFull()
         {
-            Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.IsInCombat).Returns(false);
             mob.Setup(e => e.Stamina).Returns(1);
             mob.Setup(e => e.MaxStamina).Returns(1);
@@ -371,15 +378,7 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_CheckLeaveDirection_Guard()
         {
-            Mock<IMobileObject> mob = new Mock<IMobileObject>();
-            Mock<IGuard> guard = new Mock<IGuard>();
-            Mock<INonPlayerCharacter> npc = new Mock<INonPlayerCharacter>();
-
-            guard.Setup(e => e.GuardDirections).Returns(new HashSet<Direction>() { Direction.North });
-            guard.Setup(e => e.BlockLeaveMessage).Returns("You can not leave.");
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { guard.Object });
-            mob.Setup(e => e.Room).Returns(room);
-            room.AddMobileObjectToRoom(npc.Object);
+            lNpc.Add(npc.Object);
 
             IResult result = room.CheckLeaveDirection(mob.Object, Direction.North);
             Assert.IsTrue(result.AllowAnotherCommand);
@@ -389,7 +388,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_CheckLeave_InCombat()
         {
-            Mock<IMobileObject> mob = new Mock<IMobileObject>();
             mob.Setup(e => e.IsInCombat).Returns(true);
             mob.Setup(e => e.Stamina).Returns(1);
             room.MovementCost = 1;
@@ -402,13 +400,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_Enter_Npc()
         {
-            Mock<INonPlayerCharacter> npc = new Mock<INonPlayerCharacter>();
-            npc.Setup(e => e.Room).Returns(room);
-            Mock<IEvent> evnt = new Mock<IEvent>();
-            Mock<IEngine> engine = new Mock<IEngine>();
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-            GlobalReference.GlobalValues.Engine = engine.Object;
-
             room.Enter(npc.Object);
 
             Assert.AreEqual(1, room.NonPlayerCharacters.Count);
@@ -420,71 +411,79 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_Enter_Pc()
         {
-            Mock<IPlayerCharacter> npc = new Mock<IPlayerCharacter>();
-            npc.Setup(e => e.Room).Returns(room);
-            Mock<IEvent> evnt = new Mock<IEvent>();
-            Mock<IEngine> engine = new Mock<IEngine>();
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-            GlobalReference.GlobalValues.Engine = engine.Object;
-
-            room.Enter(npc.Object);
+            room.Enter(pc.Object);
 
             Assert.AreEqual(1, room.PlayerCharacters.Count);
-            Assert.AreSame(npc.Object, room.PlayerCharacters[0]);
-            npc.Verify(e => e.Room, Times.Once);
-            evnt.Verify(e => e.EnterRoom(npc.Object), Times.Once);
+            Assert.AreSame(pc.Object, room.PlayerCharacters[0]);
+            pc.Verify(e => e.Room, Times.Once);
+            evnt.Verify(e => e.EnterRoom(pc.Object), Times.Once);
+        }
+
+        [TestMethod]
+        public void Room_Enter_OtherMob()
+        {
+            room.Enter(mob.Object);
+
+            Assert.AreEqual(1, room.OtherMobs.Count);
+            Assert.AreSame(mob.Object, room.OtherMobs[0]);
+            mob.Verify(e => e.Room, Times.Once);
+            evnt.Verify(e => e.EnterRoom(mob.Object), Times.Once);
         }
 
         [TestMethod]
         public void Room_Leave_Npc()
         {
-            Mock<INonPlayerCharacter> npc = new Mock<INonPlayerCharacter>();
-            room.AddMobileObjectToRoom(npc.Object);
-
-            Mock<IEvent> evnt = new Mock<IEvent>();
-            Mock<IEngine> engine = new Mock<IEngine>();
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-            GlobalReference.GlobalValues.Engine = engine.Object;
+            lNpc.Add(npc.Object);
 
             room.Leave(npc.Object, Direction.East, false);
 
             Assert.AreEqual(0, room.PlayerCharacters.Count);
             evnt.Verify(e => e.LeaveRoom(npc.Object, Direction.East), Times.Once);
+            npc.VerifySet(e => e.Stamina = 9, Times.Once);
         }
 
         [TestMethod]
         public void Room_Leave_Pc()
         {
-            Mock<IPlayerCharacter> pc = new Mock<IPlayerCharacter>();
-            room.AddMobileObjectToRoom(pc.Object);
-
-            Mock<IEvent> evnt = new Mock<IEvent>();
-            Mock<IEngine> engine = new Mock<IEngine>();
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-            GlobalReference.GlobalValues.Engine = engine.Object;
+            lPc.Add(pc.Object);
 
             room.Leave(pc.Object, Direction.East, false);
 
             Assert.AreEqual(0, room.PlayerCharacters.Count);
             evnt.Verify(e => e.LeaveRoom(pc.Object, Direction.East), Times.Once);
+            pc.VerifySet(e => e.Stamina = 9, Times.Once);
+        }
+
+        [TestMethod]
+        public void Room_Leave_OtherMob()
+        {
+            lOtherMob.Add(mob.Object);
+
+            room.Leave(mob.Object, Direction.East, false);
+
+            Assert.AreEqual(0, room.OtherMobs.Count);
+            evnt.Verify(e => e.LeaveRoom(mob.Object, Direction.East), Times.Once);
+            mob.VerifySet(e => e.Stamina = 9, Times.Once);
         }
 
         [TestMethod]
         public void Room_Leave_WriteTestWhereMounted()
         {
-            Assert.AreEqual(1, 2);
+            lPc.Add(pc.Object);
+
+            room.Leave(pc.Object, Direction.East, true);
+
+            Assert.AreEqual(0, room.PlayerCharacters.Count);
+            evnt.Verify(e => e.LeaveRoom(pc.Object, Direction.East), Times.Once);
+            pc.VerifySet(e => e.Stamina = It.IsAny<int>(), Times.Never);
         }
 
         [TestMethod]
         public void Room_FinishLoad_LoadPercentNpc()
         {
-            Mock<ILoadPercentage> loadableItems = new Mock<ILoadPercentage>();
-            Mock<INonPlayerCharacter> npc = new Mock<INonPlayerCharacter>();
+            loadPercentage.Setup(e => e.Object).Returns(npc.Object);
 
-            loadableItems.Setup(e => e.Load).Returns(true);
-            loadableItems.Setup(e => e.Object).Returns(npc.Object);
-
-            room.LoadableItems.Add(loadableItems.Object);
+            room.LoadableItems.Add(loadPercentage.Object);
 
             room.FinishLoad();
 
@@ -495,13 +494,7 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_FinishLoad_LoadPercentItem()
         {
-            Mock<ILoadPercentage> loadableItems = new Mock<ILoadPercentage>();
-            Mock<IItem> item = new Mock<IItem>();
-
-            loadableItems.Setup(e => e.Load).Returns(true);
-            loadableItems.Setup(e => e.Object).Returns(item.Object);
-
-            room.LoadableItems.Add(loadableItems.Object);
+            room.LoadableItems.Add(loadPercentage.Object);
 
             room.FinishLoad();
 
@@ -532,8 +525,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomPrecipitationHighBegin_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZonePrecipitationHighBegin", room.RoomPrecipitationHighBegin);
             zone.Verify(e => e.ZonePrecipitationHighBegin, Times.Once);
             Assert.AreEqual("ZonePrecipitationHighBegin", room.RoomPrecipitationHighBegin);
@@ -550,8 +541,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomPrecipitationHighEnd_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZonePrecipitationHighEnd", room.RoomPrecipitationHighEnd);
             zone.Verify(e => e.ZonePrecipitationHighEnd, Times.Once);
             Assert.AreEqual("ZonePrecipitationHighEnd", room.RoomPrecipitationHighEnd);
@@ -568,8 +557,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomPrecipitationExtraHighBegin_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZonePrecipitationExtraHighBegin", room.RoomPrecipitationExtraHighBegin);
             zone.Verify(e => e.ZonePrecipitationExtraHighBegin, Times.Once);
             Assert.AreEqual("ZonePrecipitationExtraHighBegin", room.RoomPrecipitationExtraHighBegin);
@@ -586,8 +573,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomPrecipitationExtraHighEnd_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZonePrecipitationExtraHighEnd", room.RoomPrecipitationExtraHighEnd);
             zone.Verify(e => e.ZonePrecipitationExtraHighEnd, Times.Once);
             Assert.AreEqual("ZonePrecipitationExtraHighEnd", room.RoomPrecipitationExtraHighEnd);
@@ -606,8 +591,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomWindspeedHighBegin_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZoneWindSpeedHighBegin", room.RoomWindSpeedHighBegin);
             zone.Verify(e => e.ZoneWindSpeedHighBegin, Times.Once);
             Assert.AreEqual("ZoneWindSpeedHighBegin", room.RoomWindSpeedHighBegin);
@@ -624,8 +607,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomWindSpeedHighEnd_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZoneWindSpeedHighEnd", room.RoomWindSpeedHighEnd);
             zone.Verify(e => e.ZoneWindSpeedHighEnd, Times.Once);
             Assert.AreEqual("ZoneWindSpeedHighEnd", room.RoomWindSpeedHighEnd);
@@ -642,8 +623,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomWindSpeedExtraHighBegin_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZoneWindSpeedExtraHighBegin", room.RoomWindSpeedExtraHighBegin);
             zone.Verify(e => e.ZoneWindSpeedExtraHighBegin, Times.Once);
             Assert.AreEqual("ZoneWindSpeedExtraHighBegin", room.RoomWindSpeedExtraHighBegin);
@@ -660,8 +639,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomWindSpeedExtraHighEnd_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZoneWindSpeedExtraHighEnd", room.RoomWindSpeedExtraHighEnd);
             zone.Verify(e => e.ZoneWindSpeedExtraHighEnd, Times.Once);
             Assert.AreEqual("ZoneWindSpeedExtraHighEnd", room.RoomWindSpeedExtraHighEnd);
@@ -682,8 +659,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomPrecipitationLowBegin_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZonePrecipitationLowBegin", room.RoomPrecipitationLowBegin);
             zone.Verify(e => e.ZonePrecipitationLowBegin, Times.Once);
             Assert.AreEqual("ZonePrecipitationLowBegin", room.RoomPrecipitationLowBegin);
@@ -700,8 +675,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomPrecipitationLowEnd_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZonePrecipitationLowEnd", room.RoomPrecipitationLowEnd);
             zone.Verify(e => e.ZonePrecipitationLowEnd, Times.Once);
             Assert.AreEqual("ZonePrecipitationLowEnd", room.RoomPrecipitationLowEnd);
@@ -718,8 +691,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomPrecipitationExtraLowBegin_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZonePrecipitationExtraLowBegin", room.RoomPrecipitationExtraLowBegin);
             zone.Verify(e => e.ZonePrecipitationExtraLowBegin, Times.Once);
             Assert.AreEqual("ZonePrecipitationExtraLowBegin", room.RoomPrecipitationExtraLowBegin);
@@ -736,8 +707,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomPrecipitationExtraLowEnd_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZonePrecipitationExtraLowEnd", room.RoomPrecipitationExtraLowEnd);
             zone.Verify(e => e.ZonePrecipitationExtraLowEnd, Times.Once);
             Assert.AreEqual("ZonePrecipitationExtraLowEnd", room.RoomPrecipitationExtraLowEnd);
@@ -756,8 +725,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomWindspeedLowBegin_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZoneWindSpeedLowBegin", room.RoomWindSpeedLowBegin);
             zone.Verify(e => e.ZoneWindSpeedLowBegin, Times.Once);
             Assert.AreEqual("ZoneWindSpeedLowBegin", room.RoomWindSpeedLowBegin);
@@ -774,8 +741,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomWindSpeedLowEnd_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZoneWindSpeedLowEnd", room.RoomWindSpeedLowEnd);
             zone.Verify(e => e.ZoneWindSpeedLowEnd, Times.Once);
             Assert.AreEqual("ZoneWindSpeedLowEnd", room.RoomWindSpeedLowEnd);
@@ -792,8 +757,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomWindSpeedExtraLowBegin_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZoneWindSpeedExtraLowBegin", room.RoomWindSpeedExtraLowBegin);
             zone.Verify(e => e.ZoneWindSpeedExtraLowBegin, Times.Once);
             Assert.AreEqual("ZoneWindSpeedExtraLowBegin", room.RoomWindSpeedExtraLowBegin);
@@ -810,8 +773,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_RoomWindSpeedExtraLowEnd_Get()
         {
-            Mock<IZone> zone = SetupWeatherZone();
-
             Assert.AreEqual("ZoneWindSpeedExtraLowEnd", room.RoomWindSpeedExtraLowEnd);
             zone.Verify(e => e.ZoneWindSpeedExtraLowEnd, Times.Once);
             Assert.AreEqual("ZoneWindSpeedExtraLowEnd", room.RoomWindSpeedExtraLowEnd);
@@ -834,7 +795,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_PrecipitationNotification_HighBegin()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.Precipitation).Returns(74);
 
             Assert.AreEqual("ZonePrecipitationHighBegin", room.PrecipitationNotification);
@@ -843,7 +803,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_PrecipitationNotification_HighEnd()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.Precipitation).Returns(73);
 
             Assert.AreEqual("ZonePrecipitationHighEnd", room.PrecipitationNotification);
@@ -852,7 +811,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_PrecipitationNotification_ExtraHighBegin()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.Precipitation).Returns(89);
 
             Assert.AreEqual("ZonePrecipitationExtraHighBegin", room.PrecipitationNotification);
@@ -861,7 +819,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_PrecipitationNotification_ExtraHighEnd()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.Precipitation).Returns(88);
 
             Assert.AreEqual("ZonePrecipitationExtraHighEnd", room.PrecipitationNotification);
@@ -871,7 +828,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_PrecipitationNotification_LowBegin()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.Precipitation).Returns(25);
 
             Assert.AreEqual("ZonePrecipitationLowBegin", room.PrecipitationNotification);
@@ -880,7 +836,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_PrecipitationNotification_LowEnd()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.Precipitation).Returns(26);
 
             Assert.AreEqual("ZonePrecipitationLowEnd", room.PrecipitationNotification);
@@ -889,7 +844,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_PrecipitationNotification_ExtraLowBegin()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.Precipitation).Returns(10);
 
             Assert.AreEqual("ZonePrecipitationExtraLowBegin", room.PrecipitationNotification);
@@ -898,7 +852,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_PrecipitationNotification_ExtraLowEnd()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.Precipitation).Returns(11);
 
             Assert.AreEqual("ZonePrecipitationExtraLowEnd", room.PrecipitationNotification);
@@ -911,7 +864,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_WindSpeedNotification_HighBegin()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.WindSpeed).Returns(74);
 
             Assert.AreEqual("ZoneWindSpeedHighBegin", room.WindSpeedNotification);
@@ -920,7 +872,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_WindSpeedNotification_HighEnd()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.WindSpeed).Returns(73);
 
             Assert.AreEqual("ZoneWindSpeedHighEnd", room.WindSpeedNotification);
@@ -929,7 +880,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_WindSpeedNotification_ExtraHighBegin()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.WindSpeed).Returns(89);
 
             Assert.AreEqual("ZoneWindSpeedExtraHighBegin", room.WindSpeedNotification);
@@ -938,7 +888,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_WindSpeedNotification_ExtraHighEnd()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.WindSpeed).Returns(88);
 
             Assert.AreEqual("ZoneWindSpeedExtraHighEnd", room.WindSpeedNotification);
@@ -948,7 +897,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_WindSpeedNotification_LowBegin()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.WindSpeed).Returns(25);
 
             Assert.AreEqual("ZoneWindSpeedLowBegin", room.WindSpeedNotification);
@@ -957,7 +905,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_WindSpeedNotification_LowEnd()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.WindSpeed).Returns(26);
 
             Assert.AreEqual("ZoneWindSpeedLowEnd", room.WindSpeedNotification);
@@ -966,7 +913,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_WindSpeedNotification_ExtraLowBegin()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.WindSpeed).Returns(10);
 
             Assert.AreEqual("ZoneWindSpeedExtraLowBegin", room.WindSpeedNotification);
@@ -975,7 +921,6 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void Room_WindSpeedNotification_ExtraLowEnd()
         {
-            Mock<IWorld> world = SetupWeatherWorld();
             world.Setup(e => e.WindSpeed).Returns(11);
 
             Assert.AreEqual("ZoneWindSpeedExtraLowEnd", room.WindSpeedNotification);
@@ -998,7 +943,6 @@ namespace ObjectsUnitTest.Room
 
         private Tuple<Mock<IZone>, Mock<IWorld>> SetupWeather()
         {
-            Mock<IZone> zone = new Mock<IZone>();
             zone.Setup(e => e.ZoneWindSpeedExtraLowEnd).Returns("ZoneWindSpeedExtraLowEnd");
             zone.Setup(e => e.ZoneWindSpeedExtraLowBegin).Returns("ZoneWindSpeedExtraLowBegin");
             zone.Setup(e => e.ZoneWindSpeedLowEnd).Returns("ZoneWindSpeedLowEnd");
@@ -1017,7 +961,6 @@ namespace ObjectsUnitTest.Room
             zone.Setup(e => e.ZonePrecipitationHighBegin).Returns("ZonePrecipitationHighBegin");
             Dictionary<int, IZone> dictionary = new Dictionary<int, IZone>();
             dictionary.Add(1, zone.Object);
-            Mock<IWorld> world = new Mock<IWorld>();
             world.Setup(e => e.Zones).Returns(dictionary);
             world.Setup(e => e.HighBegin).Returns(74);
             world.Setup(e => e.ExtraHighBegin).Returns(89);
