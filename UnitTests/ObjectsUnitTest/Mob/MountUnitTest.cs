@@ -2,6 +2,7 @@
 using Moq;
 using Objects.Global;
 using Objects.Global.Random.Interface;
+using Objects.Global.Settings.Interface;
 using Objects.Mob;
 using System;
 using System.Collections.Generic;
@@ -15,15 +16,21 @@ namespace ObjectsUnitTest.Mob
     {
         Mount mount;
         Mock<IRandom> random;
+        Mock<ISettings> settings;
         [TestInitialize]
         public void Setup()
         {
             mount = new Mount();
             random = new Mock<IRandom>();
+            settings = new Mock<ISettings>();
 
+            mount.Level = 1;
             random.Setup(e => e.Next(It.IsAny<int>())).Returns(0);
+            settings.Setup(e => e.BaseStatValue).Returns(5);
+            settings.Setup(e => e.AssignableStatPoints).Returns(2);
 
             GlobalReference.GlobalValues.Random = random.Object;
+            GlobalReference.GlobalValues.Settings = settings.Object;
         }
 
         [TestMethod]
@@ -127,13 +134,23 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void Mount_FinishLoad()
         {
-            Assert.AreEqual(1, 2);
+            mount.FinishLoad();
+
+            Assert.AreEqual(7, mount.StrengthStat);
+            Assert.AreEqual(5, mount.DexterityStat);
+            Assert.AreEqual(5, mount.ConstitutionStat);
+            Assert.AreEqual(5, mount.IntelligenceStat);
+            Assert.AreEqual(5, mount.WisdomStat);
+            Assert.AreEqual(5, mount.CharismaStat);
         }
 
         [TestMethod]
         public void Mount_MaxStamina()
         {
-            Assert.AreEqual(1, 2);
+            mount.ConstitutionStat = 10;
+            mount.StaminaMultiplier = 5;
+
+            Assert.AreEqual(500, mount.MaxStamina);
         }
     }
 }

@@ -70,7 +70,13 @@ namespace Objects.Mob
         {
             base.FinishLoad(zoneObjectSyncValue);
 
-            if (Level >= 1)
+            if (Level >= 1
+                && StrengthStat == 0
+                && DexterityStat == 0
+                && ConstitutionStat == 0
+                && IntelligenceStat == 0
+                && WisdomStat == 0
+                && CharismaStat == 0)
             {
                 StrengthStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
                 DexterityStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
