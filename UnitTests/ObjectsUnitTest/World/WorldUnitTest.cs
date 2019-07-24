@@ -1340,12 +1340,6 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
         }
 
         [TestMethod]
-        public void World_WriteIsMobMounted()
-        {
-            Assert.AreEqual(1, 2);
-        }
-
-        [TestMethod]
         public void World_WriteDismount_MountFound()
         {
             List<IMobileObject> lmob = new List<IMobileObject>();

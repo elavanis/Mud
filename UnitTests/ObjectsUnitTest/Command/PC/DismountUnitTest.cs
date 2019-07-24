@@ -21,6 +21,7 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IWorld> world;
         Mock<IMobileObject> mob;
         Mock<ITagWrapper> tagWrapper;
+        Mock<IResult> result;
 
         [TestInitialize]
         public void Setup()
@@ -30,7 +31,9 @@ namespace ObjectsUnitTest.Command.PC
             world = new Mock<IWorld>();
             mob = new Mock<IMobileObject>();
             tagWrapper = new Mock<ITagWrapper>();
+            result = new Mock<IResult>();
 
+            world.Setup(e => e.Dismount(mob.Object)).Returns(result.Object);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.World = world.Object;
@@ -61,10 +64,10 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Dismount_PerformCommand()
         {
-            IResult result = command.PerformCommand(mob.Object, null);
+            IResult resultReturned = command.PerformCommand(mob.Object, null);
 
             world.Verify(e => e.Dismount(mob.Object), Times.Once);
-            Assert.IsNotNull(result);
+            Assert.AreEqual(result.Object, resultReturned);
         }
     }
 }
