@@ -1338,5 +1338,35 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
             Assert.AreEqual(0, loadedMounts.Count);
             Assert.IsFalse(loadedMounts.Contains(mount.Object));
         }
+
+        [TestMethod]
+        public void World_WriteIsMobMounted()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void World_WriteDismount_MountFound()
+        {
+            List<IMobileObject> lmob = new List<IMobileObject>();
+            lmob.Add(npc.Object);
+            loadedMounts.Add(mount.Object);
+            mount.Setup(e => e.Riders).Returns(lmob);
+            mount.Setup(e => e.SentenceDescription).Returns("horse");
+
+            IResult result = world.Dismount(npc.Object);
+
+            Assert.AreEqual("You dismount from the horse.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+        }
+
+        [TestMethod]
+        public void World_WriteDismount_MountNotFound()
+        {
+            IResult result = world.Dismount(npc.Object);
+
+            Assert.AreEqual("You are not riding a mount.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Objects.Command.Interface;
+using Objects.Global;
 using Objects.Mob.Interface;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            throw new NotImplementedException();
+            return GlobalReference.GlobalValues.World.Dismount(performer);
         }
     }
 }

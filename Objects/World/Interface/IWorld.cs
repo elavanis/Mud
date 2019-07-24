@@ -1,4 +1,5 @@
-﻿using Objects.Mob.Interface;
+﻿using Objects.Command.Interface;
+using Objects.Mob.Interface;
 using Objects.Zone.Interface;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -55,6 +56,8 @@ namespace Objects.World.Interface
         string SerializeZone(IZone zone);
         void AddMountToWorld(IMount mount);
         void RemoveMountFromWorld(IMount mount);
+        IResult Dismount(IMobileObject performer);
+
 
         ConcurrentDictionary<string, string> WorldResults { get; }
         ConcurrentQueue<string> WorldCommands { get; }

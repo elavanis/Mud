@@ -1253,6 +1253,30 @@ To see info on how to use a command type MAN and then the COMMAND.";
             }
         }
 
+        public IResult Dismount(IMobileObject performer)
+        {
+            IMount mountTheyWereOn = null;
+            lock (_loadedMounts)
+            {
+                foreach (IMount mount in _loadedMounts)
+                {
+                    if (mount.Riders.Remove(performer))
+                    {
+                        mountTheyWereOn = mount;
+                    }
+                }
+            }
+
+            if (mountTheyWereOn == null)
+            {
+                return new Result("You are not riding a mount.", true);
+            }
+            else
+            {
+                return new Result($"You dismount from the {mountTheyWereOn.SentenceDescription}.", true);
+            }
+        }
+
 
         #endregion Tick Methods
     }
