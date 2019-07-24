@@ -17,9 +17,12 @@ namespace ObjectsUnitTest.Mob
         Mount mount;
         Mock<IRandom> random;
         Mock<ISettings> settings;
+
         [TestInitialize]
         public void Setup()
         {
+            GlobalReference.GlobalValues = new GlobalValues();
+
             mount = new Mount();
             random = new Mock<IRandom>();
             settings = new Mock<ISettings>();

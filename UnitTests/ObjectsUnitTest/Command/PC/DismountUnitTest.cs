@@ -5,10 +5,12 @@ using Objects.Command.PC;
 using Objects.Global;
 using Objects.Mob.Interface;
 using Objects.World.Interface;
+using Shared.TagWrapper.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Command.PC
 {
@@ -18,18 +20,23 @@ namespace ObjectsUnitTest.Command.PC
         IMobileObjectCommand command;
         Mock<IWorld> world;
         Mock<IMobileObject> mob;
+        Mock<ITagWrapper> tagWrapper;
 
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            command = new Dismount();
-
             world = new Mock<IWorld>();
             mob = new Mock<IMobileObject>();
+            tagWrapper = new Mock<ITagWrapper>();
+
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.World = world.Object;
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
+            command = new Dismount();
         }
 
 
@@ -52,7 +59,7 @@ namespace ObjectsUnitTest.Command.PC
 
 
         [TestMethod]
-        public void Dismount_WriteUnitTests()
+        public void Dismount_PerformCommand()
         {
             IResult result = command.PerformCommand(mob.Object, null);
 
