@@ -443,6 +443,11 @@ namespace Objects.World
                 SaveCharcter(playerCharacter);
                 Characters.Remove(playerCharacter);
                 playerCharacter.Room?.RemoveMobileObjectFromRoom(playerCharacter);
+                Dismount(playerCharacter);
+                lock (_loadedMounts)
+                {
+                    _loadedMounts.Remove(playerCharacter.Mount);
+                }
             }
         }
 

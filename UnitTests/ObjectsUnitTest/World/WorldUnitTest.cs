@@ -1293,14 +1293,19 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
             Mock<ISettings> settings = new Mock<ISettings>();
             Mock<IFileIO> fileIO = new Mock<IFileIO>();
             Mock<ISerialization> serializer = new Mock<ISerialization>();
+            List<IMobileObject> riders = new List<IMobileObject>();
 
             pc.Setup(e => e.Name).Returns("name");
             pc.Setup(e => e.Room).Returns(room.Object);
+            pc.Setup(e => e.Mount).Returns(mount.Object);
             room.Setup(e => e.PlayerCharacters).Returns(listPC);
             listPC.Add(pc.Object);
             pcList.Add(pc.Object);
             settings.Setup(e => e.PlayerCharacterDirectory).Returns("c:\\");
             serializer.Setup(e => e.Serialize(pc.Object)).Returns("serializedPC");
+            loadedMounts.Add(mount.Object);
+            riders.Add(pc.Object);
+            mount.Setup(e => e.Riders).Returns(riders);
 
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
@@ -1311,6 +1316,8 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
             fileIO.Verify(e => e.WriteFile("c:\\name.char", "serializedPC"));
             Assert.AreEqual(0, pcList.Count);
             room.Verify(e => e.RemoveMobileObjectFromRoom(pc.Object));
+            Assert.AreEqual(0, riders.Count);
+            Assert.AreEqual(0, loadedMounts.Count);
         }
 
         [TestMethod]
