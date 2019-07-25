@@ -33,6 +33,7 @@ namespace Shared.TagWrapper
             NonPlayerCharacter,
             PlayerCharacter,
             Mob,
+            MountStamina,
             Room,
             Health,
             Mana,

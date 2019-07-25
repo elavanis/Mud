@@ -81,7 +81,7 @@ namespace ServerTelnetCommunication
             {
                 if (DateTime.UtcNow.Subtract(failedDateTimes[i - 1]).TotalMinutes > 4)
                 {
-                    failedDateTimes.RemoveAt(i);
+                    failedDateTimes.RemoveAt(i - 1);
                 }
             }
 

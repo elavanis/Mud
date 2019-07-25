@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using static Shared.TagWrapper.TagWrapper;
 
@@ -101,16 +102,31 @@ namespace MessageParser
 
         private static List<ParsedMessage> AddSpacing(List<ParsedMessage> parsedInfo)
         {
-            foreach (ParsedMessage parseMessage in parsedInfo)
+            foreach (ParsedMessage parsedMessage in parsedInfo)
             {
-                if (parseMessage.TagType != TagType.Health && parseMessage.TagType != TagType.Mana)
+                string appendment = "";
+
+                if (parsedMessage.TagType == TagType.Stamina)
                 {
-                    parseMessage.Message += "\r\n";
+                    if (parsedInfo.Where(e => e.TagType == TagType.MountStamina).Count() == 0)
+                    {
+                        appendment = "\r\n";
+                    }
+                    else
+                    {
+                        appendment += " ";
+                    }
+                }
+                else if (parsedMessage.TagType == TagType.Health || parsedMessage.TagType == TagType.Mana)
+                {
+                    appendment += " ";
                 }
                 else
                 {
-                    parseMessage.Message += " ";
+                    appendment += "\r\n";
                 }
+
+                parsedMessage.Message += appendment;
             }
 
             return parsedInfo;

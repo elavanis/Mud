@@ -1057,6 +1057,12 @@ namespace ObjectsUnitTest.Mob
         }
 
         [TestMethod]
+        public void MobileObject_EnqueueMessage_MountStamina()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
         public void MobileObject_DequeueMessage()
         {
             ConcurrentQueue<string> queue = GetMobMessageQueue(mob);

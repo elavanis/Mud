@@ -986,14 +986,22 @@ namespace Objects.Mob
             StringBuilder strBldr = new StringBuilder();
             strBldr.AppendLine();
 
-            string message = string.Format("{0}/{1} ", Health, MaxHealth);
+            string message = $"{Health}/{MaxHealth} ";
             strBldr.Append(GlobalReference.GlobalValues.TagWrapper.WrapInTag(message, TagType.Health));
 
-            message = string.Format("{0}/{1} ", Mana, MaxMana);
+            message = $"{Mana}/{MaxMana} ";
             strBldr.Append(GlobalReference.GlobalValues.TagWrapper.WrapInTag(message, TagType.Mana));
 
-            message = string.Format("{0}/{1}", Stamina, MaxStamina);
-            strBldr.AppendLine(GlobalReference.GlobalValues.TagWrapper.WrapInTag(message, TagType.Stamina));
+            message = $"{Stamina}/{MaxStamina}";
+            strBldr.Append(GlobalReference.GlobalValues.TagWrapper.WrapInTag(message, TagType.Stamina));
+
+            if (Mount != null && Mount.Riders.Contains(this))
+            {
+                message = $" {Mount.Stamina}/{Mount.MaxStamina}";
+                strBldr.Append(GlobalReference.GlobalValues.TagWrapper.WrapInTag(message, TagType.MountStamina));
+            }
+
+            strBldr.AppendLine();
 
             return strBldr.ToString();
         }
