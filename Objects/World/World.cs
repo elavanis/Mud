@@ -385,7 +385,6 @@ namespace Objects.World
 
         public IPlayerCharacter LoadCharacter(string name)
         {
-            string playerCharacterDir = GlobalReference.GlobalValues.Settings.PlayerCharacterDirectory;
             lock (CharacterLock)
             {
                 //if player is already in game
@@ -398,9 +397,10 @@ namespace Objects.World
                 }
             }
 
+            string playerCharacterDir = GlobalReference.GlobalValues.Settings.PlayerCharacterDirectory;
             string[] players = SavedPlayers(playerCharacterDir);
 
-            //player not in game, try the XML directory
+            //player not in game, try the directory
             foreach (string file in players)
             {
                 if (Path.GetFileNameWithoutExtension(file).ToUpper() == name.ToUpper())
@@ -436,20 +436,13 @@ namespace Objects.World
             return pc;
         }
 
-        public void LogOutCharacter(string name)
+        public void LogOutCharacter(IPlayerCharacter playerCharacter)
         {
             lock (CharacterLock)
             {
-                foreach (IPlayerCharacter character in Characters)
-                {
-                    if (character.Name.ToUpper() == name.ToUpper())
-                    {
-                        SaveCharcter(character);
-                        Characters.Remove(character);
-                        character.Room.RemoveMobileObjectFromRoom(character);
-                        break;
-                    }
-                }
+                SaveCharcter(playerCharacter);
+                Characters.Remove(playerCharacter);
+                playerCharacter.Room?.RemoveMobileObjectFromRoom(playerCharacter);
             }
         }
 
@@ -892,7 +885,13 @@ namespace Objects.World
                     Characters.Add(pc);
                 }
                 pc.EnqueueCommand("Look");
+
+
+                //if the player just started they should not be mounted
+                Dismount(pc);
             }
+
+
         }
 
         private void ProcessRooms(IZone zone)

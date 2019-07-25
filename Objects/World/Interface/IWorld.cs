@@ -48,7 +48,7 @@ namespace Objects.World.Interface
         IZone DeserializeZone(string serializedZone);
         IPlayerCharacter LoadCharacter(string name);
         void LoadWorld();
-        void LogOutCharacter(string name);
+        void LogOutCharacter(IPlayerCharacter playerCharacter);
         void PerformTick();
         void SaveCharcter(IPlayerCharacter character);
         void SaveWorld();

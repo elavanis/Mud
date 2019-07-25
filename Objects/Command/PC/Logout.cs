@@ -17,11 +17,7 @@ namespace Objects.Command.PC
         {
             if (performer is IPlayerCharacter pc)
             {
-                IMobileObjectCommand foundCommand = GlobalReference.GlobalValues.CommandList.PcCommandsLookup["SAVE"];
-                foundCommand.PerformCommand(performer, command);
-
-                pc.Room.RemoveMobileObjectFromRoom(pc);
-                pc.Room = null;
+                GlobalReference.GlobalValues.World.LogOutCharacter(pc);
 
                 GlobalReference.GlobalValues.Notify.Mob(pc, new TranslationMessage("You have been successfully logged out."));
 

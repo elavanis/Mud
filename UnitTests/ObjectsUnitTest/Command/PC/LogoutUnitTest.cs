@@ -12,6 +12,7 @@ using Objects.Global.Commands.Interface;
 using Objects.Room.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
+using Objects.World.Interface;
 
 namespace ObjectsUnitTest.Command.PC
 {
@@ -21,11 +22,10 @@ namespace ObjectsUnitTest.Command.PC
         IMobileObjectCommand command;
         Mock<ITagWrapper> tagWrapper;
         Mock<IMobileObject> mob;
+        Mock<IPlayerCharacter> pc;
         Mock<ICommand> mockCommand;
-        Mock<IMobileObjectCommand> save;
-        Mock<IRoom> room;
-        List<IPlayerCharacter> pcs;
         Mock<INotify> notify;
+        Mock<IWorld> world;
 
         [TestInitialize]
         public void Setup()
@@ -34,26 +34,18 @@ namespace ObjectsUnitTest.Command.PC
 
             tagWrapper = new Mock<ITagWrapper>();
             mob = new Mock<IMobileObject>();
+            pc = new Mock<IPlayerCharacter>();
             mockCommand = new Mock<ICommand>();
-            save = new Mock<IMobileObjectCommand>();
-            room = new Mock<IRoom>();
-            pcs = new List<IPlayerCharacter>();
             notify = new Mock<INotify>();
+            world = new Mock<IWorld>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Connection)).Returns((string x, TagType y) => (x));
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
-            mob.Setup(e => e.Room).Returns(room.Object);
-            room.Setup(e => e.PlayerCharacters).Returns(pcs);
-
-            Mock<ICommandList> commandList = new Mock<ICommandList>();
-            Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
-            commands.Add("SAVE", save.Object);
-            commandList.Setup(e => e.PcCommandsLookup).Returns(commands);
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-            GlobalReference.GlobalValues.CommandList = commandList.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.World = world.Object;
 
 
             command = new Logout();
@@ -88,16 +80,11 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Logout_PerformCommand_LoggedOut()
         {
-            Mock<IPlayerCharacter> pc = new Mock<IPlayerCharacter>();
-            pc.Setup(e => e.Room).Returns(room.Object);
-            pcs.Add(pc.Object);
 
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("Exit Connection", result.ResultMessage);
-            room.Verify(e => e.RemoveMobileObjectFromRoom(pc.Object), Times.Once);
-            save.Verify(e => e.PerformCommand(pc.Object, mockCommand.Object), Times.Once);
-            pc.VerifySet(e => e.Room = null);
+            world.Verify(e => e.LogOutCharacter(pc.Object), Times.Once);
             notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()));
         }
     }

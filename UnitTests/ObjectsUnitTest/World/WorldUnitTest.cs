@@ -286,6 +286,33 @@ namespace ObjectsUnitTest.World
             room.Verify(e => e.Enter(pc.Object), Times.Once);
             pc.VerifySet(e => e.Room = room.Object, Times.Once);
         }
+
+        [TestMethod]
+        public void World_PerformTick_PutPlayersIntoWorld_DismountCalled()
+        {
+            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
+            List<IMobileObject> riders = new List<IMobileObject>();
+
+            world.Zones.Add(1, zone.Object);
+            zone.Setup(e => e.Rooms).Returns(rooms);
+            rooms.Add(1, room.Object);
+            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
+            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            pc.Setup(e => e.Room).Returns<IRoom>(null);
+            loadedMounts.Add(mount.Object);
+            riders.Add(pc.Object);
+            mount.Setup(e => e.Riders).Returns(riders);
+
+            world.AddPlayerQueue.Enqueue(pc.Object);
+
+            Assert.IsTrue(riders.Contains(pc.Object));
+
+            world.PerformTick();
+
+            Assert.AreEqual(0, riders.Count);
+
+
+        }
         #endregion PutPlayersIntoWorld
 
         #region UpdateWeather
@@ -1279,8 +1306,9 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Serialization = serializer.Object;
 
-            world.LogOutCharacter("name");
+            world.LogOutCharacter(pc.Object);
 
+            fileIO.Verify(e => e.WriteFile("c:\\name.char", "serializedPC"));
             Assert.AreEqual(0, pcList.Count);
             room.Verify(e => e.RemoveMobileObjectFromRoom(pc.Object));
         }
