@@ -87,7 +87,5 @@ namespace ServerTelnetCommunication
 
             return failedDateTimes;
         }
-
-
     }
 }
