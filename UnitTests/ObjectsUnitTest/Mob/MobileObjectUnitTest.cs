@@ -71,6 +71,7 @@ namespace ObjectsUnitTest.Mob
         Mock<IParty> party;
         Mock<INotify> notify;
         Mock<IMobileObject> attacker;
+        Mock<IMount> mount;
 
         [TestInitialize]
         public void Setup()
@@ -103,6 +104,7 @@ namespace ObjectsUnitTest.Mob
             party = new Mock<IParty>();
             notify = new Mock<INotify>();
             attacker = new Mock<IMobileObject>();
+            mount = new Mock<IMount>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Health)).Returns((string x, TagType y) => (x));
@@ -110,6 +112,7 @@ namespace ObjectsUnitTest.Mob
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Stamina)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Data)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.FileValidation)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.MountStamina)).Returns((string x, TagType y) => (x));
             evnt.Setup(e => e.EnqueueMessage(It.IsAny<IMobileObject>(), It.IsAny<string>())).Returns((IMobileObject x, string y) => (y));
             engine.Setup(e => e.Event).Returns(evnt.Object);
             engine.Setup(e => e.Combat).Returns(combat.Object);
@@ -130,11 +133,12 @@ namespace ObjectsUnitTest.Mob
             randomDropGenerator.Setup(e => e.GenerateRandomDrop(It.IsAny<INonPlayerCharacter>())).Returns(item.Object);
             random.Setup(e => e.Next(2)).Returns(1);
             random.Setup(e => e.Next(1)).Returns(1);
-
             damage.Setup(e => e.Dice).Returns(dice.Object);
             shield.Setup(e => e.Dice).Returns(dice.Object);
             shield.Setup(e => e.GetTypeModifier(DamageType.Slash)).Returns(1);
             shield.Setup(e => e.NegateDamagePercent).Returns(100);
+            mount.Setup(e => e.Stamina).Returns(4);
+            mount.Setup(e => e.MaxStamina).Returns(40);
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
@@ -1059,7 +1063,24 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void MobileObject_EnqueueMessage_MountStamina()
         {
-            Assert.AreEqual(1, 2);
+            mob.Health = 1;
+            mob.MaxHealth = 10;
+            mob.Mana = 2;
+            mob.MaxMana = 20;
+            mob.Stamina = 3;
+            mob.MaxStamina = 30;
+            mob.Mount = mount.Object;
+            mount.Setup(e => e.Riders).Returns(new List<IMobileObject>() { mob });
+
+            ConcurrentQueue<string> queue = GetMobMessageQueue(mob);
+
+            mob.EnqueueMessage("test");
+
+            Assert.AreEqual(2, queue.Count());
+            queue.TryDequeue(out string message);
+            Assert.AreEqual("test", message);
+            queue.TryDequeue(out message);
+            Assert.AreEqual("\r\n1/10 2/20 3/30 4/40\r\n", message);
         }
 
         [TestMethod]
