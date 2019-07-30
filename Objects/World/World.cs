@@ -42,6 +42,8 @@ namespace Objects.World
         private DateTime _lastSave = DateTime.UtcNow;
         private int _lastLogMinute = -1;
         private HashSet<IMount> _loadedMounts = new HashSet<IMount>();
+        private OrderablePartitioner<Tuple<int, int>> _zonePartitioner;
+        private List<IZone> _zones;
         private bool RegerateTick
         {
             get
@@ -266,6 +268,9 @@ namespace Objects.World
                 Zones.Add(zone.Id, zone);
                 _zoneIdToFileMap.Add(zone.Id, file);
             }
+
+            _zones = new List<IZone>(Zones.Values);
+            _zonePartitioner = Partitioner.Create(0, _zones.Count);
         }
 
         public IZone DeserializeZone(string serializedZone)
@@ -531,21 +536,15 @@ namespace Objects.World
                     ProcessRooms(zone);
                 }
 #else
-                Parallel.ForEach(Zones.Values, zone =>
+                Parallel.ForEach(_zonePartitioner, (range, loopState) =>
                 {
-                    ProcessRooms(zone);
+                    // Loop over each range element without a delegate invocation.
+                    for (int i = range.Item1; i < range.Item2; i++)
+                    {
+                        IZone zone = _zones[i];
+                        ProcessRooms(zone);
+                    }
                 });
-
-
-                //var rangePartitioner = Partitioner.Create(0, Zones.Values.Count);
-                //Parallel.ForEach(rangePartitioner, (range, loopState) =>
-                //{
-                //    // Loop over each range element without a delegate invocation.
-                //    for (int i = range.Item1; i < range.Item2; i++)
-                //    {
-                //        ProcessRooms()
-                //    }
-                //});
 #endif
 
                 CatchPlayersOutSideOfTheWorldDueToReloadedZones();

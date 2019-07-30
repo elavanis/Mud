@@ -99,6 +99,7 @@ namespace GenerateZones
                 room.LookDescription = "LookDescription";
                 room.ShortDescription = "ShortDescription";
                 room.SentenceDescription = "SentenceDescription";
+                room.Attributes.Add(Room.RoomAttribute.Indoor);
                 zone.Rooms.Add(room.Id, room);
                 room.AddMobileObjectToRoom(npc);
             }
