@@ -61,6 +61,7 @@ namespace GenerateZones.Zones.GrandView
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.West, Zone.Rooms[2]);
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.West, Zone.Rooms[3]);
             ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.South, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.West, Zone.Rooms[15]);
             ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.South, Zone.Rooms[5]);
             ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.West, Zone.Rooms[6]);
             ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.West, Zone.Rooms[7]);
@@ -71,13 +72,10 @@ namespace GenerateZones.Zones.GrandView
             ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.South, Zone.Rooms[12]);
             ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.North, Zone.Rooms[13]);
             ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.West, Zone.Rooms[14]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[15], Direction.West, Zone.Rooms[16]);
         }
 
         #region Rooms
-
-
-
-
         private IRoom GenerateRoom1()
         {
             IRoom room = OutdoorRoom();
@@ -110,6 +108,11 @@ namespace GenerateZones.Zones.GrandView
             room.ExamineDescription = "The inside of the fort court yard you begin to realize the amount of work that went into creating this fort.  Tons of raw stone was removed from the mountain side just to clear the area for this courtyard.";
             room.LookDescription = "The court yard extends a ways to the west before disappearing into the mountain.  The blacksmith and enchanter is to south.  The captains quarters, and stables are to the north.";
             room.ShortDescription = "The courtyard";
+
+            room.AddMobileObjectToRoom(Page());
+            room.AddMobileObjectToRoom(Page());
+            room.AddMobileObjectToRoom(Squire());
+            room.AddMobileObjectToRoom(Squire());
 
             return room;
         }
@@ -246,6 +249,31 @@ namespace GenerateZones.Zones.GrandView
         {
             IRoom room = OutdoorRoom();
 
+            room.ExamineDescription = "To the north you can see the horses running behind the fence.";
+            room.LookDescription = "The court yard has been packed with lots of foot traffic.";
+            room.ShortDescription = "Court Yard";
+
+            room.AddMobileObjectToRoom(Page());
+            room.AddMobileObjectToRoom(Page());
+            room.AddMobileObjectToRoom(Squire());
+            room.AddMobileObjectToRoom(Squire());
+
+            return room;
+        }
+
+        private IRoom GenerateRoom16()
+        {
+            IRoom room = OutdoorRoom();
+
+            room.ExamineDescription = "To the north you can see the horses running behind the fence.";
+            room.LookDescription = "The court yard has been packed with lots of foot traffic.";
+            room.ShortDescription = "Court Yard";
+
+            room.AddMobileObjectToRoom(Page());
+            room.AddMobileObjectToRoom(Page());
+            room.AddMobileObjectToRoom(Squire());
+            room.AddMobileObjectToRoom(Squire());
+
             return room;
         }
 
@@ -254,7 +282,7 @@ namespace GenerateZones.Zones.GrandView
         #region NPC
         private INonPlayerCharacter Guard()
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 21);
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 23);
             npc.ShortDescription = "A motionless guard.";
             npc.LookDescription = "The guard stands motionless while watching people move in and out of the fort.";
             npc.ExamineDescription = "The guard's face is blank but you almost detect a hint of boredom.";
@@ -314,6 +342,33 @@ namespace GenerateZones.Zones.GrandView
             npc.ExamineDescription = "The captain is dressed in standard military garb.  Nothing indicates he is a high ranking official other than he was sitting behind the desk when you walked in.";
             npc.SentenceDescription = "captain";
             npc.KeyWords.Add("captain");
+
+            return npc;
+        }
+
+        private INonPlayerCharacter Page()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 21);
+            npc.ShortDescription = "A young page.";
+            npc.LookDescription = "The page hurrys off attending to an assignment.";
+            npc.ExamineDescription = "The page looks flustered as if he has more work then time to complete it.";
+            npc.SentenceDescription = "page";
+            npc.KeyWords.Add("page");
+
+            npc.Personalities.Add(new Wanderer());
+
+            return npc;
+        }
+        private INonPlayerCharacter Squire()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 22);
+            npc.ShortDescription = "A squire.";
+            npc.LookDescription = "The squire walks by attending to official business.";
+            npc.ExamineDescription = "Dressed in fine clothing the squire hopes can be seen practicing swordsmanship as they go by.";
+            npc.SentenceDescription = "squire";
+            npc.KeyWords.Add("squire");
+
+            npc.Personalities.Add(new Wanderer());
 
             return npc;
         }
