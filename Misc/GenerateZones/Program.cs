@@ -55,6 +55,7 @@ namespace GenerateZones
                         }
                     }
 
+                    mobLevel.Sort();
                     int midLevel = 0;
                     if (mobLevel.Count > 0)
                     {
