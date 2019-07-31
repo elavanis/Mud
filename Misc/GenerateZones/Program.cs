@@ -18,7 +18,6 @@ namespace GenerateZones
 {
     public class Program
     {
-
         public static void Main(string[] args)
         {
             List<IZone> compiledZones = new List<IZone>();

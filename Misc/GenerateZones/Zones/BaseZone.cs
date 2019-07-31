@@ -14,6 +14,7 @@ using System;
 using static Objects.Item.Items.Equipment;
 using static Objects.Item.Items.Weapon;
 using static Objects.Mob.NonPlayerCharacter;
+using static Objects.Room.Room;
 
 namespace GenerateZones.Zones
 {
@@ -135,6 +136,33 @@ namespace GenerateZones.Zones
             IRoom room = new Room();
             room.Id = RoomId++;
             room.MovementCost = movementCost;
+
+            return room;
+        }
+
+        public virtual IRoom OutdoorRoom(int movementCost = 1)
+        {
+            IRoom room = CreateRoom(movementCost);
+            room.Attributes.Add(RoomAttribute.Outdoor);
+            room.Attributes.Add(RoomAttribute.Weather);
+
+            return room;
+        }
+
+        public virtual IRoom IndoorRoomLight(int movementCost = 1)
+        {
+            IRoom room = CreateRoom(movementCost);
+            room.Attributes.Add(RoomAttribute.Indoor);
+            room.Attributes.Add(RoomAttribute.Light);
+
+            return room;
+        }
+
+        public virtual IRoom IndoorRoomNoLight(int movementCost = 1)
+        {
+            IRoom room = CreateRoom(movementCost);
+            room.Attributes.Add(RoomAttribute.Indoor);
+            room.Attributes.Add(RoomAttribute.NoLight);
 
             return room;
         }

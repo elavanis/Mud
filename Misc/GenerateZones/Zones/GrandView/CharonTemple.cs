@@ -41,28 +41,22 @@ namespace GenerateZones.Zones.GrandView
         }
 
         #region Rooms
-        private IRoom GenerateRoom()
-        {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(RoomAttribute.Indoor);
-            return room;
-        }
+
 
         private IRoom GenerateRoom1()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "Faint humming sounds can be heard from below.";
             room.LookDescription = "Stairs descend downward into the darkness of the of the temple.";
             room.ShortDescription = "Charon Temple";
-            room.Attributes.Add(RoomAttribute.NoLight);
 
             return room;
         }
 
         private IRoom GenerateRoom2()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
             room.LookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
@@ -73,7 +67,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom3()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
             room.LookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
@@ -84,7 +78,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom4()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
             room.LookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
@@ -95,7 +89,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom5()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "A small shrine has been setup next to the dock.";
             room.LookDescription = "There is dock extending twenty or thirty feet into a river that extends into the darkness.";
@@ -121,7 +115,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom6()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "In the center of the circle is a statue of Charon guiding his boat down the river with his mighty oar.";
             room.LookDescription = "A small circle has been drawn in chalk on the cave floor.";

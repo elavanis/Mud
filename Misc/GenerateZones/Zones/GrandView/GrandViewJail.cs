@@ -56,9 +56,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom1()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
             room.Attributes.Add(Room.RoomAttribute.Peaceful);
 
             room.ExamineDescription = "The cell is cold and damp just like you would imagine it to be.  However upon closer inspection you notice that the wall to the east is actually a door.";
@@ -73,9 +71,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom2()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "Drops of water can be heard falling in the cavern.  The moisture makes the rocks slippery and would be a slipping hazard if you were able to stand and walk.";
             room.LookDescription = "This area is a low tunnel connecting the cell to an underground cavern.";
@@ -88,9 +84,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom3()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "Because of all the glowing mushrooms you can see the cavern ceiling.  Stalactites hang down from the ceiling above stalagmites.  Each trying desperately to reach the other.";
             room.LookDescription = "The cavern opens up to a large area here.  Several colorful glowing mushrooms are growing here making it easy to see.  Maybe you should pick some up.";
@@ -126,9 +120,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom4()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.NoLight);
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "The tunnel here is only slightly taller then you.  At points you have to crawl on your belly to get through.";
             room.LookDescription = "The tunnel here is steep and bendy.  The walls seem to close in on you as you make your way through.";
@@ -142,9 +134,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom5()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.NoLight);
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "You can hear the sounds of water cascading over rocks from the east, however it a sheer cliff that descends into darkness of unknown depth.  A shoddy built wooden ladder made of twine and logs ascends into the darkness above.";
             room.LookDescription = "The tunnel makes an abrupt direction change here.  To the east is are cliff and the sound of water.  Up is a ladder and to the west a tunnel of darkness.";
@@ -158,9 +148,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom6()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.NoLight);
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "Looking around you are not sure if this part of the tunnel is natural or not.  You know for sure the ladder is not natural.";
             room.LookDescription = "You are on a ladder.  Above you is darkness, below you is darkness.";
@@ -174,9 +162,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom7()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.NoLight);
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "Looking around you are not sure if this part of the tunnel is natural or not.  You know for sure the ladder is not natural.";
             room.LookDescription = "You are on a ladder.  Above you is darkness, below you is darkness.";
@@ -190,9 +176,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom8()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.NoLight);
+            IRoom room = IndoorRoomNoLight();
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             room.ExamineDescription = "Light comes into the tunnel from cracks between the stone and hole above.";

@@ -140,7 +140,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom Room26()
         {
-            IRoom room = CreateRoom();
+            IRoom room = IndoorRoomLight();
             room.Id = 26;
             room.Zone = Zone.Id;
             room.Owner = "the grounds keeper";
@@ -148,7 +148,6 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "You shouldn't see this but since you can some how before you is the groundskeeper house.  It is a simple house with a cooking stove, table and chair and single bed for sleeping.";
             room.ExamineDescription = "Maybe you should report the bug that you got here.";
             room.ShortDescription = "GroundsKeeper House";
-            room.Attributes.Add(RoomAttribute.Indoor);
 
             room.AddMobileObjectToRoom(GroundsKeeper());
 

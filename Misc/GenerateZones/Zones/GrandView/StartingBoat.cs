@@ -173,7 +173,7 @@ namespace GenerateZones.Zones
 
         private IRoom BelowDeck()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
 
             room.Enchantments.Add(FireDamage());
 
@@ -197,7 +197,8 @@ namespace GenerateZones.Zones
 
         private IRoom OnDeck()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = OutdoorRoom();
+            room.Attributes.Add(RoomAttribute.Light);
 
             room.Enchantments.Add(DragonBreath());
 
@@ -224,13 +225,6 @@ namespace GenerateZones.Zones
             fireDamage.Parameter.TargetMessage = new TranslationMessage("A dragon sweeps down and breaths fire on you.");
 
             return fireDamage;
-        }
-
-        private IRoom GenerateRoom()
-        {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(RoomAttribute.Light);
-            return room;
         }
 
         private INonPlayerCharacter DeckCrew()

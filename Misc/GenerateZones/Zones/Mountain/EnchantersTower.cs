@@ -96,7 +96,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom8()
         {
-            IRoom room = TowerRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ShortDescription = "Top Floor";
             room.ExamineDescription = "A large collection of mirrors and lenses seem to be setup to collect energy into a single point in the center of the room.";
@@ -119,7 +119,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom9()
         {
-            IRoom room = TowerRoom();
+            IRoom room = IndoorRoomLight();
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
             room.ShortDescription = "Top Floor";
@@ -142,7 +142,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom11()
         {
-            IRoom room = TowerRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ShortDescription = "Enchanting Room";
             room.ExamineDescription = "The table glows faintly with the residual energy of the thousands of enchantments performed on it.";
@@ -156,7 +156,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom12()
         {
-            IRoom room = TowerRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ShortDescription = "Holding Cells";
             room.LookDescription = "There are several cages along the walls used for holding prisoners.";
@@ -250,7 +250,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom Stairs()
         {
-            IRoom room = TowerRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ShortDescription = "Spiral Staircase";
             room.ExamineDescription = "The stairs are surprisingly made of wood instead of stone and creak slightly as you walk on them.";
@@ -260,19 +260,11 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GroundFloor()
         {
-            IRoom room = TowerRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ShortDescription = "Ground Floor";
             room.ExamineDescription = "The stone hallway is lit with a pair of torches ever twelve feet.";
             room.LookDescription = "A stone hallway leading outside the tower and deeper inside toward a stairwell.";
-            return room;
-        }
-
-        private IRoom TowerRoom()
-        {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
             return room;
         }
 

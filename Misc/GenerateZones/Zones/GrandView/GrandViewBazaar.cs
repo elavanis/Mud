@@ -54,9 +54,7 @@ namespace GenerateZones.Zones
         #region Rooms
         private IRoom GenerateRoom1()
         {
-            IRoom room = GenerateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "Tapestries of every color adore the bazaar here.  The one on the right might be look good in your house.  Further in the back you can see the seamstresses work.";
             room.LookDescription = "Colorful tapestries and other cloth materials hang on display all around you.";
@@ -65,17 +63,9 @@ namespace GenerateZones.Zones
             return room;
         }
 
-        private IRoom GenerateRoom()
-        {
-            IRoom room = CreateRoom();
-            return room;
-        }
-
         private IRoom GenerateRoom2()
         {
-            IRoom room = GenerateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "There are all kinds of fish here.  Bass, trout and walleye as well as ocean imports swordfish and shark.  For the adventurous there are squid and eel.  In the north side of the fish market there is some live lobster and crab.";
             room.LookDescription = "The smell of fish assault your nostrils.  Everywhere you look you see fish.";
@@ -86,9 +76,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom3()
         {
-            IRoom room = GenerateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "Wheels of fresh Gouda and mozzarella are on display on the left.  Fresh baguettes and other loaves of breads are on the right.";
             room.LookDescription = "The smell of fresh breeds and cheeses emanate from the market.";
@@ -99,9 +87,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom4()
         {
-            IRoom room = GenerateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "Wooden bowls come in all shapes and sizes.  Carved from the most beautiful woods some have beautiful designs while other are the more economical choice variety.";
             room.LookDescription = "Wooden chairs tables, carts and other things lay littered on the ground.";
@@ -112,9 +98,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom5()
         {
-            IRoom room = GenerateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "With so many things on display its actually not as bad to maneuver though here as you might think.  The organization leaves a bit to be desired but its not cluttered.  Pieces range in quality and in price.  While the life size statue of Charon might not be practical maybe a necklace with Charon's symbol on it might be good.";
             room.LookDescription = "This appears to be the metalworkers area.  Metal utensils, small figurines as well as swords, shields and entire suits of armor are on display here.";
@@ -125,9 +109,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom6()
         {
-            IRoom room = GenerateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "Leather items range from furniture to pieces of armor.  They come are available in all shapes and sizes.";
             room.LookDescription = "Tanned leather pieces are hung for purchase as well as finished products.";
@@ -236,9 +218,7 @@ namespace GenerateZones.Zones
         #region BlackSmith
         private IRoom GenerateRoom7()
         {
-            IRoom room = GenerateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "Anything that you can could need for self protection exists in this shop.  It only a matter of finding something you like.";
             room.LookDescription = "Swords, shields and armor adorn the walls of the little shop.  While mannequins display items on the floor.";
@@ -316,9 +296,7 @@ namespace GenerateZones.Zones
         #region Leather Worker
         private IRoom GenerateRoom8()
         {
-            IRoom room = GenerateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The smell of fresh leather drifts through the shop.  The various shades of browns give the shop a warm look and in the evening the light of the setting sun can be seen entering through the front of the store.  It reflects off the leather samples in the store and creates a nice warm inviting atmosphere, so much so that the shop keeper says that over 20% of her business come at sunset.";
             room.LookDescription = "Different type of leather armor line one wall while raw materials line the other.";
@@ -392,9 +370,7 @@ namespace GenerateZones.Zones
         #region Tailor 
         private IRoom GenerateRoom9()
         {
-            IRoom room = GenerateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The black tailored suit and the purple ball gown are most exquisite.  Both are tucked in just the right places to show of the wearers figure and show an eye for detail by the tailor.";
             room.LookDescription = "Fine tailored suits and formal gowns are displayed in the front window.  The armor is in the back half of the store.";

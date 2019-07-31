@@ -248,9 +248,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom Plateau()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ShortDescription = "Plateau";
             room.ExamineDescription = "The plateau is dominated by the tower in the center.  The rest is covered in small clumps of grass and lichen.";

@@ -384,31 +384,18 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom RockFace()
         {
-            IRoom room = OutSide(100);
+            IRoom room = OutdoorRoom(100);
             room.ShortDescription = "Mountain Face";
             return room;
         }
 
         private IRoom RockPath()
         {
-            IRoom room = OutSide(1);
+            IRoom room = OutdoorRoom(1);
             room.ShortDescription = "Path up the side of the mountain";
             return room;
         }
 
-        private IRoom OutSide(int movementCost)
-        {
-            IRoom room = GenerateRoom(movementCost);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
-            return room;
-        }
-
-        private IRoom GenerateRoom(int movementCost)
-        {
-            IRoom room = CreateRoom(movementCost);
-            return room;
-        }
 
         private void ConnectRooms()
         {

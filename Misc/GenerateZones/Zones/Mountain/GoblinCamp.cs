@@ -70,20 +70,8 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom CampOutSide()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
-
-
+            IRoom room = OutdoorRoom();
             room.ShortDescription = "Goblin Camp";
-            return room;
-        }
-
-        private IRoom CampInside()
-        {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-
             return room;
         }
 
@@ -156,7 +144,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom7()
         {
-            IRoom room = CampInside();
+            IRoom room = IndoorRoomLight();
             room.ShortDescription = "Goblin Chief Hut";
 
             room.ExamineDescription = "A small table for eating sits to the west while a smaller room for sleeping is to the north.  Several swords and shields spaced evenly apart decorate the walls.";
@@ -170,7 +158,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom8()
         {
-            IRoom room = CampInside();
+            IRoom room = IndoorRoomLight();
             room.ShortDescription = "Goblin Shaman Hut";
 
             room.ExamineDescription = "Small totems of different animal spirits sit around the fire.";
@@ -200,7 +188,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom11()
         {
-            IRoom room = CampInside();
+            IRoom room = IndoorRoomLight();
             room.ExamineDescription = "A the desk has several papers on it but they are so poorly written that it makes reading impossible.";
             room.LookDescription = "The hut contains a small desk for writing as well a place to sleep.";
             room.ShortDescription = "A goblin hut";
@@ -210,7 +198,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom12()
         {
-            IRoom room = CampInside();
+            IRoom room = IndoorRoomLight();
             room.ExamineDescription = "Several strips of meat hang from the hut and are slowly becoming jerky in the smoke.";
             room.LookDescription = "The hut is filled with smoke making it hard to see.";
             room.ShortDescription = "A goblin hut";
@@ -220,7 +208,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom13()
         {
-            IRoom room = CampInside();
+            IRoom room = IndoorRoomLight();
             room.ExamineDescription = "Five sets of bunks extend out from the table.  Who ever was the 3rd player would won the hand with a royal flush.";
             room.LookDescription = "Several small bunks extend out past a table with cards on it.";
             room.ShortDescription = "A goblin hut";
@@ -253,7 +241,7 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom14()
         {
-            IRoom room = CampInside();
+            IRoom room = IndoorRoomLight();
             room.ExamineDescription = "There is a carving in one of the tables.  TJ + CJ";
             room.LookDescription = "Several rows of tables are in line.  A small cooking area behind a counter is in the back.";
             room.ShortDescription = "A goblin hut";

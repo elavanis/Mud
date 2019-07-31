@@ -52,20 +52,12 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom1()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             room.ExamineDescription = "The floor is a beautiful mosaic of the surrounding areas.  The mountains to the north and west and the forest to the east are both represented. For some reason the map maker left out the south.  Still the map must be old because fort Woodbrook is shown miles from the forest and it has long since been overgrown and lies deep in heart of the forest.";
             room.LookDescription = "The entrance to the library is a sandstone entry way.  The ceiling is domed and has \"Cave ab homine unius libri.\" written on it.  The floor is a mosaic of the surrounding lands.";
             room.ShortDescription = "Entrance to the great library";
-            return room;
-        }
-
-        private IRoom GenerateRoom()
-        {
-            IRoom room = CreateRoom();
             return room;
         }
 
@@ -96,9 +88,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom7()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "This corner of the library is used by the wizards as their guild hall.  Scrolls and books are scattered about with stacks ranging from a few feet to as hight as the ceiling.";
             room.LookDescription = "This corner of the basement is designated as the wizards guild.  Dimly lit candles burn at desks with scrolls inviting practitioners of magic to learn something new.";
@@ -342,9 +332,7 @@ namespace GenerateZones.Zones
 
         private IRoom BasementSteps()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The stairs are eerily quiet, to quiet to be exact.  Perhaps since it is a library there is some magic that helps maintain the quietness.";
             room.LookDescription = "Worn stone steps connect the basement to the entrance of the library.";
@@ -354,9 +342,7 @@ namespace GenerateZones.Zones
 
         private IRoom LibraryBasement()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The books are quite dusty from being in the basement for so long but the cool temperature has helped preserve the oldest ones.";
             room.LookDescription = "Piles of books are strewn across the floor here and there.";
@@ -561,9 +547,7 @@ namespace GenerateZones.Zones
 
         private IRoom LibraryShelves()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ShortDescription = "Library shelves";
             return room;
@@ -571,9 +555,7 @@ namespace GenerateZones.Zones
 
         private IRoom LibraryTables()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The tables are strong and well built with many chairs on either side.  The tables sits on a pure white stone floor causing you to double check you didn't track anything into the library.";
             room.LookDescription = "Two large tables stretch from the west to east shelves filling up most of the room except for a center isle.";
@@ -663,9 +645,7 @@ namespace GenerateZones.Zones
 
         private IRoom LibraryStairs()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The spiral stairs are well worn with age and use.";
             room.LookDescription = "While there are no books in this part of the library it has seen its fair use of traffic as well.";
@@ -675,9 +655,7 @@ namespace GenerateZones.Zones
 
         private IRoom LibraryBalcony()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "You look around the room but are drawn back to the balcony and its simple beauty.";
             room.LookDescription = "There are books up here but the true prize is the balcony over looking the library below and the arched dome above.";

@@ -57,7 +57,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         #region Rooms
         private IRoom GenerateRoom1()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "While the wooden gates are still strong they have fallen off the hinges and lay strewn on ground.";
             room.LookDescription = "Both sets of gates have fallen off the hinges and allow access to the fort.";
             room.ShortDescription = "Entrance to the fort";
@@ -67,7 +67,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom2()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "To the north a collapsed building has fallen down.  To the east and west are stairs leading to the ramparts.";
             room.LookDescription = "The court yard is overgrown with grass and small trees.";
             room.ShortDescription = "Inside the court yard";
@@ -77,7 +77,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom3()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "The stairs are worn but look like they should hold your weight.";
             room.LookDescription = "Wooden stairs lead up to the rampart.";
             room.ShortDescription = "Inside the court yard";
@@ -87,7 +87,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom4()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "If the well had a cover it is long gone but there is still water in the well.  If only the bucket was around you could get a drink.";
             room.LookDescription = "A small stone well dominates the area here.";
             room.ShortDescription = "Inside the court yard";
@@ -97,7 +97,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom5()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "The part of the eastern wall has started to collapse allowing you to see out into the forest.";
             room.LookDescription = "Thick grass has grown up obscuring what this part of the court yard might have been used for.";
             room.ShortDescription = "Inside the court yard";
@@ -107,7 +107,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom6()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "It looks like this might have been stalls for horses but the building has long since collapsed.";
             room.LookDescription = "A collapsed building lays before you.";
             room.ShortDescription = "Inside the court yard";
@@ -117,7 +117,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom7()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "A several trees have started to grow up pushing the stone pavers out of the way.";
             room.LookDescription = "You stand in what was once the center of the court yard.";
             room.ShortDescription = "Inside the court yard";
@@ -127,7 +127,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom8()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "Peeking into the building you can see part of a shelf on the right but not any further as the walls have collapsed.";
             room.LookDescription = "A small building such as a shed stands to the north.";
             room.ShortDescription = "Inside the court yard";
@@ -137,7 +137,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom9()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "The door to the building is ajar and hangs only by one nail that refuses to give up.";
             room.LookDescription = "The main building in the fort is to the west while the court yard opens to the east.";
             room.ShortDescription = "Inside the court yard";
@@ -147,7 +147,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom10()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "The stairs have long been neglected and have succumb to mother nature and father time.";
             room.LookDescription = "The stairs leading up to the ramparts have collapsed.";
             room.ShortDescription = "Inside the court yard";
@@ -157,7 +157,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom11()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "The forest would have been cut back to allow lookouts to see approaching people sooner. How much is hard to say though.";
             room.LookDescription = "The top of the rampart you are able to see the court yard below.  This would have given watchers a good view point of the forest below as well as the court yard.";
             room.ShortDescription = "On the rampart";
@@ -167,7 +167,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom12()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "The whole fort seems to let out a low creak as you walk on this part of the rampart.";
             room.LookDescription = "As you step on to this part of the rampart it lets out a grown in protest at your presence.";
             room.ShortDescription = "On the rampart";
@@ -181,7 +181,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom13()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "At some point someone carved TLJ + CLG inside a big heart.";
             room.LookDescription = "The rampart continues north and south.";
             room.ShortDescription = "On the rampart";
@@ -191,7 +191,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom14()
         {
-            IRoom room = OutSideRoom(1);
+            IRoom room = OutdoorRoom(1);
             room.ExamineDescription = "The wall to the north has begun to fall away and you can see the forest starting to grow through.";
             room.LookDescription = "The rampart to the north has fallen down and is no longer passable.";
             room.ShortDescription = "On the rampart";
@@ -201,7 +201,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom15()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "Large amounts of dust covers the ground.";
             room.LookDescription = "A long dark hallway stretches to the west while the court yard opens to the east.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -211,7 +211,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom16()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "The root proves to be a small tripping hazard but could be an issue if you needed to run through here in a hurry.";
             room.LookDescription = "A tree root grows up through the floor before going back down into the ground.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -221,7 +221,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom17()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "A hall";
             room.LookDescription = "A hall";
             room.ShortDescription = "In Fort Woodbrook";
@@ -232,7 +232,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom18()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "A hall";
             room.LookDescription = "A hall";
             room.ShortDescription = "In Fort Woodbrook";
@@ -242,7 +242,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom19()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "A hall";
             room.LookDescription = "A hall";
             room.ShortDescription = "In Fort Woodbrook";
@@ -252,7 +252,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom20()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "Most weapons appear to be of training quality and the little that was of better quality has suffered the ravages of time and neglect.";
             room.LookDescription = "While this room is filled with swords and shields there does not appear to be anything of actual use.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -262,7 +262,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom21()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "It appears over time animals have made this room a favorite sleeping area.";
             room.LookDescription = "What is left of several beds litter the room.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -272,7 +272,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom22()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "A large wooden table has several small spider webs on it from lack of use.";
             room.LookDescription = "A large wooden table with several scattered chairs fill this part of the room.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -284,7 +284,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom23()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "A large wooden table has several small spider webs on it from lack of use.";
             room.LookDescription = "A large wooden table with several scattered chairs fill this part of the room.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -296,7 +296,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom24()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "The spider webs have become an integral part of the furniture creating an almost haunted look..";
             room.LookDescription = "Spider webs cover large amounts of the chairs and table here.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -308,7 +308,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom25()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "A large wooden table has several small spider webs on it from lack of use.";
             room.LookDescription = "A large wooden table with several scattered chairs fill this part of the room.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -320,7 +320,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom26()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "The spider webs have become an integral part of the furniture creating an almost haunted look..";
             room.LookDescription = "Spider webs cover large amounts of the chairs and table here.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -332,7 +332,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom27()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "The spider webs have grown so complete that they cover the furniture like a giant white sheet.";
             room.LookDescription = "The spider webs have grown thick and cover the furniture completely hiding it from view.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -344,7 +344,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom28()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "The spider webs have become an integral part of the furniture creating an almost haunted look..";
             room.LookDescription = "Spider webs cover large amounts of the chairs and table here.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -356,7 +356,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom29()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "The spider webs have grown so complete that they cover the furniture like a giant white sheet.";
             room.LookDescription = "The spider webs have grown thick and cover the furniture completely hiding it from view.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -368,7 +368,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom30()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "The spider webs criss cross into a solid web wall of web save a small opening to the north.";
             room.LookDescription = "The spider webs cover the entirety of the room from the floor to the ceiling.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -380,7 +380,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom31()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "White silken webs are every where creating a silver shimmer ever where you look.";
             room.LookDescription = "A tunnel of spider webs leads north and south.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -394,7 +394,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom32()
         {
-            IRoom room = InSideRoom(1);
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "Examining the dark spots closer reveal them to be corpses of adventures who were victims of the spider.";
             room.LookDescription = "Several dark spots in the spider silk web do the walls of the room.";
             room.ShortDescription = "In Fort Woodbrook";
@@ -435,22 +435,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             npc.ExamineDescription = "It is a large spider over 12 feet long.  Its eight legs seem to float along the web barley touching it and moving on without sticking.";
 
             return npc;
-        }
-
-        private IRoom OutSideRoom(int movementCost)
-        {
-            IRoom room = CreateRoom(movementCost);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
-            return room;
-        }
-
-        private IRoom InSideRoom(int movementCost)
-        {
-            IRoom room = CreateRoom(movementCost);
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.NoLight);
-            return room;
         }
         #endregion Rooms
 

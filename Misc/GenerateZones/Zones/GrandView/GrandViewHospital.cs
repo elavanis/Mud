@@ -65,7 +65,7 @@ namespace GenerateZones.Zones.GrandView
         /// <returns></returns>
         private IRoom GenerateRoom1()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
             room.Attributes.Add(Room.RoomAttribute.Peaceful);
 
             room.ExamineDescription = "The place is dry and well lit.  The beds are comfortable and clean.  While the initial scan of the place seems nice it is still a hospital.  People are here because they are sick.";
@@ -158,7 +158,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom4()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The hallway way is fairly long and is covered from the floor to the walls in tie.  Foot steps echo up and down giving an empty cold and sterile feeling.";
             room.LookDescription = "You stand at the intersection of the recovery, surgery and entrance of the hospital.";
@@ -168,7 +168,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom5()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The entrance to GrandView Hospital presents a nice face for what could be an awful experience.  The receptions desk is situated such that it is the first thing you see.  Made of some type of imported wood it stands several feet tall and has a stone top.  Several pieces of paper and pens sit neatly arranged on the desk.";
             room.LookDescription = "The entrance of GrandView Hospital is before you.  By the entrance is the receptions desk and general seating is behind there.  To the west is the surgery and recovery wing and to the south is the morgue.";
@@ -178,7 +178,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom6()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The operating table sits in the middle of the room.  It has straps for holding the patient in place while the operation is underway.  There is a tray of surgical utensils next to the table and on the far west wall a poster labeling the different body parts.";
             room.LookDescription = "You have entered the main operating room.  It looks like the room is ready for an operation but there is no one here.";
@@ -211,7 +211,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom7()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "Each of the shelves hold five bodies wrapped in white sheets.  There are a pair of bodies in the corner drained of blood being filed with embalming fluids.";
             room.LookDescription = "The morgue is filled with shelves of dead bodies wrapped in white sheets.";
@@ -233,7 +233,7 @@ namespace GenerateZones.Zones.GrandView
         /// <returns></returns>
         private IRoom GenerateRoom2()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
             room.Attributes.Add(Room.RoomAttribute.Peaceful);
 
             room.ExamineDescription = "The place is dry and well lit.  The beds are comfortable and clean.  While the initial scan of the place seems nice it is still a hospital.  People are here because they are sick.";
@@ -266,7 +266,7 @@ namespace GenerateZones.Zones.GrandView
         /// <returns></returns>
         private IRoom GenerateRoom3()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
             room.Attributes.Add(Room.RoomAttribute.Peaceful);
 
             room.ExamineDescription = "The place is dry and well lit.  The beds are comfortable and clean.  While the initial scan of the place seems nice it is still a hospital.  People are here because they are sick.";
@@ -300,7 +300,7 @@ namespace GenerateZones.Zones.GrandView
         /// <returns></returns>
         private IRoom GenerateRoom8()
         {
-            IRoom room = GenerateRoom();
+            IRoom room = IndoorRoomLight();
             room.Attributes.Add(Room.RoomAttribute.Peaceful);
 
             room.ExamineDescription = "The place is dry and well lit.  The beds are comfortable and clean.  While the initial scan of the place seems nice it is still a hospital.  People are here because they are sick.";
@@ -342,16 +342,6 @@ namespace GenerateZones.Zones.GrandView
 
             return item;
         }
-
-        private IRoom GenerateRoom()
-        {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
-
-            return room;
-        }
-
         #endregion Rooms
 
         private void ConnectRooms()

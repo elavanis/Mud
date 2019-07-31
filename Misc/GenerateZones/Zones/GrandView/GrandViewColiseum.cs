@@ -45,9 +45,7 @@ namespace GenerateZones.Zones
         #region Rooms
         private IRoom GenerateRoom1()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "It is hard to judge the full size of the coliseum from the ground.  The coliseum extends as far as the eye can see to the north and south and towers above you to the east.";
             room.LookDescription = "The coliseum towers far dizzily above you.  Different color pennant are affixed to poles going around the top of the coliseum.  From down here it is hard to see what is on them.";
@@ -81,9 +79,7 @@ namespace GenerateZones.Zones
         #region Basement
         private IRoom GenerateRoom2()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight(2);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             room.ExamineDescription = "The coliseum is built out of massive limestones. Some of the stones are staggering and baffle the imagination causing you to wonder how this was built in the first place.";
@@ -95,9 +91,8 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom3()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight(2);
+
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             room.ExamineDescription = "While the smell of smoke is strong you can start to make out the smells of animals used in the gladiatorial fights.  You can hear the sounds of lions, tigers and bears off in the distance.";
@@ -126,9 +121,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom4()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Indoor);
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            IRoom room = IndoorRoomLight(2);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             room.ExamineDescription = "The ladder is made of brass rings attached to a single pole that runs the height of the room.";
@@ -142,9 +135,7 @@ namespace GenerateZones.Zones
         #region Coliseum Arena
         private IRoom GenerateRoom5()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far north west corner of the arena.  To the south east you can see {ArenaLong}.";
@@ -164,9 +155,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom6()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far north of the arena.  To the south you can see {ArenaLong}.";
@@ -185,9 +174,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom7()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far north of the arena.  To the south you can see {ArenaLong}.";
@@ -206,9 +193,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom8()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far north of the arena.  To the south you can see {ArenaLong}.";
@@ -227,9 +212,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom9()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far north east of the arena.  To the south west you can see {ArenaLong}.";
@@ -248,9 +231,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom10()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far west of the arena.  To the east you can see {ArenaLong}.";
@@ -273,9 +254,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom11()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
@@ -302,9 +281,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom12()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
@@ -323,9 +300,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom13()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
@@ -344,9 +319,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom14()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far east of the arena.  To the west you can see {ArenaLong}.";
@@ -365,9 +338,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom15()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far west of the arena.  To the east you can see {ArenaLong}.";
@@ -386,9 +357,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom16()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
@@ -411,9 +380,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom17()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "From down here the arena floor looks much bigger but also more dangerous.";
             room.LookDescription = "You stand at the center of the arena floor with the arena extending in a all directions.  Beyond the arena floor the stadium seats extend upward almost out of sight.";
@@ -424,9 +391,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom18()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
@@ -445,9 +410,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom19()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far east of the arena.  To the west you can see {ArenaLong}.";
@@ -466,9 +429,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom20()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far west of the arena.  To the east you can see {ArenaLong}.";
@@ -487,9 +448,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom21()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
@@ -508,9 +467,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom22()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
@@ -529,9 +486,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom23()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
@@ -554,9 +509,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom24()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far east of the arena.  To the west you can see {ArenaLong}.";
@@ -575,9 +528,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom25()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far south west of the arena.  To the north east you can see {ArenaLong}.";
@@ -596,9 +547,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom26()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far south of the arena.  To the north you can see {ArenaLong}.";
@@ -617,9 +566,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom27()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far south of the arena.  To the north you can see {ArenaLong}.";
@@ -638,9 +585,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom28()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far south of the arena.  To the north you can see {ArenaLong}.";
@@ -659,9 +604,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom29()
         {
-            IRoom room = CreateRoom(2);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(2);
 
             room.ExamineDescription = "{ArenaExamine}";
             room.LookDescription = "You stand at the far south east of the arena.  To the north west you can see {ArenaLong}.";
@@ -779,9 +722,7 @@ namespace GenerateZones.Zones
 
         private IRoom AreanaSeating()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "The arena seats are made of white marble that shine in the sun and glow in the moonlight.";
             room.LookDescription = "The height of the seating in this area is about perfect.  You can see the entire arena while making out the participants.";
@@ -841,9 +782,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom46()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             room.ExamineDescription = "You can see why the King and Queen have seats here.  This is by far the best seats in the house.";
@@ -854,9 +793,7 @@ namespace GenerateZones.Zones
 
         private IRoom AreanaNoseBleed()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "The nose bleed arena seats are made of wood.  At least they don't have splinters.";
             room.LookDescription = "The nose bleed section of the arena is a bit high to see anything but when the arena is full the energy of the crowd makes this a good seat.";

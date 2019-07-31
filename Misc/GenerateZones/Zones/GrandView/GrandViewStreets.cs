@@ -52,9 +52,7 @@ namespace GenerateZones.Zones.GrandView
         #region City
         private IRoom GenerateRoom1()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "A huge ancient oak tree about 10 feet in diameter creates the perfect blind for entering or leaving the tunnel below.  Other than that it would also be a nice place for a picnic.";
             room.LookDescription = "A huge ancient oak tree hides a hole in the ground from the street.";
@@ -68,9 +66,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom2()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "Upon closer examination you discover a faint path between the street and the oak tree.  You are not the first person to come this way.";
             room.LookDescription = "You stand in a grassy field half way between the street and a huge ancient oak tree.";
@@ -84,9 +80,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom3()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "The road appears to be of good quality.  No weeds, well drained and smooth stone.  To the south is a field with a small hill and huge tree.  To the north is a pond with some ducks swimming by.  To the east you see a large dome and the west leads down to the heart of the city.";
             room.LookDescription = "The road runs east and west here and a field extends to the south with a huge oak tree dominating a small hill.";
@@ -97,9 +91,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom4()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = string.Format("The \"Grandview Meadows\" park lies to your west.  To call it a Grandview or a Meadow would be stretching the definition of either but hey, no one consulted you when the named the place.  Maybe before the city was here it was a meadow.  To the north is the stairwell leading to the giant dome which some would call the jewel of the city.  The stairwell is made of stone and consists of {0} steps, one for each God.", Enum.GetValues(typeof(Years)).Length);
             room.LookDescription = "An arched sign extends over the street here and reads \"Grandview Meadows.\"";
@@ -127,9 +119,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom5()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "White paving stone extend outward from the center of the dome in a circular pattern.";
             room.LookDescription = "A paved court yard surrounds the giant dome to the north.";
@@ -163,9 +153,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom6()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "White paving stone extend outward from the center of the dome in a circular pattern.";
             room.LookDescription = "A paved court yard surrounds the giant dome to the north west.";
@@ -176,9 +164,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom7()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "White paving stone extend outward from the center of the dome in a circular pattern.";
             room.LookDescription = "A paved court yard surrounds the giant dome to the west.";
@@ -192,9 +178,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom8()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "White paving stone extend outward from the center of the dome in a circular pattern.";
             room.LookDescription = "A paved court yard surrounds the giant dome to the south west.";
@@ -205,9 +189,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom9()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "White paving stone extend outward from the center of the dome in a circular pattern.";
             room.LookDescription = "A paved court yard surrounds the giant dome to the north.";
@@ -221,9 +203,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom10()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "White paving stone extend outward from the center of the dome in a circular pattern.";
             room.LookDescription = "A paved court yard surrounds the giant dome to the south east.";
@@ -234,9 +214,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom11()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "White paving stone extend outward from the center of the dome in a circular pattern.";
             room.LookDescription = "A paved court yard surrounds the giant dome to the east.";
@@ -250,9 +228,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom12()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "White paving stone extend outward from the center of the dome in a circular pattern.";
             room.LookDescription = "A paved court yard surrounds the giant dome to the north east.";
@@ -263,9 +239,7 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom13()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "The dome appears to 50 feet across and 30 to 40 feet across.  There are 8 pillars 5 feet in diameter made of marble holding up the dome.  Each pillar is made of either white marble or black marble in alternating fashion.  The light dancing through the dome cast interesting patterns on the white cobble stone.  Directly under the center of the dome is a large circular stone that could be used for sitting.  In the center of the stone is an inscription. \"Built 02/14/0024 by Charon\"";
             room.LookDescription = "A giant stained glass dome stands 30 to 40 feet above you.  The light shining through the dome cast interesting patterns on the cobble stone floor causing you to admire its beauty for a moment.";
@@ -293,9 +267,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom14()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "A stone fence about 3 feet tall line either side of the road here. Cherry blossoms can be seen growing on either side of the fence on the large estates.";
             room.LookDescription = "Two sprawling estates line the road here.";
@@ -305,9 +277,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom15()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "The stone fence continue north and south along the road.  On either side are the two largest estates in the city.";
             room.LookDescription = "The two largest estates in the city are to the east and the west of here.";
@@ -317,9 +287,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom16()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "A stone fence about 3 feet tall line either side of the road here. Pine trees dot the country side on either side of the road.";
             room.LookDescription = "Two sprawling estates line the road here.";
@@ -329,9 +297,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom17()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "To the north stands the city's library.  Seven five story tall pillars support the roof to this massive structure.  In the center of the library is a large golden dome with windows cut out for viewing the city.";
             room.LookDescription = "The city's library containing the public records, works of fiction and great books of magic stands to the north.  To the south lies Rockdale Avenue.";
@@ -345,9 +311,7 @@ East: The Training Hall";
         #region City Pt2
         private IRoom GenerateRoom18()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "Off in the distance to the east you can make out a coliseum and to the west is the great dome.  Shops and houses line the road to the north and south.";
             room.LookDescription = "The cobble stones here are quite worn indicating this road it quite popular.";
@@ -358,9 +322,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom19()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "You stand about half way between the giant dome and the coliseum. Even though the coliseum is still a far ways off it presence looms far above you.";
             room.LookDescription = "The road continues east and west for a long ways.  The shops and houses have given way to a small park.";
@@ -373,9 +335,7 @@ East: The Training Hall";
         #region Duck Pond
         private IRoom GenerateRoom20()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "Blue water and green lily pads mix to form turquoise reflections that dance on the water.";
             room.LookDescription = "Lily pads float on the surface of the pond to the north creating a checker board effect.";
@@ -386,9 +346,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom21()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "A small tree lays in the stream.  One end was gnawed off by a beaver but it looks like it was unable to pull it back up the bank to be taken to its damn.";
             room.LookDescription = "A small stream of water creating a soothing sound as it babbles over rocks to feed the pond.";
@@ -399,9 +357,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom22()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "Pine trees lie a dozen yards to the west and the pond lies several feet to east.  The cat tails make it hard to see but the pond shimmers in the light.";
             room.LookDescription = "The pond lies to the east and cat tails have grown up here obscuring view of some of the pond.";
@@ -412,9 +368,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom23()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "This area could make a nice picnic area.  There are open areas of grass and a nice view of the pond.  Trees grow to the west and provide shade and an place to take a nice walk for people who are interested.";
             room.LookDescription = "The duck pond extends to the north underneath a wooden bridge to the east.";
@@ -425,9 +379,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom24()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "The wooden looks like it was recently built.  The wood is nice and strong and the paint is not flaking.  The top hand rails and the deck where you walk are both painted a pleasant shade of red and the rails are painted white.  It has a pleasant arch that spans the approximate 10 feet pond.";
             room.LookDescription = "Looking over the railing of the bridge you can see fish in the pond a few feet below.";
@@ -438,9 +390,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom25()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "To the east you can see the great dome rising above the rest of the city.  The soft green grass extends in to the east and to the south along the duck pond.";
             room.LookDescription = "The duck pond extends to the north underneath a wooden bridge to the west.";
@@ -451,9 +401,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom26()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "The duck pond extends about 20 feet to the west stopping in a wall of cat tails.  To the east is a grassy field that could be useful for flying a kite of just enjoying a day with the family.";
             room.LookDescription = "This side of the duck pond has a nice stone wall edging that makes it look more like it's part of a town park.";
@@ -464,9 +412,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom27()
         {
-            IRoom room = CreateRoom(5);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(5);
 
             room.ExamineDescription = "The small duck pond is probably about 20 feet across and about 40 feet long.  A family of ducks some times can be seen swimming out on the waters.";
             room.LookDescription = "The duck pond, another small jewel of the city lies to the north east.";
@@ -477,9 +423,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom28()
         {
-            IRoom room = CreateRoom(10);
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom(10);
 
             room.ExamineDescription = "The pond water is a nice cool temperature and small fish swim up to you and then dart away.  Too curious to ignore you but too afraid to stay.";
             room.LookDescription = "You are standing in the center of the duck pond.  Small fish swim around you curious as to who or what has entered their pond.";
@@ -600,9 +544,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom29()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "The entrance to the temple of Charon can be seen on the hill to the west.";
             room.LookDescription = "A main road of the city it the cobble stones have been warn smooth.";
@@ -613,9 +555,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom30()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "A coin has become wedged in between to stones but try as you might it won't come loose.";
             room.LookDescription = "A few dandelions push their way up through the cracks in the road.";
@@ -626,9 +566,7 @@ East: The Training Hall";
 
         private IRoom GenerateRoom31()
         {
-            IRoom room = CreateRoom();
-            room.Attributes.Add(Room.RoomAttribute.Outdoor);
-            room.Attributes.Add(Room.RoomAttribute.Weather);
+            IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "Dandelions grow in the grass along side the road creating a blanket of yellow.";
             room.LookDescription = "Part of the road has sunken down causing a small dip on the right side of the road.";
