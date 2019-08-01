@@ -51,7 +51,14 @@ namespace GenerateZones
                     {
                         foreach (INonPlayerCharacter npc in room.NonPlayerCharacters)
                         {
-                            mobLevel.Add(npc.Level);
+                            if (npc.Level == 0)
+                            {
+                                mobLevel.Add((npc.LevelRange.LowerLevel + npc.LevelRange.UpperLevel) / 2);
+                            }
+                            else
+                            {
+                                mobLevel.Add(npc.Level);
+                            }
                         }
                     }
 

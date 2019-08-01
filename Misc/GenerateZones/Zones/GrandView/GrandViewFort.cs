@@ -73,6 +73,9 @@ namespace GenerateZones.Zones.GrandView
             ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.North, Zone.Rooms[13]);
             ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.West, Zone.Rooms[14]);
             ZoneHelper.ConnectRoom(Zone.Rooms[15], Direction.West, Zone.Rooms[16]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[16], Direction.West, Zone.Rooms[17]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[17], Direction.West, Zone.Rooms[18]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[18], Direction.North, Zone.Rooms[19]);
         }
 
         #region Rooms
@@ -277,6 +280,42 @@ namespace GenerateZones.Zones.GrandView
             return room;
         }
 
+        private IRoom GenerateRoom17()
+        {
+            IRoom room = IndoorRoomLight();
+
+            room.ExamineDescription = "The door to the keep was made of heavy oak several inches thick.  In times of war it would withhold all but the fiercest attacks.";
+            room.LookDescription = "Standing inside the entrance of the keep this is would be the last line of defense for would be defenders.";
+            room.ShortDescription = "Keep Entrance";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom18()
+        {
+            IRoom room = IndoorRoomLight();
+
+            room.ExamineDescription = "Swords, shields, pikes, bows and arrows are on rack at the ready to be used to defend the keep.";
+            room.LookDescription = "Large racks of weapons line the walls.";
+            room.ShortDescription = "Armor Rack";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom19()
+        {
+            IRoom room = IndoorRoomLight();
+
+            room.ExamineDescription = "Swords, shields, pikes, bows and arrows are on rack at the ready to be used to defend the keep.";
+            room.LookDescription = "Large racks of weapons line the walls.";
+            room.ShortDescription = "Kitchen";
+
+            room.AddMobileObjectToRoom(CookMan());
+            room.AddMobileObjectToRoom(CookWoman());
+
+            return room;
+        }
+
         #endregion Rooms
 
         #region NPC
@@ -359,6 +398,7 @@ namespace GenerateZones.Zones.GrandView
 
             return npc;
         }
+
         private INonPlayerCharacter Squire()
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 22);
@@ -372,6 +412,31 @@ namespace GenerateZones.Zones.GrandView
 
             return npc;
         }
+
+        private INonPlayerCharacter CookMan()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 22);
+            npc.ShortDescription = "A cook.";
+            npc.LookDescription = "He is cutting some meet off a hanging pig.";
+            npc.ExamineDescription = "His once white cloths are hopelessly cover in blood.";
+            npc.SentenceDescription = "cook";
+            npc.KeyWords.Add("cook");
+
+            return npc;
+        }
+
+        private INonPlayerCharacter CookWoman()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 22);
+            npc.ShortDescription = "A cook.";
+            npc.LookDescription = "She is stirring a soup over a fire.";
+            npc.ExamineDescription = "The cook waves you over and ask you to try the soup.";
+            npc.SentenceDescription = "cook";
+            npc.KeyWords.Add("cook");
+
+            return npc;
+        }
+
         #endregion NPC
 
         #region Items
