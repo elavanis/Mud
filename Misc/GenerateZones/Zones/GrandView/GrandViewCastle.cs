@@ -26,15 +26,15 @@ using static Objects.Room.Room;
 
 namespace GenerateZones.Zones.GrandView
 {
-    public class GrandViewFort : BaseZone, IZoneCode
+    public class GrandViewCastle : BaseZone, IZoneCode
     {
-        public GrandViewFort() : base(24)
+        public GrandViewCastle() : base(24)
         {
         }
 
         public IZone Generate()
         {
-            Zone.Name = nameof(GrandViewFort);
+            Zone.Name = nameof(GrandViewCastle);
 
             int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= methodCount; i++)
@@ -76,6 +76,10 @@ namespace GenerateZones.Zones.GrandView
             ZoneHelper.ConnectRoom(Zone.Rooms[16], Direction.West, Zone.Rooms[17]);
             ZoneHelper.ConnectRoom(Zone.Rooms[17], Direction.West, Zone.Rooms[18]);
             ZoneHelper.ConnectRoom(Zone.Rooms[18], Direction.North, Zone.Rooms[19]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[18], Direction.Up, Zone.Rooms[20]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[20], Direction.West, Zone.Rooms[21]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[21], Direction.West, Zone.Rooms[22]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[22], Direction.North, Zone.Rooms[23]);
         }
 
         #region Rooms
@@ -84,7 +88,7 @@ namespace GenerateZones.Zones.GrandView
             IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "The stone walls were carved in place from the side of the mountain.  This leads to their strength as it is on solid piece of stone.";
-            room.LookDescription = "The original fort's stone gate still stands strong.";
+            room.LookDescription = "The original castle's stone gate still stands strong.";
             room.ShortDescription = "Front Gate";
 
             room.AddMobileObjectToRoom(Guard());
@@ -97,7 +101,7 @@ namespace GenerateZones.Zones.GrandView
         {
             IRoom room = OutdoorRoom();
 
-            room.ExamineDescription = "Standing in the center of the barbican you get a sense of dread for anyone who get trapped here attacking the fort.";
+            room.ExamineDescription = "Standing in the center of the barbican you get a sense of dread for anyone who get trapped here attacking the castle.";
             room.LookDescription = "Walls of stone rise up on all sides with places for guards to fire arrows as well as dump fire down on you if you were an attacker.";
             room.ShortDescription = "Inside the barbican";
 
@@ -108,7 +112,7 @@ namespace GenerateZones.Zones.GrandView
         {
             IRoom room = OutdoorRoom();
 
-            room.ExamineDescription = "The inside of the fort court yard you begin to realize the amount of work that went into creating this fort.  Tons of raw stone was removed from the mountain side just to clear the area for this courtyard.";
+            room.ExamineDescription = "The inside of the castle court yard you begin to realize the amount of work that went into creating this castle.  Tons of raw stone was removed from the mountain side just to clear the area for this courtyard.";
             room.LookDescription = "The court yard extends a ways to the west before disappearing into the mountain.  The blacksmith and enchanter is to south.  The captains quarters, and stables are to the north.";
             room.ShortDescription = "The courtyard";
 
@@ -125,7 +129,7 @@ namespace GenerateZones.Zones.GrandView
             IRoom room = OutdoorRoom();
 
             room.ExamineDescription = "A rather large wooden structure stand here with a sign reading \"Ye Old Shoppe\" hangs above the doorway.";
-            room.LookDescription = "A small ally is formed by the shops and the forts walls.";
+            room.LookDescription = "A small ally is formed by the shops and the castle walls.";
             room.ShortDescription = "Side alley";
 
             return room;
@@ -311,7 +315,57 @@ namespace GenerateZones.Zones.GrandView
             room.ShortDescription = "Kitchen";
 
             room.AddMobileObjectToRoom(CookMan());
+            room.AddMobileObjectToRoom(CookMan());
             room.AddMobileObjectToRoom(CookWoman());
+            room.AddMobileObjectToRoom(CookWoman());
+
+            return room;
+        }
+
+        private IRoom GenerateRoom20()
+        {
+            IRoom room = IndoorRoomLight();
+
+            room.ExamineDescription = "Several bench seats are against the wall.  They are covered in plush red velvet giving a sharp contrast to the cool gray stone.";
+            room.LookDescription = "The area has plenty of seating for guest while they wait to be seen.";
+            room.ShortDescription = "Antechamber";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom21()
+        {
+            IRoom room = IndoorRoomLight();
+
+            room.ExamineDescription = "The throne room has large pillars of stone rising twenty feet into the air.  Large tapestries of times past line the walls giving some warmth to the otherwise cold echoing hall.";
+            room.LookDescription = "A large throne made of many iron swords melted together sits in the center of the hall.";
+            room.ShortDescription = "Throne Room";
+
+            return room;
+        }
+
+        private IRoom GenerateRoom22()
+        {
+            IRoom room = IndoorRoomLight();
+
+            room.ExamineDescription = "The room is actually modestly equipped for a king and queen's room.";
+            room.LookDescription = "A large four post bed with a canopy dominates this room.";
+            room.ShortDescription = "Bedroom Room";
+
+            room.AddItemToRoom(Bed());
+
+            return room;
+        }
+
+        private IRoom GenerateRoom23()
+        {
+            IRoom room = IndoorRoomLight();
+
+            room.ExamineDescription = "There is a story that this room was made because during a long siege the king and queen were unable to go out and see the stars.  The king never wanted to miss seeing the stars again so a special room was made of their bedroom where they formed a balcony and painted stars on the ceiling to simulate the stars at night.";
+            room.LookDescription = "A balcony over looks mural of stars and grass.";
+            room.ShortDescription = "Balcony";
+
+            room.AddItemToRoom(Bed());
 
             return room;
         }
@@ -323,7 +377,7 @@ namespace GenerateZones.Zones.GrandView
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 23);
             npc.ShortDescription = "A motionless guard.";
-            npc.LookDescription = "The guard stands motionless while watching people move in and out of the fort.";
+            npc.LookDescription = "The guard stands motionless while watching people move in and out of the castle.";
             npc.ExamineDescription = "The guard's face is blank but you almost detect a hint of boredom.";
             npc.SentenceDescription = "guard";
             npc.KeyWords.Add("guard");
@@ -460,7 +514,7 @@ namespace GenerateZones.Zones.GrandView
             item.KeyWords.Add("sword");
             item.ShortDescription = "A well balanced sword.";
             item.LookDescription = "The sword in remarkable if only in being unremarkable.";
-            item.ExamineDescription = "The sword is nothing special and appears to be a mass produced sword for the soldiers stationed at the fort.";
+            item.ExamineDescription = "The sword is nothing special and appears to be a mass produced sword for the soldiers stationed at the castle.";
             item.SentenceDescription = "sword";
 
             IDamage damage = new Damage();
@@ -515,6 +569,19 @@ namespace GenerateZones.Zones.GrandView
             item.LookDescription = "The table at one time was nothing more than some wood but has gain magical energy from hundreds nay thousands of enchantments.";
             item.ExamineDescription = "Green filaments of energy spark out from the table about an inch forming arches before falling back and being reabsorbed.";
             item.SentenceDescription = "enchanting table";
+
+            return item;
+        }
+
+        private IItem Bed()
+        {
+            IItem item = CreateItem<IItem>();
+            item.Attributes.Add(ItemAttribute.NoGet);
+            item.KeyWords.Add("bed");
+            item.ShortDescription = "A canopy bed.";
+            item.LookDescription = "The bed look very soft with lots of fluffy light blue pillows.";
+            item.ExamineDescription = "The bed frame is made of a dark wood with carvings of the GrandView crest on the foot and headboards.";
+            item.SentenceDescription = "bed";
 
             return item;
         }
