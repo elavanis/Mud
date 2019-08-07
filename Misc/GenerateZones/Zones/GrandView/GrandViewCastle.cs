@@ -80,6 +80,7 @@ namespace GenerateZones.Zones.GrandView
             ZoneHelper.ConnectRoom(Zone.Rooms[20], Direction.West, Zone.Rooms[21]);
             ZoneHelper.ConnectRoom(Zone.Rooms[21], Direction.West, Zone.Rooms[22]);
             ZoneHelper.ConnectRoom(Zone.Rooms[22], Direction.North, Zone.Rooms[23]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[22], Direction.South, Zone.Rooms[24]);
         }
 
         #region Rooms
@@ -364,6 +365,19 @@ namespace GenerateZones.Zones.GrandView
             room.ExamineDescription = "There is a story that this room was made because during a long siege the king and queen were unable to go out and see the stars.  The king never wanted to miss seeing the stars again so a special room was made of their bedroom where they formed a balcony and painted stars on the ceiling to simulate the stars at night.";
             room.LookDescription = "A balcony over looks mural of stars and grass.";
             room.ShortDescription = "Balcony";
+
+            room.AddItemToRoom(Bed());
+
+            return room;
+        }
+
+        private IRoom GenerateRoom24()
+        {
+            IRoom room = IndoorRoomLight();
+
+            room.ExamineDescription = "There is also a counter of sorts with a beaten sheet of tin used as a mirror.  In the far end of the room is hole in the floor and a curtain used to shield you when doing your business.";
+            room.LookDescription = "A large claw tube sits in the corner with a bucket of soapy water.";
+            room.ShortDescription = "Lavatory";
 
             room.AddItemToRoom(Bed());
 
