@@ -13,6 +13,7 @@ using Objects.Material.Materials;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 using Objects.Personality.Personalities;
+using Objects.Personality.Personalities.GrandviewCastle;
 using Objects.Personality.Personalities.Interface;
 using Objects.Room;
 using Objects.Room.Interface;
@@ -354,6 +355,7 @@ namespace GenerateZones.Zones.GrandView
             room.ShortDescription = "Bedroom Room";
 
             room.AddItemToRoom(Bed());
+            room.AddMobileObjectToRoom(King());
 
             return room;
         }
@@ -366,8 +368,6 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "A balcony over looks mural of stars and grass.";
             room.ShortDescription = "Balcony";
 
-            room.AddItemToRoom(Bed());
-
             return room;
         }
 
@@ -379,10 +379,9 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "A large claw tube sits in the corner with a bucket of soapy water.";
             room.ShortDescription = "Lavatory";
 
-            room.AddItemToRoom(Bed());
-
             return room;
         }
+
 
         #endregion Rooms
 
@@ -501,6 +500,20 @@ namespace GenerateZones.Zones.GrandView
             npc.ExamineDescription = "The cook waves you over and ask you to try the soup.";
             npc.SentenceDescription = "cook";
             npc.KeyWords.Add("cook");
+
+            return npc;
+        }
+
+        private INonPlayerCharacter King()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 28);
+            npc.ShortDescription = "The king.";
+            npc.LookDescription = "king";
+            npc.ExamineDescription = "king";
+            npc.SentenceDescription = "king";
+            npc.KeyWords.Add("king");
+
+            npc.Personalities.Add(new King());
 
             return npc;
         }
