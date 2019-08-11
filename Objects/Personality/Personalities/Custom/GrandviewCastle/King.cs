@@ -95,31 +95,61 @@ namespace Objects.Personality.Personalities.Custom.GrandviewCastle
                     && GlobalReference.GlobalValues.Random.PercentDiceRoll(50)
                     && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "servant").Count > 0)
                 {
-                    StateMachine = State.CalledForFood;
+                    StateMachine = State.AskedForMeal;
                     Step = 0;
-
                     npc.EnqueueCommand("Say Servant, bring me my meal.");
-                    npc.EnqueueCommand("Wait");
-                    npc.EnqueueCommand("Wait");
-                    npc.EnqueueCommand("Wait");
-                    npc.EnqueueCommand("Wait");
-                    npc.EnqueueCommand("Wait");
-                    npc.EnqueueCommand("Say Bring me hasenpfeffer.");
+                }
+            }
+            else if (StateMachine == State.AskedForMeal)
+            {
+                if (Step % 5 == 0
+                   && GlobalReference.GlobalValues.Random.PercentDiceRoll(50)
+                   && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "servant").Count > 0)
+                {
+                    bool foundAskedForWhat = false;
+                    string message = null;
+                    while ((message = npc.DequeueMessage()) != null)
+                    {
+                        if (message == "abc")
+                        {
+                            foundAskedForWhat = true;
+                        }
+                    }
+
+                    if (foundAskedForWhat)
+                    {
+                        StateMachine = State.AskedForHasenpfeffer;
+                        Step = 0;
+                        npc.EnqueueCommand("Say Bring me hasenpfeffer.");
+                    }
 
                     return null;
                 }
             }
-            else if (StateMachine == State.CalledForFood)
+
+            else if (StateMachine == State.AskedForHasenpfeffer)
             {
-
+                switch (Step)
+                {
+                    case 20:
+                        return "Say Where is my hasenpfeffer?";
+                    case 30:
+                        return "Say Guards bring me my servant!!!";
+                }
             }
-
 
             return "Wait";
         }
+
         private string NightTimeThings(INonPlayerCharacter npc)
         {
-            return null;
+            if (npc.Room.Id == 20)
+            {
+                npc.EnqueueCommand("Say Court is closed for the day. Please leave.");
+                return "West";
+            }
+
+            return "Wait";
         }
 
 
@@ -129,7 +159,9 @@ namespace Objects.Personality.Personalities.Custom.GrandviewCastle
             MoveToBathRoom,
             InBathRoom,
             ThroneRoom,
-            CalledForFood,
+            AskedForMeal,
+            AskedForHasenpfeffer,
+
 
 
         }
