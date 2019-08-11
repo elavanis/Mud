@@ -21,6 +21,9 @@ namespace Objects.Global.Commands
         public Dictionary<string, IMobileObjectCommand> PcCommandsLookup { get; } = CreateCommandLookupList("PC");
 
         [ExcludeFromCodeCoverage]
+        public Dictionary<string, IMobileObjectCommand> NpcCommandsLookup { get; } = CreateCommandLookupList("NPC");
+
+        [ExcludeFromCodeCoverage]
         public Dictionary<string, IMobileObjectCommand> GodCommandsLookup { get; } = CreateCommandLookupList("God");
 
 
@@ -83,6 +86,11 @@ namespace Objects.Global.Commands
                 if (performer.God)
                 {
                     GodCommandsLookup.TryGetValue(command, out iMobileObjectCommand);
+                }
+
+                if (performer is INonPlayerCharacter)
+                {
+                    NpcCommandsLookup.TryGetValue(command, out iMobileObjectCommand);
                 }
             }
 

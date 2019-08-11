@@ -13,7 +13,7 @@ using Objects.Material.Materials;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 using Objects.Personality.Personalities;
-using Objects.Personality.Personalities.GrandviewCastle;
+using Objects.Personality.Personalities.Custom.GrandviewCastle;
 using Objects.Personality.Personalities.Interface;
 using Objects.Room;
 using Objects.Room.Interface;

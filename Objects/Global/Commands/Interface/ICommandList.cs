@@ -9,7 +9,10 @@ namespace Objects.Global.Commands.Interface
         SortedDictionary<string, IMobileObjectCommand> PcCommands { get; }
         SortedDictionary<string, IMobileObjectCommand> GodCommands { get; }
         Dictionary<string, IMobileObjectCommand> PcCommandsLookup { get; }
+        Dictionary<string, IMobileObjectCommand> NpcCommandsLookup { get; }
         Dictionary<string, IMobileObjectCommand> GodCommandsLookup { get; }
+
+
 
         IMobileObjectCommand GetCommand(IMobileObject performer, string command);
     }

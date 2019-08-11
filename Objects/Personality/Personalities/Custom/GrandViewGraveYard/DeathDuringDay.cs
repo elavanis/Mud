@@ -3,7 +3,7 @@ using Objects.Item.Items.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 
-namespace Objects.Personality.Personalities.GrandViewGraveYard
+namespace Objects.Personality.Personalities.Custom.GrandViewGraveYard
 {
     public class DeathDuringDay : IPersonality
     {

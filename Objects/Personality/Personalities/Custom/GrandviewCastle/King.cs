@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Objects.Personality.Personalities.GrandviewCastle
+namespace Objects.Personality.Personalities.Custom.GrandviewCastle
 {
     public class King : IPersonality
     {
@@ -99,11 +99,11 @@ namespace Objects.Personality.Personalities.GrandviewCastle
                     Step = 0;
 
                     npc.EnqueueCommand("Say Servant, bring me my meal.");
-                    npc.EnqueueCommand("");
-                    npc.EnqueueCommand("");
-                    npc.EnqueueCommand("");
-                    npc.EnqueueCommand("");
-                    npc.EnqueueCommand("");
+                    npc.EnqueueCommand("Wait");
+                    npc.EnqueueCommand("Wait");
+                    npc.EnqueueCommand("Wait");
+                    npc.EnqueueCommand("Wait");
+                    npc.EnqueueCommand("Wait");
                     npc.EnqueueCommand("Say Bring me hasenpfeffer.");
 
                     return null;
@@ -115,7 +115,7 @@ namespace Objects.Personality.Personalities.GrandviewCastle
             }
 
 
-            return null;
+            return "Wait";
         }
         private string NightTimeThings(INonPlayerCharacter npc)
         {

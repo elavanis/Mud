@@ -5,7 +5,7 @@ using Objects.Item.Items.EnchantersTower;
 using Objects.Item.Items.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities;
-using Objects.Personality.Personalities.EnchantersTower;
+using Objects.Personality.Personalities.Custom.EnchantersTower;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;

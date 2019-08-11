@@ -6,7 +6,7 @@ using Objects.Mob.Interface;
 using Objects.Personality.Personalities.Interface;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Objects.Personality.Personalities.MountainGoblinCamp
+namespace Objects.Personality.Personalities.Custom.MountainGoblinCamp
 {
     public class ChiefReceiveDaughterItem : IReceiver
     {

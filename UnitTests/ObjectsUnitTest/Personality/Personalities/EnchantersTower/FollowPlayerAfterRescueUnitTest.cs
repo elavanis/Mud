@@ -2,7 +2,7 @@
 using Moq;
 using Objects.Global;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities.EnchantersTower;
+using Objects.Personality.Personalities.Custom.EnchantersTower;
 using Objects.Room.Interface;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 
-namespace Objects.Personality.Personalities.EnchantersTower
+namespace Objects.Personality.Personalities.Custom.EnchantersTower
 {
     public class FollowPlayerAfterRescue : IPersonality
     {

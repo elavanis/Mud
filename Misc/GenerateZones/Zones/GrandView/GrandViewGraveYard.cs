@@ -10,7 +10,7 @@ using Objects.LoadPercentage;
 using Objects.Magic.Enchantment;
 using Objects.Mob.Interface;
 using Objects.Personality.Personalities;
-using Objects.Personality.Personalities.GrandViewGraveYard;
+using Objects.Personality.Personalities.Custom.GrandViewGraveYard;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static GenerateZones.RandomZoneGeneration;
