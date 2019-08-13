@@ -508,12 +508,28 @@ namespace GenerateZones.Zones.GrandView
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 28);
             npc.ShortDescription = "The king.";
-            npc.LookDescription = "king";
-            npc.ExamineDescription = "king";
+            npc.LookDescription = "Dressed in a dark red cloak and goes about his day.";
+            npc.ExamineDescription = "The king is still young but getting some gray in his beard.";
             npc.SentenceDescription = "king";
             npc.KeyWords.Add("king");
 
             npc.Personalities.Add(new King());
+
+            return npc;
+        }
+
+        private INonPlayerCharacter KingsGuard()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 38);
+            npc.ShortDescription = "The king guard.";
+            npc.LookDescription = "Dressed in a golden armor the kings guard has sworn an oath to protect the king with their life.";
+            npc.ExamineDescription = "The guard watches you closely ready to attack at a moments notice.";
+            npc.SentenceDescription = "king";
+            npc.KeyWords.Add("king");
+
+            IGuard guard = new Guard(Direction.West);
+            guard.BlockLeaveMessage = "The guard blocks you from entering and tells you this is the king and queens personal chambers and no one is allowed to enter.";
+            npc.Personalities.Add(guard);
 
             return npc;
         }

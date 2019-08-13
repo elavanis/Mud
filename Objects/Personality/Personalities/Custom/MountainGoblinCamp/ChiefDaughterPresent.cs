@@ -30,8 +30,8 @@ namespace Objects.Personality.Personalities.Custom.MountainGoblinCamp
                             IEquipment equipment = GlobalReference.GlobalValues.RandomDropGenerator.GenerateRandomEquipment(level, level + bonus);
 
                             npc.EnqueueCommand($"say Servant, fetch me my best {equipment.KeyWords[0]} for our hero.");
-                            npc.EnqueueCommand("");
-                            npc.EnqueueCommand("");
+                            npc.EnqueueCommand("Wait");
+                            npc.EnqueueCommand("Wait");
 
                             npc.Items.Add(equipment);
                             npc.EnqueueCommand($"say Please accept this {equipment.KeyWords[0]} as a reward for rescuing my daughter.");

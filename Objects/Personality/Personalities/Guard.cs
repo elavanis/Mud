@@ -18,6 +18,14 @@ namespace Objects.Personality.Personalities
             GuardDirections.Add(direction);
         }
 
+        public Guard(List<Directions.Direction> directions)
+        {
+            foreach (Directions.Direction direction in directions)
+            {
+                GuardDirections.Add(direction);
+            }
+        }
+
         [ExcludeFromCodeCoverage]
         public HashSet<Directions.Direction> GuardDirections { get; set; } = new HashSet<Directions.Direction>();
 
