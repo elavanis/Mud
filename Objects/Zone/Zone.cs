@@ -7,7 +7,6 @@ using Objects.Mob.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
 using Objects.Personality.Interface;
-using Objects.Personality.Personalities.Interface;
 using System.Diagnostics.CodeAnalysis;
 using Objects.GameDateTime.Interface;
 

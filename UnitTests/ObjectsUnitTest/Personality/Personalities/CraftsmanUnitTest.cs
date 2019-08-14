@@ -10,7 +10,7 @@ using Objects.Global.GameDateTime.Interface;
 using Objects.Global.MoneyToCoins.Interface;
 using Objects.Item.Items.Interface;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using Shared.TagWrapper.Interface;
 using System;
 using System.Collections.Generic;

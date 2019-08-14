@@ -3,7 +3,7 @@
 //using Objects.Magic;
 //using Objects.Material;
 //using Objects.Personality.Interface;
-//using Objects.Personality.Personalities;
+//using Objects.Personality;
 //using Objects.Race;
 //using Objects.Room;
 //using Objects.Zone.Interface;

@@ -4,8 +4,8 @@ using Objects.Global;
 using Objects.Global.Random.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities;
-using Objects.Personality.Personalities.Interface;
+using Objects.Personality;
+using Objects.Personality.Interface;
 using Objects.Room.Interface;
 using System.Collections.Generic;
 

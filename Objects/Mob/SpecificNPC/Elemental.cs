@@ -30,7 +30,7 @@ namespace Objects.Mob.SpecificNPC
         public Elemental(ElementType elementType)
         {
             SetElement(elementType);
-            Personalities.Add(new Personality.Personalities.Elemental());
+            Personalities.Add(new Personality.Elemental());
             TypeOfMob = MobType.Other;
         }
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using Moq;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;

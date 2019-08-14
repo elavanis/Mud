@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
-using Objects.Personality.Personalities.Interface;
 using Objects.Item.Interface;
 
 namespace Objects.Command.PC

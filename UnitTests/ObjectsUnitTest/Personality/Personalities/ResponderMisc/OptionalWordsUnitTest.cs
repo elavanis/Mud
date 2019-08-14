@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Objects.Global;
-using Objects.Personality.Personalities.ResponderMisc;
+using Objects.Personality.ResponderMisc;
 
 namespace ObjectsUnitTest.Personality.Personalities.ResponderMisc
 {

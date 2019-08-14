@@ -5,7 +5,6 @@ using Objects.Item.Items.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
-using Objects.Personality.Personalities.Interface;
 using Objects.Room.Interface;
 using Objects.Skill.Interface;
 using Objects.Zone.Interface;

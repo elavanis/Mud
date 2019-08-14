@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using static Objects.Guild.Guild;
 using Objects.Mob.Interface;
 using Moq;

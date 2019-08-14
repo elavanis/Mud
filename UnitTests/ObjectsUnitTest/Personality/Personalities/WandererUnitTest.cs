@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using Objects.Mob.Interface;
 using Moq;
 using Objects.Global.Random.Interface;
@@ -10,7 +10,7 @@ using Objects.Zone.Interface;
 using System.Collections.Generic;
 using Objects.World.Interface;
 using Objects.Interface;
-using Objects.Personality.Personalities.Interface;
+using Objects.Personality.Interface;
 
 namespace ObjectsUnitTest.Personality.Personalities
 {

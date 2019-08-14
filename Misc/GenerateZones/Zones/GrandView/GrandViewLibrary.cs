@@ -4,7 +4,7 @@ using System.Reflection;
 using Objects.Zone.Interface;
 using Objects.Room;
 using Objects.Damage;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using static Objects.Guild.Guild;
 using Objects.Global.Stats;
 using Objects.Global;

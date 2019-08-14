@@ -4,7 +4,7 @@ using Objects.Global;
 using Objects.Global.Random.Interface;
 using Objects.Interface;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 
 namespace ObjectsUnitTest.Personality.Personalities
 {

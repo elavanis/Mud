@@ -8,7 +8,6 @@ using Objects.Mob.Interface;
 using System.Collections.Generic;
 using Objects.Item.Items.Interface;
 using Objects.Global.Random.Interface;
-using Objects.Personality.Personalities.Interface;
 using Objects.Personality.Interface;
 using Objects.GameDateTime.Interface;
 

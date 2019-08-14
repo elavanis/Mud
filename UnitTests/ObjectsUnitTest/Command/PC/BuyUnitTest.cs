@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
-using Objects.Personality.Personalities.Interface;
 using Objects.Personality.Interface;
 
 namespace ObjectsUnitTest.Command.PC

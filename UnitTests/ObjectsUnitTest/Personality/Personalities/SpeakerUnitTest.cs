@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using Objects.Global.Random.Interface;
 using Objects.Global;
 

@@ -5,7 +5,6 @@ using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
-using Objects.Personality.Personalities.Interface;
 using Objects.Room.Interface;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

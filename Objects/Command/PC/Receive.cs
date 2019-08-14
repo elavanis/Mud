@@ -2,7 +2,6 @@
 using Objects.Crafting.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
-using Objects.Personality.Personalities.Interface;
 using System;
 using System.Collections.Generic;
 

@@ -8,7 +8,7 @@ using Objects.Damage;
 using Objects.Global;
 using Objects.Global.Stats;
 using Objects.Material.Materials;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using static Objects.Global.Direction.Directions;
 using Objects.Mob.Interface;
 using Objects.Item.Items.Interface;

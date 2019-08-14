@@ -5,7 +5,7 @@ using Objects.Item.Items.Interface;
 using Objects.LevelRange;
 using Objects.Material.Materials;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;

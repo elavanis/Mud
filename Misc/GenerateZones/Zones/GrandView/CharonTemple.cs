@@ -2,7 +2,7 @@
 using System.Reflection;
 using Objects.Item.Interface;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;

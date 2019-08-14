@@ -76,7 +76,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         public void Hydra_HasHydraPersonality()
         {
             Assert.AreEqual(1, hydra.Personalities.Count);
-            Assert.IsNotNull(hydra.Personalities[0] as Objects.Personality.Personalities.Hydra);
+            Assert.IsNotNull(hydra.Personalities[0] as Objects.Personality.Hydra);
         }
 
         [TestMethod]

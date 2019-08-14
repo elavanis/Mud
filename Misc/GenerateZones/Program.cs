@@ -1,7 +1,7 @@
 ﻿using Objects.Global;
 using Objects.Mob;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.World;

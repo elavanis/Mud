@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects.Global;
-using Objects.Personality.Personalities.ResponderMisc;
-using Objects.Personality.Personalities.ResponderMisc.Interface;
+using Objects.Personality.ResponderMisc;
+using Objects.Personality.ResponderMisc.Interface;
 using System.Collections.Generic;
 
 namespace ObjectsUnitTest.Personality.Personalities.ResponderMisc

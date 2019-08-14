@@ -2,8 +2,8 @@
 using Moq;
 using Objects.Global;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities;
-using Objects.Personality.Personalities.ResponderMisc.Interface;
+using Objects.Personality;
+using Objects.Personality.ResponderMisc.Interface;
 using System.Collections.Generic;
 
 namespace ObjectsUnitTest.Personality.Personalities

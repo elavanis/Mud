@@ -2,7 +2,7 @@
 using Objects.Zone.Interface;
 using static GenerateZones.RandomZoneGeneration;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using Objects.Room.Interface;
 using Objects.LevelRange;
 using System.Reflection;

@@ -18,7 +18,7 @@ using static Objects.Global.Stats.Stats;
 using static Objects.Item.Item;
 using Objects.Material.Materials;
 using static Objects.Item.Items.Equipment;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using Objects.Magic.Interface;
 using Objects.Magic.Spell.Generic;
 using Objects.Global.Language;

@@ -55,7 +55,7 @@ namespace Objects.Mob.SpecificNPC
 
         public Hydra() : base()
         {
-            Personalities.Add(new Personality.Personalities.Hydra());
+            Personalities.Add(new Personality.Hydra());
             RoundOfDamage = new RoundOfDamage();
             AddAttribute(MobileAttribute.NoDisarm);
         }

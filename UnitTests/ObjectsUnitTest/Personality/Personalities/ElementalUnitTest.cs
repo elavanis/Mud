@@ -2,7 +2,7 @@
 using Moq;
 using Objects.Global;
 using Objects.Mob.SpecificNPC.Interface;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 
 namespace ObjectsUnitTest.Personality.Personalities
 {

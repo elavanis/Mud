@@ -17,7 +17,7 @@ namespace ObjectsUnitTest.Personality.Personalities
     [TestClass]
     public class MagicUserTest
     {
-        Objects.Personality.Personalities.MagicUser magicUser;
+        Objects.Personality.MagicUser magicUser;
         Mock<INonPlayerCharacter> npc;
         Mock<IGuild> guild;
         DamageSpell damageSpell;
@@ -38,7 +38,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.TagWrapper = tagwrapper.Object;
 
-            magicUser = new Objects.Personality.Personalities.MagicUser();
+            magicUser = new Objects.Personality.MagicUser();
             npc = new Mock<INonPlayerCharacter>();
             guild = new Mock<IGuild>();
             damageSpell = new DamageSpell("damageSpell", 1, 2, Objects.Damage.Damage.DamageType.Cold, 10);

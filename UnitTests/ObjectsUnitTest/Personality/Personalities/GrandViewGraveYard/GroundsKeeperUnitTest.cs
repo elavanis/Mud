@@ -7,7 +7,7 @@ using Objects.Global.GameDateTime.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities.Custom.GrandViewGraveYard;
+using Objects.Personality.Custom.GrandViewGraveYard;
 using Objects.Room.Interface;
 using System.Collections.Generic;
 

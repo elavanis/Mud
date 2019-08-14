@@ -5,8 +5,8 @@ using Objects.Global;
 using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities.Interface;
-using Objects.Personality.Personalities.Custom.MountainGoblinCamp;
+using Objects.Personality.Interface;
+using Objects.Personality.Custom.MountainGoblinCamp;
 using System.Collections.Generic;
 
 namespace ObjectsUnitTest.Personality.Personalities.MountainGoblinCamp

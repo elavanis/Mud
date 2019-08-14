@@ -3,7 +3,7 @@ using Objects.Zone.Interface;
 using Objects.Room.Interface;
 using Objects.Mob.Interface;
 using Objects.Item.Items.Interface;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using Objects.Damage.Interface;
 using Objects.Global;
 using static Objects.Damage.Damage;

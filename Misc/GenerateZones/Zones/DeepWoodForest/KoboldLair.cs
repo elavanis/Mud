@@ -18,7 +18,7 @@ using Objects.Damage.Interface;
 using Objects.Effect.Interface;
 using Objects.Effect;
 using Objects.Mob.Interface;
-using Objects.Personality.Personalities;
+using Objects.Personality;
 using static Objects.Damage.Damage;
 using Objects.Die.Interface;
 using Objects;
