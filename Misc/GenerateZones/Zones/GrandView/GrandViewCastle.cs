@@ -346,6 +346,7 @@ namespace GenerateZones.Zones.GrandView
             room.AddMobileObjectToRoom(KingsGuard());
             room.AddMobileObjectToRoom(KingsGuard());
             room.AddMobileObjectToRoom(KingsGuard());
+            room.AddMobileObjectToRoom(Servant());
 
             return room;
         }
@@ -548,7 +549,7 @@ namespace GenerateZones.Zones.GrandView
             npc.SentenceDescription = "kings servant";
             npc.KeyWords.Add("servant");
 
-            npc.Personalities.Add(new Guardian());
+            npc.Personalities.Add(new Servant());
 
             return npc;
         }

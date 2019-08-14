@@ -18,7 +18,7 @@ namespace ObjectsUnitTest.Global.StringManuplation
         }
 
         [TestMethod]
-        public void StringManipulatorUnitTest_Manipulate()
+        public void StringManipulator_Manipulate()
         {
             KeyValuePair<string, string> keyValuePair = new KeyValuePair<string, string>("{findMe}", "replaced");
             string result = stringManipulator.Manipulate(new List<KeyValuePair<string, string>>() { keyValuePair }, "this should be {findMe}.");
@@ -28,7 +28,7 @@ namespace ObjectsUnitTest.Global.StringManuplation
         }
 
         [TestMethod]
-        public void StringManipulatorUnitTest_ManipulateMultiple()
+        public void StringManipulator_ManipulateMultiple()
         {
             List<KeyValuePair<string, string>> keyValuePairs = new List<KeyValuePair<string, string>>();
             keyValuePairs.Add(new KeyValuePair<string, string>("{findMe}", "replaced"));
@@ -41,12 +41,18 @@ namespace ObjectsUnitTest.Global.StringManuplation
         }
 
         [TestMethod]
-        public void StringManipulatorUnitTest_UpdateTargetPerformer()
+        public void StringManipulator_UpdateTargetPerformer()
         {
             string result = stringManipulator.UpdateTargetPerformer("performer", "target", "this should be {target}, {performer}.");
 
             string expected = "this should be target, performer.";
             Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void StringManiuplator_CapitalizeFirstLeter()
+        {
+            Assert.AreEqual(1, 2);
         }
     }
 }

@@ -388,16 +388,16 @@ namespace ObjectsUnitTest.Mob
             Assert.AreSame(newFollowTarget.Object, npc.FollowTarget);
         }
 
-        [TestMethod]
-        public void NonPlayerCharacter_EnqueueMessage_NoPossessor()
-        {
-            npc.EnqueueMessage("1");
+        //[TestMethod]
+        //public void NonPlayerCharacter_EnqueueMessage_NoPossessor()
+        //{
+        //    npc.EnqueueMessage("1");
 
-            PropertyInfo propertyInfo = npc.GetType().GetProperty("_messageQueue", BindingFlags.NonPublic | BindingFlags.Instance);
-            ConcurrentQueue<string> concurrentQueue = (ConcurrentQueue<string>)propertyInfo.GetValue(npc);
+        //    PropertyInfo propertyInfo = npc.GetType().GetProperty("_messageQueue", BindingFlags.NonPublic | BindingFlags.Instance);
+        //    ConcurrentQueue<string> concurrentQueue = (ConcurrentQueue<string>)propertyInfo.GetValue(npc);
 
-            Assert.AreEqual(0, concurrentQueue.Count);
-        }
+        //    Assert.AreEqual(0, concurrentQueue.Count);
+        //}
 
         [TestMethod]
         public void NonPlayerCharacter_EnqueueMessage_Possessed()

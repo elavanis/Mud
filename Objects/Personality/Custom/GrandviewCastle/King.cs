@@ -53,7 +53,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 switch (Step)
                 {
                     case 1:
-                        return "Emote The king stretches and yawns loudly.";
+                        return "Emote stretches and yawns loudly.";
                     case 3:
                         return "Say Good morning world.";
                     case 4:
@@ -79,9 +79,9 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 switch (Step)
                 {
                     case 1:
-                        return "Emote The brushes his teeth.";
+                        return "Emote brushes his teeth.";
                     case 3:
-                        return "Emote Uses the bathroom.";
+                        return "Emote uses the bathroom.";
                     case 5:
                         return "North";
                     case 6:
@@ -110,9 +110,10 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     string message = null;
                     while ((message = npc.DequeueMessage()) != null)
                     {
-                        if (message == "abc")
+                        if (message == "<Communication>kings servant says Your Honorable Majestic Majesty Graciousness, what would you like to eat?</Communication>")
                         {
                             foundAskedForWhat = true;
+                            break;
                         }
                     }
 
@@ -120,6 +121,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     {
                         StateMachine = State.AskedForHasenpfeffer;
                         Step = 0;
+                        npc.EnqueueCommand("Wait");
+                        npc.EnqueueCommand("Wait");
                         npc.EnqueueCommand("Say Bring me hasenpfeffer.");
                     }
 

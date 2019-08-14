@@ -25,5 +25,17 @@ namespace Objects.Global.StringManuplation
 
             return updatedMessage;
         }
+
+        public string CapitalizeFirstLetter(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return char.ToUpper(input[0]) + input.Substring(1);
+            }
+        }
     }
 }

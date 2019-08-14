@@ -15,8 +15,51 @@ namespace Objects.Personality.Custom.GrandviewCastle
         {
             Step++;
 
-            //honorable royal majestic graciousness
-            //honorable majestic magisty graciousness
+            if (StateMachine == State.Wait)
+            {
+                string message = null;
+                while ((message = npc.DequeueMessage()) != null)
+                {
+                    if (message == "<Communication>king says Servant, bring me my meal.</Communication>")
+                    {
+                        npc.EnqueueCommand("wait");
+                        npc.EnqueueCommand("wait");
+                        npc.EnqueueCommand("Emote bows.");
+                        npc.EnqueueCommand("wait");
+                        npc.EnqueueCommand("wait");
+                        npc.EnqueueCommand("Say Your Honorable Majestic Majesty Graciousness, what would you like to eat?");
+                        StateMachine = State.AskedWhatWanted;
+                        Step = 0;
+                    }
+                }
+            }
+            else if (StateMachine == State.AskedWhatWanted)
+            {
+                string message = null;
+                while ((message = npc.DequeueMessage()) != null)
+                {
+                    if (message == "<Communication>king says Bring me hasenpfeffer.</Communication>")
+                    {
+                        npc.EnqueueCommand("wait");
+                        npc.EnqueueCommand("wait");
+                        npc.EnqueueCommand("Say Right away your Honorable Royal Majestic Graciousness.");
+                        npc.EnqueueCommand("wait");
+                        StateMachine = State.KingToldHasenpfeffer;
+                        Step = 0;
+                    }
+                }
+            }
+            else if (StateMachine == State.KingToldHasenpfeffer)
+            {
+                npc.EnqueueCommand("East");
+                npc.EnqueueCommand("Wait");
+                npc.EnqueueCommand("Down");
+                npc.EnqueueCommand("Wait");
+                npc.EnqueueCommand("North");
+                npc.EnqueueCommand("Wait");
+                StateMachine = State.OnWayToKitchen;
+            }
+
 
             //give carrots
 
@@ -26,9 +69,9 @@ namespace Objects.Personality.Custom.GrandviewCastle
         private enum State
         {
             Wait,
-            KingAskedForFood,
             AskedWhatWanted,
             KingToldHasenpfeffer,
+            OnWayToKitchen,
             AskCookForHasenpfeffer,
             TakeBackToKing,
             PanicAndMakeCarrot
