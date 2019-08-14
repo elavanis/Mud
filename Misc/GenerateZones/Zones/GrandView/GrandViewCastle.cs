@@ -343,6 +343,11 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "A large throne made of many iron swords melted together sits in the center of the hall.";
             room.ShortDescription = "Throne Room";
 
+            room.AddMobileObjectToRoom(KingsGuard());
+            room.AddMobileObjectToRoom(KingsGuard());
+            room.AddMobileObjectToRoom(KingsGuard());
+            room.AddMobileObjectToRoom(KingsGuard());
+
             return room;
         }
 
@@ -521,15 +526,30 @@ namespace GenerateZones.Zones.GrandView
         private INonPlayerCharacter KingsGuard()
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 38);
-            npc.ShortDescription = "The king guard.";
+            npc.ShortDescription = "The kings guard.";
             npc.LookDescription = "Dressed in a golden armor the kings guard has sworn an oath to protect the king with their life.";
             npc.ExamineDescription = "The guard watches you closely ready to attack at a moments notice.";
-            npc.SentenceDescription = "king";
-            npc.KeyWords.Add("king");
+            npc.SentenceDescription = "kings guard";
+            npc.KeyWords.Add("guard");
 
             IGuard guard = new Guard(Direction.West);
             guard.BlockLeaveMessage = "The guard blocks you from entering and tells you this is the king and queens personal chambers and no one is allowed to enter.";
             npc.Personalities.Add(guard);
+            npc.Personalities.Add(new Guardian());
+
+            return npc;
+        }
+
+        private INonPlayerCharacter Servant()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 22);
+            npc.ShortDescription = "The kings servant.";
+            npc.LookDescription = "Dressed in plain clothing this servant attends to the needs of their king.";
+            npc.ExamineDescription = "They wear an dark aqua shirt and a brown sleeveless tunic.";
+            npc.SentenceDescription = "kings servant";
+            npc.KeyWords.Add("servant");
+
+            npc.Personalities.Add(new Guardian());
 
             return npc;
         }
