@@ -121,9 +121,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     {
                         StateMachine = State.AskedForHasenpfeffer;
                         Step = 0;
-                        npc.EnqueueCommand("Wait");
-                        npc.EnqueueCommand("Wait");
-                        npc.EnqueueCommand("Say Bring me hasenpfeffer.");
                     }
 
                     return null;
@@ -134,6 +131,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
             {
                 switch (Step)
                 {
+                    case 1:
+                        return "Say Bring me hasenpfeffer.";
                     case 20:
                         return "Say Where is my hasenpfeffer?";
                     case 30:
@@ -141,7 +140,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 }
             }
 
-            return "Wait";
+            return null;
         }
 
         private string NightTimeThings(INonPlayerCharacter npc)

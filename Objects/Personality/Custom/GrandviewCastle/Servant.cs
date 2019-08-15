@@ -1,4 +1,5 @@
-﻿using Objects.Mob.Interface;
+﻿using Objects.Global;
+using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 using System;
 using System.Collections.Generic;
@@ -59,11 +60,78 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 npc.EnqueueCommand("Wait");
                 StateMachine = State.OnWayToKitchen;
             }
+            else if (StateMachine == State.OnWayToKitchen)
+            {
+                if (npc.Room.Id == 19)
+                {
+                    List<INonPlayerCharacter> nonPlayerCharacters = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "cook");
+                    if (nonPlayerCharacters.Count > 0)
+                    {
+                        StateMachine = State.AskCookForHasenpfeffer;
+                        npc.EnqueueCommand("Say The king wants hasenpfeffer to eat.");
+                    }
+                    else
+                    {
+                        switch (Step)
+                        {
+                            case 1:
+                                npc.EnqueueCommand("Say Hello?");
+                                break;
+                            case 5:
+                                npc.EnqueueCommand("Say Is there anyone here?");
+                                break;
+                            case 10:
+                                npc.EnqueueCommand("Say Great how am I going to make hasenpfeffer?");
+                                break;
+                            case 15:
+                                npc.EnqueueCommand("Emote scurries around the kitchen looking for something to give the king.");
+                                break;
+                            case 20:
+                                npc.EnqueueCommand("Emote scurries around the kitchen looking for something to give the king.");
+                                break;
+                            case 25:
+                                npc.EnqueueCommand("Say Ah Ha!");
+                                break;
+                            case 30:
+                                npc.EnqueueCommand("Say This carrot will work.");
+                                break;
+                            case 35:
+                                npc.EnqueueCommand("Wait");
+                                npc.EnqueueCommand("South");
+                                npc.EnqueueCommand("Wait");
+                                npc.EnqueueCommand("Up");
+                                npc.EnqueueCommand("Wait");
+                                npc.EnqueueCommand("West");
+                                StateMachine = State.GiveToKing;
+                                break;
+
+                        }
+
+                    }
+                }
+            }
+            else if (StateMachine == State.AskCookForHasenpfeffer)
+            {
+                string message = null;
+                while ((message = npc.DequeueMessage()) != null)
+                {
+                    if (message == "<Communication>cook says here you go. Hasenpfeffer for the king.</Communication>")
+                    {
+                        npc.EnqueueCommand("Wait");
+                        npc.EnqueueCommand("South");
+                        npc.EnqueueCommand("Wait");
+                        npc.EnqueueCommand("Up");
+                        npc.EnqueueCommand("Wait");
+                        npc.EnqueueCommand("West");
+                        StateMachine = State.GiveToKing;
+                    }
+                }
+            }
 
 
             //give carrots
 
-            return "Wait";
+            return null;
         }
 
         private enum State
@@ -74,7 +142,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
             OnWayToKitchen,
             AskCookForHasenpfeffer,
             TakeBackToKing,
-            PanicAndMakeCarrot
+            PanicAndMakeCarrot,
+            GiveToKing
 
 
 

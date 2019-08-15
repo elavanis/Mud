@@ -494,6 +494,8 @@ namespace GenerateZones.Zones.GrandView
             npc.SentenceDescription = "cook";
             npc.KeyWords.Add("cook");
 
+            npc.Personalities.Add(new Cook());
+
             return npc;
         }
 
@@ -505,6 +507,8 @@ namespace GenerateZones.Zones.GrandView
             npc.ExamineDescription = "The cook waves you over and ask you to try the soup.";
             npc.SentenceDescription = "cook";
             npc.KeyWords.Add("cook");
+
+            npc.Personalities.Add(new Cook());
 
             return npc;
         }
