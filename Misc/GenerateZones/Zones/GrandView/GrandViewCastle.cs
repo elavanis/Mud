@@ -311,8 +311,8 @@ namespace GenerateZones.Zones.GrandView
         {
             IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "Swords, shields, pikes, bows and arrows are on rack at the ready to be used to defend the keep.";
-            room.LookDescription = "Large racks of weapons line the walls.";
+            room.ExamineDescription = "The large fireplace has a giant iron pot used for cooking soups for the entire castle staff.";
+            room.LookDescription = "Pots and pans hand from the wall above a large fire place.";
             room.ShortDescription = "Kitchen";
 
             room.AddMobileObjectToRoom(CookMan());

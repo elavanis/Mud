@@ -43,7 +43,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     {
                         npc.EnqueueCommand("wait");
                         npc.EnqueueCommand("wait");
-                        npc.EnqueueCommand("Say Right away your Honorable Royal Majestic Graciousness.");
+                        npc.EnqueueCommand("Say Right away Your Honorable Royal Majestic Graciousness.");
                         npc.EnqueueCommand("wait");
                         StateMachine = State.KingToldHasenpfeffer;
                         Step = 0;
@@ -127,7 +127,15 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     }
                 }
             }
-
+            else if (StateMachine == State.GiveToKing)
+            {
+                if (npc.Room.Id == 21
+                    && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "king").Count > 0)
+                {
+                    npc.EnqueueCommand("Your hasenpfeffer Your Magisty.");
+                    StateMachine = State.Wait;
+                }
+            }
 
             //give carrots
 
@@ -144,9 +152,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
             TakeBackToKing,
             PanicAndMakeCarrot,
             GiveToKing
-
-
-
         }
     }
 }
