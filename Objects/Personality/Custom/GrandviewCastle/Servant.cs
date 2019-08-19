@@ -102,7 +102,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                                 npc.EnqueueCommand("Up");
                                 npc.EnqueueCommand("Wait");
                                 npc.EnqueueCommand("West");
-                                StateMachine = State.GiveToKing;
+                                StateMachine = State.GiveToKingCarrot;
                                 break;
 
                         }
@@ -123,11 +123,20 @@ namespace Objects.Personality.Custom.GrandviewCastle
                         npc.EnqueueCommand("Up");
                         npc.EnqueueCommand("Wait");
                         npc.EnqueueCommand("West");
-                        StateMachine = State.GiveToKing;
+                        StateMachine = State.GiveToKingHasenpfeffer;
                     }
                 }
             }
-            else if (StateMachine == State.GiveToKing)
+            else if (StateMachine == State.GiveToKingHasenpfeffer)
+            {
+                if (npc.Room.Id == 21
+                    && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "king").Count > 0)
+                {
+                    npc.EnqueueCommand("Bon appetit Most Gracious Majesty.");
+                    StateMachine = State.Wait;
+                }
+            }
+            else if (StateMachine == State.GiveToKingCarrot)
             {
                 if (npc.Room.Id == 21
                     && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "king").Count > 0)
@@ -151,7 +160,9 @@ namespace Objects.Personality.Custom.GrandviewCastle
             AskCookForHasenpfeffer,
             TakeBackToKing,
             PanicAndMakeCarrot,
-            GiveToKing
+            GiveToKingHasenpfeffer,
+            GiveToKingCarrot
+
         }
     }
 }

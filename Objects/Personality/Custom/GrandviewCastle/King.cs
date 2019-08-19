@@ -1,6 +1,7 @@
 ﻿using Objects.Global;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
+using Objects.Room.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -126,17 +127,53 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     return null;
                 }
             }
-
             else if (StateMachine == State.AskedForHasenpfeffer)
+            {
+
+                string message = null;
+                while ((message = npc.DequeueMessage()) != null)
+                {
+                    if (message == "<Communication>kings servant says Bon appetit Most Gracious Majesty.</Communication>")
+                    {
+                        StateMachine = State.ReceivedHasenpfeffer;
+                        Step = 0;
+                        break;
+                    }
+                    else if (message == "<Communication>kings servant says Your hasenpfeffer Your Magisty.</Communication>")
+                    {
+                        StateMachine = State.ReceivedCarrot;
+                        Step = 0;
+                        break;
+                    }
+                }
+
+                if (StateMachine == State.AskedForHasenpfeffer)
+                {
+                    switch (Step)
+                    {
+                        case 1:
+                            return "Say Bring me hasenpfeffer.";
+                        case 20:
+                            return "Say Where is my hasenpfeffer?";
+                    }
+                }
+            }
+            else if (StateMachine == State.ReceivedHasenpfeffer)
+            {
+                npc.EnqueueCommand("Emote eats hasenpfeffer");
+                StateMachine = State.ThroneRoom;
+            }
+            else if (StateMachine == State.ReceivedCarrot)
             {
                 switch (Step)
                 {
                     case 1:
-                        return "Say Bring me hasenpfeffer.";
-                    case 20:
-                        return "Say Where is my hasenpfeffer?";
-                    case 30:
-                        return "Say Guards bring me my servant!!!";
+                        npc.EnqueueCommand("Emote eats hasenpfeffer");
+                        break;
+                    case 3:
+                        npc.EnqueueCommand("Say if I didn't know this was hasenpfeffer I'd swear it was carrots.");
+                        StateMachine = State.ThroneRoom;
+                        break;
                 }
             }
 
@@ -163,7 +200,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
             ThroneRoom,
             AskedForMeal,
             AskedForHasenpfeffer,
-
+            ReceivedHasenpfeffer,
+            ReceivedCarrot
 
 
         }
