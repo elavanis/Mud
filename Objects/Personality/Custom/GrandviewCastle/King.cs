@@ -44,7 +44,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
         }
 
-
+        #region Day Time
         private string DayTimeThings(INonPlayerCharacter npc)
         {
             Step++;
@@ -179,7 +179,9 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             return null;
         }
+        #endregion Day Time
 
+        #region Night Time
         private string NightTimeThings(INonPlayerCharacter npc)
         {
             if (npc.Room.Id == 20)
@@ -190,6 +192,9 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             return "Wait";
         }
+
+        #endregion Night Time
+
 
 
         private enum State
@@ -202,8 +207,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
             AskedForHasenpfeffer,
             ReceivedHasenpfeffer,
             ReceivedCarrot
-
-
         }
     }
 }
