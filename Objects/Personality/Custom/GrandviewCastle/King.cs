@@ -1,10 +1,16 @@
 ﻿using Objects.Global;
+using Objects.Item.Items;
+using Objects.Item.Items.Interface;
+using Objects.Material.Materials;
+using Objects.Mob;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 using Objects.Room.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Objects.Item.Items.Equipment;
+using static Objects.Mob.NonPlayerCharacter;
 
 namespace Objects.Personality.Custom.GrandviewCastle
 {
@@ -190,7 +196,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 return "West";
             }
 
-            return "Wait";
+            return null;
         }
 
         #endregion Night Time
@@ -208,5 +214,55 @@ namespace Objects.Personality.Custom.GrandviewCastle
             ReceivedHasenpfeffer,
             ReceivedCarrot
         }
+
+        #region Kings Guard
+        private INonPlayerCharacter KingsGuard()
+        {
+            INonPlayerCharacter npc = new NonPlayerCharacter();
+            npc.TypeOfMob = MobType.Humanoid;
+            npc.Level = 45;
+            npc.ShortDescription = "The kings guard.";
+            npc.LookDescription = "Dressed in golden armor shaped like a male lions head on their breastplate they have sworn their life to protect the king.";
+            npc.ExamineDescription = "Each guard has under gone extensive training in both body in mind to ensure their loyalty unto death.";
+            npc.SentenceDescription = "kings guard";
+            npc.KeyWords.Add("kings guard");
+            npc.KeyWords.Add("guard");
+
+
+            IWanderer wanderer = new Wanderer();
+            wanderer.NavigableRooms.Add(new BaseObjectId(24, 22));
+            wanderer.NavigableRooms.Add(new BaseObjectId(24, 23));
+            wanderer.NavigableRooms.Add(new BaseObjectId(24, 24));
+
+            npc.Personalities.Add(new Aggressive());
+            npc.Personalities.Add(wanderer);
+
+            return npc;
+        }
+
+        private IArmor BreastPlate()
+        {
+            IArmor armor = Armor(AvalableItemPosition.Body);
+            armor.KeyWords.Add("breastplate");
+            armor.ShortDescription = "A breastplate made of gold.";
+            armor.LookDescription = "A male lion head is embossed across the front of the breastplate.";
+            armor.ExamineDescription = "This piece of armor appears to be made better than normal.";
+
+
+            return armor;
+        }
+
+        private static IArmor Armor(AvalableItemPosition avalableItemPosition)
+        {
+            IArmor armor = new Armor();
+            armor.ItemPosition = avalableItemPosition;
+            armor.Level = 45;
+            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(armor.Level + 2);
+            armor.Material = new Gold();
+
+            return armor;
+        }
+
+        #endregion Kings Guard
     }
 }

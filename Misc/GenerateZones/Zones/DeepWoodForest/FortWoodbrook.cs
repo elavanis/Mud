@@ -491,9 +491,9 @@ namespace GenerateZones.Zones.DeepWoodForest
 
                 armor = Body(level);
                 armor.Material = new Steel();
-                armor.ShortDescription = "A steel breast plate.";
-                armor.LookDescription = "The steel breast plate is complete with a six pack on the front.";
-                armor.ExamineDescription = "The breast plate even has a belly button.  Inside the armor it has the creators initials. {FirstInitial}{SecondInitial}.";
+                armor.ShortDescription = "A steel breastplate.";
+                armor.LookDescription = "The steel breastplate is complete with a six pack on the front.";
+                armor.ExamineDescription = "The breastplate even has a belly button.  Inside the armor it has the creators initials. {FirstInitial}{SecondInitial}.";
                 armor.SentenceDescription = "bracer";
                 armor.FlavorOptions.Add("{FirstInitial}", new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" });
                 armor.FlavorOptions.Add("{SecondInitial}", new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" });

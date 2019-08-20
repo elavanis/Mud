@@ -330,9 +330,9 @@ namespace Objects.Global.Random
                     break;
                 case AvalableItemPosition.Body:
                     armor.ExamineDescription = "There is a large emblem on the front of a {emblem}.";
-                    armor.LookDescription = "The breast plate is hard giving the wearer plenty of protection while being light.";
-                    armor.ShortDescription = "A strong breast plate that has a small dent in the left side but otherwise is in perfect condition.";
-                    armor.SentenceDescription = "breast plate";
+                    armor.LookDescription = "The breastplate is hard giving the wearer plenty of protection while being light.";
+                    armor.ShortDescription = "A strong breastplate that has a small dent in the left side but otherwise is in perfect condition.";
+                    armor.SentenceDescription = "breastplate";
                     armor.KeyWords.Add("breastplate");
                     armor.KeyWords.Add("breast");
                     armor.KeyWords.Add("plate");

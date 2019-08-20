@@ -933,10 +933,11 @@ namespace GenerateZones.Zones.DeepWoodForest
             IArmor armor = CreateArmor(AvalableItemPosition.Body, 13, new Leather());
 
             armor.ExamineDescription = "The chest plate looks to like someone took a bears rib cage and set it before you and told you to wear it for armor.";
-            armor.LookDescription = "You look at what looks to be a bears rib cage, a set of breast plate armor made of bone.";
-            armor.ShortDescription = "A breast plate made of bone.";
-            armor.SentenceDescription = "bone breast plate";
+            armor.LookDescription = "You look at what looks to be a bears rib cage, a set of breastplate armor made of bone.";
+            armor.ShortDescription = "A breastplate made of bone.";
+            armor.SentenceDescription = "bone breastplate";
             armor.KeyWords.Add("bone");
+            armor.KeyWords.Add("breastplate");
             armor.KeyWords.Add("breast");
             armor.KeyWords.Add("plate");
 
