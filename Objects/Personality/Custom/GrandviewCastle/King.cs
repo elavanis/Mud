@@ -187,12 +187,36 @@ namespace Objects.Personality.Custom.GrandviewCastle
             if (npc.Room.Id == 20)
             {
                 npc.EnqueueCommand("Say Court is closed for the day. Please leave.");
+                StateMachine = State.GetReadForBed;
                 return "West";
             }
 
-            return "Wait";
+            if (npc.Room.Id != 20
+                && npc.Room.PlayerCharacters.Count > 0)
+            {
+                if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "kings guard").Count < 2)
+                {
+                    npc.EnqueueCommand("Shout GUARDS!");
+                    SummonKingsGuards();
+                    return null;
+                }
+            }
+
+
+            if (StateMachine == State.GetReadForBed)
+            {
+
+            }
+
+
+            return null;
         }
 
+
+        private void SummonKingsGuards()
+        {
+
+        }
         #endregion Night Time
 
 
@@ -206,7 +230,9 @@ namespace Objects.Personality.Custom.GrandviewCastle
             AskedForMeal,
             AskedForHasenpfeffer,
             ReceivedHasenpfeffer,
-            ReceivedCarrot
+            ReceivedCarrot,
+            GetReadForBed,
         }
     }
 }
+
