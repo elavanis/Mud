@@ -2,6 +2,7 @@
 using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
+using Objects.LoadPercentage.Interface;
 using Objects.Magic.Interface;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
@@ -34,6 +35,28 @@ namespace GenerateZones
             foreach (IItem item in room.Items)
             {
                 VerifyItem(item);
+            }
+
+            ILoadableItems loadableItems = room as ILoadableItems;
+            foreach (ILoadPercentage loadPercentage in loadableItems.LoadableItems)
+            {
+                IItem item = loadPercentage.Object as IItem;
+                if (item != null)
+                {
+                    VerifyItem(item);
+                }
+
+                INonPlayerCharacter nonPlayerCharacter = loadPercentage.Object as INonPlayerCharacter;
+                if (nonPlayerCharacter != null)
+                {
+                    VerifyNpc(nonPlayerCharacter);
+                }
+
+                IMount mount = loadPercentage.Object as IMount;
+                if (mount != null)
+                {
+                    VerifyMount(mount);
+                }
             }
 
             foreach (INonPlayerCharacter npc in room.NonPlayerCharacters)

@@ -342,10 +342,10 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "A large throne made of many iron swords melted together sits in the center of the hall.";
             room.ShortDescription = "Throne Room";
 
-            room.AddMobileObjectToRoom(KingsGuard());
-            room.AddMobileObjectToRoom(KingsGuard());
-            room.AddMobileObjectToRoom(KingsGuard());
-            room.AddMobileObjectToRoom(KingsGuard());
+            room.AddMobileObjectToRoom(RoyalGuard());
+            room.AddMobileObjectToRoom(RoyalGuard());
+            room.AddMobileObjectToRoom(RoyalGuard());
+            room.AddMobileObjectToRoom(RoyalGuard());
             room.AddMobileObjectToRoom(Servant());
 
             return room;
@@ -527,14 +527,15 @@ namespace GenerateZones.Zones.GrandView
             return npc;
         }
 
-        private INonPlayerCharacter KingsGuard()
+        private INonPlayerCharacter RoyalGuard()
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 38);
-            npc.ShortDescription = "The kings guard.";
-            npc.LookDescription = "Dressed in a golden armor the kings guard has sworn an oath to protect the king with their life.";
+            npc.ShortDescription = "The royal guard.";
+            npc.LookDescription = "Dressed in a white armor the royal guard has sworn an oath to protect the royal family with their life.";
             npc.ExamineDescription = "The guard watches you closely ready to attack at a moments notice.";
-            npc.SentenceDescription = "kings guard";
+            npc.SentenceDescription = "royal guard";
             npc.KeyWords.Add("guard");
+            npc.KeyWords.Add("royal");
 
             IGuard guard = new Guard(Direction.West);
             guard.BlockLeaveMessage = "The guard blocks you from entering and tells you this is the king and queens personal chambers and no one is allowed to enter.";

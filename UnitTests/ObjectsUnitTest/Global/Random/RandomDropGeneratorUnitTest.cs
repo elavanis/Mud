@@ -309,9 +309,9 @@ namespace ObjectsUnitTest.Global.Random
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
             Assert.AreEqual("There is a large emblem on the front of a tree.", armor.ExamineDescription);
-            Assert.AreEqual("The breast plate is hard giving the wearer plenty of protection while being light.", armor.LookDescription);
-            Assert.AreEqual("A strong breast plate that has a small dent in the left side but otherwise is in perfect condition.", armor.ShortDescription);
-            Assert.AreEqual("breast plate", armor.SentenceDescription);
+            Assert.AreEqual("The breastplate is hard giving the wearer plenty of protection while being light.", armor.LookDescription);
+            Assert.AreEqual("A strong breastplate that has a small dent in the left side but otherwise is in perfect condition.", armor.ShortDescription);
+            Assert.AreEqual("breastplate", armor.SentenceDescription);
             Assert.IsTrue(armor.KeyWords.Contains("breast"));
             Assert.IsTrue(armor.KeyWords.Contains("plate"));
             Assert.IsTrue(armor.KeyWords.Contains("breastplate"));

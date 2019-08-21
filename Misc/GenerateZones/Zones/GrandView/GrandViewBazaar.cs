@@ -282,8 +282,8 @@ namespace GenerateZones.Zones
             breastPlate.KeyWords.Add("BreastPlate");
             breastPlate.KeyWords.Add("Breast");
             breastPlate.KeyWords.Add("Plate");
-            breastPlate.ShortDescription = "A steel breast plate.";
-            breastPlate.LookDescription = "Made of steel this breast plate is rather heavy but effective.";
+            breastPlate.ShortDescription = "A steel breastplate.";
+            breastPlate.LookDescription = "Made of steel this breastplate is rather heavy but effective.";
             breastPlate.ExamineDescription = "Examining the plate closer you notice there is a knick in the front right, a dent in the upper left and the one of the straps for holding it together is starting to tear.  Maybe the reason this was such a good deal was because it was used.";
             breastPlate.SentenceDescription = "breastplate";
             breastPlate.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(breastPlate.Level);
