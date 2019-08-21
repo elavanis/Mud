@@ -87,12 +87,6 @@ namespace Objects.Command.PC
                 performer.Room = proposedRoom;
                 proposedRoom.Enter(performer);
 
-                //Announce the mob leaving
-                GlobalReference.GlobalValues.Notify.Room(performer, null, room, new TranslationMessage($"{performer.SentenceDescription} leaves {direction}."), null, true);
-
-                //Announce the mob entering
-                GlobalReference.GlobalValues.Notify.Room(performer, null, proposedRoom, new TranslationMessage($"{performer.SentenceDescription} enters the room."), null, true);
-
                 IMount mount = performer as IMount;
                 if (mount != null)
                 {

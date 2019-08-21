@@ -13,6 +13,7 @@ using static Objects.Global.Direction.Directions;
 using Objects.LoadPercentage.Interface;
 using Objects.Trap.Interface;
 using System.Collections.ObjectModel;
+using Objects.Language;
 
 namespace Objects.Room
 {
@@ -301,6 +302,9 @@ namespace Objects.Room
             performer.RoomId = new RoomId(performer.Room);
 
             GlobalReference.GlobalValues.Engine.Event.EnterRoom(performer);
+
+            //Announce the mob entering
+            GlobalReference.GlobalValues.Notify.Room(performer, null, this, new TranslationMessage($"{performer.SentenceDescription} enters the room."), null, true);
         }
 
         public void AddMobileObjectToRoom(IMobileObject mob)
@@ -360,7 +364,17 @@ namespace Objects.Room
 
             GlobalReference.GlobalValues.Engine.Event.LeaveRoom(performer, direction);
 
-            return RemoveMobileObjectFromRoom(performer);
+
+
+            bool wasAbleToLeave = RemoveMobileObjectFromRoom(performer);
+
+            if (wasAbleToLeave)
+            {
+                //Announce the mob leaving
+                GlobalReference.GlobalValues.Notify.Room(performer, null, this, new TranslationMessage($"{performer.SentenceDescription} leaves {direction}."), null, true);
+            }
+
+            return wasAbleToLeave;
         }
 
         public bool RemoveMobileObjectFromRoom(IMobileObject mob)

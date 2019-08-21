@@ -35,7 +35,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 if (howManyKingsGuards < 4)
                 {
                     npc.EnqueueCommand("Shout GUARDS!");
-                    SummonKingsGuards(4 - howManyKingsGuards);
+                    SummonKingsGuards(4 - howManyKingsGuards, npc.Room);
                 }
                 return "Flee";
             }
@@ -216,8 +216,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "kings guard").Count;
                 if (howManyKingsGuards < 4)
                 {
-                    npc.EnqueueCommand("Shout GUARDS!");
-                    SummonKingsGuards(4 - howManyKingsGuards);
+                    npc.EnqueueCommand("Say GUARDS!");
+                    SummonKingsGuards(4 - howManyKingsGuards, npc.Room);
                     return null;
                 }
             }
@@ -232,9 +232,14 @@ namespace Objects.Personality.Custom.GrandviewCastle
         }
 
 
-        private void SummonKingsGuards(int howMany)
+        private void SummonKingsGuards(int howMany, IRoom room)
         {
-            IRoom room = GlobalReference.GlobalValues.World.Zones[24].Rooms[21];
+            for (int i = 0; i < howMany; i++)
+            {
+                INonPlayerCharacter npc = KingsGuard();
+                npc.FinishLoad();
+                room.Enter(npc);
+            }
         }
         #endregion Night Time
 
@@ -272,8 +277,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             wanderer.NavigableRooms.Add(new BaseObjectId(24, 23));
             wanderer.NavigableRooms.Add(new BaseObjectId(24, 24));
 
-            npc.Personalities.Add(new Aggressive());
-            npc.Personalities.Add(wanderer);
+            //npc.Personalities.Add(new Aggressive());
 
             return npc;
         }
