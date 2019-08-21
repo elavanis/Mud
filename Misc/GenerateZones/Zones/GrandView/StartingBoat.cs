@@ -256,8 +256,6 @@ namespace GenerateZones.Zones
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             //ZoneHelper.ConnectRoom(Zone.Rooms[1], "W", Zone.Rooms[2]);
             Zone.Rooms[1].West = new Exit() { Zone = 1, Room = 2 };
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.West, Zone.Rooms[3]);

@@ -61,8 +61,6 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.South, Zone.Rooms[2]);
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
             ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);

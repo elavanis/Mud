@@ -492,8 +492,6 @@ namespace GenerateZones.Zones.Mountain
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2], new DoorInfo("gate", "The gate drags across the dirt as it opens.", true, "The gate is made of sturdy wooden tree trunks and looks to be able to take a beating."));
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
             ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);

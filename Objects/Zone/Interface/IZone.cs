@@ -31,7 +31,5 @@ namespace Objects.Zone.Interface
         string ZoneWindSpeedHighEnd { get; set; }
         string ZoneWindSpeedLowBegin { get; set; }
         string ZoneWindSpeedLowEnd { get; set; }
-
-        void RecursivelySetZone();
     }
 }

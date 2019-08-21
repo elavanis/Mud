@@ -475,8 +475,9 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor.ShortDescription = "A padded vest.";
                 armor.LookDescription = "The padded vest is has the emblem of the GrandView Gladiator guild.";
                 armor.ExamineDescription = "The vest is a light brown color and the stitching for the padding is well hidden making it look like a regular vest.";
-                armor.SentenceDescription = "vest";
                 armor.SentenceDescription = "padded vest";
+                armor.KeyWords.Add("vest");
+                armor.KeyWords.Add("padded");
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 1, Object = armor });
 
                 armor = Body(level);
@@ -484,9 +485,10 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor.ShortDescription = "A leather jacket.";
                 armor.LookDescription = "The studded leather jacket looks to be intimidating.";
                 armor.ExamineDescription = "Black as night the only thing that keeps this from being a good thief's outfit is the metal studs sticking out.";
-                armor.SentenceDescription = "leather";
-                armor.SentenceDescription = "jacket";
-                armor.SentenceDescription = "studded";
+                armor.SentenceDescription = "studded leather jacket";
+                armor.KeyWords.Add("leather");
+                armor.KeyWords.Add("jacket");
+                armor.KeyWords.Add("studded");
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 3, Object = armor });
 
                 armor = Body(level);
@@ -495,6 +497,7 @@ namespace GenerateZones.Zones.DeepWoodForest
                 armor.LookDescription = "The steel breastplate is complete with a six pack on the front.";
                 armor.ExamineDescription = "The breastplate even has a belly button.  Inside the armor it has the creators initials. {FirstInitial}{SecondInitial}.";
                 armor.SentenceDescription = "bracer";
+                armor.KeyWords.Add("breastplate");
                 armor.FlavorOptions.Add("{FirstInitial}", new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" });
                 armor.FlavorOptions.Add("{SecondInitial}", new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" });
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 3, Object = armor });
@@ -674,8 +677,6 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.South, 8, 36);
 
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.North, Zone.Rooms[2]);

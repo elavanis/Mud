@@ -39,7 +39,6 @@ namespace GenerateZones.Zones.Ash
                 ZoneHelper.AddRoom(Zone, GetRoom());
             }
 
-            Zone.RecursivelySetZone();
             Zone.Rooms[1].AddMobileObjectToRoom(LZoir());
             Zone.Rooms[10].AddMobileObjectToRoom(LZoir());
             Zone.Rooms[20].AddMobileObjectToRoom(LZoir());
@@ -110,8 +109,6 @@ namespace GenerateZones.Zones.Ash
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             int roomPos = 1;
             ConnectRooms(Zone.Rooms[roomPos], Direction.South, Zone.Rooms[++roomPos]);
             ConnectRooms(Zone.Rooms[roomPos], Direction.West, Zone.Rooms[++roomPos]);

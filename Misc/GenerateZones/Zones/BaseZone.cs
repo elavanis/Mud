@@ -49,6 +49,7 @@ namespace GenerateZones.Zones
         {
             IWeapon weapon = new Weapon();
             weapon.Id = ItemId++;
+            weapon.Zone = Zone.Id;
             weapon.Type = weaponType;
             weapon.Level = level;
 
@@ -59,6 +60,7 @@ namespace GenerateZones.Zones
         {
             IArmor armor = new Armor();
             armor.Id = ItemId++;
+            armor.Zone = Zone.Id;
             armor.ItemPosition = position;
             armor.Level = level;
             armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(level);
@@ -71,6 +73,7 @@ namespace GenerateZones.Zones
         {
             IShield shield = new Shield();
             shield.Id = ItemId++;
+            shield.Zone = Zone.Id;
             shield.Level = level;
             shield.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(level);
             shield.Material = material;
@@ -82,6 +85,7 @@ namespace GenerateZones.Zones
         {
             IEquipment equipment = new Equipment();
             equipment.Id = ItemId++;
+            equipment.Zone = Zone.Id;
             equipment.Level = level;
 
             return equipment;
@@ -124,6 +128,7 @@ namespace GenerateZones.Zones
             else
             {
                 item.Id = ItemId++;
+                item.Zone = Zone.Id;
             }
 
             return (T)item;
@@ -135,6 +140,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = new Room();
             room.Id = RoomId++;
+            room.Zone = Zone.Id;
             room.MovementCost = movementCost;
 
             return room;

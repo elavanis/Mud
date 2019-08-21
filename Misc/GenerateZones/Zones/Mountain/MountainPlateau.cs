@@ -326,8 +326,6 @@ namespace GenerateZones.Zones.Mountain
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.North, Zone.Rooms[2]);
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.North, Zone.Rooms[3]);
             ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.North, Zone.Rooms[4]);

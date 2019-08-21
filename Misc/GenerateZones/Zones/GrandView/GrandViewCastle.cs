@@ -56,8 +56,6 @@ namespace GenerateZones.Zones.GrandView
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.West, Zone.Rooms[2]);
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.West, Zone.Rooms[3]);
             ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.South, Zone.Rooms[4]);

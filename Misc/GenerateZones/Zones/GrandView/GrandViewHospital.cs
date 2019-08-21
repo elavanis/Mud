@@ -346,8 +346,6 @@ namespace GenerateZones.Zones.GrandView
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             //we do these rooms like this because we don't want to connect back
             Zone.Rooms[2].East = new Exit() { Zone = 7, Room = 4 };
             Zone.Rooms[3].East = new Exit() { Zone = 7, Room = 4 };

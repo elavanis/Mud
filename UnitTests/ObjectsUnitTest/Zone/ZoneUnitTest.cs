@@ -129,8 +129,6 @@ namespace ObjectsUnitTest.Zone
             container2.Setup(e => e.Items).Returns(new List<IItem>() { npcItem3.Object });
             container3.Setup(e => e.Items).Returns(new List<IItem>());
 
-            zone.RecursivelySetZone();
-
             room.VerifySet(e => e.Zone = 1, Times.Once);
             item.VerifySet(e => e.Zone = 1, Times.Once);
             equippedItem.VerifySet(e => e.Zone = 1, Times.Exactly(2));

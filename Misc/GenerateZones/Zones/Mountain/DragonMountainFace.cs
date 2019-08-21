@@ -399,8 +399,6 @@ namespace GenerateZones.Zones.Mountain
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             #region Rock Face
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2]);
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);

@@ -57,6 +57,7 @@ namespace GenerateZones.Zones
 
             IMount mount = new Mount(Mount.DefaultValues.Elephant);
             mount.Id = 1;
+            mount.Zone = -1;
             mount.Level = 1;
             mount.StaminaMultiplier = 10;
             //mount.Movement = 1;
@@ -92,7 +93,6 @@ namespace GenerateZones.Zones
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
         }
 
         private IWeapon Weapon()
@@ -110,6 +110,8 @@ namespace GenerateZones.Zones
             weapon.SentenceDescription = "sentence";
             weapon.ShortDescription = "short";
             weapon.KeyWords.Add("weapon");
+            weapon.Zone = -1;
+
 
             return weapon;
         }

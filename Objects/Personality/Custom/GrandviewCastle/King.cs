@@ -28,6 +28,19 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 return command;
             }
 
+            #region Combat
+            if (npc.IsInCombat)
+            {
+                int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "kings guard").Count;
+                if (howManyKingsGuards < 4)
+                {
+                    npc.EnqueueCommand("Shout GUARDS!");
+                    SummonKingsGuards(4 - howManyKingsGuards);
+                }
+                return "Flee";
+            }
+            #endregion Combat
+
             int hour = GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour;
 
             if (!GreetQueen && npc.Room.Id == 21)
@@ -41,12 +54,12 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             if (hour < 13)
             {
-                return DayTimeThings(npc);
+                return NightTimeThings(npc);
+                //return DayTimeThings(npc);
             }
             else
             {
-                //return NightTimeThings(npc);
-                return DayTimeThings(npc);
+                return NightTimeThings(npc);
             }
         }
 
@@ -200,14 +213,14 @@ namespace Objects.Personality.Custom.GrandviewCastle
             if (npc.Room.Id != 20
                 && npc.Room.PlayerCharacters.Count > 0)
             {
-                if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "kings guard").Count < 2)
+                int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "kings guard").Count;
+                if (howManyKingsGuards < 4)
                 {
                     npc.EnqueueCommand("Shout GUARDS!");
-                    SummonKingsGuards();
+                    SummonKingsGuards(4 - howManyKingsGuards);
                     return null;
                 }
             }
-
 
             if (StateMachine == State.GetReadForBed)
             {
@@ -219,9 +232,9 @@ namespace Objects.Personality.Custom.GrandviewCastle
         }
 
 
-        private void SummonKingsGuards()
+        private void SummonKingsGuards(int howMany)
         {
-
+            IRoom room = GlobalReference.GlobalValues.World.Zones[24].Rooms[21];
         }
         #endregion Night Time
 

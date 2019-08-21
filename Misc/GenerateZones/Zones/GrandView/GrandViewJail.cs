@@ -195,9 +195,6 @@ namespace GenerateZones.Zones
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
-
             #region Jail/Tunnel
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2], new DoorInfo("wall", "With one last push the wall slides open enough for you to pass through.", true, "The door blends in perfectly with the wall and makes you wonder how you discovered it in the first place."));
             ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);

@@ -167,41 +167,6 @@ namespace Objects.Zone
             }
         }
 
-        public void RecursivelySetZone()
-        {
-            foreach (IRoom room in Rooms.Values)
-            {
-                room.Zone = Id;
-
-                foreach (IItem item in room.Items)
-                {
-                    SetItemId(item);
-                }
-
-                foreach (INonPlayerCharacter npc in room.NonPlayerCharacters)
-                {
-                    SetCommonMobValues(npc);
-
-                    foreach (IPersonality personality in npc.Personalities)
-                    {
-                        IMerchant merchant = personality as IMerchant;
-                        if (merchant != null)
-                        {
-                            foreach (IItem item in merchant.Sellables)
-                            {
-                                SetItemId(item);
-                            }
-                        }
-                    }
-                }
-
-                foreach (IMobileObject mob in room.OtherMobs)
-                {
-                    SetCommonMobValues(mob);
-                }
-            }
-        }
-
         private void SetCommonMobValues(IMobileObject mob)
         {
             mob.Zone = Id;

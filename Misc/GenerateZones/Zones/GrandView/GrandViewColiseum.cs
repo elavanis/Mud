@@ -820,9 +820,6 @@ namespace GenerateZones.Zones
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
-
             ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 5, 19);
             ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.South, 4, 1);
 

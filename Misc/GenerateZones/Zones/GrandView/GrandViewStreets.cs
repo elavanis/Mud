@@ -597,8 +597,6 @@ East: The Training Hall";
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.Down, 6, 8, new DoorInfo("stone", "You move the stone out of the way reveling the opening of the tunnel.", true, "The stone is of good weight, enough to discourage people from moving it but light enough to move when needed."));
             ZoneHelper.ConnectZone(Zone.Rooms[17], Direction.North, 2, 1);
             ZoneHelper.ConnectZone(Zone.Rooms[19], Direction.East, 3, 1);

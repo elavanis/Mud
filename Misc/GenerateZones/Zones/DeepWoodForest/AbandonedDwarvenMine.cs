@@ -113,8 +113,6 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             #region Ore Cart Storage
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2]);
             ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.South, Zone.Rooms[3]);

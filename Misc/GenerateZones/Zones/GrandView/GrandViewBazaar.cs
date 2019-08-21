@@ -444,8 +444,6 @@ namespace GenerateZones.Zones
 
         private void ConnectRooms()
         {
-            Zone.RecursivelySetZone();
-
             ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.North, 3, 1);
             ZoneHelper.ConnectZone(Zone.Rooms[6], Direction.East, 9, 61);
 
