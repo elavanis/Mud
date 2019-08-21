@@ -48,7 +48,7 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.Instructions;
 
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("Emote \"[your emote message]\"", result.ResultMessage);
+            Assert.AreEqual("Emote [your emote message]", result.ResultMessage);
         }
 
         [TestMethod]
