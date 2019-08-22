@@ -4,6 +4,7 @@ using Objects.Command.Interface;
 using Objects.Command.PC;
 using Objects.Global;
 using Objects.Global.Notify.Interface;
+using Objects.Global.StringManuplation.Interface;
 using Objects.Language.Interface;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
@@ -19,9 +20,10 @@ namespace ObjectsUnitTest.Command.PC
     {
         IMobileObjectCommand command;
         Mock<ITagWrapper> tagWrapper;
-        Mock<IPlayerCharacter> pc;
+        Mock<IMobileObject> performer;
         Mock<INotify> notify;
         Mock<IRoom> room;
+        Mock<IStringManipulator> stringManipulator;
 
         [TestInitialize]
         public void Setup()
@@ -29,15 +31,19 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues = new GlobalValues();
 
             tagWrapper = new Mock<ITagWrapper>();
-            pc = new Mock<IPlayerCharacter>();
+            performer = new Mock<IMobileObject>();
             notify = new Mock<INotify>();
             room = new Mock<IRoom>();
+            stringManipulator = new Mock<IStringManipulator>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
-            pc.Setup(e => e.Room).Returns(room.Object);
+            performer.Setup(e => e.Room).Returns(room.Object);
+            performer.Setup(e => e.KeyWords).Returns(new List<string>() { "performer" });
+            stringManipulator.Setup(e => e.CapitalizeFirstLetter("performer")).Returns("Performer");
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
 
             command = new Emote();
         }
@@ -65,7 +71,7 @@ namespace ObjectsUnitTest.Command.PC
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
 
-            IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
+            IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("What would you like to emote?", result.ResultMessage);
@@ -76,16 +82,14 @@ namespace ObjectsUnitTest.Command.PC
         {
             Mock<ICommand> mockCommand = new Mock<ICommand>();
             Mock<IParameter> parameter = new Mock<IParameter>();
-            parameter.Setup(e => e.ParameterValue).Returns("Bow");
+            parameter.Setup(e => e.ParameterValue).Returns("bows to the east.");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
 
-            IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
+            IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("", result.ResultMessage);
-            notify.Verify(e => e.Room(pc.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(performer.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
         }
-
-
     }
 }

@@ -48,12 +48,22 @@ namespace ObjectsUnitTest.Personality.Personalities.GrandViewGraveYard
             room.Setup(e => e.Items).Returns(new List<IItem>() { corpse.Object });
 
             string result = groundsKeeper.Process(npc.Object, null);
+            Assert.AreEqual("Get corpse", result);
 
-            Assert.AreEqual("", result);
-            npc.Verify(e => e.EnqueueCommand("Get corpse"), Times.Once);
-            npc.Verify(e => e.EnqueueCommand("Emote The groundskeeper starts digging a grave for the corpse."), Times.Once);
-            npc.Verify(e => e.EnqueueCommand("Emote The groundskeeper places the body in the grave."), Times.Once);
-            npc.Verify(e => e.EnqueueCommand("Say And stay there this time."), Times.Once);
+            result = groundsKeeper.Process(npc.Object, null);
+            Assert.AreEqual("Emote starts digging a grave for the corpse.", result);
+
+            result = groundsKeeper.Process(npc.Object, null);
+            Assert.AreEqual("Wait", result);
+
+            result = groundsKeeper.Process(npc.Object, null);
+            Assert.AreEqual("Emote places the body in the grave.", result);
+
+            result = groundsKeeper.Process(npc.Object, null);
+            Assert.AreEqual("Wait", result);
+
+            result = groundsKeeper.Process(npc.Object, null);
+            Assert.AreEqual("Say And stay there this time.", result);
         }
 
         [TestMethod]

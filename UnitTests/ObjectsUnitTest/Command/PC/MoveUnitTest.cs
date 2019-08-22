@@ -29,7 +29,6 @@ namespace ObjectsUnitTest.Command.PC
         Mock<ICommand> mockCommand;
         Mock<ICanMobDoSomething> canDoSomething;
         Mock<IRoom> room;
-        Mock<INotify> notify;
 
         [TestInitialize]
         public void Setup()
@@ -41,7 +40,6 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand = new Mock<ICommand>();
             canDoSomething = new Mock<ICanMobDoSomething>();
             room = new Mock<IRoom>();
-            notify = new Mock<INotify>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
@@ -50,7 +48,6 @@ namespace ObjectsUnitTest.Command.PC
 
             GlobalReference.GlobalValues.CanMobDoSomething = canDoSomething.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-            GlobalReference.GlobalValues.Notify = notify.Object;
 
             command = new Move();
         }
@@ -196,8 +193,6 @@ namespace ObjectsUnitTest.Command.PC
             room.Verify(e => e.Leave(mob.Object, Direction.North, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, differntRoom.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
         }
 
         [TestMethod]
@@ -234,8 +229,6 @@ namespace ObjectsUnitTest.Command.PC
             room.Verify(e => e.Leave(mob.Object, Direction.East, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, differntRoom.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
         }
 
         [TestMethod]
@@ -272,8 +265,6 @@ namespace ObjectsUnitTest.Command.PC
             room.Verify(e => e.Leave(mob.Object, Direction.South, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, differntRoom.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
         }
 
         [TestMethod]
@@ -310,8 +301,6 @@ namespace ObjectsUnitTest.Command.PC
             room.Verify(e => e.Leave(mob.Object, Direction.West, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, differntRoom.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
         }
 
         [TestMethod]
@@ -348,8 +337,6 @@ namespace ObjectsUnitTest.Command.PC
             room.Verify(e => e.Leave(mob.Object, Direction.Up, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, differntRoom.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
         }
 
         [TestMethod]
@@ -386,8 +373,6 @@ namespace ObjectsUnitTest.Command.PC
             room.Verify(e => e.Leave(mob.Object, Direction.Down, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
-            notify.Verify(e => e.Room(mob.Object, null, differntRoom.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
         }
     }
 }

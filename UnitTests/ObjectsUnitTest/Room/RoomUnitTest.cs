@@ -22,6 +22,8 @@ using Objects.Global.Settings.Interface;
 using System.Reflection;
 using Objects.Global.Serialization.Interface;
 using Objects.Interface;
+using Objects.Global.Notify.Interface;
+using Objects.Language.Interface;
 
 namespace ObjectsUnitTest.Room
 {
@@ -44,10 +46,7 @@ namespace ObjectsUnitTest.Room
         Mock<IEvent> evnt;
         Mock<IEngine> engine;
         Mock<IGuard> guard;
-
-
-
-
+        Mock<INotify> notify;
 
         List<INonPlayerCharacter> lNpc;
         List<IPlayerCharacter> lPc;
@@ -74,6 +73,7 @@ namespace ObjectsUnitTest.Room
             evnt = new Mock<IEvent>();
             engine = new Mock<IEngine>();
             guard = new Mock<IGuard>();
+            notify = new Mock<INotify>();
 
             settings.Setup(e => e.VaultDirectory).Returns("vault");
             serializer.Setup(e => e.Serialize(It.IsAny<List<IItem>>())).Returns("serializedList");
@@ -94,6 +94,7 @@ namespace ObjectsUnitTest.Room
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
+            GlobalReference.GlobalValues.Notify = notify.Object;
 
             room = new Objects.Room.Room();
             room.Zone = 1;
@@ -405,6 +406,8 @@ namespace ObjectsUnitTest.Room
             Assert.AreSame(npc.Object, room.NonPlayerCharacters[0]);
             npc.Verify(e => e.Room, Times.Once);
             evnt.Verify(e => e.EnterRoom(npc.Object), Times.Once);
+            notify.Verify(e => e.Room(mob.Object, null, room, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
+            throw new Exception("be specific on message");
         }
 
         [TestMethod]
@@ -416,6 +419,8 @@ namespace ObjectsUnitTest.Room
             Assert.AreSame(pc.Object, room.PlayerCharacters[0]);
             pc.Verify(e => e.Room, Times.Once);
             evnt.Verify(e => e.EnterRoom(pc.Object), Times.Once);
+            notify.Verify(e => e.Room(mob.Object, null, room, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
+            throw new Exception("be specific on message");
         }
 
         [TestMethod]
@@ -427,6 +432,8 @@ namespace ObjectsUnitTest.Room
             Assert.AreSame(mob.Object, room.OtherMobs[0]);
             mob.Verify(e => e.Room, Times.Once);
             evnt.Verify(e => e.EnterRoom(mob.Object), Times.Once);
+            notify.Verify(e => e.Room(mob.Object, null, room, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
+            throw new Exception("be specific on message");
         }
 
         [TestMethod]
@@ -439,6 +446,8 @@ namespace ObjectsUnitTest.Room
             Assert.AreEqual(0, room.PlayerCharacters.Count);
             evnt.Verify(e => e.LeaveRoom(npc.Object, Direction.East), Times.Once);
             npc.VerifySet(e => e.Stamina = 9, Times.Once);
+            notify.Verify(e => e.Room(mob.Object, null, room, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
+            throw new Exception("be specific on message");
         }
 
         [TestMethod]
@@ -451,6 +460,8 @@ namespace ObjectsUnitTest.Room
             Assert.AreEqual(0, room.PlayerCharacters.Count);
             evnt.Verify(e => e.LeaveRoom(pc.Object, Direction.East), Times.Once);
             pc.VerifySet(e => e.Stamina = 9, Times.Once);
+            notify.Verify(e => e.Room(mob.Object, null, room, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
+            throw new Exception("be specific on message");
         }
 
         [TestMethod]
@@ -463,6 +474,8 @@ namespace ObjectsUnitTest.Room
             Assert.AreEqual(0, room.OtherMobs.Count);
             evnt.Verify(e => e.LeaveRoom(mob.Object, Direction.East), Times.Once);
             mob.VerifySet(e => e.Stamina = 9, Times.Once);
+            notify.Verify(e => e.Room(mob.Object, null, room, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
+            throw new Exception("be specific on message");
         }
 
         [TestMethod]
@@ -475,6 +488,8 @@ namespace ObjectsUnitTest.Room
             Assert.AreEqual(0, room.PlayerCharacters.Count);
             evnt.Verify(e => e.LeaveRoom(pc.Object, Direction.East), Times.Once);
             pc.VerifySet(e => e.Stamina = It.IsAny<int>(), Times.Never);
+            notify.Verify(e => e.Room(mob.Object, null, room, It.IsAny<ITranslationMessage>(), null, true, false), Times.Once);
+            throw new Exception("be specific on message");
         }
 
         [TestMethod]

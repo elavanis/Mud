@@ -8,9 +8,11 @@ namespace Objects.Personality.Custom.GrandViewGraveYard
 {
     public class GroundsKeeper : IPersonality
     {
+        private int step;
+        private State stateMachine = State.LookForCorpse;
+
         public string Process(INonPlayerCharacter npc, string command)
         {
-
             if (command == null)
             {
                 //check if it is night
@@ -35,12 +37,29 @@ namespace Objects.Personality.Custom.GrandViewGraveYard
                     {
                         if (item is ICorpse)
                         {
-                            npc.EnqueueCommand($"Get {item.KeyWords[0]}");
-                            npc.EnqueueCommand("Emote starts digging a grave for the corpse.");
-                            npc.EnqueueCommand("Wait");
-                            npc.EnqueueCommand("Emote places the body in the grave.");
-                            npc.EnqueueCommand("Wait");
-                            npc.EnqueueCommand("Say And stay there this time.");
+                            step++;
+                            if (stateMachine == State.LookForCorpse)
+                            {
+                                stateMachine = State.BuryingCorpse;
+                                return $"Get {item.KeyWords[0]}";
+                            }
+                            else if (stateMachine == State.BuryingCorpse)
+                            {
+                                switch (step)
+                                {
+                                    case 2:
+                                        return "Emote starts digging a grave for the corpse.";
+                                    case 4:
+                                        return "Emote places the body in the grave.";
+                                    case 6:
+                                        step = 0;
+                                        return "Say And stay there this time.";
+                                    default:
+                                        return "Wait";
+                                }
+                            }
+
+
                             return "";
                         }
                     }
@@ -48,6 +67,12 @@ namespace Objects.Personality.Custom.GrandViewGraveYard
             }
 
             return command;
+        }
+
+        private enum State
+        {
+            LookForCorpse,
+            BuryingCorpse,
         }
     }
 }
