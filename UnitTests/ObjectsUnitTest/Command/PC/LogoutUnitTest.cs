@@ -80,12 +80,12 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Logout_PerformCommand_LoggedOut()
         {
-
             IResult result = command.PerformCommand(pc.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("Exit Connection", result.ResultMessage);
             world.Verify(e => e.LogOutCharacter(pc.Object), Times.Once);
-            notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()));
+            notify.Verify(e => e.Mob(pc.Object, It.Is<ITranslationMessage>(f => f.Message == "You have been successfully logged out.")));
+
         }
     }
 }
