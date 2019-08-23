@@ -104,38 +104,5 @@ namespace ObjectsUnitTest.Zone
 
             room.Verify(e => e.FinishLoad(0), Times.Once);
         }
-
-        [TestMethod]
-        public void Zone_RecursivelySetZone_ZoneSyncOption()
-        {
-            Mock<IItem> npcItem = new Mock<IItem>();
-            Mock<IItem> npcItem2 = new Mock<IItem>();
-            Mock<IItem> npcItem3 = new Mock<IItem>();
-            Mock<IContainer> container1 = npcItem.As<IContainer>();
-            Mock<IContainer> container2 = npcItem2.As<IContainer>();
-            Mock<IContainer> container3 = npcItem3.As<IContainer>();
-            Mock<IMerchant> merchant = new Mock<IMerchant>();
-            Mock<IEquipment> equippedItem = new Mock<IEquipment>();
-            Mock<IItem> sellItem = new Mock<IItem>();
-
-            zone.Id = 1;
-            npc.Setup(e => e.Items).Returns(new List<IItem>() { npcItem.Object });
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { merchant.Object });
-            npc.Setup(e => e.EquipedEquipment).Returns(new List<IEquipment>() { equippedItem.Object });
-            otherMob.Setup(e => e.Items).Returns(new List<IItem>() { npcItem.Object });
-            otherMob.Setup(e => e.EquipedEquipment).Returns(new List<IEquipment>() { equippedItem.Object });
-            merchant.Setup(e => e.Sellables).Returns(new List<IItem>() { sellItem.Object });
-            container1.Setup(e => e.Items).Returns(new List<IItem>() { npcItem2.Object });
-            container2.Setup(e => e.Items).Returns(new List<IItem>() { npcItem3.Object });
-            container3.Setup(e => e.Items).Returns(new List<IItem>());
-
-            room.VerifySet(e => e.Zone = 1, Times.Once);
-            item.VerifySet(e => e.Zone = 1, Times.Once);
-            equippedItem.VerifySet(e => e.Zone = 1, Times.Exactly(2));
-            sellItem.VerifySet(e => e.Zone = 1, Times.Once);
-            npcItem.VerifySet(e => e.Zone = 1, Times.Exactly(2));
-            npcItem2.VerifySet(e => e.Zone = 1, Times.Exactly(2));
-            npcItem3.VerifySet(e => e.Zone = 1, Times.Exactly(2));
-        }
     }
 }

@@ -52,7 +52,8 @@ namespace ObjectsUnitTest.Global.StringManuplation
         [TestMethod]
         public void StringManiuplator_CapitalizeFirstLeter()
         {
-            Assert.AreEqual(1, 2);
+            string result = stringManipulator.CapitalizeFirstLetter("abc");
+            Assert.AreEqual("Abc", result);
         }
     }
 }
