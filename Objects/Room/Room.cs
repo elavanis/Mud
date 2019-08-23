@@ -303,8 +303,10 @@ namespace Objects.Room
 
             GlobalReference.GlobalValues.Engine.Event.EnterRoom(performer);
 
+
             //Announce the mob entering
-            GlobalReference.GlobalValues.Notify.Room(performer, null, this, new TranslationMessage($"{performer.SentenceDescription} enters the room."), null, true);
+            string capitalSentenceDesripton = GlobalReference.GlobalValues.StringManipulator.CapitalizeFirstLetter(performer.SentenceDescription);
+            GlobalReference.GlobalValues.Notify.Room(performer, null, this, new TranslationMessage($"{capitalSentenceDesripton} enters the room."), null, true);
         }
 
         public void AddMobileObjectToRoom(IMobileObject mob)
@@ -364,14 +366,13 @@ namespace Objects.Room
 
             GlobalReference.GlobalValues.Engine.Event.LeaveRoom(performer, direction);
 
-
-
             bool wasAbleToLeave = RemoveMobileObjectFromRoom(performer);
 
             if (wasAbleToLeave)
             {
                 //Announce the mob leaving
-                GlobalReference.GlobalValues.Notify.Room(performer, null, this, new TranslationMessage($"{performer.SentenceDescription} leaves {direction}."), null, true);
+                string capitalSentenceDesripton = GlobalReference.GlobalValues.StringManipulator.CapitalizeFirstLetter(performer.SentenceDescription);
+                GlobalReference.GlobalValues.Notify.Room(performer, null, this, new TranslationMessage($"{capitalSentenceDesripton} leaves {direction}."), null, true);
             }
 
             return wasAbleToLeave;
