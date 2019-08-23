@@ -89,7 +89,7 @@ namespace ObjectsUnitTest.Command.PC
 
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("", result.ResultMessage);
-            notify.Verify(e => e.Room(performer.Object, null, room.Object, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(performer.Object, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "Performer bows to the east."), null, false, false), Times.Once);
         }
     }
 }

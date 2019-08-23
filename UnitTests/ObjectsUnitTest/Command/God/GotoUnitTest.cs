@@ -163,7 +163,8 @@ namespace ObjectsUnitTest.Command.God
 
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("look result", result.ResultMessage);
-            notify.Verify(e => e.Room(pc.Object, null, pc.Object.Room, It.IsAny<ITranslationMessage>(), null, true, false), Times.Exactly(2));
+            notify.Verify(e => e.Room(pc.Object, null, pc.Object.Room, It.Is<ITranslationMessage>(f => f.Message == "God Leaves"), null, true, false), Times.Once);
+            notify.Verify(e => e.Room(pc.Object, null, pc.Object.Room, It.Is<ITranslationMessage>(f => f.Message == "God Enters"), null, true, false), Times.Once);
         }
     }
 }

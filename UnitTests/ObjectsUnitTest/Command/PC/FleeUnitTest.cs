@@ -41,7 +41,6 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IMobileObjectCommand> mobileObjectCommand;
         Mock<IParameter> parameter;
         List<IParameter> parameters;
-        ITranslationMessage message = null;
 
         Dictionary<string, IMobileObjectCommand> dictionaryCommandList;
 
@@ -98,7 +97,6 @@ namespace ObjectsUnitTest.Command.PC
             zone.Setup(e => e.Rooms).Returns(rooms);
             dictionaryCommandList.Add("LOOK", mobileObjectCommand.Object);
             commandList.Setup(e => e.PcCommandsLookup).Returns(dictionaryCommandList);
-            notify.Setup(e => e.Mob(performer.Object, It.IsAny<ITranslationMessage>())).Callback<IMobileObject, ITranslationMessage>((mob, translationMessage) => { message = translationMessage; });
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Random = random.Object;
@@ -148,8 +146,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee North.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee North.")), Times.Once);
         }
 
         [TestMethod]
@@ -160,8 +158,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee East.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee East.")), Times.Once);
         }
 
         [TestMethod]
@@ -172,8 +170,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee South.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee South.")), Times.Once);
         }
 
         [TestMethod]
@@ -184,8 +182,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee West.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee West.")), Times.Once);
         }
 
         [TestMethod]
@@ -196,8 +194,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee Up.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee Up.")), Times.Once);
         }
 
         [TestMethod]
@@ -208,8 +206,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee Down.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee Down.")), Times.Once);
         }
         #endregion Flee Each Direction
 
@@ -224,8 +222,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee North.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee North.")), Times.Once);
         }
 
         [TestMethod]
@@ -238,8 +236,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee East.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee East.")), Times.Once);
         }
 
         [TestMethod]
@@ -252,8 +250,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee South.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee South.")), Times.Once);
         }
 
         [TestMethod]
@@ -266,8 +264,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee West.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee West.")), Times.Once);
         }
 
         [TestMethod]
@@ -280,8 +278,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee Up.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee Up.")), Times.Once);
         }
 
         [TestMethod]
@@ -294,8 +292,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee Down.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee Down.")), Times.Once);
         }
 
         [TestMethod]
@@ -308,8 +306,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You tried to flee Up but were unable to instead fled Down.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You tried to flee Up but were unable to instead fled Down.")), Times.Once);
         }
 
         [TestMethod]
@@ -322,8 +320,8 @@ namespace ObjectsUnitTest.Command.PC
             IResult result = command.PerformCommand(performer.Object, mockCommand.Object);
 
             mobileObjectCommand.Verify(e => e.PerformCommand(performer.Object, It.IsAny<ICommand>()), Times.Once);
-            Assert.AreEqual("You flee Down.", message.Message);
             performer.Verify(e => e.AddTitle("{performer} bravely ran away"));
+            notify.Verify(e => e.Mob(performer.Object, It.Is<ITranslationMessage>(f => f.Message == "You flee Down.")), Times.Once);
         }
         #endregion Flee Specify Each Direction
 
