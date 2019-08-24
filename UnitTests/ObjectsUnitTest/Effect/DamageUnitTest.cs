@@ -53,13 +53,14 @@ namespace ObjectsUnitTest.Effect
             combat = new Mock<ICombat>();
             engine = new Mock<IEngine>();
             evnt = new Mock<IEvent>();
+            tagWrapper = new Mock<ITagWrapper>();
 
             parameter.Setup(e => e.TargetMessage).Returns(translationMessage.Object);
             parameter.Setup(e => e.Damage).Returns(mockDamage.Object);
             parameter.Setup(e => e.Target).Returns(target.Object);
             parameter.Setup(e => e.Performer).Returns(performer.Object);
             translationMessage.Setup(e => e.GetTranslatedMessage(null)).Returns("test message");
-            tagWrapper = new Mock<ITagWrapper>();
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Sound)).Returns((string x, TagType y) => (x));
             mockDamage.Setup(e => e.Dice).Returns(dice.Object);
             dice.Setup(e => e.RollDice()).Returns(1);
             engine.Setup(e => e.Combat).Returns(combat.Object);
@@ -88,7 +89,7 @@ namespace ObjectsUnitTest.Effect
             tagWrapper.Verify(e => e.WrapInTag("abc", TagType.Sound));
             notify.Verify(e => e.Mob(performer.Object, target.Object, target.Object, translationMessage.Object, false, false));
             serialization.Verify(e => e.Serialize(new List<ISound>() { sound.Object }));
-            notify.Verify(e => e.Mob(target.Object, It.IsAny<ITranslationMessage>()));
+            notify.Verify(e => e.Mob(target.Object, It.Is<ITranslationMessage>(f => f.Message == "abc")));
             combat.Verify(e => e.AddCombatPair(performer.Object, target.Object));
             evnt.Verify(e => e.DamageAfterDefense(performer.Object, target.Object, 0));
         }

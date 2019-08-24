@@ -12,6 +12,7 @@ using Objects.Room.Interface;
 using Shared.TagWrapper.Interface;
 using System.Collections.Generic;
 using static Objects.Room.Room;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Effect.Zone.EndlessDesert
 {
@@ -53,6 +54,7 @@ namespace ObjectsUnitTest.Effect.Zone.EndlessDesert
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             gameDateTime.Setup(e => e.Hour).Returns(12);
             gameDateTime.Setup(e => e.DayName).Returns(Objects.GameDateTime.Days.Death);
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
@@ -62,27 +64,29 @@ namespace ObjectsUnitTest.Effect.Zone.EndlessDesert
         [TestMethod]
         public void DoorwayToUnderworldTest_ProcessEffect_AddDoor()
         {
+            string expectedMessage = "As the last rays of light disappear over the horizon the crackle of water quickly freezing can be heard originating from a shimmering gray portal that has appeared in the center of the now frozen lake.  The portal gives off an eerie gray light causing everything to look pale as if touched by dead while a cold breeze can be felt emanating from it adding to the effect.";
+
             doorwayToUnderworld.ProcessEffect(effectParameter.Object);
 
-            Assert.IsTrue(roomAttrbuties.Contains(Objects.Room.Room.RoomAttribute.Light));
+            Assert.IsTrue(roomAttrbuties.Contains(RoomAttribute.Light));
             Assert.AreEqual(1, roomAttrbuties.Count);
-            notify.Verify(e => e.Room(null, null, room.Object, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(null, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == expectedMessage), null, false, false), Times.Once);
         }
 
         [TestMethod]
         public void DoorwayToUnderworldTest_ProcessEffect_RoomDoor()
         {
+            string expectedMessage = "As the sun starts to peek over the dunes the portal in the center of the lake disappears and the lake begins to thaw.";
             gameDateTime.Setup(e => e.Hour).Returns(1);
             Mock<IExit> exit = new Mock<IExit>();
-
             room.Setup(e => e.Down).Returns(exit.Object);
-            roomAttrbuties.Add(Objects.Room.Room.RoomAttribute.Light);
+            roomAttrbuties.Add(RoomAttribute.Light);
 
             doorwayToUnderworld.ProcessEffect(effectParameter.Object);
 
-            Assert.IsFalse(roomAttrbuties.Contains(Objects.Room.Room.RoomAttribute.Light));
+            Assert.IsFalse(roomAttrbuties.Contains(RoomAttribute.Light));
             Assert.AreEqual(0, roomAttrbuties.Count);
-            notify.Verify(e => e.Room(null, null, room.Object, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(null, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == expectedMessage), null, false, false), Times.Once);
         }
     }
 }

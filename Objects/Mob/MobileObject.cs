@@ -948,7 +948,7 @@ namespace Objects.Mob
                 //do not add any extra status update for sound messages
                 if (!message.StartsWith("<Sound>"))
                 {
-                    //only send status for the posses mob
+                    //only send status for non possessed mobs
                     if (PossedMob == null)
                     {
                         InternalEnqueueMessage(GlobalReference.GlobalValues.Engine.Event.EnqueueMessage(this, Status()));

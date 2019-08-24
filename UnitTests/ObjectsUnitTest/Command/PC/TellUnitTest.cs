@@ -26,6 +26,11 @@ namespace ObjectsUnitTest.Command.PC
         Mock<INotify> notify;
         Mock<IFindObjects> findObjects;
         Mock<IRoom> room;
+        Mock<IWorld> world;
+        Mock<IPlayerCharacter> pc;
+        Mock<IParameter> parm1;
+        Mock<IParameter> parm2;
+        Mock<IParameter> parm3;
 
         [TestInitialize]
         public void Setup()
@@ -42,13 +47,25 @@ namespace ObjectsUnitTest.Command.PC
             notify = new Mock<INotify>();
             findObjects = new Mock<IFindObjects>();
             room = new Mock<IRoom>();
+            world = new Mock<IWorld>();
+            pc = new Mock<IPlayerCharacter>();
+            parm1 = new Mock<IParameter>();
+            parm2 = new Mock<IParameter>();
+            parm3 = new Mock<IParameter>();
 
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "pc")).Returns(new List<INonPlayerCharacter>());
             mob.Setup(e => e.Room).Returns(room.Object);
+            mob.Setup(e => e.KeyWords).Returns(new List<string>() { "keyword" });
+            pc.Setup(e => e.KeyWords).Returns(new List<string>());
+            world.Setup(e => e.CurrentPlayers).Returns(new List<IPlayerCharacter>() { pc.Object });
+            parm1.Setup(e => e.ParameterValue).Returns("pc");
+            parm2.Setup(e => e.ParameterValue).Returns("hi");
+            parm3.Setup(e => e.ParameterValue).Returns("there");
 
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
+            GlobalReference.GlobalValues.World = world.Object;
         }
 
         [TestMethod]
@@ -78,9 +95,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Tell_PerformCommand_OneParameter()
         {
-            Mock<IParameter> parm1 = new Mock<IParameter>();
-
-            parm1.Setup(e => e.ParameterValue).Returns("pc");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object });
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
@@ -91,20 +105,7 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Tell_PerformCommand_TwoParameterPcNotFound()
         {
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IPlayerCharacter> pc = new Mock<IPlayerCharacter>();
-            Mock<IParameter> parm1 = new Mock<IParameter>();
-            Mock<IParameter> parm2 = new Mock<IParameter>();
-            Mock<IParameter> parm3 = new Mock<IParameter>();
-
-            pc.Setup(e => e.KeyWords).Returns(new List<string>());
-            world.Setup(e => e.CurrentPlayers).Returns(new List<IPlayerCharacter>() { pc.Object });
-            parm1.Setup(e => e.ParameterValue).Returns("pc");
-            parm2.Setup(e => e.ParameterValue).Returns("hi");
-            parm3.Setup(e => e.ParameterValue).Returns("there");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object, parm2.Object, parm3.Object });
-
-            GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
@@ -114,21 +115,8 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Tell_PerformCommand_TwoParameterPcFound()
         {
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IPlayerCharacter> pc = new Mock<IPlayerCharacter>();
-            Mock<IParameter> parm1 = new Mock<IParameter>();
-            Mock<IParameter> parm2 = new Mock<IParameter>();
-            Mock<IParameter> parm3 = new Mock<IParameter>();
-
             pc.Setup(e => e.KeyWords).Returns(new List<string>() { "PC" });
-            mob.Setup(e => e.KeyWords).Returns(new List<string>() { "keyword" });
-            world.Setup(e => e.CurrentPlayers).Returns(new List<IPlayerCharacter>() { pc.Object });
-            parm1.Setup(e => e.ParameterValue).Returns("pc");
-            parm2.Setup(e => e.ParameterValue).Returns("hi");
-            parm3.Setup(e => e.ParameterValue).Returns("there");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object, parm2.Object, parm3.Object });
-
-            GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
@@ -136,4 +124,3 @@ namespace ObjectsUnitTest.Command.PC
         }
     }
 }
-

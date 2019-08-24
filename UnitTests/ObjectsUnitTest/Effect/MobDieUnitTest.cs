@@ -42,7 +42,7 @@ namespace ObjectsUnitTest.Effect
             mobDie.ProcessEffect(parameter.Object);
 
             pc.Verify(e => e.Die(null), Times.Once);
-            notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()));
+            notify.Verify(e => e.Mob(pc.Object, translationMessage.Object));
         }
 
         [TestMethod]

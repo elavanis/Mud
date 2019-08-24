@@ -15,6 +15,7 @@ using Objects.Zone.Interface;
 using Shared.Sound.Interface;
 using Shared.TagWrapper.Interface;
 using System.Collections.Generic;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Effect
 {
@@ -71,6 +72,7 @@ namespace ObjectsUnitTest.Effect
             rooms.Add(2, room.Object);
             sound.Setup(e => e.RandomSounds).Returns(new List<string>());
             serialization.Setup(e => e.Serialize(new List<ISound>() { sound.Object })).Returns("a");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Sound)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.Random = random.Object;
             GlobalReference.GlobalValues.World = world.Object;
@@ -96,7 +98,7 @@ namespace ObjectsUnitTest.Effect
             message.ProcessEffect(effectParameter.Object);
 
             notify.Verify(e => e.Room(performer.Object, target.Object, room.Object, translationMessage.Object, null, false, false), Times.Once);
-            notify.Verify(e => e.Room(null, null, room.Object, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(null, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "a"), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -108,7 +110,7 @@ namespace ObjectsUnitTest.Effect
             message.ProcessEffect(effectParameter.Object);
 
             notify.Verify(e => e.Room(performer.Object, target.Object, room.Object, translationMessage.Object, null, false, false), Times.Once);
-            notify.Verify(e => e.Room(null, null, room.Object, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(null, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "a"), null, false, false), Times.Once);
         }
     }
 }
