@@ -22,8 +22,6 @@ namespace Objects.Command.God
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            StringBuilder strBlrd = new StringBuilder();
-
             if (command.Parameters.Count >= 1)
             {
                 IParameter parm = command.Parameters[0];

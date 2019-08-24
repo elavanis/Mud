@@ -90,20 +90,6 @@ namespace Objects.Mob
             }
         }
 
-        //public override void EnqueueMessage(string message)
-        //{
-        //    base.EnqueueMessage(message);
-
-        //    if (PossingMob == null)
-        //    {
-        //        //no one is possessing us so clear out the message queue
-        //        while (_messageQueue.TryDequeue(out string temp))
-        //        {
-
-        //        }
-        //    }
-        //}
-
         private void UpdateFollowerToCurrentReference()
         {
             if (FollowTarget != null)

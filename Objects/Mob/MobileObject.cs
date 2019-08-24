@@ -937,7 +937,7 @@ namespace Objects.Mob
         #region Message/Commands
         protected ConcurrentQueue<string> _messageQueue { get; } = new ConcurrentQueue<string>();
 
-        public virtual void EnqueueMessage(string message)
+        public void EnqueueMessage(string message)
         {
             //if a message would be blank it is now marked null
             //skipping null messages will now make it no longer enqueue multiple status updates
