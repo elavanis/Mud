@@ -28,28 +28,18 @@ namespace Objects.Effect.Zone.GrandViewGarden
                 {
                     IRoom newRoom = GlobalReference.GlobalValues.World.Zones[mob.Room.Zone].Rooms[mob.Room.Id + 10];
 
-                    if (npc != null)
-                    {
-                        oldRoom.RemoveMobileObjectFromRoom(npc);
-                    }
-                    else
-                    {
-                        oldRoom.RemoveMobileObjectFromRoom(pc);
-                    }
+                    oldRoom.RemoveMobileObjectFromRoom(mob);
 
-                    string message = $"{mob.SentenceDescription} picked up the rose and then disappeared.";
+                    string capitalSentenceDescription = GlobalReference.GlobalValues.StringManipulator.CapitalizeFirstLetter(mob.SentenceDescription);
+                    string message = $"{capitalSentenceDescription} picked up the rose and then disappeared.";
                     ITranslationMessage translationMessage = new TranslationMessage(message);
                     GlobalReference.GlobalValues.Notify.Room(parameter.Performer, null, oldRoom, translationMessage, new List<IMobileObject>() { mob }, true, false);
+
+                    message = $"{capitalSentenceDescription} suddenly appears from thin air holding a rose.";
+                    translationMessage = new TranslationMessage(message);
                     GlobalReference.GlobalValues.Notify.Room(parameter.Performer, null, newRoom, translationMessage, new List<IMobileObject>() { mob }, true, false);
 
-                    if (npc != null)
-                    {
-                        newRoom.AddMobileObjectToRoom(npc);
-                    }
-                    else
-                    {
-                        newRoom.AddMobileObjectToRoom(pc);
-                    }
+                    newRoom.AddMobileObjectToRoom(mob);
                     mob.Room = newRoom;
                 }
             }

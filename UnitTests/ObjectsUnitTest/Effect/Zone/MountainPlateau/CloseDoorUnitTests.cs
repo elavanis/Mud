@@ -71,6 +71,7 @@ namespace ObjectsUnitTest.Effect.Zone.MountainPlateau
             exit.Setup(e => e.Door).Returns(door.Object);
             door.Setup(e => e.Opened).Returns(true);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Sound)).Returns((string x, TagType y) => (x));
             serialize.Setup(e => e.Serialize(It.IsAny<List<ISound>>())).Returns("sound");
 
             GlobalReference.GlobalValues.Serialization = serialize.Object;
@@ -105,7 +106,7 @@ namespace ObjectsUnitTest.Effect.Zone.MountainPlateau
 
             door.VerifySet(e => e.Opened = false, Times.Exactly(4));
             serialize.Verify(e => e.Serialize(It.IsAny<List<ISound>>()), Times.Exactly(4));
-            notify.Verify(e => e.Room(null, null, room.Object, It.IsAny<ITranslationMessage>(), null, false, false), Times.Exactly(4));
+            notify.Verify(e => e.Room(null, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "sound"), null, false, false), Times.Exactly(4));
         }
     }
 }

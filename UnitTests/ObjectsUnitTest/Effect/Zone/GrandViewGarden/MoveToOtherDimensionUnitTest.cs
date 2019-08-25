@@ -12,6 +12,7 @@ using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
 using Shared.TagWrapper.Interface;
 using static Shared.TagWrapper.TagWrapper;
+using Objects.Global.StringManuplation.Interface;
 
 namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
 {
@@ -42,6 +43,7 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
         Mock<IWorld> world;
         Mock<IZone> zone;
         Mock<ITagWrapper> tagWrapper;
+        Mock<IStringManipulator> stringManipulator;
 
         MoveToOtherDimension moveToOtherDimension;
         [TestInitialize]
@@ -62,7 +64,7 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
             world = new Mock<IWorld>();
             zone = new Mock<IZone>();
             tagWrapper = new Mock<ITagWrapper>();
-
+            stringManipulator = new Mock<IStringManipulator>();
 
             Dictionary<int, IZone> zoneDict = new Dictionary<int, IZone>();
             Dictionary<int, IRoom> roomDict = new Dictionary<int, IRoom>();
@@ -91,6 +93,8 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
             mockPerformerNpc.Setup(e => e.SentenceDescription).Returns("npc");
             mockPerformerPc.Setup(e => e.SentenceDescription).Returns("pc");
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            stringManipulator.Setup(e => e.CapitalizeFirstLetter("npc")).Returns("Npc");
+            stringManipulator.Setup(e => e.CapitalizeFirstLetter("pc")).Returns("Pc");
 
             performerNpc = mockPerformerNpc.Object;
             performerPc = mockPerformerPc.Object;
@@ -108,6 +112,7 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
 
 
             moveToOtherDimension = new MoveToOtherDimension();
@@ -123,7 +128,9 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
 
             room.Verify(e => e.RemoveMobileObjectFromRoom(performerNpc));
             room2.Verify(e => e.AddMobileObjectToRoom(performerNpc));
-            notify.Verify(e => e.Room(null, null, room.Object, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { performerNpc }, true, false), Times.Once);
+            notify.Verify(e => e.Room(null, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "Npc picked up the rose and then disappeared."), new List<IMobileObject>() { performerNpc }, true, false), Times.Once);
+            notify.Verify(e => e.Room(null, null, room2.Object, It.Is<ITranslationMessage>(f => f.Message == "Npc suddenly appears from thin air holding a rose."), new List<IMobileObject>() { performerNpc }, true, false), Times.Once);
+
         }
 
         [TestMethod]
@@ -136,7 +143,8 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
 
             room.Verify(e => e.RemoveMobileObjectFromRoom(performerPc));
             room2.Verify(e => e.AddMobileObjectToRoom(performerPc));
-            notify.Verify(e => e.Room(null, null, room.Object, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { performerPc }, true, false), Times.Once);
+            notify.Verify(e => e.Room(null, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "Pc picked up the rose and then disappeared."), new List<IMobileObject>() { performerPc }, true, false), Times.Once);
+            notify.Verify(e => e.Room(null, null, room2.Object, It.Is<ITranslationMessage>(f => f.Message == "Pc suddenly appears from thin air holding a rose."), new List<IMobileObject>() { performerPc }, true, false), Times.Once);
         }
     }
 }
