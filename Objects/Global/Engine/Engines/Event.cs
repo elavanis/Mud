@@ -35,7 +35,8 @@ namespace Objects.Global.Engine.Engines
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, "Died");
             RunEnchantments(performer, EventType.OnDeath, new EventParamerters() { Performer = performer });
 
-            string message = string.Format($"{performer.SentenceDescription} has died.");
+            string capitalSentenceDescription = GlobalReference.GlobalValues.StringManipulator.CapitalizeFirstLetter(performer.SentenceDescription);
+            string message = string.Format($"{capitalSentenceDescription} has died.");
             ITranslationMessage translationMessage = new TranslationMessage(message);
             GlobalReference.GlobalValues.Notify.Room(performer, null, performer.Room, translationMessage, new List<IMobileObject>() { performer });
         }
@@ -56,7 +57,6 @@ namespace Objects.Global.Engine.Engines
             RunEnchantments(attacker, EventType.DamageAfterDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount });
 
             #region damage messages
-            //attacker?.EnqueueMessage(GlobalReference.GlobalValues.TagWrapper.WrapInTag($"You hit {defender.SentenceDescription} for {damageAmount} damage.", TagType.DamageDelt));
             if (attacker != null)
             {
                 GlobalReference.GlobalValues.Notify.Mob(attacker, defender, attacker, new TranslationMessage("You hit {target} for {0} damage.".Replace("{0}", damageAmount.ToString()), TagType.DamageDelt));
@@ -65,7 +65,6 @@ namespace Objects.Global.Engine.Engines
             {
                 GlobalReference.GlobalValues.Notify.Mob(attacker, defender, defender, new TranslationMessage("{performer} hit you for {0} damage.".Replace("{0}", damageAmount.ToString()), TagType.DamageReceived));
             }
-            //defender?.EnqueueMessage(GlobalReference.GlobalValues.TagWrapper.WrapInTag($"{CapitializeFirstLetter(attacker?.SentenceDescription ?? "unknown")} hit you for {damageAmount} damage.", TagType.DamageReceived));
 
             message = $"{CapitializeFirstLetter(attacker?.SentenceDescription ?? "unknown")} attacked {defender.SentenceDescription} for {damageAmount} damage.";
             ITranslationMessage translationMessage = new TranslationMessage(message);

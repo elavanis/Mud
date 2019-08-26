@@ -5,6 +5,7 @@ using Objects.Global.Engine.Engines;
 using Objects.Global.Logging.Interface;
 using Objects.Global.Map.Interface;
 using Objects.Global.Notify.Interface;
+using Objects.Global.StringManuplation.Interface;
 using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
@@ -42,6 +43,7 @@ namespace ObjectsUnitTest.Global.Engine
         Mock<IMap> map;
         Mock<IContainer> container;
         Mock<IBaseObject> baseObjectContainer;
+        Mock<IStringManipulator> stringManipulator;
 
         [TestInitialize]
         public void Setup()
@@ -65,6 +67,7 @@ namespace ObjectsUnitTest.Global.Engine
             map = new Mock<IMap>();
             container = new Mock<IContainer>();
             baseObjectContainer = container.As<IBaseObject>();
+            stringManipulator = new Mock<IStringManipulator>();
 
             npc.Setup(e => e.Room).Returns(room.Object);
             npc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>() { npcEnchantment.Object });
@@ -84,12 +87,16 @@ namespace ObjectsUnitTest.Global.Engine
             room.Setup(e => e.SerializedSounds).Returns("SerializedSounds");
             trap.Setup(e => e.Trigger).Returns(TrapTrigger.All);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.DamageDelt)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.DamageReceived)).Returns((string x, TagType y) => (x));
             baseObjectContainer.Setup(e => e.SentenceDescription).Returns("ContainerSentence");
+            stringManipulator.Setup(e => e.CapitalizeFirstLetter("PcSentence")).Returns("PcSentence");
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Logger = logger.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.Map = map.Object;
+            GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
         }
 
         #region Events
@@ -118,7 +125,7 @@ namespace ObjectsUnitTest.Global.Engine
             pcEnchantment.Verify(e => e.OnDeath(pc.Object), Times.Once);
             npcEnchantment.Verify(e => e.OnDeath(pc.Object), Times.Once);
             itemEnchantment.Verify(e => e.OnDeath(pc.Object), Times.Once);
-            notify.Verify(e => e.Room(pc.Object, null, room.Object, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { pc.Object }, false, false), Times.Once);
+            notify.Verify(e => e.Room(pc.Object, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "PcSentence has died."), new List<IMobileObject>() { pc.Object }, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -137,9 +144,9 @@ namespace ObjectsUnitTest.Global.Engine
 
             logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "DamageDealtAfterDefense: Attacker-NpcSentence Defender-PcSentence DamageAmount-10."), Times.Once);
             npcEnchantment.Verify(e => e.DamageAfterDefense(npc.Object, pc.Object, 10), Times.Once);
-            notify.Verify(e => e.Mob(npc.Object, pc.Object, npc.Object, It.IsAny<ITranslationMessage>(), false, false));
-            notify.Verify(e => e.Mob(npc.Object, pc.Object, pc.Object, It.IsAny<ITranslationMessage>(), false, false));
-            notify.Verify(e => e.Room(npc.Object, pc.Object, room.Object, It.IsAny<ITranslationMessage>(), new List<IMobileObject>() { npc.Object, pc.Object }, false, false), Times.Once);
+            notify.Verify(e => e.Mob(npc.Object, pc.Object, npc.Object, It.Is<ITranslationMessage>(f => f.Message == "You hit {target} for 10 damage."), false, false));
+            notify.Verify(e => e.Mob(npc.Object, pc.Object, pc.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} hit you for 10 damage."), false, false));
+            notify.Verify(e => e.Room(npc.Object, pc.Object, room.Object, It.Is<ITranslationMessage>(f => f.Message == "NpcSentence attacked PcSentence for 10 damage."), new List<IMobileObject>() { npc.Object, pc.Object }, false, false), Times.Once);
         }
 
         [TestMethod]
