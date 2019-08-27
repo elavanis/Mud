@@ -61,7 +61,6 @@ namespace ObjectsUnitTest.World
         Mock<IZone> zone;
         Mock<INotify> notify;
         Mock<ITagWrapper> tagWrapper;
-        Dictionary<int, IRoom> dictionaryRoom;
         Mock<IGameDateTime> gameDateTime;
         Mock<ISettings> settings;
         Mock<ISerialization> serialization;
@@ -75,8 +74,18 @@ namespace ObjectsUnitTest.World
         Mock<ICommandList> commandList;
         Mock<IMobileObjectCommand> mobCommand;
         Mock<IResult> result;
+        Mock<ILogger> logger;
+        Mock<ICounters> counters;
+        Mock<ITickTimes> tickTimes;
+
+        Dictionary<int, IRoom> dictionaryRoom;
         List<IPlayerCharacter> pcList;
+        List<IPlayerCharacter> pcRoomList;
+        List<IMobileObject> riders;
         HashSet<IMount> loadedMounts;
+        PropertyInfo notifiyPrecipitation;
+        PropertyInfo notifiyWindSpeed;
+        Objects.Zone.Zone deserializeZone;
 
         [TestInitialize]
         public void Setup()
@@ -108,11 +117,14 @@ namespace ObjectsUnitTest.World
             commandList = new Mock<ICommandList>();
             mobCommand = new Mock<IMobileObjectCommand>();
             result = new Mock<IResult>();
+            logger = new Mock<ILogger>();
+            counters = new Mock<ICounters>();
+            tickTimes = new Mock<ITickTimes>();
 
-            Mock<ILogger> logger = new Mock<ILogger>();
-            Mock<ICounters> counters = new Mock<ICounters>();
-            Mock<ITickTimes> tickTimes = new Mock<ITickTimes>();
             dictionaryRoom = new Dictionary<int, IRoom>();
+            pcRoomList = new List<IPlayerCharacter>();
+            riders = new List<IMobileObject>();
+            deserializeZone = new Objects.Zone.Zone();
 
             dictionaryRoom.Add(0, room.Object);
             engine.Setup(e => e.Combat).Returns(combat.Object);
@@ -121,6 +133,7 @@ namespace ObjectsUnitTest.World
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
             room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
+            room.Setup(e => e.Zone).Returns(1);
             zone.Setup(e => e.Rooms).Returns(dictionaryRoom);
             zone.Setup(e => e.ResetTime).Returns(gameDateTime.Object);
             npc.Setup(e => e.LastProccessedTick).Returns(1);
@@ -136,6 +149,7 @@ namespace ObjectsUnitTest.World
             settings.Setup(e => e.LogStatsLocation).Returns("c:\\");
             serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
             serialization.Setup(e => e.Deserialize<List<ICounters>>("serial")).Returns(new List<ICounters>());
+            serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("serial")).Returns(deserializeZone);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             globalValues.Setup(e => e.TickCounter).Returns(0);
             fileIO.Setup(e => e.Exists("c:\\00010101\\Stats.stat")).Returns(true);
@@ -145,11 +159,11 @@ namespace ObjectsUnitTest.World
             mount.Setup(e => e.Movement).Returns(4);
             mount.Setup(e => e.CommmandQueueCount).Returns(1);
             mount.Setup(e => e.DequeueCommand()).Returns("South");
+            mount.Setup(e => e.Riders).Returns(riders);
             parser.Setup(e => e.Parse("South")).Returns(command.Object);
             command.Setup(e => e.CommandName).Returns("South");
             commandList.Setup(e => e.GetCommand(mount.Object, "South")).Returns(mobCommand.Object);
             mobCommand.Setup(e => e.PerformCommand(mount.Object, command.Object)).Returns(result.Object);
-
 
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Random = random.Object;
@@ -169,12 +183,13 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.CommandList = commandList.Object;
 
             world = new Objects.World.World();
-            world.Zones.Add(0, zone.Object);
+            world.Zones.Add(1, zone.Object);
             PropertyInfo propertyInfoWorld = world.GetType().GetProperty("Characters", BindingFlags.NonPublic | BindingFlags.Instance);
             pcList = (List<IPlayerCharacter>)propertyInfoWorld.GetValue(world);
             FieldInfo fieldInfo = world.GetType().GetField("_loadedMounts", BindingFlags.NonPublic | BindingFlags.Instance);
             loadedMounts = (HashSet<IMount>)fieldInfo.GetValue(world);
-
+            notifiyPrecipitation = world.GetType().GetProperty("NotifyPrecipitation", BindingFlags.NonPublic | BindingFlags.Instance);
+            notifiyWindSpeed = world.GetType().GetProperty("NotifyWindSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
         #region PerformTick
@@ -192,10 +207,7 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_PutPlayersIntoWorld_HasRoom()
         {
-            List<IPlayerCharacter> lPc = new List<IPlayerCharacter>();
-
-            room.Setup(e => e.PlayerCharacters).Returns(lPc);
-            pc.Setup(e => e.Room).Returns(room.Object);
+            room.Setup(e => e.PlayerCharacters).Returns(pcList);
 
             world.AddPlayerQueue.Enqueue(pc.Object);
 
@@ -209,22 +221,11 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_PutPlayersIntoWorld_HasRoomId()
         {
-            pc.Setup(e => e.Room).Returns((IRoom)null);
-
-            List<IPlayerCharacter> lPc = new List<IPlayerCharacter>();
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-
-            world.Zones.Add(1, zone.Object);
-            zone.Setup(e => e.Rooms).Returns(rooms);
-            rooms.Add(1, room.Object);
-            room.Setup(e => e.PlayerCharacters).Returns(lPc);
-            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            pc.Setup(e => e.RoomId).Returns(new RoomId(1, 1));
+            pc.Setup(e => e.RoomId).Returns(new RoomId(1, 0));
+            pc.Setup(e => e.Room).Returns<IRoom>(null);
             pc.SetupSequence(e => e.Room)
                 .Returns(null)
                 .Returns(room.Object);
-
 
             world.AddPlayerQueue.Enqueue(pc.Object);
 
@@ -239,17 +240,8 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_PutPlayersIntoWorld_HasRoomIdButInvalid()
         {
-            pc.Setup(e => e.Room).Returns((IRoom)null);
-
-            List<IPlayerCharacter> lPc = new List<IPlayerCharacter>();
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-
-            world.Zones.Add(1, zone.Object);
-            zone.Setup(e => e.Rooms).Returns(rooms);
-            rooms.Add(1, room.Object);
-            room.Setup(e => e.PlayerCharacters).Returns(lPc);
-            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+            dictionaryRoom.Add(1, room.Object);
+            pc.Setup(e => e.Room).Returns<IRoom>(null);
             pc.Setup(e => e.RoomId).Returns(new RoomId(1, 2));
             pc.SetupSequence(e => e.Room)
                 .Returns(null)
@@ -269,13 +261,7 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_PutPlayersIntoWorld_NoRoomInfo()
         {
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-
-            world.Zones.Add(1, zone.Object);
-            zone.Setup(e => e.Rooms).Returns(rooms);
-            rooms.Add(1, room.Object);
-            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            dictionaryRoom.Add(1, room.Object);
             pc.Setup(e => e.Room).Returns<IRoom>(null);
 
             world.AddPlayerQueue.Enqueue(pc.Object);
@@ -290,18 +276,10 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_PutPlayersIntoWorld_DismountCalled()
         {
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-            List<IMobileObject> riders = new List<IMobileObject>();
-
-            world.Zones.Add(1, zone.Object);
-            zone.Setup(e => e.Rooms).Returns(rooms);
-            rooms.Add(1, room.Object);
-            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            dictionaryRoom.Add(1, room.Object);
             pc.Setup(e => e.Room).Returns<IRoom>(null);
             loadedMounts.Add(mount.Object);
             riders.Add(pc.Object);
-            mount.Setup(e => e.Riders).Returns(riders);
 
             world.AddPlayerQueue.Enqueue(pc.Object);
 
@@ -330,22 +308,14 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_UpdateWeather_MoveUpScale()
         {
-            PropertyInfo notifyPrecipitation = world.GetType().GetProperty("NotifyPrecipitation", BindingFlags.NonPublic | BindingFlags.Instance);
-            PropertyInfo notifiyWindSpeed = world.GetType().GetProperty("NotifyWindSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
-            Mock<ICounters> counter = new Mock<ICounters>();
-            Mock<ITickTimes> tickTimes = new Mock<ITickTimes>();
-
             world.Precipitation = 10;
             world.WindSpeed = 10;
-
-            GlobalReference.GlobalValues.Counters = counter.Object;
-            GlobalReference.GlobalValues.TickTimes = tickTimes.Object;
 
             world.PerformTick();
 
             Assert.AreEqual(11, world.Precipitation);
             Assert.AreEqual(11, world.WindSpeed);
-            Assert.IsFalse((bool)notifyPrecipitation.GetValue(world));
+            Assert.IsFalse((bool)notifiyPrecipitation.GetValue(world));
             Assert.IsFalse((bool)notifiyWindSpeed.GetValue(world));
         }
         #endregion UpdateWeather
@@ -360,17 +330,9 @@ namespace ObjectsUnitTest.World
             world.Zones.Clear();  //clears out the zone added at initialization
 
             PropertyInfo info = world.GetType().GetProperty("_zoneIdToFileMap", BindingFlags.Instance | BindingFlags.NonPublic);
-            Mock<IFileIO> fileIo = new Mock<IFileIO>();
-            Mock<ISerialization> serialization = new Mock<ISerialization>();
-            Objects.Zone.Zone deserializeZone = new Objects.Zone.Zone();
 
-            ((Dictionary<int, string>)info.GetValue(world)).Add(0, "blah");
+            ((Dictionary<int, string>)info.GetValue(world)).Add(0, "c:\\00010101\\Stats.stat");
             world.Zones.Add(0, zone.Object);
-            fileIo.Setup(e => e.ReadAllText("blah")).Returns("seraializedZone");
-            serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("seraializedZone")).Returns(deserializeZone);
-
-            GlobalReference.GlobalValues.FileIO = fileIo.Object;
-            GlobalReference.GlobalValues.Serialization = serialization.Object;
 
             world.PerformTick();
 
@@ -564,7 +526,6 @@ namespace ObjectsUnitTest.World
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
             room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            world.Zones.Add(1, zone.Object);
             zone.Setup(e => e.Rooms).Returns(rooms);
             rooms.Add(1, room.Object);
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { personality.Object });
@@ -911,7 +872,6 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
-            world.Zones.Add(1, zone.Object);
             zone.Setup(e => e.Rooms).Returns(rooms);
             rooms.Add(1, room.Object);
             pc.Setup(e => e.Room).Returns(room2.Object);
@@ -946,7 +906,7 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
             room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
             room2.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             room2.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
-            exit.Setup(e => e.Zone).Returns(0);
+            exit.Setup(e => e.Zone).Returns(1);
             exit.Setup(e => e.Room).Returns(2);
             dictionaryRoom.Add(2, room2.Object);
 
@@ -1000,19 +960,19 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
             room6.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             room6.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
 
-            exit.Setup(e => e.Zone).Returns(0);
+            exit.Setup(e => e.Zone).Returns(1);
             exit.Setup(e => e.Room).Returns(2);
             dictionaryRoom.Add(2, room2.Object);
-            exit2.Setup(e => e.Zone).Returns(0);
+            exit2.Setup(e => e.Zone).Returns(1);
             exit2.Setup(e => e.Room).Returns(3);
             dictionaryRoom.Add(3, room3.Object);
-            exit3.Setup(e => e.Zone).Returns(0);
+            exit3.Setup(e => e.Zone).Returns(1);
             exit3.Setup(e => e.Room).Returns(4);
             dictionaryRoom.Add(4, room4.Object);
-            exit4.Setup(e => e.Zone).Returns(0);
+            exit4.Setup(e => e.Zone).Returns(1);
             exit4.Setup(e => e.Room).Returns(5);
             dictionaryRoom.Add(5, room5.Object);
-            exit5.Setup(e => e.Zone).Returns(0);
+            exit5.Setup(e => e.Zone).Returns(1);
             exit5.Setup(e => e.Room).Returns(6);
             dictionaryRoom.Add(6, room6.Object);
 
@@ -1261,7 +1221,6 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
 
             Mock<IFileIO> fileIO = new Mock<IFileIO>();
             Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-            List<IPlayerCharacter> pcList = new List<IPlayerCharacter>();
             Mock<ISerialization> serializer = new Mock<ISerialization>();
             Mock<ISettings> settings = new Mock<ISettings>();
 
@@ -1289,7 +1248,6 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
         [TestMethod]
         public void World_LogOutCharacter_CharacterFound()
         {
-            List<IPlayerCharacter> listPC = new List<IPlayerCharacter>();
             Mock<ISettings> settings = new Mock<ISettings>();
             Mock<IFileIO> fileIO = new Mock<IFileIO>();
             Mock<ISerialization> serializer = new Mock<ISerialization>();
@@ -1298,8 +1256,8 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
             pc.Setup(e => e.Name).Returns("name");
             pc.Setup(e => e.Room).Returns(room.Object);
             pc.Setup(e => e.Mount).Returns(mount.Object);
-            room.Setup(e => e.PlayerCharacters).Returns(listPC);
-            listPC.Add(pc.Object);
+            room.Setup(e => e.PlayerCharacters).Returns(pcRoomList);
+            pcRoomList.Add(pc.Object);
             pcList.Add(pc.Object);
             settings.Setup(e => e.PlayerCharacterDirectory).Returns("c:\\");
             serializer.Setup(e => e.Serialize(pc.Object)).Returns("serializedPC");
