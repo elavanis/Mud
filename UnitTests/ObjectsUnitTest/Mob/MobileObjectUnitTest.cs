@@ -1127,14 +1127,14 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void MobileObject_EnqueueCommand_RequestAssetLogError()
         {
-            GlobalReference.GlobalValues.FileIO = null; //needed to make the test fail so it logs
+            fileIO.Setup(e => e.Exists("c:\\test")).Returns(false);
 
             ConcurrentQueue<string> queue = GetMobCommunicationQueue(mob);
             ConcurrentQueue<string> outQueue = GetMobMessageQueue(mob);
 
             string message = "requestasset|sound|test";
             mob.EnqueueCommand(message);
-            logger.Verify(e => e.Log(LogLevel.ERROR, It.IsAny<string>()), Times.Once);
+            logger.Verify(e => e.Log(LogLevel.ERROR, It.Is<string>(f => f == "File c:\\test does not exit.")), Times.Once);
         }
 
         [TestMethod]

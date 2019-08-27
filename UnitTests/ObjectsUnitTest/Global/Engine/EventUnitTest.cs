@@ -89,6 +89,7 @@ namespace ObjectsUnitTest.Global.Engine
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.DamageDelt)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.DamageReceived)).Returns((string x, TagType y) => (x));
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Sound)).Returns((string x, TagType y) => (x));
             baseObjectContainer.Setup(e => e.SentenceDescription).Returns("ContainerSentence");
             stringManipulator.Setup(e => e.CapitalizeFirstLetter("PcSentence")).Returns("PcSentence");
 
@@ -188,7 +189,7 @@ namespace ObjectsUnitTest.Global.Engine
             npcEnchantment.Verify(e => e.EnterRoom(pc.Object), Times.Once);
             itemEnchantment.Verify(e => e.EnterRoom(pc.Object), Times.Once);
             map.Verify(e => e.SendMapPosition(pc.Object));
-            notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()));
+            notify.Verify(e => e.Mob(pc.Object, It.Is<ITranslationMessage>(f => f.Message == "SerializedSounds")), Times.Once);
         }
 
         [TestMethod]

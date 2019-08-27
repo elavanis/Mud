@@ -1025,7 +1025,7 @@ namespace Objects.Mob
         }
 
         /// <summary>
-        /// This is the mob possing this mob.
+        /// This is the mob possessing this mob.
         /// </summary>
         public IMobileObject PossingMob { get; set; }
 
@@ -1092,7 +1092,7 @@ namespace Objects.Mob
                     }
                     catch (Exception ex)
                     {
-                        GlobalReference.GlobalValues.Logger.Log(Global.Logging.LogSettings.LogLevel.ERROR, string.Format("Unable to read file at {0}. {1} {2}", fileLocation, ex.Message, ex.StackTrace));
+                        GlobalReference.GlobalValues.Logger.Log(Global.Logging.LogSettings.LogLevel.ERROR, $"Unable to read file at {fileLocation}. {ex.Message} {ex.StackTrace}");
                     }
                     break;
 

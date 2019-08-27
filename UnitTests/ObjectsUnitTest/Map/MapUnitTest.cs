@@ -63,7 +63,7 @@ namespace ObjectsUnitTest.Map
 
             map.SendMapPosition(mob.Object);
 
-            notify.Verify(e => e.Mob(mob.Object, It.IsAny<ITranslationMessage>()));
+            notify.Verify(e => e.Mob(mob.Object, It.Is<ITranslationMessage>(f => f.Message == "1|1|90|10")), Times.Once);
         }
 
         [TestMethod]
