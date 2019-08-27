@@ -184,7 +184,7 @@ namespace ObjectsUnitTest.Mob
         public void PlayerCharacter_Die()
         {
             ICorpse corpse = pc.Die(attacker.Object);
-            room.Verify(e => e.AddItemToRoom(It.IsAny<IItem>(), 0));
+            room.Verify(e => e.AddItemToRoom(It.Is<ICorpse>(f => f == corpse), 0));
             Assert.AreEqual(1, pc.Corpses.Count);
             evnt.Verify(e => e.OnDeath(pc), Times.Once);
             evnt.Verify(e => e.EnterRoom(pc), Times.Once);

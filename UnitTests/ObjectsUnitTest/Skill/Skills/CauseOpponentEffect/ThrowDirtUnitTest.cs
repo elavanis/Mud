@@ -43,7 +43,7 @@ namespace ObjectsUnitTest.Skill.Skills.CauseOpponentEffect
             enchantments = new List<IEnchantment>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
-            stringManipulator.Setup(e => e.UpdateTargetPerformer(performer.Object.SentenceDescription, target.Object.SentenceDescription, "{ performer} throws dirt into your eyes blinding you.")).Returns("message");
+            stringManipulator.Setup(e => e.UpdateTargetPerformer(performer.Object.SentenceDescription, target.Object.SentenceDescription, "{performer} throws dirt into your eyes blinding you.")).Returns("message");
             target.Setup(e => e.Enchantments).Returns(enchantments);
             performer.Setup(e => e.StrengthEffective).Returns(100);
 
@@ -66,7 +66,7 @@ namespace ObjectsUnitTest.Skill.Skills.CauseOpponentEffect
         {
             throwDirt.Testable_AdditionalEffect(performer.Object, target.Object);
 
-            notify.Verify(e => e.Mob(target.Object, It.IsAny<ITranslationMessage>()));
+            notify.Verify(e => e.Mob(target.Object, It.Is<ITranslationMessage>(f => f.Message == "message")), Times.Once);
             Assert.AreEqual(1, enchantments.Count);
             IEnchantment enchantment = enchantments[0];
             Assert.IsTrue(enchantment is HeartbeatBigTickEnchantment);

@@ -373,7 +373,7 @@ namespace ObjectsUnitTest.Mob
             ICorpse corpse = npc.Die(attacker.Object);
 
             room.Verify(e => e.RemoveMobileObjectFromRoom(npc));
-            room.Verify(e => e.AddItemToRoom(It.IsAny<IItem>(), 0));
+            room.Verify(e => e.AddItemToRoom(It.Is<IItem>(f => f == corpse), 0));
             evnt.Verify(e => e.OnDeath(npc));
             Assert.AreSame(attacker.Object, corpse.Killer);
         }
