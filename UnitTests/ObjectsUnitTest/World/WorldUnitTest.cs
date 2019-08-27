@@ -345,14 +345,10 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void WorldPerformTick_UpdatePerformanceCounters()
         {
-            Mock<ITickTimes> tickTimes = new Mock<ITickTimes>();
-
-            GlobalReference.GlobalValues.TickTimes = tickTimes.Object;
-
             world.PerformTick();
 
             Assert.AreEqual(0, GlobalReference.GlobalValues.Counters.ConnnectedPlayers);
-            Assert.AreEqual(0, GlobalReference.GlobalValues.Counters.CPU);
+            Assert.AreEqual(1, GlobalReference.GlobalValues.Counters.CPU);
             Assert.AreEqual(0, GlobalReference.GlobalValues.Counters.MaxTickTimeInMs);
             Assert.AreNotEqual(0, GlobalReference.GlobalValues.Counters.Memory);
         }
@@ -607,7 +603,6 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
         public void World_PerformTick_ProcessRoom_PerformHeartBeatBigTick()
         {
             Mock<ICounters> counter = new Mock<ICounters>();
-            Mock<ITickTimes> tickTimes = new Mock<ITickTimes>();
 
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
@@ -616,7 +611,6 @@ To see info on how to use a command type MAN and then the COMMAND.", message.Mes
             engine.Setup(e => e.Event).Returns(evnt.Object);
 
             GlobalReference.GlobalValues.Counters = counter.Object;
-            GlobalReference.GlobalValues.TickTimes = tickTimes.Object;
 
             world.PerformTick();
 
