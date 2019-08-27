@@ -74,12 +74,18 @@ namespace ObjectsUnitTest.World
         Mock<ICommandList> commandList;
         Mock<IMobileObjectCommand> mobCommand;
         Mock<IResult> result;
+        Mock<ILogger> logger;
+        Mock<ICounters> counters;
+        Mock<ITickTimes> tickTimes;
 
         Dictionary<int, IRoom> dictionaryRoom;
         List<IPlayerCharacter> pcList;
         List<IPlayerCharacter> pcRoomList;
         List<IMobileObject> riders;
         HashSet<IMount> loadedMounts;
+        PropertyInfo notifiyPrecipitation;
+        PropertyInfo notifiyWindSpeed;
+        Objects.Zone.Zone deserializeZone;
 
         [TestInitialize]
         public void Setup()
@@ -111,13 +117,14 @@ namespace ObjectsUnitTest.World
             commandList = new Mock<ICommandList>();
             mobCommand = new Mock<IMobileObjectCommand>();
             result = new Mock<IResult>();
+            logger = new Mock<ILogger>();
+            counters = new Mock<ICounters>();
+            tickTimes = new Mock<ITickTimes>();
 
-            Mock<ILogger> logger = new Mock<ILogger>();
-            Mock<ICounters> counters = new Mock<ICounters>();
-            Mock<ITickTimes> tickTimes = new Mock<ITickTimes>();
             dictionaryRoom = new Dictionary<int, IRoom>();
             pcRoomList = new List<IPlayerCharacter>();
             riders = new List<IMobileObject>();
+            deserializeZone = new Objects.Zone.Zone();
 
             dictionaryRoom.Add(0, room.Object);
             engine.Setup(e => e.Combat).Returns(combat.Object);
@@ -142,6 +149,7 @@ namespace ObjectsUnitTest.World
             settings.Setup(e => e.LogStatsLocation).Returns("c:\\");
             serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
             serialization.Setup(e => e.Deserialize<List<ICounters>>("serial")).Returns(new List<ICounters>());
+            serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("serial")).Returns(deserializeZone);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             globalValues.Setup(e => e.TickCounter).Returns(0);
             fileIO.Setup(e => e.Exists("c:\\00010101\\Stats.stat")).Returns(true);
@@ -180,7 +188,8 @@ namespace ObjectsUnitTest.World
             pcList = (List<IPlayerCharacter>)propertyInfoWorld.GetValue(world);
             FieldInfo fieldInfo = world.GetType().GetField("_loadedMounts", BindingFlags.NonPublic | BindingFlags.Instance);
             loadedMounts = (HashSet<IMount>)fieldInfo.GetValue(world);
-
+            notifiyPrecipitation = world.GetType().GetProperty("NotifyPrecipitation", BindingFlags.NonPublic | BindingFlags.Instance);
+            notifiyWindSpeed = world.GetType().GetProperty("NotifyWindSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
         #region PerformTick
@@ -299,22 +308,14 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_UpdateWeather_MoveUpScale()
         {
-            PropertyInfo notifyPrecipitation = world.GetType().GetProperty("NotifyPrecipitation", BindingFlags.NonPublic | BindingFlags.Instance);
-            PropertyInfo notifiyWindSpeed = world.GetType().GetProperty("NotifyWindSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
-            Mock<ICounters> counter = new Mock<ICounters>();
-            Mock<ITickTimes> tickTimes = new Mock<ITickTimes>();
-
             world.Precipitation = 10;
             world.WindSpeed = 10;
-
-            GlobalReference.GlobalValues.Counters = counter.Object;
-            GlobalReference.GlobalValues.TickTimes = tickTimes.Object;
 
             world.PerformTick();
 
             Assert.AreEqual(11, world.Precipitation);
             Assert.AreEqual(11, world.WindSpeed);
-            Assert.IsFalse((bool)notifyPrecipitation.GetValue(world));
+            Assert.IsFalse((bool)notifiyPrecipitation.GetValue(world));
             Assert.IsFalse((bool)notifiyWindSpeed.GetValue(world));
         }
         #endregion UpdateWeather
@@ -329,17 +330,9 @@ namespace ObjectsUnitTest.World
             world.Zones.Clear();  //clears out the zone added at initialization
 
             PropertyInfo info = world.GetType().GetProperty("_zoneIdToFileMap", BindingFlags.Instance | BindingFlags.NonPublic);
-            Mock<IFileIO> fileIo = new Mock<IFileIO>();
-            Mock<ISerialization> serialization = new Mock<ISerialization>();
-            Objects.Zone.Zone deserializeZone = new Objects.Zone.Zone();
 
-            ((Dictionary<int, string>)info.GetValue(world)).Add(0, "blah");
+            ((Dictionary<int, string>)info.GetValue(world)).Add(0, "c:\\00010101\\Stats.stat");
             world.Zones.Add(0, zone.Object);
-            fileIo.Setup(e => e.ReadAllText("blah")).Returns("seraializedZone");
-            serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("seraializedZone")).Returns(deserializeZone);
-
-            GlobalReference.GlobalValues.FileIO = fileIo.Object;
-            GlobalReference.GlobalValues.Serialization = serialization.Object;
 
             world.PerformTick();
 
