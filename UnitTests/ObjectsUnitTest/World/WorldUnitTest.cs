@@ -77,6 +77,8 @@ namespace ObjectsUnitTest.World
         Mock<IRandom> random;
         Mock<IResult> result;
         Mock<IRoom> room;
+        Mock<IRoom> room2;
+
         Mock<ISerialization> serialization;
         Mock<ISettings> settings;
         Mock<ITagWrapper> tagWrapper;
@@ -131,6 +133,7 @@ namespace ObjectsUnitTest.World
             random = new Mock<IRandom>();
             result = new Mock<IResult>();
             room = new Mock<IRoom>();
+            room2 = new Mock<IRoom>();
             serialization = new Mock<ISerialization>();
             settings = new Mock<ISettings>();
             tagWrapper = new Mock<ITagWrapper>();
@@ -196,6 +199,11 @@ namespace ObjectsUnitTest.World
             room.Setup(e => e.PrecipitationNotification).Returns("rain");
             room.Setup(e => e.WindSpeedNotification).Returns("wind");
             room.Setup(e => e.Zone).Returns(1);
+            room2.Setup(e => e.Zone).Returns(1);
+            room2.Setup(e => e.Id).Returns(1);
+            room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
+            room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room2.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             serialization.Setup(e => e.Deserialize<List<ICounters>>("serial")).Returns(new List<ICounters>());
             serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("serial")).Returns(deserializeZone);
             serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
@@ -742,21 +750,10 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_PerformTick_CatchPlayersOutSideOfTheWorldDueToReloadedZones()
         {
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-            Mock<IRoom> room2 = new Mock<IRoom>();
-
-            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
-            zone.Setup(e => e.Rooms).Returns(rooms);
-            rooms.Add(1, room.Object);
+            dictionaryRoom.Add(1, room.Object);
             pc.Setup(e => e.Room).Returns(room2.Object);
             pc.Setup(e => e.LastProccessedTick).Returns(1);
             pcList.Add(pc.Object);
-            room2.Setup(e => e.Zone).Returns(1);
-            room2.Setup(e => e.Id).Returns(1);
-            room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
-            room2.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
 
             world.PerformTick();
 
