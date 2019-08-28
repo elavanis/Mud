@@ -49,142 +49,166 @@ namespace ObjectsUnitTest.World
     public class WorldUnitTest
     {
         Objects.World.World world;
-        Mock<IEngine> engine;
-        Mock<IEvent> evnt;
         Mock<ICombat> combat;
-        Mock<IRandom> random;
-        Mock<IInGameDateTime> inGameDateTime;
-        Mock<INonPlayerCharacter> npc;
-        Mock<IPlayerCharacter> pc;
-        Mock<IMobileObject> otherMob;
-        Mock<IRoom> room;
-        Mock<IZone> zone;
-        Mock<INotify> notify;
-        Mock<ITagWrapper> tagWrapper;
-        Mock<IGameDateTime> gameDateTime;
-        Mock<ISettings> settings;
-        Mock<ISerialization> serialization;
-        Mock<IFileIO> fileIO;
-        Mock<IGlobalValues> globalValues;
-        Mock<IDefaultValues> defaultValues;
-        Mock<IMoneyToCoins> moneyToCoins;
-        Mock<IMount> mount;
-        Mock<IParser> parser;
         Mock<ICommand> command;
         Mock<ICommandList> commandList;
-        Mock<IMobileObjectCommand> mobCommand;
-        Mock<IResult> result;
-        Mock<ILogger> logger;
         Mock<ICounters> counters;
-        Mock<ITickTimes> tickTimes;
+        Mock<ICraftsmanObject> craftsmanObject;
+        Mock<IDefaultValues> defaultValues;
+        Mock<IDefeatInfo> defeatInfo;
         Mock<IEnchantment> enchantment;
+        Mock<IEngine> engine;
+        Mock<IEvent> evnt;
+        Mock<IFileIO> fileIO;
+        Mock<IGameDateTime> gameDateTime;
+        Mock<IGlobalValues> globalValues;
+        Mock<IInGameDateTime> inGameDateTime;
+        Mock<ILogger> logger;
+        Mock<IMobileObjectCommand> mobCommand;
+        Mock<IMoneyToCoins> moneyToCoins;
+        Mock<IMount> mount;
+        Mock<INotify> notify;
+        Mock<INonPlayerCharacter> npc;
+        Mock<IBaseObjectId> objectId;
+        Mock<IMobileObject> otherMob;
+        Mock<IParser> parser;
+        Mock<IPlayerCharacter> pc;
         Mock<IPersonality> personality;
+        Mock<IRandom> random;
+        Mock<IResult> result;
+        Mock<IRoom> room;
+        Mock<ISerialization> serialization;
+        Mock<ISettings> settings;
+        Mock<ITagWrapper> tagWrapper;
+        Mock<ITickTimes> tickTimes;
+        Mock<IZone> zone;
 
 
+
+        List<ICraftsmanObject> craftsmanObjects;
+        Objects.Zone.Zone deserializeZone;
         Dictionary<int, IRoom> dictionaryRoom;
-        List<IPlayerCharacter> pcList;
-        List<IPlayerCharacter> pcRoomList;
-        List<IMobileObject> riders;
+        List<IEnchantment> enchantments;
         HashSet<IMount> loadedMounts;
         PropertyInfo notifiyPrecipitation;
         PropertyInfo notifiyWindSpeed;
-        Objects.Zone.Zone deserializeZone;
+        List<IPlayerCharacter> pcList;
+        List<IPlayerCharacter> pcRoomList;
+        List<IMobileObject> riders;
+
+
 
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            engine = new Mock<IEngine>();
-            evnt = new Mock<IEvent>();
             combat = new Mock<ICombat>();
-            random = new Mock<IRandom>();
-            inGameDateTime = new Mock<IInGameDateTime>();
-            npc = new Mock<INonPlayerCharacter>();
-            pc = new Mock<IPlayerCharacter>();
-            otherMob = new Mock<IMobileObject>();
-            room = new Mock<IRoom>();
-            zone = new Mock<IZone>();
-            notify = new Mock<INotify>();
-            tagWrapper = new Mock<ITagWrapper>();
-            gameDateTime = new Mock<IGameDateTime>();
-            settings = new Mock<ISettings>();
-            serialization = new Mock<ISerialization>();
-            fileIO = new Mock<IFileIO>();
-            globalValues = new Mock<IGlobalValues>();
-            defaultValues = new Mock<IDefaultValues>();
-            moneyToCoins = new Mock<IMoneyToCoins>();
-            mount = new Mock<IMount>();
-            parser = new Mock<IParser>();
             command = new Mock<ICommand>();
             commandList = new Mock<ICommandList>();
-            mobCommand = new Mock<IMobileObjectCommand>();
-            result = new Mock<IResult>();
-            logger = new Mock<ILogger>();
             counters = new Mock<ICounters>();
-            tickTimes = new Mock<ITickTimes>();
+            craftsmanObject = new Mock<ICraftsmanObject>();
+            defaultValues = new Mock<IDefaultValues>();
+            defeatInfo = new Mock<IDefeatInfo>();
             enchantment = new Mock<IEnchantment>();
+            engine = new Mock<IEngine>();
+            evnt = new Mock<IEvent>();
+            fileIO = new Mock<IFileIO>();
+            gameDateTime = new Mock<IGameDateTime>();
+            globalValues = new Mock<IGlobalValues>();
+            inGameDateTime = new Mock<IInGameDateTime>();
+            logger = new Mock<ILogger>();
+            mobCommand = new Mock<IMobileObjectCommand>();
+            moneyToCoins = new Mock<IMoneyToCoins>();
+            mount = new Mock<IMount>();
+            notify = new Mock<INotify>();
+            npc = new Mock<INonPlayerCharacter>();
+            objectId = new Mock<IBaseObjectId>();
+            otherMob = new Mock<IMobileObject>();
+            parser = new Mock<IParser>();
+            pc = new Mock<IPlayerCharacter>();
             personality = new Mock<IPersonality>();
+            random = new Mock<IRandom>();
+            result = new Mock<IResult>();
+            room = new Mock<IRoom>();
+            serialization = new Mock<ISerialization>();
+            settings = new Mock<ISettings>();
+            tagWrapper = new Mock<ITagWrapper>();
+            tickTimes = new Mock<ITickTimes>();
+            zone = new Mock<IZone>();
 
+
+            craftsmanObjects = new List<ICraftsmanObject>();
+            deserializeZone = new Objects.Zone.Zone();
             dictionaryRoom = new Dictionary<int, IRoom>();
+            enchantments = new List<IEnchantment>();
             pcRoomList = new List<IPlayerCharacter>();
             riders = new List<IMobileObject>();
-            deserializeZone = new Objects.Zone.Zone();
-
-            dictionaryRoom.Add(0, room.Object);
-            engine.Setup(e => e.Combat).Returns(combat.Object);
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
-            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
-            room.Setup(e => e.Zone).Returns(1);
-            room.Setup(e => e.PrecipitationNotification).Returns("rain");
-            room.Setup(e => e.WindSpeedNotification).Returns("wind");
-            zone.Setup(e => e.Rooms).Returns(dictionaryRoom);
-            zone.Setup(e => e.ResetTime).Returns(gameDateTime.Object);
-            npc.Setup(e => e.LastProccessedTick).Returns(1);
-            npc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            pc.Setup(e => e.LastProccessedTick).Returns(1);
-            pc.Setup(e => e.CraftsmanObjects).Returns(new List<ICraftsmanObject>());
-            pc.Setup(e => e.Room).Returns(room.Object);
-            pc.Setup(e => e.FollowTarget).Returns(npc.Object);
-            pc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            pc.Setup(e => e.Name).Returns("test");
-            tickTimes.Setup(e => e.MedianTime).Returns(1m);
-            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
-            settings.Setup(e => e.LogStats).Returns(true);
-            settings.Setup(e => e.LogStatsLocation).Returns("c:\\");
-            settings.Setup(e => e.PlayerCharacterDirectory).Returns("c:\\");
-            serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
-            serialization.Setup(e => e.Deserialize<List<ICounters>>("serial")).Returns(new List<ICounters>());
-            serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("serial")).Returns(deserializeZone);
-            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
-            globalValues.Setup(e => e.TickCounter).Returns(0);
-            fileIO.Setup(e => e.Exists("c:\\00010101\\Stats.stat")).Returns(true);
-            fileIO.Setup(e => e.ReadAllText("c:\\00010101\\Stats.stat")).Returns("serial");
-            defaultValues.Setup(e => e.MoneyForNpcLevel(1)).Returns(100);
-            moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("0 coins");
-            mount.Setup(e => e.Movement).Returns(4);
-            mount.Setup(e => e.CommmandQueueCount).Returns(1);
-            mount.Setup(e => e.DequeueCommand()).Returns("South");
-            mount.Setup(e => e.Riders).Returns(riders);
-            parser.Setup(e => e.Parse("South")).Returns(command.Object);
-            parser.Setup(e => e.Parse("say hi")).Returns(command.Object);
-            parser.Setup(e => e.Parse("command")).Returns(command.Object);
-            enchantment.Setup(e => e.EnchantmentEndingDateTime).Returns(new DateTime(9999, 12, 31));
-            personality.Setup(e => e.Process(npc.Object, null)).Returns("test");
-            result.Setup(e => e.ResultMessage).Returns("result");
-
 
             command.Setup(e => e.CommandName).Returns("South");
             commandList.Setup(e => e.GetCommand(mount.Object, "South")).Returns(mobCommand.Object);
             commandList.Setup(e => e.GetCommand(npc.Object, "South")).Returns(mobCommand.Object);
+            craftsmanObject.Setup(e => e.Completion).Returns(new DateTime(1, 1, 1));
+            craftsmanObject.Setup(e => e.CraftmanDescripition).Returns("craftmanDescription");
+            craftsmanObject.Setup(e => e.CraftmanDescripition).Returns("craftmanDescription");
+            craftsmanObject.Setup(e => e.CraftsmanId).Returns(objectId.Object);
+            craftsmanObject.Setup(e => e.NextNotifcation).Returns(new DateTime(1, 1, 1));
+            craftsmanObjects.Add(craftsmanObject.Object);
+            defaultValues.Setup(e => e.MoneyForNpcLevel(1)).Returns(100);
+            enchantment.Setup(e => e.DefeatInfo).Returns(defeatInfo.Object);
+            enchantment.Setup(e => e.EnchantmentEndingDateTime).Returns(new DateTime(9999, 12, 31));
+            engine.Setup(e => e.Combat).Returns(combat.Object);
+            engine.Setup(e => e.Event).Returns(evnt.Object);
+            fileIO.Setup(e => e.Exists("c:\\00010101\\Stats.stat")).Returns(true);
+            fileIO.Setup(e => e.ReadAllText("c:\\00010101\\Stats.stat")).Returns("serial");
+            globalValues.Setup(e => e.TickCounter).Returns(0);
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             mobCommand.Setup(e => e.PerformCommand(mount.Object, command.Object)).Returns(result.Object);
             mobCommand.Setup(e => e.PerformCommand(npc.Object, command.Object)).Returns(result.Object);
-            mobCommand.Setup(e => e.PerformCommand(npc.Object, command.Object)).Returns(result.Object);
+            moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("0 coins");
+            mount.Setup(e => e.CommmandQueueCount).Returns(1);
+            mount.Setup(e => e.DequeueCommand()).Returns("South");
+            mount.Setup(e => e.Movement).Returns(4);
+            mount.Setup(e => e.Riders).Returns(riders);
+            npc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+            npc.Setup(e => e.LastProccessedTick).Returns(1);
+            npc.Setup(e => e.MaxHealth).Returns(100);
+            npc.Setup(e => e.MaxMana).Returns(1000);
+            npc.Setup(e => e.MaxStamina).Returns(10000);
+            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
+            objectId.Setup(e => e.Zone).Returns(1);
+            parser.Setup(e => e.Parse("command")).Returns(command.Object);
+            parser.Setup(e => e.Parse("say hi")).Returns(command.Object);
+            parser.Setup(e => e.Parse("South")).Returns(command.Object);
+            pc.Setup(e => e.CraftsmanObjects).Returns(new List<ICraftsmanObject>());
+            pc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+            pc.Setup(e => e.FollowTarget).Returns(npc.Object);
+            pc.Setup(e => e.LastProccessedTick).Returns(1);
+            pc.Setup(e => e.Name).Returns("test");
+            pc.Setup(e => e.Room).Returns(room.Object);
+            personality.Setup(e => e.Process(npc.Object, null)).Returns("test");
+            random.Setup(e => e.PercentDiceRoll(0)).Returns(true);
+            result.Setup(e => e.ResultMessage).Returns("result");
+            room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
+            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
+            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room.Setup(e => e.PrecipitationNotification).Returns("rain");
+            room.Setup(e => e.WindSpeedNotification).Returns("wind");
+            room.Setup(e => e.Zone).Returns(1);
+            serialization.Setup(e => e.Deserialize<List<ICounters>>("serial")).Returns(new List<ICounters>());
+            serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("serial")).Returns(deserializeZone);
+            serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
+            settings.Setup(e => e.LogStats).Returns(true);
+            settings.Setup(e => e.LogStatsLocation).Returns("c:\\");
+            settings.Setup(e => e.PlayerCharacterDirectory).Returns("c:\\");
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            tickTimes.Setup(e => e.MedianTime).Returns(1m);
+            zone.Setup(e => e.ResetTime).Returns(gameDateTime.Object);
+            zone.Setup(e => e.Rooms).Returns(dictionaryRoom);
 
+            dictionaryRoom.Add(0, room.Object);
+            enchantments.Add(enchantment.Object);
 
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Random = random.Object;
@@ -545,13 +569,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            npc.Setup(e => e.MaxHealth).Returns(100);
-            npc.Setup(e => e.MaxMana).Returns(1000);
-            npc.Setup(e => e.MaxStamina).Returns(10000);
             npc.Setup(e => e.Position).Returns(CharacterPosition.Stand);
-            engine.Setup(e => e.Event).Returns(evnt.Object);
 
             world.PerformTick();
 
@@ -565,13 +583,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            npc.Setup(e => e.MaxHealth).Returns(100);
-            npc.Setup(e => e.MaxMana).Returns(1000);
-            npc.Setup(e => e.MaxStamina).Returns(10000);
             npc.Setup(e => e.Position).Returns(CharacterPosition.Mounted);
-            engine.Setup(e => e.Event).Returns(evnt.Object);
 
             world.PerformTick();
 
@@ -585,11 +597,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            npc.Setup(e => e.MaxHealth).Returns(100);
-            npc.Setup(e => e.MaxMana).Returns(1000);
-            npc.Setup(e => e.MaxStamina).Returns(10000);
             npc.Setup(e => e.Position).Returns(CharacterPosition.Sit);
             engine.Setup(e => e.Event).Returns(evnt.Object);
 
@@ -605,11 +612,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            npc.Setup(e => e.MaxHealth).Returns(100);
-            npc.Setup(e => e.MaxMana).Returns(1000);
-            npc.Setup(e => e.MaxStamina).Returns(10000);
             npc.Setup(e => e.Position).Returns(CharacterPosition.Relax);
             engine.Setup(e => e.Event).Returns(evnt.Object);
 
@@ -625,11 +627,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            npc.Setup(e => e.MaxHealth).Returns(100);
-            npc.Setup(e => e.MaxMana).Returns(1000);
-            npc.Setup(e => e.MaxStamina).Returns(10000);
             npc.Setup(e => e.Position).Returns(CharacterPosition.Sleep);
             engine.Setup(e => e.Event).Returns(evnt.Object);
 
@@ -643,22 +640,8 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_PerformTick_ProcessRoom_ProcessPlayerNotifications()
         {
-            List<ICraftsmanObject> craftsmanObjects = new List<ICraftsmanObject>();
-            Mock<ICraftsmanObject> craftsmanObject = new Mock<ICraftsmanObject>();
-            Mock<IBaseObjectId> objectId = new Mock<IBaseObjectId>();
-            Mock<ITagWrapper> tagwrapper = new Mock<ITagWrapper>();
-
-            craftsmanObjects.Add(craftsmanObject.Object);
-            craftsmanObject.Setup(e => e.Completion).Returns(new DateTime(1, 1, 1));
-            craftsmanObject.Setup(e => e.NextNotifcation).Returns(new DateTime(1, 1, 1));
-            craftsmanObject.Setup(e => e.CraftmanDescripition).Returns("craftmanDescription");
-            craftsmanObject.Setup(e => e.CraftmanDescripition).Returns("craftmanDescription");
-            craftsmanObject.Setup(e => e.CraftsmanId).Returns(objectId.Object);
-            objectId.Setup(e => e.Zone).Returns(1);
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
             pc.Setup(e => e.CraftsmanObjects).Returns(craftsmanObjects);
-
-            GlobalReference.GlobalValues.TagWrapper = tagwrapper.Object;
 
             world.PerformTick();
 
@@ -667,7 +650,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
         }
 
         [TestMethod]
-        public void World_PerformTick_ProcessRoom_AddToFolloQueue()
+        public void World_PerformTick_ProcessRoom_AddToFollowQueue()
         {
             pc.Setup(e => e.FollowTarget).Returns(npc.Object);
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
@@ -680,11 +663,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_PerformTick_ProcessRoom_CleanupEnchantments_OldEnchantments()
         {
-            List<IEnchantment> enchantments = new List<IEnchantment>();
-            Mock<IEnchantment> enchantment = new Mock<IEnchantment>();
-            enchantments.Add(enchantment.Object);
             enchantment.Setup(e => e.EnchantmentEndingDateTime).Returns(new DateTime(1, 1, 1));
-
             pc.Setup(e => e.Enchantments).Returns(enchantments);
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
 
@@ -696,13 +675,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_PerformTick_ProcessRoom_CleanupEnchantments_FailToDefeat()
         {
-            List<IEnchantment> enchantments = new List<IEnchantment>();
-            Mock<IEnchantment> enchantment = new Mock<IEnchantment>();
-            Mock<IDefeatInfo> defeatInfo = new Mock<IDefeatInfo>();
-
-            enchantments.Add(enchantment.Object);
             enchantment.Setup(e => e.EnchantmentEndingDateTime).Returns(new DateTime(9999, 1, 1));
-            enchantment.Setup(e => e.DefeatInfo).Returns(defeatInfo.Object);
             defeatInfo.Setup(e => e.DoesPayerDefeatEnchantment(pc.Object)).Returns(false);
             pc.Setup(e => e.Enchantments).Returns(enchantments);
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
@@ -713,9 +686,21 @@ To see info on how to use a command type MAN and then the COMMAND.";
         }
 
         [TestMethod]
+        public void World_PerformTick_ProcessRoom_CleanupEnchantments_DefeatEnchantment()
+        {
+            enchantment.Setup(e => e.EnchantmentEndingDateTime).Returns(new DateTime(9999, 1, 1));
+            defeatInfo.Setup(e => e.DoesPayerDefeatEnchantment(pc.Object)).Returns(true);
+            pc.Setup(e => e.Enchantments).Returns(enchantments);
+            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
+
+            Assert.AreEqual(1, enchantments.Count);
+            world.PerformTick();
+            Assert.AreEqual(0, enchantments.Count);
+        }
+
+        [TestMethod]
         public void World_PerformTick_ProcessRoom_SpawnElemental_Water()
         {
-            random.Setup(e => e.PercentDiceRoll(0)).Returns(true);
             world.Precipitation = 100;
 
             world.PerformTick();
@@ -727,7 +712,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_PerformTick_ProcessRoom_SpawnElemental_Fire()
         {
-            random.Setup(e => e.PercentDiceRoll(0)).Returns(true);
             world.Precipitation = 0;
 
             world.PerformTick();
@@ -739,7 +723,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_PerformTick_ProcessRoom_SpawnElemental_Air()
         {
-            random.Setup(e => e.PercentDiceRoll(0)).Returns(true);
             world.WindSpeed = 100;
 
             world.PerformTick();
@@ -751,32 +734,12 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_PerformTick_ProcessRoom_SpawnElemental_Earth()
         {
-            random.Setup(e => e.PercentDiceRoll(0)).Returns(true);
             world.WindSpeed = 0;
 
             world.PerformTick();
 
             room.Verify(e => e.AddMobileObjectToRoom(It.Is<INonPlayerCharacter>(f => f.KeyWords.Contains("earth"))), Times.Once);
             notify.Verify(e => e.Room(It.IsAny<INonPlayerCharacter>(), null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false));
-        }
-
-        [TestMethod]
-        public void World_PerformTick_ProcessRoom_CleanupEnchantments_DefeatEnchantment()
-        {
-            List<IEnchantment> enchantments = new List<IEnchantment>();
-            Mock<IEnchantment> enchantment = new Mock<IEnchantment>();
-            Mock<IDefeatInfo> defeatInfo = new Mock<IDefeatInfo>();
-
-            enchantments.Add(enchantment.Object);
-            enchantment.Setup(e => e.EnchantmentEndingDateTime).Returns(new DateTime(9999, 1, 1));
-            enchantment.Setup(e => e.DefeatInfo).Returns(defeatInfo.Object);
-            defeatInfo.Setup(e => e.DoesPayerDefeatEnchantment(pc.Object)).Returns(true);
-            pc.Setup(e => e.Enchantments).Returns(enchantments);
-            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-
-            Assert.AreEqual(1, enchantments.Count);
-            world.PerformTick();
-            Assert.AreEqual(0, enchantments.Count);
         }
         #endregion ProcessRoom
 
