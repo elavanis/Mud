@@ -531,19 +531,13 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_PerformTick_ProcessRoom_PerformHeartBeatBigTick()
         {
-            Mock<ICounters> counter = new Mock<ICounters>();
-
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            engine.Setup(e => e.Event).Returns(evnt.Object);
-
-            GlobalReference.GlobalValues.Counters = counter.Object;
 
             world.PerformTick();
 
             evnt.Verify(e => e.HeartbeatBigTick(npc.Object), Times.Once);
+            evnt.Verify(e => e.HeartbeatBigTick(pc.Object), Times.Once);
         }
 
         [TestMethod]
