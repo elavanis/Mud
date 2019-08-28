@@ -77,6 +77,9 @@ namespace ObjectsUnitTest.World
         Mock<ILogger> logger;
         Mock<ICounters> counters;
         Mock<ITickTimes> tickTimes;
+        Mock<IEnchantment> enchantment;
+        Mock<IPersonality> personality;
+
 
         Dictionary<int, IRoom> dictionaryRoom;
         List<IPlayerCharacter> pcList;
@@ -120,6 +123,8 @@ namespace ObjectsUnitTest.World
             logger = new Mock<ILogger>();
             counters = new Mock<ICounters>();
             tickTimes = new Mock<ITickTimes>();
+            enchantment = new Mock<IEnchantment>();
+            personality = new Mock<IPersonality>();
 
             dictionaryRoom = new Dictionary<int, IRoom>();
             pcRoomList = new List<IPlayerCharacter>();
@@ -134,17 +139,19 @@ namespace ObjectsUnitTest.World
             room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             room.Setup(e => e.Zone).Returns(1);
+            room.Setup(e => e.PrecipitationNotification).Returns("rain");
+            room.Setup(e => e.WindSpeedNotification).Returns("wind");
             zone.Setup(e => e.Rooms).Returns(dictionaryRoom);
             zone.Setup(e => e.ResetTime).Returns(gameDateTime.Object);
             npc.Setup(e => e.LastProccessedTick).Returns(1);
             npc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
             pc.Setup(e => e.LastProccessedTick).Returns(1);
             pc.Setup(e => e.CraftsmanObjects).Returns(new List<ICraftsmanObject>());
             pc.Setup(e => e.Room).Returns(room.Object);
             pc.Setup(e => e.FollowTarget).Returns(npc.Object);
             pc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             pc.Setup(e => e.Name).Returns("test");
-
             tickTimes.Setup(e => e.MedianTime).Returns(1m);
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             settings.Setup(e => e.LogStats).Returns(true);
@@ -164,9 +171,20 @@ namespace ObjectsUnitTest.World
             mount.Setup(e => e.DequeueCommand()).Returns("South");
             mount.Setup(e => e.Riders).Returns(riders);
             parser.Setup(e => e.Parse("South")).Returns(command.Object);
+            parser.Setup(e => e.Parse("say hi")).Returns(command.Object);
+            parser.Setup(e => e.Parse("command")).Returns(command.Object);
+            enchantment.Setup(e => e.EnchantmentEndingDateTime).Returns(new DateTime(9999, 12, 31));
+            personality.Setup(e => e.Process(npc.Object, null)).Returns("test");
+            result.Setup(e => e.ResultMessage).Returns("result");
+
+
             command.Setup(e => e.CommandName).Returns("South");
             commandList.Setup(e => e.GetCommand(mount.Object, "South")).Returns(mobCommand.Object);
+            commandList.Setup(e => e.GetCommand(npc.Object, "South")).Returns(mobCommand.Object);
             mobCommand.Setup(e => e.PerformCommand(mount.Object, command.Object)).Returns(result.Object);
+            mobCommand.Setup(e => e.PerformCommand(npc.Object, command.Object)).Returns(result.Object);
+            mobCommand.Setup(e => e.PerformCommand(npc.Object, command.Object)).Returns(result.Object);
+
 
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Random = random.Object;
@@ -418,80 +436,47 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_ProcessRoom_VerifyWeatherMessage()
         {
-            Mock<IParser> parser = new Mock<IParser>();
-            Mock<ICommand> command = new Mock<ICommand>();
-            Mock<ICommandList> commandList = new Mock<ICommandList>();
-            Mock<IMobileObjectCommand> mobCommand = new Mock<IMobileObjectCommand>();
-            Mock<IResult> result = new Mock<IResult>();
-
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
             room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>() { RoomAttribute.Weather });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            room.Setup(e => e.PrecipitationNotification).Returns("rain");
-            room.Setup(e => e.WindSpeedNotification).Returns("wind");
             world.Precipitation = 10;
             world.WindSpeed = 10;
-            npc.SetupSequence(e => e.DequeueCommunication())
-                .Returns("say hi")
-                .Returns(null);
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            parser.Setup(e => e.Parse("say hi")).Returns(command.Object);
-            command.Setup(e => e.CommandName).Returns("say");
-            commandList.Setup(e => e.GetCommand(npc.Object, "say")).Returns(mobCommand.Object);
-            result.Setup(e => e.ResultMessage).Returns("result");
-            mobCommand.Setup(e => e.PerformCommand(npc.Object, command.Object)).Returns(result.Object);
-
-            GlobalReference.GlobalValues.Parser = parser.Object;
-            GlobalReference.GlobalValues.CommandList = commandList.Object;
 
             world.PerformTick();
 
             evnt.Verify(e => e.HeartbeatBigTick(room.Object), Times.Once);
-            mobCommand.Verify(e => e.PerformCommand(npc.Object, command.Object));
-            //npc.Verify(e => e.EnqueueMessage("result"), Times.Once);
-            //npc.Verify(e => e.EnqueueMessage("rain"), Times.Once);
-            //npc.Verify(e => e.EnqueueMessage("wind"), Times.Once);
-            notify.Verify(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>()), Times.Exactly(3));
+            notify.Verify(e => e.Mob(npc.Object, It.Is<ITranslationMessage>(f => f.Message == "rain")), Times.Once);
+            notify.Verify(e => e.Mob(npc.Object, It.Is<ITranslationMessage>(f => f.Message == "wind")), Times.Once);
+            notify.Verify(e => e.Mob(pc.Object, It.Is<ITranslationMessage>(f => f.Message == "rain")), Times.Once);
+            notify.Verify(e => e.Mob(pc.Object, It.Is<ITranslationMessage>(f => f.Message == "wind")), Times.Once);
         }
 
         [TestMethod]
         public void World_PerformTick_ProcessRoom_CommunicationCommandNotReconnized()
         {
-            Mock<IParser> parser = new Mock<IParser>();
-            Mock<ICommand> command = new Mock<ICommand>();
-            Mock<ICommandList> commandList = new Mock<ICommandList>();
-            Mock<ITagWrapper> tagWrapper = new Mock<ITagWrapper>();
-
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             npc.SetupSequence(e => e.DequeueCommunication())
-                .Returns("say hi")
-                .Returns(null);
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            parser.Setup(e => e.Parse("say hi")).Returns(command.Object);
-            command.Setup(e => e.CommandName).Returns("say");
-            commandList.Setup(e => e.GetCommand(npc.Object, "say")).Returns<IMobileObjectCommand>(null);
-
-            GlobalReference.GlobalValues.Parser = parser.Object;
-            GlobalReference.GlobalValues.CommandList = commandList.Object;
-            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+               .Returns("not valid")
+               .Returns(null);
+            pc.SetupSequence(e => e.DequeueCommunication())
+               .Returns("not valid")
+               .Returns(null);
+            pc.Setup(e => e.FollowTarget).Returns<IMobileObject>(null);
 
             world.PerformTick();
 
             evnt.Verify(e => e.HeartbeatBigTick(room.Object), Times.Once);
-            notify.Verify(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>()));
+            notify.Verify(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>()), Times.Never);
+            notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()), Times.Never);
+            parser.Verify(e => e.Parse("not valid"), Times.Exactly(2));
         }
 
         [TestMethod]
         public void World_PerformTick_ProcessRoom_ProcessEnchantments()
         {
-            Mock<IEnchantment> enchantment = new Mock<IEnchantment>();
-
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>() { enchantment.Object });
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
 
@@ -500,21 +485,15 @@ namespace ObjectsUnitTest.World
             //the enchantment does not count per parameter but instead counts the number of times it was called
             //so we have to combine the number of times the pc and npc were called.
             enchantment.Verify(e => e.HeartbeatBigTick(npc.Object), Times.Exactly(2));
+            enchantment.Verify(e => e.HeartbeatBigTick(pc.Object), Times.Exactly(2));
         }
 
         [TestMethod]
         public void World_PerformTick_ProcessRoom_ProcessMobPersonality()
         {
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-            Mock<IPersonality> personality = new Mock<IPersonality>();
-
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            zone.Setup(e => e.Rooms).Returns(rooms);
-            rooms.Add(1, room.Object);
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>() { personality.Object });
-            personality.Setup(e => e.Process(npc.Object, null)).Returns("test");
 
             world.PerformTick();
 
@@ -524,68 +503,29 @@ namespace ObjectsUnitTest.World
         [TestMethod]
         public void World_PerformTick_ProcessRoom_ProcessMobCommand()
         {
-            Mock<IParser> parser = new Mock<IParser>();
-            Mock<ICommand> command = new Mock<ICommand>();
-            Mock<ICommandList> commandList = new Mock<ICommandList>();
-            Mock<IMobileObjectCommand> mobCommand = new Mock<IMobileObjectCommand>();
-            Mock<IResult> result = new Mock<IResult>();
-
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            npc.Setup(e => e.LastProccessedTick).Returns(1);
-            npc.SetupSequence(e => e.DequeueCommand())
-                .Returns("command")
-                .Returns(null)
-                .Returns("3");
-            parser.Setup(e => e.Parse("command")).Returns(command.Object);
-            command.Setup(e => e.CommandName).Returns("command");
-            commandList.Setup(e => e.GetCommand(npc.Object, "command")).Returns(mobCommand.Object);
-            mobCommand.Setup(e => e.PerformCommand(npc.Object, command.Object)).Returns(result.Object);
-            result.Setup(e => e.ResultMessage).Returns("result");
-
-            GlobalReference.GlobalValues.Parser = parser.Object;
-            GlobalReference.GlobalValues.CommandList = commandList.Object;
+            npc.Setup(e => e.DequeueCommand()).Returns("command");
 
             world.PerformTick();
 
-            notify.Verify(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>()));
+            notify.Verify(e => e.Mob(npc.Object, It.Is<ITranslationMessage>(f => f.Message == "result")), Times.Once);
             npc.VerifySet(e => e.LastProccessedTick = 0, Times.Once);
         }
 
         [TestMethod]
         public void World_PerformTick_ProcessRoom_ProcessMobCommand_UnknownCommand()
         {
-            Mock<IParser> parser = new Mock<IParser>();
-            Mock<ICommand> command = new Mock<ICommand>();
-            Mock<ICommandList> commandList = new Mock<ICommandList>();
-            Mock<IMobileObjectCommand> mobCommand = new Mock<IMobileObjectCommand>();
-            Mock<IResult> result = new Mock<IResult>();
-            ITranslationMessage message = null;
-
-            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
-            room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
-            npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());
-            npc.Setup(e => e.LastProccessedTick).Returns(1);
-            npc.SetupSequence(e => e.DequeueCommand())
-                .Returns("3");
-            parser.Setup(e => e.Parse("3")).Returns(command.Object);
-            command.Setup(e => e.CommandName).Returns("4");
-            commandList.Setup(e => e.GetCommand(npc.Object, "command")).Returns(mobCommand.Object);
-            mobCommand.Setup(e => e.PerformCommand(npc.Object, command.Object)).Returns(result.Object);
-            result.Setup(e => e.ResultMessage).Returns("result");
-            notify.Setup(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>())).Callback<IMobileObject, ITranslationMessage>((mob, translationMessage) => { message = translationMessage; });
-
-            GlobalReference.GlobalValues.Parser = parser.Object;
-            GlobalReference.GlobalValues.CommandList = commandList.Object;
+            pc.SetupSequence(e => e.DequeueCommand()).Returns("South");
 
             world.PerformTick();
 
-            Assert.AreEqual(@"Unable to figure out how to 4.
+            string expectedMessage = @"Unable to figure out how to South.
 To see a list of all commands type MAN.
-To see info on how to use a command type MAN and then the COMMAND.", message.Message);
+To see info on how to use a command type MAN and then the COMMAND.";
+
+            notify.Verify(e => e.Mob(pc.Object, It.Is<ITranslationMessage>(f => f.Message == expectedMessage)), Times.Once);
+            pc.VerifySet(e => e.LastProccessedTick = 0, Times.Once);
         }
 
         [TestMethod]

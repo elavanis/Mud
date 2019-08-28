@@ -1096,7 +1096,7 @@ namespace Objects.World
                     foreach (IEnchantment enchantment in room.Enchantments)
                     {
                         //don't fire expired enchantments
-                        //work around because we can't clear the enchanments if on kills the player with out throwing an error
+                        //work around because we can't clear the enchantments if on kills the player with out throwing an error
                         if (enchantment.EnchantmentEndingDateTime > DateTime.UtcNow)
                         {
                             enchantment.HeartbeatBigTick(pc);
