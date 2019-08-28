@@ -568,7 +568,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         public void World_PerformTick_ProcessRoom_MobRegenerateStand()
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
             npc.Setup(e => e.Position).Returns(CharacterPosition.Stand);
 
             world.PerformTick();
@@ -582,7 +581,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         public void World_PerformTick_ProcessRoom_MobRegenerateMounted()
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
             npc.Setup(e => e.Position).Returns(CharacterPosition.Mounted);
 
             world.PerformTick();
@@ -596,7 +594,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         public void World_PerformTick_ProcessRoom_MobRegenerateSit()
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
             npc.Setup(e => e.Position).Returns(CharacterPosition.Sit);
             engine.Setup(e => e.Event).Returns(evnt.Object);
 
@@ -611,7 +608,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         public void World_PerformTick_ProcessRoom_MobRegenerateRelax()
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
             npc.Setup(e => e.Position).Returns(CharacterPosition.Relax);
             engine.Setup(e => e.Event).Returns(evnt.Object);
 
@@ -626,7 +622,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         public void World_PerformTick_ProcessRoom_MobRegenerateSleep()
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
             npc.Setup(e => e.Position).Returns(CharacterPosition.Sleep);
             engine.Setup(e => e.Event).Returns(evnt.Object);
 
