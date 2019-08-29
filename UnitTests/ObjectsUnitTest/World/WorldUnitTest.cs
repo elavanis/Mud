@@ -926,8 +926,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [ExpectedException(typeof(Exception))]
         public void World_LoadCharacter_LoadFromFileUnableToDeserialize()
         {
-            PlayerCharacter realPc = new PlayerCharacter();
-
             serialization.Setup(e => e.Deserialize<PlayerCharacter>("serializedPlayer")).Returns<PlayerCharacter>(null);
 
             try
@@ -973,8 +971,8 @@ To see info on how to use a command type MAN and then the COMMAND.";
 
             world.LoadWorld();
 
-            npc.VerifySet(e => e.Room = room.Object, Times.Once);
-            otherMob.VerifySet(e => e.Room = room.Object, Times.Once);
+            npc.Verify(e=>e.FinishLoad(-1), Times.Once);
+            otherMob.Verify(e => e.FinishLoad(-1), Times.Once);
             Assert.AreSame(realZone, world.Zones[0]);
             string storedFileName = ((Dictionary<int, string>)info.GetValue(world))[0];
             Assert.AreEqual("c:\\zone.zone", storedFileName);
