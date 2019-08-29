@@ -42,6 +42,7 @@ using Objects.Global.Serialization.Interface;
 using Objects.Global.Interface;
 using Objects.Global.DefaultValues.Interface;
 using Objects.Global.MoneyToCoins.Interface;
+using Objects.Item;
 
 namespace ObjectsUnitTest.World
 {
@@ -169,8 +170,13 @@ namespace ObjectsUnitTest.World
             engine.Setup(e => e.Event).Returns(evnt.Object);
             exit.Setup(e => e.Zone).Returns(1);
             exit.Setup(e => e.Room).Returns(2);
-            fileIO.Setup(e => e.Exists("c:\\00010101\\Stats.stat")).Returns(true);
-            fileIO.Setup(e => e.ReadAllText("c:\\00010101\\Stats.stat")).Returns("serial");
+            fileIO.Setup(e => e.Exists(@"LogStatsLocation\00010101\Stats.stat")).Returns(true);
+            fileIO.Setup(e => e.ReadAllText(@"LogStatsLocation\00010101\Stats.stat")).Returns("serial");
+            fileIO.Setup(e => e.GetFilesFromDirectory("PlayerCharacterDirectory")).Returns(new string[] { "c:\\test.char" });
+            fileIO.Setup(e => e.ReadAllText("c:\\test.char")).Returns("serializedPlayer");
+            fileIO.Setup(e => e.GetFilesFromDirectory("ZoneDirectory", "*.zone")).Returns(new string[] { "c:\\zone.zone" });
+            fileIO.Setup(e => e.ReadAllText("c:\\zone.zone")).Returns("serializedZone");
+
             globalValues.Setup(e => e.TickCounter).Returns(0);
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             mobCommand.Setup(e => e.PerformCommand(mount.Object, command.Object)).Returns(result.Object);
@@ -201,8 +207,10 @@ namespace ObjectsUnitTest.World
             result.Setup(e => e.ResultMessage).Returns("result");
             room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             room.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
+            room.Setup(e => e.Items).Returns(new List<IItem>());
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
+            room.Setup(e => e.OtherMobs).Returns(new List<IMobileObject>());
             room.Setup(e => e.PrecipitationNotification).Returns("rain");
             room.Setup(e => e.WindSpeedNotification).Returns("wind");
             room.Setup(e => e.Zone).Returns(1);
@@ -216,8 +224,9 @@ namespace ObjectsUnitTest.World
             serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("serial")).Returns(deserializeZone);
             serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
             settings.Setup(e => e.LogStats).Returns(true);
-            settings.Setup(e => e.LogStatsLocation).Returns("c:\\");
-            settings.Setup(e => e.PlayerCharacterDirectory).Returns("c:\\");
+            settings.Setup(e => e.LogStatsLocation).Returns("LogStatsLocation");
+            settings.Setup(e => e.PlayerCharacterDirectory).Returns("PlayerCharacterDirectory");
+            settings.Setup(e => e.ZoneDirectory).Returns("ZoneDirectory");
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             tickTimes.Setup(e => e.MedianTime).Returns(1m);
             zone.Setup(e => e.ResetTime).Returns(gameDateTime.Object);
@@ -395,7 +404,7 @@ namespace ObjectsUnitTest.World
 
             PropertyInfo info = world.GetType().GetProperty("_zoneIdToFileMap", BindingFlags.Instance | BindingFlags.NonPublic);
 
-            ((Dictionary<int, string>)info.GetValue(world)).Add(0, "c:\\00010101\\Stats.stat");
+            ((Dictionary<int, string>)info.GetValue(world)).Add(0, @"LogStatsLocation\00010101\Stats.stat");
             world.Zones.Add(0, zone.Object);
 
             world.PerformTick();
@@ -424,7 +433,7 @@ namespace ObjectsUnitTest.World
             methodInfo.Invoke(world, new object[] { new DateTime() });
 
             serialization.Verify(e => e.Deserialize<List<ICounters>>("serial"), Times.Once);
-            fileIO.Verify(e => e.WriteFile("c:\\00010101\\Stats.stat", "abc"), Times.Once);
+            fileIO.Verify(e => e.WriteFile(@"LogStatsLocation\00010101\Stats.stat", "abc"), Times.Once);
         }
         #endregion UpdatePerformanceCounters
 
@@ -441,7 +450,7 @@ namespace ObjectsUnitTest.World
 
             world.PerformTick();
 
-            fileIO.Verify(e => e.WriteFile(@"c:\test.char", "abc"), Times.Once);
+            fileIO.Verify(e => e.WriteFile(@"PlayerCharacterDirectory\test.char", "abc"), Times.Once);
             Assert.IsTrue((DateTime)field.GetValue(world) > startupDateTime);
         }
 
@@ -880,27 +889,25 @@ To see info on how to use a command type MAN and then the COMMAND.";
         #endregion DoWorldCommand
         #endregion PerformTick
 
+        #region Load Save Stuff
         [TestMethod]
         public void World_SaveCharcter()
         {
             world.SaveCharcter(pc.Object);
 
             pc.VerifySet(e => e.Room = null, Times.Once);
-            fileIO.Verify(e => e.WriteFile(@"c:\test.char", "abc"), Times.Once);
+            fileIO.Verify(e => e.WriteFile(@"PlayerCharacterDirectory\test.char", "abc"), Times.Once);
         }
 
         [TestMethod]
         public void World_LoadCharacter_AllReadyInGame()
         {
-            Mock<ISettings> settings = new Mock<ISettings>();
-
-            pc.Setup(e => e.Name).Returns("name");
             pcList.Add(pc.Object);
             settings.Setup(e => e.PlayerCharacterDirectory).Returns("directory");
 
             GlobalReference.GlobalValues.Settings = settings.Object;
 
-            IPlayerCharacter result = world.LoadCharacter("name");
+            IPlayerCharacter result = world.LoadCharacter("test");
             Assert.AreSame(pc.Object, result);
         }
 
@@ -908,24 +915,10 @@ To see info on how to use a command type MAN and then the COMMAND.";
         public void World_LoadCharacter_LoadFromFile()
         {
             PlayerCharacter realPc = new PlayerCharacter();
-            Mock<IFileIO> fileIO = new Mock<IFileIO>();
-            Mock<ISerialization> seralizer = new Mock<ISerialization>();
-            Mock<IPlayerCharacter> pc2 = new Mock<IPlayerCharacter>();
-            Mock<ISettings> settings = new Mock<ISettings>();
 
-            pc.Setup(e => e.Name).Returns("name");
-            pc2.Setup(e => e.Name).Returns("bob");
-            pcList.Add(pc2.Object);
-            fileIO.Setup(e => e.GetFilesFromDirectory("directory")).Returns(new string[] { "c:\\name.char" });
-            fileIO.Setup(e => e.ReadAllText("c:\\name.char")).Returns("serializedPlayer");
-            seralizer.Setup(e => e.Deserialize<PlayerCharacter>("serializedPlayer")).Returns(realPc);
-            settings.Setup(e => e.PlayerCharacterDirectory).Returns("directory");
+            serialization.Setup(e => e.Deserialize<PlayerCharacter>("serializedPlayer")).Returns(realPc);
 
-            GlobalReference.GlobalValues.FileIO = fileIO.Object;
-            GlobalReference.GlobalValues.Serialization = seralizer.Object;
-            GlobalReference.GlobalValues.Settings = settings.Object;
-
-            IPlayerCharacter result = world.LoadCharacter("name");
+            IPlayerCharacter result = world.LoadCharacter("test");
             Assert.AreSame(realPc, result);
         }
 
@@ -934,25 +927,12 @@ To see info on how to use a command type MAN and then the COMMAND.";
         public void World_LoadCharacter_LoadFromFileUnableToDeserialize()
         {
             PlayerCharacter realPc = new PlayerCharacter();
-            Mock<IFileIO> fileIO = new Mock<IFileIO>();
-            Mock<ISerialization> seralizer = new Mock<ISerialization>();
-            Mock<ILogger> logger = new Mock<ILogger>();
-            Mock<ISettings> settings = new Mock<ISettings>();
 
-            pc.Setup(e => e.Name).Returns("name");
-            fileIO.Setup(e => e.GetFilesFromDirectory("directory")).Returns(new string[] { "c:\\name.char" });
-            fileIO.Setup(e => e.ReadAllText("c:\\name.char")).Returns("serializedPlayer");
-            seralizer.Setup(e => e.Deserialize<PlayerCharacter>("serializedPlayer")).Returns<PlayerCharacter>(null);
-            settings.Setup(e => e.PlayerCharacterDirectory).Returns("directory");
-
-            GlobalReference.GlobalValues.FileIO = fileIO.Object;
-            GlobalReference.GlobalValues.Serialization = seralizer.Object;
-            GlobalReference.GlobalValues.Logger = logger.Object;
-            GlobalReference.GlobalValues.Settings = settings.Object;
+            serialization.Setup(e => e.Deserialize<PlayerCharacter>("serializedPlayer")).Returns<PlayerCharacter>(null);
 
             try
             {
-                world.LoadCharacter("name");
+                world.LoadCharacter("test");
             }
             catch
             {
@@ -964,14 +944,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_LoadCharacter_PlayerNotFound()
         {
-            Mock<IFileIO> fileIO = new Mock<IFileIO>();
-            Mock<ISettings> settings = new Mock<ISettings>();
-
-            fileIO.Setup(e => e.GetFilesFromDirectory("directory")).Returns(new string[] { });
-            settings.Setup(e => e.PlayerCharacterDirectory).Returns("directory");
-
-            GlobalReference.GlobalValues.FileIO = fileIO.Object;
-            GlobalReference.GlobalValues.Settings = settings.Object;
+            fileIO.Setup(e => e.GetFilesFromDirectory("c:\\")).Returns(new string[] { });
 
             IPlayerCharacter result = world.LoadCharacter("name");
             Assert.IsNull(result);
@@ -981,14 +954,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [ExpectedException(typeof(FileNotFoundException))]
         public void World_LoadWorld_NoFilesFound()
         {
-            Mock<IFileIO> fileIO = new Mock<IFileIO>();
-            Mock<ISettings> settings = new Mock<ISettings>();
-
-            fileIO.Setup(e => e.GetFilesFromDirectory("zonelocation", "*.zone")).Returns(new string[] { });
-            settings.Setup(e => e.ZoneDirectory).Returns("zonelocation");
-
-            GlobalReference.GlobalValues.FileIO = fileIO.Object;
-            GlobalReference.GlobalValues.Settings = settings.Object;
+            fileIO.Setup(e => e.GetFilesFromDirectory("ZoneDirectory", "*.zone")).Returns(new string[] { });
 
             world.LoadWorld();
         }
@@ -997,31 +963,18 @@ To see info on how to use a command type MAN and then the COMMAND.";
         public void World_LoadWorld_ZoneLoads()
         {
             world.Zones.Clear(); //remove the item added from above
-            Mock<IFileIO> fileIO = new Mock<IFileIO>();
-            Mock<ILogger> logger = new Mock<ILogger>();
-            Mock<ISerialization> xmlSerializer = new Mock<ISerialization>();
             Objects.Zone.Zone realZone = new Objects.Zone.Zone();
-            Mock<IRoom> room = new Mock<IRoom>();
             PropertyInfo info = world.GetType().GetProperty("_zoneIdToFileMap", BindingFlags.Instance | BindingFlags.NonPublic);
-            Mock<ISettings> settings = new Mock<ISettings>();
 
-            fileIO.Setup(e => e.GetFilesFromDirectory("zonelocation", "*.zone")).Returns(new string[] { "c:\\zone.zone" });
-            fileIO.Setup(e => e.ReadAllText("c:\\zone.zone")).Returns("serializedZone");
-            xmlSerializer.Setup(e => e.Deserialize<Objects.Zone.Zone>("serializedZone")).Returns(realZone);
+            serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("serializedZone")).Returns(realZone);
             realZone.Rooms.Add(1, room.Object);
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room.Setup(e => e.Items).Returns(new List<IItem>());
             room.Setup(e => e.OtherMobs).Returns(new List<IMobileObject>() { otherMob.Object });
-            settings.Setup(e => e.ZoneDirectory).Returns("zonelocation");
-
-            GlobalReference.GlobalValues.FileIO = fileIO.Object;
-            GlobalReference.GlobalValues.Logger = logger.Object;
-            GlobalReference.GlobalValues.Serialization = xmlSerializer.Object;
-            GlobalReference.GlobalValues.Settings = settings.Object;
 
             world.LoadWorld();
 
             npc.VerifySet(e => e.Room = room.Object, Times.Once);
+            otherMob.VerifySet(e => e.Room = room.Object, Times.Once);
             Assert.AreSame(realZone, world.Zones[0]);
             string storedFileName = ((Dictionary<int, string>)info.GetValue(world))[0];
             Assert.AreEqual("c:\\zone.zone", storedFileName);
@@ -1087,6 +1040,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
             room.Verify(e => e.RemoveMobileObjectFromRoom(pc.Object));
             fileIO.Verify(e => e.WriteFile("c:\\zone.zone", "serializedZone"), Times.Once);
         }
+        #endregion Load Save Stuff
 
         [TestMethod]
         public void World_LogOutCharacter_CharacterFound()
