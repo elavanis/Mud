@@ -228,11 +228,10 @@ namespace Objects.World
             }
         }
 
-        public Objects.Command.World.Interface.IGameStats GameStatsInterface { get; set; } = new Objects.Command.World.GameStats();
 
         private void GenerateGameStats()
         {
-            string result = GameStatsInterface.GenerateGameStats();
+            string result = GlobalReference.GlobalValues.GameStats.GenerateGameStats();
 
             WorldResults.AddOrUpdate("GameStats", result, (k, v) => result);
         }

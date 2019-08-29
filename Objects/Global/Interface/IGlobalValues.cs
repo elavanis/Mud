@@ -28,6 +28,7 @@ using Objects.Global.Serialization.Interface;
 using Objects.Global.LevelDifference.Interface;
 using Objects.Command.Interface;
 using Objects.Mob.Interface;
+using Objects.Command.World.Interface;
 
 namespace Objects.Global.Interface
 {
@@ -44,6 +45,7 @@ namespace Objects.Global.Interface
         IFileIO FileIO { get; set; }
         IFindObjects FindObjects { get; set; }
         IInGameDateTime GameDateTime { get; set; }
+        IGameStats GameStats { get; set; }
         IGuildAbilities GuildAbilities { get; set; }
         ILogger Logger { get; set; }
         IMap Map { get; set; }

@@ -1,4 +1,6 @@
-﻿using Objects.Global.CanMobDoSomething.Interface;
+﻿using Objects.Command.World;
+using Objects.Command.World.Interface;
+using Objects.Global.CanMobDoSomething.Interface;
 using Objects.Global.Commands.Interface;
 using Objects.Global.DefaultValues.Interface;
 using Objects.Global.Engine.Interface;
@@ -75,6 +77,9 @@ namespace Objects.Global
 
         [ExcludeFromCodeCoverage]
         public IInGameDateTime GameDateTime { get; set; }
+
+        [ExcludeFromCodeCoverage]
+        public IGameStats GameStats { get; set; }
 
         [ExcludeFromCodeCoverage]
         public IGuildAbilities GuildAbilities { get; set; }
@@ -166,6 +171,7 @@ namespace Objects.Global
             FindObjects = new FindObjects.FindObjects();
             FileIO = new FileIO();
             GameDateTime = new InGameDateTime(new Time());
+            GameStats = new GameStats();
             GuildAbilities = new Guild.GuildAbilities();
             Logger = new Logging.Logger();
             Map = new Map.Map();
