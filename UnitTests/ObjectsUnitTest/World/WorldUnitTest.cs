@@ -70,6 +70,7 @@ namespace ObjectsUnitTest.World
         Mock<IMobileObjectCommand> mobCommand;
         Mock<IMoneyToCoins> moneyToCoins;
         Mock<IMount> mount;
+        Mock<IMultiClassBonus> multicClassBonus;
         Mock<INotify> notify;
         Mock<INonPlayerCharacter> npc;
         Mock<IBaseObjectId> objectId;
@@ -128,6 +129,7 @@ namespace ObjectsUnitTest.World
             mobCommand = new Mock<IMobileObjectCommand>();
             moneyToCoins = new Mock<IMoneyToCoins>();
             mount = new Mock<IMount>();
+            multicClassBonus = new Mock<IMultiClassBonus>();
             notify = new Mock<INotify>();
             npc = new Mock<INonPlayerCharacter>();
             objectId = new Mock<IBaseObjectId>();
@@ -186,6 +188,7 @@ namespace ObjectsUnitTest.World
             mount.Setup(e => e.DequeueCommand()).Returns("South");
             mount.Setup(e => e.Movement).Returns(4);
             mount.Setup(e => e.Riders).Returns(riders);
+            mount.Setup(e => e.SentenceDescription).Returns("horse");
             npc.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             npc.Setup(e => e.LastProccessedTick).Returns(1);
             npc.Setup(e => e.MaxHealth).Returns(100);
@@ -227,6 +230,8 @@ namespace ObjectsUnitTest.World
             settings.Setup(e => e.LogStatsLocation).Returns("LogStatsLocation");
             settings.Setup(e => e.PlayerCharacterDirectory).Returns("PlayerCharacterDirectory");
             settings.Setup(e => e.ZoneDirectory).Returns("ZoneDirectory");
+            settings.Setup(e => e.BaseStatValue).Returns(1);
+            settings.Setup(e => e.AssignableStatPoints).Returns(2);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             tickTimes.Setup(e => e.MedianTime).Returns(1m);
             zone.Setup(e => e.ResetTime).Returns(gameDateTime.Object);
@@ -252,6 +257,7 @@ namespace ObjectsUnitTest.World
             GlobalReference.GlobalValues.Parser = parser.Object;
             GlobalReference.GlobalValues.CommandList = commandList.Object;
             GlobalReference.GlobalValues.GameStats = gameStats.Object;
+            GlobalReference.GlobalValues.MultiClassBonus = multicClassBonus.Object;
 
             world = new Objects.World.World();
             world.Zones.Add(1, zone.Object);
@@ -971,7 +977,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
 
             world.LoadWorld();
 
-            npc.Verify(e=>e.FinishLoad(-1), Times.Once);
+            npc.Verify(e => e.FinishLoad(-1), Times.Once);
             otherMob.Verify(e => e.FinishLoad(-1), Times.Once);
             Assert.AreSame(realZone, world.Zones[0]);
             string storedFileName = ((Dictionary<int, string>)info.GetValue(world))[0];
@@ -982,20 +988,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [ExpectedException(typeof(Exception))]
         public void World_LoadWorld_ZoneUnableToDeserialize()
         {
-            Mock<IFileIO> fileIO = new Mock<IFileIO>();
-            Mock<ILogger> logger = new Mock<ILogger>();
-            Mock<ISerialization> xmlSerializer = new Mock<ISerialization>();
-            Mock<ISettings> settings = new Mock<ISettings>();
-
-            fileIO.Setup(e => e.GetFilesFromDirectory("zonelocation", "*.zone")).Returns(new string[] { "c:\\zone.zone" });
-            fileIO.Setup(e => e.ReadAllText("c:\\zone.zone")).Returns("serializedZone");
-            xmlSerializer.Setup(e => e.Deserialize<Objects.Zone.Zone>("serializedZone")).Returns<Objects.Zone.Zone>(null);
-            settings.Setup(e => e.ZoneDirectory).Returns("zonelocation");
-
-            GlobalReference.GlobalValues.FileIO = fileIO.Object;
-            GlobalReference.GlobalValues.Logger = logger.Object;
-            GlobalReference.GlobalValues.Serialization = xmlSerializer.Object;
-            GlobalReference.GlobalValues.Settings = settings.Object;
+            serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("serializedZone")).Returns<Objects.Zone.Zone>(null);
 
             try
             {
@@ -1013,24 +1006,12 @@ To see info on how to use a command type MAN and then the COMMAND.";
         {
             world.Zones.Clear();  //clears out the zone added at initialization
 
-            Mock<IFileIO> fileIO = new Mock<IFileIO>();
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-            Mock<ISerialization> serializer = new Mock<ISerialization>();
-            Mock<ISettings> settings = new Mock<ISettings>();
-
-            rooms.Add(0, room.Object);
             zone.Setup(e => e.Name).Returns("zone");
-            zone.Setup(e => e.Rooms).Returns(rooms);
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            room.Setup(e => e.PlayerCharacters).Returns(pcList);
-            pcList.Add(pc.Object);
-            serializer.Setup(e => e.Serialize(zone.Object)).Returns("serializedZone");
+            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
+            serialization.Setup(e => e.Serialize(zone.Object)).Returns("serializedZone");
             world.Zones.Add(0, zone.Object);
             settings.Setup(e => e.ZoneDirectory).Returns("c:\\");
-
-            GlobalReference.GlobalValues.FileIO = fileIO.Object;
-            GlobalReference.GlobalValues.Serialization = serializer.Object;
-            GlobalReference.GlobalValues.Settings = settings.Object;
 
             world.SaveWorld();
 
@@ -1043,30 +1024,18 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_LogOutCharacter_CharacterFound()
         {
-            Mock<ISettings> settings = new Mock<ISettings>();
-            Mock<IFileIO> fileIO = new Mock<IFileIO>();
-            Mock<ISerialization> serializer = new Mock<ISerialization>();
-            List<IMobileObject> riders = new List<IMobileObject>();
-
-            pc.Setup(e => e.Name).Returns("name");
             pc.Setup(e => e.Room).Returns(room.Object);
             pc.Setup(e => e.Mount).Returns(mount.Object);
             room.Setup(e => e.PlayerCharacters).Returns(pcRoomList);
             pcRoomList.Add(pc.Object);
             pcList.Add(pc.Object);
-            settings.Setup(e => e.PlayerCharacterDirectory).Returns("c:\\");
-            serializer.Setup(e => e.Serialize(pc.Object)).Returns("serializedPC");
             loadedMounts.Add(mount.Object);
             riders.Add(pc.Object);
             mount.Setup(e => e.Riders).Returns(riders);
 
-            GlobalReference.GlobalValues.Settings = settings.Object;
-            GlobalReference.GlobalValues.FileIO = fileIO.Object;
-            GlobalReference.GlobalValues.Serialization = serializer.Object;
-
             world.LogOutCharacter(pc.Object);
 
-            fileIO.Verify(e => e.WriteFile("c:\\name.char", "serializedPC"));
+            fileIO.Verify(e => e.WriteFile(@"PlayerCharacterDirectory\test.char", "abc"));
             Assert.AreEqual(0, pcList.Count);
             room.Verify(e => e.RemoveMobileObjectFromRoom(pc.Object));
             Assert.AreEqual(0, riders.Count);
@@ -1076,15 +1045,6 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_CreateCharacter()
         {
-            Mock<ISettings> settings = new Mock<ISettings>();
-            Mock<IMultiClassBonus> multicClassBonus = new Mock<IMultiClassBonus>();
-
-            settings.Setup(e => e.BaseStatValue).Returns(1);
-            settings.Setup(e => e.AssignableStatPoints).Returns(2);
-
-            GlobalReference.GlobalValues.Settings = settings.Object;
-            GlobalReference.GlobalValues.MultiClassBonus = multicClassBonus.Object;
-
             IPlayerCharacter result = world.CreateCharacter("userName", "password");
 
             Assert.AreEqual("userName", result.Name);
@@ -1130,11 +1090,8 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_WriteDismount_MountFound()
         {
-            List<IMobileObject> lmob = new List<IMobileObject>();
-            lmob.Add(npc.Object);
+            riders.Add(npc.Object);
             loadedMounts.Add(mount.Object);
-            mount.Setup(e => e.Riders).Returns(lmob);
-            mount.Setup(e => e.SentenceDescription).Returns("horse");
 
             IResult result = world.Dismount(npc.Object);
 
