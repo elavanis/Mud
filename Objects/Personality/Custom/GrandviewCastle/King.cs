@@ -190,7 +190,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                         npc.EnqueueCommand("Emote eats hasenpfeffer");
                         break;
                     case 3:
-                        npc.EnqueueCommand("Say if I didn't know this was hasenpfeffer I'd swear it was carrots.");
+                        npc.EnqueueCommand("Say If I didn't know this was hasenpfeffer I'd swear it was carrots.");
                         StateMachine = State.ThroneRoom;
                         break;
                 }
@@ -210,7 +210,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 return "West";
             }
 
-            if (npc.Room.Id != 20
+            if (npc.Room.Id != 20 && npc.Room.Zone == 24
                 && npc.Room.PlayerCharacters.Count > 0)
             {
                 int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "kings guard").Count;
@@ -226,14 +226,23 @@ namespace Objects.Personality.Custom.GrandviewCastle
             {
                 if (npc.Room.Id == 22)
                 {
+                    Step = 0;
                     return "North";
                 }
 
-                if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "queen").Count > 0)
+                if (Step % 5 == 0)
                 {
+                    string message = null;
 
+                    while ((message = npc.DequeueMessage()) != null)
+                    {
+                        if (message == "<Communication>Queen says Hello dear.</Communication>")
+                        {
+                            npc.EnqueueCommand("Say Hello my beautify queen.");
+                            break;
+                        }
+                    }
                 }
-
             }
 
 
