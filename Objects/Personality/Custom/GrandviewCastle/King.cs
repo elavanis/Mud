@@ -205,8 +205,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
         {
             if (npc.Room.Id == 20)
             {
-                npc.EnqueueCommand("Say Court is closed for the day. Please leave.");
-                StateMachine = State.GetReadForBed;
+                npc.EnqueueCommand("Say Court is closed for the day. Please come back tomorrow.");
+                StateMachine = State.SpendTimeWithQueen;
                 return "West";
             }
 
@@ -222,8 +222,17 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 }
             }
 
-            if (StateMachine == State.GetReadForBed)
+            if (StateMachine == State.SpendTimeWithQueen)
             {
+                if (npc.Room.Id == 22)
+                {
+                    return "North";
+                }
+
+                if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "queen").Count > 0)
+                {
+
+                }
 
             }
 
@@ -255,6 +264,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             AskedForHasenpfeffer,
             ReceivedHasenpfeffer,
             ReceivedCarrot,
+            SpendTimeWithQueen,
             GetReadForBed,
         }
 
