@@ -37,7 +37,7 @@ namespace Objects.Command.PC
                             strBldr.Append(command.Parameters[i].ParameterValue + " ");
                         }
 
-                        string message = string.Format("{0} tells you -- {1}", performer.KeyWords[0], strBldr.ToString()).Trim();
+                        string message = string.Format("{0} tells you -- {1}", GlobalReference.GlobalValues.StringManipulator.CapitalizeFirstLetter(performer.SentenceDescription), strBldr.ToString()).Trim();
                         GlobalReference.GlobalValues.Notify.Mob(mob, new TranslationMessage(message, TagType.Communication));
 
                         return new Result("", false);

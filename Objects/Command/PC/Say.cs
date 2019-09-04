@@ -21,7 +21,7 @@ namespace Objects.Command.PC
             {
                 string statement = string.Join(" ", command.Parameters.Select(i => i.ParameterValue));
 
-                string message = string.Format("{0} says {1}", performer.SentenceDescription, statement);
+                string message = string.Format("{0} says {1}", GlobalReference.GlobalValues.StringManipulator.CapitalizeFirstLetter(performer.SentenceDescription), statement);
                 ITranslationMessage translationMessage = new TranslationMessage(message, TagType.Communication);
                 GlobalReference.GlobalValues.Notify.Room(performer, null, performer.Room, translationMessage, new List<IMobileObject>() { performer }, false, true);
 
