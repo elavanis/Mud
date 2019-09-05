@@ -12,6 +12,7 @@ using System.Linq;
 using Objects.Global.CanMobDoSomething.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
+using Objects.Global.StringManuplation.Interface;
 
 namespace ObjectsUnitTest.Command.PC
 {
@@ -27,6 +28,8 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IParameter> parameter;
         Mock<INonPlayerCharacter> npc;
         Mock<ICanMobDoSomething> canDoSomething;
+        Mock<IStringManipulator> stringManipulator;
+
         [TestInitialize]
         public void Setup()
         {
@@ -40,6 +43,7 @@ namespace ObjectsUnitTest.Command.PC
             parameter = new Mock<IParameter>();
             npc = new Mock<INonPlayerCharacter>();
             canDoSomething = new Mock<ICanMobDoSomething>();
+            stringManipulator = new Mock<IStringManipulator>();
 
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
             mob.Setup(e => e.Room).Returns(room.Object);
@@ -50,10 +54,12 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { new Mock<IPlayerCharacter>().Object });
             canDoSomething.Setup(e => e.Hear(mob.Object, npc.Object)).Returns(true);
+            stringManipulator.Setup(e => e.CapitalizeFirstLetter("SentenceDescription")).Returns("SentenceDescription");
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.CanMobDoSomething = canDoSomething.Object;
+            GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
 
             command = new Say();
         }

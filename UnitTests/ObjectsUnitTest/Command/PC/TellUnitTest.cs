@@ -13,6 +13,7 @@ using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
 using Objects.Global.FindObjects.Interface;
 using Objects.Room.Interface;
+using Objects.Global.StringManuplation.Interface;
 
 namespace ObjectsUnitTest.Command.PC
 {
@@ -31,6 +32,7 @@ namespace ObjectsUnitTest.Command.PC
         Mock<IParameter> parm1;
         Mock<IParameter> parm2;
         Mock<IParameter> parm3;
+        Mock<IStringManipulator> stringManipulator;
 
         [TestInitialize]
         public void Setup()
@@ -52,20 +54,24 @@ namespace ObjectsUnitTest.Command.PC
             parm1 = new Mock<IParameter>();
             parm2 = new Mock<IParameter>();
             parm3 = new Mock<IParameter>();
+            stringManipulator = new Mock<IStringManipulator>();
 
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "pc")).Returns(new List<INonPlayerCharacter>());
             mob.Setup(e => e.Room).Returns(room.Object);
             mob.Setup(e => e.KeyWords).Returns(new List<string>() { "keyword" });
+            mob.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
             pc.Setup(e => e.KeyWords).Returns(new List<string>());
             world.Setup(e => e.CurrentPlayers).Returns(new List<IPlayerCharacter>() { pc.Object });
             parm1.Setup(e => e.ParameterValue).Returns("pc");
             parm2.Setup(e => e.ParameterValue).Returns("hi");
             parm3.Setup(e => e.ParameterValue).Returns("there");
+            stringManipulator.Setup(e => e.CapitalizeFirstLetter("SentenceDescription")).Returns("SentenceDescription");
 
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.World = world.Object;
+            GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
         }
 
         [TestMethod]
