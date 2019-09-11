@@ -241,10 +241,41 @@ namespace Objects.Personality.Custom.GrandviewCastle
                             npc.EnqueueCommand("Say Hello my beautify queen.");
                             break;
                         }
+                        else if (message == "<Communication>Queen says I wish we could just leave this all behind.</Communication>")
+                        {
+                            npc.EnqueueCommand("Say That sounds nice.  We should take a trip to the country to get away for a while.");
+                            break;
+                        }
+                        else if (message == "<Communication>Queen says A trip to the country sounds great  We can goto the villa.</Communication>")
+                        {
+                            npc.EnqueueCommand("Say Lets plan to do this when the weather gets a little nicer.");
+                            break;
+                        }
+                        else if (message == "<Communication>Queen says Agreed.</Communication>")
+                        {
+                            npc.EnqueueCommand("Say Good night my love.");
+                            break;
+                        }
+                        else if (message == "<Communication>Queen says Goodnight my dear.</Communication>")
+                        {
+                            StateMachine = State.Sleep;
+                            npc.EnqueueCommand("South");
+                            break;
+                        }
                     }
                 }
             }
-
+            else if (StateMachine == State.Sleep)
+            {
+                if (npc.Room.Zone == 24
+                    && npc.Room.Id == 14)
+                {
+                    if (npc.Position != MobileObject.CharacterPosition.Sleep)
+                    {
+                        npc.EnqueueCommand("Sleep");
+                    }
+                }
+            }
 
             return null;
         }
