@@ -9,6 +9,7 @@ using Objects.Room.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Objects.Damage.Damage;
 using static Objects.Item.Items.Equipment;
 using static Objects.Mob.NonPlayerCharacter;
 
@@ -54,8 +55,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             if (hour < 13)
             {
-                return NightTimeThings(npc);
-                //return DayTimeThings(npc);
+                return DayTimeThings(npc);
+                //return NightTimeThings(npc);
             }
             else
             {
@@ -63,7 +64,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
         }
 
-        #region Day Time
         private string DayTimeThings(INonPlayerCharacter npc)
         {
             Step++;
@@ -198,9 +198,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             return null;
         }
-        #endregion Day Time
 
-        #region Night Time
         private string NightTimeThings(INonPlayerCharacter npc)
         {
             if (npc.Room.Id == 20)
@@ -280,20 +278,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
             return null;
         }
 
-
-        private void SummonKingsGuards(int howMany, IRoom room)
-        {
-            for (int i = 0; i < howMany; i++)
-            {
-                INonPlayerCharacter npc = KingsGuard();
-                npc.FinishLoad();
-                room.Enter(npc);
-            }
-        }
-        #endregion Night Time
-
-
-
         private enum State
         {
             Sleep,
@@ -309,6 +293,16 @@ namespace Objects.Personality.Custom.GrandviewCastle
         }
 
         #region Kings Guard
+        private void SummonKingsGuards(int howMany, IRoom room)
+        {
+            for (int i = 0; i < howMany; i++)
+            {
+                INonPlayerCharacter npc = KingsGuard();
+                npc.FinishLoad();
+                room.Enter(npc);
+            }
+        }
+
         private INonPlayerCharacter KingsGuard()
         {
             INonPlayerCharacter npc = new NonPlayerCharacter();
@@ -321,13 +315,16 @@ namespace Objects.Personality.Custom.GrandviewCastle
             npc.KeyWords.Add("kings guard");
             npc.KeyWords.Add("guard");
 
+            npc.AddEquipment(BreastPlate());
+            npc.AddEquipment(Helmet());
+            npc.AddEquipment(Sword());
 
             IWanderer wanderer = new Wanderer();
             wanderer.NavigableRooms.Add(new BaseObjectId(24, 22));
             wanderer.NavigableRooms.Add(new BaseObjectId(24, 23));
             wanderer.NavigableRooms.Add(new BaseObjectId(24, 24));
 
-            //npc.Personalities.Add(new Aggressive());
+            npc.Personalities.Add(new Aggressive());
 
             return npc;
         }
@@ -340,6 +337,16 @@ namespace Objects.Personality.Custom.GrandviewCastle
             armor.LookDescription = "A male lion head is embossed across the front of the breastplate.";
             armor.ExamineDescription = "This piece of armor appears to be made better than normal.";
 
+            return armor;
+        }
+
+        private IArmor Helmet()
+        {
+            IArmor armor = Armor(AvalableItemPosition.Head);
+            armor.KeyWords.Add("helmet");
+            armor.ShortDescription = "A helmet made of gold.";
+            armor.LookDescription = "The helmet is made to make the wearer look like a lion.";
+            armor.ExamineDescription = "This piece of armor appears to be made better than normal.";
 
             return armor;
         }
@@ -353,6 +360,20 @@ namespace Objects.Personality.Custom.GrandviewCastle
             armor.Material = new Gold();
 
             return armor;
+        }
+
+        private IWeapon Sword()
+        {
+            IWeapon weapon = new Weapon();
+            weapon.ItemPosition = AvalableItemPosition.Wield;
+            weapon.Level = 45;
+            weapon.DamageList.Add(new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(weapon.Level + 2)) { Type = DamageType.Slash });
+            weapon.KeyWords.Add("sword");
+            weapon.ShortDescription = "A finely crafted sword that is light and quick.";
+            weapon.LookDescription = "The sword handle has the head of a lion for the pummel.";
+            weapon.ExamineDescription = "This sword to be made better than normal.";
+
+            return weapon;
         }
 
         #endregion Kings Guard
