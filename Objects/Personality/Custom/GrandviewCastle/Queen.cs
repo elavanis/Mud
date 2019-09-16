@@ -20,7 +20,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
         private State StateMachine { get; set; } = State.Sleep;
         private int Step;
         private bool GreetKing { get; set; }
-        private List<string> GreetingForKing = new List<string>() { "Good morning honey.", "Good morning buttercup.", "I hope you slept well.", "Good morning sunshine.", "You look as lovely as the first time I met you.", "Hello my desert lily." };
+        private List<string> GreetingForKing = new List<string>() { "Good morning honey.", "Good morning sweetie.", "Good morning moonbeam.", "Hello my handsome lion." };
 
 
         public string Process(INonPlayerCharacter npc, string command)
@@ -69,6 +69,28 @@ namespace Objects.Personality.Custom.GrandviewCastle
         {
             Step++;
 
+            if (StateMachine == State.Sleep)
+            {
+                switch (Step)
+                {
+                    case 1:
+                        return "Say Make the sun go away.  I officially decree it.  Go away.";
+                    case 5:
+                        return "Emote rolls out of bed.";
+                    case 10:
+                        StateMachine = State.Up;
+                        Step = 0;
+                        return "Stand";
+                }
+            }
+            else if (StateMachine == State.Up)
+            {
+                if (npc.Room.Id == 22)
+                {
+                    return "South";
+                }
+            }
+
             return null;
         }
 
@@ -82,8 +104,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private enum State
         {
-            Sleep
-
+            Sleep,
+            Up
         }
 
 
@@ -170,7 +192,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             return weapon;
         }
-
         #endregion Queens Guard
     }
 }
