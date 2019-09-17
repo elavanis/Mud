@@ -47,7 +47,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             if (!GreetKing && npc.Room.Id == 21)
             {
-                if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "queen").Count > 1)
+                if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "king").Count > 0)
                 {
                     GreetKing = true;
                     return GreetingForKing[GlobalReference.GlobalValues.Random.Next(GreetingForKing.Count)];
@@ -61,7 +61,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             else
             {
-                return NightTimeThings(npc);
+                //return NightTimeThings(npc);
+                return DayTimeThings(npc);
             }
         }
 
@@ -78,16 +79,20 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     case 5:
                         return "Emote rolls out of bed.";
                     case 10:
-                        StateMachine = State.Up;
-                        Step = 0;
                         return "Stand";
+                    case 12:
+                        return "Emote drinks coffee.";
+                    case 14:
+                        StateMachine = State.Up;
+                        return "Say Much better.";
                 }
             }
             else if (StateMachine == State.Up)
             {
-                if (npc.Room.Id == 22)
+                if (npc.Room.Zone == 24
+                    && npc.Room.Id == 22)
                 {
-                    return "South";
+                    return "East";
                 }
             }
 
@@ -96,8 +101,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private string NightTimeThings(INonPlayerCharacter npc)
         {
-
-
             return null;
         }
 

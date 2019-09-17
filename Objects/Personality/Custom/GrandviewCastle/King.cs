@@ -46,7 +46,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             if (!GreetQueen && npc.Room.Id == 21)
             {
-                if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "queen").Count > 1)
+                if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "queen").Count > 0)
                 {
                     GreetQueen = true;
                     return GreetingForQueen[GlobalReference.GlobalValues.Random.Next(GreetingForQueen.Count)];
@@ -66,7 +66,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private string DayTimeThings(INonPlayerCharacter npc)
         {
-            Step++;
+           Step++;
 
             if (StateMachine == State.Sleep)
             {

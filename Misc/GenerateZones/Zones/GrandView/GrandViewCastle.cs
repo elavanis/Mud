@@ -359,6 +359,7 @@ namespace GenerateZones.Zones.GrandView
 
             room.AddItemToRoom(Bed());
             room.AddMobileObjectToRoom(King());
+            room.AddMobileObjectToRoom(Queen());
 
             return room;
         }
@@ -521,6 +522,20 @@ namespace GenerateZones.Zones.GrandView
             npc.KeyWords.Add("king");
 
             npc.Personalities.Add(new King());
+
+            return npc;
+        }
+
+        private INonPlayerCharacter Queen()
+        {
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 28);
+            npc.ShortDescription = "The queen.";
+            npc.LookDescription = "Dressed in a navy blue dress and goes about her day.";
+            npc.ExamineDescription = "The queen is still young and beautiful.";
+            npc.SentenceDescription = "queen";
+            npc.KeyWords.Add("queen");
+
+            npc.Personalities.Add(new Queen());
 
             return npc;
         }
