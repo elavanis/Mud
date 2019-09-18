@@ -244,7 +244,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     {
                         if (message == "<Communication>Queen says Hello dear.</Communication>")
                         {
-                            return "Say Hello my beautify queen.");
+                            return "Say Hello my beautify queen.";
                         }
                         else if (message == "<Communication>Queen says I wish we could just leave this all behind.</Communication>")
                         {
