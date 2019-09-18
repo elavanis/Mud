@@ -66,7 +66,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private string DayTimeThings(INonPlayerCharacter npc)
         {
-           Step++;
+            Step++;
 
             if (StateMachine == State.Sleep)
             {
@@ -130,7 +130,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     string message = null;
                     while ((message = npc.DequeueMessage()) != null)
                     {
-                        if (message == "<Communication>kings servant says Your Honorable Majestic Majesty Graciousness, what would you like to eat?</Communication>")
+                        if (message == "<Communication>Kings servant says Your Honorable Majestic Majesty Graciousness, what would you like to eat?</Communication>")
                         {
                             foundAskedForWhat = true;
                             break;
@@ -152,13 +152,13 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 string message = null;
                 while ((message = npc.DequeueMessage()) != null)
                 {
-                    if (message == "<Communication>kings servant says Bon appetit Most Gracious Majesty.</Communication>")
+                    if (message == "<Communication>Kings servant says Bon appetit Most Gracious Majesty.</Communication>")
                     {
                         StateMachine = State.ReceivedHasenpfeffer;
                         Step = 0;
                         break;
                     }
-                    else if (message == "<Communication>kings servant says Your hasenpfeffer Your Magisty.</Communication>")
+                    else if (message == "<Communication>Kings servant says Your hasenpfeffer Your Magisty.</Communication>")
                     {
                         StateMachine = State.ReceivedCarrot;
                         Step = 0;
@@ -208,15 +208,23 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 return "West";
             }
 
-            if (npc.Room.Id != 20 && npc.Room.Zone == 24
-                && npc.Room.PlayerCharacters.Count > 0)
+            if (npc.Room.Id != 20 && npc.Room.Zone == 24)
             {
-                int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "kings guard").Count;
-                if (howManyKingsGuards < 4)
+                if (npc.Room.PlayerCharacters.Count > 0)
                 {
-                    npc.EnqueueCommand("Say GUARDS!");
-                    SummonKingsGuards(4 - howManyKingsGuards, npc.Room);
-                    return null;
+                    foreach (IPlayerCharacter pc in npc.Room.PlayerCharacters)
+                    {
+                        if (GlobalReference.GlobalValues.CanMobDoSomething.SeeObject(npc, pc))
+                        {
+                            int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "kings guard").Count;
+                            if (howManyKingsGuards < 4)
+                            {
+                                npc.EnqueueCommand("Say GUARDS!");
+                                SummonKingsGuards(4 - howManyKingsGuards, npc.Room);
+                                return null;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -236,29 +244,24 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     {
                         if (message == "<Communication>Queen says Hello dear.</Communication>")
                         {
-                            npc.EnqueueCommand("Say Hello my beautify queen.");
-                            break;
+                            return "Say Hello my beautify queen.");
                         }
                         else if (message == "<Communication>Queen says I wish we could just leave this all behind.</Communication>")
                         {
-                            npc.EnqueueCommand("Say That sounds nice.  We should take a trip to the country to get away for a while.");
-                            break;
+                            return "Say That sounds nice.  We should take a trip to the country to get away for a while.";
                         }
                         else if (message == "<Communication>Queen says A trip to the country sounds great  We can goto the villa.</Communication>")
                         {
-                            npc.EnqueueCommand("Say Lets plan to do this when the weather gets a little nicer.");
-                            break;
+                            return "Say Lets plan to do this when the weather gets a little nicer.";
                         }
                         else if (message == "<Communication>Queen says Agreed.</Communication>")
                         {
-                            npc.EnqueueCommand("Say Good night my love.");
-                            break;
+                            return "Say Good night my love.";
                         }
                         else if (message == "<Communication>Queen says Goodnight my dear.</Communication>")
                         {
                             StateMachine = State.Sleep;
-                            npc.EnqueueCommand("South");
-                            break;
+                            return "South";
                         }
                     }
                 }

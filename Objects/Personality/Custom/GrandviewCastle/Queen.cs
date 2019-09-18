@@ -56,13 +56,12 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             if (hour < 13)
             {
-                return DayTimeThings(npc);
-                //return NightTimeThings(npc);
+                //return DayTimeThings(npc);
+                return NightTimeThings(npc);
             }
             else
             {
-                //return NightTimeThings(npc);
-                return DayTimeThings(npc);
+                return NightTimeThings(npc);
             }
         }
 
@@ -101,6 +100,142 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private string NightTimeThings(INonPlayerCharacter npc)
         {
+            if (npc.Room.Id == 20)
+            {
+                string message = null;
+                StateMachine = State.GotoBalcony;
+
+                while ((message = npc.DequeueMessage()) != null)
+                {
+                    if (message == "<Communication>King says Court is closed for the day. Please come back tomorrow.</Communication>")
+                    {
+                        npc.EnqueueCommand("Say Its about time.");
+                        return "West";
+                    }
+                }
+
+                if (GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour == 14)
+                {
+                    npc.EnqueueCommand("Say Court is closed for the day. Please come back tomorrow.");
+                    return "West";
+                }
+            }
+
+            if (StateMachine == State.GotoBalcony)
+            {
+                if (npc.Room.Zone == 24
+                    && npc.Room.Id == 22)
+                {
+                    Step = 0;
+                    return "North";
+                }
+
+                if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "King").Count > 0)
+                {
+                    StateMachine = State.SpendTimeWithKing;
+                    Step = 0;
+                    return "Say Hello dear.";
+                }
+            }
+            else if (StateMachine == State.SpendTimeWithKing)
+            {
+                if (Step % 5 == 0)
+                {
+                    string message = null;
+
+
+                    while ((message = npc.DequeueMessage()) != null)
+                    {
+                        if (message == "<Communication>King says Hello my beautify queen.</Communication>")
+                        {
+                            return "Say I wish we could just leave this all behind.";
+                        }
+                        else if (message == "<Communication>King says That sounds nice.  We should take a trip to the country to get away for a while.</Communication>")
+                        {
+                            return "Say A trip to the country sounds great  We can goto the villa.";
+                        }
+                        else if (message == "<Communication>King says Lets plan to do this when the weather gets a little nicer.</Communication>")
+                        {
+                            return "Say Agreed";
+                        }
+                        else if (message == "<Communication>King says Good night my love.</Communication>")
+                        {
+                            StateMachine = State.Bath;
+                            Step = 0;
+                            return "Say Goodnight my dear.";
+                        }
+                    }
+                }
+            }
+            else if (StateMachine == State.Bath)
+            {
+                if (npc.Room.Zone == 24
+                    && npc.Room.Id == 23)
+                {
+                    return "South";
+                }
+                else if (npc.Room.Zone == 24
+                    && npc.Room.Id == 22)
+                {
+                    return "South";
+                }
+                else if (npc.Room.Zone == 24
+                    && npc.Room.Id == 24)
+                {
+                    if (Step % 5 == 0)
+                    {
+                        StateMachine = State.Undress;
+                        Step = 0;
+                        npc.LookDescription = "The queens hair falls gently down the back of her naked figure.";
+                        return "Emote removes her dress.";
+                    }
+                }
+            }
+            else if (StateMachine == State.Undress)
+            {
+                if (Step % 5 == 0)
+                {
+                    StateMachine = State.InTub;
+                    npc.LookDescription = "The queen relaxes in the tub almost floating with only her head above the water.";
+
+                    return "Emote climbs into bath tub.";
+                }
+
+                if (GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour == 20)
+                {
+                    StateMachine = State.GetDress;
+                    Step = 0;
+                    npc.LookDescription = "The queens hair falls gently down the back of her naked figure.";
+                    return "Emote slowly rises out of the tub.";
+                }
+            }
+            else if (StateMachine == State.GetDress)
+            {
+                if (Step % 5 == 0)
+                {
+                    StateMachine = State.GotoSleep;
+                    npc.LookDescription = "The is dressed in her white sleep gown.";
+
+                    return "Emote puts on her night gown.";
+                }
+            }
+            else if (StateMachine == State.GotoSleep)
+            {
+                if (Step % 5 == 0)
+                {
+                    if (npc.Room.Zone == 24
+                    && npc.Room.Id == 24)
+                    {
+                        return "North";
+                    }
+                    else if (npc.Room.Zone == 24
+                    && npc.Room.Id == 22)
+                    {
+                        return "Sleep";
+                    }
+                }
+            }
+
             return null;
         }
 
@@ -108,7 +243,14 @@ namespace Objects.Personality.Custom.GrandviewCastle
         private enum State
         {
             Sleep,
-            Up
+            Up,
+            GotoBalcony,
+            SpendTimeWithKing,
+            Bath,
+            Undress,
+            InTub,
+            GetDress,
+            GotoSleep
         }
 
 
