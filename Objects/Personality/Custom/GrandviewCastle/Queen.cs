@@ -56,8 +56,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             if (hour < 13)
             {
-                //return DayTimeThings(npc);
-                return NightTimeThings(npc);
+                return DayTimeThings(npc);
+                //return NightTimeThings(npc);
             }
             else
             {
