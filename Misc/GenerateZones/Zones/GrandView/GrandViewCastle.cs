@@ -385,8 +385,6 @@ namespace GenerateZones.Zones.GrandView
 
             return room;
         }
-
-
         #endregion Rooms
 
         #region NPC
