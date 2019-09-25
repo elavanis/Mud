@@ -11,6 +11,8 @@ using Objects.Room.Interface;
 using Objects.Zone;
 using Objects.Zone.Interface;
 using System;
+using System.Linq;
+using System.Reflection;
 using static Objects.Item.Items.Equipment;
 using static Objects.Item.Items.Weapon;
 using static Objects.Mob.NonPlayerCharacter;
@@ -29,6 +31,22 @@ namespace GenerateZones.Zones
         {
             Zone = new Zone();
             Zone.Id = zoneId;
+        }
+
+        public void BuildRoomsViaReflection(Type type)
+        {
+            int methodCount = type.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
+            for (int i = 1; i <= methodCount; i++)
+            {
+                string methodName = "GenerateRoom" + i;
+                MethodInfo method = type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+                if (method != null)
+                {
+                    IRoom room = (IRoom)method.Invoke(this, null);
+                    room.Zone = Zone.Id;
+                    ZoneHelper.AddRoom(Zone, room);
+                }
+            }
         }
 
         #region NPC
