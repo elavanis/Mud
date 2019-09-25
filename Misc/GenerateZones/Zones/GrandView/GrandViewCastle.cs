@@ -504,7 +504,7 @@ namespace GenerateZones.Zones.GrandView
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 28);
             npc.ShortDescription = "The king.";
             npc.LookDescription = "Dressed in a dark red cloak and goes about his day.";
-            npc.ExamineDescription = "The king is still young but getting some gray in his beard.";
+            npc.ExamineDescription = "The king is still young but is getting some gray in his beard.";
             npc.SentenceDescription = "king";
             npc.KeyWords.Add("king");
 
