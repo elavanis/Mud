@@ -22,18 +22,7 @@ namespace GenerateZones.Zones.GrandView
         {
             Zone.Name = nameof(CharonTemple);
 
-            int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
-            for (int i = 1; i <= methodCount; i++)
-            {
-                string methodName = "GenerateRoom" + i;
-                MethodInfo method = this.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
-                if (method != null)
-                {
-                    IRoom room = (IRoom)method.Invoke(this, null);
-                    room.Zone = Zone.Id;
-                    ZoneHelper.AddRoom(Zone, room);
-                }
-            }
+            BuildRoomsViaReflection(this.GetType());
 
             ConnectRooms();
 

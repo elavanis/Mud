@@ -71,7 +71,6 @@ namespace GenerateZones.Zones.DeepWoodForest
                 {
                     room = GoldMineFloorConnectingTunnel();
                 }
-
                 else
                 {
                     string methodName = "GenerateRoom" + i;
@@ -81,6 +80,7 @@ namespace GenerateZones.Zones.DeepWoodForest
                         room = (IRoom)method.Invoke(this, null);
                     }
                 }
+
                 if (room != null)
                 {
                     room.Zone = Zone.Id;
