@@ -20,6 +20,17 @@ namespace GenerateZones
     {
         public static void Main(string[] args)
         {
+
+            GenerateZones();
+
+            //for (int i = 100; i < 1000; i++)
+            //{
+            //    SaveZone(world, MassZone(i));
+            //}
+        }
+
+        public static List<IZone> GenerateZones()
+        {
             List<IZone> compiledZones = new List<IZone>();
             GlobalReference.GlobalValues.Initilize();
             GlobalReference.GlobalValues.Settings.ZoneDirectory = @"C:\Mud\World";
@@ -73,11 +84,7 @@ namespace GenerateZones
                 }
             }
 
-
-            //for (int i = 100; i < 1000; i++)
-            //{
-            //    SaveZone(world, MassZone(i));
-            //}
+            return compiledZones;
         }
 
         private static IZone MassZone(int i)

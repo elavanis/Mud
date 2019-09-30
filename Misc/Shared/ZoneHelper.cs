@@ -6,7 +6,7 @@ using Objects.Zone.Interface;
 using System;
 using static Objects.Global.Direction.Directions;
 
-namespace GenerateZones
+namespace MiscShared
 {
     public static class ZoneHelper
     {

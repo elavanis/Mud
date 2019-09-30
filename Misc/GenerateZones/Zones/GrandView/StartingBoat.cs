@@ -1,4 +1,5 @@
-﻿using Objects.Damage.Interface;
+﻿using MiscShared;
+using Objects.Damage.Interface;
 using Objects.Die;
 using Objects.Effect;
 using Objects.Language;

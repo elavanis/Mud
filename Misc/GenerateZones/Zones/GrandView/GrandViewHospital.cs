@@ -27,6 +27,7 @@ using Objects.Language.Interface;
 using static Shared.TagWrapper.TagWrapper;
 using static Objects.Mob.NonPlayerCharacter;
 using static Objects.Item.Items.Weapon;
+using MiscShared;
 
 namespace GenerateZones.Zones.GrandView
 {

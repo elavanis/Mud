@@ -23,6 +23,7 @@ using static Objects.Item.Items.Equipment;
 using static Objects.Item.Items.Weapon;
 using static Objects.Mob.NonPlayerCharacter;
 using static Objects.Room.Room;
+using MiscShared;
 
 namespace GenerateZones.Zones.GrandView
 {

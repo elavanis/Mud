@@ -1,4 +1,4 @@
-﻿namespace GenerateZones
+﻿namespace MiscShared
 {
     public class DoorInfo
     {

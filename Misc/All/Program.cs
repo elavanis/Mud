@@ -1,4 +1,6 @@
 ﻿using Objects.Global;
+using Objects.Zone.Interface;
+using System.Collections.Generic;
 
 namespace All
 {
@@ -8,10 +10,14 @@ namespace All
         {
             GlobalReference.GlobalValues.Initilize();
 
-            GenerateZones.Program.Main(null);
+            //List<IZone> zones = GenerateZones.Program.GenerateZones();
 
-            GlobalReference.GlobalValues.Settings.AssetsDirectory = @"C:\Mud\Assets";
-            GenerateZoneMaps.Program.Main(null);
+            List<IZone> zones = new List<IZone>();
+            Maze.Maze maze = new Maze.Maze();
+            maze.Generate(10, 10, 50, 2);
+            zones.Add(maze.ConvertToZone(-2));
+
+            GenerateZoneMaps.Program.GenerateMaps(zones);
         }
     }
 }

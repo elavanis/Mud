@@ -16,6 +16,7 @@ using static Objects.Mob.NonPlayerCharacter;
 using static Objects.Item.Items.Weapon;
 using static Objects.Item.Items.Equipment;
 using Objects.Damage.Interface;
+using MiscShared;
 
 namespace GenerateZones.Zones
 {

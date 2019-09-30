@@ -15,10 +15,9 @@ namespace GenerateZoneMaps
     {
         public static void Main(string[] args)
         {
-            GlobalReference.GlobalValues.Initilize();
+            List<IZone> generatedZones = new List<IZone>();
 
-            GlobalReference.GlobalValues.Settings.AssetsDirectory = @"C:\Mud\Assets";
-            Directory.CreateDirectory(Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps"));
+            GlobalReference.GlobalValues.Initilize();
 
             Type zoneCodeInterface = typeof(IZoneCode);
             IEnumerable<Type> zones = Assembly.GetAssembly(typeof(IZoneCode)).GetTypes().Where(e => zoneCodeInterface.IsAssignableFrom(e) && e.IsClass);
@@ -28,6 +27,18 @@ namespace GenerateZoneMaps
                 IZoneCode zoneCode = (IZoneCode)Activator.CreateInstance(type);
                 IZone zone = zoneCode.Generate();
 
+                generatedZones.Add(zone);
+            }
+
+        }
+
+        public static void GenerateMaps(List<IZone> zones)
+        {
+            GlobalReference.GlobalValues.Settings.AssetsDirectory = @"C:\Mud\Assets";
+            Directory.CreateDirectory(Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps"));
+
+            foreach (IZone zone in zones)
+            {
                 if (zone.Rooms.Count > 0)
                 {
                     if (!ManualZones(zone))

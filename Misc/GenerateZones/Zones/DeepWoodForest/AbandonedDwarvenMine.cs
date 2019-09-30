@@ -17,6 +17,7 @@ using Objects.Effect;
 using Objects.Language;
 using static Objects.Mob.NonPlayerCharacter;
 using static Objects.Item.Items.Weapon;
+using MiscShared;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {

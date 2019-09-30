@@ -10,6 +10,7 @@ using static Objects.Global.Direction.Directions;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
 using static Objects.Mob.NonPlayerCharacter;
+using MiscShared;
 
 namespace GenerateZones.Zones
 {

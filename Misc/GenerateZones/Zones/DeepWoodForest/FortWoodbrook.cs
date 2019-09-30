@@ -21,6 +21,7 @@ using Objects.Interface;
 using Objects.LoadPercentage;
 using static Objects.Mob.NonPlayerCharacter;
 using static Objects.Item.Items.Weapon;
+using MiscShared;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {

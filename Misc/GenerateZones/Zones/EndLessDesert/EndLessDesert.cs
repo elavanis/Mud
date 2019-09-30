@@ -1,4 +1,5 @@
-﻿using Objects.Effect.Zone.EndlessDesert;
+﻿using MiscShared;
+using Objects.Effect.Zone.EndlessDesert;
 using Objects.Magic.Enchantment;
 using Objects.Magic.Interface;
 using Objects.Room.Interface;

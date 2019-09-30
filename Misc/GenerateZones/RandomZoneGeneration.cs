@@ -8,6 +8,7 @@ using Objects.Room.Interface;
 using static Objects.Global.Direction.Directions;
 using Objects.Zone;
 using Objects.Room;
+using MiscShared;
 
 namespace GenerateZones
 {
