@@ -6,7 +6,7 @@
   "AssetsDirectory": "C:\\Mud\\Assets",
   "VaultDirectory": "C:\\Mud\\Vaults",
   "BugDirectory": "C:\\Mud\\Bugs",
-  "LogStats": true,
+  "LogStats": false,
   "LogStatsLocation": "C:\\Mud\\Stats",
   "Port": 52475,
   "SendMapPosition": true,
