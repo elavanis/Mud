@@ -1030,7 +1030,7 @@ namespace Objects.Mob
         public IMobileObject PossingMob { get; set; }
 
         /// <summary>
-        /// This is the mob that this mob is currently possesing.
+        /// This is the mob that this mob is currently possessing.
         /// </summary>
         public IMobileObject PossedMob { get; set; }
 

@@ -8,6 +8,10 @@ namespace Shared.FileIO
 {
     public class FileIO : IFileIO
     {
+        private object padLock = new object();
+        private Dictionary<string, string> fileText = new Dictionary<string, string>();
+        private Dictionary<string, string> base64 = new Dictionary<string, string>();
+
         [ExcludeFromCodeCoverage]
         public void EnsureDirectoryExists(string directory)
         {
@@ -42,9 +46,27 @@ namespace Shared.FileIO
         }
 
         [ExcludeFromCodeCoverage]
-        public string ReadAllText(string fileName)
+        public string ReadAllText(string fileName, bool useCache = true)
         {
-            return File.ReadAllText(fileName);
+            if (!useCache)
+            {
+                return File.ReadAllText(fileName);
+            }
+            else
+            {
+                lock (padLock)
+                {
+                    string file = null;
+                    //if the file is not in the cache the read the contents and add it
+                    if (!fileText.TryGetValue(fileName, out file))
+                    {
+                        file = File.ReadAllText(fileName);
+                        fileText.Add(fileName, file);
+                    }
+
+                    return file;
+                }
+            }
         }
 
         [ExcludeFromCodeCoverage]
@@ -66,10 +88,29 @@ namespace Shared.FileIO
         }
 
         [ExcludeFromCodeCoverage]
-        public string ReadFileBase64(string fileName)
+        public string ReadFileBase64(string fileName, bool useCache = true)
         {
-            byte[] bytes = ReadBytes(fileName);
-            return Convert.ToBase64String(bytes);
+            if (!useCache)
+            {
+                byte[] bytes = ReadBytes(fileName);
+                return Convert.ToBase64String(bytes);
+            }
+            else
+            {
+                lock (padLock)
+                {
+                    string file = null;
+                    //if the file is not in the cache the read the contents and add it
+                    if (!base64.TryGetValue(fileName, out file))
+                    {
+                        byte[] bytes = ReadBytes(fileName);
+                        file = Convert.ToBase64String(bytes);
+                        base64.Add(fileName, file);
+                    }
+
+                    return file;
+                }
+            }
         }
 
         [ExcludeFromCodeCoverage]
@@ -90,6 +131,12 @@ namespace Shared.FileIO
         public void Delete(string file)
         {
             File.Delete(file);
+        }
+
+        [ExcludeFromCodeCoverage]
+        public void FlushCache()
+        {
+
         }
     }
 }

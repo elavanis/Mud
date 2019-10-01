@@ -173,11 +173,11 @@ namespace ObjectsUnitTest.World
             exit.Setup(e => e.Zone).Returns(1);
             exit.Setup(e => e.Room).Returns(2);
             fileIO.Setup(e => e.Exists(@"LogStatsLocation\00010101\Stats.stat")).Returns(true);
-            fileIO.Setup(e => e.ReadAllText(@"LogStatsLocation\00010101\Stats.stat")).Returns("serial");
+            fileIO.Setup(e => e.ReadAllText(@"LogStatsLocation\00010101\Stats.stat", true)).Returns("serial");
             fileIO.Setup(e => e.GetFilesFromDirectory("PlayerCharacterDirectory")).Returns(new string[] { "c:\\test.char" });
-            fileIO.Setup(e => e.ReadAllText("c:\\test.char")).Returns("serializedPlayer");
+            fileIO.Setup(e => e.ReadAllText("c:\\test.char", true)).Returns("serializedPlayer");
             fileIO.Setup(e => e.GetFilesFromDirectory("ZoneDirectory", "*.zone")).Returns(new string[] { "c:\\zone.zone" });
-            fileIO.Setup(e => e.ReadAllText("c:\\zone.zone")).Returns("serializedZone");
+            fileIO.Setup(e => e.ReadAllText("c:\\zone.zone", true)).Returns("serializedZone");
 
             globalValues.Setup(e => e.TickCounter).Returns(0);
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);

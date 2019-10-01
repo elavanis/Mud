@@ -182,8 +182,8 @@ namespace Maze
                         break;
                 }
             }
-            //catch the expection that will occur when the maze ends (goes out of bounds)
-            catch (Exception ex)
+            //catch the exception that will occur when the maze ends (goes out of bounds)
+            catch
             {
                 mazeEnds = true;
             }

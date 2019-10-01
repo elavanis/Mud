@@ -8,9 +8,9 @@ namespace Shared.FileIO.Interface
 
         void AppendFile(string fileName, string line);
 
-        string ReadAllText(string fileName);
+        string ReadAllText(string fileName, bool useCache = true);
 
-        string ReadFileBase64(string fileName);
+        string ReadFileBase64(string fileName, bool useCache = true);
 
         bool Exists(string fileName);
 
@@ -27,6 +27,10 @@ namespace Shared.FileIO.Interface
         string[] GetFilesFromDirectory(string zoneLocation, string filter);
 
         byte[] ReadBytes(string fileName);
+
         void Delete(string file);
+
+        void FlushCache();
+
     }
 }

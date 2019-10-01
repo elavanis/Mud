@@ -26,12 +26,24 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = OutdoorRoom();
 
-            room.ExamineDescription = "Tapestries of every color adore the bazaar here.  The one on the right might be look good in your house.  Further in the back you can see the seamstresses work.";
-            room.LookDescription = "Colorful tapestries and other cloth materials hang on display all around you.";
-            room.ShortDescription = "Bazaar";
+            room.ExamineDescription = "Dirt from above still occasionally falls down and one day may fill the tunnel.";
+            room.LookDescription = "The tunnel was originally part of an underground sink hole network.";
+            room.ShortDescription = "Underground cavern";
 
             return room;
         }
+
+        private IRoom GenerateRoom2()
+        {
+            IRoom room = OutdoorRoom();
+
+            room.ExamineDescription = "Dirt from above still occasionally falls down and one day may fill the tunnel.";
+            room.LookDescription = "The tunnel was originally part of an underground sink hole network.  ";
+            room.ShortDescription = "Underground cavern";
+
+            return room;
+        }
+
         #endregion Rooms
     }
 }
