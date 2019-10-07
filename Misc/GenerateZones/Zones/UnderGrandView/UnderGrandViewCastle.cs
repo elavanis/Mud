@@ -54,7 +54,7 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = OutdoorRoom();
 
-            room.ExamineDescription = "The tunnel to the west appears to be natural or not finished while the tunnel to the east is lined with bricks";
+            room.ExamineDescription = "The tunnel to the west appears to be natural or not finished while the tunnel to the east is lined with bricks.";
             room.LookDescription = "This point in the tunnel transitions between a rough natural tunnel and a brick lined tunnel with torches.";
             room.ShortDescription = "Underground cavern";
 

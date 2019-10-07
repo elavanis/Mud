@@ -5,16 +5,16 @@ using Objects.Zone.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
-namespace Maze
+namespace SharedRandomZones
 {
-    public class Maze
+    public abstract class RandomZone
     {
-        Random random;
-        private Room[,] rooms = null;
-        private Position beginPos = null;
-        private Position endPos = null;
-        public void Generate(int x, int y, int fillPercent = 100, int randomSeed = -1)
+        protected Random random;
+        protected Room[,] rooms = null;
+
+        protected void Initilize(int x, int y, int randomSeed)
         {
             if (randomSeed != -1)
             {
@@ -27,16 +27,6 @@ namespace Maze
 
             rooms = new Room[x, y];
 
-            List<Position> path = CreateMazePath(rooms);
-            beginPos = path[0];
-            endPos = path[path.Count - 1];
-
-            BuildRestOfRooms(rooms, fillPercent);
-
-            //foreach (var item in rooms)
-            //{
-            //    Console.WriteLine(item);
-            //}
         }
 
         public IZone ConvertToZone(int zoneId)
@@ -96,7 +86,6 @@ namespace Maze
 
             return zone;
         }
-
 
         public bool OpenDoor(int x, int y, Directions.Direction direction)
         {
@@ -200,7 +189,7 @@ namespace Maze
         }
 
 
-        private List<Position> CreateMazePath(Room[,] rooms)
+        protected List<Position> CreateMazePath(Room[,] rooms)
         {
             List<Position> path = new List<Position>();
             int totalRooms = rooms.GetLength(0) * rooms.GetLength(1);
@@ -399,7 +388,7 @@ namespace Maze
             return result;
         }
 
-        private void BuildRestOfRooms(Room[,] rooms, int fillPercent)
+        protected void BuildRestOfRooms(Room[,] rooms, int fillPercent)
         {
             List<Position> listOfAvaibleRoomsToOpenDoors = new List<Position>();
             for (int x = 0; x < rooms.GetLength(0); x++)
@@ -469,7 +458,7 @@ namespace Maze
             }
         }
 
-        private class Position
+        protected class Position
         {
             public int X { get; set; }
             public int Y { get; set; }
