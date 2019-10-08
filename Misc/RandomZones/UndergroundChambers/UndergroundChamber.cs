@@ -17,8 +17,38 @@ namespace UndergroundChambers
 
             BuildRooms(lChambers);
 
+            ConnectChambers(lChambers);
 
             ConnectRooms();
+        }
+
+        private void ConnectChambers(List<Chamber> lChambers)
+        {
+            List<Chamber> unconnectedChambers = new List<Chamber>(lChambers);
+
+            while (unconnectedChambers.Count > 0)
+            {
+                Chamber start = GetRandomChamber(unconnectedChambers, lChambers);
+                Chamber end = GetRandomChamber(unconnectedChambers, lChambers);
+
+
+            }
+        }
+
+        private Chamber GetRandomChamber(List<Chamber> unconnectedChambers, List<Chamber> lChambers)
+        {
+            Chamber chamber;
+            if (unconnectedChambers.Count > 0)
+            {
+                chamber = unconnectedChambers[random.Next(unconnectedChambers.Count)];
+                unconnectedChambers.Remove(chamber);
+            }
+            else
+            {
+                chamber = lChambers[random.Next(lChambers.Count)];
+            }
+
+            return chamber;
         }
 
         private void ConnectRooms()
