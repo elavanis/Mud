@@ -11,7 +11,7 @@ namespace SharedRandomZones
         private bool East = false;
         private bool West = false;
 
-        internal void Open(Directions.Direction direction)
+        public void Open(Directions.Direction direction)
         {
             bool openClose = true;
             OpenClose(direction, openClose);
