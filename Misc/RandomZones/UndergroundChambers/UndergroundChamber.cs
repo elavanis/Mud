@@ -31,7 +31,42 @@ namespace UndergroundChambers
                 Chamber start = GetRandomChamber(unconnectedChambers, lChambers);
                 Chamber end = GetRandomChamber(unconnectedChambers, lChambers);
 
+                int diffX = end.X - start.X;
+                int diffY = end.Y - start.Y;
 
+                bool northSouthFirst = random.Next(2) == 1;
+                if (northSouthFirst)
+                {
+                    GoNorthSouth(start.Y, end.Y, start.X);
+                    GoEastWest(start.X, end.X, end.Y);
+                }
+                else
+                {
+                    GoEastWest(start.X, end.X, start.Y);
+                    GoNorthSouth(start.Y, end.Y, end.X);
+                }
+            }
+        }
+
+        private void GoNorthSouth(int startY, int endY, int xPos)
+        {
+            for (int y = startY; y <= endY; y++)
+            {
+                if (rooms[xPos, y] == null)
+                {
+                    rooms[xPos, y] = new Room();
+                }
+            }
+        }
+
+        private void GoEastWest(int startX, int endX, int yPos)
+        {
+            for (int x = startX; x <= endX; x++)
+            {
+                if (rooms[x, yPos] == null)
+                {
+                    rooms[x, yPos] = new Room();
+                }
             }
         }
 
