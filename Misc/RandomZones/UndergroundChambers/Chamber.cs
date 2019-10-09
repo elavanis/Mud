@@ -48,7 +48,7 @@ namespace UndergroundChambers
             {
                 for (int yPos = yStart; yPos < (yStart + sizeY + 2); yPos++)
                 {
-                    if (xPos == xStart || xPos == (xStart + sizeX + 2)
+                    if (xPos == xStart || xPos == (xStart + sizeX + 1)
                         || yPos == yStart || yPos == (yStart + sizeY + 1))
                     {
                         Buffer.Add($"{xPos},{yPos}");
