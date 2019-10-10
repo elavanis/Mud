@@ -15,7 +15,7 @@ namespace All
 
             List<IZone> zones = new List<IZone>();
             UndergroundChamber undergroundChamber = new UndergroundChamber();
-            undergroundChamber.Generate(10, 10, 3, 2);
+            undergroundChamber.Generate(100, 100, 300, 2);
             zones.Add(undergroundChamber.ConvertToZone(-2));
 
             GenerateZoneMaps.Program.GenerateMaps(zones);

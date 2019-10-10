@@ -26,10 +26,11 @@ namespace UndergroundChambers
         {
             List<Chamber> unconnectedChambers = new List<Chamber>(lChambers);
 
+            Chamber end = GetRandomChamber(unconnectedChambers, lChambers, null, false);
+
             while (unconnectedChambers.Count > 0)
             {
-                Chamber start = GetRandomChamber(unconnectedChambers, lChambers, null);
-                Chamber end = GetRandomChamber(unconnectedChambers, lChambers, start);
+                Chamber start = GetRandomChamber(unconnectedChambers, lChambers, end, true);
 
                 int diffX = end.X - start.X;
                 int diffY = end.Y - start.Y;
@@ -37,57 +38,86 @@ namespace UndergroundChambers
                 bool northSouthFirst = random.Next(2) == 1;
                 if (northSouthFirst)
                 {
-                    GoNorthSouth(start.Y, end.Y, start.X);
-                    GoEastWest(start.X, end.X, end.Y);
+                    bool connected = GoNorthSouth(start, end, start.X);
+
+                    if (!connected)
+                    {
+                        GoEastWest(start, end, end.Y);
+                    }
                 }
                 else
                 {
-                    GoEastWest(start.X, end.X, start.Y);
-                    GoNorthSouth(start.Y, end.Y, end.X);
+                    bool connected = GoEastWest(start, end, start.Y);
+
+                    if (!connected)
+                    {
+                        GoNorthSouth(start, end, end.X);
+                    }
                 }
             }
         }
 
-        private void GoNorthSouth(int startY, int endY, int xPos)
+        private bool GoNorthSouth(Chamber start, Chamber end, int xPos)
         {
-            int changeValue = startY - endY > 0 ? -1 : 1;
-            int yPos = startY;
+            int changeValue = start.Y - end.Y > 0 ? -1 : 1;
+            int yPos = start.Y;
 
-            while (yPos != endY)
+            while (yPos != end.Y)
             {
                 if (rooms[xPos, yPos] == null)
                 {
                     rooms[xPos, yPos] = new Room();
+                }
+                else
+                {
+                    if (!start.Rooms.Contains($"{xPos},{yPos}"))
+                    {
+                        return true;
+                    }
                 }
 
                 yPos += changeValue;
             }
+
+            return false;
         }
 
-        private void GoEastWest(int startX, int endX, int yPos)
+        private bool GoEastWest(Chamber start, Chamber end, int yPos)
         {
-            int changeValue = startX - endX > 0 ? -1 : 1;
-            int xPos = startX;
+            int changeValue = start.X - end.X > 0 ? -1 : 1;
+            int xPos = start.X;
 
-            while (xPos != endX)
+            while (xPos != end.X)
             {
                 if (rooms[xPos, yPos] == null)
                 {
                     rooms[xPos, yPos] = new Room();
+                }
+                else
+                {
+                    if (!start.Rooms.Contains($"{xPos},{yPos}"))
+                    {
+                        return true;
+                    }
                 }
 
                 xPos += changeValue;
             }
 
+            return false;
         }
 
-        private Chamber GetRandomChamber(List<Chamber> unconnectedChambers, List<Chamber> lChambers, Chamber conectingChamber)
+        private Chamber GetRandomChamber(List<Chamber> unconnectedChambers, List<Chamber> lChambers, Chamber conectingChamber, bool removeFromListOfChambers)
         {
             Chamber chamber;
             if (unconnectedChambers.Count > 0)
             {
                 chamber = unconnectedChambers[random.Next(unconnectedChambers.Count)];
-                unconnectedChambers.Remove(chamber);
+
+                if (removeFromListOfChambers)
+                {
+                    unconnectedChambers.Remove(chamber);
+                }
             }
             else
             {
@@ -96,7 +126,7 @@ namespace UndergroundChambers
 
             if (chamber == conectingChamber)
             {
-                return GetRandomChamber(unconnectedChambers, lChambers, conectingChamber);
+                return GetRandomChamber(unconnectedChambers, lChambers, conectingChamber, false);
             }
 
             return chamber;

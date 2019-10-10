@@ -4,6 +4,7 @@ using Objects.Zone;
 using Objects.Zone.Interface;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -50,6 +51,23 @@ namespace SharedRandomZones
                     }
                 }
             }
+
+            using (TextWriter tw = new StreamWriter(@"C:\temp\zone.csv"))
+            {
+                for (int y = 0; y < rooms.GetLength(1); y++)
+                {
+                    for (int x = 0; x < rooms.GetLength(0); x++)
+                    {
+                        if (rooms[x, y] != null)
+                        {
+                            tw.Write(rooms[x, y]);
+                        }
+                        tw.Write(",");
+                    }
+                    tw.WriteLine();
+                }
+            }
+
 
             for (int y = 0; y < rooms.GetLength(1); y++)
             {
