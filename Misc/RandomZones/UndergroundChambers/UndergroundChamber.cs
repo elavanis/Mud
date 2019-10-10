@@ -28,8 +28,8 @@ namespace UndergroundChambers
 
             while (unconnectedChambers.Count > 0)
             {
-                Chamber start = GetRandomChamber(unconnectedChambers, lChambers);
-                Chamber end = GetRandomChamber(unconnectedChambers, lChambers);
+                Chamber start = GetRandomChamber(unconnectedChambers, lChambers, null);
+                Chamber end = GetRandomChamber(unconnectedChambers, lChambers, start);
 
                 int diffX = end.X - start.X;
                 int diffY = end.Y - start.Y;
@@ -50,27 +50,38 @@ namespace UndergroundChambers
 
         private void GoNorthSouth(int startY, int endY, int xPos)
         {
-            for (int y = startY; y <= endY; y++)
+            int changeValue = startY - endY > 0 ? -1 : 1;
+            int yPos = startY;
+
+            while (yPos != endY)
             {
-                if (rooms[xPos, y] == null)
+                if (rooms[xPos, yPos] == null)
                 {
-                    rooms[xPos, y] = new Room();
+                    rooms[xPos, yPos] = new Room();
                 }
+
+                yPos += changeValue;
             }
         }
 
         private void GoEastWest(int startX, int endX, int yPos)
         {
-            for (int x = startX; x <= endX; x++)
+            int changeValue = startX - endX > 0 ? -1 : 1;
+            int xPos = startX;
+
+            while (xPos != endX)
             {
-                if (rooms[x, yPos] == null)
+                if (rooms[xPos, yPos] == null)
                 {
-                    rooms[x, yPos] = new Room();
+                    rooms[xPos, yPos] = new Room();
                 }
+
+                xPos += changeValue;
             }
+
         }
 
-        private Chamber GetRandomChamber(List<Chamber> unconnectedChambers, List<Chamber> lChambers)
+        private Chamber GetRandomChamber(List<Chamber> unconnectedChambers, List<Chamber> lChambers, Chamber conectingChamber)
         {
             Chamber chamber;
             if (unconnectedChambers.Count > 0)
@@ -81,6 +92,11 @@ namespace UndergroundChambers
             else
             {
                 chamber = lChambers[random.Next(lChambers.Count)];
+            }
+
+            if (chamber == conectingChamber)
+            {
+                return GetRandomChamber(unconnectedChambers, lChambers, conectingChamber);
             }
 
             return chamber;
