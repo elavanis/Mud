@@ -1,5 +1,4 @@
-﻿using RandomZone.Interface;
-using RandomZone.Internal;
+﻿using RandomZone.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Text;
 
 namespace RandomZone
 {
-    public class Maze : Internal.RandomZone, IRandomZone
+    public class Maze : Internal.RandomZone
     {
         private Position beginPos = null;
         private Position endPos = null;

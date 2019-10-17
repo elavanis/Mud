@@ -9,6 +9,8 @@ using Objects.Item.Items.Interface;
 using Objects.Personality.Interface;
 using System.Diagnostics.CodeAnalysis;
 using Objects.GameDateTime.Interface;
+using System.Text;
+using System;
 
 namespace Objects.Zone
 {
@@ -97,6 +99,99 @@ namespace Objects.Zone
 
             SetMedianZoneLevel();
         }
+
+        #region To Cs File
+        public string ToCsFile(int zoneId)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(Header(zoneId));
+
+            foreach (IRoom room in Rooms.Values)
+            {
+                stringBuilder.AppendLine(BuildRoom(room));
+            }
+
+            stringBuilder.AppendLine(@"        #endregion Rooms
+");
+
+            stringBuilder.AppendLine(ConnectRooms());
+
+            stringBuilder.Append(@"    }
+}");
+            return stringBuilder.ToString();
+        }
+
+
+
+        private string Header(int zoneId)
+        {
+            return @"using GenerateZones;
+using GenerateZones.Zones;
+using MiscShared;
+using Objects.Room.Interface;
+using Objects.Zone.Interface;
+using static Objects.Global.Direction.Directions;
+
+namespace GeneratedZones
+{
+    public class GeneratedZone : BaseZone, IZoneCode
+    {
+        public GeneratedZone() : base({zoneId})
+        {
+        }
+
+        public IZone Generate()
+        {
+            Zone.Name = nameof(GeneratedZone);
+
+            BuildRoomsViaReflection(this.GetType());
+
+            ConnectRooms();
+
+            return Zone;
+        }
+
+        #region Rooms".Replace("{zoneId}", zoneId.ToString());
+        }
+
+        private string BuildRoom(IRoom room)
+        {
+            return @"        private IRoom GenerateRoom1()
+        {
+            IRoom room = OutdoorRoom();
+
+            room.ExamineDescription = ""YOU ARE IN A MAZE OF TWISTY LITTLE PASSAGES, ALL ALIKE."";
+            room.LookDescription = ""YOU ARE IN A MAZE OF TWISTY LITTLE PASSAGES, ALL ALIKE."";
+            room.ShortDescription = ""Underground cavern"";
+
+            return room;
+        }".Replace("1", room.Id.ToString());
+        }
+
+        private string ConnectRooms()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(@"        private void ConnectRooms()
+        {");
+
+            foreach (IRoom room in Rooms.Values)
+            {
+                if (room.East != null)
+                {
+                    stringBuilder.AppendLine("            ZoneHelper.ConnectRoom(Zone.Rooms[{1}], Direction.East, Zone.Rooms[{2}]);".Replace("{1}", room.Id.ToString()).Replace("{2}", room.East.Room.ToString()));
+                }
+
+                if (room.South != null)
+                {
+                    stringBuilder.AppendLine("            ZoneHelper.ConnectRoom(Zone.Rooms[{1}], Direction.South, Zone.Rooms[{2}]);".Replace("{1}", room.Id.ToString()).Replace("{2}", room.South.Room.ToString()));
+                }
+            }
+
+            stringBuilder.Append(@"        }");
+
+            return stringBuilder.ToString();
+        }
+        #endregion To Cs File
 
         private void SetMedianZoneLevel()
         {
@@ -193,5 +288,7 @@ namespace Objects.Zone
                 }
             }
         }
+
+
     }
 }

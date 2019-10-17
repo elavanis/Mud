@@ -1,5 +1,4 @@
-﻿using RandomZone.Interface;
-using RandomZone.Internal;
+﻿using RandomZone.Internal;
 using RandomZone.UndergroundChamberObjects;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Text;
 
 namespace RandomZone
 {
-    public class UndergroundChamber : Internal.RandomZone, IRandomZone
+    public class UndergroundChamber : Internal.RandomZone
     {
         public void Generate(int x, int y, int chambers, int randomSeed = -1)
         {
