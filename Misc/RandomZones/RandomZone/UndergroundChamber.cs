@@ -136,22 +136,28 @@ namespace RandomZone
 
         private void ConnectRooms()
         {
-            for (int x = 0; x < rooms.GetLength(0) - 1; x++)
+            for (int x = 0; x < rooms.GetLength(0); x++)
             {
-                for (int y = 0; y < rooms.GetLength(1) - 1; y++)
+                for (int y = 0; y < rooms.GetLength(1); y++)
                 {
                     if (rooms[x, y] != null)
                     {
-                        if (rooms[x + 1, y] != null)
+                        if (x + 1 < rooms.GetLength(0)) //don't go out of bounds
                         {
-                            rooms[x, y].Open(Directions.Direction.East);
-                            rooms[x + 1, y].Open(Directions.Direction.West);
+                            if (rooms[x + 1, y] != null)
+                            {
+                                rooms[x, y].Open(Directions.Direction.East);
+                                rooms[x + 1, y].Open(Directions.Direction.West);
+                            }
                         }
 
-                        if (rooms[x, y + 1] != null)
+                        if (y + 1 < rooms.GetLength(1)) //don't go out of bounds
                         {
-                            rooms[x, y].Open(Directions.Direction.South);
-                            rooms[x, y + 1].Open(Directions.Direction.North);
+                            if (rooms[x, y + 1] != null)
+                            {
+                                rooms[x, y].Open(Directions.Direction.South);
+                                rooms[x, y + 1].Open(Directions.Direction.North);
+                            }
                         }
                     }
                 }
