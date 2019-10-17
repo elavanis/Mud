@@ -1,10 +1,13 @@
-﻿using SharedRandomZones;
+﻿using RandomZone.Interface;
+using RandomZone.Internal;
+using RandomZone.UndergroundChamberObjects;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace UndergroundChambers
+namespace RandomZone
 {
-    public class UndergroundChamber : RandomZone
+    public class UndergroundChamber : Internal.RandomZone, IRandomZone
     {
         public void Generate(int x, int y, int chambers, int randomSeed = -1)
         {

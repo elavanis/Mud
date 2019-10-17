@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace SharedRandomZones
+namespace RandomZone.Internal
 {
     public abstract class RandomZone
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharedRandomZones
+namespace RandomZone.Internal
 {
     public abstract class Directions
     {
@@ -10,4 +10,3 @@ namespace SharedRandomZones
         }
     }
 }
-

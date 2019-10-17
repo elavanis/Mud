@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GenerateZones\GenerateZones.csproj" />
-    <ProjectReference Include="..\RandomZones\UndergroundChambers\UndergroundChambers.csproj" />
+    <ProjectReference Include="..\RandomZones\RandomZone\RandomZone.csproj" />
     <ProjectReference Include="..\ZoneMaps\GenerateZoneMaps\GenerateZoneMaps.csproj" />
   </ItemGroup>
 

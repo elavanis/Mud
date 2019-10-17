@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UndergroundChambers
+namespace RandomZone.UndergroundChamberObjects
 {
     public class Chamber
     {

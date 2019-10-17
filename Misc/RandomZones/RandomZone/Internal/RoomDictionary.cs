@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharedRandomZones
+namespace RandomZone.Internal
 {
     public abstract class RoomDictionary
     {

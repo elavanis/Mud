@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateZones", "Misc\GenerateZones\GenerateZones.csproj", "{25C3B00A-1764-4BBA-8DE9-4E132E489AC8}"
 EndProject
@@ -53,11 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiscShared", "Misc\Shared\M
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RandomZones", "RandomZones", "{4CF63DD5-81B8-4EE0-B242-406D933DA922}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Maze", "Misc\RandomZones\Maze\Maze.csproj", "{7B571DAE-689E-4278-AAD3-8A7B6F7E5BA8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedRandomZones", "Misc\RandomZones\SharedRandomZones\SharedRandomZones.csproj", "{D849A344-F53A-449F-8C4F-2A4F426265B3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UndergroundChambers", "Misc\RandomZones\UndergroundChambers\UndergroundChambers.csproj", "{68175CE6-DBE4-4165-9698-32D512ECE8F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomZone", "Misc\RandomZones\RandomZone\RandomZone.csproj", "{57141DA8-55F1-4B26-978A-1EC7C7AC9752}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,18 +125,10 @@ Global
 		{910688C1-4A66-4DF6-8722-B5EE982B46B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{910688C1-4A66-4DF6-8722-B5EE982B46B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{910688C1-4A66-4DF6-8722-B5EE982B46B1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B571DAE-689E-4278-AAD3-8A7B6F7E5BA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B571DAE-689E-4278-AAD3-8A7B6F7E5BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B571DAE-689E-4278-AAD3-8A7B6F7E5BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B571DAE-689E-4278-AAD3-8A7B6F7E5BA8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D849A344-F53A-449F-8C4F-2A4F426265B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D849A344-F53A-449F-8C4F-2A4F426265B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D849A344-F53A-449F-8C4F-2A4F426265B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D849A344-F53A-449F-8C4F-2A4F426265B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68175CE6-DBE4-4165-9698-32D512ECE8F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68175CE6-DBE4-4165-9698-32D512ECE8F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68175CE6-DBE4-4165-9698-32D512ECE8F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68175CE6-DBE4-4165-9698-32D512ECE8F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57141DA8-55F1-4B26-978A-1EC7C7AC9752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57141DA8-55F1-4B26-978A-1EC7C7AC9752}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57141DA8-55F1-4B26-978A-1EC7C7AC9752}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57141DA8-55F1-4B26-978A-1EC7C7AC9752}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,9 +151,7 @@ Global
 		{8D2ACAB6-C19E-4F1C-8E44-D51FA15CEF91} = {8A171F90-67AA-4827-A9D1-7A6E109CD32C}
 		{910688C1-4A66-4DF6-8722-B5EE982B46B1} = {8D2ACAB6-C19E-4F1C-8E44-D51FA15CEF91}
 		{4CF63DD5-81B8-4EE0-B242-406D933DA922} = {8A171F90-67AA-4827-A9D1-7A6E109CD32C}
-		{7B571DAE-689E-4278-AAD3-8A7B6F7E5BA8} = {4CF63DD5-81B8-4EE0-B242-406D933DA922}
-		{D849A344-F53A-449F-8C4F-2A4F426265B3} = {4CF63DD5-81B8-4EE0-B242-406D933DA922}
-		{68175CE6-DBE4-4165-9698-32D512ECE8F8} = {4CF63DD5-81B8-4EE0-B242-406D933DA922}
+		{57141DA8-55F1-4B26-978A-1EC7C7AC9752} = {4CF63DD5-81B8-4EE0-B242-406D933DA922}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6ADE6865-E006-444F-B8D1-D4C013AB4534}
