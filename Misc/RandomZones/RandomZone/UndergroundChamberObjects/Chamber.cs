@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Objects.Global;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,7 +15,7 @@ namespace RandomZone.UndergroundChamberObjects
 
         public bool Valid { get; set; } = true;
 
-        public Chamber(int x, int y, int maxX, int maxY, int sizeX = 3, int sizeY = 3)
+        public Chamber(int x, int y, int maxX, int maxY, int sizeX, int sizeY)
         {
             X = x;
             Y = y;

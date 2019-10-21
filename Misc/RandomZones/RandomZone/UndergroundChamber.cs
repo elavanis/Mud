@@ -121,9 +121,14 @@ namespace RandomZone
                     unconnectedChambers.Remove(chamber);
                 }
             }
-            else
+            else if (lChambers.Count > 1)
             {
                 chamber = lChambers[random.Next(lChambers.Count)];
+            }
+            else
+            {
+                //there is only 1 chamber, return it so we can finish
+                return lChambers[0];
             }
 
             if (chamber == conectingChamber)
@@ -183,7 +188,12 @@ namespace RandomZone
         {
             while (lChambers.Count < chambers && chamberFailedInitlize < 100)
             {
-                Chamber chamber = new Chamber(random.Next(x), random.Next(y), x, y);
+                //int chamberWidth = random.Next(1) * 2 + 3; //3, 5, 7
+                //int chamberHeight = random.Next(1) * 2 + 3; //3, 5, 7
+                int chamberWidth = 3;
+                int chamberHeight = 3;
+
+                Chamber chamber = new Chamber(random.Next(x), random.Next(y), x, y, chamberWidth, chamberHeight);
 
                 bool valid = MatchRooms(lChambers, chamber);
 

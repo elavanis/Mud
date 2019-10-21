@@ -22,11 +22,6 @@ namespace GenerateZones
         {
 
             GenerateZones();
-
-            //for (int i = 100; i < 1000; i++)
-            //{
-            //    SaveZone(world, MassZone(i));
-            //}
         }
 
         public static List<IZone> GenerateZones()
