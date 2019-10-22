@@ -30,7 +30,7 @@ namespace GenerateZones.Zones.UnderGrandView
         //        #region Rooms
         //        private IRoom GenerateRoom1()
         //        {
-        //            IRoom room = OutdoorRoom();
+        //            IRoom room = IndoorRoomNoLight();
 
         //            room.ExamineDescription = "Dirt from above still occasionally falls down and one day may fill the tunnel.";
         //            room.LookDescription = "The tunnel was originally part of an underground sink hole network.";
@@ -41,7 +41,7 @@ namespace GenerateZones.Zones.UnderGrandView
 
         //        private IRoom GenerateRoom2()
         //        {
-        //            IRoom room = OutdoorRoom();
+        //            IRoom room = IndoorRoomNoLight();
 
         //            room.ExamineDescription = "The dirt from above has filled most of this cavern.  Several small tunnels lead off but most are impassable beyond a few feet.";
         //            room.LookDescription = "A large mound of dirt fills the cavern.";
@@ -52,7 +52,7 @@ namespace GenerateZones.Zones.UnderGrandView
 
         //        private IRoom GenerateRoom3()
         //        {
-        //            IRoom room = OutdoorRoom();
+        //            IRoom room = IndoorRoomNoLight();
 
         //            room.ExamineDescription = "The tunnel to the west appears to be natural or not finished while the tunnel to the east is lined with bricks.";
         //            room.LookDescription = "This point in the tunnel transitions between a rough natural tunnel and a brick lined tunnel with torches.";
@@ -86,7 +86,7 @@ namespace GenerateZones.Zones.UnderGrandView
         #region Rooms
         private IRoom GenerateRoom1()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -96,7 +96,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom2()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -106,7 +106,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom3()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -116,7 +116,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom4()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -126,7 +126,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom5()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -136,7 +136,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom6()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -146,7 +146,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom7()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -156,7 +156,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom8()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -166,7 +166,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom9()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -176,7 +176,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom10()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -186,7 +186,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom11()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -196,7 +196,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom12()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -206,7 +206,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom13()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -216,7 +216,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom14()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -226,7 +226,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom15()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -236,7 +236,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom16()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -246,7 +246,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom17()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -256,7 +256,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom18()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -266,7 +266,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom19()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -276,7 +276,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom20()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -286,7 +286,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom21()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -296,7 +296,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom22()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -306,7 +306,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom23()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -316,7 +316,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom24()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -326,7 +326,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom25()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -336,7 +336,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom26()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -346,7 +346,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom27()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -356,7 +356,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom28()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -366,7 +366,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom29()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -376,7 +376,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom30()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -386,7 +386,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom31()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -396,7 +396,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom32()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -406,7 +406,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom33()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -416,7 +416,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom34()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -426,7 +426,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom35()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -436,7 +436,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom36()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -446,7 +446,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom37()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -456,7 +456,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom38()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -466,7 +466,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom39()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -476,7 +476,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom40()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -486,7 +486,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom41()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -496,7 +496,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom42()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -506,7 +506,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom43()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -516,47 +516,47 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom44()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Aside immediate damage from the cave ins from the north the hallway seems in good shape.";
+            room.LookDescription = "The hallway to the north ends a mere foot after it begins in a a collapsed ceiling.  The path to the east is also collapsing.";
             room.ShortDescription = "Underground cavern";
 
             return room;
         }
         private IRoom GenerateRoom45()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The one statue that still stands has an inscription. \"Sir Malculms \"The Wall\"  Lost in the battle of widows while defiantly holding back a waves of advancing orcs so his troops could escape.";
+            room.LookDescription = "Part of the north wall has caved in, held up only by one statue that did not break and has held the line.";
             room.ShortDescription = "Underground cavern";
 
             return room;
         }
         private IRoom GenerateRoom46()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The faint sound of dirt can be heard falling into water through the crack in the floor.";
+            room.LookDescription = "Small avalanches of dirt continue to slide down the mound before disappearing in a crack in the floor.";
             room.ShortDescription = "Underground cavern";
 
             return room;
         }
         private IRoom GenerateRoom47()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "Dirt from above still occasionally falls down and one day may fill the tunnel.";
-            room.LookDescription = "The tunnel has been .";
+            room.ExamineDescription = "Dirt from above still occasionally falls down and one day may fill the hallway.";
+            room.LookDescription = "The ceiling to the hallway has collapsed and dirt from above has fallen in.";
             room.ShortDescription = "Underground cavern";
 
             return room;
         }
         private IRoom GenerateRoom48()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "The dirt from above has filled most of this cavern.  Several small tunnels lead off but most are impassable beyond a few feet.";
             room.LookDescription = "A large mound of dirt fills the cavern.";
@@ -566,18 +566,17 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom49()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Each statue is carved from stone and in a regal pose.";
+            room.LookDescription = "The hallway is lined with statues of knights in their armor.";
             room.ShortDescription = "Underground cavern";
 
             return room;
         }
         private IRoom GenerateRoom50()
         {
-            IRoom room = OutdoorRoom();
-
+            IRoom room = IndoorRoomNoLight();
             room.ExamineDescription = "";
             room.LookDescription = "";
             room.ShortDescription = "Underground cavern";
@@ -586,7 +585,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom51()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -596,7 +595,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom52()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -606,7 +605,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom53()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -616,7 +615,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom54()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -626,7 +625,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom55()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -636,7 +635,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom56()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -646,7 +645,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom57()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -656,7 +655,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom58()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -666,7 +665,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom59()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -676,7 +675,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom60()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -686,7 +685,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom61()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -696,7 +695,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom62()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -706,7 +705,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom63()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -716,7 +715,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom64()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -726,7 +725,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom65()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -736,7 +735,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom66()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -746,7 +745,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom67()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -756,7 +755,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom68()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -766,7 +765,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom69()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -776,7 +775,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom70()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -786,7 +785,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom71()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -796,7 +795,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom72()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -806,7 +805,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom73()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -816,7 +815,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom74()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -826,7 +825,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom75()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -836,7 +835,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom76()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -846,7 +845,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom77()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -856,7 +855,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom78()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -866,7 +865,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom79()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -876,7 +875,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom80()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -886,7 +885,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom81()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -896,7 +895,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom82()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -906,7 +905,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom83()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -916,7 +915,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom84()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -926,7 +925,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom85()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -936,7 +935,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom86()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -946,7 +945,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom87()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -956,7 +955,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom88()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -966,7 +965,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom89()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -976,7 +975,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom90()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -986,7 +985,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom91()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -996,7 +995,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom92()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1006,7 +1005,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom93()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1016,7 +1015,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom94()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1026,7 +1025,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom95()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1036,7 +1035,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom96()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1046,7 +1045,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom97()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1056,7 +1055,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom98()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1066,7 +1065,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom99()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1076,7 +1075,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom100()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1086,7 +1085,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom101()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1096,7 +1095,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom102()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1106,7 +1105,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom103()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1116,7 +1115,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom104()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1126,7 +1125,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom105()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1136,7 +1135,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom106()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1146,7 +1145,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom107()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1156,7 +1155,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom108()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1166,7 +1165,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom109()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1176,7 +1175,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom110()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1186,7 +1185,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom111()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1196,7 +1195,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom112()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1206,7 +1205,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom113()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1216,7 +1215,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom114()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1226,7 +1225,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom115()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1236,7 +1235,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom116()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1246,7 +1245,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom117()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1256,7 +1255,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom118()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1266,7 +1265,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom119()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1276,7 +1275,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom120()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1286,7 +1285,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom121()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1296,7 +1295,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom122()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1306,7 +1305,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom123()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1316,7 +1315,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom124()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1326,7 +1325,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom125()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1336,7 +1335,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom126()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1346,7 +1345,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom127()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1356,7 +1355,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom128()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1366,7 +1365,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom129()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1376,7 +1375,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom130()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1386,7 +1385,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom131()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";
@@ -1396,7 +1395,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom132()
         {
-            IRoom room = OutdoorRoom();
+            IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "";
             room.LookDescription = "";

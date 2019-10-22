@@ -24,3 +24,4 @@ Id	Lvl	Name
 22	0	MountainPlateau
 23	20	EnchantersTower
 24	22	GrandViewCastle
+25	0	UnderGrandViewCastle
