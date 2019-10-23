@@ -101,6 +101,13 @@ namespace TelnetCommunication
                     Tuple<List<string>, string> result = MudMessageInstance.ParseRawMessage(completeMessage);
                     foreach (string message in result.Item1)
                     {
+                        if (message == "<Info>You have been successfully logged out.</Info>")
+                        {
+                            _clientSocket.Close();
+                        }
+
+
+
                         InQueue.Enqueue(message);
                     }
                     _previousPartialMessage = result.Item2;

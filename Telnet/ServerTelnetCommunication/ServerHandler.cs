@@ -139,10 +139,10 @@ namespace ServerTelnetCommunication
                                         if (pc.PossingMob == null)
                                         {
                                             pc.EnqueueCommand(messageFromClient);
-                                            if (messageFromClient.ToUpper() == "LOGOUT")
-                                            {
-                                                continueToLoop = false;
-                                            }
+                                            //if (messageFromClient.ToUpper() == "LOGOUT")
+                                            //{
+                                            //    continueToLoop = false;
+                                            //}
                                         }
                                         else if (pc.AttributesCurrent.Contains(MobileAttribute.Frozen)) //don't allow frozen players to play
                                         {
@@ -228,9 +228,9 @@ namespace ServerTelnetCommunication
                 GuidToCharacter.TryGetValue(_guid, out pc);
                 if (pc != null)
                 {
-                    pc.EnqueueCommand("exit");
+                    pc.EnqueueCommand("Logout");
                 }
-                throw new TimeoutException("No communication for 30 minutes");
+                //throw new TimeoutException("No communication for 30 minutes");
             }
         }
 
