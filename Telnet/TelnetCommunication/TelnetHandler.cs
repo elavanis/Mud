@@ -106,8 +106,6 @@ namespace TelnetCommunication
                             _clientSocket.Close();
                         }
 
-
-
                         InQueue.Enqueue(message);
                     }
                     _previousPartialMessage = result.Item2;
