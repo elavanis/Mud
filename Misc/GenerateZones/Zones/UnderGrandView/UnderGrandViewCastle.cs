@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using MiscShared;
+using Objects.Item.Items;
+using Objects.Item.Items.Interface;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static Objects.Global.Direction.Directions;
@@ -727,9 +729,9 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
+            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
+            room.ShortDescription = "Burial Chamber";
 
             return room;
         }
@@ -737,9 +739,9 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
+            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
+            room.ShortDescription = "Burial Chamber";
 
             return room;
         }
@@ -747,9 +749,9 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
+            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
+            room.ShortDescription = "Burial Chamber";
 
             return room;
         }
@@ -777,9 +779,9 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
+            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
+            room.ShortDescription = "Burial Chamber";
 
             return room;
         }
@@ -787,9 +789,12 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
+            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
+            room.ShortDescription = "Burial Chamber";
+
+            Container sarcophigus = new Container();
+
 
             return room;
         }
@@ -797,9 +802,9 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
+            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
+            room.ShortDescription = "Burial Chamber";
 
             return room;
         }
@@ -887,9 +892,9 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
+            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
+            room.ShortDescription = "Burial Chamber";
 
             return room;
         }
@@ -897,9 +902,9 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
+            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
+            room.ShortDescription = "Burial Chamber";
 
             return room;
         }
@@ -907,9 +912,9 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
+            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
+            room.ShortDescription = "Burial Chamber";
 
             return room;
         }

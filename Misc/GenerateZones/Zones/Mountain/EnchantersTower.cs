@@ -272,25 +272,10 @@ namespace GenerateZones.Zones.Mountain
             ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.East, Zone.Rooms[11]);
             ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.East, Zone.Rooms[12]);
 
-            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 22, 3, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", false, "The door depicts a bear standing on its hind legs."));
-            IDoor door = Zone.Rooms[1].West.Door;
-            door.Locked = false;
-            door.Pickable = false;
-
-            ZoneHelper.ConnectZone(Zone.Rooms[2], Direction.North, 22, 7, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", false, "The door depicts a fish swallowing a man."));
-            door = Zone.Rooms[2].North.Door;
-            door.Locked = false;
-            door.Pickable = false;
-
-            ZoneHelper.ConnectZone(Zone.Rooms[3], Direction.East, 22, 11, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", false, "The door depicts a lion killing an antelope."));
-            door = Zone.Rooms[3].East.Door;
-            door.Locked = false;
-            door.Pickable = false;
-
-            ZoneHelper.ConnectZone(Zone.Rooms[4], Direction.South, 22, 15, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", false, "The door depicts a eagle catching a fish."));
-            door = Zone.Rooms[4].South.Door;
-            door.Locked = false;
-            door.Pickable = false;
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 22, 3, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a bear standing on its hind legs."));
+            ZoneHelper.ConnectZone(Zone.Rooms[2], Direction.North, 22, 7, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a fish swallowing a man."));
+            ZoneHelper.ConnectZone(Zone.Rooms[3], Direction.East, 22, 11, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a lion killing an antelope."));
+            ZoneHelper.ConnectZone(Zone.Rooms[4], Direction.South, 22, 15, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a eagle catching a fish."));
         }
     }
 }
