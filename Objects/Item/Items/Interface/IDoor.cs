@@ -8,7 +8,6 @@ namespace Objects.Item.Items.Interface
     {
         int KeyNumber { get; set; }
         bool Locked { get; set; }
-        bool Opened { get; set; }
         bool Pickable { get; set; }
         int PickDificulty { get; set; }
         bool Linked { get; set; }

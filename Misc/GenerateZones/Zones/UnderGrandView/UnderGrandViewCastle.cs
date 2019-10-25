@@ -4,11 +4,18 @@ using System.Text;
 using MiscShared;
 using Objects;
 using Objects.Effect;
+using Objects.Effect.Interface;
+using Objects.Item;
+using Objects.Item.Interface;
 using Objects.Item.Items;
 using Objects.Item.Items.Interface;
+using Objects.Language;
+using Objects.Magic.Enchantment;
 using Objects.Magic.Interface;
 using Objects.Mob;
 using Objects.Mob.Interface;
+using Objects.Personality;
+using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static Objects.Global.Direction.Directions;
@@ -803,46 +810,7 @@ namespace GenerateZones.Zones.UnderGrandView
             return room;
         }
 
-        private Container Sarcophagus()
-        {
-            IEnchantment enchantment = new Objects.Magic.Enchantment.GetEnchantment();
-            enchantment.ActivationPercent = 100;
-            enchantment.Effect = new LoadMob() { RoomId = new BaseObjectId(Zone.Id, 70) };
-            enchantment.Parameter = new EffectParameter() { Performer = Skeleton() };
 
-            Money money = CreateItem<Money>();
-            money.Value = 1000;
-            money.KeyWords.Add("coin");
-            money.KeyWords.Add("coins");
-            money.SentenceDescription = "coins";
-            money.ShortDescription = "A pile of coins.";
-            money.LookDescription = "The head of coins have minotaurs on them and on the back different runes.";
-            money.ExamineDescription = "The coins are made of different materials so it is hard to estimate their worth.";
-            money.Enchantments.Add(enchantment);
-
-
-            Container sarcophagus = CreateItem<Container>();
-            sarcophagus.Attributes.Add(Objects.Item.Item.ItemAttribute.NoGet);
-            sarcophagus.Items.Add(money);
-            sarcophagus.KeyWords.Add("sarcophagus");
-            sarcophagus.SentenceDescription = "sarcophagus";
-            sarcophagus.ShortDescription = "A sarcophagus with a gold lid.";
-            sarcophagus.LookDescription = "This sarcophagus is more ornately decorated then the others. Perhaps there is treasure in this one.";
-            sarcophagus.ExamineDescription = "The gold lid is heavy but could be slid off.";
-
-            return sarcophagus;
-        }
-
-        private IMobileObject Skeleton()
-        {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.KeyWords.Add("skeleton");
-            npc.KeyWords.Add("minotaur");
-            npc.ShortDescription = "A minotaur skeleton.";
-            npc.LookDescription = "Red beady eyes burn with rage at the desecration of their tomb.";
-            npc.ExamineDescription = "The bone rattle slightly as they move about.";
-            return npc;
-        }
 
         private IRoom GenerateRoom72()
         {
@@ -1455,6 +1423,74 @@ namespace GenerateZones.Zones.UnderGrandView
             return room;
         }
         #endregion Rooms
+
+        #region Items
+        private Container Sarcophagus()
+        {
+            IItem money = CreateItem<Item>();
+            money.Value = 1000;
+            money.KeyWords.Add("coin");
+            money.KeyWords.Add("coins");
+            money.SentenceDescription = "coins";
+            money.ShortDescription = "A pile of coins.";
+            money.LookDescription = "The head of coins have minotaurs on them and on the back different runes.";
+            money.ExamineDescription = "The coins are made of different materials so it is hard to estimate their worth.";
+            money.Enchantments.Add(LoadSkeletonMinotaur(65));
+            money.Enchantments.Add(LoadSkeletonMinotaur(66));
+            money.Enchantments.Add(LoadSkeletonMinotaur(67));
+            money.Enchantments.Add(LoadSkeletonMinotaur(70));
+            money.Enchantments.Add(LoadSkeletonMinotaur(72));
+            money.Enchantments.Add(LoadSkeletonMinotaur(81));
+            money.Enchantments.Add(LoadSkeletonMinotaur(82));
+            money.Enchantments.Add(LoadSkeletonMinotaur(83));
+
+            IEnchantment enchantment = new OpenEnchantment();
+            enchantment.ActivationPercent = 100;
+            enchantment.Effect = new Message();
+            IEffectParameter effectParameter = new EffectParameter();
+            effectParameter.RoomMessage = new TranslationMessage("Don't take anything and leave this place.");
+            effectParameter.RoomId = new RoomId(Zone.Id, 71);
+            enchantment.Parameter = effectParameter;
+
+            Container sarcophagus = CreateItem<Container>();
+            sarcophagus.Attributes.Add(Item.ItemAttribute.NoGet);
+            sarcophagus.Items.Add(money);
+            sarcophagus.Opened = false;
+            sarcophagus.KeyWords.Add("sarcophagus");
+            sarcophagus.SentenceDescription = "sarcophagus";
+            sarcophagus.ShortDescription = "A sarcophagus with a gold lid.";
+            sarcophagus.LookDescription = "This sarcophagus is more ornately decorated then the others. Perhaps there is treasure in this one.";
+            sarcophagus.ExamineDescription = "The gold lid is heavy but could be slid off.";
+            sarcophagus.Enchantments.Add(enchantment);
+
+            return sarcophagus;
+        }
+
+        private IEnchantment LoadSkeletonMinotaur(int roomId)
+        {
+            IEnchantment enchantment = new GetEnchantment();
+            enchantment.ActivationPercent = 100;
+            enchantment.Effect = new LoadMob() { RoomId = new BaseObjectId(Zone.Id, roomId) };
+            enchantment.Parameter = new EffectParameter() { Performer = Skeleton() };
+            return enchantment;
+        }
+        #endregion Items
+
+        #region Mobs
+        private IMobileObject Skeleton()
+        {
+            INonPlayerCharacter npc = new NonPlayerCharacter();
+            npc.Level = 23;
+            npc.Personalities.Add(new Aggressive());
+            npc.Personalities.Add(new Wanderer());
+            npc.KeyWords.Add("skeleton");
+            npc.KeyWords.Add("minotaur");
+            npc.ShortDescription = "A minotaur skeleton.";
+            npc.LookDescription = "Red beady eyes burn with rage at the desecration of their tomb.";
+            npc.ExamineDescription = "The bones rattle slightly as they move toward you.";
+            return npc;
+        }
+        #endregion Mobs
 
         private void ConnectRooms()
         {

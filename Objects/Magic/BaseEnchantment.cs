@@ -152,6 +152,12 @@ namespace Objects.Magic
         }
 
         [ExcludeFromCodeCoverage]
+        public virtual void Open(IMobileObject performer, IItem item)
+        {
+            //do nothing unless overrode
+        }
+
+        [ExcludeFromCodeCoverage]
         public virtual void Put(IMobileObject performer, IItem item, IContainer container)
         {
             //do nothing unless overrode

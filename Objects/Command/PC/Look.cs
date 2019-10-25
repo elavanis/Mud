@@ -55,15 +55,34 @@ namespace Objects.Command.PC
                         IContainer container = foundItem as IContainer;
                         StringBuilder strBldr = new StringBuilder();
                         strBldr.AppendLine(foundItem.LookDescription);
-                        if (container.Items.Count == 0)
+
+                        IOpenable openable = container as IOpenable;
+                        if (openable != null)
                         {
-                            strBldr.AppendLine("<Empty>");
+                            if (openable.Opened)
+                            {
+                                foreach (IItem item in container.Items)
+                                {
+                                    strBldr.AppendLine(item.ShortDescription);
+                                }
+                            }
+                            else
+                            {
+                                strBldr.AppendLine("<Closed>");
+                            }
                         }
                         else
                         {
-                            foreach (IItem item in container.Items)
+                            if (container.Items.Count == 0)
                             {
-                                strBldr.AppendLine(item.ShortDescription);
+                                strBldr.AppendLine("<Empty>");
+                            }
+                            else
+                            {
+                                foreach (IItem item in container.Items)
+                                {
+                                    strBldr.AppendLine(item.ShortDescription);
+                                }
                             }
                         }
 

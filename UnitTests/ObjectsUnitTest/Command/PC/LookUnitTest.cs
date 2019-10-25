@@ -259,5 +259,24 @@ OtherMobShortDescription", result.ResultMessage);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("Unable to find anything that matches that description.", result.ResultMessage);
         }
+
+
+        [TestMethod]
+        public void Look_PerformCommand_ContainerClosed()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void Look_PerformCommand_ContainerOpenItems()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void Look_PerformCommand_ContainerOpenEmpty()
+        {
+            Assert.AreEqual(1, 2);
+        }
     }
 }

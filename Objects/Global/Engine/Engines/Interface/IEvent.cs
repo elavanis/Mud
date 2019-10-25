@@ -31,6 +31,7 @@ namespace Objects.Global.Engine.Engines.Interface
         void Perform(IMobileObject performer, string skillName);
         void Drop(IMobileObject performer, IItem item);
         void Get(IMobileObject performer, IItem item, IContainer container = null);
+        void Open(IMobileObject performer, IItem item);
         void Put(IMobileObject performer, IItem item, IContainer container);
         void Relax(IMobileObject performer);
         void Sit(IMobileObject performer);

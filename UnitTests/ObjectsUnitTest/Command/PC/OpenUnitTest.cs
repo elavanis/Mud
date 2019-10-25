@@ -137,7 +137,7 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             mob.Setup(e => e.Items).Returns(new List<IItem>() { key.Object });
             door.Setup(e => e.Locked).Returns(true);
-            openableDoor.Setup(e => e.Open()).Returns(mockResult.Object);
+            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
@@ -157,7 +157,7 @@ namespace ObjectsUnitTest.Command.PC
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(item.Object);
             parameter.Setup(e => e.ParameterValue).Returns("item");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            openable.Setup(e => e.Open()).Returns(mockResult.Object);
+            openable.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
@@ -193,7 +193,7 @@ namespace ObjectsUnitTest.Command.PC
             linkedRoomId.Setup(e => e.Id).Returns(2);
             door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.North);
-            openableDoor.Setup(e => e.Open()).Returns(mockResult.Object);
+            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
             world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
             zone.Setup(e => e.Rooms).Returns(rooms);
@@ -238,7 +238,7 @@ namespace ObjectsUnitTest.Command.PC
             linkedRoomId.Setup(e => e.Id).Returns(2);
             door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.East);
-            openableDoor.Setup(e => e.Open()).Returns(mockResult.Object);
+            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
             world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
             zone.Setup(e => e.Rooms).Returns(rooms);
@@ -283,7 +283,7 @@ namespace ObjectsUnitTest.Command.PC
             linkedRoomId.Setup(e => e.Id).Returns(2);
             door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.South);
-            openableDoor.Setup(e => e.Open()).Returns(mockResult.Object);
+            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
             world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
             zone.Setup(e => e.Rooms).Returns(rooms);
@@ -328,7 +328,7 @@ namespace ObjectsUnitTest.Command.PC
             linkedRoomId.Setup(e => e.Id).Returns(2);
             door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.West);
-            openableDoor.Setup(e => e.Open()).Returns(mockResult.Object);
+            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
             world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
             zone.Setup(e => e.Rooms).Returns(rooms);
@@ -373,7 +373,7 @@ namespace ObjectsUnitTest.Command.PC
             linkedRoomId.Setup(e => e.Id).Returns(2);
             door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.Up);
-            openableDoor.Setup(e => e.Open()).Returns(mockResult.Object);
+            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
             world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
             zone.Setup(e => e.Rooms).Returns(rooms);
@@ -418,7 +418,7 @@ namespace ObjectsUnitTest.Command.PC
             linkedRoomId.Setup(e => e.Id).Returns(2);
             door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.Down);
-            openableDoor.Setup(e => e.Open()).Returns(mockResult.Object);
+            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
             world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
             zone.Setup(e => e.Rooms).Returns(rooms);

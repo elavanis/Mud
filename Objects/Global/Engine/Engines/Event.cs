@@ -145,12 +145,16 @@ namespace Objects.Global.Engine.Engines
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} got {item.SentenceDescription}.");
             RunEnchantments(performer, EventType.Get, new EventParamerters() { Performer = performer, Item = item, Container = container });
         }
+        public void Open(IMobileObject performer, IItem item)
+        {
+            GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} opened {item.SentenceDescription}.");
+            RunEnchantments(performer, EventType.Open, new EventParamerters() { Performer = performer, Item = item });
+        }
         public void Put(IMobileObject performer, IItem item, IContainer container)
         {
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} put {item.SentenceDescription} in {(container as IBaseObject).SentenceDescription}.");
             RunEnchantments(performer, EventType.Put, new EventParamerters() { Performer = performer, Item = item, Container = container });
         }
-
         public void Relax(IMobileObject performer)
         {
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUGVERBOSE, $"{performer.SentenceDescription} relaxed.");
@@ -376,6 +380,9 @@ namespace Objects.Global.Engine.Engines
                 case EventType.OnDeath:
                     enchantment.OnDeath(paramerter.Performer);
                     break;
+                case EventType.Open:
+                    enchantment.Open(paramerter.Performer, paramerter.Item);
+                    break;
                 case EventType.Perform:
                     enchantment.Perform(paramerter.Performer, paramerter.SkillName);
                     break;
@@ -437,6 +444,7 @@ namespace Objects.Global.Engine.Engines
             Perform,
             Drop,
             Get,
+            Open,
             Put,
             Relax,
             Sit,

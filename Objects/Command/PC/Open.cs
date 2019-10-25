@@ -69,14 +69,14 @@ namespace Objects.Command.PC
                             otherDoor.Opened = true;
                         }
                     }
-                    return door.Open();
+
+                    return door.Open(performer);
                 }
                 else
                 {
-
                     if (foundItem is IOpenable openable)
                     {
-                        return openable.Open();
+                        return openable.Open(performer);
                     }
                 }
 

@@ -1,7 +1,9 @@
 ﻿using Objects.Command;
 using Objects.Command.Interface;
+using Objects.Global;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
+using Objects.Mob.Interface;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -29,8 +31,9 @@ namespace Objects.Item.Items
             }
         }
 
-        public IResult Open()
+        public IResult Open(IMobileObject performer)
         {
+            GlobalReference.GlobalValues.Engine.Event.Open(performer, this);
             Opened = true;
             return new Result(OpenMessage, false);
         }

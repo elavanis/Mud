@@ -4,6 +4,8 @@ using Objects.Command.Interface;
 using Objects.Command;
 using Objects.Global.Direction;
 using Objects.Interface;
+using Objects.Mob.Interface;
+using Objects.Global;
 
 namespace Objects.Item.Items
 {
@@ -36,8 +38,9 @@ namespace Objects.Item.Items
         [ExcludeFromCodeCoverage]
         public Directions.Direction LinkedRoomDirection { get; set; }
 
-        public IResult Open()
+        public IResult Open(IMobileObject performer)
         {
+            GlobalReference.GlobalValues.Engine.Event.Open(performer, this);
             Opened = true;
             return new Result(OpenMessage, false);
         }
