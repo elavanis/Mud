@@ -139,6 +139,11 @@ namespace GenerateZones.Zones
             {
                 item = new Enchantery();
             }
+            else if (type == typeof(IMoney)
+                || type == typeof(Money))
+            {
+                item = new Money();
+            }
 
             if (item == null)
             {

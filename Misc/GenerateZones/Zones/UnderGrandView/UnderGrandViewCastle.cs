@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using MiscShared;
+using Objects;
+using Objects.Effect;
 using Objects.Item.Items;
 using Objects.Item.Items.Interface;
+using Objects.Magic.Interface;
+using Objects.Mob;
+using Objects.Mob.Interface;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using static Objects.Global.Direction.Directions;
@@ -789,15 +794,56 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
-            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
+            room.ExamineDescription = "The sarcophagus seems slightly out of place only because it ornately decorated while most everything else is plainly decorated.";
+            room.LookDescription = "The center of the chamber is dominated by a single sarcophagus.";
             room.ShortDescription = "Burial Chamber";
 
-            Container sarcophigus = new Container();
-
+            room.AddItemToRoom(Sarcophagus());
 
             return room;
         }
+
+        private Container Sarcophagus()
+        {
+            IEnchantment enchantment = new Objects.Magic.Enchantment.GetEnchantment();
+            enchantment.ActivationPercent = 100;
+            enchantment.Effect = new LoadMob() { RoomId = new BaseObjectId(Zone.Id, 70) };
+            enchantment.Parameter = new EffectParameter() { Performer = Skeleton() };
+
+            Money money = CreateItem<Money>();
+            money.Value = 1000;
+            money.KeyWords.Add("coin");
+            money.KeyWords.Add("coins");
+            money.SentenceDescription = "coins";
+            money.ShortDescription = "A pile of coins.";
+            money.LookDescription = "The head of coins have minotaurs on them and on the back different runes.";
+            money.ExamineDescription = "The coins are made of different materials so it is hard to estimate their worth.";
+            money.Enchantments.Add(enchantment);
+
+
+            Container sarcophagus = CreateItem<Container>();
+            sarcophagus.Attributes.Add(Objects.Item.Item.ItemAttribute.NoGet);
+            sarcophagus.Items.Add(money);
+            sarcophagus.KeyWords.Add("sarcophagus");
+            sarcophagus.SentenceDescription = "sarcophagus";
+            sarcophagus.ShortDescription = "A sarcophagus with a gold lid.";
+            sarcophagus.LookDescription = "This sarcophagus is more ornately decorated then the others. Perhaps there is treasure in this one.";
+            sarcophagus.ExamineDescription = "The gold lid is heavy but could be slid off.";
+
+            return sarcophagus;
+        }
+
+        private IMobileObject Skeleton()
+        {
+            INonPlayerCharacter npc = new NonPlayerCharacter();
+            npc.KeyWords.Add("skeleton");
+            npc.KeyWords.Add("minotaur");
+            npc.ShortDescription = "A minotaur skeleton.";
+            npc.LookDescription = "Red beady eyes burn with rage at the desecration of their tomb.";
+            npc.ExamineDescription = "The bone rattle slightly as they move about.";
+            return npc;
+        }
+
         private IRoom GenerateRoom72()
         {
             IRoom room = IndoorRoomNoLight();

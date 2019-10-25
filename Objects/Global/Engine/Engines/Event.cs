@@ -303,16 +303,36 @@ namespace Objects.Global.Engine.Engines
                     }
                 }
 
+                //store if the item being affected is in the room and its enchantments already triggered
+                bool itemTriggered = false;
                 if (performerRoom.Items.Count > 0)
                 {
                     foreach (IItem item in performerRoom.Items)
                     {
+                        if (paramerter.Item == item)
+                        {
+                            itemTriggered = true;
+                        }
+
                         if (item.Enchantments.Count > 0)
                         {
                             foreach (IEnchantment enchantment in item.Enchantments)
                             {
                                 RunEnchantment(enchantment, eventType, paramerter);
                             }
+                        }
+                    }
+                }
+
+                //if it hasn't, such as being in a container, then fire its enchantments
+                if (paramerter.Item != null
+                    && !itemTriggered)
+                {
+                    if (paramerter.Item.Enchantments.Count > 0)
+                    {
+                        foreach (IEnchantment enchantment in paramerter.Item.Enchantments)
+                        {
+                            RunEnchantment(enchantment, eventType, paramerter);
                         }
                     }
                 }
