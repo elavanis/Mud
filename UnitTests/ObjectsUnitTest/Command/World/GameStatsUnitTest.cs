@@ -61,6 +61,7 @@ namespace ObjectsUnitTest.Command.World
             upTime.Setup(e => e.FormatedUpTime(It.IsAny<DateTime>())).Returns("uptime");
             tickTimes.Setup(e => e.Times).Returns("tickTimes");
             world.Setup(e => e.Zones).Returns(dictionaryZones);
+            world.Setup(e => e.CurrentPlayers).Returns(new List<IPlayerCharacter>());
             dictionaryZones.Add(1, zone1.Object);
             dictionaryZones.Add(2, zone2.Object);
             zone1.Setup(e => e.Id).Returns(1);

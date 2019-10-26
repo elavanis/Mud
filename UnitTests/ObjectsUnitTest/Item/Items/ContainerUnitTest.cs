@@ -2,6 +2,8 @@
 using Moq;
 using Objects.Command.Interface;
 using Objects.Global;
+using Objects.Global.Engine.Engines.Interface;
+using Objects.Global.Engine.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items;
 using Objects.Mob.Interface;
@@ -16,6 +18,8 @@ namespace ObjectsUnitTest.Item.Items
         Container container;
         Mock<ITagWrapper> tagWrapper;
         Mock<IMobileObject> mob;
+        Mock<IEngine> engine;
+        Mock<IEvent> eventMock;
 
         [TestInitialize]
         public void Setup()
@@ -24,10 +28,14 @@ namespace ObjectsUnitTest.Item.Items
 
             tagWrapper = new Mock<ITagWrapper>();
             mob = new Mock<IMobileObject>();
+            engine = new Mock<IEngine>();
+            eventMock = new Mock<IEvent>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            engine.Setup(e => e.Event).Returns(eventMock.Object);
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.Engine = engine.Object;
 
             container = new Container();
         }
@@ -58,6 +66,7 @@ namespace ObjectsUnitTest.Item.Items
             IResult result = container.Open(mob.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("OpenMessage", result.ResultMessage);
+            eventMock.Verify(e => e.Open(mob.Object, container));
         }
     }
 }
