@@ -198,6 +198,24 @@ OtherMobShortDescription", result.ResultMessage);
         }
 
         [TestMethod]
+        public void Look_PerformCommand_NothingFound()
+        {
+            Mock<IParameter> parameter = new Mock<IParameter>();
+            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
+
+            parameter.Setup(e => e.ParameterNumber).Returns(0);
+            parameter.Setup(e => e.ParameterValue).Returns("nothing");
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
+            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "nothing", 0, true, true, true, true, false)).Returns<IBaseObject>(null);
+
+            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("Unable to find anything that matches that description.", result.ResultMessage);
+        }
+
+        [TestMethod]
         public void Look_PerformCommand_LookContainer()
         {
             Mock<IParameter> parameter = new Mock<IParameter>();
@@ -243,40 +261,27 @@ OtherMobShortDescription", result.ResultMessage);
         }
 
         [TestMethod]
-        public void Look_PerformCommand_NothingFound()
+        public void Look_PerformCommand_LookContainerClosed()
         {
             Mock<IParameter> parameter = new Mock<IParameter>();
+            Mock<IContainer> container = new Mock<IContainer>();
+            Mock<IOpenable> openable = container.As<IOpenable>();
+            Mock<IItem> containerItem = openable.As<IItem>();
             Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
 
             parameter.Setup(e => e.ParameterNumber).Returns(0);
-            parameter.Setup(e => e.ParameterValue).Returns("nothing");
+            parameter.Setup(e => e.ParameterValue).Returns("container");
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "nothing", 0, true, true, true, true, false)).Returns<IBaseObject>(null);
+            container.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
+            openable.Setup(e => e.Opened).Returns(false);
+            containerItem.Setup(e => e.LookDescription).Returns("ContainerLookDescription");
+            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "container", 0, true, true, true, true, true)).Returns(containerItem.Object);
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("Unable to find anything that matches that description.", result.ResultMessage);
-        }
-
-
-        [TestMethod]
-        public void Look_PerformCommand_ContainerClosed()
-        {
-            Assert.AreEqual(1, 2);
-        }
-
-        [TestMethod]
-        public void Look_PerformCommand_ContainerOpenItems()
-        {
-            Assert.AreEqual(1, 2);
-        }
-
-        [TestMethod]
-        public void Look_PerformCommand_ContainerOpenEmpty()
-        {
-            Assert.AreEqual(1, 2);
+            Assert.AreEqual("ContainerLookDescription\r\n<Closed>", result.ResultMessage);
         }
     }
 }
