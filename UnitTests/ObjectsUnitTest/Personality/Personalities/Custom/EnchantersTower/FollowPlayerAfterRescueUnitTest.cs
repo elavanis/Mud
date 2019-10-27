@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ObjectsUnitTest.Personality.Personalities.EnchantersTower
+namespace ObjectsUnitTest.Personality.Personalities.Custom.EnchantersTower
 {
     [TestClass]
     public class FollowPlayerAfterRescueUnitTest

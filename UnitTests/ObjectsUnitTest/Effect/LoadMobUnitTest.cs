@@ -109,5 +109,11 @@ namespace ObjectsUnitTest.Effect
             npc.VerifySet(e => e.Room = room.Object, Times.Never);
             npc.Verify(e => e.FinishLoad(-1), Times.Never);
         }
+
+        [TestMethod]
+        public void LoadMob_ProcessEffect_UpdateUnitTests()
+        {
+            Assert.AreEqual(1, 2);
+        }
     }
 }

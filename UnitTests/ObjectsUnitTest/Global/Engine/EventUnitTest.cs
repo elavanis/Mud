@@ -279,6 +279,12 @@ namespace ObjectsUnitTest.Global.Engine
         }
 
         [TestMethod]
+        public void Event_Open()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
         public void Event_Put()
         {
             evnt.Put(pc.Object, item.Object, (IContainer)baseObjectContainer.Object);

@@ -104,5 +104,11 @@ namespace ObjectsUnitTest.Zone
 
             room.Verify(e => e.FinishLoad(0), Times.Once);
         }
+
+        [TestMethod]
+        public void Zone_ToCsFile()
+        {
+            Assert.AreEqual(1, 2);
+        }
     }
 }

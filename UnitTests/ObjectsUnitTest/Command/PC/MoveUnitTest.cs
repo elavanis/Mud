@@ -374,5 +374,11 @@ namespace ObjectsUnitTest.Command.PC
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
         }
+
+        [TestMethod]
+        public void Move_UpdateToTestForMounted()
+        {
+            Assert.AreEqual(1, 2);
+        }
     }
 }

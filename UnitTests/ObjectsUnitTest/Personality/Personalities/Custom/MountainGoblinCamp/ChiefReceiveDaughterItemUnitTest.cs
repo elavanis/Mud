@@ -9,7 +9,7 @@ using Objects.Personality.Interface;
 using Objects.Personality.Custom.MountainGoblinCamp;
 using System.Collections.Generic;
 
-namespace ObjectsUnitTest.Personality.Personalities.MountainGoblinCamp
+namespace ObjectsUnitTest.Personality.Personalities.Custom.MountainGoblinCamp
 {
     [TestClass]
     public class ChiefReceiveDaughterItemUnitTest

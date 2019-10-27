@@ -121,8 +121,6 @@ namespace Objects.Zone
             return stringBuilder.ToString();
         }
 
-
-
         private string Header(int zoneId)
         {
             return @"using GenerateZones;

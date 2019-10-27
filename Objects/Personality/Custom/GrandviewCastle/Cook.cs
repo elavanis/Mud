@@ -100,44 +100,44 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
         }
 
-        private void CheckForTrigger(INonPlayerCharacter npc)
-        {
-            string message = null;
-            while ((message = npc.DequeueMessage()) != null)
-            {
-                if (message == "<Communication>kings servant says The king wants hasenpfeffer to eat.</Communication>")
-                {
-                    List<INonPlayerCharacter> nonPlayerCharacters = new List<INonPlayerCharacter>(npc.Room.NonPlayerCharacters);
-                    for (int i = 0; i < nonPlayerCharacters.Count; i++)
-                    {
-                        if (nonPlayerCharacters[i] == npc)
-                        {
-                            switch (i)
-                            {
-                                case 0:
-                                    npc.EnqueueCommand("Say Right away");
-                                    break;
-                                case 1:
-                                    npc.EnqueueCommand("Say As the king wishes.");
-                                    break;
-                                case 2:
-                                    npc.EnqueueCommand("Say Sure.");
-                                    break;
-                                case 3:
-                                    npc.EnqueueCommand("Say As the king wishes.");
-                                    break;
-                            }
-                            break;
-                        }
-                    }
+        //private void CheckForTrigger(INonPlayerCharacter npc)
+        //{
+        //    string message = null;
+        //    while ((message = npc.DequeueMessage()) != null)
+        //    {
+        //        if (message == "<Communication>kings servant says The king wants hasenpfeffer to eat.</Communication>")
+        //        {
+        //            List<INonPlayerCharacter> nonPlayerCharacters = new List<INonPlayerCharacter>(npc.Room.NonPlayerCharacters);
+        //            for (int i = 0; i < nonPlayerCharacters.Count; i++)
+        //            {
+        //                if (nonPlayerCharacters[i] == npc)
+        //                {
+        //                    switch (i)
+        //                    {
+        //                        case 0:
+        //                            npc.EnqueueCommand("Say Right away");
+        //                            break;
+        //                        case 1:
+        //                            npc.EnqueueCommand("Say As the king wishes.");
+        //                            break;
+        //                        case 2:
+        //                            npc.EnqueueCommand("Say Sure.");
+        //                            break;
+        //                        case 3:
+        //                            npc.EnqueueCommand("Say As the king wishes.");
+        //                            break;
+        //                    }
+        //                    break;
+        //                }
+        //            }
 
-                    StateMachine = State.AskedForHasenpfeffer;
-                    Step = 0;
-                }
-            }
-        }
+        //            StateMachine = State.AskedForHasenpfeffer;
+        //            Step = 0;
+        //        }
+        //    }
+        //}
 
-        private static string NewMethod(INonPlayerCharacter npc)
+        private static string CheckForTrigger(INonPlayerCharacter npc)
         {
             string message;
             while ((message = npc.DequeueMessage()) != null)

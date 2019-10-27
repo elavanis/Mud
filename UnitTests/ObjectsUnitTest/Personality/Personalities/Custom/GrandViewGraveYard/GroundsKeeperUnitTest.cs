@@ -11,7 +11,7 @@ using Objects.Personality.Custom.GrandViewGraveYard;
 using Objects.Room.Interface;
 using System.Collections.Generic;
 
-namespace ObjectsUnitTest.Personality.Personalities.GrandViewGraveYard
+namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandViewGraveYard
 {
     [TestClass]
     public class GroundsKeeperUnitTest
