@@ -23,6 +23,10 @@ namespace ObjectsUnitTest.Zone
         Mock<IMobileObject> otherMob;
         Mock<IInGameDateTime> inGameDateTime;
         Mock<IGameDateTime> gameDateTime;
+        Mock<IRoom> room1;
+        Mock<IRoom> room2;
+        Mock<IExit> exit1;
+        Mock<IExit> exit2;
 
 
         [TestInitialize]
@@ -37,12 +41,24 @@ namespace ObjectsUnitTest.Zone
             otherMob = new Mock<IMobileObject>();
             inGameDateTime = new Mock<IInGameDateTime>();
             gameDateTime = new Mock<IGameDateTime>();
+            room1 = new Mock<IRoom>();
+            room2 = new Mock<IRoom>();
+            exit1 = new Mock<IExit>();
+            exit2 = new Mock<IExit>();
 
             room.Setup(e => e.Items).Returns(new List<IItem>() { item.Object });
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.OtherMobs).Returns(new List<IMobileObject>() { otherMob.Object });
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
             gameDateTime.Setup(e => e.AddDays(1)).Returns(gameDateTime.Object);
+            room1.Setup(e => e.East).Returns(exit1.Object);
+            room1.Setup(e => e.Id).Returns(1);
+            room2.Setup(e => e.West).Returns(exit2.Object);
+            room2.Setup(e => e.Id).Returns(2);
+            exit1.Setup(e => e.Zone).Returns(1);
+            exit1.Setup(e => e.Room).Returns(2);
+            exit2.Setup(e => e.Zone).Returns(1);
+            exit2.Setup(e => e.Room).Returns(1);
 
             zone.Rooms.Add(1, room.Object);
             GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
@@ -108,7 +124,71 @@ namespace ObjectsUnitTest.Zone
         [TestMethod]
         public void Zone_ToCsFile()
         {
-            Assert.AreEqual(1, 2);
+            string expected =
+@"using GenerateZones;
+using GenerateZones.Zones;
+using MiscShared;
+using Objects.Room.Interface;
+using Objects.Zone.Interface;
+using static Objects.Global.Direction.Directions;
+
+namespace GeneratedZones
+{
+    public class GeneratedZone : BaseZone, IZoneCode
+    {
+        public GeneratedZone() : base(1)
+        {
+        }
+
+        public IZone Generate()
+        {
+            Zone.Name = nameof(GeneratedZone);
+
+            BuildRoomsViaReflection(this.GetType());
+
+            ConnectRooms();
+
+            return Zone;
+        }
+
+        #region Rooms
+        private IRoom GenerateRoom1()
+        {
+            IRoom room = OutdoorRoom();
+
+            room.ExamineDescription = ""YOU ARE IN A MAZE OF TWISTY LITTLE PASSAGES, ALL ALIKE."";
+            room.LookDescription = ""YOU ARE IN A MAZE OF TWISTY LITTLE PASSAGES, ALL ALIKE."";
+            room.ShortDescription = ""Underground cavern"";
+
+            return room;
+        }
+        private IRoom GenerateRoom2()
+        {
+            IRoom room = OutdoorRoom();
+
+            room.ExamineDescription = ""YOU ARE IN A MAZE OF TWISTY LITTLE PASSAGES, ALL ALIKE."";
+            room.LookDescription = ""YOU ARE IN A MAZE OF TWISTY LITTLE PASSAGES, ALL ALIKE."";
+            room.ShortDescription = ""Underground cavern"";
+
+            return room;
+        }
+        #endregion Rooms
+
+        private void ConnectRooms()
+        {
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2]);
+        }
+    }
+}";
+
+
+            zone.Rooms.Clear();
+            zone.Rooms.Add(1, room1.Object);
+            zone.Rooms.Add(2, room2.Object);
+
+            string result = zone.ToCsFile(1);
+
+            Assert.AreEqual(result, expected);
         }
     }
 }
