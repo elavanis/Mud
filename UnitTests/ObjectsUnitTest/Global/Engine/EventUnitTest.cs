@@ -39,10 +39,12 @@ namespace ObjectsUnitTest.Global.Engine
         Mock<IEnchantment> pcEnchantment;
         Mock<IEnchantment> npcEnchantment;
         Mock<IEnchantment> itemEnchantment;
+        Mock<IEnchantment> itemContainerEnchantment;
         Mock<INotify> notify;
         Mock<IMap> map;
         Mock<IContainer> container;
         Mock<IBaseObject> baseObjectContainer;
+        Mock<IItem> itemContainer;
         Mock<IStringManipulator> stringManipulator;
 
         [TestInitialize]
@@ -63,10 +65,12 @@ namespace ObjectsUnitTest.Global.Engine
             pcEnchantment = new Mock<IEnchantment>();
             npcEnchantment = new Mock<IEnchantment>();
             itemEnchantment = new Mock<IEnchantment>();
+            itemContainerEnchantment = new Mock<IEnchantment>();
             notify = new Mock<INotify>();
             map = new Mock<IMap>();
             container = new Mock<IContainer>();
             baseObjectContainer = container.As<IBaseObject>();
+            itemContainer = baseObjectContainer.As<IItem>();
             stringManipulator = new Mock<IStringManipulator>();
 
             npc.Setup(e => e.Room).Returns(room.Object);
@@ -91,6 +95,7 @@ namespace ObjectsUnitTest.Global.Engine
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.DamageReceived)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Sound)).Returns((string x, TagType y) => (x));
             baseObjectContainer.Setup(e => e.SentenceDescription).Returns("ContainerSentence");
+            itemContainer.Setup(e => e.Enchantments).Returns(new List<IEnchantment>() { itemContainerEnchantment.Object });
             stringManipulator.Setup(e => e.CapitalizeFirstLetter("PcSentence")).Returns("PcSentence");
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
@@ -281,7 +286,16 @@ namespace ObjectsUnitTest.Global.Engine
         [TestMethod]
         public void Event_Open()
         {
-            Assert.AreEqual(1, 2);
+            evnt.Open(pc.Object, itemContainer.Object);
+
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence opened ContainerSentence."), Times.Once);
+
+            roomEnchantment.Verify(e => e.Open(pc.Object, itemContainer.Object), Times.Once);
+            trapEnchantment.Verify(e => e.Open(pc.Object, itemContainer.Object), Times.Once);
+            pcEnchantment.Verify(e => e.Open(pc.Object, itemContainer.Object), Times.Once);
+            npcEnchantment.Verify(e => e.Open(pc.Object, itemContainer.Object), Times.Once);
+            itemEnchantment.Verify(e => e.Open(pc.Object, itemContainer.Object), Times.Once);
+            itemContainerEnchantment.Verify(e => e.Open(pc.Object, itemContainer.Object), Times.Once);
         }
 
         [TestMethod]
