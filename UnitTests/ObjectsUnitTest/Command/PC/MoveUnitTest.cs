@@ -29,6 +29,19 @@ namespace ObjectsUnitTest.Command.PC
         Mock<ICommand> mockCommand;
         Mock<ICanMobDoSomething> canDoSomething;
         Mock<IRoom> room;
+        Mock<IMount> mount;
+        Mock<IExit> exit;
+        Mock<IRoom> differntRoom;
+        Mock<IResult> mockResponse;
+        Mock<IWorld> world;
+        Mock<IZone> zone;
+        Dictionary<int, IZone> dZone;
+        Dictionary<int, IRoom> dRoom;
+        Mock<ICommandList> commandList;
+        Dictionary<string, IMobileObjectCommand> commands;
+        Mock<IMobileObjectCommand> look;
+        Mock<IDoor> door;
+
 
         [TestInitialize]
         public void Setup()
@@ -40,11 +53,38 @@ namespace ObjectsUnitTest.Command.PC
             mockCommand = new Mock<ICommand>();
             canDoSomething = new Mock<ICanMobDoSomething>();
             room = new Mock<IRoom>();
+            mount = new Mock<IMount>();
+            exit = new Mock<IExit>();
+            differntRoom = new Mock<IRoom>();
+            mockResponse = new Mock<IResult>();
+            world = new Mock<IWorld>();
+            zone = new Mock<IZone>();
+            dZone = new Dictionary<int, IZone>();
+            dRoom = new Dictionary<int, IRoom>();
+            commandList = new Mock<ICommandList>();
+            commands = new Dictionary<string, IMobileObjectCommand>();
+            look = new Mock<IMobileObjectCommand>();
+            door = new Mock<IDoor>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
             mob.Setup(e => e.Room).Returns(room.Object);
             mob.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
+            mount.Setup(e => e.Room).Returns(room.Object);
+            mount.Setup(e => e.Riders).Returns(new List<IMobileObject>() { mob.Object });
+            commandList.Setup(e => e.PcCommandsLookup).Returns(commands);
+            look.Setup(e => e.PerformCommand(mob.Object, It.IsAny<ICommand>())).Returns(mockResponse.Object);
+            look.Setup(e => e.PerformCommand(mount.Object, It.IsAny<ICommand>())).Returns(mockResponse.Object);
+            world.Setup(e => e.Zones).Returns(dZone);
+            zone.Setup(e => e.Rooms).Returns(dRoom);
+            mockResponse.Setup(e => e.ResultMessage).Returns("look result");
+
+
+
+            dZone.Add(0, zone.Object);
+            dRoom.Add(0, differntRoom.Object);
+            commands.Add("LOOK", look.Object);
+
 
             GlobalReference.GlobalValues.CanMobDoSomething = canDoSomething.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
@@ -83,13 +123,11 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Move_PerformCommand_CannotMove()
         {
-            Mock<IResult> failedMockResponse = new Mock<IResult>();
-
-            canDoSomething.Setup(e => e.Move(mob.Object)).Returns(failedMockResponse.Object);
+            canDoSomething.Setup(e => e.Move(mob.Object)).Returns(mockResponse.Object);
             mockCommand.Setup(e => e.CommandName).Returns("North");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.AreSame(failedMockResponse.Object, result);
+            Assert.AreSame(mockResponse.Object, result);
         }
 
         [TestMethod]
@@ -106,8 +144,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Move_PerformCommand_DoorClosed()
         {
-            Mock<IExit> exit = new Mock<IExit>();
-            Mock<IDoor> door = new Mock<IDoor>();
 
             mockCommand.Setup(e => e.CommandName).Returns("North");
             door.Setup(e => e.SentenceDescription).Returns("SentenceDescription");
@@ -123,73 +159,39 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Move_PerformCommand_CanNotEnter()
         {
-            Mock<IExit> exit = new Mock<IExit>();
-            Mock<IRoom> differntRoom = new Mock<IRoom>();
-            Mock<IResult> failedMockResponse = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> dZone = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> dRoom = new Dictionary<int, IRoom>();
-
-            differntRoom.Setup(e => e.CheckEnter(mob.Object)).Returns(failedMockResponse.Object);
+            differntRoom.Setup(e => e.CheckEnter(mob.Object)).Returns(mockResponse.Object);
             mockCommand.Setup(e => e.CommandName).Returns("North");
             room.Setup(e => e.North).Returns(exit.Object);
-            dZone.Add(0, zone.Object);
-            world.Setup(e => e.Zones).Returns(dZone);
-            dRoom.Add(0, differntRoom.Object);
-            zone.Setup(e => e.Rooms).Returns(dRoom);
 
             GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.AreSame(failedMockResponse.Object, result);
+            Assert.AreSame(mockResponse.Object, result);
         }
 
         [TestMethod]
         public void Move_PerformCommand_CanNotLeave()
         {
-            Mock<IExit> exit = new Mock<IExit>();
-            Mock<IResult> failedMockResponse = new Mock<IResult>();
-
             room.Setup(e => e.North).Returns(exit.Object);
-            room.Setup(e => e.CheckLeave(mob.Object)).Returns(failedMockResponse.Object);
+            room.Setup(e => e.CheckLeave(mob.Object)).Returns(mockResponse.Object);
             mockCommand.Setup(e => e.CommandName).Returns("North");
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.AreSame(failedMockResponse.Object, result);
+            Assert.AreSame(mockResponse.Object, result);
         }
 
         [TestMethod]
         public void Move_PerformCommand_MoveNorth()
         {
-            Mock<IExit> exit = new Mock<IExit>();
-            Mock<IRoom> differntRoom = new Mock<IRoom>();
-            Mock<IResult> failedMockResponse = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> dZone = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> dRoom = new Dictionary<int, IRoom>();
-            Mock<ICommandList> commandList = new Mock<ICommandList>();
-            Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
-            Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
-
-            room.Setup(e => e.North).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("North");
             room.Setup(e => e.North).Returns(exit.Object);
             room.Setup(e => e.Leave(mob.Object, Direction.North, false)).Returns(true);
-            dZone.Add(0, zone.Object);
-            world.Setup(e => e.Zones).Returns(dZone);
-            dRoom.Add(0, differntRoom.Object);
-            zone.Setup(e => e.Rooms).Returns(dRoom);
-            commandList.Setup(e => e.PcCommandsLookup).Returns(commands);
-            commands.Add("LOOK", look.Object);
-            look.Setup(e => e.PerformCommand(mob.Object, It.IsAny<ICommand>())).Returns(failedMockResponse.Object);
 
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.CommandList = commandList.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.AreSame(failedMockResponse.Object, result);
+            Assert.AreSame(mockResponse.Object, result);
             room.Verify(e => e.Leave(mob.Object, Direction.North, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
@@ -198,34 +200,15 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Move_PerformCommand_MoveEast()
         {
-            Mock<IExit> exit = new Mock<IExit>();
-            Mock<IRoom> differntRoom = new Mock<IRoom>();
-            Mock<IResult> failedMockResponse = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> dZone = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> dRoom = new Dictionary<int, IRoom>();
-            Mock<ICommandList> commandList = new Mock<ICommandList>();
-            Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
-            Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
-
-            room.Setup(e => e.East).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("East");
             room.Setup(e => e.East).Returns(exit.Object);
             room.Setup(e => e.Leave(mob.Object, Direction.East, false)).Returns(true);
-            dZone.Add(0, zone.Object);
-            world.Setup(e => e.Zones).Returns(dZone);
-            dRoom.Add(0, differntRoom.Object);
-            zone.Setup(e => e.Rooms).Returns(dRoom);
-            commandList.Setup(e => e.PcCommandsLookup).Returns(commands);
-            commands.Add("LOOK", look.Object);
-            look.Setup(e => e.PerformCommand(mob.Object, It.IsAny<ICommand>())).Returns(failedMockResponse.Object);
 
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.CommandList = commandList.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.AreSame(failedMockResponse.Object, result);
+            Assert.AreSame(mockResponse.Object, result);
             room.Verify(e => e.Leave(mob.Object, Direction.East, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
@@ -234,34 +217,15 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Move_PerformCommand_MoveSouth()
         {
-            Mock<IExit> exit = new Mock<IExit>();
-            Mock<IRoom> differntRoom = new Mock<IRoom>();
-            Mock<IResult> failedMockResponse = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> dZone = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> dRoom = new Dictionary<int, IRoom>();
-            Mock<ICommandList> commandList = new Mock<ICommandList>();
-            Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
-            Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
-
-            room.Setup(e => e.South).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("South");
             room.Setup(e => e.South).Returns(exit.Object);
             room.Setup(e => e.Leave(mob.Object, Direction.South, false)).Returns(true);
-            dZone.Add(0, zone.Object);
-            world.Setup(e => e.Zones).Returns(dZone);
-            dRoom.Add(0, differntRoom.Object);
-            zone.Setup(e => e.Rooms).Returns(dRoom);
-            commandList.Setup(e => e.PcCommandsLookup).Returns(commands);
-            commands.Add("LOOK", look.Object);
-            look.Setup(e => e.PerformCommand(mob.Object, It.IsAny<ICommand>())).Returns(failedMockResponse.Object);
 
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.CommandList = commandList.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.AreSame(failedMockResponse.Object, result);
+            Assert.AreSame(mockResponse.Object, result);
             room.Verify(e => e.Leave(mob.Object, Direction.South, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
@@ -270,34 +234,15 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Move_PerformCommand_MoveWest()
         {
-            Mock<IExit> exit = new Mock<IExit>();
-            Mock<IRoom> differntRoom = new Mock<IRoom>();
-            Mock<IResult> failedMockResponse = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> dZone = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> dRoom = new Dictionary<int, IRoom>();
-            Mock<ICommandList> commandList = new Mock<ICommandList>();
-            Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
-            Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
-
-            room.Setup(e => e.West).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("West");
             room.Setup(e => e.West).Returns(exit.Object);
             room.Setup(e => e.Leave(mob.Object, Direction.West, false)).Returns(true);
-            dZone.Add(0, zone.Object);
-            world.Setup(e => e.Zones).Returns(dZone);
-            dRoom.Add(0, differntRoom.Object);
-            zone.Setup(e => e.Rooms).Returns(dRoom);
-            commandList.Setup(e => e.PcCommandsLookup).Returns(commands);
-            commands.Add("LOOK", look.Object);
-            look.Setup(e => e.PerformCommand(mob.Object, It.IsAny<ICommand>())).Returns(failedMockResponse.Object);
 
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.CommandList = commandList.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.AreSame(failedMockResponse.Object, result);
+            Assert.AreSame(mockResponse.Object, result);
             room.Verify(e => e.Leave(mob.Object, Direction.West, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
@@ -306,34 +251,15 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Move_PerformCommand_MoveUp()
         {
-            Mock<IExit> exit = new Mock<IExit>();
-            Mock<IRoom> differntRoom = new Mock<IRoom>();
-            Mock<IResult> failedMockResponse = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> dZone = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> dRoom = new Dictionary<int, IRoom>();
-            Mock<ICommandList> commandList = new Mock<ICommandList>();
-            Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
-            Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
-
-            room.Setup(e => e.Up).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("Up");
             room.Setup(e => e.Up).Returns(exit.Object);
             room.Setup(e => e.Leave(mob.Object, Direction.Up, false)).Returns(true);
-            dZone.Add(0, zone.Object);
-            world.Setup(e => e.Zones).Returns(dZone);
-            dRoom.Add(0, differntRoom.Object);
-            zone.Setup(e => e.Rooms).Returns(dRoom);
-            commandList.Setup(e => e.PcCommandsLookup).Returns(commands);
-            commands.Add("LOOK", look.Object);
-            look.Setup(e => e.PerformCommand(mob.Object, It.IsAny<ICommand>())).Returns(failedMockResponse.Object);
 
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.CommandList = commandList.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.AreSame(failedMockResponse.Object, result);
+            Assert.AreSame(mockResponse.Object, result);
             room.Verify(e => e.Leave(mob.Object, Direction.Up, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
@@ -342,43 +268,130 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Move_PerformCommand_MoveDown()
         {
-            Mock<IExit> exit = new Mock<IExit>();
-            Mock<IRoom> differntRoom = new Mock<IRoom>();
-            Mock<IResult> failedMockResponse = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> dZone = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> dRoom = new Dictionary<int, IRoom>();
-            Mock<ICommandList> commandList = new Mock<ICommandList>();
-            Dictionary<string, IMobileObjectCommand> commands = new Dictionary<string, IMobileObjectCommand>();
-            Mock<IMobileObjectCommand> look = new Mock<IMobileObjectCommand>();
-
-            room.Setup(e => e.Down).Returns(exit.Object);
             mockCommand.Setup(e => e.CommandName).Returns("Down");
             room.Setup(e => e.Down).Returns(exit.Object);
             room.Setup(e => e.Leave(mob.Object, Direction.Down, false)).Returns(true);
-            dZone.Add(0, zone.Object);
-            world.Setup(e => e.Zones).Returns(dZone);
-            dRoom.Add(0, differntRoom.Object);
-            zone.Setup(e => e.Rooms).Returns(dRoom);
-            commandList.Setup(e => e.PcCommandsLookup).Returns(commands);
-            commands.Add("LOOK", look.Object);
-            look.Setup(e => e.PerformCommand(mob.Object, It.IsAny<ICommand>())).Returns(failedMockResponse.Object);
 
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.CommandList = commandList.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.AreSame(failedMockResponse.Object, result);
+            Assert.AreSame(mockResponse.Object, result);
             room.Verify(e => e.Leave(mob.Object, Direction.Down, false), Times.Once);
             mob.VerifySet(e => e.Room = differntRoom.Object);
             differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
         }
 
         [TestMethod]
-        public void Move_UpdateToTestForMounted()
+        public void Move_PerformCommand_MountNotInRoom()
         {
-            Assert.AreEqual(1, 2);
+            mob.Setup(e => e.Mount).Returns(mount.Object);
+            mount.Setup(e => e.Room).Returns<IRoom>(null);
+
+            mockCommand.Setup(e => e.CommandName).Returns("Down");
+            room.Setup(e => e.Down).Returns(exit.Object);
+            room.Setup(e => e.Leave(mob.Object, Direction.Down, false)).Returns(true);
+
+            GlobalReference.GlobalValues.World = world.Object;
+            GlobalReference.GlobalValues.CommandList = commandList.Object;
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+            Assert.AreSame(mockResponse.Object, result);
+            room.Verify(e => e.Leave(mob.Object, Direction.Down, false), Times.Once);
+            mob.VerifySet(e => e.Room = differntRoom.Object);
+            differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
+
+            mount.VerifySet(e => e.Room = differntRoom.Object, Times.Never);
+            mount.Verify(e => e.EnqueueCommand("Down"), Times.Never);
+        }
+
+        [TestMethod]
+        public void Move_PerformCommand_MountNotSameRoom()
+        {
+            mob.Setup(e => e.Mount).Returns(mount.Object);
+            mount.Setup(e => e.Room).Returns<IRoom>(null);
+
+            mockCommand.Setup(e => e.CommandName).Returns("Down");
+            room.Setup(e => e.Down).Returns(exit.Object);
+            room.Setup(e => e.Leave(mob.Object, Direction.Down, false)).Returns(true);
+
+            GlobalReference.GlobalValues.World = world.Object;
+            GlobalReference.GlobalValues.CommandList = commandList.Object;
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+            Assert.AreSame(mockResponse.Object, result);
+            room.Verify(e => e.Leave(mob.Object, Direction.Down, false), Times.Once);
+            mob.VerifySet(e => e.Room = differntRoom.Object);
+            differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
+
+            mount.VerifySet(e => e.Room = differntRoom.Object, Times.Never);
+            mount.Verify(e => e.EnqueueCommand("Down"), Times.Never);
+        }
+
+        [TestMethod]
+        public void Move_PerformCommand_MountNotMounted()
+        {
+            mob.Setup(e => e.Mount).Returns(mount.Object);
+            mount.Setup(e => e.Riders).Returns(new List<IMobileObject>());
+
+            mockCommand.Setup(e => e.CommandName).Returns("Down");
+            room.Setup(e => e.Down).Returns(exit.Object);
+            room.Setup(e => e.Leave(mob.Object, Direction.Down, false)).Returns(true);
+
+            GlobalReference.GlobalValues.World = world.Object;
+            GlobalReference.GlobalValues.CommandList = commandList.Object;
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+            Assert.AreSame(mockResponse.Object, result);
+            room.Verify(e => e.Leave(mob.Object, Direction.Down, false), Times.Once);
+            mob.VerifySet(e => e.Room = differntRoom.Object);
+            differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
+
+            mount.VerifySet(e => e.Room = differntRoom.Object, Times.Never);
+            mount.Verify(e => e.EnqueueCommand("Down"), Times.Never);
+        }
+
+        [TestMethod]
+        public void Move_PerformCommand_Mounted()
+        {
+            mob.Setup(e => e.Mount).Returns(mount.Object);
+
+            mockCommand.Setup(e => e.CommandName).Returns("Down");
+            room.Setup(e => e.Down).Returns(exit.Object);
+            room.Setup(e => e.Leave(mob.Object, Direction.Down, false)).Returns(true);
+
+            GlobalReference.GlobalValues.World = world.Object;
+            GlobalReference.GlobalValues.CommandList = commandList.Object;
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+            Assert.AreSame(null, result);
+            room.Verify(e => e.Leave(mob.Object, Direction.Down, false), Times.Never);
+            mob.VerifySet(e => e.Room = differntRoom.Object, Times.Never);
+            differntRoom.Verify(e => e.Enter(mob.Object), Times.Never);
+
+            mount.VerifySet(e => e.Room = differntRoom.Object, Times.Never);
+            mount.Verify(e => e.EnqueueCommand("Down"), Times.Once);
+        }
+
+        [TestMethod]
+        public void Move_PerformCommand_MountMoves()
+        {
+            mob.Setup(e => e.Mount).Returns(mount.Object);
+
+            mockCommand.Setup(e => e.CommandName).Returns("Down");
+            room.Setup(e => e.Down).Returns(exit.Object);
+            room.Setup(e => e.Leave(mount.Object, Direction.Down, false)).Returns(true);
+
+            GlobalReference.GlobalValues.World = world.Object;
+            GlobalReference.GlobalValues.CommandList = commandList.Object;
+
+            IResult result = command.PerformCommand(mount.Object, mockCommand.Object);
+
+            Assert.AreSame(mockResponse.Object, result);
+            mount.VerifySet(e => e.Room = differntRoom.Object, Times.Once);
+            mob.Verify(e => e.EnqueueMessage("look result"), Times.Once);
+            room.Verify(e => e.Leave(mob.Object, Direction.Down, true), Times.Once);
+            differntRoom.Verify(e => e.Enter(mob.Object), Times.Once);
         }
     }
 }
