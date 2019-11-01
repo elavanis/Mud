@@ -9,6 +9,12 @@ namespace Objects.Personality.Custom.GrandviewCastle
 {
     public class Cook : IPersonality
     {
+        private int cookId;
+
+        public Cook(int id)
+        {
+            cookId = id;
+        }
 
         public string Process(INonPlayerCharacter npc, string command)
         {
@@ -24,7 +30,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
         }
 
 
-        private static string CheckForTrigger(INonPlayerCharacter npc)
+        private string CheckForTrigger(INonPlayerCharacter npc)
         {
             string message;
             while ((message = npc.DequeueMessage()) != null)
@@ -37,7 +43,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     {
                         if (nonPlayerCharacters[i] == npc)
                         {
-                            switch (i)
+                            switch (cookId)
                             {
                                 case 0:
                                     npc.EnqueueCommand("Say Right away.");

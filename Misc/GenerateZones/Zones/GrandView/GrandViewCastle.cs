@@ -303,10 +303,10 @@ namespace GenerateZones.Zones.GrandView
             room.LookDescription = "Pots and pans hand from the wall above a large fire place.";
             room.ShortDescription = "Kitchen";
 
-            room.AddMobileObjectToRoom(CookMan());
-            room.AddMobileObjectToRoom(CookMan());
-            room.AddMobileObjectToRoom(CookWoman());
-            room.AddMobileObjectToRoom(CookWoman());
+            room.AddMobileObjectToRoom(CookMan(1));
+            room.AddMobileObjectToRoom(CookMan(2));
+            room.AddMobileObjectToRoom(CookWoman(3));
+            room.AddMobileObjectToRoom(CookWoman(4));
 
             return room;
         }
@@ -472,7 +472,7 @@ namespace GenerateZones.Zones.GrandView
             return npc;
         }
 
-        private INonPlayerCharacter CookMan()
+        private INonPlayerCharacter CookMan(int id)
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 22);
             npc.ShortDescription = "A cook.";
@@ -481,12 +481,12 @@ namespace GenerateZones.Zones.GrandView
             npc.SentenceDescription = "cook";
             npc.KeyWords.Add("cook");
 
-            npc.Personalities.Add(new Cook());
+            npc.Personalities.Add(new Cook(id));
 
             return npc;
         }
 
-        private INonPlayerCharacter CookWoman()
+        private INonPlayerCharacter CookWoman(int id)
         {
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 22);
             npc.ShortDescription = "A cook.";
@@ -495,7 +495,7 @@ namespace GenerateZones.Zones.GrandView
             npc.SentenceDescription = "cook";
             npc.KeyWords.Add("cook");
 
-            npc.Personalities.Add(new Cook());
+            npc.Personalities.Add(new Cook(id));
 
             return npc;
         }
