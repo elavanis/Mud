@@ -19,7 +19,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
     {
         private State StateMachine { get; set; } = State.Sleep;
         private int Step;
-        private bool GreetQueen { get; set; }
+        private bool GreetedQueen { get; set; }
         private List<string> GreetingForQueen = new List<string>() { "Good morning honey.", "Good morning buttercup.", "I hope you slept well.", "Good morning sunshine.", "You look as lovely as the first time I met you.", "Hello my desert lily." };
 
         public string Process(INonPlayerCharacter npc, string command)
@@ -42,16 +42,16 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             #endregion Combat
 
-            int hour = GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour;
-
-            if (!GreetQueen && npc.Room.Id == 21)
+            if (!GreetedQueen && npc.Room.Id == 21)
             {
                 if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "queen").Count > 0)
                 {
-                    GreetQueen = true;
+                    GreetedQueen = true;
                     return GreetingForQueen[GlobalReference.GlobalValues.Random.Next(GreetingForQueen.Count)];
                 }
             }
+
+            int hour = GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour;
 
             if (hour < 13)
             {

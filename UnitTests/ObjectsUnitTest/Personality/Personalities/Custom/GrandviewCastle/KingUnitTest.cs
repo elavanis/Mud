@@ -1,10 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects.Die.Interface;
+using Objects.GameDateTime.Interface;
 using Objects.Global;
 using Objects.Global.DefaultValues.Interface;
 using Objects.Global.FindObjects.Interface;
+using Objects.Global.GameDateTime;
+using Objects.Global.GameDateTime.Interface;
 using Objects.Global.MoneyToCoins.Interface;
+using Objects.Global.Notify.Interface;
 using Objects.Global.Random.Interface;
 using Objects.Global.Settings.Interface;
 using Objects.Mob.Interface;
@@ -32,6 +36,9 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         Mock<ISettings> settings;
         Mock<IMoneyToCoins> moneyToCoins;
         Mock<ITagWrapper> tagWrapper;
+        Mock<INotify> notify;
+        Mock<IInGameDateTime> inGameDateTime;
+        Mock<IGameDateTime> gameDateTime;
 
         [TestInitialize]
         public void Setup()
@@ -47,15 +54,19 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             settings = new Mock<ISettings>();
             moneyToCoins = new Mock<IMoneyToCoins>();
             tagWrapper = new Mock<ITagWrapper>();
+            notify = new Mock<INotify>();
+            inGameDateTime = new Mock<IInGameDateTime>();
+            gameDateTime = new Mock<IGameDateTime>();
 
             npc.Setup(e => e.Room).Returns(room.Object);
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "kings guard")).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            room.Setup(e => e.Id).Returns(21);
             defaultValues.Setup(e => e.DiceForArmorLevel(47)).Returns(dice.Object);
             random.Setup(e => e.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(10);
             settings.Setup(e => e.BaseStatValue).Returns(5);
             moneyToCoins.Setup(e => e.FormatedAsCoins(It.IsAny<ulong>())).Returns("some");
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
-
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
@@ -63,8 +74,11 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
 
             king = new King();
+            SetGreetedQueen(true);
         }
 
         [TestMethod]
@@ -84,9 +98,18 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
 
             npc.Verify(e => e.EnqueueCommand("Shout GUARDS!"), Times.Once);
             room.Verify(e => e.Enter(It.IsAny<INonPlayerCharacter>()), Times.Exactly(3));
-
         }
 
+        [TestMethod]
+        public void King_Process_GreetQueen()
+        {
+            SetGreetedQueen(false);
+
+            king.Process(npc.Object, null);
+
+            npc.Verify(e => e.EnqueueCommand("Shout GUARDS!"), Times.Once);
+            room.Verify(e => e.Enter(It.IsAny<INonPlayerCharacter>()), Times.Exactly(3));
+        }
 
         [TestMethod]
         public void KingUnitTest_WriteSome()
@@ -99,6 +122,12 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             PropertyInfo stateMachine = king.GetType().GetProperty("StateMachine", BindingFlags.Instance | BindingFlags.NonPublic);
             object state = king.GetType().GetNestedType("State", BindingFlags.NonPublic).GetField(stateName).GetValue(king);
             stateMachine.SetValue(king, state);
+        }
+
+        private void SetGreetedQueen(bool value)
+        {
+            PropertyInfo propertyInfo = king.GetType().GetProperty("GreetedQueen", BindingFlags.Instance | BindingFlags.NonPublic);
+            propertyInfo.SetValue(king, value);
         }
     }
 }
