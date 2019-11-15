@@ -117,13 +117,12 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 {
                     StateMachine = State.AskedForMeal;
                     Step = 0;
-                    npc.EnqueueCommand("Say Servant, bring me my meal.");
+                    return "Say Servant, bring me my meal.";
                 }
             }
             else if (StateMachine == State.AskedForMeal)
             {
                 if (Step % 5 == 0
-                   && GlobalReference.GlobalValues.Random.PercentDiceRoll(50)
                    && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "servant").Count > 0)
                 {
                     bool foundAskedForWhat = false;
@@ -148,7 +147,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             else if (StateMachine == State.AskedForHasenpfeffer)
             {
-
                 string message = null;
                 while ((message = npc.DequeueMessage()) != null)
                 {
