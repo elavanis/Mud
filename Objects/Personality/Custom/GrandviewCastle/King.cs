@@ -177,20 +177,18 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             else if (StateMachine == State.ReceivedHasenpfeffer)
             {
-                npc.EnqueueCommand("Emote eats hasenpfeffer");
                 StateMachine = State.ThroneRoom;
+                return "Emote eats hasenpfeffer.";
             }
             else if (StateMachine == State.ReceivedCarrot)
             {
                 switch (Step)
                 {
                     case 1:
-                        npc.EnqueueCommand("Emote eats hasenpfeffer");
-                        break;
+                        return "Emote eats hasenpfeffer.";
                     case 3:
-                        npc.EnqueueCommand("Say If I didn't know this was hasenpfeffer I'd swear it was carrots.");
                         StateMachine = State.ThroneRoom;
-                        break;
+                        return "Say If I didn't know this was hasenpfeffer I'd swear it was carrots.";
                 }
             }
 

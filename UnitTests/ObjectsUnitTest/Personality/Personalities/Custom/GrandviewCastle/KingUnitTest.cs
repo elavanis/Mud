@@ -368,7 +368,39 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual("Say Where is my hasenpfeffer?", result);
         }
 
+        [TestMethod]
+        public void King_Process_Day_ReceivedHasenpfeffer()
+        {
+            State = "ReceivedHasenpfeffer";
 
+            string result = king.Process(npc.Object, null);
+
+            Assert.AreEqual("Emote eats hasenpfeffer.", result);
+            Assert.AreEqual("ThroneRoom", State);
+        }
+
+        [TestMethod]
+        public void King_Process_Day_ReceivedCarrot_Step1()
+        {
+            State = "ReceivedCarrot";
+            Step = 0;
+
+            string result = king.Process(npc.Object, null);
+
+            Assert.AreEqual("Emote eats hasenpfeffer.", result);
+        }
+
+        [TestMethod]
+        public void King_Process_Day_ReceivedCarrot_Step3()
+        {
+            State = "ReceivedCarrot";
+            Step = 2;
+
+            string result = king.Process(npc.Object, null);
+
+            Assert.AreEqual("Say If I didn't know this was hasenpfeffer I'd swear it was carrots.", result);
+            Assert.AreEqual("ThroneRoom", State);
+        }
 
 
         [TestMethod]
