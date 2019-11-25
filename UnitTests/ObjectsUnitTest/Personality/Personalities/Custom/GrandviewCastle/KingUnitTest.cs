@@ -115,7 +115,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual("Good morning honey.", result);
         }
 
-
+        #region Day Tests
         [TestMethod]
         public void King_Process_Day_Sleep1()
         {
@@ -401,7 +401,22 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual("Say If I didn't know this was hasenpfeffer I'd swear it was carrots.", result);
             Assert.AreEqual("ThroneRoom", State);
         }
+        #endregion Day Tests
 
+        #region Night Tests
+        [TestMethod]
+        public void King_Process_Night_CloseCourt()
+        {
+            gameDateTime.Setup(e => e.Hour).Returns(13);
+            room.Setup(e => e.Id).Returns(20);
+
+            string result = king.Process(npc.Object, null);
+
+            npc.Verify(e => e.EnqueueCommand("Say Court is closed for the day. Please come back tomorrow."), Times.Once);
+            Assert.AreEqual("West", result);
+            Assert.AreEqual("SpendTimeWithQueen", State);
+        }
+        #endregion Night Tests
 
         [TestMethod]
         public void KingUnitTest_WriteSome()
