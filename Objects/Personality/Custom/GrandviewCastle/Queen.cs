@@ -36,7 +36,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "queens guard").Count;
                 if (howManyKingsGuards < 4)
                 {
-                    npc.EnqueueCommand("Shout GUARDS!");
+                    npc.EnqueueCommand("Say GUARDS!");
                     SummonQueensGuards(4 - howManyKingsGuards, npc.Room);
                 }
                 return "Flee";

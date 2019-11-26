@@ -3,6 +3,7 @@ using Moq;
 using Objects.Die.Interface;
 using Objects.GameDateTime.Interface;
 using Objects.Global;
+using Objects.Global.CanMobDoSomething.Interface;
 using Objects.Global.DefaultValues.Interface;
 using Objects.Global.FindObjects.Interface;
 using Objects.Global.GameDateTime;
@@ -39,6 +40,9 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         Mock<INotify> notify;
         Mock<IInGameDateTime> inGameDateTime;
         Mock<IGameDateTime> gameDateTime;
+        Mock<IPlayerCharacter> player;
+        Mock<ICanMobDoSomething> canMobDoSomething;
+        List<IPlayerCharacter> players;
 
         [TestInitialize]
         public void Setup()
@@ -57,18 +61,24 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             notify = new Mock<INotify>();
             inGameDateTime = new Mock<IInGameDateTime>();
             gameDateTime = new Mock<IGameDateTime>();
+            player = new Mock<IPlayerCharacter>();
+            canMobDoSomething = new Mock<ICanMobDoSomething>();
+            players = new List<IPlayerCharacter>();
 
             npc.Setup(e => e.Room).Returns(room.Object);
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "kings guard")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "queen")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "servant")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.Id).Returns(21);
+            room.Setup(e => e.Zone).Returns(24);
+            room.Setup(e => e.PlayerCharacters).Returns(players);
             defaultValues.Setup(e => e.DiceForArmorLevel(47)).Returns(dice.Object);
             random.Setup(e => e.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(10);
             settings.Setup(e => e.BaseStatValue).Returns(5);
             moneyToCoins.Setup(e => e.FormatedAsCoins(It.IsAny<ulong>())).Returns("some");
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
+            canMobDoSomething.Setup(e => e.SeeObject(npc.Object, player.Object)).Returns(true);
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
@@ -78,6 +88,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
+            GlobalReference.GlobalValues.CanMobDoSomething = canMobDoSomething.Object;
 
             king = new King();
             SetGreetedQueen(true);
@@ -96,9 +107,10 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         {
             npc.Setup(e => e.IsInCombat).Returns(true);
 
-            king.Process(npc.Object, null);
+            string result = king.Process(npc.Object, null);
 
-            npc.Verify(e => e.EnqueueCommand("Shout GUARDS!"), Times.Once);
+            Assert.AreEqual("Flee", result);
+            npc.Verify(e => e.EnqueueCommand("Say GUARDS!"), Times.Once);
             room.Verify(e => e.Enter(It.IsAny<INonPlayerCharacter>()), Times.Exactly(3));
         }
 
@@ -415,6 +427,19 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             npc.Verify(e => e.EnqueueCommand("Say Court is closed for the day. Please come back tomorrow."), Times.Once);
             Assert.AreEqual("West", result);
             Assert.AreEqual("SpendTimeWithQueen", State);
+        }
+
+        [TestMethod]
+        public void King_Process_Night_SummonGuards()
+        {
+            gameDateTime.Setup(e => e.Hour).Returns(13);
+            room.Setup(e => e.Id).Returns(21);
+            players.Add(player.Object);
+
+            string result = king.Process(npc.Object, null);
+
+            Assert.AreEqual("Say GUARDS!", result);
+            room.Verify(e => e.Enter(It.IsAny<INonPlayerCharacter>()), Times.Exactly(3));
         }
         #endregion Night Tests
 
