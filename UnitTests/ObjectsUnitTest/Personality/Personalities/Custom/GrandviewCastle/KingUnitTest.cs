@@ -441,6 +441,90 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual("Say GUARDS!", result);
             room.Verify(e => e.Enter(It.IsAny<INonPlayerCharacter>()), Times.Exactly(3));
         }
+
+        [TestMethod]
+        public void King_Process_Night_SpendTimeWithQueeen1()
+        {
+            State = "SpendTimeWithQueen";
+            gameDateTime.Setup(e => e.Hour).Returns(13);
+            room.Setup(e => e.Id).Returns(22);
+
+            string result = king.Process(npc.Object, null);
+
+            Assert.AreEqual("North", result);
+            Assert.AreEqual(0, Step);
+        }
+
+        [TestMethod]
+        public void King_Process_Night_SpendTimeWithQueeen2()
+        {
+            Step = 4;
+            State = "SpendTimeWithQueen";
+            gameDateTime.Setup(e => e.Hour).Returns(13);
+            //room.Setup(e => e.Id).Returns(20);
+            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says Hello dear.</Communication>");
+
+            string result = king.Process(npc.Object, null);
+
+            Assert.AreEqual("Say Hello my beautify queen.", result);
+        }
+
+        [TestMethod]
+        public void King_Process_Night_SpendTimeWithQueeen3()
+        {
+            Step = 4;
+            State = "SpendTimeWithQueen";
+            gameDateTime.Setup(e => e.Hour).Returns(13);
+            //room.Setup(e => e.Id).Returns(20);
+            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says I wish we could just leave this all behind.</Communication>");
+
+            string result = king.Process(npc.Object, null);
+
+            Assert.AreEqual("Say That sounds nice.  We should take a trip to the country to get away for a while.", result);
+        }
+
+        [TestMethod]
+        public void King_Process_Night_SpendTimeWithQueeen4()
+        {
+            Step = 4;
+            State = "SpendTimeWithQueen";
+            gameDateTime.Setup(e => e.Hour).Returns(13);
+            //room.Setup(e => e.Id).Returns(20);
+            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says A trip to the country sounds great  We can goto the villa.</Communication>");
+
+            string result = king.Process(npc.Object, null);
+
+            Assert.AreEqual("Say Lets plan to do this when the weather gets a little nicer.", result);
+        }
+
+        [TestMethod]
+        public void King_Process_Night_SpendTimeWithQueeen5()
+        {
+            Step = 4;
+            State = "SpendTimeWithQueen";
+            gameDateTime.Setup(e => e.Hour).Returns(13);
+            //room.Setup(e => e.Id).Returns(20);
+            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says Agreed.</Communication>");
+
+            string result = king.Process(npc.Object, null);
+
+            Assert.AreEqual("Say Good night my love.", result);
+        }
+
+        [TestMethod]
+        public void King_Process_Night_SpendTimeWithQueeen6()
+        {
+            Step = 4;
+            State = "SpendTimeWithQueen";
+            gameDateTime.Setup(e => e.Hour).Returns(13);
+            //room.Setup(e => e.Id).Returns(20);
+            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says Goodnight my dear.</Communication>");
+
+            string result = king.Process(npc.Object, null);
+
+            Assert.AreEqual("Sleep", State);
+            Assert.AreEqual("South", result);
+        }
         #endregion Night Tests
 
         [TestMethod]

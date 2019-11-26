@@ -51,6 +51,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 }
             }
 
+            Step++;
+
             int hour = GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour;
 
             if (hour < 13)
@@ -66,7 +68,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private string DayTimeThings(INonPlayerCharacter npc)
         {
-            Step++;
 
             if (StateMachine == State.Sleep)
             {
