@@ -461,7 +461,6 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithQueen";
             gameDateTime.Setup(e => e.Hour).Returns(13);
-            //room.Setup(e => e.Id).Returns(20);
             npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says Hello dear.</Communication>");
 
             string result = king.Process(npc.Object, null);
@@ -475,7 +474,6 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithQueen";
             gameDateTime.Setup(e => e.Hour).Returns(13);
-            //room.Setup(e => e.Id).Returns(20);
             npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says I wish we could just leave this all behind.</Communication>");
 
             string result = king.Process(npc.Object, null);
@@ -489,7 +487,6 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithQueen";
             gameDateTime.Setup(e => e.Hour).Returns(13);
-            //room.Setup(e => e.Id).Returns(20);
             npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says A trip to the country sounds great  We can goto the villa.</Communication>");
 
             string result = king.Process(npc.Object, null);
@@ -503,7 +500,6 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithQueen";
             gameDateTime.Setup(e => e.Hour).Returns(13);
-            //room.Setup(e => e.Id).Returns(20);
             npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says Agreed.</Communication>");
 
             string result = king.Process(npc.Object, null);
@@ -517,7 +513,6 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithQueen";
             gameDateTime.Setup(e => e.Hour).Returns(13);
-            //room.Setup(e => e.Id).Returns(20);
             npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says Goodnight my dear.</Communication>");
 
             string result = king.Process(npc.Object, null);
@@ -525,14 +520,18 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual("Sleep", State);
             Assert.AreEqual("South", result);
         }
-        #endregion Night Tests
 
         [TestMethod]
-        public void KingUnitTest_WriteSome()
+        public void King_Process_Night_Sleep()
         {
-            Assert.AreEqual(1, 2);
-        }
+            State = "Sleep";
+            gameDateTime.Setup(e => e.Hour).Returns(13);
+            room.Setup(e => e.Id).Returns(14);
+            string result = king.Process(npc.Object, null);
 
+            Assert.AreEqual("Sleep", result);
+        }
+        #endregion Night Tests
 
         private string State
         {

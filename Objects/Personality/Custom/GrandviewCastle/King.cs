@@ -269,7 +269,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 {
                     if (npc.Position != MobileObject.CharacterPosition.Sleep)
                     {
-                        npc.EnqueueCommand("Sleep");
+                        return "Sleep";
                     }
                 }
             }

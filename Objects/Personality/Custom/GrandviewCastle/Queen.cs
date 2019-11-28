@@ -19,7 +19,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
     {
         private State StateMachine { get; set; } = State.Sleep;
         private int Step;
-        private bool GreetKing { get; set; }
+        private bool GreetedKing { get; set; }
         private List<string> GreetingForKing = new List<string>() { "Good morning honey.", "Good morning sweetie.", "Good morning moonbeam.", "Hello my handsome lion." };
 
 
@@ -45,11 +45,11 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             int hour = GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour;
 
-            if (!GreetKing && npc.Room.Id == 21)
+            if (!GreetedKing && npc.Room.Id == 21)
             {
                 if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "king").Count > 0)
                 {
-                    GreetKing = true;
+                    GreetedKing = true;
                     return GreetingForKing[GlobalReference.GlobalValues.Random.Next(GreetingForKing.Count)];
                 }
             }
