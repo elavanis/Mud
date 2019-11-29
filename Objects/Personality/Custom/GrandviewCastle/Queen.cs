@@ -43,8 +43,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             #endregion Combat
 
-            int hour = GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour;
-
             if (!GreetedKing && npc.Room.Id == 21)
             {
                 if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "king").Count > 0)
@@ -53,6 +51,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     return GreetingForKing[GlobalReference.GlobalValues.Random.Next(GreetingForKing.Count)];
                 }
             }
+
+            int hour = GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour;
 
             if (hour < 13)
             {

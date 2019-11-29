@@ -73,7 +73,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             GlobalReference.GlobalValues.Notify = notify.Object;
 
             queen = new Queen();
-
+            GreetedKing = true;
         }
 
         [TestMethod]
@@ -94,6 +94,19 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual("Flee", result);
             npc.Verify(e => e.EnqueueCommand("Say GUARDS!"), Times.Once);
             room.Verify(e => e.Enter(It.IsAny<INonPlayerCharacter>()), Times.Exactly(3));
+        }
+
+        [TestMethod]
+        public void Queen_Process_GreetKing()
+        {
+            room.Setup(e => e.Id).Returns(21);
+            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "king")).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            GreetedKing = false;
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.IsTrue(GreetedKing);
+            Assert.AreEqual("Good morning honey.", result);
         }
 
 
@@ -135,10 +148,19 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         }
 
 
-        private void SetGreetedKing(bool value)
+        private bool GreetedKing
         {
-            PropertyInfo propertyInfo = queen.GetType().GetProperty("GreetedKing", BindingFlags.Instance | BindingFlags.NonPublic);
-            propertyInfo.SetValue(queen, value);
+            get
+            {
+                PropertyInfo propertyInfo = queen.GetType().GetProperty("GreetedKing", BindingFlags.Instance | BindingFlags.NonPublic);
+                return (bool)propertyInfo.GetValue(queen);
+            }
+            set
+            {
+                PropertyInfo propertyInfo = queen.GetType().GetProperty("GreetedKing", BindingFlags.Instance | BindingFlags.NonPublic);
+                propertyInfo.SetValue(queen, value);
+            }
+
         }
     }
 }
