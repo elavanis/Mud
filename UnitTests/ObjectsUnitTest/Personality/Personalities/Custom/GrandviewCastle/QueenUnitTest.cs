@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects.Die.Interface;
+using Objects.GameDateTime.Interface;
 using Objects.Global;
 using Objects.Global.DefaultValues.Interface;
 using Objects.Global.FindObjects.Interface;
+using Objects.Global.GameDateTime.Interface;
 using Objects.Global.MoneyToCoins.Interface;
 using Objects.Global.Notify.Interface;
 using Objects.Global.Random.Interface;
@@ -34,8 +36,8 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         Mock<IMoneyToCoins> moneyToCoins;
         Mock<ITagWrapper> tagWrapper;
         Mock<INotify> notify;
-        //Mock<IInGameDateTime> inGameDateTime;
-        //Mock<IGameDateTime> gameDateTime;
+        Mock<IInGameDateTime> inGameDateTime;
+        Mock<IGameDateTime> gameDateTime;
         //Mock<IPlayerCharacter> player;
         //Mock<ICanMobDoSomething> canMobDoSomething;
         //List<IPlayerCharacter> players;
@@ -55,6 +57,8 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             moneyToCoins = new Mock<IMoneyToCoins>();
             tagWrapper = new Mock<ITagWrapper>();
             notify = new Mock<INotify>();
+            inGameDateTime = new Mock<IInGameDateTime>();
+            gameDateTime = new Mock<IGameDateTime>();
 
             npc.Setup(e => e.Room).Returns(room.Object);
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "queens guard")).Returns(new List<INonPlayerCharacter>() { npc.Object });
@@ -63,6 +67,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             settings.Setup(e => e.BaseStatValue).Returns(5);
             moneyToCoins.Setup(e => e.FormatedAsCoins(It.IsAny<ulong>())).Returns("some");
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
 
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
@@ -71,6 +76,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
+            GlobalReference.GlobalValues.GameDateTime = inGameDateTime.Object;
 
             queen = new Queen();
             GreetedKing = true;
@@ -109,7 +115,29 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual("Good morning honey.", result);
         }
 
+        [TestMethod]
+        public void Queen_Process_Sleep1()
+        {
+            State = "Sleep";
+            Step = 0;
 
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Say Make the sun go away.  I officially decree it.  Go away.", result);
+            Assert.AreEqual(1, Step);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Sleep5()
+        {
+            State = "Sleep";
+            Step = 4;
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Emote rolls out of bed.", result);
+            Assert.AreEqual(5, Step);
+        }
 
         [TestMethod]
         public void QueenUnitTest_WriteSome()
