@@ -140,6 +140,43 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         }
 
         [TestMethod]
+        public void Queen_Process_Sleep10()
+        {
+            State = "Sleep";
+            Step = 9;
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Stand", result);
+            Assert.AreEqual(10, Step);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Sleep12()
+        {
+            State = "Sleep";
+            Step = 11;
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Emote drinks coffee.", result);
+            Assert.AreEqual(12, Step);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Sleep14()
+        {
+            State = "Sleep";
+            Step = 13;
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Say Much better.", result);
+            Assert.AreEqual(14, Step);
+            Assert.AreEqual("Up", State);
+        }
+
+        [TestMethod]
         public void QueenUnitTest_WriteSome()
         {
             Assert.AreEqual(1, 2);
