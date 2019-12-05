@@ -61,7 +61,10 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             gameDateTime = new Mock<IGameDateTime>();
 
             npc.Setup(e => e.Room).Returns(room.Object);
+            room.Setup(e => e.Zone).Returns(24);
+            room.Setup(e => e.Id).Returns(22);
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "queens guard")).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "King")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             defaultValues.Setup(e => e.DiceForArmorLevel(45)).Returns(dice.Object);
             random.Setup(e => e.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(10);
             settings.Setup(e => e.BaseStatValue).Returns(5);
@@ -102,6 +105,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             room.Verify(e => e.Enter(It.IsAny<INonPlayerCharacter>()), Times.Exactly(3));
         }
 
+        #region Day Test
         [TestMethod]
         public void Queen_Process_GreetKing()
         {
@@ -128,7 +132,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         }
 
         [TestMethod]
-        public void Queen_Process_Sleep5()
+        public void Queen_Process_Day_Sleep5()
         {
             State = "Sleep";
             Step = 4;
@@ -140,7 +144,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         }
 
         [TestMethod]
-        public void Queen_Process_Sleep10()
+        public void Queen_Process_Day_Sleep10()
         {
             State = "Sleep";
             Step = 9;
@@ -152,7 +156,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         }
 
         [TestMethod]
-        public void Queen_Process_Sleep12()
+        public void Queen_Process_Day_Sleep12()
         {
             State = "Sleep";
             Step = 11;
@@ -164,7 +168,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         }
 
         [TestMethod]
-        public void Queen_Process_Sleep14()
+        public void Queen_Process_Day_Sleep14()
         {
             State = "Sleep";
             Step = 13;
@@ -175,6 +179,34 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual(14, Step);
             Assert.AreEqual("Up", State);
         }
+
+        [TestMethod]
+        public void Queen_Process_Day_Up()
+        {
+            State = "Up";
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("East", result);
+        }
+        #endregion Day Test
+
+        #region Night Test
+        [TestMethod]
+        public void Queen_Process_Night_Up()
+        {
+            State = "Up";
+            room.Setup(e => e.Id).Returns(20);
+            gameDateTime.Setup(e => e.Hour).Returns(13);
+            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>King says Court is closed for the day. Please come back tomorrow.</Communication>");
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("West", result);
+            Assert.AreEqual("GotoBalcony", State);
+            npc.Verify(e => e.EnqueueCommand("Say Its about time."), Times.Once);
+        }
+        #endregion Night Test
 
         [TestMethod]
         public void QueenUnitTest_WriteSome()
