@@ -30,6 +30,7 @@ using Objects.Mob.SpecificNPC;
 using Objects.Language.Interface;
 using Objects.Mob.SpecificNPC.Interface;
 using Objects.Skill.Skills;
+using static Shared.FileIO.Interface.CachedThings.FileExits;
 
 namespace Objects.World
 {
@@ -248,8 +249,7 @@ namespace Objects.World
         public void LoadWorld()
         {
             string zoneLocation = GlobalReference.GlobalValues.Settings.ZoneDirectory;
-            GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(zoneLocation);
-            string[] zones = GlobalReference.GlobalValues.FileIO.GetFilesFromDirectory(zoneLocation, "*.zone");
+            string[] zones = GlobalReference.GlobalValues.FileIO.GetFilesFromDirectory(zoneLocation);
 
             if (zones.Length == 0)
             {
@@ -421,8 +421,6 @@ namespace Objects.World
 
         private string[] SavedPlayers(string playerCharacterDir)
         {
-            GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(playerCharacterDir);
-
             return GlobalReference.GlobalValues.FileIO.GetFilesFromDirectory(playerCharacterDir);
         }
 
@@ -828,11 +826,10 @@ namespace Objects.World
         {
             try
             {
-                GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd")));
                 string fileLocation = Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd"), "Stats.stat");
 
                 List<ICounters> counters = new List<ICounters>();
-                if (GlobalReference.GlobalValues.FileIO.Exists(fileLocation))
+                if (GlobalReference.GlobalValues.FileIO.Exists(fileLocation) == Exists.True)
                 {
                     counters = GlobalReference.GlobalValues.Serialization.Deserialize<List<ICounters>>(GlobalReference.GlobalValues.FileIO.ReadAllText(fileLocation));
                 }

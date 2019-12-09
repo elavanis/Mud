@@ -109,7 +109,6 @@ namespace Objects.Global.Logging
                 localMessageQueue.TryGetValue(fileName, out List<string> localQueue);
                 if (localQueue == null)
                 {
-                    GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(directory);
                     localQueue = new List<string>();
                     localMessageQueue.Add(fileName, localQueue);
                 }

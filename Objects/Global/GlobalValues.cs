@@ -138,7 +138,7 @@ namespace Objects.Global
 
         #region Shared
         [ExcludeFromCodeCoverage]
-        public IFileIO FileIO { get; set; }
+        public ICachedFileIO FileIO { get; set; }
 
         [ExcludeFromCodeCoverage]
         public ITagWrapper TagWrapper { get; set; }
@@ -169,7 +169,7 @@ namespace Objects.Global
             EvaluateLevelDifference = new EvaluateLevelDifference();
             Experience = new Exp.Experience();
             FindObjects = new FindObjects.FindObjects();
-            FileIO = new FileIO();
+            FileIO = new CachedFileIO();
             GameDateTime = new InGameDateTime(new Time());
             GameStats = new GameStats();
             GuildAbilities = new Guild.GuildAbilities();

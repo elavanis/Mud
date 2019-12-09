@@ -2,7 +2,7 @@
 
 namespace Shared.FileIO.Interface
 {
-    public interface IFileIO
+    internal interface IFileIO
     {
         void AppendFile(string fileName, IEnumerable<string> lines);
 

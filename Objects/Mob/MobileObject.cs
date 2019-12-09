@@ -27,6 +27,7 @@ using System.Text;
 using static Objects.Damage.Damage;
 using static Objects.Global.Language.Translator;
 using static Objects.Global.Logging.LogSettings;
+using static Shared.FileIO.Interface.CachedThings.FileExits;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Mob
@@ -1077,16 +1078,21 @@ namespace Objects.Mob
                     string fileLocation = Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, splitMessage[2]);
                     try
                     {
-                        if (GlobalReference.GlobalValues.FileIO.Exists(fileLocation))
+                        Exists exists = GlobalReference.GlobalValues.FileIO.Exists(fileLocation);
+                        if (exists == Exists.True)
                         {
                             IData data = new Data(Data.DataType.File, fileLocation, GlobalReference.GlobalValues.FileIO);
                             data.AssetName = splitMessage[2];
                             string serializedData = GlobalReference.GlobalValues.Serialization.Serialize(data);
                             EnqueueMessage(GlobalReference.GlobalValues.TagWrapper.WrapInTag(serializedData, TagType.Data));
                         }
-                        else
+                        else if (exists == Exists.False)
                         {
                             GlobalReference.GlobalValues.Logger.Log(LogLevel.ERROR, $"File {fileLocation} does not exit.");
+                        }
+                        else
+                        {
+                            GlobalReference.GlobalValues.Logger.Log(LogLevel.ERROR, $"File {fileLocation} is offline.");
                         }
 
                     }

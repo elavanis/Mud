@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using static Shared.FileIO.Interface.CachedThings.FileExits;
 
 namespace Shared.FileIO.Interface
 {
-    public interface ICachingFileIO
+    public interface ICachedFileIO
     {
         #region Read
         string ReadAllText(string fileName);
@@ -23,5 +24,12 @@ namespace Shared.FileIO.Interface
 
         void AppendFile(string fileName, string line);
         #endregion Write
+
+        #region Other
+        string[] GetFilesFromDirectory(string directory);
+        Exists Exists(string fileName);
+        #endregion Other
+
+
     }
 }

@@ -1,13 +1,16 @@
-﻿using Shared.FileIO.Interface;
+﻿using Shared.FileIO.CachedThings;
+using Shared.FileIO.Interface;
+using Shared.FileIO.Interface.CachedThings;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using static Shared.FileIO.Interface.CachedThings.FileExits;
 
 namespace Shared.FileIO
 {
-    public class CachedFileIO : ICachingFileIO
+    public class CachedFileIO : ICachedFileIO
     {
         private Dictionary<string, CachedFile> CachedFiles = new Dictionary<string, CachedFile>();
         private FileIO FileIO = new FileIO();
@@ -60,6 +63,34 @@ namespace Shared.FileIO
         }
         #endregion Read
 
+        #region Other
+        public string[] GetFilesFromDirectory(string directory)
+        {
+            try
+            {
+
+            }
+        }
+
+        public Exists Exists(string fileName)
+        {
+            try
+            {
+                if (File.Exists(fileName))
+                {
+                    return FileExits.Exists.True;
+                }
+                else
+                {
+                    return FileExits.Exists.False;
+                }
+            }
+            catch
+            {
+                return FileExits.Exists.Unknown;
+            }
+        }
+        #endregion Other
 
         private CachedFile GetStream(string fileName)
         {
@@ -135,5 +166,7 @@ namespace Shared.FileIO
                 cachedFile.MemoryStream = new MemoryStream(dataToWrite);
             }
         }
+
+
     }
 }

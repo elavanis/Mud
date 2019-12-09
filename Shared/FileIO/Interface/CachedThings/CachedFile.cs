@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Shared.FileIO
+namespace Shared.FileIO.CachedThings
 {
     internal class CachedFile
     {

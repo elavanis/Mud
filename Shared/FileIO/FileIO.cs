@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Shared.FileIO
 {
-    public class FileIO : IFileIO
+    internal class FileIO : IFileIO
     {
         private object padLock = new object();
         private Dictionary<string, string> fileText = new Dictionary<string, string>();

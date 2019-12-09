@@ -14,6 +14,7 @@ using Objects.LoadPercentage.Interface;
 using Objects.Trap.Interface;
 using System.Collections.ObjectModel;
 using Objects.Language;
+using static Shared.FileIO.Interface.CachedThings.FileExits;
 
 namespace Objects.Room
 {
@@ -420,7 +421,6 @@ namespace Objects.Room
         private void SaveVault()
         {
             string serializedItems = GlobalReference.GlobalValues.Serialization.Serialize(_items);
-            GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(GlobalReference.GlobalValues.Settings.VaultDirectory);
             string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{Zone}-{Id}.vault");
             GlobalReference.GlobalValues.FileIO.WriteFile(file, serializedItems);
         }
@@ -861,7 +861,7 @@ namespace Objects.Room
         private void ReloadVault()
         {
             string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{Zone}-{Id}.vault");
-            if (GlobalReference.GlobalValues.FileIO.Exists(file))
+            if (GlobalReference.GlobalValues.FileIO.Exists(file) == Exists.True)
             {
                 string fileContents = GlobalReference.GlobalValues.FileIO.ReadAllText(file);
                 IReadOnlyList<IItem> items = GlobalReference.GlobalValues.Serialization.Deserialize<IReadOnlyList<IItem>>(fileContents);

@@ -4,6 +4,7 @@ using Objects.Mob.Interface;
 using Objects.Room.Interface;
 using System.Collections.Generic;
 using System.IO;
+using static Shared.FileIO.Interface.CachedThings.FileExits;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Global.Map
@@ -38,7 +39,7 @@ namespace Objects.Global.Map
             if (result == null)
             {
                 string file = Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps", room.Zone + ".MapConversion");
-                if (GlobalReference.GlobalValues.FileIO.Exists(file))
+                if (GlobalReference.GlobalValues.FileIO.Exists(file) == Exists.True)
                 {
                     foreach (string line in GlobalReference.GlobalValues.FileIO.ReadLines(file))
                     {

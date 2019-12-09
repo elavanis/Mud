@@ -23,7 +23,6 @@ namespace Objects.Command.PC
                 string filer = performer.KeyWords[0];
                 string fileName = Path.Combine(GlobalReference.GlobalValues.Settings.BugDirectory, $"{filer} - {GlobalReference.GlobalValues.Time.CurrentDateTime.ToString("yyyyMMddhhmmss")}.bug");
 
-                GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(GlobalReference.GlobalValues.Settings.BugDirectory);
                 GlobalReference.GlobalValues.FileIO.WriteFile(fileName, command.Parameters[0].ParameterValue);
 
                 return new Result("New bug filed.", true);
