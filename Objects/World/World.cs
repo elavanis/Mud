@@ -829,7 +829,7 @@ namespace Objects.World
                 string fileLocation = Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd"), "Stats.stat");
 
                 List<ICounters> counters = new List<ICounters>();
-                if (GlobalReference.GlobalValues.FileIO.Exists(fileLocation) == Exists.True)
+                if (GlobalReference.GlobalValues.FileIO.Exists(fileLocation))
                 {
                     counters = GlobalReference.GlobalValues.Serialization.Deserialize<List<ICounters>>(GlobalReference.GlobalValues.FileIO.ReadAllText(fileLocation));
                 }

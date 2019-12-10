@@ -39,7 +39,7 @@ namespace Objects.Global.Map
             if (result == null)
             {
                 string file = Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps", room.Zone + ".MapConversion");
-                if (GlobalReference.GlobalValues.FileIO.Exists(file) == Exists.True)
+                if (GlobalReference.GlobalValues.FileIO.Exists(file))
                 {
                     foreach (string line in GlobalReference.GlobalValues.FileIO.ReadLines(file))
                     {

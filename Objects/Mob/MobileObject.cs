@@ -1078,23 +1078,17 @@ namespace Objects.Mob
                     string fileLocation = Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, splitMessage[2]);
                     try
                     {
-                        Exists exists = GlobalReference.GlobalValues.FileIO.Exists(fileLocation);
-                        if (exists == Exists.True)
+                        if (GlobalReference.GlobalValues.FileIO.Exists(fileLocation))
                         {
                             IData data = new Data(Data.DataType.File, fileLocation, GlobalReference.GlobalValues.FileIO);
                             data.AssetName = splitMessage[2];
                             string serializedData = GlobalReference.GlobalValues.Serialization.Serialize(data);
                             EnqueueMessage(GlobalReference.GlobalValues.TagWrapper.WrapInTag(serializedData, TagType.Data));
                         }
-                        else if (exists == Exists.False)
+                        else
                         {
                             GlobalReference.GlobalValues.Logger.Log(LogLevel.ERROR, $"File {fileLocation} does not exit.");
                         }
-                        else
-                        {
-                            GlobalReference.GlobalValues.Logger.Log(LogLevel.ERROR, $"File {fileLocation} is offline.");
-                        }
-
                     }
                     catch (Exception ex)
                     {

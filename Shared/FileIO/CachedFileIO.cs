@@ -3,7 +3,6 @@ using Shared.FileIO.Interface;
 using Shared.FileIO.Interface.CachedThings;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using static Shared.FileIO.Interface.CachedThings.FileExits;
@@ -13,7 +12,18 @@ namespace Shared.FileIO
     public class CachedFileIO : ICachedFileIO
     {
         private Dictionary<string, CachedFile> CachedFiles = new Dictionary<string, CachedFile>();
+        private List<string> PermanentCachedDirectories = null;
         private FileIO FileIO = new FileIO();
+
+        public CachedFileIO(List<string> permanentCachedDirectories)
+        {
+            if (permanentCachedDirectories == null)
+            {
+                permanentCachedDirectories = new List<string>();
+            }
+
+            PermanentCachedDirectories = permanentCachedDirectories;
+        }
 
         #region Write
         public void AppendFile(string fileName, IEnumerable<string> lines)
@@ -66,30 +76,73 @@ namespace Shared.FileIO
         #region Other
         public string[] GetFilesFromDirectory(string directory)
         {
+            string[] files;
+
             try
             {
+                files = FileIO.GetFilesFromDirectory(directory);
 
+                //ensure each file is in the cache
+                foreach (string file in files)
+                {
+                    GetStream(file);
+                }
+
+                return files;
+            }
+            catch
+            {
+                //no access to the global reference or we would log that it errored
+                return CachedFiles.Keys.Where(e => e.StartsWith(directory)).ToArray();
             }
         }
 
-        public Exists Exists(string fileName)
+        public bool Exists(string fileName)
+        {
+            lock (CachedFiles)
+            {
+                return CachedFiles.ContainsKey(fileName);
+            }
+        }
+
+        public void Flush()
         {
             try
             {
-                if (File.Exists(fileName))
+                lock (CachedFiles)
                 {
-                    return FileExits.Exists.True;
-                }
-                else
-                {
-                    return FileExits.Exists.False;
+                    string[] keys = CachedFiles.Keys.ToArray();
+
+                    foreach (string key in keys)
+                    {
+                        CachedFile cachedFile = CachedFiles[key];
+
+                        if (!cachedFile.Flushed)
+                        {
+                            File.WriteAllBytes(cachedFile.FileName, cachedFile.MemoryStream.ToArray());
+                            cachedFile.Flushed = true;
+                        }
+
+                        if (!cachedFile.Permanent
+                            && DateTime.Now.Subtract(cachedFile.LastAccessed).TotalHours > 24)
+                        {
+                            CachedFiles.Remove(key);
+                        }
+                    }
                 }
             }
             catch
             {
-                return FileExits.Exists.Unknown;
+                //file system is down
+                //wait till the next flush
             }
         }
+
+        public void ReloadCache()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Other
 
         private CachedFile GetStream(string fileName)
@@ -101,7 +154,8 @@ namespace Shared.FileIO
 
                 if (cachedFile == null)
                 {
-                    cachedFile = new CachedFile(fileName);
+                    cachedFile = new CachedFile(fileName, IsPermanent(fileName));
+
                     CachedFiles.Add(fileName, cachedFile);
                 }
             }
@@ -146,9 +200,7 @@ namespace Shared.FileIO
                     cachedFile.MemoryStream = LoadFromFile(fileName);
                 }
 
-                cachedFile.LastAccessed = DateTime.Now;
-                cachedFile.MemoryStream.Seek(0, SeekOrigin.End);
-                cachedFile.MemoryStream.Write(dataToWrite, 0, dataToWrite.Length);
+                AppendStream(cachedFile, dataToWrite);
             }
         }
 
@@ -162,11 +214,32 @@ namespace Shared.FileIO
                     cachedFile.MemoryStream = LoadFromFile(fileName);
                 }
 
-                cachedFile.LastAccessed = DateTime.Now;
-                cachedFile.MemoryStream = new MemoryStream(dataToWrite);
+                cachedFile.MemoryStream = new MemoryStream();
+                AppendStream(cachedFile, dataToWrite);
             }
         }
 
+        private void AppendStream(CachedFile cachedFile, byte[] dataToWrite)
+        {
+            //we are already locked from the calling method
+            cachedFile.LastAccessed = DateTime.Now;
+            cachedFile.Flushed = false;
+            cachedFile.MemoryStream.Seek(0, SeekOrigin.End);
+            cachedFile.MemoryStream.Write(dataToWrite, 0, dataToWrite.Length);
+        }
+
+        private bool IsPermanent(string fileName)
+        {
+            foreach (string directory in PermanentCachedDirectories)
+            {
+                if (fileName.StartsWith(directory))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
     }
 }
