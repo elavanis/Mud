@@ -30,7 +30,7 @@ namespace Server
 
         private static void LoadServerSettings()
         {
-            //WriteNewAppConfigFile();
+            WriteNewAppConfigFile();
             ConfigSettings config = GlobalReference.GlobalValues.Serialization.Deserialize<ConfigSettings>(File.ReadAllText("AppConfig.json"));
 
             GlobalReference.GlobalValues.Settings.AsciiArt = config.AsciiArt;
@@ -39,6 +39,7 @@ namespace Server
             GlobalReference.GlobalValues.Settings.AssetsDirectory = config.AssetsDirectory;
             GlobalReference.GlobalValues.Settings.VaultDirectory = config.VaultDirectory;
             GlobalReference.GlobalValues.Settings.BugDirectory = config.BugDirectory;
+            GlobalReference.GlobalValues.Settings.UseCachingFileIO = config.UseCachingFileIO;
             GlobalReference.GlobalValues.Settings.Port = config.Port;
             GlobalReference.GlobalValues.Settings.SendMapPosition = config.SendMapPosition;
             GlobalReference.GlobalValues.Settings.LogStats = config.LogStats;
@@ -76,6 +77,7 @@ namespace Server
             configSettings.Port = 52475;
             configSettings.RandomDropPercent = 10;
             configSettings.SendMapPosition = true;
+            configSettings.UseCachingFileIO = true;
             configSettings.VaultDirectory = "C:\\Mud\\Vaults";
             configSettings.ZoneDirectory = "C:\\Mud\\World";
             configSettings.AsciiArt =

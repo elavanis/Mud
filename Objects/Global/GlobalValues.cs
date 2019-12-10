@@ -49,7 +49,6 @@ namespace Objects.Global
         [ExcludeFromCodeCoverage]
         public List<ICounters> CountersLog { get; set; }
 
-
         #region Classes
         [ExcludeFromCodeCoverage]
         public ICanMobDoSomething CanMobDoSomething { get; set; }
@@ -138,16 +137,12 @@ namespace Objects.Global
 
         #region Shared
         [ExcludeFromCodeCoverage]
-        public ICachedFileIO FileIO { get; set; }
+        public IFileIO FileIO { get; set; }
 
         [ExcludeFromCodeCoverage]
         public ITagWrapper TagWrapper { get; set; }
         #endregion Shared
         #endregion Classes
-
-
-
-
 
         public void Initilize()
         {

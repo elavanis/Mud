@@ -3,6 +3,7 @@ using Shared.FileIO.Interface;
 using Shared.FileIO.Interface.CachedThings;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using static Shared.FileIO.Interface.CachedThings.FileExits;
@@ -42,6 +43,11 @@ namespace Shared.FileIO
         public void WriteFile(string fileName, string file)
         {
             WriteStream(fileName, Encoding.UTF8.GetBytes(file + Environment.NewLine));
+        }
+
+        public void WriteFile(string fileName, byte[] bytes)
+        {
+            WriteStream(fileName, bytes);
         }
 
         public void WriteFileBase64(string fileName, string file)
@@ -119,7 +125,7 @@ namespace Shared.FileIO
 
                         if (!cachedFile.Flushed)
                         {
-                            File.WriteAllBytes(cachedFile.FileName, cachedFile.MemoryStream.ToArray());
+                            FileIO.WriteFile(cachedFile.FileName, cachedFile.MemoryStream.ToArray());
                             cachedFile.Flushed = true;
                         }
 
@@ -171,6 +177,7 @@ namespace Shared.FileIO
                 byte[] bytes = FileIO.ReadBytes(fileName);
                 memoryStream.Write(bytes, 0, bytes.Length);
             }
+
             return memoryStream;
         }
 
@@ -240,6 +247,5 @@ namespace Shared.FileIO
 
             return false;
         }
-
     }
 }

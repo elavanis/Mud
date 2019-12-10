@@ -13,6 +13,7 @@ namespace Server
         public string BugDirectory { get; set; }
         public bool LogStats { get; set; }
         public string LogStatsLocation { get; set; }
+        public bool UseCachingFileIO { get; set; }
         public int Port { get; set; }
         public bool SendMapPosition { get; set; }
         public string BannedIps { get; set; }

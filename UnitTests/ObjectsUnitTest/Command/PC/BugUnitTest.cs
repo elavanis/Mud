@@ -91,7 +91,6 @@ namespace ObjectsUnitTest.Command.PC
 
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("New bug filed.", result.ResultMessage);
-            fileIO.Verify(e => e.EnsureDirectoryExists("bugDirectory"), Times.Once);
             fileIO.Verify(e => e.WriteFile("bugDirectory\\mob - 20000101120000.bug", "stuff"), Times.Once);
         }
     }

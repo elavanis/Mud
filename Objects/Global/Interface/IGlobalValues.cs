@@ -42,7 +42,7 @@ namespace Objects.Global.Interface
         IEngine Engine { get; set; }
         IEvaluateLevelDifference EvaluateLevelDifference { get; set; }
         IExperience Experience { get; set; }
-        ICachedFileIO FileIO { get; set; }
+        IFileIO FileIO { get; set; }
         IFindObjects FindObjects { get; set; }
         IInGameDateTime GameDateTime { get; set; }
         IGameStats GameStats { get; set; }

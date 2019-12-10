@@ -45,7 +45,7 @@ namespace ObjectsUnitTest.Map
             room.Setup(e => e.Id).Returns(2);
             settings.Setup(e => e.AssetsDirectory).Returns("assetsDir");
             fileIO.Setup(e => e.Exists(@"assetsDir\Maps\1.MapConversion")).Returns(true);
-            fileIO.Setup(e => e.ReadLines(@"assetsDir\Maps\1.MapConversion")).Returns(new List<string>() { "2|1|90|10" });
+            fileIO.Setup(e => e.ReadLines(@"assetsDir\Maps\1.MapConversion")).Returns(new string[] { "2|1|90|10" });
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Map)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.FileIO = fileIO.Object;

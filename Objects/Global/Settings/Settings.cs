@@ -44,6 +44,9 @@ namespace Objects.Global.Settings
         public string BugDirectory { get; set; } = "..\\Bugs";
 
         [ExcludeFromCodeCoverage]
+        public bool UseCachingFileIO { get; set; }
+
+        [ExcludeFromCodeCoverage]
         public string AsciiArt { get; set; }
 
         [ExcludeFromCodeCoverage]
@@ -69,5 +72,7 @@ namespace Objects.Global.Settings
 
         [ExcludeFromCodeCoverage]
         public string LogStatsLocation { get; set; } = "..\\Stats";
+
+
     }
 }

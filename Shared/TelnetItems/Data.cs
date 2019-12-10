@@ -21,7 +21,7 @@ namespace Shared.TelnetItems
 
         }
 
-        public Data(DataType type, string fileLocation, ICachedFileIO io)
+        public Data(DataType type, string fileLocation, IFileIO io)
         {
             Base64Encoding = io.ReadFileBase64(fileLocation);
 

@@ -18,6 +18,8 @@ namespace Shared.FileIO.Interface
         #region Write
         void WriteFile(string fileName, string file);
 
+        void WriteFile(string fileName, byte[] bytes);
+
         void WriteFileBase64(string fileName, string file);
 
         void AppendFile(string fileName, IEnumerable<string> lines);

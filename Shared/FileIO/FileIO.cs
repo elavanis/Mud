@@ -45,10 +45,16 @@ namespace Shared.FileIO
         }
 
         [ExcludeFromCodeCoverage]
+        public void WriteFile(string fileName, byte[] bytes)
+        {
+            File.WriteAllBytes(fileName, bytes);
+        }
+
+        [ExcludeFromCodeCoverage]
         public void WriteFileBase64(string fileName, string file)
         {
             byte[] bytes = Convert.FromBase64String(file);
-            File.WriteAllBytes(fileName, bytes);
+            WriteFile(fileName, bytes);
         }
 
         [ExcludeFromCodeCoverage]
@@ -77,6 +83,5 @@ namespace Shared.FileIO
             return File.Exists(fileName);
         }
         #endregion Other
-
     }
 }
