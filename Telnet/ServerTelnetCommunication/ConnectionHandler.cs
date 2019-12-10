@@ -1,4 +1,5 @@
 ﻿using Objects.Global;
+using Objects.Global.FileIO.Interface;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
@@ -30,6 +31,12 @@ namespace ServerTelnetCommunication
 
             clientSocket.Close();
             serverSocket.Stop();
+
+            if (GlobalReference.GlobalValues.Settings.UseCachingFileIO)
+            {
+                ICachedFileIO cachedFileIO = GlobalReference.GlobalValues.FileIO as ICachedFileIO;
+                cachedFileIO.Flush();
+            }
         }
 
         private static void LogConnection(TcpClient clientSocket)

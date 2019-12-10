@@ -30,6 +30,7 @@ using Objects.Mob.SpecificNPC;
 using Objects.Language.Interface;
 using Objects.Mob.SpecificNPC.Interface;
 using Objects.Skill.Skills;
+using Objects.Global.FileIO.Interface;
 
 namespace Objects.World
 {
@@ -553,6 +554,14 @@ namespace Objects.World
                 DoWorldCommands();
 
                 GlobalReference.GlobalValues.Logger.FlushLogs();
+
+                //only flush logs every 5 minutes
+                if (GlobalReference.GlobalValues.Settings.UseCachingFileIO
+                    && GlobalReference.GlobalValues.TickCounter % 600 == 0)
+                {
+                    ICachedFileIO cachedFileIO = GlobalReference.GlobalValues.FileIO as ICachedFileIO;
+                    cachedFileIO.Flush();
+                }
             }
         }
 
