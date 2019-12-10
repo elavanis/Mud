@@ -229,11 +229,6 @@ namespace Shared.FileIO
             CachedFile cachedFile = GetStream(fileName);
             lock (cachedFile)
             {
-                if (cachedFile.MemoryStream == null)
-                {
-                    cachedFile.MemoryStream = LoadFromFile(fileName);
-                }
-
                 cachedFile.MemoryStream = new MemoryStream();
                 AppendStream(cachedFile, dataToWrite);
             }
