@@ -1,4 +1,4 @@
-﻿using Shared.FileIO.CachedThings;
+﻿using Objects.Global.FileIO.Interface;
 using Shared.FileIO.Interface;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Shared.FileIO
+namespace Objects.Global.FileIO
 {
     public class CachedFileIO : ICachedFileIO
     {

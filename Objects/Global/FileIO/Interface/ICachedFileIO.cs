@@ -1,4 +1,6 @@
-﻿namespace Shared.FileIO.Interface
+﻿using Shared.FileIO.Interface;
+
+namespace Objects.Global.FileIO.Interface
 {
     public interface ICachedFileIO : IFileIO
     {

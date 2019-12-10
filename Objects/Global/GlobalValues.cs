@@ -166,7 +166,7 @@ namespace Objects.Global
             Engine = new Engine.Engine();
             EvaluateLevelDifference = new EvaluateLevelDifference();
             Experience = new Exp.Experience();
-            FileIO = new FileIO();
+            FileIO = new Shared.FileIO.FileIO();
             FindObjects = new FindObjects.FindObjects();
             GameDateTime = new InGameDateTime(new Time());
             GameStats = new GameStats();

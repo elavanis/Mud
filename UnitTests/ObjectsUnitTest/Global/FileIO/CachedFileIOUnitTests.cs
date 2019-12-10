@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharedUnitTest.FileIO
+namespace ObjectsUnitTest.Global.FileIO
 {
     [TestClass]
     public class CachedFileIOUnitTests
