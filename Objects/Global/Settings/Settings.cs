@@ -71,7 +71,7 @@ namespace Objects.Global.Settings
         public bool LogStats { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public string LogStatsLocation { get; set; } = "..\\Stats";
+        public string StatsDirectory { get; set; } = "..\\Stats";
 
 
     }

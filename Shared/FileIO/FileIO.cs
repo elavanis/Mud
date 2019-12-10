@@ -74,13 +74,19 @@ namespace Shared.FileIO
         [ExcludeFromCodeCoverage]
         public string[] GetFilesFromDirectory(string directory)
         {
-            return Directory.GetFiles(directory);
+            return Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
         }
 
         [ExcludeFromCodeCoverage]
         public bool Exists(string fileName)
         {
             return File.Exists(fileName);
+        }
+
+        [ExcludeFromCodeCoverage]
+        public void Delete(string fileName)
+        {
+            File.Delete(fileName);
         }
         #endregion Other
     }

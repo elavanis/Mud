@@ -26,6 +26,6 @@ namespace Objects.Global.Settings.Interface
         double ElementalSpawnPercent { get; set; }
         List<IPAddress> BannedIps { get; set; }
         bool LogStats { get; set; }
-        string LogStatsLocation { get; set; }
+        string StatsDirectory { get; set; }
     }
 }

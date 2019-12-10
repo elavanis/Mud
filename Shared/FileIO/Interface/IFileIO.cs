@@ -30,6 +30,7 @@ namespace Shared.FileIO.Interface
         #region Other
         string[] GetFilesFromDirectory(string directory);
         bool Exists(string fileName);
+        void Delete(string fileName);
         #endregion Other
     }
 }

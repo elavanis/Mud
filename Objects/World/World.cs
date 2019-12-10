@@ -30,7 +30,6 @@ using Objects.Mob.SpecificNPC;
 using Objects.Language.Interface;
 using Objects.Mob.SpecificNPC.Interface;
 using Objects.Skill.Skills;
-using static Shared.FileIO.Interface.CachedThings.FileExits;
 
 namespace Objects.World
 {
@@ -826,7 +825,7 @@ namespace Objects.World
         {
             try
             {
-                string fileLocation = Path.Combine(GlobalReference.GlobalValues.Settings.LogStatsLocation, dateTime.ToString("yyyyMMdd"), "Stats.stat");
+                string fileLocation = Path.Combine(GlobalReference.GlobalValues.Settings.StatsDirectory, dateTime.ToString("yyyyMMdd"), "Stats.stat");
 
                 List<ICounters> counters = new List<ICounters>();
                 if (GlobalReference.GlobalValues.FileIO.Exists(fileLocation))

@@ -1,12 +1,10 @@
 ﻿using Shared.FileIO.CachedThings;
 using Shared.FileIO.Interface;
-using Shared.FileIO.Interface.CachedThings;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using static Shared.FileIO.Interface.CachedThings.FileExits;
 
 namespace Shared.FileIO
 {
@@ -14,16 +12,28 @@ namespace Shared.FileIO
     {
         private Dictionary<string, CachedFile> CachedFiles = new Dictionary<string, CachedFile>();
         private List<string> PermanentCachedDirectories = null;
-        private FileIO FileIO = new FileIO();
+        private IFileIO FileIO;
 
-        public CachedFileIO(List<string> permanentCachedDirectories)
+        public CachedFileIO(List<string> permanentCachedDirectories, IFileIO fileIO)
         {
+            FileIO = fileIO;
+
             if (permanentCachedDirectories == null)
             {
                 permanentCachedDirectories = new List<string>();
             }
 
             PermanentCachedDirectories = permanentCachedDirectories;
+
+            LoadPermanentFilesIntoMemory();
+        }
+
+        private void LoadPermanentFilesIntoMemory()
+        {
+            foreach (string directory in PermanentCachedDirectories)
+            {
+                GetFilesFromDirectoryWhileLoadingIntoMemory(directory);
+            }
         }
 
         #region Write
@@ -82,25 +92,24 @@ namespace Shared.FileIO
         #region Other
         public string[] GetFilesFromDirectory(string directory)
         {
-            string[] files;
-
-            try
+            lock (CachedFiles)
             {
-                files = FileIO.GetFilesFromDirectory(directory);
-
-                //ensure each file is in the cache
-                foreach (string file in files)
-                {
-                    GetStream(file);
-                }
-
+                string[] files = CachedFiles.Keys.Where(e => e.StartsWith(directory)).ToArray();
                 return files;
             }
-            catch
+        }
+
+        private string[] GetFilesFromDirectoryWhileLoadingIntoMemory(string directory)
+        {
+            string[] files = FileIO.GetFilesFromDirectory(directory);
+
+            //ensure each file is in the cache
+            foreach (string file in files)
             {
-                //no access to the global reference or we would log that it errored
-                return CachedFiles.Keys.Where(e => e.StartsWith(directory)).ToArray();
+                ReadStream(file);
             }
+
+            return files;
         }
 
         public bool Exists(string fileName)
@@ -149,6 +158,10 @@ namespace Shared.FileIO
             throw new NotImplementedException();
         }
 
+        public void Delete(string fileName)
+        {
+            FileIO.Delete(fileName);
+        }
         #endregion Other
 
         private CachedFile GetStream(string fileName)
@@ -247,5 +260,7 @@ namespace Shared.FileIO
 
             return false;
         }
+
+
     }
 }

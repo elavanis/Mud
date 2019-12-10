@@ -14,7 +14,6 @@ using Objects.LoadPercentage.Interface;
 using Objects.Trap.Interface;
 using System.Collections.ObjectModel;
 using Objects.Language;
-using static Shared.FileIO.Interface.CachedThings.FileExits;
 
 namespace Objects.Room
 {

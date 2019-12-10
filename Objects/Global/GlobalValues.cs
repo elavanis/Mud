@@ -155,12 +155,7 @@ namespace Objects.Global
             Translator = new Language.Translator(new Language.TranslatorAlgorithm());
 
 
-            List<string> permanentDirectories = new List<string>();
-            permanentDirectories.Add(Settings.PlayerCharacterDirectory);
-            permanentDirectories.Add(Settings.ZoneDirectory);
-            permanentDirectories.Add(Settings.AssetsDirectory);
-            permanentDirectories.Add(Settings.VaultDirectory);
-            FileIO = new CachedFileIO(permanentDirectories);
+
 
 
             CanMobDoSomething = new CanMobDoSomething.CanMobDoSomething();
@@ -171,6 +166,7 @@ namespace Objects.Global
             Engine = new Engine.Engine();
             EvaluateLevelDifference = new EvaluateLevelDifference();
             Experience = new Exp.Experience();
+            FileIO = new FileIO();
             FindObjects = new FindObjects.FindObjects();
             GameDateTime = new InGameDateTime(new Time());
             GameStats = new GameStats();

@@ -227,7 +227,7 @@ namespace ObjectsUnitTest.World
             serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("serial")).Returns(deserializeZone);
             serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
             settings.Setup(e => e.LogStats).Returns(true);
-            settings.Setup(e => e.LogStatsLocation).Returns("LogStatsLocation");
+            settings.Setup(e => e.StatsDirectory).Returns("LogStatsLocation");
             settings.Setup(e => e.PlayerCharacterDirectory).Returns("PlayerCharacterDirectory");
             settings.Setup(e => e.ZoneDirectory).Returns("ZoneDirectory");
             settings.Setup(e => e.BaseStatValue).Returns(1);
