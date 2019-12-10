@@ -10,6 +10,7 @@ namespace Shared.FileIO
 {
     public class CachedFileIO : ICachedFileIO
     {
+        private object PadLock = new object();
         private Dictionary<string, CachedFile> CachedFiles = new Dictionary<string, CachedFile>();
         private List<string> PermanentCachedDirectories = null;
         private IFileIO FileIO;
@@ -92,7 +93,7 @@ namespace Shared.FileIO
         #region Other
         public string[] GetFilesFromDirectory(string directory)
         {
-            lock (CachedFiles)
+            lock (PadLock)
             {
                 string[] files = CachedFiles.Keys.Where(e => e.StartsWith(directory)).ToArray();
                 return files;
@@ -114,7 +115,7 @@ namespace Shared.FileIO
 
         public bool Exists(string fileName)
         {
-            lock (CachedFiles)
+            lock (PadLock)
             {
                 return CachedFiles.ContainsKey(fileName);
             }
@@ -124,7 +125,7 @@ namespace Shared.FileIO
         {
             try
             {
-                lock (CachedFiles)
+                lock (PadLock)
                 {
                     string[] keys = CachedFiles.Keys.ToArray();
 
@@ -155,7 +156,14 @@ namespace Shared.FileIO
 
         public void ReloadCache()
         {
-            throw new NotImplementedException();
+            lock (PadLock)
+            {
+                Flush();
+                CachedFiles = new Dictionary<string, CachedFile>();
+                {
+                    LoadPermanentFilesIntoMemory();
+                }
+            }
         }
 
         public void Delete(string fileName)
@@ -167,7 +175,7 @@ namespace Shared.FileIO
         private CachedFile GetStream(string fileName)
         {
             CachedFile cachedFile = null;
-            lock (CachedFiles)
+            lock (PadLock)
             {
                 CachedFiles.TryGetValue(fileName, out cachedFile);
 
