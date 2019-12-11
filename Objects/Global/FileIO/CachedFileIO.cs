@@ -33,6 +33,7 @@ namespace Objects.Global.FileIO
         {
             foreach (string directory in PermanentCachedDirectories)
             {
+                FileIO.CreateDirectory(directory);
                 GetFilesFromDirectoryWhileLoadingIntoMemory(directory);
             }
         }
@@ -170,6 +171,11 @@ namespace Objects.Global.FileIO
         {
             FileIO.Delete(fileName);
         }
+
+        public void CreateDirectory(string directory)
+        {
+            FileIO.CreateDirectory(directory);
+        }
         #endregion Other
 
         private CachedFile GetStream(string fileName)
@@ -244,6 +250,8 @@ namespace Objects.Global.FileIO
 
         private void AppendStream(CachedFile cachedFile, byte[] dataToWrite)
         {
+            FileIO.CreateDirectory(Path.GetDirectoryName(cachedFile.FileName));
+
             //we are already locked from the calling method
             cachedFile.LastAccessed = DateTime.Now;
             cachedFile.Flushed = false;

@@ -88,6 +88,12 @@ namespace Shared.FileIO
         {
             File.Delete(fileName);
         }
+
+        [ExcludeFromCodeCoverage]
+        public void CreateDirectory(string directory)
+        {
+            Directory.CreateDirectory(directory);
+        }
         #endregion Other
     }
 }
