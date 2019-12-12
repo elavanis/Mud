@@ -136,6 +136,8 @@ namespace Objects.Global.FileIO
 
                         if (!cachedFile.Flushed)
                         {
+                            FileIO.CreateDirectory(Path.GetDirectoryName(cachedFile.FileName));
+
                             FileIO.WriteFile(cachedFile.FileName, cachedFile.MemoryStream.ToArray());
                             cachedFile.Flushed = true;
                         }
@@ -250,8 +252,6 @@ namespace Objects.Global.FileIO
 
         private void AppendStream(CachedFile cachedFile, byte[] dataToWrite)
         {
-            FileIO.CreateDirectory(Path.GetDirectoryName(cachedFile.FileName));
-
             //we are already locked from the calling method
             cachedFile.LastAccessed = DateTime.Now;
             cachedFile.Flushed = false;
