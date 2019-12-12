@@ -531,6 +531,27 @@ namespace ObjectsUnitTest.World
         }
 
         [TestMethod]
+        public void World_PerformTick_ProcessRoom_CommunicationCommand()
+        {
+            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
+            npc.SetupSequence(e => e.DequeueCommunication())
+               .Returns("say hi")
+               .Returns(null);
+            pc.SetupSequence(e => e.DequeueCommunication())
+               .Returns("say hi")
+               .Returns(null);
+            pc.Setup(e => e.FollowTarget).Returns<IMobileObject>(null);
+
+            world.PerformTick();
+
+            evnt.Verify(e => e.HeartbeatBigTick(room.Object), Times.Once);
+            notify.Verify(e => e.Mob(npc.Object, It.Is<ITranslationMessage>(f => f.Message == "result")), Times.Once);
+            notify.Verify(e => e.Mob(pc.Object, It.Is<ITranslationMessage>(f => f.Message == "Unknown command.")), Times.Once);
+            parser.Verify(e => e.Parse("say hi"), Times.Exactly(2));
+        }
+
+        [TestMethod]
         public void World_PerformTick_ProcessRoom_ProcessEnchantments()
         {
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
