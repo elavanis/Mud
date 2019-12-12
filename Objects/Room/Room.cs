@@ -420,7 +420,6 @@ namespace Objects.Room
         private void SaveVault()
         {
             string serializedItems = GlobalReference.GlobalValues.Serialization.Serialize(_items);
-            GlobalReference.GlobalValues.FileIO.EnsureDirectoryExists(GlobalReference.GlobalValues.Settings.VaultDirectory);
             string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{Zone}-{Id}.vault");
             GlobalReference.GlobalValues.FileIO.WriteFile(file, serializedItems);
         }

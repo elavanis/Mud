@@ -259,34 +259,5 @@ namespace GeneratedZones
                 }
             }
         }
-
-        private void SetCommonMobValues(IMobileObject mob)
-        {
-            mob.Zone = Id;
-            foreach (IItem item in mob.Items)
-            {
-                SetItemId(item);
-            }
-
-            foreach (IItem item in mob.EquipedEquipment)
-            {
-                SetItemId(item);
-            }
-        }
-
-        private void SetItemId(IItem item)
-        {
-            item.Zone = Id;
-            IContainer container = item as IContainer;
-            if (container != null)
-            {
-                foreach (IItem innerItem in container.Items)
-                {
-                    SetItemId(innerItem);
-                }
-            }
-        }
-
-
     }
 }

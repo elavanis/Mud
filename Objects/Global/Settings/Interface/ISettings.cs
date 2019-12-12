@@ -17,6 +17,7 @@ namespace Objects.Global.Settings.Interface
         string PlayerCharacterDirectory { get; set; }
         string VaultDirectory { get; set; }
         string ZoneDirectory { get; set; }
+        bool UseCachingFileIO { get; set; }
         string AsciiArt { get; set; }
         int Port { get; set; }
         bool SendMapPosition { get; set; }
@@ -25,6 +26,6 @@ namespace Objects.Global.Settings.Interface
         double ElementalSpawnPercent { get; set; }
         List<IPAddress> BannedIps { get; set; }
         bool LogStats { get; set; }
-        string LogStatsLocation { get; set; }
+        string StatsDirectory { get; set; }
     }
 }

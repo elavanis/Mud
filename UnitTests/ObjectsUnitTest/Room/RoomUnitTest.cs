@@ -525,7 +525,7 @@ namespace ObjectsUnitTest.Room
 
             room.Attributes.Add(RoomAttribute.Vault);
             fileIO.Setup(e => e.Exists("vault\\1-2.vault")).Returns(true);
-            fileIO.Setup(e => e.ReadAllText("vault\\1-2.vault", true)).Returns("contents");
+            fileIO.Setup(e => e.ReadAllText("vault\\1-2.vault")).Returns("contents");
             serializer.Setup(e => e.Deserialize<IReadOnlyList<IItem>>("contents")).Returns(items);
 
             room.FinishLoad();

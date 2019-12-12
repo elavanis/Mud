@@ -5,14 +5,16 @@ namespace Server
 {
     public class ConfigSettings
     {
-        public string PlayerCharacterDirectory { get; set; }
-        public string ZoneDirectory { get; set; }
-        public string LogDirectory { get; set; }
         public string AssetsDirectory { get; set; }
-        public string VaultDirectory { get; set; }
         public string BugDirectory { get; set; }
+        public string BulletinBoardDirectory { get; set; }
+        public string LogDirectory { get; set; }
+        public string PlayerCharacterDirectory { get; set; }
+        public string VaultDirectory { get; set; }
+        public string ZoneDirectory { get; set; }
         public bool LogStats { get; set; }
-        public string LogStatsLocation { get; set; }
+        public string StatsDirectory { get; set; }
+        public bool UseCachingFileIO { get; set; }
         public int Port { get; set; }
         public bool SendMapPosition { get; set; }
         public string BannedIps { get; set; }

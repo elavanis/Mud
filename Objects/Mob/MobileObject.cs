@@ -1088,7 +1088,6 @@ namespace Objects.Mob
                         {
                             GlobalReference.GlobalValues.Logger.Log(LogLevel.ERROR, $"File {fileLocation} does not exit.");
                         }
-
                     }
                     catch (Exception ex)
                     {

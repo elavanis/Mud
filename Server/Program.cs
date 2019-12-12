@@ -1,8 +1,10 @@
 ﻿using Mud;
 using Objects.Global;
+using Objects.Global.FileIO;
 using Objects.Moon;
 using Objects.Moon.Interface;
 using ServerTelnetCommunication;
+using Shared.FileIO;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -34,18 +36,31 @@ namespace Server
             ConfigSettings config = GlobalReference.GlobalValues.Serialization.Deserialize<ConfigSettings>(File.ReadAllText("AppConfig.json"));
 
             GlobalReference.GlobalValues.Settings.AsciiArt = config.AsciiArt;
-            GlobalReference.GlobalValues.Settings.PlayerCharacterDirectory = config.PlayerCharacterDirectory;
-            GlobalReference.GlobalValues.Settings.ZoneDirectory = config.ZoneDirectory;
             GlobalReference.GlobalValues.Settings.AssetsDirectory = config.AssetsDirectory;
-            GlobalReference.GlobalValues.Settings.VaultDirectory = config.VaultDirectory;
             GlobalReference.GlobalValues.Settings.BugDirectory = config.BugDirectory;
+            GlobalReference.GlobalValues.Settings.BulletinBoardDirectory = config.BulletinBoardDirectory;
+            GlobalReference.GlobalValues.Settings.PlayerCharacterDirectory = config.PlayerCharacterDirectory;
+            GlobalReference.GlobalValues.Settings.StatsDirectory = config.StatsDirectory;
+            GlobalReference.GlobalValues.Settings.VaultDirectory = config.VaultDirectory;
+            GlobalReference.GlobalValues.Settings.ZoneDirectory = config.ZoneDirectory;
+            GlobalReference.GlobalValues.Settings.UseCachingFileIO = config.UseCachingFileIO;
             GlobalReference.GlobalValues.Settings.Port = config.Port;
             GlobalReference.GlobalValues.Settings.SendMapPosition = config.SendMapPosition;
             GlobalReference.GlobalValues.Settings.LogStats = config.LogStats;
-            GlobalReference.GlobalValues.Settings.LogStatsLocation = config.LogStatsLocation;
             GlobalReference.GlobalValues.Settings.ElementalSpawnPercent = config.ElemenatlSpawnPercent;
             GlobalReference.GlobalValues.Settings.RandomDropPercent = config.RandomDropPercent;
             GlobalReference.GlobalValues.Settings.DropBeingPlusOnePercent = config.DropBeingPlusOnePercent;
+
+            if (GlobalReference.GlobalValues.Settings.UseCachingFileIO)
+            {
+                List<string> permanentDirectories = new List<string>();
+                permanentDirectories.Add(GlobalReference.GlobalValues.Settings.AssetsDirectory);
+                permanentDirectories.Add(GlobalReference.GlobalValues.Settings.BulletinBoardDirectory);
+                permanentDirectories.Add(GlobalReference.GlobalValues.Settings.PlayerCharacterDirectory);
+                permanentDirectories.Add(GlobalReference.GlobalValues.Settings.VaultDirectory);
+                permanentDirectories.Add(GlobalReference.GlobalValues.Settings.ZoneDirectory);
+                GlobalReference.GlobalValues.FileIO = new CachedFileIO(permanentDirectories, GlobalReference.GlobalValues.FileIO);
+            }
 
             string[] ips = config.BannedIps.Split(',');
             foreach (string ip in ips)
@@ -70,12 +85,13 @@ namespace Server
             configSettings.ElemenatlSpawnPercent = .01;
             configSettings.LogDirectory = "C:\\Mud\\Logs";
             configSettings.LogStats = true;
-            configSettings.LogStatsLocation = "C:\\Mud\\Stats";
+            configSettings.StatsDirectory = "C:\\Mud\\Stats";
             configSettings.Moons = GetMoons();
             configSettings.PlayerCharacterDirectory = "C:\\Mud\\Players";
             configSettings.Port = 52475;
             configSettings.RandomDropPercent = 10;
             configSettings.SendMapPosition = true;
+            configSettings.UseCachingFileIO = true;
             configSettings.VaultDirectory = "C:\\Mud\\Vaults";
             configSettings.ZoneDirectory = "C:\\Mud\\World";
             configSettings.AsciiArt =

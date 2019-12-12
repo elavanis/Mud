@@ -1,6 +1,8 @@
 ﻿using Objects.Global;
+using Objects.Global.FileIO;
 using Objects.Zone.Interface;
 using RandomZone;
+using Shared.FileIO;
 using System.Collections.Generic;
 using System.IO;
 
@@ -11,6 +13,12 @@ namespace All
         static void Main(string[] args)
         {
             GlobalReference.GlobalValues.Initilize();
+
+            List<string> permanentDirectories = new List<string>();
+            permanentDirectories.Add(@"c:\temp");
+            CachedFileIO cachedFileIO = new CachedFileIO(permanentDirectories, new FileIO());
+            cachedFileIO.ReloadCache();
+
 
             List<IZone> zones = GenerateZones.Program.GenerateZones();
 

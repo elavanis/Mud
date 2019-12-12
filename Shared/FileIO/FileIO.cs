@@ -3,76 +3,58 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 
 namespace Shared.FileIO
 {
     public class FileIO : IFileIO
     {
-        private object padLock = new object();
-        private Dictionary<string, string> fileText = new Dictionary<string, string>();
-        private Dictionary<string, string> base64 = new Dictionary<string, string>();
-
+        #region Read
         [ExcludeFromCodeCoverage]
-        public void EnsureDirectoryExists(string directory)
+        public string ReadAllText(string fileName)
         {
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
+            return File.ReadAllText(fileName);
         }
 
         [ExcludeFromCodeCoverage]
-        public string[] GetFilesFromDirectory(string directory)
+        public string ReadFileBase64(string fileName)
         {
-            return Directory.GetFiles(directory);
+            byte[] bytes = ReadBytes(fileName);
+            return Convert.ToBase64String(bytes);
         }
 
         [ExcludeFromCodeCoverage]
-        public string[] GetFilesFromDirectory(string directory, string filter)
+        public string[] ReadLines(string fileName)
         {
-            return Directory.GetFiles(directory, filter);
+            return File.ReadLines(fileName).ToArray();
         }
 
         [ExcludeFromCodeCoverage]
-        public bool Exists(string fileName)
+        public byte[] ReadBytes(string fileName)
         {
-            return File.Exists(fileName);
+            byte[] bytes = File.ReadAllBytes(fileName);
+            return bytes;
         }
+        #endregion Read
 
-        [ExcludeFromCodeCoverage]
-        public IEnumerable<string> ReadLines(string fileName)
-        {
-            return File.ReadLines(fileName);
-        }
-
-        [ExcludeFromCodeCoverage]
-        public string ReadAllText(string fileName, bool useCache = true)
-        {
-            if (!useCache)
-            {
-                return File.ReadAllText(fileName);
-            }
-            else
-            {
-                lock (padLock)
-                {
-                    string file = null;
-                    //if the file is not in the cache the read the contents and add it
-                    if (!fileText.TryGetValue(fileName, out file))
-                    {
-                        file = File.ReadAllText(fileName);
-                        fileText.Add(fileName, file);
-                    }
-
-                    return file;
-                }
-            }
-        }
-
+        #region Write
         [ExcludeFromCodeCoverage]
         public void WriteFile(string fileName, string file)
         {
             File.WriteAllText(fileName, file);
+        }
+
+        [ExcludeFromCodeCoverage]
+        public void WriteFile(string fileName, byte[] bytes)
+        {
+            File.WriteAllBytes(fileName, bytes);
+        }
+
+        [ExcludeFromCodeCoverage]
+        public void WriteFileBase64(string fileName, string file)
+        {
+            byte[] bytes = Convert.FromBase64String(file);
+            WriteFile(fileName, bytes);
         }
 
         [ExcludeFromCodeCoverage]
@@ -86,57 +68,32 @@ namespace Shared.FileIO
         {
             File.AppendAllText(fileName, line);
         }
+        #endregion Write
 
+        #region Other
         [ExcludeFromCodeCoverage]
-        public string ReadFileBase64(string fileName, bool useCache = true)
+        public string[] GetFilesFromDirectory(string directory)
         {
-            if (!useCache)
-            {
-                byte[] bytes = ReadBytes(fileName);
-                return Convert.ToBase64String(bytes);
-            }
-            else
-            {
-                lock (padLock)
-                {
-                    string file = null;
-                    //if the file is not in the cache the read the contents and add it
-                    if (!base64.TryGetValue(fileName, out file))
-                    {
-                        byte[] bytes = ReadBytes(fileName);
-                        file = Convert.ToBase64String(bytes);
-                        base64.Add(fileName, file);
-                    }
-
-                    return file;
-                }
-            }
+            return Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
         }
 
         [ExcludeFromCodeCoverage]
-        public void WriteFileBase64(string fileName, string file)
+        public bool Exists(string fileName)
         {
-            byte[] bytes = Convert.FromBase64String(file);
-            File.WriteAllBytes(fileName, bytes);
+            return File.Exists(fileName);
         }
 
         [ExcludeFromCodeCoverage]
-        public byte[] ReadBytes(string fileName)
+        public void Delete(string fileName)
         {
-            byte[] bytes = File.ReadAllBytes(fileName);
-            return bytes;
+            File.Delete(fileName);
         }
 
         [ExcludeFromCodeCoverage]
-        public void Delete(string file)
+        public void CreateDirectory(string directory)
         {
-            File.Delete(file);
+            Directory.CreateDirectory(directory);
         }
-
-        [ExcludeFromCodeCoverage]
-        public void FlushCache()
-        {
-
-        }
+        #endregion Other
     }
 }

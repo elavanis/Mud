@@ -5,7 +5,7 @@ using System;
 namespace SharedUnitTest.PerformanceCounters
 {
     [TestClass]
-    public class PerformanceCountersTest
+    public class PerformanceCountersUnitTest
     {
         Counters counters;
         [TestInitialize]

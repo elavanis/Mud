@@ -1,36 +1,37 @@
 ﻿using System.Collections.Generic;
 
+
 namespace Shared.FileIO.Interface
 {
     public interface IFileIO
     {
-        void AppendFile(string fileName, IEnumerable<string> lines);
+        #region Read
+        string ReadAllText(string fileName);
 
-        void AppendFile(string fileName, string line);
+        string ReadFileBase64(string fileName);
 
-        string ReadAllText(string fileName, bool useCache = true);
+        string[] ReadLines(string fileName);
 
-        string ReadFileBase64(string fileName, bool useCache = true);
+        byte[] ReadBytes(string fileName);
+        #endregion Read
 
-        bool Exists(string fileName);
-
-        IEnumerable<string> ReadLines(string fileName);
-
+        #region Write
         void WriteFile(string fileName, string file);
+
+        void WriteFile(string fileName, byte[] bytes);
 
         void WriteFileBase64(string fileName, string file);
 
-        void EnsureDirectoryExists(string directory);
+        void AppendFile(string fileName, IEnumerable<string> lines);
 
+        void AppendFile(string fileName, string line);
+        #endregion Write
+
+        #region Other
         string[] GetFilesFromDirectory(string directory);
-
-        string[] GetFilesFromDirectory(string zoneLocation, string filter);
-
-        byte[] ReadBytes(string fileName);
-
-        void Delete(string file);
-
-        void FlushCache();
-
+        bool Exists(string fileName);
+        void Delete(string fileName);
+        void CreateDirectory(string directory);
+        #endregion Other
     }
 }

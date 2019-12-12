@@ -49,7 +49,6 @@ namespace Objects.Global
         [ExcludeFromCodeCoverage]
         public List<ICounters> CountersLog { get; set; }
 
-
         #region Classes
         [ExcludeFromCodeCoverage]
         public ICanMobDoSomething CanMobDoSomething { get; set; }
@@ -145,10 +144,6 @@ namespace Objects.Global
         #endregion Shared
         #endregion Classes
 
-
-
-
-
         public void Initilize()
         {
             StartTime = DateTime.Now;
@@ -160,6 +155,9 @@ namespace Objects.Global
             Translator = new Language.Translator(new Language.TranslatorAlgorithm());
 
 
+
+
+
             CanMobDoSomething = new CanMobDoSomething.CanMobDoSomething();
             CommandList = new Commands.CommandList();
             Counters = new Counters();
@@ -168,8 +166,8 @@ namespace Objects.Global
             Engine = new Engine.Engine();
             EvaluateLevelDifference = new EvaluateLevelDifference();
             Experience = new Exp.Experience();
+            FileIO = new Shared.FileIO.FileIO();
             FindObjects = new FindObjects.FindObjects();
-            FileIO = new FileIO();
             GameDateTime = new InGameDateTime(new Time());
             GameStats = new GameStats();
             GuildAbilities = new Guild.GuildAbilities();
@@ -187,6 +185,8 @@ namespace Objects.Global
             Time = new Time();
             UpTime = new UpTime.UpTime();
             ValidateAsset = new ValidateAsset.ValidateAsset();
+
+
 
         }
     }

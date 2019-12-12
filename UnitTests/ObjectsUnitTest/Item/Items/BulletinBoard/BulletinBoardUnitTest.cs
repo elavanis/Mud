@@ -50,7 +50,7 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             message.Setup(e => e.Poster).Returns("mob");
             message.Setup(e => e.Read(mob.Object)).Returns("written message");
-            fileIO.Setup(e => e.ReadAllText("bb\\1-2.BulletinBoard", true)).Returns("fileContents");
+            fileIO.Setup(e => e.ReadAllText("bb\\1-2.BulletinBoard")).Returns("fileContents");
 
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;

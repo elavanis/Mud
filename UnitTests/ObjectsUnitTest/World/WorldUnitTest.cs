@@ -173,11 +173,11 @@ namespace ObjectsUnitTest.World
             exit.Setup(e => e.Zone).Returns(1);
             exit.Setup(e => e.Room).Returns(2);
             fileIO.Setup(e => e.Exists(@"LogStatsLocation\00010101\Stats.stat")).Returns(true);
-            fileIO.Setup(e => e.ReadAllText(@"LogStatsLocation\00010101\Stats.stat", true)).Returns("serial");
+            fileIO.Setup(e => e.ReadAllText(@"LogStatsLocation\00010101\Stats.stat")).Returns("serial");
             fileIO.Setup(e => e.GetFilesFromDirectory("PlayerCharacterDirectory")).Returns(new string[] { "c:\\test.char" });
-            fileIO.Setup(e => e.ReadAllText("c:\\test.char", true)).Returns("serializedPlayer");
-            fileIO.Setup(e => e.GetFilesFromDirectory("ZoneDirectory", "*.zone")).Returns(new string[] { "c:\\zone.zone" });
-            fileIO.Setup(e => e.ReadAllText("c:\\zone.zone", true)).Returns("serializedZone");
+            fileIO.Setup(e => e.ReadAllText("c:\\test.char")).Returns("serializedPlayer");
+            fileIO.Setup(e => e.GetFilesFromDirectory("ZoneDirectory")).Returns(new string[] { "c:\\zone.zone" });
+            fileIO.Setup(e => e.ReadAllText("c:\\zone.zone")).Returns("serializedZone");
 
             globalValues.Setup(e => e.TickCounter).Returns(0);
             inGameDateTime.Setup(e => e.GameDateTime).Returns(gameDateTime.Object);
@@ -227,7 +227,7 @@ namespace ObjectsUnitTest.World
             serialization.Setup(e => e.Deserialize<Objects.Zone.Zone>("serial")).Returns(deserializeZone);
             serialization.Setup(e => e.Serialize(It.IsAny<object>())).Returns("abc");
             settings.Setup(e => e.LogStats).Returns(true);
-            settings.Setup(e => e.LogStatsLocation).Returns("LogStatsLocation");
+            settings.Setup(e => e.StatsDirectory).Returns("LogStatsLocation");
             settings.Setup(e => e.PlayerCharacterDirectory).Returns("PlayerCharacterDirectory");
             settings.Setup(e => e.ZoneDirectory).Returns("ZoneDirectory");
             settings.Setup(e => e.BaseStatValue).Returns(1);
@@ -528,6 +528,27 @@ namespace ObjectsUnitTest.World
             notify.Verify(e => e.Mob(npc.Object, It.IsAny<ITranslationMessage>()), Times.Never);
             notify.Verify(e => e.Mob(pc.Object, It.IsAny<ITranslationMessage>()), Times.Never);
             parser.Verify(e => e.Parse("not valid"), Times.Exactly(2));
+        }
+
+        [TestMethod]
+        public void World_PerformTick_ProcessRoom_CommunicationCommand()
+        {
+            room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            room.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>() { pc.Object });
+            npc.SetupSequence(e => e.DequeueCommunication())
+               .Returns("say hi")
+               .Returns(null);
+            pc.SetupSequence(e => e.DequeueCommunication())
+               .Returns("say hi")
+               .Returns(null);
+            pc.Setup(e => e.FollowTarget).Returns<IMobileObject>(null);
+
+            world.PerformTick();
+
+            evnt.Verify(e => e.HeartbeatBigTick(room.Object), Times.Once);
+            notify.Verify(e => e.Mob(npc.Object, It.Is<ITranslationMessage>(f => f.Message == "result")), Times.Once);
+            notify.Verify(e => e.Mob(pc.Object, It.Is<ITranslationMessage>(f => f.Message == "Unknown command.")), Times.Once);
+            parser.Verify(e => e.Parse("say hi"), Times.Exactly(2));
         }
 
         [TestMethod]
@@ -958,7 +979,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [ExpectedException(typeof(FileNotFoundException))]
         public void World_LoadWorld_NoFilesFound()
         {
-            fileIO.Setup(e => e.GetFilesFromDirectory("ZoneDirectory", "*.zone")).Returns(new string[] { });
+            fileIO.Setup(e => e.GetFilesFromDirectory("ZoneDirectory")).Returns(new string[] { });
 
             world.LoadWorld();
         }
