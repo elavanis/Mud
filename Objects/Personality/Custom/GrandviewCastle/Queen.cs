@@ -52,6 +52,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 }
             }
 
+            Step++;
+
             int hour = GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour;
 
             if (hour < 13)
@@ -67,7 +69,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private string DayTimeThings(INonPlayerCharacter npc)
         {
-            Step++;
 
             if (StateMachine == State.Sleep)
             {
@@ -143,7 +144,6 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 {
                     string message = null;
 
-
                     while ((message = npc.DequeueMessage()) != null)
                     {
                         if (message == "<Communication>King says Hello my beautify queen.</Communication>")
@@ -156,7 +156,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                         }
                         else if (message == "<Communication>King says Lets plan to do this when the weather gets a little nicer.</Communication>")
                         {
-                            return "Say Agreed";
+                            return "Say Agreed.";
                         }
                         else if (message == "<Communication>King says Good night my love.</Communication>")
                         {

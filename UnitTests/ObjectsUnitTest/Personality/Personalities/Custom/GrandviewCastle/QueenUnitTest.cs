@@ -206,6 +206,108 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual("GotoBalcony", State);
             npc.Verify(e => e.EnqueueCommand("Say Its about time."), Times.Once);
         }
+
+        [TestMethod]
+        public void Queen_Process_Night_KingDidNotCloseCourt()
+        {
+            State = "Up";
+            room.Setup(e => e.Id).Returns(20);
+            gameDateTime.Setup(e => e.Hour).Returns(14);
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("West", result);
+            Assert.AreEqual("GotoBalcony", State);
+            npc.Verify(e => e.EnqueueCommand("Say Court is closed for the day. Please come back tomorrow."), Times.Once);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_GotoBalconyPart1()
+        {
+            State = "GotoBalcony";
+            room.Setup(e => e.Id).Returns(22);
+            gameDateTime.Setup(e => e.Hour).Returns(14);
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("North", result);
+            Assert.AreEqual("GotoBalcony", State);
+            Assert.AreEqual(0, Step);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_GotoBalconyPart2()
+        {
+            State = "GotoBalcony";
+            room.Setup(e => e.Id).Returns(23);
+            gameDateTime.Setup(e => e.Hour).Returns(14);
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Say Hello dear.", result);
+            Assert.AreEqual("SpendTimeWithKing", State);
+            Assert.AreEqual(0, Step);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_SpendTimeWithKingPt1()
+        {
+            Step = 4;
+            State = "SpendTimeWithKing";
+            gameDateTime.Setup(e => e.Hour).Returns(14);
+            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>King says Hello my beautify queen.</Communication>");
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Say I wish we could just leave this all behind.", result);
+            Assert.AreEqual("SpendTimeWithKing", State);
+            Assert.AreEqual(5, Step);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_SpendTimeWithKingPt2()
+        {
+            Step = 4;
+            State = "SpendTimeWithKing";
+            gameDateTime.Setup(e => e.Hour).Returns(14);
+            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>King says That sounds nice.  We should take a trip to the country to get away for a while.</Communication>");
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Say A trip to the country sounds great  We can goto the villa.", result);
+            Assert.AreEqual("SpendTimeWithKing", State);
+            Assert.AreEqual(5, Step);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_SpendTimeWithKingPt3()
+        {
+            Step = 4;
+            State = "SpendTimeWithKing";
+            gameDateTime.Setup(e => e.Hour).Returns(14);
+            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>King says Lets plan to do this when the weather gets a little nicer.</Communication>");
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Say Agreed.", result);
+            Assert.AreEqual("SpendTimeWithKing", State);
+            Assert.AreEqual(5, Step);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_SpendTimeWithKingPt4()
+        {
+            Step = 4;
+            State = "SpendTimeWithKing";
+            gameDateTime.Setup(e => e.Hour).Returns(14);
+            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>King says Good night my love.</Communication>");
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Say Goodnight my dear.", result);
+            Assert.AreEqual("Bath", State);
+            Assert.AreEqual(0, Step);
+        }
         #endregion Night Test
 
         [TestMethod]
