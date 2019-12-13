@@ -200,7 +200,9 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
                     return "Emote climbs into bath tub.";
                 }
-
+            }
+            else if (StateMachine == State.InTub)
+            {
                 if (GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour == 20)
                 {
                     StateMachine = State.GetDress;

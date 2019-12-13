@@ -308,6 +308,119 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual("Bath", State);
             Assert.AreEqual(0, Step);
         }
+
+        [TestMethod]
+        public void Queen_Process_Night_BathPt1()
+        {
+            State = "Bath";
+            gameDateTime.Setup(e => e.Hour).Returns(14);
+            room.Setup(e => e.Id).Returns(23);
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("South", result);
+            Assert.AreEqual("Bath", State);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_BathPt2()
+        {
+            State = "Bath";
+            gameDateTime.Setup(e => e.Hour).Returns(14);
+            room.Setup(e => e.Id).Returns(22);
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("South", result);
+            Assert.AreEqual("Bath", State);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_BathPt3()
+        {
+            Step = 4;
+            State = "Bath";
+            gameDateTime.Setup(e => e.Hour).Returns(14);
+            room.Setup(e => e.Id).Returns(24);
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Emote removes her dress.", result);
+            Assert.AreEqual("Undress", State);
+            Assert.AreEqual(0, Step);
+            npc.VerifySet(e => e.LookDescription = "The queens hair falls gently down the back of her naked figure.", Times.Once);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_Undress()
+        {
+            Step = 4;
+            State = "Undress";
+            gameDateTime.Setup(e => e.Hour).Returns(14);
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Emote climbs into bath tub.", result);
+            Assert.AreEqual("InTub", State);
+            npc.VerifySet(e => e.LookDescription = "The queen relaxes in the tub almost floating with only her head above the water.", Times.Once);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_InTub()
+        {
+            Step = 4;
+            State = "InTub";
+            gameDateTime.Setup(e => e.Hour).Returns(20);
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Emote slowly rises out of the tub.", result);
+            Assert.AreEqual("GetDress", State);
+            Assert.AreEqual(0, Step);
+            npc.VerifySet(e => e.LookDescription = "The queens hair falls gently down the back of her naked figure.", Times.Once);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_GetDress()
+        {
+            Step = 4;
+            State = "GetDress";
+            gameDateTime.Setup(e => e.Hour).Returns(20);
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Emote puts on her night gown.", result);
+            Assert.AreEqual("GotoSleep", State);
+            npc.VerifySet(e => e.LookDescription = "The queen is dressed in her white sleep gown.", Times.Once);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_GotoSleepPt1()
+        {
+            Step = 4;
+            State = "GotoSleep";
+            gameDateTime.Setup(e => e.Hour).Returns(20);
+            room.Setup(e => e.Id).Returns(24);
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("North", result);
+            Assert.AreEqual("GotoSleep", State);
+        }
+
+        [TestMethod]
+        public void Queen_Process_Night_GotoSleepPt2()
+        {
+            Step = 4;
+            State = "GotoSleep";
+            gameDateTime.Setup(e => e.Hour).Returns(20);
+            room.Setup(e => e.Id).Returns(22);
+
+            string result = queen.Process(npc.Object, null);
+
+            Assert.AreEqual("Sleep", result);
+            Assert.AreEqual("GotoSleep", State);
+        }
         #endregion Night Test
 
         [TestMethod]
