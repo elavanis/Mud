@@ -423,13 +423,6 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         }
         #endregion Night Test
 
-        [TestMethod]
-        public void QueenUnitTest_WriteSome()
-        {
-            Assert.AreEqual(1, 2);
-        }
-
-
         private string State
         {
             get
