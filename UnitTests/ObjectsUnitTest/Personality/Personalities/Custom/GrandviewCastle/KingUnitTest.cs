@@ -66,8 +66,8 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             players = new List<IPlayerCharacter>();
 
             npc.Setup(e => e.Room).Returns(room.Object);
-            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "kings guard")).Returns(new List<INonPlayerCharacter>() { npc.Object });
-            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "queen")).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "King's guard")).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "Queen")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "servant")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.Id).Returns(21);
             room.Setup(e => e.Zone).Returns(24);
@@ -289,7 +289,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         {
             State = "AskedForMeal";
             Step = 1;
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Kings servant says Your Honorable Majestic Majesty Graciousness, what would you like to eat?</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>Kings servant says Your Honorable Majestic Majesty Graciousness, what would you like to eat?</Communication>");
 
             string result = king.Process(npc.Object, null);
 
@@ -302,7 +302,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             State = "AskedForMeal";
             Step = 4;
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "servant")).Returns(new List<INonPlayerCharacter>());
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Kings servant says Your Honorable Majestic Majesty Graciousness, what would you like to eat?</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>Kings servant says Your Honorable Majestic Majesty Graciousness, what would you like to eat?</Communication>");
 
             string result = king.Process(npc.Object, null);
 
@@ -325,7 +325,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         {
             State = "AskedForMeal";
             Step = 4;
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Kings servant says Your Honorable Majestic Majesty Graciousness, what would you like to eat?</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>Kings servant says Your Honorable Majestic Majesty Graciousness, what would you like to eat?</Communication>");
 
             string result = king.Process(npc.Object, null);
 
@@ -338,7 +338,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         public void King_Process_Day_AskedForHasenpfefferMessage1()
         {
             State = "AskedForHasenpfeffer";
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Kings servant says Bon appetit Most Gracious Majesty.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>Kings servant says Bon appetit Most Gracious Majesty.</Communication>");
 
             string result = king.Process(npc.Object, null);
 
@@ -350,7 +350,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         public void King_Process_Day_AskedForHasenpfefferMessage2()
         {
             State = "AskedForHasenpfeffer";
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Kings servant says Your hasenpfeffer Your Magisty.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>Kings servant says Your hasenpfeffer Your Magisty.</Communication>");
 
             string result = king.Process(npc.Object, null);
 
@@ -461,7 +461,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithQueen";
             gameDateTime.Setup(e => e.Hour).Returns(13);
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says Hello dear.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>Queen says Hello dear.</Communication>");
 
             string result = king.Process(npc.Object, null);
 
@@ -474,7 +474,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithQueen";
             gameDateTime.Setup(e => e.Hour).Returns(13);
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says I wish we could just leave this all behind.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>Queen says I wish we could just leave this all behind.</Communication>");
 
             string result = king.Process(npc.Object, null);
 
@@ -487,7 +487,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithQueen";
             gameDateTime.Setup(e => e.Hour).Returns(13);
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says A trip to the country sounds great  We can goto the villa.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>Queen says A trip to the country sounds great  We can goto the villa.</Communication>");
 
             string result = king.Process(npc.Object, null);
 
@@ -500,7 +500,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithQueen";
             gameDateTime.Setup(e => e.Hour).Returns(13);
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says Agreed.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>Queen says Agreed.</Communication>");
 
             string result = king.Process(npc.Object, null);
 
@@ -513,7 +513,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithQueen";
             gameDateTime.Setup(e => e.Hour).Returns(13);
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>Queen says Goodnight my dear.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>Queen says Goodnight my dear.</Communication>");
 
             string result = king.Process(npc.Object, null);
 
