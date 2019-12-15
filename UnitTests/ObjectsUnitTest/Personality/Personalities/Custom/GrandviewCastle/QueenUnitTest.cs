@@ -38,9 +38,6 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         Mock<INotify> notify;
         Mock<IInGameDateTime> inGameDateTime;
         Mock<IGameDateTime> gameDateTime;
-        //Mock<IPlayerCharacter> player;
-        //Mock<ICanMobDoSomething> canMobDoSomething;
-        //List<IPlayerCharacter> players;
 
         [TestInitialize]
         public void Setup()
@@ -63,7 +60,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             npc.Setup(e => e.Room).Returns(room.Object);
             room.Setup(e => e.Zone).Returns(24);
             room.Setup(e => e.Id).Returns(22);
-            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "queens guard")).Returns(new List<INonPlayerCharacter>() { npc.Object });
+            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "Queen's guard")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "King")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             defaultValues.Setup(e => e.DiceForArmorLevel(45)).Returns(dice.Object);
             random.Setup(e => e.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(10);
@@ -198,7 +195,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             State = "Up";
             room.Setup(e => e.Id).Returns(20);
             gameDateTime.Setup(e => e.Hour).Returns(13);
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>King says Court is closed for the day. Please come back tomorrow.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>King says Court is closed for the day. Please come back tomorrow.</Communication>");
 
             string result = queen.Process(npc.Object, null);
 
@@ -255,7 +252,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithKing";
             gameDateTime.Setup(e => e.Hour).Returns(14);
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>King says Hello my beautify queen.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>King says Hello my beautify Queen.</Communication>");
 
             string result = queen.Process(npc.Object, null);
 
@@ -270,7 +267,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithKing";
             gameDateTime.Setup(e => e.Hour).Returns(14);
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>King says That sounds nice.  We should take a trip to the country to get away for a while.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>King says That sounds nice.  We should take a trip to the country to get away for a while.</Communication>");
 
             string result = queen.Process(npc.Object, null);
 
@@ -285,7 +282,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithKing";
             gameDateTime.Setup(e => e.Hour).Returns(14);
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>King says Lets plan to do this when the weather gets a little nicer.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>King says Lets plan to do this when the weather gets a little nicer.</Communication>");
 
             string result = queen.Process(npc.Object, null);
 
@@ -300,7 +297,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Step = 4;
             State = "SpendTimeWithKing";
             gameDateTime.Setup(e => e.Hour).Returns(14);
-            npc.Setup(e => e.DequeueMessage()).Returns("<Communication>King says Good night my love.</Communication>");
+            npc.SetupSequence(e => e.DequeueMessage()).Returns("<Communication>King says Good night my love.</Communication>");
 
             string result = queen.Process(npc.Object, null);
 
@@ -348,7 +345,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual("Emote removes her dress.", result);
             Assert.AreEqual("Undress", State);
             Assert.AreEqual(0, Step);
-            npc.VerifySet(e => e.LookDescription = "The queens hair falls gently down the back of her naked figure.", Times.Once);
+            npc.VerifySet(e => e.LookDescription = "The Queen's hair falls gently down the back of her naked figure.", Times.Once);
         }
 
         [TestMethod]
@@ -362,7 +359,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
 
             Assert.AreEqual("Emote climbs into bath tub.", result);
             Assert.AreEqual("InTub", State);
-            npc.VerifySet(e => e.LookDescription = "The queen relaxes in the tub almost floating with only her head above the water.", Times.Once);
+            npc.VerifySet(e => e.LookDescription = "The Queen relaxes in the tub almost floating with only her head above the water.", Times.Once);
         }
 
         [TestMethod]
@@ -377,7 +374,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             Assert.AreEqual("Emote slowly rises out of the tub.", result);
             Assert.AreEqual("GetDress", State);
             Assert.AreEqual(0, Step);
-            npc.VerifySet(e => e.LookDescription = "The queens hair falls gently down the back of her naked figure.", Times.Once);
+            npc.VerifySet(e => e.LookDescription = "The Queen's hair falls gently down the back of her naked figure.", Times.Once);
         }
 
         [TestMethod]
@@ -391,7 +388,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
 
             Assert.AreEqual("Emote puts on her night gown.", result);
             Assert.AreEqual("GotoSleep", State);
-            npc.VerifySet(e => e.LookDescription = "The queen is dressed in her white sleep gown.", Times.Once);
+            npc.VerifySet(e => e.LookDescription = "The Queen is dressed in her white sleep gown.", Times.Once);
         }
 
         [TestMethod]

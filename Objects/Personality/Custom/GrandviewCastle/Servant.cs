@@ -14,6 +14,16 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         public string Process(INonPlayerCharacter npc, string command)
         {
+            if (command != null)
+            {
+                return command;
+            }
+
+            if (npc.IsInCombat)
+            {
+                return null;
+            }
+
             Step++;
 
             if (StateMachine == State.Wait)
@@ -21,13 +31,13 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 string message = null;
                 while ((message = npc.DequeueMessage()) != null)
                 {
-                    if (message == "<Communication>king says Servant, bring me my meal.</Communication>")
+                    if (message == "<Communication>King says Servant, bring me my meal.</Communication>")
                     {
-                        npc.EnqueueCommand("wait");
-                        npc.EnqueueCommand("wait");
+                        npc.EnqueueCommand("Wait");
+                        npc.EnqueueCommand("Wait");
                         npc.EnqueueCommand("Emote bows.");
-                        npc.EnqueueCommand("wait");
-                        npc.EnqueueCommand("wait");
+                        npc.EnqueueCommand("Wait");
+                        npc.EnqueueCommand("Wait");
                         npc.EnqueueCommand("Say Your Honorable Majestic Majesty Graciousness, what would you like to eat?");
                         StateMachine = State.AskedWhatWanted;
                         Step = 0;
@@ -39,12 +49,12 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 string message = null;
                 while ((message = npc.DequeueMessage()) != null)
                 {
-                    if (message == "<Communication>king says Bring me hasenpfeffer.</Communication>")
+                    if (message == "<Communication>King says Bring me hasenpfeffer.</Communication>")
                     {
-                        npc.EnqueueCommand("wait");
-                        npc.EnqueueCommand("wait");
+                        npc.EnqueueCommand("Wait");
+                        npc.EnqueueCommand("Wait");
                         npc.EnqueueCommand("Say Right away Your Honorable Royal Majestic Graciousness.");
-                        npc.EnqueueCommand("wait");
+                        npc.EnqueueCommand("Wait");
                         StateMachine = State.KingToldHasenpfeffer;
                         Step = 0;
                     }
@@ -68,7 +78,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     if (nonPlayerCharacters.Count > 0)
                     {
                         StateMachine = State.AskCookForHasenpfeffer;
-                        npc.EnqueueCommand("Say The king wants hasenpfeffer to eat.");
+                        npc.EnqueueCommand("Say The King wants hasenpfeffer to eat.");
                     }
                     else
                     {
@@ -84,10 +94,10 @@ namespace Objects.Personality.Custom.GrandviewCastle
                                 npc.EnqueueCommand("Say Great how am I going to make hasenpfeffer?");
                                 break;
                             case 15:
-                                npc.EnqueueCommand("Emote scurries around the kitchen looking for something to give the king.");
+                                npc.EnqueueCommand("Emote scurries around the kitchen looking for something to give the King.");
                                 break;
                             case 20:
-                                npc.EnqueueCommand("Emote scurries around the kitchen looking for something to give the king.");
+                                npc.EnqueueCommand("Emote scurries around the kitchen looking for something to give the King.");
                                 break;
                             case 25:
                                 npc.EnqueueCommand("Say Ah Ha!");
@@ -115,7 +125,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 string message = null;
                 while ((message = npc.DequeueMessage()) != null)
                 {
-                    if (message == "<Communication>cook says here you go. Hasenpfeffer for the king.</Communication>")
+                    if (message == "<Communication>cook says here you go. Hasenpfeffer for the King.</Communication>")
                     {
                         npc.EnqueueCommand("Wait");
                         npc.EnqueueCommand("South");
@@ -130,7 +140,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             else if (StateMachine == State.GiveToKingHasenpfeffer)
             {
                 if (npc.Room.Id == 21
-                    && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "king").Count > 0)
+                    && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "King").Count > 0)
                 {
                     npc.EnqueueCommand("Bon appetit Most Gracious Majesty.");
                     StateMachine = State.Wait;
@@ -139,7 +149,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             else if (StateMachine == State.GiveToKingCarrot)
             {
                 if (npc.Room.Id == 21
-                    && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "king").Count > 0)
+                    && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "King").Count > 0)
                 {
                     npc.EnqueueCommand("Your hasenpfeffer Your Magisty.");
                     StateMachine = State.Wait;

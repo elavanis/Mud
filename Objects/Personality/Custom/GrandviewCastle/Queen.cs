@@ -33,7 +33,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             #region Combat
             if (npc.IsInCombat)
             {
-                int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "queens guard").Count;
+                int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "Queen's guard").Count;
                 if (howManyKingsGuards < 4)
                 {
                     npc.EnqueueCommand("Say GUARDS!");
@@ -146,7 +146,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
                     while ((message = npc.DequeueMessage()) != null)
                     {
-                        if (message == "<Communication>King says Hello my beautify queen.</Communication>")
+                        if (message == "<Communication>King says Hello my beautify Queen.</Communication>")
                         {
                             return "Say I wish we could just leave this all behind.";
                         }
@@ -186,7 +186,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     {
                         StateMachine = State.Undress;
                         Step = 0;
-                        npc.LookDescription = "The queens hair falls gently down the back of her naked figure.";
+                        npc.LookDescription = "The Queen's hair falls gently down the back of her naked figure.";
                         return "Emote removes her dress.";
                     }
                 }
@@ -196,7 +196,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 if (Step % 5 == 0)
                 {
                     StateMachine = State.InTub;
-                    npc.LookDescription = "The queen relaxes in the tub almost floating with only her head above the water.";
+                    npc.LookDescription = "The Queen relaxes in the tub almost floating with only her head above the water.";
 
                     return "Emote climbs into bath tub.";
                 }
@@ -207,7 +207,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 {
                     StateMachine = State.GetDress;
                     Step = 0;
-                    npc.LookDescription = "The queens hair falls gently down the back of her naked figure.";
+                    npc.LookDescription = "The Queen's hair falls gently down the back of her naked figure.";
                     return "Emote slowly rises out of the tub.";
                 }
             }
@@ -272,11 +272,11 @@ namespace Objects.Personality.Custom.GrandviewCastle
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.TypeOfMob = MobType.Humanoid;
             npc.Level = 45;
-            npc.ShortDescription = "The queens guard.";
+            npc.ShortDescription = "The Queen's guard.";
             npc.LookDescription = "Dressed in silver armor shaped like a female lions head on their breastplate they have sworn their life to protect the queen.";
             npc.ExamineDescription = "Each guard has under gone extensive training in both body in mind to ensure their loyalty unto death.";
-            npc.SentenceDescription = "queens guard";
-            npc.KeyWords.Add("queens guard");
+            npc.SentenceDescription = "Queen's guard";
+            npc.KeyWords.Add("Queen's guard");
             npc.KeyWords.Add("guard");
 
             npc.AddEquipment(BreastPlate());

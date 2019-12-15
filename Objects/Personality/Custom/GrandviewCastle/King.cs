@@ -32,7 +32,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             #region Combat
             if (npc.IsInCombat)
             {
-                int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "kings guard").Count;
+                int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "King's guard").Count;
                 if (howManyKingsGuards < 4)
                 {
                     npc.EnqueueCommand("Say GUARDS!");
@@ -44,7 +44,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             if (!GreetedQueen && npc.Room.Id == 21)
             {
-                if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "queen").Count > 0)
+                if (GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "Queen").Count > 0)
                 {
                     GreetedQueen = true;
                     return GreetingForQueen[GlobalReference.GlobalValues.Random.Next(GreetingForQueen.Count)];
@@ -213,7 +213,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                     {
                         if (GlobalReference.GlobalValues.CanMobDoSomething.SeeObject(npc, pc))
                         {
-                            int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "kings guard").Count;
+                            int howManyKingsGuards = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "King's guard").Count;
                             if (howManyKingsGuards < 4)
                             {
                                 SummonKingsGuards(4 - howManyKingsGuards, npc.Room);
@@ -307,11 +307,11 @@ namespace Objects.Personality.Custom.GrandviewCastle
             INonPlayerCharacter npc = new NonPlayerCharacter();
             npc.TypeOfMob = MobType.Humanoid;
             npc.Level = 45;
-            npc.ShortDescription = "The kings guard.";
-            npc.LookDescription = "Dressed in golden armor shaped like a male lions head on their breastplate they have sworn their life to protect the king.";
+            npc.ShortDescription = "The King's guard.";
+            npc.LookDescription = "Dressed in golden armor shaped like a male lions head on their breastplate they have sworn their life to protect the King.";
             npc.ExamineDescription = "Each guard has under gone extensive training in both body in mind to ensure their loyalty unto death.";
-            npc.SentenceDescription = "kings guard";
-            npc.KeyWords.Add("kings guard");
+            npc.SentenceDescription = "King's guard";
+            npc.KeyWords.Add("King's guard");
             npc.KeyWords.Add("guard");
 
             npc.AddEquipment(BreastPlate());
