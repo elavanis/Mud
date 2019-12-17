@@ -20,8 +20,12 @@ namespace ObjectsUnitTest.Global.FileIO
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
-
             fileIO = new Mock<IFileIO>();
+
+            fileIO.Setup(e => e.GetFilesFromDirectory(@"c:\test")).Returns(new string[] { @"c:\test\file1", @"c:\test\file2" });
+            fileIO.Setup(e => e.Exists(@"c:\test\file1")).Returns(true);
+            fileIO.Setup(e => e.Exists(@"c:\test\file2")).Returns(false);
+            fileIO.Setup(e => e.ReadBytes(@"c:\test\file1")).Returns(new byte[] { 0 });
 
             cachedFileIO = new CachedFileIO(null, fileIO.Object);
         }
@@ -33,6 +37,10 @@ namespace ObjectsUnitTest.Global.FileIO
 
             fileIO.Verify(e => e.CreateDirectory(@"c:\test"), Times.Once);
             fileIO.Verify(e => e.GetFilesFromDirectory(@"c:\test"), Times.Once);
+            fileIO.Verify(e => e.Exists(@"c:\test\file1"), Times.Once);
+            fileIO.Verify(e => e.Exists(@"c:\test\file2"), Times.Once);
+            fileIO.Verify(e => e.ReadBytes(@"c:\test\file1"), Times.Once);
+            fileIO.Verify(e => e.ReadBytes(@"c:\test\file2"), Times.Never);
         }
 
         [TestMethod]
@@ -74,6 +82,44 @@ namespace ObjectsUnitTest.Global.FileIO
             string result = cachedFileIO.ReadFileBase64("test");
             Assert.AreEqual(expected, result);
         }
+
+        [TestMethod]
+        public void CachedFileIO_GetFilesFromDirectory()
+        {
+            cachedFileIO.AppendFile(@"c:\dir1\f1", "input");
+            cachedFileIO.AppendFile(@"c:\dir2\f2", "input");
+
+            string[] files = cachedFileIO.GetFilesFromDirectory(@"c:\dir1");
+
+            Assert.AreEqual(1, files.Length);
+            Assert.AreEqual(@"c:\dir1\f1", files[0]);
+        }
+
+        [TestMethod]
+        public void CachedFileIO_Exists()
+        {
+            cachedFileIO.AppendFile(@"c:\dir1\f1", "input");
+
+            Assert.IsTrue(cachedFileIO.Exists(@"c:\dir1\f1"));
+            Assert.IsFalse(cachedFileIO.Exists(@"c:\dir1\f2"));
+        }
+
+        [TestMethod]
+        public void CachedFileIO_Delete()
+        {
+            cachedFileIO.Delete(@"c:\dir1\f1");
+
+            fileIO.Verify(e => e.Delete(@"c:\dir1\f1"), Times.Once);
+        }
+
+        [TestMethod]
+        public void CachedFileIO_CreateDirectory()
+        {
+            cachedFileIO.CreateDirectory(@"c:\dir1\f1");
+
+            fileIO.Verify(e => e.CreateDirectory(@"c:\dir1\f1"), Times.Once);
+        }
+
 
         [TestMethod]
         public void CachedFileIO_WriteSome()

@@ -219,7 +219,6 @@ namespace ServerTelnetCommunication
             }
         }
 
-
         private void TimeOutIdleConnection(DateTime lastMessage, IPlayerCharacter pc)
         {
             //if the player has not sent any command for 30 minutes log the player out
