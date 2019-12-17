@@ -84,29 +84,25 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
         [TestMethod]
         public void Servant_Process_CommandNotNull()
         {
-            Step = 0;
             string command = "original";
 
             Assert.AreSame(command, servant.Process(npc.Object, command));
-            Assert.AreEqual(0, Step);
         }
 
         [TestMethod]
         public void Servant_Process_InCombat()
         {
-            Step = 0;
             npc.Setup(e => e.IsInCombat).Returns(true);
 
             string result = servant.Process(npc.Object, null);
 
             Assert.AreEqual(null, result);
-            Assert.AreEqual(0, Step);
         }
 
         [TestMethod]
         public void Servant_Process_Wait()
         {
-            Step = 0;
+            State = "Wait";
             npc.SetupSequence(e => e.DequeueMessage())
               .Returns("<Communication>King says Servant, bring me my meal.</Communication>")
               .Returns(null);
@@ -114,14 +110,178 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             string result = servant.Process(npc.Object, null);
 
             Assert.AreEqual(null, result);
-            Assert.AreEqual(0, Step);
             Assert.AreEqual("AskedWhatWanted", State);
             npc.Verify(e => e.EnqueueCommand("Wait"), Times.Exactly(4));
             npc.Verify(e => e.EnqueueCommand("Emote bows."), Times.Once);
             npc.Verify(e => e.EnqueueCommand("Say Your Honorable Majestic Majesty Graciousness, what would you like to eat?"), Times.Once);
         }
 
+        [TestMethod]
+        public void Servant_Process_AskedWhatWanted()
+        {
+            State = "AskedWhatWanted";
+            npc.SetupSequence(e => e.DequeueMessage())
+              .Returns("<Communication>King says Bring me hasenpfeffer.</Communication>")
+              .Returns(null);
 
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(null, result);
+            Assert.AreEqual("KingToldHasenpfeffer", State);
+            npc.Verify(e => e.EnqueueCommand("Wait"), Times.Exactly(3));
+            npc.Verify(e => e.EnqueueCommand("Say Right away Your Honorable Royal Majestic Graciousness."), Times.Once);
+        }
+
+        [TestMethod]
+        public void Servant_Process_KingToldHasenpfeffer()
+        {
+            State = "KingToldHasenpfeffer";
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(null, result);
+            Assert.AreEqual("OnWayToKitchen", State);
+            npc.Verify(e => e.EnqueueCommand("Wait"), Times.Exactly(3));
+            npc.Verify(e => e.EnqueueCommand("East"), Times.Once);
+            npc.Verify(e => e.EnqueueCommand("Down"), Times.Once);
+            npc.Verify(e => e.EnqueueCommand("North"), Times.Once);
+        }
+
+        [TestMethod]
+        public void Servant_Process_OnWayToKitchen_Full()
+        {
+            State = "OnWayToKitchen";
+            room.Setup(e => e.Id).Returns(19);
+            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "cook")).Returns(new List<INonPlayerCharacter>() { npc.Object });
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual("Say The King wants hasenpfeffer to eat.", result);
+            Assert.AreEqual("AskCookForHasenpfeffer", State);
+        }
+
+        [TestMethod]
+        public void Servant_Process_OnWayToKitchen_Empty()
+        {
+            State = "OnWayToKitchen";
+            Step = 0;
+            room.Setup(e => e.Id).Returns(19);
+            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "cook")).Returns(new List<INonPlayerCharacter>());
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(0, Step);
+            Assert.AreEqual(null, result);
+            Assert.AreEqual("EmptyKitchen", State);
+        }
+
+        [TestMethod]
+        public void Servant_Process_EmptyKitchenPt1()
+        {
+            State = "EmptyKitchen";
+            Step = 0;
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(1, Step);
+            Assert.AreEqual("Say Hello?", result);
+            Assert.AreEqual("EmptyKitchen", State);
+        }
+
+        [TestMethod]
+        public void Servant_Process_EmptyKitchenPt2()
+        {
+            State = "EmptyKitchen";
+            Step = 4;
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(5, Step);
+            Assert.AreEqual("Say Is there anyone here?", result);
+            Assert.AreEqual("EmptyKitchen", State);
+        }
+
+        [TestMethod]
+        public void Servant_Process_EmptyKitchenPt3()
+        {
+            State = "EmptyKitchen";
+            Step = 9;
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(10, Step);
+            Assert.AreEqual("Say Great how am I going to make hasenpfeffer?", result);
+            Assert.AreEqual("EmptyKitchen", State);
+        }
+
+        [TestMethod]
+        public void Servant_Process_EmptyKitchenPt4()
+        {
+            State = "EmptyKitchen";
+            Step = 14;
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(15, Step);
+            Assert.AreEqual("Emote scurries around the kitchen looking for something to give the King.", result);
+            Assert.AreEqual("EmptyKitchen", State);
+        }
+
+        [TestMethod]
+        public void Servant_Process_EmptyKitchenPt5()
+        {
+            State = "EmptyKitchen";
+            Step = 19;
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(20, Step);
+            Assert.AreEqual("Emote scurries around the kitchen looking for something to give the King.", result);
+            Assert.AreEqual("EmptyKitchen", State);
+        }
+
+        [TestMethod]
+        public void Servant_Process_EmptyKitchenPt6()
+        {
+            State = "EmptyKitchen";
+            Step = 24;
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(25, Step);
+            Assert.AreEqual("Say Ah Ha!", result);
+            Assert.AreEqual("EmptyKitchen", State);
+        }
+
+        [TestMethod]
+        public void Servant_Process_EmptyKitchenPt7()
+        {
+            State = "EmptyKitchen";
+            Step = 29;
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(30, Step);
+            Assert.AreEqual("Say This carrot will work.", result);
+            Assert.AreEqual("EmptyKitchen", State);
+        }
+
+        [TestMethod]
+        public void Servant_Process_EmptyKitchenPt8()
+        {
+            State = "EmptyKitchen";
+            Step = 34;
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(35, Step);
+            Assert.AreEqual(null, result);
+            Assert.AreEqual("GiveToKingCarrot", State);
+            npc.Verify(e => e.EnqueueCommand("Wait"), Times.Exactly(3));
+            npc.Verify(e => e.EnqueueCommand("South"), Times.Once);
+            npc.Verify(e => e.EnqueueCommand("Up"), Times.Once);
+            npc.Verify(e => e.EnqueueCommand("West"), Times.Once);
+        }
 
         [TestMethod]
         public void ServantUnitTest_WriteSome()

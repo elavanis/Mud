@@ -216,7 +216,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 if (Step % 5 == 0)
                 {
                     StateMachine = State.GotoSleep;
-                    npc.LookDescription = "The queen is dressed in her white sleep gown.";
+                    npc.LookDescription = "The Queen is dressed in her white sleep gown.";
 
                     return "Emote puts on her night gown.";
                 }
