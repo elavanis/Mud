@@ -54,7 +54,7 @@ namespace Objects.Global.FileIO
 
         public void WriteFile(string fileName, string file)
         {
-            WriteStream(fileName, Encoding.UTF8.GetBytes(file + Environment.NewLine));
+            WriteFile(fileName, Encoding.UTF8.GetBytes(file + Environment.NewLine));
         }
 
         public void WriteFile(string fileName, byte[] bytes)
@@ -72,7 +72,12 @@ namespace Objects.Global.FileIO
         #region Read
         public string ReadAllText(string fileName)
         {
-            return Encoding.UTF8.GetString(ReadStream(fileName));
+            return Encoding.UTF8.GetString(ReadBytes(fileName)).Trim();
+        }
+
+        public string[] ReadLines(string fileName)
+        {
+            return ReadAllText(fileName).Split(new[] { Environment.NewLine }, StringSplitOptions.None);
         }
 
         public byte[] ReadBytes(string fileName)
@@ -82,12 +87,7 @@ namespace Objects.Global.FileIO
 
         public string ReadFileBase64(string fileName)
         {
-            return Convert.ToBase64String(ReadStream(fileName));
-        }
-
-        public string[] ReadLines(string fileName)
-        {
-            return ReadAllText(fileName).Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            return Convert.ToBase64String(ReadBytes(fileName)).Trim();
         }
         #endregion Read
 
@@ -152,8 +152,7 @@ namespace Objects.Global.FileIO
             }
             catch
             {
-                //file system is down
-                //wait till the next flush
+                GlobalReference.GlobalValues.Logger.Log(Logging.LogSettings.LogLevel.INFO, "File system is down");
             }
         }
 
