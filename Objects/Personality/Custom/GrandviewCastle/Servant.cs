@@ -120,7 +120,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 string message = null;
                 while ((message = npc.DequeueMessage()) != null)
                 {
-                    if (message == "<Communication>cook says here you go. Hasenpfeffer for the King.</Communication>")
+                    if (message == "<Communication>Cook says here you go. Hasenpfeffer for the King.</Communication>")
                     {
                         npc.EnqueueCommand("Wait");
                         npc.EnqueueCommand("South");
@@ -137,8 +137,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 if (npc.Room.Id == 21
                     && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "King").Count > 0)
                 {
-                    npc.EnqueueCommand("Bon appetit Most Gracious Majesty.");
                     StateMachine = State.Wait;
+                    return "Bon appetit Most Gracious Majesty.";
                 }
             }
             else if (StateMachine == State.GiveToKingCarrot)
@@ -146,12 +146,10 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 if (npc.Room.Id == 21
                     && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "King").Count > 0)
                 {
-                    npc.EnqueueCommand("Your hasenpfeffer Your Magisty.");
                     StateMachine = State.Wait;
+                    return "Your hasenpfeffer Your Magisty.";
                 }
             }
-
-            //give carrots
 
             return null;
         }

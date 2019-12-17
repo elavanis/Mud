@@ -283,10 +283,49 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             npc.Verify(e => e.EnqueueCommand("West"), Times.Once);
         }
 
+
         [TestMethod]
-        public void ServantUnitTest_WriteSome()
+        public void Servant_Process_AskCookForHasenpfeffer()
         {
-            Assert.AreEqual(1, 2);
+            State = "AskCookForHasenpfeffer";
+            npc.SetupSequence(e => e.DequeueMessage())
+                .Returns("<Communication>Cook says here you go. Hasenpfeffer for the King.</Communication>")
+                .Returns(null);
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual(null, result);
+            Assert.AreEqual("GiveToKingHasenpfeffer", State);
+            npc.Verify(e => e.EnqueueCommand("Wait"), Times.Exactly(3));
+            npc.Verify(e => e.EnqueueCommand("South"), Times.Once);
+            npc.Verify(e => e.EnqueueCommand("Up"), Times.Once);
+            npc.Verify(e => e.EnqueueCommand("West"), Times.Once);
+        }
+
+        [TestMethod]
+        public void Servant_Process_GiveToKingHasenpfeffer()
+        {
+            State = "GiveToKingHasenpfeffer";
+            room.Setup(e => e.Id).Returns(21);
+            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "King")).Returns(new List<INonPlayerCharacter>() { npc.Object });
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual("Bon appetit Most Gracious Majesty.", result);
+            Assert.AreEqual("Wait", State);
+        }
+
+        [TestMethod]
+        public void Servant_Process_GiveToKingCarrot()
+        {
+            State = "GiveToKingCarrot";
+            room.Setup(e => e.Id).Returns(21);
+            findObjects.Setup(e => e.FindNpcInRoom(room.Object, "King")).Returns(new List<INonPlayerCharacter>() { npc.Object });
+
+            string result = servant.Process(npc.Object, null);
+
+            Assert.AreEqual("Your hasenpfeffer Your Magisty.", result);
+            Assert.AreEqual("Wait", State);
         }
 
         private string State
