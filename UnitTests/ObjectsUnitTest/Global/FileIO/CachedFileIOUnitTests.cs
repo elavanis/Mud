@@ -120,11 +120,15 @@ namespace ObjectsUnitTest.Global.FileIO
             fileIO.Verify(e => e.CreateDirectory(@"c:\dir1\f1"), Times.Once);
         }
 
-
         [TestMethod]
-        public void CachedFileIO_WriteSome()
+        public void CachedFileIO_ReloadCache()
         {
-            Assert.AreEqual(1, 2);
+            cachedFileIO.AppendFile(@"c:\test\file1", "blah");
+
+            cachedFileIO.ReloadCache();
+
+            fileIO.Verify(e => e.CreateDirectory(@"c:\test"), Times.Exactly(1));
+            fileIO.Verify(e => e.WriteFile(@"c:\test\file1", It.IsAny<byte[]>()), Times.Once);
         }
     }
 }
