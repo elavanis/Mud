@@ -17,6 +17,9 @@ namespace Objects.Item.Items
         [ExcludeFromCodeCoverage]
         public string OpenMessage { get; set; }
 
+        [ExcludeFromCodeCoverage]
+        public string CloseMessage { get; set; }
+
         private List<IItem> _items = null;
         public List<IItem> Items
         {
@@ -31,11 +34,19 @@ namespace Objects.Item.Items
             }
         }
 
+
         public IResult Open(IMobileObject performer)
         {
             GlobalReference.GlobalValues.Engine.Event.Open(performer, this);
             Opened = true;
             return new Result(OpenMessage, false);
+        }
+
+        public IResult Close(IMobileObject performer)
+        {
+            GlobalReference.GlobalValues.Engine.Event.Close(performer, this);
+            Opened = false;
+            return new Result(CloseMessage, false);
         }
     }
 }

@@ -7,6 +7,8 @@ namespace Objects.Item.Items.Interface
     {
         bool Opened { get; set; }
         IResult Open(IMobileObject performer);
+        IResult Close(IMobileObject performer);
         string OpenMessage { get; set; }
+        string CloseMessage { get; set; }
     }
 }

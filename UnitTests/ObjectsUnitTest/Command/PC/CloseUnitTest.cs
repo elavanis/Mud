@@ -26,6 +26,21 @@ namespace ObjectsUnitTest.Command.PC
         Mock<ITagWrapper> tagWrapper;
         Mock<IMobileObject> mob;
         Mock<ICommand> mockCommand;
+        Mock<IFindObjects> findObjects;
+        Mock<IParameter> parameter;
+        Mock<IDoor> door;
+        Mock<IItem> item;
+        Mock<IOpenable> openableItem;
+        Mock<IOpenable> openableDoor;
+        Mock<IResult> mockResult;
+        Mock<IDoor> door2;
+        Mock<IRoom> room2;
+        Mock<IExit> exit2;
+        Mock<IWorld> world;
+        Mock<IZone> zone;
+        Dictionary<int, IZone> zones;
+        Dictionary<int, IRoom> rooms;
+        Mock<IBaseObjectId> linkedRoomId;
 
         [TestInitialize]
         public void Setup()
@@ -38,9 +53,38 @@ namespace ObjectsUnitTest.Command.PC
 
             mob = new Mock<IMobileObject>();
             mockCommand = new Mock<ICommand>();
+            findObjects = new Mock<IFindObjects>();
+            parameter = new Mock<IParameter>();
+            door = new Mock<IDoor>();
+            item = new Mock<IItem>();
+            openableItem = item.As<IOpenable>();
+            openableDoor = door.As<IOpenable>();
+            mockResult = new Mock<IResult>();
+            door2 = new Mock<IDoor>();
+            room2 = new Mock<IRoom>();
+            exit2 = new Mock<IExit>();
+            world = new Mock<IWorld>();
+            zone = new Mock<IZone>();
+            zones = new Dictionary<int, IZone>();
+            rooms = new Dictionary<int, IRoom>();
+            linkedRoomId = new Mock<IBaseObjectId>();
             command = new Close();
 
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
+            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(item.Object);
+            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "door", 0, true, true, false, false, true)).Returns(door.Object);
+            door.Setup(e => e.Locked).Returns(true);
+            door.Setup(e => e.Linked).Returns(true);
+            door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
+            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
+            exit2.Setup(e => e.Door).Returns(door2.Object);
+            linkedRoomId.Setup(e => e.Id).Returns(2);
+            linkedRoomId.Setup(e => e.Zone).Returns(1);
+            world.Setup(e => e.Zones).Returns(zones);
+            zone.Setup(e => e.Rooms).Returns(rooms);
+
+            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
+            GlobalReference.GlobalValues.World = world.Object;
         }
 
         [TestMethod]
@@ -63,10 +107,56 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Close_PerformCommand_NoParameter()
         {
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
+
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("What would you like to close?", result.ResultMessage);
         }
+
+        [TestMethod]
+        public void Close_PerformCommand_NothingFound()
+        {
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("You were unable to find that what you were looking for.", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void Close_PerformCommand_ItemNotOpenable()
+        {
+            item = new Mock<IItem>();
+
+            parameter.Setup(e => e.ParameterValue).Returns("item");
+            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(item.Object);
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("You found what you were looking for but could not figure out how to close it.", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void Close_PerformCommand_Door()
+        {
+            parameter.Setup(e => e.ParameterValue).Returns("door");
+            door.Setup(e => e.Linked).Returns(false);
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+            Assert.AreSame(mockResult.Object, result);
+        }
+
+        [TestMethod]
+        public void Close_PerformCommand_Container()
+        {
+            parameter.Setup(e => e.ParameterValue).Returns("item");
+            openableItem.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+            Assert.AreSame(mockResult.Object, result);
+        }
+
+
+
 
         [TestMethod]
         public void Close_WriteSomeUnitTests()

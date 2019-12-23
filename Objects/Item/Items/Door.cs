@@ -18,6 +18,9 @@ namespace Objects.Item.Items
         public bool Opened { get; set; }
 
         [ExcludeFromCodeCoverage]
+        public string CloseMessage { get; set; }
+
+        [ExcludeFromCodeCoverage]
         public int KeyNumber { get; set; } = -1;
 
         [ExcludeFromCodeCoverage]
@@ -43,6 +46,13 @@ namespace Objects.Item.Items
             GlobalReference.GlobalValues.Engine.Event.Open(performer, this);
             Opened = true;
             return new Result(OpenMessage, false);
+        }
+
+        public IResult Close(IMobileObject performer)
+        {
+            GlobalReference.GlobalValues.Engine.Event.Close(performer, this);
+            Opened = false;
+            return new Result(CloseMessage, false);
         }
     }
 }

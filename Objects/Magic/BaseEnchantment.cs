@@ -158,6 +158,12 @@ namespace Objects.Magic
         }
 
         [ExcludeFromCodeCoverage]
+        public void Close(IMobileObject performer, IItem item)
+        {
+            //do nothing unless overrode
+        }
+
+        [ExcludeFromCodeCoverage]
         public virtual void Put(IMobileObject performer, IItem item, IContainer container)
         {
             //do nothing unless overrode
@@ -210,6 +216,8 @@ namespace Objects.Magic
         {
             throw new NotImplementedException();
         }
+
+
         #endregion Enchantment Triggers
     }
 }

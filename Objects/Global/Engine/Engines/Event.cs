@@ -150,6 +150,11 @@ namespace Objects.Global.Engine.Engines
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} opened {item.SentenceDescription}.");
             RunEnchantments(performer, EventType.Open, new EventParamerters() { Performer = performer, Item = item });
         }
+        public void Close(IMobileObject performer, IItem item)
+        {
+            GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} closed {item.SentenceDescription}.");
+            RunEnchantments(performer, EventType.Close, new EventParamerters() { Performer = performer, Item = item });
+        }
         public void Put(IMobileObject performer, IItem item, IContainer container)
         {
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUG, $"{performer.SentenceDescription} put {item.SentenceDescription} in {(container as IBaseObject).SentenceDescription}.");
@@ -428,6 +433,8 @@ namespace Objects.Global.Engine.Engines
             }
         }
 
+
+
         public enum EventType
         {
             DamageBeforeDefense,
@@ -445,6 +452,7 @@ namespace Objects.Global.Engine.Engines
             Drop,
             Get,
             Open,
+            Close,
             Put,
             Relax,
             Sit,

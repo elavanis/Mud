@@ -187,7 +187,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_OpenOtherDoorEast()
         {
-
             parameter.Setup(e => e.ParameterValue).Returns("door");
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.East);
             zones.Add(1, zone.Object);
@@ -203,7 +202,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_OpenOtherDoorSouth()
         {
-
             parameter.Setup(e => e.ParameterValue).Returns("door");
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.South);
             zones.Add(1, zone.Object);
@@ -219,7 +217,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_OpenOtherDoorWest()
         {
-
             parameter.Setup(e => e.ParameterValue).Returns("door");
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.West);
             zones.Add(1, zone.Object);
@@ -235,7 +232,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_OpenOtherDoorUp()
         {
-
             parameter.Setup(e => e.ParameterValue).Returns("door");
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.Up);
             zones.Add(1, zone.Object);
@@ -251,7 +247,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_OpenOtherDoorDown()
         {
-
             parameter.Setup(e => e.ParameterValue).Returns("door");
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.Down);
             zones.Add(1, zone.Object);
