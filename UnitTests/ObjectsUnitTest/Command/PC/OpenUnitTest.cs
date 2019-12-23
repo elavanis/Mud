@@ -26,6 +26,22 @@ namespace ObjectsUnitTest.Command.PC
         Mock<ITagWrapper> tagWrapper;
         Mock<IMobileObject> mob;
         Mock<ICommand> mockCommand;
+        Mock<IFindObjects> findObjects;
+        Mock<IParameter> parameter;
+        Mock<IDoor> door;
+        Mock<IItem> item;
+        Mock<IOpenable> openableItem;
+        Mock<IOpenable> openableDoor;
+        Mock<IItem> key;
+        Mock<IResult> mockResult;
+        Mock<IDoor> door2;
+        Mock<IRoom> room2;
+        Mock<IExit> exit2;
+        Mock<IWorld> world;
+        Mock<IZone> zone;
+        Dictionary<int, IZone> zones;
+        Dictionary<int, IRoom> rooms;
+        Mock<IBaseObjectId> linkedRoomId;
 
         [TestInitialize]
         public void Setup()
@@ -38,9 +54,40 @@ namespace ObjectsUnitTest.Command.PC
 
             mob = new Mock<IMobileObject>();
             mockCommand = new Mock<ICommand>();
+            findObjects = new Mock<IFindObjects>();
+            parameter = new Mock<IParameter>();
+            door = new Mock<IDoor>();
+            item = new Mock<IItem>();
+            openableItem = item.As<IOpenable>();
+            openableDoor = door.As<IOpenable>();
+            key = new Mock<IItem>();
+            mockResult = new Mock<IResult>();
+            door2 = new Mock<IDoor>();
+            room2 = new Mock<IRoom>();
+            exit2 = new Mock<IExit>();
+            world = new Mock<IWorld>();
+            zone = new Mock<IZone>();
+            zones = new Dictionary<int, IZone>();
+            rooms = new Dictionary<int, IRoom>();
+            linkedRoomId = new Mock<IBaseObjectId>();
             command = new Open();
 
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
+            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(item.Object);
+            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "door", 0, true, true, false, false, true)).Returns(door.Object);
+            mob.Setup(e => e.Items).Returns(new List<IItem>() { key.Object });
+            door.Setup(e => e.Locked).Returns(true);
+            door.Setup(e => e.Linked).Returns(true);
+            door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
+            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
+            exit2.Setup(e => e.Door).Returns(door2.Object);
+            linkedRoomId.Setup(e => e.Id).Returns(2);
+            linkedRoomId.Setup(e => e.Zone).Returns(1);
+            world.Setup(e => e.Zones).Returns(zones);
+            zone.Setup(e => e.Rooms).Returns(rooms);
+
+            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
+            GlobalReference.GlobalValues.World = world.Object;
         }
 
         [TestMethod]
@@ -63,6 +110,8 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_NoParameter()
         {
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
+
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("While you ponder what to open you let you mouth hang open.  Hey you did open something!", result.ResultMessage);
@@ -71,13 +120,6 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_NothingFound()
         {
-            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-            Mock<IParameter> parameter = new Mock<IParameter>();
-
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
-
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("You were unable to find that what you were looking for.", result.ResultMessage);
@@ -86,36 +128,21 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_ItemNotOpenable()
         {
-            Mock<IItem> item = new Mock<IItem>();
-            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-            Mock<IParameter> parameter = new Mock<IParameter>();
+            item = new Mock<IItem>();
 
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(item.Object);
             parameter.Setup(e => e.ParameterValue).Returns("item");
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
+            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(item.Object);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("You found what you were looking for but could not figure out how to open it.", result.ResultMessage);
         }
 
-
         [TestMethod]
         public void Open_PerformCommand_DoorLockedAndNoKey()
         {
-            Mock<IDoor> door = new Mock<IDoor>();
-            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-            Mock<IParameter> parameter = new Mock<IParameter>();
-
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(door.Object);
-            parameter.Setup(e => e.ParameterValue).Returns("item");
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
+            parameter.Setup(e => e.ParameterValue).Returns("door");
             mob.Setup(e => e.Items).Returns(new List<IItem>());
-            door.Setup(e => e.Locked).Returns(true);
-
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
@@ -125,21 +152,8 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_DoorUnlockAndOpen()
         {
-            Mock<IDoor> door = new Mock<IDoor>();
-            Mock<IOpenable> openableDoor = door.As<IOpenable>();
-            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-            Mock<IParameter> parameter = new Mock<IParameter>();
-            Mock<IItem> key = new Mock<IItem>();
-            Mock<IResult> mockResult = new Mock<IResult>();
-
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(door.Object);
-            parameter.Setup(e => e.ParameterValue).Returns("item");
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            mob.Setup(e => e.Items).Returns(new List<IItem>() { key.Object });
-            door.Setup(e => e.Locked).Returns(true);
-            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
-
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
+            parameter.Setup(e => e.ParameterValue).Returns("door");
+            door.Setup(e => e.Linked).Returns(false);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(mockResult.Object, result);
@@ -148,18 +162,8 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_Container()
         {
-            Mock<IItem> item = new Mock<IItem>();
-            Mock<IOpenable> openable = item.As<IOpenable>();
-            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-            Mock<IParameter> parameter = new Mock<IParameter>();
-            Mock<IResult> mockResult = new Mock<IResult>();
-
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(item.Object);
             parameter.Setup(e => e.ParameterValue).Returns("item");
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            openable.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
-
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
+            openableItem.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(mockResult.Object, result);
@@ -168,41 +172,11 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_OpenOtherDoorNorth()
         {
-            Mock<IDoor> door = new Mock<IDoor>();
-            Mock<IDoor> door2 = new Mock<IDoor>();
-            Mock<IRoom> room2 = new Mock<IRoom>();
-            Mock<IExit> exit2 = new Mock<IExit>();
-            Mock<IOpenable> openableDoor = door.As<IOpenable>();
-            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-            Mock<IParameter> parameter = new Mock<IParameter>();
-            Mock<IItem> key = new Mock<IItem>();
-            Mock<IResult> mockResult = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> zones = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-            Mock<IBaseObjectId> linkedRoomId = new Mock<IBaseObjectId>();
-
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(door.Object);
-            parameter.Setup(e => e.ParameterValue).Returns("item");
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            mob.Setup(e => e.Items).Returns(new List<IItem>() { key.Object });
-            door.Setup(e => e.Locked).Returns(true);
-            door.Setup(e => e.Linked).Returns(true);
-            linkedRoomId.Setup(e => e.Zone).Returns(1);
-            linkedRoomId.Setup(e => e.Id).Returns(2);
-            door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
+            parameter.Setup(e => e.ParameterValue).Returns("door");
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.North);
-            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
-            world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
-            zone.Setup(e => e.Rooms).Returns(rooms);
             rooms.Add(2, room2.Object);
-            exit2.Setup(e => e.Door).Returns(door2.Object);
             room2.Setup(e => e.North).Returns(exit2.Object);
-
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
-            GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(mockResult.Object, result);
@@ -213,41 +187,12 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_OpenOtherDoorEast()
         {
-            Mock<IDoor> door = new Mock<IDoor>();
-            Mock<IDoor> door2 = new Mock<IDoor>();
-            Mock<IRoom> room2 = new Mock<IRoom>();
-            Mock<IExit> exit2 = new Mock<IExit>();
-            Mock<IOpenable> openableDoor = door.As<IOpenable>();
-            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-            Mock<IParameter> parameter = new Mock<IParameter>();
-            Mock<IItem> key = new Mock<IItem>();
-            Mock<IResult> mockResult = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> zones = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-            Mock<IBaseObjectId> linkedRoomId = new Mock<IBaseObjectId>();
 
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(door.Object);
-            parameter.Setup(e => e.ParameterValue).Returns("item");
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            mob.Setup(e => e.Items).Returns(new List<IItem>() { key.Object });
-            door.Setup(e => e.Locked).Returns(true);
-            door.Setup(e => e.Linked).Returns(true);
-            linkedRoomId.Setup(e => e.Zone).Returns(1);
-            linkedRoomId.Setup(e => e.Id).Returns(2);
-            door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
+            parameter.Setup(e => e.ParameterValue).Returns("door");
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.East);
-            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
-            world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
-            zone.Setup(e => e.Rooms).Returns(rooms);
             rooms.Add(2, room2.Object);
-            exit2.Setup(e => e.Door).Returns(door2.Object);
             room2.Setup(e => e.East).Returns(exit2.Object);
-
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
-            GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(mockResult.Object, result);
@@ -258,41 +203,12 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_OpenOtherDoorSouth()
         {
-            Mock<IDoor> door = new Mock<IDoor>();
-            Mock<IDoor> door2 = new Mock<IDoor>();
-            Mock<IRoom> room2 = new Mock<IRoom>();
-            Mock<IExit> exit2 = new Mock<IExit>();
-            Mock<IOpenable> openableDoor = door.As<IOpenable>();
-            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-            Mock<IParameter> parameter = new Mock<IParameter>();
-            Mock<IItem> key = new Mock<IItem>();
-            Mock<IResult> mockResult = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> zones = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-            Mock<IBaseObjectId> linkedRoomId = new Mock<IBaseObjectId>();
 
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(door.Object);
-            parameter.Setup(e => e.ParameterValue).Returns("item");
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            mob.Setup(e => e.Items).Returns(new List<IItem>() { key.Object });
-            door.Setup(e => e.Locked).Returns(true);
-            door.Setup(e => e.Linked).Returns(true);
-            linkedRoomId.Setup(e => e.Zone).Returns(1);
-            linkedRoomId.Setup(e => e.Id).Returns(2);
-            door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
+            parameter.Setup(e => e.ParameterValue).Returns("door");
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.South);
-            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
-            world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
-            zone.Setup(e => e.Rooms).Returns(rooms);
             rooms.Add(2, room2.Object);
-            exit2.Setup(e => e.Door).Returns(door2.Object);
             room2.Setup(e => e.South).Returns(exit2.Object);
-
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
-            GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(mockResult.Object, result);
@@ -303,41 +219,12 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_OpenOtherDoorWest()
         {
-            Mock<IDoor> door = new Mock<IDoor>();
-            Mock<IDoor> door2 = new Mock<IDoor>();
-            Mock<IRoom> room2 = new Mock<IRoom>();
-            Mock<IExit> exit2 = new Mock<IExit>();
-            Mock<IOpenable> openableDoor = door.As<IOpenable>();
-            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-            Mock<IParameter> parameter = new Mock<IParameter>();
-            Mock<IItem> key = new Mock<IItem>();
-            Mock<IResult> mockResult = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> zones = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-            Mock<IBaseObjectId> linkedRoomId = new Mock<IBaseObjectId>();
 
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(door.Object);
-            parameter.Setup(e => e.ParameterValue).Returns("item");
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            mob.Setup(e => e.Items).Returns(new List<IItem>() { key.Object });
-            door.Setup(e => e.Locked).Returns(true);
-            door.Setup(e => e.Linked).Returns(true);
-            linkedRoomId.Setup(e => e.Zone).Returns(1);
-            linkedRoomId.Setup(e => e.Id).Returns(2);
-            door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
+            parameter.Setup(e => e.ParameterValue).Returns("door");
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.West);
-            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
-            world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
-            zone.Setup(e => e.Rooms).Returns(rooms);
             rooms.Add(2, room2.Object);
-            exit2.Setup(e => e.Door).Returns(door2.Object);
             room2.Setup(e => e.West).Returns(exit2.Object);
-
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
-            GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(mockResult.Object, result);
@@ -348,41 +235,12 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_OpenOtherDoorUp()
         {
-            Mock<IDoor> door = new Mock<IDoor>();
-            Mock<IDoor> door2 = new Mock<IDoor>();
-            Mock<IRoom> room2 = new Mock<IRoom>();
-            Mock<IExit> exit2 = new Mock<IExit>();
-            Mock<IOpenable> openableDoor = door.As<IOpenable>();
-            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-            Mock<IParameter> parameter = new Mock<IParameter>();
-            Mock<IItem> key = new Mock<IItem>();
-            Mock<IResult> mockResult = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> zones = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-            Mock<IBaseObjectId> linkedRoomId = new Mock<IBaseObjectId>();
 
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(door.Object);
-            parameter.Setup(e => e.ParameterValue).Returns("item");
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            mob.Setup(e => e.Items).Returns(new List<IItem>() { key.Object });
-            door.Setup(e => e.Locked).Returns(true);
-            door.Setup(e => e.Linked).Returns(true);
-            linkedRoomId.Setup(e => e.Zone).Returns(1);
-            linkedRoomId.Setup(e => e.Id).Returns(2);
-            door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
+            parameter.Setup(e => e.ParameterValue).Returns("door");
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.Up);
-            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
-            world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
-            zone.Setup(e => e.Rooms).Returns(rooms);
             rooms.Add(2, room2.Object);
-            exit2.Setup(e => e.Door).Returns(door2.Object);
             room2.Setup(e => e.Up).Returns(exit2.Object);
-
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
-            GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(mockResult.Object, result);
@@ -393,41 +251,12 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Open_PerformCommand_OpenOtherDoorDown()
         {
-            Mock<IDoor> door = new Mock<IDoor>();
-            Mock<IDoor> door2 = new Mock<IDoor>();
-            Mock<IRoom> room2 = new Mock<IRoom>();
-            Mock<IExit> exit2 = new Mock<IExit>();
-            Mock<IOpenable> openableDoor = door.As<IOpenable>();
-            Mock<IFindObjects> findObjects = new Mock<IFindObjects>();
-            Mock<IParameter> parameter = new Mock<IParameter>();
-            Mock<IItem> key = new Mock<IItem>();
-            Mock<IResult> mockResult = new Mock<IResult>();
-            Mock<IWorld> world = new Mock<IWorld>();
-            Mock<IZone> zone = new Mock<IZone>();
-            Dictionary<int, IZone> zones = new Dictionary<int, IZone>();
-            Dictionary<int, IRoom> rooms = new Dictionary<int, IRoom>();
-            Mock<IBaseObjectId> linkedRoomId = new Mock<IBaseObjectId>();
 
-            findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(mob.Object, "item", 0, true, true, false, false, true)).Returns(door.Object);
-            parameter.Setup(e => e.ParameterValue).Returns("item");
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
-            mob.Setup(e => e.Items).Returns(new List<IItem>() { key.Object });
-            door.Setup(e => e.Locked).Returns(true);
-            door.Setup(e => e.Linked).Returns(true);
-            linkedRoomId.Setup(e => e.Zone).Returns(1);
-            linkedRoomId.Setup(e => e.Id).Returns(2);
-            door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
+            parameter.Setup(e => e.ParameterValue).Returns("door");
             door.Setup(e => e.LinkedRoomDirection).Returns(Direction.Down);
-            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
-            world.Setup(e => e.Zones).Returns(zones);
             zones.Add(1, zone.Object);
-            zone.Setup(e => e.Rooms).Returns(rooms);
             rooms.Add(2, room2.Object);
-            exit2.Setup(e => e.Door).Returns(door2.Object);
             room2.Setup(e => e.Down).Returns(exit2.Object);
-
-            GlobalReference.GlobalValues.FindObjects = findObjects.Object;
-            GlobalReference.GlobalValues.World = world.Object;
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(mockResult.Object, result);

@@ -22,6 +22,52 @@ namespace ObjectsUnitTest.Command.PC
     [TestClass]
     public class CloseUnitTest
     {
+        IMobileObjectCommand command;
+        Mock<ITagWrapper> tagWrapper;
+        Mock<IMobileObject> mob;
+        Mock<ICommand> mockCommand;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            GlobalReference.GlobalValues = new GlobalValues();
+
+            tagWrapper = new Mock<ITagWrapper>();
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+
+            mob = new Mock<IMobileObject>();
+            mockCommand = new Mock<ICommand>();
+            command = new Close();
+
+            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
+        }
+
+        [TestMethod]
+        public void Close_Instructions()
+        {
+            IResult result = command.Instructions;
+
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("Close [Item Name]", result.ResultMessage);
+        }
+
+        [TestMethod]
+        public void Close_CommandTrigger()
+        {
+            IEnumerable<string> result = command.CommandTrigger;
+            Assert.AreEqual(1, result.Count());
+            Assert.IsTrue(result.Contains("Close"));
+        }
+
+        [TestMethod]
+        public void Close_PerformCommand_NoParameter()
+        {
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual("What would you like to close?", result.ResultMessage);
+        }
+
         [TestMethod]
         public void Close_WriteSomeUnitTests()
         {
