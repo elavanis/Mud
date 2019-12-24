@@ -299,6 +299,21 @@ namespace ObjectsUnitTest.Global.Engine
         }
 
         [TestMethod]
+        public void Event_Close()
+        {
+            evnt.Close(pc.Object, itemContainer.Object);
+
+            logger.Verify(e => e.Log(pc.Object, LogLevel.DEBUG, "PcSentence closed ContainerSentence."), Times.Once);
+
+            roomEnchantment.Verify(e => e.Close(pc.Object, itemContainer.Object), Times.Once);
+            trapEnchantment.Verify(e => e.Close(pc.Object, itemContainer.Object), Times.Once);
+            pcEnchantment.Verify(e => e.Close(pc.Object, itemContainer.Object), Times.Once);
+            npcEnchantment.Verify(e => e.Close(pc.Object, itemContainer.Object), Times.Once);
+            itemEnchantment.Verify(e => e.Close(pc.Object, itemContainer.Object), Times.Once);
+            itemContainerEnchantment.Verify(e => e.Close(pc.Object, itemContainer.Object), Times.Once);
+        }
+
+        [TestMethod]
         public void Event_Put()
         {
             evnt.Put(pc.Object, item.Object, (IContainer)baseObjectContainer.Object);

@@ -358,6 +358,9 @@ namespace Objects.Global.Engine.Engines
                 case EventType.Cast:
                     enchantment.Cast(paramerter.Performer, paramerter.SpellName);
                     break;
+                case EventType.Close:
+                    enchantment.Close(paramerter.Performer, paramerter.Item);
+                    break;
                 case EventType.DamageAfterDefense:
                     enchantment.DamageAfterDefense(paramerter.Attacker, paramerter.Defender, paramerter.DamageAmount);
                     break;

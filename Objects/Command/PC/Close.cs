@@ -61,7 +61,7 @@ namespace Objects.Command.PC
                         if (otherDoor != null)
                         {
                             otherDoor.Locked = false;
-                            otherDoor.Opened = true;
+                            otherDoor.Opened = false;
                         }
                     }
 
