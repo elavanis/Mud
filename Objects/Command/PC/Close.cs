@@ -65,13 +65,13 @@ namespace Objects.Command.PC
                         }
                     }
 
-                    return door.Open(performer);
+                    return door.Close(performer);
                 }
                 else
                 {
                     if (foundItem is IOpenable openable)
                     {
-                        return openable.Open(performer);
+                        return openable.Close(performer);
                     }
                 }
 

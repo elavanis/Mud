@@ -76,7 +76,7 @@ namespace ObjectsUnitTest.Command.PC
             door.Setup(e => e.Locked).Returns(true);
             door.Setup(e => e.Linked).Returns(true);
             door.Setup(e => e.LinkedRoomId).Returns(linkedRoomId.Object);
-            openableDoor.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
+            openableDoor.Setup(e => e.Close(mob.Object)).Returns(mockResult.Object);
             exit2.Setup(e => e.Door).Returns(door2.Object);
             linkedRoomId.Setup(e => e.Id).Returns(2);
             linkedRoomId.Setup(e => e.Zone).Returns(1);
@@ -149,7 +149,7 @@ namespace ObjectsUnitTest.Command.PC
         public void Close_PerformCommand_Container()
         {
             parameter.Setup(e => e.ParameterValue).Returns("item");
-            openableItem.Setup(e => e.Open(mob.Object)).Returns(mockResult.Object);
+            openableItem.Setup(e => e.Close(mob.Object)).Returns(mockResult.Object);
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.AreSame(mockResult.Object, result);
