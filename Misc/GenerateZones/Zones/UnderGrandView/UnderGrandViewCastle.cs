@@ -18,6 +18,8 @@ using Objects.Personality;
 using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
+using Shared.Sound;
+using Shared.Sound.Interface;
 using static Objects.Global.Direction.Directions;
 
 namespace GenerateZones.Zones.UnderGrandView
@@ -415,31 +417,34 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom38()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
+            room.LookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
+            room.ShortDescription = "Underground forest";
+            room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom39()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
+            room.LookDescription = "A small path through a forest stretches out before you.";
+            room.ShortDescription = "Underground forest";
+            room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom40()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
+            room.LookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
+            room.ShortDescription = "Underground forest";
+            room.Sounds.Add(BirdsSound());
 
             return room;
         }
@@ -535,30 +540,34 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom50()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            IRoom room = IndoorRoomLight();
+
+            room.ExamineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
+            room.LookDescription = "A small path through a forest stretches out before you.";
+            room.ShortDescription = "Underground forest";
+            room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom51()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Light from the sun warms your body but something is strange...  Its as if the sun never moves.";
+            room.LookDescription = "Light streams down from the sun high above.";
+            room.ShortDescription = "Underground forest";
+            room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom52()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
+            room.LookDescription = "A small path through a forest stretches out before you.";
+            room.ShortDescription = "Underground forest";
+            room.Sounds.Add(BirdsSound());
 
             return room;
         }
@@ -634,7 +643,7 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom60()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "The statues lances cross just below your head such that you would need to bow slightly in reverence to enter the chamber to the south.";
             room.LookDescription = "A pair of stone statues have lances crossed above the entrance to the chamber to the south.";
@@ -644,31 +653,34 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom61()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
+            room.LookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
+            room.ShortDescription = "Underground forest";
+            room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom62()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
+            room.LookDescription = "A small path through a forest stretches out before you.";
+            room.ShortDescription = "Underground forest";
+            room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom63()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
+            room.LookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
+            room.ShortDescription = "Underground forest";
+            room.Sounds.Add(BirdsSound());
 
             return room;
         }
@@ -1368,6 +1380,16 @@ namespace GenerateZones.Zones.UnderGrandView
             return room;
         }
         #endregion Rooms
+
+        #region Sound
+        private ISound BirdsSound()
+        {
+            ISound sound = new Sound();
+            sound.Loop = true;
+            sound.SoundName = string.Format("{0}\\{1}", Zone.Name, "Birds.mp3");
+            return sound;
+        }
+        #endregion Sound
 
         #region Items
         private Container Sarcophagus()
