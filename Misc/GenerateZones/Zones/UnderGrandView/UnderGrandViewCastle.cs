@@ -554,7 +554,7 @@ namespace GenerateZones.Zones.UnderGrandView
             IRoom room = IndoorRoomLight();
 
             room.ExamineDescription = "Light from the sun warms your body but something is strange...  Its as if the sun never moves.";
-            room.LookDescription = "Light streams down from the sun high above.";
+            room.LookDescription = "Light streams down from the sun high above on to the clearing.";
             room.ShortDescription = "Underground forest";
             room.Sounds.Add(BirdsSound());
 
