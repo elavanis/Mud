@@ -2,6 +2,7 @@
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.IO;
 

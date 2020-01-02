@@ -30,9 +30,6 @@ namespace GenerateZones.Zones.UnderGrandView
         {
         }
 
-
-
-
         public IZone Generate()
         {
             Zone.Name = nameof(UnderGrandViewCastle);
@@ -289,8 +286,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The tapistries each have a silver emblem of a star and moon.";
+            room.LookDescription = "A pair of purple tapistries line the walls of the wallway.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -299,8 +296,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The tapistries each have a gold emblem of a pair of minotaurs with a tree between them.";
+            room.LookDescription = "A pair of red tapistries line the walls of the wallway.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -339,8 +336,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The point of the archway has a keystone that holds the whole thing in place.";
+            room.LookDescription = "White stone archways rise from floor to a point in the ceiling.";
             room.ShortDescription = "Underground cavern";
 
             return room;
