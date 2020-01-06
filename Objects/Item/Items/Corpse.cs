@@ -8,6 +8,11 @@ namespace Objects.Item.Items
 {
     public class Corpse : Container, ICorpse
     {
+        public Corpse()
+        {
+            Opened = true;
+        }
+
         [ExcludeFromCodeCoverage]
         public DateTime TimeOfDeath { get; set; }
 
