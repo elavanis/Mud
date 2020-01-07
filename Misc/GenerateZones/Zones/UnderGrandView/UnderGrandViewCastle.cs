@@ -216,8 +216,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The dome seems to indicate at one point this cavern use to be on the surface and allowed sun light through during the day.";
+            room.LookDescription = "A large crystal dome still stands defiantly against the crushing weight of dirt above.";
             room.ShortDescription = "Underground cavern";
 
             return room;
