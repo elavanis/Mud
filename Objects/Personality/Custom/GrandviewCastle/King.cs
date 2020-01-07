@@ -198,14 +198,14 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private string NightTimeThings(INonPlayerCharacter npc)
         {
-            if (npc.Room.Id == 20)
+            if (npc.Room.Id == 21)
             {
                 npc.EnqueueCommand("Say Court is closed for the day. Please come back tomorrow.");
                 StateMachine = State.SpendTimeWithQueen;
                 return "West";
             }
 
-            if (npc.Room.Id != 20 && npc.Room.Zone == 24)
+            if (npc.Room.Id != 21 && npc.Room.Zone == 24)
             {
                 if (npc.Room.PlayerCharacters.Count > 0)
                 {
