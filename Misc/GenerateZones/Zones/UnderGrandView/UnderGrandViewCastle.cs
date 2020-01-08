@@ -21,6 +21,7 @@ using Objects.Zone.Interface;
 using Shared.Sound;
 using Shared.Sound.Interface;
 using static Objects.Global.Direction.Directions;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace GenerateZones.Zones.UnderGrandView
 {
@@ -106,8 +107,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The collapsed wall once had a colorful mosaic on it but has crumbled beyond any home of recognition now.";
+            room.LookDescription = "Part of the wall has collapsed here making the turn here more difficult to navigate.  Still the path is navigable allowing you to continue on.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -116,8 +117,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Along the edge of the wall on the floor you can see what looks like dried up flower petals.  It would seem that these used to be flowers adjoining the walls.";
+            room.LookDescription = "Long dead vines still cling to a lattice on the walls.  They were well maintained in the day and were sure to add some color to the place but now they are just dry and rotting.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -763,9 +764,6 @@ namespace GenerateZones.Zones.UnderGrandView
 
             return room;
         }
-
-
-
         private IRoom GenerateRoom72()
         {
             IRoom room = IndoorRoomNoLight();
@@ -1412,7 +1410,7 @@ namespace GenerateZones.Zones.UnderGrandView
             enchantment.ActivationPercent = 100;
             enchantment.Effect = new Message();
             IEffectParameter effectParameter = new EffectParameter();
-            effectParameter.RoomMessage = new TranslationMessage("Don't take anything and leave this place.");
+            effectParameter.RoomMessage = new TranslationMessage("Don't take anything and leave this place.", TagType.Communication);
             effectParameter.RoomId = new RoomId(Zone.Id, 71);
             enchantment.Parameter = effectParameter;
 
@@ -1449,6 +1447,7 @@ namespace GenerateZones.Zones.UnderGrandView
             npc.Personalities.Add(new Wanderer());
             npc.KeyWords.Add("skeleton");
             npc.KeyWords.Add("minotaur");
+            npc.SentenceDescription = "minotaur";
             npc.ShortDescription = "A minotaur skeleton.";
             npc.LookDescription = "Red beady eyes burn with rage at the desecration of their tomb.";
             npc.ExamineDescription = "The bones rattle slightly as they move toward you.";
