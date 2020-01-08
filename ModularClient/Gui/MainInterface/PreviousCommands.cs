@@ -32,23 +32,23 @@ namespace Client.MainInterface
 
         public string Intelisense(string command)
         {
-            string previousCommand = previousCommands.LastOrDefault(c => c.Contains(command));
+            string previousCommand = previousCommands.LastOrDefault(c => c.StartsWith(command));
 
             if (previousCommand == null)
             {
                 string partialWord = command.Split(' ').LastOrDefault();
-                int removeLength = command.Trim().Length - partialWord.Length;
+                int keepLength = command.Length - partialWord.Length;
                 string completedCommand = "";
-                if (removeLength != 0)
+                if (keepLength != 0)
                 {
-                    completedCommand = command.Remove(removeLength).Trim();
+                    completedCommand = command.Substring(0, keepLength);
                 }
 
-                string suggestedWord = previousWords.LastOrDefault(c => c.Contains(partialWord));
+                string suggestedWord = previousWords.LastOrDefault(c => c.StartsWith(partialWord));
 
                 if (suggestedWord != null)
                 {
-                    previousCommand = $"{completedCommand} {suggestedWord}";
+                    previousCommand = $"{completedCommand}{suggestedWord}";
                 }
             }
 
