@@ -1435,11 +1435,11 @@ namespace GenerateZones.Zones.UnderGrandView
         private IArmor AnimalSkins()
         {
             IArmor armor = CreateArmor(Equipment.AvalableItemPosition.Body, 5, new Leather());
-            armor.Dexterity += -2;
-            armor.Charisma += -5;
+            armor.Dexterity = -2;
+            armor.Charisma = -5;
 
-            armor.Bludgeon += 10;
-            armor.Necrotic += 10;
+            armor.Bludgeon = 0.9M;
+            armor.Necrotic = 0.9M;
 
             armor.KeyWords.Add("animal");
             armor.KeyWords.Add("fur");
@@ -1471,7 +1471,6 @@ namespace GenerateZones.Zones.UnderGrandView
             enchantment.Parameter = new EffectParameter() { RoomId = new BaseObjectId(Zone.Id, 66), Direction = Direction.North };
             return enchantment;
         }
-        #endregion Items
         #endregion Enchantments
 
         #region Mobs
