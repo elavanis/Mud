@@ -1405,12 +1405,13 @@ namespace GenerateZones.Zones.UnderGrandView
             money.Enchantments.Add(LoadSkeletonMinotaur(81));
             money.Enchantments.Add(LoadSkeletonMinotaur(82));
             money.Enchantments.Add(LoadSkeletonMinotaur(83));
+            money.Enchantments.Add(CloseBurialChamberDoor());
 
             IEnchantment enchantment = new OpenEnchantment();
             enchantment.ActivationPercent = 100;
             enchantment.Effect = new Message();
             IEffectParameter effectParameter = new EffectParameter();
-            effectParameter.RoomMessage = new TranslationMessage("Don't take anything and leave this place.", TagType.Communication);
+            effectParameter.RoomMessage = new TranslationMessage("An unknown voice says \"Don't take anything and leave this place.\"", TagType.Communication);
             effectParameter.RoomId = new RoomId(Zone.Id, 71);
             enchantment.Parameter = effectParameter;
 
@@ -1434,6 +1435,15 @@ namespace GenerateZones.Zones.UnderGrandView
             enchantment.ActivationPercent = 100;
             enchantment.Effect = new LoadMob() { RoomId = new BaseObjectId(Zone.Id, roomId) };
             enchantment.Parameter = new EffectParameter() { Performer = Skeleton() };
+            return enchantment;
+        }
+
+        private IEnchantment CloseBurialChamberDoor()
+        {
+            IEnchantment enchantment = new GetEnchantment();
+            enchantment.ActivationPercent = 100;
+            enchantment.Effect = new CloseDoor();
+            enchantment.Parameter = new EffectParameter() { RoomId = new BaseObjectId(Zone.Id, 66), Direction = Direction.North };
             return enchantment;
         }
         #endregion Items
@@ -1538,7 +1548,7 @@ namespace GenerateZones.Zones.UnderGrandView
             ZoneHelper.ConnectRoom(Zone.Rooms[57], Direction.East, Zone.Rooms[58]);
             ZoneHelper.ConnectRoom(Zone.Rooms[58], Direction.East, Zone.Rooms[59]);
             ZoneHelper.ConnectRoom(Zone.Rooms[59], Direction.South, Zone.Rooms[64]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[60], Direction.South, Zone.Rooms[66]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[60], Direction.South, Zone.Rooms[66], new DoorInfo("stone", "", true, "The stone perfectly seals the entry way preventing anyone from entering or leaving."));
             ZoneHelper.ConnectRoom(Zone.Rooms[61], Direction.East, Zone.Rooms[62]);
             ZoneHelper.ConnectRoom(Zone.Rooms[62], Direction.East, Zone.Rooms[63]);
             ZoneHelper.ConnectRoom(Zone.Rooms[62], Direction.South, Zone.Rooms[68]);

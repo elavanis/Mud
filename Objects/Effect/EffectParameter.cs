@@ -8,6 +8,8 @@ using Objects.Die.Interface;
 using Objects.Language.Interface;
 using static Objects.Damage.Damage;
 using Objects.Item.Items.Interface;
+using Objects.Global.Direction;
+using static Objects.Global.Direction.Directions;
 
 namespace Objects.Effect
 {
@@ -43,5 +45,7 @@ namespace Objects.Effect
         public IMobileObject Performer { get; set; }
         [ExcludeFromCodeCoverage]
         public IContainer Container { get; set; }
+        [ExcludeFromCodeCoverage]
+        public Direction Direction { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using Objects.Item.Items.Interface;
 using Objects.Language.Interface;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
+using static Objects.Global.Direction.Directions;
 
 namespace Objects.Effect.Interface
 {
@@ -25,6 +26,7 @@ namespace Objects.Effect.Interface
         IMobileObject Performer { get; set; }
         IBaseObject Target { get; set; }
         IContainer Container { get; set; }
+        Direction Direction { get; set; }
 
     }
 }
