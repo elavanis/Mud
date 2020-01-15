@@ -39,6 +39,7 @@ namespace Client.MainInterface
                 string partialWord = command.Split(' ').LastOrDefault();
                 int keepLength = command.Length - partialWord.Length;
                 string completedCommand = "";
+
                 if (keepLength != 0)
                 {
                     completedCommand = command.Substring(0, keepLength);
