@@ -12,6 +12,7 @@ using Objects.Item.Items.Interface;
 using Objects.Language;
 using Objects.Magic.Enchantment;
 using Objects.Magic.Interface;
+using Objects.Material.Materials;
 using Objects.Mob;
 using Objects.Mob.Interface;
 using Objects.Personality;
@@ -147,9 +148,11 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "This area would have been close to the fire.  Perhaps it was used for sleeping.  The animal skins might have been furs for sleeping.";
+            room.LookDescription = "Tatters of old animal furs lie on the floor.  At one time these would have kept a person warm but now they serve little purpose.";
             room.ShortDescription = "Underground cavern";
+            room.AddItemToRoom(AnimalSkins());
+            room.AddItemToRoom(AnimalSkins());
 
             return room;
         }
@@ -287,8 +290,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "The tapistries each have a silver emblem of a star and moon.";
-            room.LookDescription = "A pair of purple tapistries line the walls of the wallway.";
+            room.ExamineDescription = "The tapestries each have a silver emblem of a star and moon.";
+            room.LookDescription = "A pair of purple tapestries line the walls of the hallway.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -297,8 +300,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "The tapistries each have a gold emblem of a pair of minotaurs with a tree between them.";
-            room.LookDescription = "A pair of red tapistries line the walls of the wallway.";
+            room.ExamineDescription = "The tapestries each have a gold emblem of a pair of minotaurs with a tree between them.";
+            room.LookDescription = "A pair of red tapestries line the walls of the hallway.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -1428,6 +1431,28 @@ namespace GenerateZones.Zones.UnderGrandView
             return sarcophagus;
         }
 
+        private IArmor AnimalSkins()
+        {
+            IArmor armor = CreateArmor(Equipment.AvalableItemPosition.Body, 5, new Leather());
+            armor.Dexterity += -2;
+            armor.Charisma += -5;
+
+            armor.Bludgeon += 10;
+            armor.Necrotic += 10;
+
+            armor.KeyWords.Add("animal");
+            armor.KeyWords.Add("fur");
+            armor.KeyWords.Add("furs");
+            armor.SentenceDescription = "animals furs";
+            armor.ShortDescription = "A tatter of animal furs.";
+            armor.LookDescription = "The animal furs are tattered and give off a foul odor making them almost useless.";
+            armor.ExamineDescription = "The fact that no one would want to be around you makes you reconsider but maybe you could fashion some armor out of these.  You would not be the winner of a fashion show but the amount of material required would give you decent protection if not restrict you movement some.";
+
+            return armor;
+        }
+        #endregion Items
+
+        #region Enchantments
         private IEnchantment LoadSkeletonMinotaur(int roomId)
         {
             IEnchantment enchantment = new GetEnchantment();
@@ -1436,7 +1461,7 @@ namespace GenerateZones.Zones.UnderGrandView
             enchantment.Parameter = new EffectParameter() { Performer = Skeleton() };
             return enchantment;
         }
-        #endregion Items
+        #endregion Enchantments
 
         #region Mobs
         private IMobileObject Skeleton()
