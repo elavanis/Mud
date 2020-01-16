@@ -206,7 +206,6 @@ namespace RandomZone.Internal
             rooms[x, y] = RoomDictionary.GetRoom(key);
         }
 
-
         protected List<Position> CreateMazePath(Room[,] rooms)
         {
             List<Position> path = new List<Position>();
