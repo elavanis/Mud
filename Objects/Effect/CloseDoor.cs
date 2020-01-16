@@ -73,15 +73,13 @@ namespace Objects.Effect
 
                 if (door != null)
                 {
-                    door.Close(null);
+                    door.Opened = false;
                 }
 
                 if (otherDoor != null)
                 {
-                    door.Close(null);
+                    otherDoor.Opened = false;
                 }
-
-
             }
         }
     }
