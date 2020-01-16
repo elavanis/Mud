@@ -1409,10 +1409,15 @@ namespace GenerateZones.Zones.UnderGrandView
             money.Enchantments.Add(LoadSkeletonMinotaur(82));
             money.Enchantments.Add(LoadSkeletonMinotaur(83));
             money.Enchantments.Add(CloseBurialChamberDoor());
+            money.Enchantments.Add(OpenBurialChamberDoor());
 
             IEnchantment enchantment = new OpenEnchantment();
             enchantment.ActivationPercent = 100;
             enchantment.Effect = new Message();
+            ISound sound = new Sound();
+            sound.Loop = false;
+            sound.SoundName = $"{Zone.Name}\\StoneCoffinOpen.mp3";
+            enchantment.Effect.Sound = sound;
             IEffectParameter effectParameter = new EffectParameter();
             effectParameter.RoomMessage = new TranslationMessage("An unknown voice says \"Don't take anything and leave this place.\"", TagType.Communication);
             effectParameter.RoomId = new RoomId(Zone.Id, 71);
@@ -1468,6 +1473,15 @@ namespace GenerateZones.Zones.UnderGrandView
             IEnchantment enchantment = new GetEnchantment();
             enchantment.ActivationPercent = 100;
             enchantment.Effect = new CloseDoor();
+            enchantment.Parameter = new EffectParameter() { RoomId = new BaseObjectId(Zone.Id, 66), Direction = Direction.North };
+            return enchantment;
+        }
+
+        private IEnchantment OpenBurialChamberDoor()
+        {
+            IEnchantment enchantment = new PutEnchantment();
+            enchantment.ActivationPercent = 100;
+            enchantment.Effect = new OpenDoor();
             enchantment.Parameter = new EffectParameter() { RoomId = new BaseObjectId(Zone.Id, 66), Direction = Direction.North };
             return enchantment;
         }
