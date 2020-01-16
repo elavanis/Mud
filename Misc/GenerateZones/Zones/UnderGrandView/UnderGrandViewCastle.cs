@@ -1471,7 +1471,6 @@ namespace GenerateZones.Zones.UnderGrandView
             enchantment.Parameter = new EffectParameter() { RoomId = new BaseObjectId(Zone.Id, 66), Direction = Direction.North };
             return enchantment;
         }
-        #endregion Items
         #endregion Enchantments
 
         #region Mobs

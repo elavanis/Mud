@@ -289,7 +289,7 @@ namespace RandomZone.Internal
             return mazeEnds;
         }
 
-        private List<Directions.Direction> GetRoomDirectionsAvailableToGo(Room[,] rooms, Position currentPos, bool CanEndMaze)
+        protected List<Directions.Direction> GetRoomDirectionsAvailableToGo(Room[,] rooms, Position currentPos, bool CanEndMaze)
         {
             List<Directions.Direction> dir = new List<Directions.Direction>();
             if (CanGoNorth(rooms, currentPos, CanEndMaze))
