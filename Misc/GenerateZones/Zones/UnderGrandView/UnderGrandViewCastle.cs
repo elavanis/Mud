@@ -1438,8 +1438,8 @@ namespace GenerateZones.Zones.UnderGrandView
             armor.Dexterity = -2;
             armor.Charisma = -5;
 
-            armor.Bludgeon = 0.9M;
-            armor.Necrotic = 0.9M;
+            armor.Bludgeon = 1.5M;
+            armor.Necrotic = 1.5M;
 
             armor.KeyWords.Add("animal");
             armor.KeyWords.Add("fur");
@@ -1573,7 +1573,7 @@ namespace GenerateZones.Zones.UnderGrandView
             ZoneHelper.ConnectRoom(Zone.Rooms[57], Direction.East, Zone.Rooms[58]);
             ZoneHelper.ConnectRoom(Zone.Rooms[58], Direction.East, Zone.Rooms[59]);
             ZoneHelper.ConnectRoom(Zone.Rooms[59], Direction.South, Zone.Rooms[64]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[60], Direction.South, Zone.Rooms[66], new DoorInfo("stone", "", true, "The stone perfectly seals the entry way preventing anyone from entering or leaving."));
+            ZoneHelper.ConnectRoom(Zone.Rooms[60], Direction.South, Zone.Rooms[66], new DoorInfo("stone", "", true, "The stone perfectly seals the entry way preventing anyone from entering or leaving.", true, true));
             ZoneHelper.ConnectRoom(Zone.Rooms[61], Direction.East, Zone.Rooms[62]);
             ZoneHelper.ConnectRoom(Zone.Rooms[62], Direction.East, Zone.Rooms[63]);
             ZoneHelper.ConnectRoom(Zone.Rooms[62], Direction.South, Zone.Rooms[68]);

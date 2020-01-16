@@ -114,6 +114,8 @@ namespace MiscShared
                 exit.Door.SentenceDescription = doorInfo.Name;
                 exit.Door.OpenMessage = doorInfo.OpenMessage;
                 exit.Door.Linked = doorInfo.Linked;
+                exit.Door.Opened = doorInfo.Opened;
+                exit.Door.Locked = doorInfo.Locked;
                 if (doorInfo.Linked)
                 {
                     exit.Door.LinkedRoomId = new BaseObjectId() { Id = room2.Id, Zone = room2.Zone };
