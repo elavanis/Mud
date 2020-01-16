@@ -58,5 +58,17 @@ namespace ObjectsUnitTest.Magic.Enchantment
 
             effect.Verify(e => e.ProcessEffect(effectParameter.Object), Times.Once);
         }
+
+        [TestMethod]
+        public void GetEnchantment_Put_ContainerMatches()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
+        [TestMethod]
+        public void GetEnchantment_Put_ContaineDontrMatches()
+        {
+            Assert.AreEqual(1, 2);
+        }
     }
 }

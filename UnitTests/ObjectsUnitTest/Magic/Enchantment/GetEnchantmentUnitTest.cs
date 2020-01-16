@@ -7,6 +7,7 @@ using Objects.Mob.Interface;
 using Objects.Global;
 using Objects.Item.Interface;
 using Objects.Room.Interface;
+using Objects.Item.Items.Interface;
 
 namespace ObjectsUnitTest.Magic.Enchantment
 {
@@ -14,40 +15,56 @@ namespace ObjectsUnitTest.Magic.Enchantment
     public class GetEnchantmentUnitTest
     {
         GetEnchantment enchantment;
+        Mock<IRandom> random;
+        Mock<IMobileObject> performer;
+        Mock<IItem> item;
+        Mock<IContainer> container;
+        Mock<IEffectParameter> effectParameter;
+        Mock<IRoom> room;
         Mock<IEffect> effect;
-        Mock<IEffectParameter> parameter;
 
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            enchantment = new GetEnchantment();
+            random = new Mock<IRandom>();
+            performer = new Mock<IMobileObject>();
+            item = new Mock<IItem>();
+            container = new Mock<IContainer>();
+            effectParameter = new Mock<IEffectParameter>();
+            room = new Mock<IRoom>();
             effect = new Mock<IEffect>();
-            parameter = new Mock<IEffectParameter>();
+            enchantment = new GetEnchantment();
 
             enchantment.ActivationPercent = 100;
+            enchantment.Parameter = effectParameter.Object;
             enchantment.Effect = effect.Object;
-            enchantment.Parameter = parameter.Object;
+            random.Setup(e => e.PercentDiceRoll(100)).Returns(true);
+            performer.Setup(e => e.Room).Returns(room.Object);
+
+            GlobalReference.GlobalValues.Random = random.Object;
         }
 
         [TestMethod]
         public void GetEnchantment_Get()
         {
-            Mock<IRandom> random = new Mock<IRandom>();
-            Mock<IMobileObject> mob = new Mock<IMobileObject>();
-            Mock<IItem> item = new Mock<IItem>();
-            Mock<IRoom> room = new Mock<IRoom>();
+            enchantment.Get(performer.Object, item.Object, null);
 
-            random.Setup(e => e.PercentDiceRoll(100)).Returns(true);
-            mob.Setup(e => e.Room).Returns(room.Object);
+            effect.Verify(e => e.ProcessEffect(effectParameter.Object), Times.Once);
+            effectParameter.VerifySet(e => e.ObjectRoom = room.Object);
+        }
 
-            GlobalReference.GlobalValues.Random = random.Object;
+        [TestMethod]
+        public void GetEnchantment_Get_ContainerMatches()
+        {
+            Assert.AreEqual(1, 2);
+        }
 
-            enchantment.Get(mob.Object, item.Object, null);
-
-            effect.Verify(e => e.ProcessEffect(parameter.Object), Times.Once);
-            parameter.VerifySet(e => e.ObjectRoom = room.Object);
+        [TestMethod]
+        public void GetEnchantment_Get_ContaineDontrMatches()
+        {
+            Assert.AreEqual(1, 2);
         }
     }
 }

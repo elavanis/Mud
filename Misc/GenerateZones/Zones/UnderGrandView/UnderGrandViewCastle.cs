@@ -5,6 +5,7 @@ using MiscShared;
 using Objects;
 using Objects.Effect;
 using Objects.Effect.Interface;
+using Objects.Interface;
 using Objects.Item;
 using Objects.Item.Interface;
 using Objects.Item.Items;
@@ -1392,6 +1393,8 @@ namespace GenerateZones.Zones.UnderGrandView
         #region Items
         private Container Sarcophagus()
         {
+            Container sarcophagus = CreateItem<Container>();
+
             IItem money = CreateItem<Item>();
             money.Value = 1000;
             money.KeyWords.Add("coin");
@@ -1408,8 +1411,8 @@ namespace GenerateZones.Zones.UnderGrandView
             money.Enchantments.Add(LoadSkeletonMinotaur(81));
             money.Enchantments.Add(LoadSkeletonMinotaur(82));
             money.Enchantments.Add(LoadSkeletonMinotaur(83));
-            money.Enchantments.Add(CloseBurialChamberDoor());
-            money.Enchantments.Add(OpenBurialChamberDoor());
+            money.Enchantments.Add(CloseBurialChamberDoor(sarcophagus));
+            money.Enchantments.Add(OpenBurialChamberDoor(sarcophagus));
 
             IEnchantment enchantment = new OpenEnchantment();
             enchantment.ActivationPercent = 100;
@@ -1423,7 +1426,7 @@ namespace GenerateZones.Zones.UnderGrandView
             effectParameter.RoomId = new RoomId(Zone.Id, 71);
             enchantment.Parameter = effectParameter;
 
-            Container sarcophagus = CreateItem<Container>();
+
             sarcophagus.Attributes.Add(Item.ItemAttribute.NoGet);
             sarcophagus.Items.Add(money);
             sarcophagus.Opened = false;
@@ -1468,18 +1471,18 @@ namespace GenerateZones.Zones.UnderGrandView
             return enchantment;
         }
 
-        private IEnchantment CloseBurialChamberDoor()
+        private IEnchantment CloseBurialChamberDoor(IBaseObject sarcophagus)
         {
-            IEnchantment enchantment = new GetEnchantment();
+            IEnchantment enchantment = new GetEnchantment() { MatchingContainerId = new BaseObjectId(sarcophagus) };
             enchantment.ActivationPercent = 100;
             enchantment.Effect = new CloseDoor();
             enchantment.Parameter = new EffectParameter() { RoomId = new BaseObjectId(Zone.Id, 66), Direction = Direction.North };
             return enchantment;
         }
 
-        private IEnchantment OpenBurialChamberDoor()
+        private IEnchantment OpenBurialChamberDoor(IBaseObject sarcophagus)
         {
-            IEnchantment enchantment = new PutEnchantment();
+            IEnchantment enchantment = new GetEnchantment() { MatchingContainerId = new BaseObjectId(sarcophagus) };
             enchantment.ActivationPercent = 100;
             enchantment.Effect = new OpenDoor();
             enchantment.Parameter = new EffectParameter() { RoomId = new BaseObjectId(Zone.Id, 66), Direction = Direction.North };
