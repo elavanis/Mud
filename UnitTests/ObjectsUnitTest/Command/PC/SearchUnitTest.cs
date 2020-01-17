@@ -78,6 +78,8 @@ namespace ObjectsUnitTest.Command.PC
             Mock<IParameter> parameter = new Mock<IParameter>();
             Mock<ITrap> trap1 = new Mock<ITrap>();
             Mock<ITrap> trap2 = new Mock<ITrap>();
+            string expected = @"A trap was found in the pit.
+A trap was found in the arrow.";
 
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter.Object });
             trap1.Setup(e => e.DisarmWord).Returns(new List<string>() { "pit", "pit2" });
@@ -88,8 +90,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsFalse(result.AllowAnotherCommand);
-            Assert.AreEqual(@"A trap was found in the pit.
-A trap was found in the arrow.", result.ResultMessage);
+            Assert.AreEqual(expected, result.ResultMessage);
         }
     }
 }
