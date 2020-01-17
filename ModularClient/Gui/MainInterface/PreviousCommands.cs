@@ -10,29 +10,31 @@ namespace Client.MainInterface
     {
         private List<string> previousCommands = new List<string>();
         private List<string> previousWords = new List<string>();
+        private List<string> onscreenWords = new List<string>();
+
+        public void AddOnScreenWords(string onscreenInfo)
+        {
+            string[] words = onscreenInfo.Split(' ');
+            foreach (string word in words)
+            {
+                UpdateList(onscreenWords, word);
+            }
+        }
 
         public void Add(string command)
         {
-            if (previousCommands.Contains(command))
-            {
-                previousCommands.Remove(command);
-            }
-            previousCommands.Add(command);
+            UpdateList(previousCommands, command);
 
             string[] words = command.Split(' ');
             foreach (string word in words)
             {
-                if (previousWords.Contains(word))
-                {
-                    previousWords.Remove(word);
-                }
-                previousWords.Add(word);
+                UpdateList(previousWords, word);
             }
         }
 
         public string Intelisense(string command)
         {
-            string previousCommand = previousCommands.LastOrDefault(c => c.StartsWith(command));
+            string previousCommand = previousCommands.LastOrDefault(c => c.StartsWith(command, StringComparison.CurrentCultureIgnoreCase));
 
             if (previousCommand == null)
             {
@@ -45,15 +47,36 @@ namespace Client.MainInterface
                     completedCommand = command.Substring(0, keepLength);
                 }
 
-                string suggestedWord = previousWords.LastOrDefault(c => c.StartsWith(partialWord));
+                string suggestedWord = previousWords.LastOrDefault(c => c.StartsWith(partialWord, StringComparison.CurrentCultureIgnoreCase));
+
+                if (suggestedWord == null)
+                {
+                    suggestedWord = onscreenWords.LastOrDefault(c => c.StartsWith(partialWord, StringComparison.CurrentCultureIgnoreCase));
+                }
 
                 if (suggestedWord != null)
                 {
                     previousCommand = $"{completedCommand}{suggestedWord}";
                 }
+
             }
 
             return previousCommand;
+        }
+
+        private List<string> UpdateList(List<string> list, string matchString)
+        {
+            matchString = matchString.Trim();
+
+            int index = list.FindIndex(x => x.Equals(matchString, StringComparison.CurrentCultureIgnoreCase));
+            if (index != -1)
+            {
+                list.RemoveAt(index);
+            }
+
+            list.Add(matchString);
+
+            return list;
         }
     }
 }

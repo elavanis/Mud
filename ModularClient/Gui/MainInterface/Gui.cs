@@ -328,6 +328,11 @@ namespace Client.MainInterface
                     List<ParsedMessage> parsedMessage = Parser.Parse(message);
                     myRichTextBox_MainText.AddFormatedText(parsedMessage);
                     ProcessTriggers(parsedMessage);
+
+                    foreach (var item in parsedMessage)
+                    {
+                        _previousCommands.AddOnScreenWords(item.Message);
+                    }
                 }
             }
 
