@@ -8,6 +8,7 @@ using Objects.Global;
 using Objects.Item.Interface;
 using Objects.Room.Interface;
 using Objects.Item.Items.Interface;
+using Objects.Interface;
 
 namespace ObjectsUnitTest.Magic.Enchantment
 {
@@ -19,9 +20,11 @@ namespace ObjectsUnitTest.Magic.Enchantment
         Mock<IMobileObject> performer;
         Mock<IItem> item;
         Mock<IContainer> container;
+        Mock<IBaseObject> containerObject;
         Mock<IEffectParameter> effectParameter;
         Mock<IRoom> room;
         Mock<IEffect> effect;
+        Mock<IBaseObjectId> objectId;
 
         [TestInitialize]
         public void Setup()
@@ -32,16 +35,22 @@ namespace ObjectsUnitTest.Magic.Enchantment
             performer = new Mock<IMobileObject>();
             item = new Mock<IItem>();
             container = new Mock<IContainer>();
+            containerObject = container.As<IBaseObject>();
             effectParameter = new Mock<IEffectParameter>();
             room = new Mock<IRoom>();
             effect = new Mock<IEffect>();
+            objectId = new Mock<IBaseObjectId>();
             enchantment = new GetEnchantment();
 
+            random.Setup(e => e.PercentDiceRoll(100)).Returns(true);
+            performer.Setup(e => e.Room).Returns(room.Object);
+            containerObject.Setup(e => e.Id).Returns(1);
+            containerObject.Setup(e => e.Zone).Returns(2);
+            objectId.Setup(e => e.Id).Returns(1);
+            objectId.Setup(e => e.Zone).Returns(2);
             enchantment.ActivationPercent = 100;
             enchantment.Parameter = effectParameter.Object;
             enchantment.Effect = effect.Object;
-            random.Setup(e => e.PercentDiceRoll(100)).Returns(true);
-            performer.Setup(e => e.Room).Returns(room.Object);
 
             GlobalReference.GlobalValues.Random = random.Object;
         }
@@ -58,13 +67,22 @@ namespace ObjectsUnitTest.Magic.Enchantment
         [TestMethod]
         public void GetEnchantment_Get_ContainerMatches()
         {
-            Assert.AreEqual(1, 2);
+            enchantment.MatchingContainerId = objectId.Object;
+
+            enchantment.Get(performer.Object, item.Object, container.Object);
+
+            effect.Verify(e => e.ProcessEffect(effectParameter.Object), Times.Once);
         }
 
         [TestMethod]
         public void GetEnchantment_Get_ContaineDontrMatches()
         {
-            Assert.AreEqual(1, 2);
+            objectId.Setup(e => e.Id).Returns(3);
+            enchantment.MatchingContainerId = objectId.Object;
+
+            enchantment.Get(performer.Object, item.Object, container.Object);
+
+            effect.Verify(e => e.ProcessEffect(effectParameter.Object), Times.Never);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Objects.Magic.Enchantment
         {
             if (GlobalReference.GlobalValues.Random.PercentDiceRoll(ActivationPercent))
             {
-                IBaseObject containerObject = container as BaseObject;
+                IBaseObject containerObject = container as IBaseObject;
                 if (MatchingContainerId == null
                     || (MatchingContainerId.Zone == containerObject.Zone
                         && MatchingContainerId.Id == containerObject.Id)
