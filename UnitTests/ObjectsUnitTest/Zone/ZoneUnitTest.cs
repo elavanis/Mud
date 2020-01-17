@@ -181,7 +181,6 @@ namespace GeneratedZones
     }
 }";
 
-
             zone.Rooms.Clear();
             zone.Rooms.Add(1, room1.Object);
             zone.Rooms.Add(2, room2.Object);
