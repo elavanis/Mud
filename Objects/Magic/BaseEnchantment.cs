@@ -66,13 +66,13 @@ namespace Objects.Magic
         }
 
         [ExcludeFromCodeCoverage]
-        public virtual void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
+        public virtual void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount, string attackerDescription = null)
         {
             //do nothing unless overrode
         }
 
         [ExcludeFromCodeCoverage]
-        public virtual void DamageAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
+        public virtual void DamageAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount, string attackerDescription = null)
         {
             //do nothing unless overrode
         }
@@ -216,8 +216,6 @@ namespace Objects.Magic
         {
             throw new NotImplementedException();
         }
-
-
         #endregion Enchantment Triggers
     }
 }

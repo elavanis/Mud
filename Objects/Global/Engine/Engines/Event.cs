@@ -41,20 +41,20 @@ namespace Objects.Global.Engine.Engines
             GlobalReference.GlobalValues.Notify.Room(performer, null, performer.Room, translationMessage, new List<IMobileObject>() { performer });
         }
 
-        public void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
+        public void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount, string attackerDescription = null)
         {
             string message = $"DamageDealtBeforeDefense: Attacker-{attacker?.SentenceDescription ?? "unknown"} Defender-{defender.SentenceDescription} DamageAmount-{damageAmount}.";
             GlobalReference.GlobalValues.Logger.Log(attacker, LogLevel.DEBUGVERBOSE, message);
 
-            RunEnchantments(attacker, EventType.DamageBeforeDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount });
+            RunEnchantments(attacker, EventType.DamageBeforeDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount, Description = attackerDescription });
         }
 
-        public void DamageAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
+        public void DamageAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount, string attacterDescription = null)
         {
             string message = $"DamageDealtAfterDefense: Attacker-{attacker?.SentenceDescription ?? "unknown"} Defender-{defender.SentenceDescription} DamageAmount-{damageAmount}.";
             GlobalReference.GlobalValues.Logger.Log(attacker, LogLevel.DEBUGVERBOSE, message);
 
-            RunEnchantments(attacker, EventType.DamageAfterDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount });
+            RunEnchantments(attacker, EventType.DamageAfterDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount, Description = attacterDescription });
 
             #region damage messages
             if (attacker != null)
@@ -436,8 +436,6 @@ namespace Objects.Global.Engine.Engines
             }
         }
 
-
-
         public enum EventType
         {
             DamageBeforeDefense,
@@ -485,6 +483,7 @@ namespace Objects.Global.Engine.Engines
             public string Command { get; internal set; }
             public string Communication { get; internal set; }
             public int RolledValue { get; internal set; }
+            public string Description { get; set; }
         }
     }
 }

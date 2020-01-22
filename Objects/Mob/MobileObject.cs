@@ -540,7 +540,12 @@ namespace Objects.Mob
 
         public virtual int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker)
         {
-            return TakeDamage(totalDamage, damage, attacker, 1);
+            return TakeDamage(totalDamage, damage, attacker, null, 1);
+        }
+
+        public int TakeDamage(int totalDamage, IDamage damage, string attackerDescription)
+        {
+            return TakeDamage(totalDamage, damage, null, attackerDescription, 1);
         }
 
         public virtual int TakeCombatDamage(int totalDamage, IDamage damage, IMobileObject attacker, uint combatRound)
@@ -555,12 +560,12 @@ namespace Objects.Mob
                 DamageMultiplier = 1;
             }
 
-            return TakeDamage(totalDamage, damage, attacker, DamageMultiplier);
+            return TakeDamage(totalDamage, damage, attacker, null, DamageMultiplier);
         }
 
-        private int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker, int damageMultiplier)
+        private int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker, string attackerDescription, int damageMultiplier)
         {
-            GlobalReference.GlobalValues.Engine.Event.DamageBeforeDefense(attacker, this, totalDamage);  //this will log the damage and trigger enchantments
+            GlobalReference.GlobalValues.Engine.Event.DamageBeforeDefense(attacker, this, totalDamage, attackerDescription);  //this will log the damage and trigger enchantments
 
             int absoredDamage = 0;
             int stoppedDamage = 0;
@@ -638,7 +643,7 @@ namespace Objects.Mob
             //so we want to subtract the damage to make it positive
             Health -= absoredDamage;
 
-            GlobalReference.GlobalValues.Engine.Event.DamageAfterDefense(attacker, this, netDamage); //this will log the actual damage, and alert players of the outcome and trigger enchantments
+            GlobalReference.GlobalValues.Engine.Event.DamageAfterDefense(attacker, this, netDamage, attackerDescription); //this will log the actual damage, and alert players of the outcome and trigger enchantments
 
             if (Health > MaxHealth)
             {
@@ -1109,6 +1114,8 @@ namespace Objects.Mob
             _commandQueue.TryDequeue(out string command);
             return command;
         }
+
+
         #endregion Message/Commands
     }
 }

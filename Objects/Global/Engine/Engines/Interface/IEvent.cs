@@ -10,8 +10,8 @@ namespace Objects.Global.Engine.Engines.Interface
     {
         #region Events
         #region Damage
-        void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount);
-        void DamageAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount);
+        void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount, string attackerDescription = null);
+        void DamageAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount, string attackerDescription = null);
         #endregion Damage
         string EnqueueMessage(IMobileObject mob, string message);
         void HeartbeatBigTick(IBaseObject performer);

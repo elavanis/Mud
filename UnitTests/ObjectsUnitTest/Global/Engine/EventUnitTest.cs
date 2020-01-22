@@ -140,7 +140,7 @@ namespace ObjectsUnitTest.Global.Engine
             evnt.DamageBeforeDefense(npc.Object, pc.Object, 10);
 
             logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "DamageDealtBeforeDefense: Attacker-NpcSentence Defender-PcSentence DamageAmount-10."), Times.Once);
-            npcEnchantment.Verify(e => e.DamageBeforeDefense(npc.Object, pc.Object, 10), Times.Once);
+            npcEnchantment.Verify(e => e.DamageBeforeDefense(npc.Object, pc.Object, 10, null), Times.Once);
         }
 
         [TestMethod]
@@ -149,7 +149,7 @@ namespace ObjectsUnitTest.Global.Engine
             evnt.DamageAfterDefense(npc.Object, pc.Object, 10);
 
             logger.Verify(e => e.Log(npc.Object, LogLevel.DEBUGVERBOSE, "DamageDealtAfterDefense: Attacker-NpcSentence Defender-PcSentence DamageAmount-10."), Times.Once);
-            npcEnchantment.Verify(e => e.DamageAfterDefense(npc.Object, pc.Object, 10), Times.Once);
+            npcEnchantment.Verify(e => e.DamageAfterDefense(npc.Object, pc.Object, 10, null), Times.Once);
             notify.Verify(e => e.Mob(npc.Object, pc.Object, npc.Object, It.Is<ITranslationMessage>(f => f.Message == "You hit {target} for 10 damage."), false, false));
             notify.Verify(e => e.Mob(npc.Object, pc.Object, pc.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} hit you for 10 damage."), false, false));
             notify.Verify(e => e.Room(npc.Object, pc.Object, room.Object, It.Is<ITranslationMessage>(f => f.Message == "NpcSentence attacked PcSentence for 10 damage."), new List<IMobileObject>() { npc.Object, pc.Object }, false, false), Times.Once);

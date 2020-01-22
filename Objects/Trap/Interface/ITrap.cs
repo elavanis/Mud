@@ -15,5 +15,6 @@ namespace Objects.Trap.Interface
         List<string> DisarmWord { get; set; }
         IDamage DisarmFailureDamage { get; set; }
         string DisarmFailureMessage { get; set; }
+        string Description { get; set; }
     }
 }

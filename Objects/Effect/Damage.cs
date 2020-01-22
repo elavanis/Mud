@@ -31,12 +31,12 @@ namespace Objects.Effect
             {
                 GlobalReference.GlobalValues.Notify.Mob(parameter.Performer, parameter.Target, target, parameter.TargetMessage);
 
-                int damageReceived = target.TakeDamage(parameter.Damage.Dice.RollDice(), parameter.Damage, null);
+                int damageReceived = target.TakeDamage(parameter.Damage.Dice.RollDice(), parameter.Damage, parameter.Description);
 
                 if (parameter.Performer is IMobileObject performer)
                 {
                     GlobalReference.GlobalValues.Engine.Combat.AddCombatPair(performer, target);
-                    GlobalReference.GlobalValues.Engine.Event.DamageAfterDefense(performer, target, damageReceived);
+                    GlobalReference.GlobalValues.Engine.Event.DamageAfterDefense(performer, target, damageReceived, parameter.Description);
 
                     if (Sound != null)
                     {

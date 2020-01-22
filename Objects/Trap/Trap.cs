@@ -21,8 +21,10 @@ namespace Objects.Trap
         [ExcludeFromCodeCoverage]
         public List<string> DisarmWord { get; set; } = new List<string>();
         [ExcludeFromCodeCoverage]
-        public IDamage DisarmFailureDamage { get; set; } = null;
+        public IDamage DisarmFailureDamage { get; set; }
         [ExcludeFromCodeCoverage]
-        public string DisarmFailureMessage { get; set; } = null;
+        public string DisarmFailureMessage { get; set; }
+        [ExcludeFromCodeCoverage]
+        public string Description { get; set; }
     }
 }

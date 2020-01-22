@@ -27,6 +27,6 @@ namespace Objects.Effect.Interface
         IBaseObject Target { get; set; }
         IContainer Container { get; set; }
         Direction Direction { get; set; }
-
+        string Description { get; set; }
     }
 }

@@ -84,6 +84,7 @@ namespace Objects.Mob.Interface
         void RemoveEquipment(IEquipment equipment);
         void ResetMaxStatValues();
         int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker);
+        int TakeDamage(int totalDamage, IDamage damage, string attackerDescription);
         int TakeCombatDamage(int totalDamage, IDamage damage, IMobileObject attacker, uint combatRound);
         IMount Mount { get; set; }
     }

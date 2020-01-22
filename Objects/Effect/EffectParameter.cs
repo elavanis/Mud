@@ -47,5 +47,7 @@ namespace Objects.Effect
         public IContainer Container { get; set; }
         [ExcludeFromCodeCoverage]
         public Direction Direction { get; set; }
+        [ExcludeFromCodeCoverage]
+        public string Description { get; set; }
     }
 }

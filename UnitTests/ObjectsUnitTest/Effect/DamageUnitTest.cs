@@ -34,6 +34,7 @@ namespace ObjectsUnitTest.Effect
         Mock<ICombat> combat;
         Mock<IEngine> engine;
         Mock<IEvent> evnt;
+        string damageDescription;
 
         [TestInitialize]
         public void Setup()
@@ -54,11 +55,13 @@ namespace ObjectsUnitTest.Effect
             engine = new Mock<IEngine>();
             evnt = new Mock<IEvent>();
             tagWrapper = new Mock<ITagWrapper>();
+            damageDescription = "miscDamage";
 
             parameter.Setup(e => e.TargetMessage).Returns(translationMessage.Object);
             parameter.Setup(e => e.Damage).Returns(mockDamage.Object);
             parameter.Setup(e => e.Target).Returns(target.Object);
             parameter.Setup(e => e.Performer).Returns(performer.Object);
+            parameter.Setup(e => e.Description).Returns(damageDescription);
             translationMessage.Setup(e => e.GetTranslatedMessage(null)).Returns("test message");
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Sound)).Returns((string x, TagType y) => (x));
             mockDamage.Setup(e => e.Dice).Returns(dice.Object);
@@ -85,13 +88,13 @@ namespace ObjectsUnitTest.Effect
         {
             damage.ProcessEffect(parameter.Object);
 
-            target.Verify(e => e.TakeDamage(1, mockDamage.Object, null), Times.Once, null);
+            target.Verify(e => e.TakeDamage(1, mockDamage.Object, damageDescription), Times.Once, null);
             tagWrapper.Verify(e => e.WrapInTag("abc", TagType.Sound));
             notify.Verify(e => e.Mob(performer.Object, target.Object, target.Object, translationMessage.Object, false, false));
             serialization.Verify(e => e.Serialize(new List<ISound>() { sound.Object }));
             notify.Verify(e => e.Mob(target.Object, It.Is<ITranslationMessage>(f => f.Message == "abc")));
             combat.Verify(e => e.AddCombatPair(performer.Object, target.Object));
-            evnt.Verify(e => e.DamageAfterDefense(performer.Object, target.Object, 0));
+            evnt.Verify(e => e.DamageAfterDefense(performer.Object, target.Object, 0, damageDescription));
         }
     }
 }

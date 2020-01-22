@@ -40,7 +40,7 @@ namespace Objects.Command.PC
                 {
                     if (trap.DisarmFailureDamage != null)
                     {
-                        performer.TakeDamage(trap.DisarmFailureDamage.Dice.RollDice(), trap.DisarmFailureDamage, null);
+                        performer.TakeDamage(trap.DisarmFailureDamage.Dice.RollDice(), trap.DisarmFailureDamage, trap.Description);
                         if (trap.DisarmFailureMessage != null)
                         {
                             return new Result(trap.DisarmFailureMessage, false);

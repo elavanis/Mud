@@ -14,13 +14,14 @@ namespace Objects.Magic.Enchantment
             TargetIsDefender = targetIsDefender;
         }
 
-        public override void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount)
+        public override void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount, string attackerDescription = null)
         {
             if (GlobalReference.GlobalValues.Random.PercentDiceRoll(ActivationPercent))
             {
                 Parameter.ObjectRoom = attacker?.Room ?? defender?.Room;
                 Parameter.Defender = defender;
                 Parameter.Attacker = attacker;
+                Parameter.Description = attackerDescription;
                 if (TargetIsDefender)
                 {
                     Parameter.Target = defender;
