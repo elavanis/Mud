@@ -37,6 +37,11 @@ namespace GenerateZones
                 VerifyItem(item);
             }
 
+            foreach (IEnchantment item in room.Enchantments)
+            {
+                VerifyEnchantment(item);
+            }
+
             ILoadableItems loadableItems = room as ILoadableItems;
             foreach (ILoadPercentage loadPercentage in loadableItems.LoadableItems)
             {
@@ -57,6 +62,7 @@ namespace GenerateZones
                 {
                     VerifyMount(mount);
                 }
+
             }
 
             foreach (INonPlayerCharacter npc in room.NonPlayerCharacters)
@@ -91,6 +97,19 @@ namespace GenerateZones
             CheckRoomDoors(room);
         }
 
+        private static void VerifyEnchantment(IEnchantment enchantment)
+        {
+            string type = "Enchantment";
+
+            if (enchantment.Effect is Objects.Effect.Damage)
+            {
+                if (enchantment.Parameter.Description == null)
+                {
+                    ThrowConfigException(enchantment, type, $"Enchantments with effect damage must have a damage description.");
+                }
+            }
+        }
+
         private static void VerifyMount(IMount mount)
         {
             VerifyMob(mount);
@@ -120,7 +139,6 @@ namespace GenerateZones
             CheckDoor(room.West?.Door);
             CheckDoor(room.Up?.Door);
             CheckDoor(room.Down?.Door);
-
         }
 
         private static void CheckDoor(IDoor door)
@@ -156,6 +174,12 @@ namespace GenerateZones
             string type = "MOB";
             VerifyIds(mob, type);
             VerifyDescriptions(mob, type);
+
+            foreach (IEnchantment enchantment in mob.Enchantments)
+            {
+                VerifyEnchantment(enchantment);
+            }
+
 
             foreach (IItem item in mob.Items)
             {
@@ -278,6 +302,11 @@ namespace GenerateZones
             VerifyIds(item, type);
             VerifyDescriptions(item, type);
 
+            foreach (IEnchantment enchantment in item.Enchantments)
+            {
+                VerifyEnchantment(enchantment);
+            }
+
             VerifyArmor(item);
             VerifyWeapon(item);
 
@@ -382,7 +411,7 @@ namespace GenerateZones
             }
         }
 
-        private static void ThrowConfigException(IBaseObject item, string type, string message)
+        private static void ThrowConfigException(object item, string type, string message)
         {
             if (type == null)
             {

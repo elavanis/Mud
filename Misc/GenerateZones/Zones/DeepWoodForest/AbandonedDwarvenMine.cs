@@ -696,6 +696,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             IEffect effect = new Damage();
             IEffectParameter effectParameter = new EffectParameter();
             effectParameter.TargetMessage = new TranslationMessage("The fire from the Balrog burns you.");
+            effectParameter.Description = "fire from the Balrog";
 
             enchantment.ActivationPercent = 100;
             enchantment.Effect = effect;

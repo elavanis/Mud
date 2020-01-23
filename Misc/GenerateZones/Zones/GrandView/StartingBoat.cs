@@ -181,6 +181,7 @@ namespace GenerateZones.Zones
             damage.Type = DamageType.Fire;
             fireDamage.Parameter.Damage = damage;
             fireDamage.Parameter.TargetMessage = new TranslationMessage("Fire leaps up and burns you.");
+            fireDamage.Parameter.Description = "fire";
 
             return fireDamage;
         }
@@ -213,7 +214,7 @@ namespace GenerateZones.Zones
             damage.Type = DamageType.Fire;
             fireDamage.Parameter.Damage = damage;
             fireDamage.Parameter.TargetMessage = new TranslationMessage("A dragon sweeps down and breaths fire on you.");
-            fireDamage.Parameter.Description = "A dragon";
+            fireDamage.Parameter.Description = "a dragon";
 
             return fireDamage;
         }
