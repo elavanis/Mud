@@ -156,6 +156,16 @@ namespace ObjectsUnitTest.Global.Engine
         }
 
         [TestMethod]
+        public void Event_DamageDealtAfterDefense_AttackerDescription()
+        {
+            evnt.DamageAfterDefense(null, pc.Object, 10, "attackerDescription");
+
+            logger.Verify(e => e.Log((IMobileObject)null, LogLevel.DEBUGVERBOSE, "DamageDealtAfterDefense: Attacker-attackerDescription Defender-PcSentence DamageAmount-10."), Times.Once);
+            notify.Verify(e => e.Mob(null, pc.Object, pc.Object, It.Is<ITranslationMessage>(f => f.Message == "AttackerDescription hit you for 10 damage."), false, false));
+            notify.Verify(e => e.Room(null, pc.Object, room.Object, It.Is<ITranslationMessage>(f => f.Message == "AttackerDescription attacked PcSentence for 10 damage."), new List<IMobileObject>() { null, pc.Object }, false, false), Times.Once);
+        }
+
+        [TestMethod]
         public void Event_EnqueueMessage()
         {
             evnt.EnqueueMessage(npc.Object, "message");

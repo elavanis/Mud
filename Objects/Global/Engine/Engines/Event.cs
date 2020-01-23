@@ -43,7 +43,7 @@ namespace Objects.Global.Engine.Engines
 
         public void DamageBeforeDefense(IMobileObject attacker, IMobileObject defender, int damageAmount, string attackerDescription = null)
         {
-            string message = $"DamageDealtBeforeDefense: Attacker-{attacker?.SentenceDescription ?? "unknown"} Defender-{defender.SentenceDescription} DamageAmount-{damageAmount}.";
+            string message = $"DamageDealtBeforeDefense: Attacker-{attacker?.SentenceDescription ?? attackerDescription} Defender-{defender.SentenceDescription} DamageAmount-{damageAmount}.";
             GlobalReference.GlobalValues.Logger.Log(attacker, LogLevel.DEBUGVERBOSE, message);
 
             RunEnchantments(attacker, EventType.DamageBeforeDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount, Description = attackerDescription });
@@ -51,7 +51,7 @@ namespace Objects.Global.Engine.Engines
 
         public void DamageAfterDefense(IMobileObject attacker, IMobileObject defender, int damageAmount, string attacterDescription = null)
         {
-            string message = $"DamageDealtAfterDefense: Attacker-{attacker?.SentenceDescription ?? "unknown"} Defender-{defender.SentenceDescription} DamageAmount-{damageAmount}.";
+            string message = $"DamageDealtAfterDefense: Attacker-{attacker?.SentenceDescription ?? attacterDescription} Defender-{defender.SentenceDescription} DamageAmount-{damageAmount}.";
             GlobalReference.GlobalValues.Logger.Log(attacker, LogLevel.DEBUGVERBOSE, message);
 
             RunEnchantments(attacker, EventType.DamageAfterDefense, new EventParamerters() { Attacker = attacker, Defender = defender, DamageAmount = damageAmount, Description = attacterDescription });
@@ -63,10 +63,19 @@ namespace Objects.Global.Engine.Engines
             }
             if (defender != null)
             {
-                GlobalReference.GlobalValues.Notify.Mob(attacker, defender, defender, new TranslationMessage("{performer} hit you for {0} damage.".Replace("{0}", damageAmount.ToString()), TagType.DamageReceived));
+                if (attacker != null)
+                {
+                    message = "{performer} hit you for " + damageAmount.ToString() + " damage.";
+                }
+                else
+                {
+                    message = $"{CapitializeFirstLetter(attacterDescription)} hit you for {damageAmount.ToString()} damage.";
+                }
+
+                GlobalReference.GlobalValues.Notify.Mob(attacker, defender, defender, new TranslationMessage(message, TagType.DamageReceived));
             }
 
-            message = $"{CapitializeFirstLetter(attacker?.SentenceDescription ?? "unknown")} attacked {defender.SentenceDescription} for {damageAmount} damage.";
+            message = $"{CapitializeFirstLetter(attacker?.SentenceDescription ?? attacterDescription)} attacked {defender.SentenceDescription} for {damageAmount} damage.";
             ITranslationMessage translationMessage = new TranslationMessage(message);
             IRoom room = attacker != null ? attacker.Room : defender.Room;
             GlobalReference.GlobalValues.Notify.Room(attacker, defender, room, translationMessage, new List<IMobileObject>() { attacker, defender });
