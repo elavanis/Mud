@@ -290,10 +290,16 @@ namespace Client.MainInterface
 
         private void SendCommandText(string text)
         {
-            _telnetHandler.OutQueue.Enqueue(text);
-            List<ParsedMessage> list = new List<ParsedMessage>();
-            list.Add(new ParsedMessage() { Message = text + Environment.NewLine, TagType = TagType.ClientCommand });
-            myRichTextBox_MainText.AddFormatedText(list);
+            foreach (var item in text.Split(';'))
+            {
+                if (!string.IsNullOrWhiteSpace(item))
+                {
+                    _telnetHandler.OutQueue.Enqueue(item);
+                    List<ParsedMessage> list = new List<ParsedMessage>();
+                    list.Add(new ParsedMessage() { Message = item + Environment.NewLine, TagType = TagType.ClientCommand });
+                    myRichTextBox_MainText.AddFormatedText(list);
+                }
+            }
         }
 
         #endregion Send Messages
