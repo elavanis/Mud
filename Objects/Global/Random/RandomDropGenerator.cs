@@ -128,7 +128,7 @@ namespace Objects.Global.Random
             IWeapon weapon = new Weapon();
             weapon.Level = level;
 
-            IDamage damage = new Damage.Damage();
+            IDamage damage = new Objects.Damage.Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(effectiveLevel);
             weapon.DamageList.Add(damage);
 

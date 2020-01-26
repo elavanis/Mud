@@ -14,6 +14,7 @@ namespace Objects.Global.Settings.Interface
         string AssetsDirectory { get; set; }
         string BugDirectory { get; set; }
         string BulletinBoardDirectory { get; set; }
+        string DamageIdDirectory { get; set; }
         string PlayerCharacterDirectory { get; set; }
         string VaultDirectory { get; set; }
         string ZoneDirectory { get; set; }

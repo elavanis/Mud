@@ -3,6 +3,7 @@
   "AssetsDirectory": "C:\\Mud\\Assets",
   "BugDirectory": "C:\\Mud\\Bugs",
   "BulletinBoardDirectory": "C:\\Mud\\BulletinBoard",
+  "DamageIdDirectory": "C:\\Mud\\DamageId",
   "LogDirectory": "C:\\Mud\\Logs",
   "PlayerCharacterDirectory": "C:\\Mud\\Players",
   "StatsDirectory": "C:\\Mud\\Stats",

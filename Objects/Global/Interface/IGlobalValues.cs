@@ -29,6 +29,7 @@ using Objects.Global.LevelDifference.Interface;
 using Objects.Command.Interface;
 using Objects.Mob.Interface;
 using Objects.Command.World.Interface;
+using Objects.Global.Damage.Interface;
 
 namespace Objects.Global.Interface
 {
@@ -38,6 +39,7 @@ namespace Objects.Global.Interface
         ICommandList CommandList { get; set; }
         ICounters Counters { get; set; }
         List<ICounters> CountersLog { get; set; }
+        IDamageId DamageId { get; set; }
         IDefaultValues DefaultValues { get; set; }
         IEngine Engine { get; set; }
         IEvaluateLevelDifference EvaluateLevelDifference { get; set; }

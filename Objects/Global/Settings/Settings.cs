@@ -44,6 +44,9 @@ namespace Objects.Global.Settings
         public string BugDirectory { get; set; } = "..\\Bugs";
 
         [ExcludeFromCodeCoverage]
+        public string DamageIdDirectory { get; set; } = "..\\DamageId";
+
+        [ExcludeFromCodeCoverage]
         public bool UseCachingFileIO { get; set; }
 
         [ExcludeFromCodeCoverage]
@@ -72,7 +75,5 @@ namespace Objects.Global.Settings
 
         [ExcludeFromCodeCoverage]
         public string StatsDirectory { get; set; } = "..\\Stats";
-
-
     }
 }

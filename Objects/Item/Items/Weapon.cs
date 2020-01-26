@@ -1,4 +1,5 @@
 ﻿using Objects.Damage.Interface;
+using Objects.Global;
 using Objects.Global.Stats;
 using Objects.Item.Items.Interface;
 using System.Collections.Generic;
@@ -41,6 +42,18 @@ namespace Objects.Item.Items
         public Stats.Stat AttackerStat { get; set; } = Stats.Stat.Dexterity;
         [ExcludeFromCodeCoverage]
         public Stats.Stat DeffenderStat { get; set; } = Stats.Stat.Dexterity;
+
+        private long _damageId;
+        public long DamageId
+        {
+            get
+            {
+                return _damageId;
+            }
+            set
+            {
+            }
+        }
 
         public enum WeaponType
         {

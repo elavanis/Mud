@@ -8,6 +8,7 @@ namespace Server
         public string AssetsDirectory { get; set; }
         public string BugDirectory { get; set; }
         public string BulletinBoardDirectory { get; set; }
+        public string DamageIdDirectory { get; set; }
         public string LogDirectory { get; set; }
         public string PlayerCharacterDirectory { get; set; }
         public string VaultDirectory { get; set; }

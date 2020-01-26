@@ -15,7 +15,7 @@ namespace ObjectsUnitTest.Global.DefaultValues
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            GlobalReference.GlobalValues.Settings = new Settings();
+            GlobalReference.GlobalValues.Settings = new Objects.Global.Settings.Settings();
             GlobalReference.GlobalValues.Settings.MaxLevel = 100;
             defaultValue = new Objects.Global.DefaultValues.DefaultValues();
         }
