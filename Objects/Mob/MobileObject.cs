@@ -219,6 +219,7 @@ namespace Objects.Mob
         #region Combat Properties
         private uint CombatRound { get; set; }
         private int DamageMultiplier { get; set; } = 1;
+        private HashSet<long> DamageIdsCurrentCombatRound = new HashSet<long>();
         #endregion Combat Properties
 
         #region Stats
@@ -533,9 +534,17 @@ namespace Objects.Mob
             return GlobalReference.GlobalValues.Random.Next(GetStatEffective(stat));
         }
 
-        public virtual int CalculateToDodgeRoll(Stats.Stat stat)
+        public virtual int CalculateToDodgeRoll(Stats.Stat stat, long damageId, uint combatRound)
         {
-            return GlobalReference.GlobalValues.Random.Next(GetStatEffective(stat));
+            if(CombatRound != combatRound)
+            {
+                CombatRound = combatRound;
+                DamageIdsCurrentCombatRound.Clear();
+            }
+
+            DamageIdsCurrentCombatRound.Add(damageId);
+
+            return GlobalReference.GlobalValues.Random.Next(GetStatEffective(stat)) / DamageIdsCurrentCombatRound.Count;
         }
 
         public virtual int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker)

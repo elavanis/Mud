@@ -19,6 +19,7 @@ using Objects.Room.Interface;
 using static Objects.Room.Room;
 using static Shared.TagWrapper.TagWrapper;
 using Objects.Global.Engine.Engines.AdditionalCombat;
+using Objects.Global.Damage.Interface;
 
 namespace ObjectsUnitTest.Engine
 {
@@ -37,6 +38,7 @@ namespace ObjectsUnitTest.Engine
         Mock<IRoom> room2;
         Mock<IWeapon> weapon;
         Mock<IDamage> damage;
+        Mock<IDamageId> damageId;
 
         [TestInitialize]
         public void Setup()
@@ -53,6 +55,7 @@ namespace ObjectsUnitTest.Engine
             room2 = new Mock<IRoom>();
             weapon = new Mock<IWeapon>();
             damage = new Mock<IDamage>();
+            damageId = new Mock<IDamageId>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             defender.Setup(e => e.KeyWords).Returns(keywords);
@@ -66,8 +69,10 @@ namespace ObjectsUnitTest.Engine
             room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             weapon.Setup(e => e.Speed).Returns(1);
             weapon.Setup(e => e.DamageList).Returns(new List<IDamage>() { damage.Object });
+            damageId.Setup(e => e.Id).Returns(1);
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.DamageId = damageId.Object;
 
             combat = new Combat();
             PropertyInfo propertyInfoCombatants = combat.GetType().GetProperty("Combatants", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -165,7 +170,7 @@ namespace ObjectsUnitTest.Engine
         {
             combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
             combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
-            defender.Setup(e => e.CalculateToDodgeRoll(Stat.Strength)).Returns(1);
+            defender.Setup(e => e.CalculateToDodgeRoll(Stat.Strength, 0, 1)).Returns(1);
 
             combat.ProcessCombatRound();
 
@@ -180,6 +185,20 @@ namespace ObjectsUnitTest.Engine
             combat.ProcessCombatRound();
             Assert.AreEqual(1u, info.GetValue(combat));
         }
+
+
+        [TestMethod]
+        public void Combat_ProcessCombatRound_SetWeaponDamageId()
+        {
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
+            combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
+
+            combat.ProcessCombatRound();
+
+            weapon.VerifySet(e => e.DamageId = 1);
+            damage.VerifySet(e => e.Id = 1);        //need to figure out how to make mock return the assigned value
+        }
+
 
         [TestMethod]
         public void Combat_ProcessAttack_AddDefendingMobToCombat()

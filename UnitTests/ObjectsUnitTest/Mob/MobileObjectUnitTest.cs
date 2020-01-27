@@ -436,7 +436,17 @@ namespace ObjectsUnitTest.Mob
         {
             mob.StrengthStat = 1;
 
-            Assert.AreEqual(1, mob.CalculateToDodgeRoll(Stats.Stat.Strength));
+            Assert.AreEqual(1, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 1, 1));
+            Assert.AreEqual(0, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 2, 1));
+        }
+
+        [TestMethod]
+        public void MobileObject_CalculateToDodgeRoll_CombatRoundResetsDodgeRate()
+        {
+            mob.StrengthStat = 1;
+
+            Assert.AreEqual(1, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 1, 1));
+            Assert.AreEqual(1, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 1, 2));
         }
 
         [TestMethod]

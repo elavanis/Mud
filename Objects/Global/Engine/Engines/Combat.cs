@@ -126,8 +126,18 @@ namespace Objects.Global.Engine.Engines
         {
             foreach (IWeapon weapon in attacker.EquipedWeapon)
             {
+                if (weapon.DamageId == 0)
+                {
+                    weapon.DamageId = GlobalReference.GlobalValues.DamageId.Id;
+
+                    foreach (IDamage damage in weapon.DamageList)
+                    {
+                        damage.Id = weapon.DamageId;
+                    }
+                }
+
                 if (_combatRound % weapon.Speed == 0
-                    && DetermineIfHit(attacker, defender, weapon.AttackerStat, weapon.DeffenderStat))
+                    && DetermineIfHit(attacker, defender, weapon.AttackerStat, weapon.DeffenderStat, weapon.DamageId))
                 {
                     ProcessWeaponDamage(attacker, defender, weapon);
                 }
@@ -158,10 +168,10 @@ namespace Objects.Global.Engine.Engines
             }
         }
 
-        private bool DetermineIfHit(IMobileObject attacker, IMobileObject defender, Stat attackerStat, Stat defenderStat)
+        private bool DetermineIfHit(IMobileObject attacker, IMobileObject defender, Stat attackerStat, Stat defenderStat, long damageId)
         {
             int hitRoll = attacker.CalculateToHitRoll(attackerStat);
-            int defenseRoll = defender.CalculateToDodgeRoll(defenderStat);
+            int defenseRoll = defender.CalculateToDodgeRoll(defenderStat, damageId, _combatRound);
 
             if (hitRoll >= defenseRoll)
             {

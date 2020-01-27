@@ -71,7 +71,7 @@ namespace Objects.Mob.Interface
         int CalculateAttackOrderRoll();
         int CalculateDamage(IDamage damage);
         int CalculateDamageBlocked(IArmor armor);
-        int CalculateToDodgeRoll(Stats.Stat stat);
+        int CalculateToDodgeRoll(Stats.Stat stat, long damageId, uint combatRound);
         int CalculateToHitRoll(Stats.Stat stat);
         string DequeueCommand();
         string DequeueCommunication();
