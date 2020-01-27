@@ -128,7 +128,7 @@ namespace Objects.Global.Engine.Engines
             {
                 if (weapon.WeaponId == 0)
                 {
-                    weapon.WeaponId = GlobalReference.GlobalValues.DamageId.Id;
+                    weapon.WeaponId = GlobalReference.GlobalValues.WeaponId.Id;
                 }
 
                 if (_combatRound % weapon.Speed == 0
@@ -163,10 +163,10 @@ namespace Objects.Global.Engine.Engines
             }
         }
 
-        private bool DetermineIfHit(IMobileObject attacker, IMobileObject defender, Stat attackerStat, Stat defenderStat, long damageId)
+        private bool DetermineIfHit(IMobileObject attacker, IMobileObject defender, Stat attackerStat, Stat defenderStat, long weaponId)
         {
             int hitRoll = attacker.CalculateToHitRoll(attackerStat);
-            int defenseRoll = defender.CalculateToDodgeRoll(defenderStat, damageId, _combatRound);
+            int defenseRoll = defender.CalculateToDodgeRoll(defenderStat, weaponId, _combatRound);
 
             if (hitRoll >= defenseRoll)
             {

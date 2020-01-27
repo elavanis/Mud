@@ -39,7 +39,6 @@ namespace Objects.Global.Interface
         ICommandList CommandList { get; set; }
         ICounters Counters { get; set; }
         List<ICounters> CountersLog { get; set; }
-        IWeaponId DamageId { get; set; }
         IDefaultValues DefaultValues { get; set; }
         IEngine Engine { get; set; }
         IEvaluateLevelDifference EvaluateLevelDifference { get; set; }
@@ -68,6 +67,7 @@ namespace Objects.Global.Interface
         ITranslator Translator { get; set; }
         IUpTime UpTime { get; set; }
         IValidateAsset ValidateAsset { get; set; }
+        IWeaponId WeaponId { get; set; }
         IWorld World { get; set; }
 
         void Initilize();

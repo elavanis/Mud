@@ -44,7 +44,7 @@ namespace Objects.Global.Settings
         public string BugDirectory { get; set; } = "..\\Bugs";
 
         [ExcludeFromCodeCoverage]
-        public string DamageIdDirectory { get; set; } = "..\\DamageId";
+        public string WeaponIdDirectory { get; set; } = "..\\WeaponId";
 
         [ExcludeFromCodeCoverage]
         public bool UseCachingFileIO { get; set; }

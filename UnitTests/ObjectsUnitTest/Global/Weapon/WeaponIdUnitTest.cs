@@ -12,9 +12,9 @@ using System.Text;
 namespace ObjectsUnitTest.Global.Damage
 {
     [TestClass]
-    public class DamageIdUnitTest
+    public class WeaponIdUnitTest
     {
-        WeaponId damageId;
+        WeaponId weaponId;
         Mock<ISettings> settings;
         Mock<IFileIO> fileIO;
 
@@ -26,27 +26,27 @@ namespace ObjectsUnitTest.Global.Damage
             settings = new Mock<ISettings>();
             fileIO = new Mock<IFileIO>();
 
-            settings.Setup(e => e.DamageIdDirectory).Returns("path");
-            fileIO.Setup(e => e.ReadAllText("path\\DamageId.txt")).Returns("10");
+            settings.Setup(e => e.WeaponIdDirectory).Returns("path");
+            fileIO.Setup(e => e.ReadAllText("path\\WeaponId.txt")).Returns("10");
 
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
 
-            damageId = new WeaponId();
+            weaponId = new WeaponId();
         }
 
         [TestMethod]
-        public void DamageId_Initialize()
+        public void WeaponId_Initialize()
         {
-            damageId.Initialize();
+            weaponId.Initialize();
 
-            Assert.AreEqual(11, damageId.Id);
+            Assert.AreEqual(11, weaponId.Id);
         }
 
         [TestMethod]
-        public void DamageId_Id_Increment()
+        public void WeaponId_Id_Increment()
         {
-            Assert.AreEqual(1, damageId.Id);
+            Assert.AreEqual(1, weaponId.Id);
         }
 
 

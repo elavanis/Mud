@@ -30,7 +30,7 @@ namespace Objects.Global.Weapon
 
         public void Initialize()
         {
-            filePath = Path.Combine(GlobalReference.GlobalValues.Settings.DamageIdDirectory, "DamageId.txt");
+            filePath = Path.Combine(GlobalReference.GlobalValues.Settings.WeaponIdDirectory, "WeaponId.txt");
 
             string fileValue = GlobalReference.GlobalValues.FileIO.ReadAllText(filePath);
 

@@ -43,15 +43,16 @@ namespace Objects.Item.Items
         [ExcludeFromCodeCoverage]
         public Stats.Stat DeffenderStat { get; set; } = Stats.Stat.Dexterity;
 
-        private long _damageId;
+        private long _weaponId;
         public long WeaponId
         {
             get
             {
-                return _damageId;
+                return _weaponId;
             }
             set
             {
+                _weaponId = value;
             }
         }
 

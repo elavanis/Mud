@@ -38,7 +38,7 @@ namespace ObjectsUnitTest.Engine
         Mock<IRoom> room2;
         Mock<IWeapon> weapon;
         Mock<IDamage> damage;
-        Mock<IWeaponId> damageId;
+        Mock<IWeaponId> weaponId;
 
         [TestInitialize]
         public void Setup()
@@ -55,7 +55,7 @@ namespace ObjectsUnitTest.Engine
             room2 = new Mock<IRoom>();
             weapon = new Mock<IWeapon>();
             damage = new Mock<IDamage>();
-            damageId = new Mock<IWeaponId>();
+            weaponId = new Mock<IWeaponId>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             defender.Setup(e => e.KeyWords).Returns(keywords);
@@ -69,10 +69,10 @@ namespace ObjectsUnitTest.Engine
             room.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             weapon.Setup(e => e.Speed).Returns(1);
             weapon.Setup(e => e.DamageList).Returns(new List<IDamage>() { damage.Object });
-            damageId.Setup(e => e.Id).Returns(1);
+            weaponId.Setup(e => e.Id).Returns(1);
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
-            GlobalReference.GlobalValues.DamageId = damageId.Object;
+            GlobalReference.GlobalValues.WeaponId = weaponId.Object;
 
             combat = new Combat();
             PropertyInfo propertyInfoCombatants = combat.GetType().GetProperty("Combatants", BindingFlags.Instance | BindingFlags.NonPublic);

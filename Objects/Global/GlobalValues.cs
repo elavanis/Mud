@@ -62,7 +62,7 @@ namespace Objects.Global
         public ICounters Counters { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public IWeaponId DamageId { get; set; }
+        public IWeaponId WeaponId { get; set; }
 
         [ExcludeFromCodeCoverage]
         public IDefaultValues DefaultValues { get; set; }
@@ -195,7 +195,7 @@ namespace Objects.Global
 
 
             //do these last as they depend on things above
-            DamageId = new WeaponId();
+            WeaponId = new WeaponId();
         }
     }
 }

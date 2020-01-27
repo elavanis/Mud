@@ -93,7 +93,7 @@ namespace Server
             }
 
             GlobalReference.GlobalValues.Logger.Settings.LogDirectory = config.LogDirectory;
-            GlobalReference.GlobalValues.DamageId.Initialize();
+            GlobalReference.GlobalValues.WeaponId.Initialize();
         }
 
         private static void WriteNewAppConfigFile()
@@ -102,7 +102,7 @@ namespace Server
             configSettings.AssetsDirectory = "C:\\Mud\\Assets";
             configSettings.BannedIps = "";
             configSettings.BugDirectory = "C:\\Mud\\Bugs";
-            configSettings.DamageIdDirectory = "C:\\Mud\\DamgeId";
+            configSettings.WeaponIdDirectory = "C:\\Mud\\DamgeId";
             configSettings.DropBeingPlusOnePercent = 10;
             configSettings.ElemenatlSpawnPercent = .01;
             configSettings.LogDirectory = "C:\\Mud\\Logs";
