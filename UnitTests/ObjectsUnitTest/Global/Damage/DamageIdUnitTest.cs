@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects.Global;
-using Objects.Global.Damage;
+using Objects.Global.Weapon;
 using Objects.Global.Settings.Interface;
 using Shared.FileIO.Interface;
 using System;
@@ -14,7 +14,7 @@ namespace ObjectsUnitTest.Global.Damage
     [TestClass]
     public class DamageIdUnitTest
     {
-        DamageId damageId;
+        WeaponId damageId;
         Mock<ISettings> settings;
         Mock<IFileIO> fileIO;
 
@@ -32,7 +32,7 @@ namespace ObjectsUnitTest.Global.Damage
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.FileIO = fileIO.Object;
 
-            damageId = new DamageId();
+            damageId = new WeaponId();
         }
 
         [TestMethod]

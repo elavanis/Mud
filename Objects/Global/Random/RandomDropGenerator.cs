@@ -125,7 +125,7 @@ namespace Objects.Global.Random
 
         public IWeapon GenerateRandomWeapon(int level, int effectiveLevel, WeaponType weaponType)
         {
-            IWeapon weapon = new Weapon();
+            IWeapon weapon = new Item.Items.Weapon();
             weapon.Level = level;
 
             IDamage damage = new Objects.Damage.Damage();

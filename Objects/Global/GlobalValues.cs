@@ -2,8 +2,8 @@
 using Objects.Command.World.Interface;
 using Objects.Global.CanMobDoSomething.Interface;
 using Objects.Global.Commands.Interface;
-using Objects.Global.Damage;
-using Objects.Global.Damage.Interface;
+using Objects.Global.Weapon;
+using Objects.Global.Weapon.Interface;
 using Objects.Global.DefaultValues.Interface;
 using Objects.Global.Engine.Interface;
 using Objects.Global.Exp.Interface;
@@ -62,7 +62,7 @@ namespace Objects.Global
         public ICounters Counters { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public IDamageId DamageId { get; set; }
+        public IWeaponId DamageId { get; set; }
 
         [ExcludeFromCodeCoverage]
         public IDefaultValues DefaultValues { get; set; }
@@ -195,7 +195,7 @@ namespace Objects.Global
 
 
             //do these last as they depend on things above
-            DamageId = new DamageId();
+            DamageId = new WeaponId();
         }
     }
 }

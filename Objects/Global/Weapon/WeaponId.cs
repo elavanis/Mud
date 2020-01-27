@@ -1,13 +1,13 @@
-﻿using Objects.Global.Damage.Interface;
+﻿using Objects.Global.Weapon.Interface;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
 
-namespace Objects.Global.Damage
+namespace Objects.Global.Weapon
 {
-    public class DamageId : IDamageId
+    public class WeaponId : IWeaponId
     {
         private string filePath;
 

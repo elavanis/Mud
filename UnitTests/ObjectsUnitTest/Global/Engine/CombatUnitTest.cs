@@ -19,7 +19,7 @@ using Objects.Room.Interface;
 using static Objects.Room.Room;
 using static Shared.TagWrapper.TagWrapper;
 using Objects.Global.Engine.Engines.AdditionalCombat;
-using Objects.Global.Damage.Interface;
+using Objects.Global.Weapon.Interface;
 
 namespace ObjectsUnitTest.Engine
 {
@@ -38,7 +38,7 @@ namespace ObjectsUnitTest.Engine
         Mock<IRoom> room2;
         Mock<IWeapon> weapon;
         Mock<IDamage> damage;
-        Mock<IDamageId> damageId;
+        Mock<IWeaponId> damageId;
 
         [TestInitialize]
         public void Setup()
@@ -55,7 +55,7 @@ namespace ObjectsUnitTest.Engine
             room2 = new Mock<IRoom>();
             weapon = new Mock<IWeapon>();
             damage = new Mock<IDamage>();
-            damageId = new Mock<IDamageId>();
+            damageId = new Mock<IWeaponId>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             defender.Setup(e => e.KeyWords).Returns(keywords);
