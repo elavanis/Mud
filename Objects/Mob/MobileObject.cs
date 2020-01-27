@@ -536,7 +536,8 @@ namespace Objects.Mob
 
         public virtual int CalculateToDodgeRoll(Stats.Stat stat, long damageId, uint combatRound)
         {
-            if(CombatRound != combatRound)
+            if (CombatRound != combatRound
+                || combatRound == 0)
             {
                 CombatRound = combatRound;
                 DamageIdsCurrentCombatRound.Clear();
@@ -544,7 +545,9 @@ namespace Objects.Mob
 
             DamageIdsCurrentCombatRound.Add(damageId);
 
-            return GlobalReference.GlobalValues.Random.Next(GetStatEffective(stat)) / DamageIdsCurrentCombatRound.Count;
+            int dodgeDivisor = (int)Math.Pow(2, DamageIdsCurrentCombatRound.Count) / 2;
+
+            return GlobalReference.GlobalValues.Random.Next(GetStatEffective(stat)) / dodgeDivisor;
         }
 
         public virtual int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker)

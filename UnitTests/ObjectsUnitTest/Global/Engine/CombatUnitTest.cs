@@ -192,11 +192,12 @@ namespace ObjectsUnitTest.Engine
         {
             combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
             combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
+            weapon.SetupSequence(e => e.DamageId).Returns(0).Returns(1);
 
             combat.ProcessCombatRound();
 
             weapon.VerifySet(e => e.DamageId = 1);
-            damage.VerifySet(e => e.Id = 1);        //need to figure out how to make mock return the assigned value
+            damage.VerifySet(e => e.Id = 1);
         }
 
 

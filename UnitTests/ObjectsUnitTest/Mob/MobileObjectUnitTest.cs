@@ -131,8 +131,9 @@ namespace ObjectsUnitTest.Mob
             moneyToCoins.Setup(e => e.FormatedAsCoins(10)).Returns("10 coins");
             moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("0 coin");
             randomDropGenerator.Setup(e => e.GenerateRandomDrop(It.IsAny<INonPlayerCharacter>())).Returns(item.Object);
+            random.Setup(e => e.Next(It.IsAny<int>())).Returns((int x) => (x));
             random.Setup(e => e.Next(2)).Returns(1);
-            random.Setup(e => e.Next(1)).Returns(1);
+            random.Setup(e => e.Next(101)).Returns(0);
             damage.Setup(e => e.Dice).Returns(dice.Object);
             shield.Setup(e => e.Dice).Returns(dice.Object);
             shield.Setup(e => e.GetTypeModifier(DamageType.Slash)).Returns(1);
@@ -434,19 +435,20 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void MobileObject_CalculateToDodgeRoll()
         {
-            mob.StrengthStat = 1;
+            mob.StrengthStat = 8;
 
-            Assert.AreEqual(1, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 1, 1));
-            Assert.AreEqual(0, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 2, 1));
+            Assert.AreEqual(8, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 1, 1));
+            Assert.AreEqual(4, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 2, 1));
+            Assert.AreEqual(2, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 3, 1));
         }
 
         [TestMethod]
         public void MobileObject_CalculateToDodgeRoll_CombatRoundResetsDodgeRate()
         {
-            mob.StrengthStat = 1;
+            mob.StrengthStat = 8;
 
-            Assert.AreEqual(1, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 1, 1));
-            Assert.AreEqual(1, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 1, 2));
+            Assert.AreEqual(8, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 1, 1));
+            Assert.AreEqual(8, mob.CalculateToDodgeRoll(Stats.Stat.Strength, 1, 2));
         }
 
         [TestMethod]
