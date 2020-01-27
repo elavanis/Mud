@@ -126,18 +126,13 @@ namespace Objects.Global.Engine.Engines
         {
             foreach (IWeapon weapon in attacker.EquipedWeapon)
             {
-                if (weapon.DamageId == 0)
+                if (weapon.WeaponId == 0)
                 {
-                    weapon.DamageId = GlobalReference.GlobalValues.DamageId.Id;
-
-                    foreach (IDamage damage in weapon.DamageList)
-                    {
-                        damage.Id = weapon.DamageId;
-                    }
+                    weapon.WeaponId = GlobalReference.GlobalValues.DamageId.Id;
                 }
 
                 if (_combatRound % weapon.Speed == 0
-                    && DetermineIfHit(attacker, defender, weapon.AttackerStat, weapon.DeffenderStat, weapon.DamageId))
+                    && DetermineIfHit(attacker, defender, weapon.AttackerStat, weapon.DeffenderStat, weapon.WeaponId))
                 {
                     ProcessWeaponDamage(attacker, defender, weapon);
                 }

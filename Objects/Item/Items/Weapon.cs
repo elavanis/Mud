@@ -44,7 +44,7 @@ namespace Objects.Item.Items
         public Stats.Stat DeffenderStat { get; set; } = Stats.Stat.Dexterity;
 
         private long _damageId;
-        public long DamageId
+        public long WeaponId
         {
             get
             {

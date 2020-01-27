@@ -12,6 +12,6 @@ namespace Objects.Item.Items.Interface
         Stats.Stat DeffenderStat { get; set; }
         int RequiredHands { get; set; }
         int Speed { get; set; }
-        long DamageId { get; set; }
+        long WeaponId { get; set; }
     }
 }

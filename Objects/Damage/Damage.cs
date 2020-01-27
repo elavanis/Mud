@@ -20,9 +20,6 @@ namespace Objects.Damage
         }
 
         [ExcludeFromCodeCoverage]
-        public long Id { get; set; }
-
-        [ExcludeFromCodeCoverage]
         public IDice Dice { get; set; }
 
         [ExcludeFromCodeCoverage]

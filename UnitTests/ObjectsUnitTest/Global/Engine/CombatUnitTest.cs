@@ -188,16 +188,15 @@ namespace ObjectsUnitTest.Engine
 
 
         [TestMethod]
-        public void Combat_ProcessCombatRound_SetWeaponDamageId()
+        public void Combat_ProcessCombatRound_SetWeaponId()
         {
             combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
             combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
-            weapon.SetupSequence(e => e.DamageId).Returns(0).Returns(1);
+            weapon.SetupSequence(e => e.WeaponId).Returns(0).Returns(1);
 
             combat.ProcessCombatRound();
 
-            weapon.VerifySet(e => e.DamageId = 1);
-            damage.VerifySet(e => e.Id = 1);
+            weapon.VerifySet(e => e.WeaponId = 1);
         }
 
 
