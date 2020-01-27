@@ -20,7 +20,7 @@ namespace Objects.Global.Weapon
             }
             private set
             {
-                lock (filePath)  //we can do this because we intilize before we start the mud and will not s
+                lock (filePath)  //we can do this because we initialize before we start the mud and will not s
                 {
                     id = value;
                     GlobalReference.GlobalValues.FileIO.WriteFile(filePath, value.ToString());

@@ -43,18 +43,8 @@ namespace Objects.Item.Items
         [ExcludeFromCodeCoverage]
         public Stats.Stat DeffenderStat { get; set; } = Stats.Stat.Dexterity;
 
-        private long _weaponId;
-        public long WeaponId
-        {
-            get
-            {
-                return _weaponId;
-            }
-            set
-            {
-                _weaponId = value;
-            }
-        }
+        [ExcludeFromCodeCoverage]
+        public long WeaponId { get; set; }
 
         public enum WeaponType
         {

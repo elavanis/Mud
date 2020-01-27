@@ -128,7 +128,15 @@ namespace Objects.Global.Engine.Engines
             {
                 if (weapon.WeaponId == 0)
                 {
-                    weapon.WeaponId = GlobalReference.GlobalValues.WeaponId.Id;
+                    if (weapon.Id == 0 && weapon.Zone == 0)
+                    {
+                        //someone is using bare hands so just set a random value 
+                        weapon.WeaponId = GlobalReference.GlobalValues.Random.Next(int.MinValue, int.MaxValue);
+                    }
+                    else
+                    {
+                        weapon.WeaponId = GlobalReference.GlobalValues.WeaponId.Id;
+                    }
                 }
 
                 if (_combatRound % weapon.Speed == 0
