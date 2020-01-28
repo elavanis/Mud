@@ -6,9 +6,6 @@
 
         int Next(int minValue, int maxValue);
 
-        long Next(long maxValue);
-        long Next(long minValue, long maxValue);
-
         ///// <summary>
         ///// Takes a percentage and rolls a dice to see
         ///// if the roll is less than/equal to the percent.  

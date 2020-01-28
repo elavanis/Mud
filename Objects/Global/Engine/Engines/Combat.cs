@@ -130,8 +130,8 @@ namespace Objects.Global.Engine.Engines
                 {
                     if (weapon.Id == 0 && weapon.Zone == 0)
                     {
-                        //someone is using bare hands so just set a random value 
-                        weapon.WeaponId = GlobalReference.GlobalValues.Random.Next(int.MinValue, int.MaxValue);
+                        //someone is using bare hands so just set a random value that shouldn't be used
+                        weapon.WeaponId = GlobalReference.GlobalValues.Random.Next(int.MinValue, 0);
                     }
                     else
                     {
@@ -194,7 +194,5 @@ namespace Objects.Global.Engine.Engines
 
             return damageReceived;
         }
-
-
     }
 }
