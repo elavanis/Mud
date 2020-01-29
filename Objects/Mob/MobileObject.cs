@@ -564,7 +564,7 @@ namespace Objects.Mob
         {
             if (CombatRound == combatRound)
             {
-                DefenseDivisor++;
+                DefenseDivisor *= 2;
             }
             else
             {

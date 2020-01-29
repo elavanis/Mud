@@ -20,6 +20,7 @@ using static Objects.Room.Room;
 using static Shared.TagWrapper.TagWrapper;
 using Objects.Global.Engine.Engines.AdditionalCombat;
 using Objects.Global.Weapon.Interface;
+using Objects.Global.Random.Interface;
 
 namespace ObjectsUnitTest.Engine
 {
@@ -39,6 +40,7 @@ namespace ObjectsUnitTest.Engine
         Mock<IWeapon> weapon;
         Mock<IDamage> damage;
         Mock<IWeaponId> weaponId;
+        Mock<IRandom> random;
 
         [TestInitialize]
         public void Setup()
@@ -56,6 +58,7 @@ namespace ObjectsUnitTest.Engine
             weapon = new Mock<IWeapon>();
             damage = new Mock<IDamage>();
             weaponId = new Mock<IWeaponId>();
+            random = new Mock<IRandom>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             defender.Setup(e => e.KeyWords).Returns(keywords);
@@ -70,9 +73,11 @@ namespace ObjectsUnitTest.Engine
             weapon.Setup(e => e.Speed).Returns(1);
             weapon.Setup(e => e.DamageList).Returns(new List<IDamage>() { damage.Object });
             weaponId.Setup(e => e.Id).Returns(1);
+            random.Setup(e => e.Next(int.MinValue, 0)).Returns(-1);
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.WeaponId = weaponId.Object;
+            GlobalReference.GlobalValues.Random = random.Object;
 
             combat = new Combat();
             PropertyInfo propertyInfoCombatants = combat.GetType().GetProperty("Combatants", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -193,10 +198,23 @@ namespace ObjectsUnitTest.Engine
             combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
             combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
             weapon.SetupSequence(e => e.WeaponId).Returns(0).Returns(1);
+            weapon.Setup(e => e.Id).Returns(1);
 
             combat.ProcessCombatRound();
 
             weapon.VerifySet(e => e.WeaponId = 1);
+        }
+
+        [TestMethod]
+        public void Combat_ProcessCombatRound_SkipSetWeaponId()
+        {
+            combatants.TryAdd(attacker.Object, new CombatPair() { Attacker = attacker.Object, Defender = defender.Object });
+            combatants.TryAdd(defender.Object, new CombatPair() { Attacker = defender.Object, Defender = attacker.Object });
+            weapon.SetupSequence(e => e.WeaponId).Returns(0).Returns(1);
+
+            combat.ProcessCombatRound();
+
+            weapon.VerifySet(e => e.WeaponId = -1);
         }
 
 
