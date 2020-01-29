@@ -11,6 +11,7 @@ namespace Server
         public string LogDirectory { get; set; }
         public string PlayerCharacterDirectory { get; set; }
         public string VaultDirectory { get; set; }
+        public string WeaponIdDirectory { get; set; }
         public string ZoneDirectory { get; set; }
         public bool LogStats { get; set; }
         public string StatsDirectory { get; set; }

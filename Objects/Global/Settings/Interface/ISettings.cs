@@ -16,6 +16,7 @@ namespace Objects.Global.Settings.Interface
         string BulletinBoardDirectory { get; set; }
         string PlayerCharacterDirectory { get; set; }
         string VaultDirectory { get; set; }
+        string WeaponIdDirectory { get; set; }
         string ZoneDirectory { get; set; }
         bool UseCachingFileIO { get; set; }
         string AsciiArt { get; set; }

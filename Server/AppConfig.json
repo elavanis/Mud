@@ -7,6 +7,7 @@
   "PlayerCharacterDirectory": "C:\\Mud\\Players",
   "StatsDirectory": "C:\\Mud\\Stats",
   "VaultDirectory": "C:\\Mud\\Vaults",
+  "WeaponIdDirectory": "C:\\Mud\\WeaponId",
   "ZoneDirectory": "C:\\Mud\\World",
   "LogStats": true,
   "UseCachingFileIO": true,

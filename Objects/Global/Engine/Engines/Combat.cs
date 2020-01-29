@@ -126,8 +126,21 @@ namespace Objects.Global.Engine.Engines
         {
             foreach (IWeapon weapon in attacker.EquipedWeapon)
             {
+                if (weapon.WeaponId == 0)
+                {
+                    if (weapon.Id == 0 && weapon.Zone == 0)
+                    {
+                        //someone is using bare hands so just set a random value that shouldn't be used
+                        weapon.WeaponId = GlobalReference.GlobalValues.Random.Next(int.MinValue, 0);
+                    }
+                    else
+                    {
+                        weapon.WeaponId = GlobalReference.GlobalValues.WeaponId.Id;
+                    }
+                }
+
                 if (_combatRound % weapon.Speed == 0
-                    && DetermineIfHit(attacker, defender, weapon.AttackerStat, weapon.DeffenderStat))
+                    && DetermineIfHit(attacker, defender, weapon.AttackerStat, weapon.DeffenderStat, weapon.WeaponId))
                 {
                     ProcessWeaponDamage(attacker, defender, weapon);
                 }
@@ -158,10 +171,10 @@ namespace Objects.Global.Engine.Engines
             }
         }
 
-        private bool DetermineIfHit(IMobileObject attacker, IMobileObject defender, Stat attackerStat, Stat defenderStat)
+        private bool DetermineIfHit(IMobileObject attacker, IMobileObject defender, Stat attackerStat, Stat defenderStat, long weaponId)
         {
             int hitRoll = attacker.CalculateToHitRoll(attackerStat);
-            int defenseRoll = defender.CalculateToDodgeRoll(defenderStat);
+            int defenseRoll = defender.CalculateToDodgeRoll(defenderStat, weaponId, _combatRound);
 
             if (hitRoll >= defenseRoll)
             {
@@ -181,7 +194,5 @@ namespace Objects.Global.Engine.Engines
 
             return damageReceived;
         }
-
-
     }
 }

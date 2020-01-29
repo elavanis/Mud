@@ -29,6 +29,7 @@ using Objects.Global.LevelDifference.Interface;
 using Objects.Command.Interface;
 using Objects.Mob.Interface;
 using Objects.Command.World.Interface;
+using Objects.Global.Weapon.Interface;
 
 namespace Objects.Global.Interface
 {
@@ -66,6 +67,7 @@ namespace Objects.Global.Interface
         ITranslator Translator { get; set; }
         IUpTime UpTime { get; set; }
         IValidateAsset ValidateAsset { get; set; }
+        IWeaponId WeaponId { get; set; }
         IWorld World { get; set; }
 
         void Initilize();

@@ -218,7 +218,8 @@ namespace Objects.Mob
 
         #region Combat Properties
         private uint CombatRound { get; set; }
-        private int DamageMultiplier { get; set; } = 1;
+        private int DefenseDivisor { get; set; } = 1;
+        private HashSet<long> WeaponIdsCurrentCombatRound = new HashSet<long>();
         #endregion Combat Properties
 
         #region Stats
@@ -533,9 +534,20 @@ namespace Objects.Mob
             return GlobalReference.GlobalValues.Random.Next(GetStatEffective(stat));
         }
 
-        public virtual int CalculateToDodgeRoll(Stats.Stat stat)
+        public virtual int CalculateToDodgeRoll(Stats.Stat stat, long weaponId, uint combatRound)
         {
-            return GlobalReference.GlobalValues.Random.Next(GetStatEffective(stat));
+            if (CombatRound != combatRound
+                || combatRound == 0)
+            {
+                CombatRound = combatRound;
+                WeaponIdsCurrentCombatRound.Clear();
+            }
+
+            WeaponIdsCurrentCombatRound.Add(weaponId);
+
+            int dodgeDivisor = (int)Math.Pow(2, WeaponIdsCurrentCombatRound.Count) / 2;
+
+            return GlobalReference.GlobalValues.Random.Next(GetStatEffective(stat)) / dodgeDivisor;
         }
 
         public virtual int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker)
@@ -552,18 +564,18 @@ namespace Objects.Mob
         {
             if (CombatRound == combatRound)
             {
-                DamageMultiplier *= 2;
+                DefenseDivisor *= 2;
             }
             else
             {
                 CombatRound = combatRound;
-                DamageMultiplier = 1;
+                DefenseDivisor = 1;
             }
 
-            return TakeDamage(totalDamage, damage, attacker, null, DamageMultiplier);
+            return TakeDamage(totalDamage, damage, attacker, null, DefenseDivisor);
         }
 
-        private int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker, string attackerDescription, int damageMultiplier)
+        private int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker, string attackerDescription, int defenseDivisor)
         {
             GlobalReference.GlobalValues.Engine.Event.DamageBeforeDefense(attacker, this, totalDamage, attackerDescription);  //this will log the damage and trigger enchantments
 
@@ -571,9 +583,11 @@ namespace Objects.Mob
             int stoppedDamage = 0;
             int mobReceivedDamage = 0;
             bool shieldBlocked = false;
-            if (damageMultiplier <= 0)
+
+            //should never roll over int.maxvalue but just in case...
+            if (defenseDivisor <= 0)
             {
-                damageMultiplier = int.MaxValue;
+                defenseDivisor = int.MaxValue;
             }
 
             int healthBeforeDamage = Health;
@@ -621,7 +635,7 @@ namespace Objects.Mob
 
             stoppedDamage += AddDefenseStatBonus(damage);
 
-            stoppedDamage /= damageMultiplier;
+            stoppedDamage /= defenseDivisor;
 
             //damage can not be negative
             int receivedDamage = Math.Max(0, totalDamage - stoppedDamage);

@@ -8,6 +8,7 @@ using Shared.FileIO;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using TelnetCommunication;
 
 namespace Server
@@ -35,21 +36,40 @@ namespace Server
             //WriteNewAppConfigFile();
             ConfigSettings config = GlobalReference.GlobalValues.Serialization.Deserialize<ConfigSettings>(File.ReadAllText("AppConfig.json"));
 
-            GlobalReference.GlobalValues.Settings.AsciiArt = config.AsciiArt;
-            GlobalReference.GlobalValues.Settings.AssetsDirectory = config.AssetsDirectory;
-            GlobalReference.GlobalValues.Settings.BugDirectory = config.BugDirectory;
-            GlobalReference.GlobalValues.Settings.BulletinBoardDirectory = config.BulletinBoardDirectory;
-            GlobalReference.GlobalValues.Settings.PlayerCharacterDirectory = config.PlayerCharacterDirectory;
-            GlobalReference.GlobalValues.Settings.StatsDirectory = config.StatsDirectory;
-            GlobalReference.GlobalValues.Settings.VaultDirectory = config.VaultDirectory;
-            GlobalReference.GlobalValues.Settings.ZoneDirectory = config.ZoneDirectory;
-            GlobalReference.GlobalValues.Settings.UseCachingFileIO = config.UseCachingFileIO;
-            GlobalReference.GlobalValues.Settings.Port = config.Port;
-            GlobalReference.GlobalValues.Settings.SendMapPosition = config.SendMapPosition;
-            GlobalReference.GlobalValues.Settings.LogStats = config.LogStats;
-            GlobalReference.GlobalValues.Settings.ElementalSpawnPercent = config.ElemenatlSpawnPercent;
-            GlobalReference.GlobalValues.Settings.RandomDropPercent = config.RandomDropPercent;
-            GlobalReference.GlobalValues.Settings.DropBeingPlusOnePercent = config.DropBeingPlusOnePercent;
+            PropertyInfo[] propertyInfosConfig = config.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo[] propertyInfosSettings = GlobalReference.GlobalValues.Settings.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var propertyInfoConfig in propertyInfosConfig)
+            {
+                if (propertyInfoConfig.Name == "BannedIps")
+                {
+                    continue;
+                }
+
+                foreach (var propertyInfoSetting in propertyInfosSettings)
+                {
+                    if (propertyInfoConfig.Name == propertyInfoSetting.Name)
+                    {
+                        propertyInfoSetting.SetValue(GlobalReference.GlobalValues.Settings, propertyInfoConfig.GetValue(config));
+                    }
+                }
+            }
+
+            //GlobalReference.GlobalValues.Settings.AsciiArt = config.AsciiArt;
+            //GlobalReference.GlobalValues.Settings.AssetsDirectory = config.AssetsDirectory;
+            //GlobalReference.GlobalValues.Settings.BugDirectory = config.BugDirectory;
+            //GlobalReference.GlobalValues.Settings.BulletinBoardDirectory = config.BulletinBoardDirectory;
+            //GlobalReference.GlobalValues.Settings.PlayerCharacterDirectory = config.PlayerCharacterDirectory;
+            //GlobalReference.GlobalValues.Settings.StatsDirectory = config.StatsDirectory;
+            //GlobalReference.GlobalValues.Settings.VaultDirectory = config.VaultDirectory;
+            //GlobalReference.GlobalValues.Settings.ZoneDirectory = config.ZoneDirectory;
+            //GlobalReference.GlobalValues.Settings.UseCachingFileIO = config.UseCachingFileIO;
+            //GlobalReference.GlobalValues.Settings.Port = config.Port;
+            //GlobalReference.GlobalValues.Settings.SendMapPosition = config.SendMapPosition;
+            //GlobalReference.GlobalValues.Settings.LogStats = config.LogStats;
+            //GlobalReference.GlobalValues.Settings.ElementalSpawnPercent = config.ElemenatlSpawnPercent;
+            //GlobalReference.GlobalValues.Settings.RandomDropPercent = config.RandomDropPercent;
+            //GlobalReference.GlobalValues.Settings.DropBeingPlusOnePercent = config.DropBeingPlusOnePercent;
 
             if (GlobalReference.GlobalValues.Settings.UseCachingFileIO)
             {
@@ -73,6 +93,7 @@ namespace Server
             }
 
             GlobalReference.GlobalValues.Logger.Settings.LogDirectory = config.LogDirectory;
+            GlobalReference.GlobalValues.WeaponId.Initialize();
         }
 
         private static void WriteNewAppConfigFile()
@@ -81,6 +102,7 @@ namespace Server
             configSettings.AssetsDirectory = "C:\\Mud\\Assets";
             configSettings.BannedIps = "";
             configSettings.BugDirectory = "C:\\Mud\\Bugs";
+            configSettings.WeaponIdDirectory = "C:\\Mud\\DamgeId";
             configSettings.DropBeingPlusOnePercent = 10;
             configSettings.ElemenatlSpawnPercent = .01;
             configSettings.LogDirectory = "C:\\Mud\\Logs";

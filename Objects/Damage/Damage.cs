@@ -1,5 +1,6 @@
 ﻿using Objects.Damage.Interface;
 using Objects.Die.Interface;
+using Objects.Global;
 using Objects.Global.Stats;
 using System.Diagnostics.CodeAnalysis;
 
@@ -17,7 +18,6 @@ namespace Objects.Damage
         {
             Dice = dice;
         }
-
 
         [ExcludeFromCodeCoverage]
         public IDice Dice { get; set; }
