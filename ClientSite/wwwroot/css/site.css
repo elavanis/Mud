@@ -1,0 +1,41 @@
+﻿body {
+    background-color: #000000;
+}
+
+html {
+    font-size: 20px;
+}
+
+
+#display {
+    width: 75%;
+    height: 95%;
+    background-color: #808080;
+    display: inline-block;
+    float: left;
+    overflow: auto;
+}
+
+#info {
+    width: 25%;
+    background-color: #808080;
+    display: inline-block;
+    float: right;
+    overflow: auto;
+}
+
+.inl {
+    display: inline-block;
+    float: left;
+}
+
+
+img {
+    width: 25%;
+    display: inline-block;
+    float: right;
+}
+
+input {
+    width: 100%;
+}
