@@ -3,23 +3,17 @@
 }
 
 html {
-    font-size: 20px;
+    font-size: 14px;
     color: white;
 }
 
-
 #display {
     width: 75%;
-    height: 95%;
-    display: inline-block;
-    float: left;
+    height: 100%;
     overflow: auto;
 }
 
 #info {
-    width: 25%;
-    display: inline-block;
-    float: right;
     overflow: auto;
 }
 
@@ -28,16 +22,23 @@ html {
     float: left;
 }
 
-
 img {
     width: 25%;
-    display: inline-block;
-    float: right;
 }
 
 input {
     width: 100%;
-    border:1px solid white;
-    background-color:black;
-    color:white;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
 }
+
+section {
+    height: 95%;
+}
+
+    section:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
