@@ -1,12 +1,67 @@
-﻿
-.health {
-    color: red;
+﻿.AsciiArt {
+    color: Gainsboro;
 }
 
-.mana {
-    color: blue;
+.ClientCommand {
+    color: White;
 }
 
-.stamina {
-    color: green;
+.Connection {
+    color: SteelBlue;
+}
+
+.Communication {
+    color: Purple;
+}
+
+.DamageDelt {
+    color: Gold;
+}
+
+.DamageReceived {
+    color: DarkRed;
+}
+
+.Exception {
+    color: Red;
+}
+
+.Info {
+    color: LightBlue;
+}
+
+.Item {
+    color: Yellow;
+}
+
+.Mob {
+    color: Cyan;
+}
+
+.MountStamina {
+    color: Orange;
+}
+
+.NonPlayerCharacter {
+    color: Gray;
+}
+
+.PlayerCharacter {
+    color: MediumPurple;
+}
+
+.Room {
+    color: Green;
+}
+
+.Health {
+    color: Red;
+}
+
+.Mana {
+    color: Blue;
+}
+
+.Stamina {
+    color: DarkGreen;
 }
