@@ -32,8 +32,8 @@
         var command = $("#input").val();
         var guid = $("#guid").val();
 
-        $.post('Home/SendCommand', { guid: guid, command: command },
-            function (resp) {
+        $.post('Home/SendCommand', { guid: guid, command: command })
+            .always(function (resp) {
                 $("#input").val("");
             });
     };
