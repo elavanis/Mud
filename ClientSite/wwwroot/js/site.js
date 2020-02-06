@@ -1,4 +1,25 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(function () {
+    var SetGuid = function () {
+        var guid = $("#guid");
+        if (guid.val() === "a") {
+            guid.val(GenerateGuid());
+        }
+    }
 
-// Write your JavaScript code.
+    var GenerateGuid = function () {
+        var d = new Date().getTime();
+
+        var guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+
+        return guid;
+    }
+
+    $(document).ready(function () {
+        SetGuid();
+    });
+});

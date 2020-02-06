@@ -5,22 +5,26 @@
 <head>
     <link rel="stylesheet" href="~/css/site.css">
     <link rel="stylesheet" href="~/css/color.css">
+    <script src="~/js/jquery-3.4.1.js"></script>
+    <script src="~/js/site.js"></script>
 </head>
 
+<input id="guid" value="a" hidden>
+
 <section>
-    <div id="display" class="inlineLeft">
-        <pre class="health inlineLeft">10/100 </pre>
-        <pre class="mana inlineLeft">10/100 </pre>
-        <pre class="stamina inlineLeft">10/100 </pre>
+    <div id="display" class="left">
+        <pre class="health left">10/100 </pre>
+        <pre class="mana left">10/100 </pre>
+        <pre class="stamina left">10/100 </pre>
         <pre>testing </pre>
         <pre>testing2 </pre>
     </div>
 
-    <img id="map" class="inlineLeft" src="~/map.jpg" />
-    <div id="info" class="inlineLeft">
+    <img id="map" class="left" src="~/map.jpg" />
+    <div id="info" class="left">
         <div class="health">10/100</div>
     </div>
 </section>
 
-<div>Input</div>
-<input id="input" />
+<div class="left">Input</div>
+<input id="input" class="right" />
