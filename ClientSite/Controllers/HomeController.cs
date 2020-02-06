@@ -13,5 +13,10 @@ namespace ClientSite.Controllers
         {
             return View();
         }
+
+        public ActionResult SendCommand(string guid, string command)
+        {
+            return null;
+        }
     }
 }

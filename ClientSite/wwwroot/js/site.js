@@ -4,7 +4,7 @@
         if (guid.val() === "a") {
             guid.val(GenerateGuid());
         }
-    }
+    };
 
     var GenerateGuid = function () {
         var d = new Date().getTime();
@@ -17,9 +17,29 @@
         });
 
         return guid;
-    }
+    };
+
+    var BindSubmit = function () {
+        $("#input").keypress(function (event) {
+            var keycode = event.keyCode ? event.keyCode : event.which;
+            if (keycode === 13) {
+                SendCommand();
+            }
+        });
+    };
+
+    var SendCommand = function () {
+        var command = $("#input").val();
+        var guid = $("#guid").val();
+
+        $.post('Home/SendCommand', { guid: guid, command: command },
+            function (resp) {
+                $("#input").val("");
+            });
+    };
 
     $(document).ready(function () {
         SetGuid();
+        BindSubmit();
     });
 });
