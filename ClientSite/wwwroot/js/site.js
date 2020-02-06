@@ -33,9 +33,18 @@
         var guid = $("#guid").val();
 
         $.post('Home/SendCommand', { guid: guid, command: command })
-            .always(function (resp) {
+            .done(function (resp) {
+                ProcessResponse(resp);
+            })
+            .always(function () {
                 $("#input").val("");
             });
+    };
+
+    var ProcessResponse = function (resp) {
+        resp.each(obj, function (tagType, message) {
+            alert(tagType + ": " + message);
+        });
     };
 
     $(document).ready(function () {
