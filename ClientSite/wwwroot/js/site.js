@@ -42,8 +42,8 @@
     };
 
     var ProcessResponse = function (resp) {
-        resp.each(obj, function (tagType, message) {
-            alert(tagType + ": " + message);
+        $.each(resp, function (index, value) {
+            alert(value["tagType"] + ": " + value["message"]);
         });
     };
 

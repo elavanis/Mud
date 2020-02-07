@@ -26,6 +26,12 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\MessageParser\MessageParser.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
     <Content Update="wwwroot\map.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
