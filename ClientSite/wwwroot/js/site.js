@@ -42,9 +42,23 @@
     };
 
     var ProcessResponse = function (resp) {
+        var idElement = $("#idPos");
+
+        var idPos = parseInt(idElement.val());
+
         $.each(resp, function (index, value) {
-            alert(value["tagType"] + ": " + value["message"]);
+            idPos += 1;
+            var element = document.createElement("pre");
+            element.setAttribute("id", idPos);
+            element.setAttribute("class", value["item1"]);
+            element.innerHTML = value["item2"] + " ";
+            document.getElementById("display").appendChild(element);
+
         });
+
+        $("#" + idPos).scrollTop($("#" + idPos)[0].scrollIntoView);
+
+        idElement.val(idPos);
     };
 
     $(document).ready(function () {

@@ -17,7 +17,7 @@ html {
     overflow: auto;
 }
 
-.left {
+.left, .Health, .Mana, .Stamina {
     float: left;
 }
 

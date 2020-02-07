@@ -25,7 +25,22 @@ namespace ClientSite.Controllers
 
             string str = TagType.Health.ToString();
 
-            return Json(parsedMessages);
+            List<Tuple<string, string>> tuples = ConvertParsedMessageToTuples(parsedMessages);
+
+
+            return Json(tuples);
+        }
+
+        private List<Tuple<string, string>> ConvertParsedMessageToTuples(List<ParsedMessage> parsedMessages)
+        {
+            List<Tuple<string, string>> tuples = new List<Tuple<string, string>>();
+
+            foreach (ParsedMessage parsedMessage in parsedMessages)
+            {
+                tuples.Add(new Tuple<string, string>(parsedMessage.TagType.ToString(), parsedMessage.Message));
+            }
+
+            return tuples;
         }
     }
 }
