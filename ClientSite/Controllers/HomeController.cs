@@ -3,30 +3,63 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using ClientTelentCommucication;
 using MessageParser;
 using Microsoft.AspNetCore.Mvc;
+using TelnetCommunication;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace ClientSite.Controllers
 {
     public class HomeController : Controller
     {
+        public static ClientHandler clientHandler;
+
         public IActionResult Index()
         {
+            if (clientHandler == null)
+            {
+                clientHandler = new ClientHandler("10.0.1.3", 52475, new JsonMudMessage());
+            }
+
             return View();
         }
 
         public ActionResult SendCommand(string guid, string command)
         {
-            List<ParsedMessage> parsedMessages = new List<ParsedMessage>();
-            parsedMessages.Add(new ParsedMessage() { TagType = TagType.Health, Message = "10/100" });
-            parsedMessages.Add(new ParsedMessage() { TagType = TagType.Mana, Message = "20/100" });
-            parsedMessages.Add(new ParsedMessage() { TagType = TagType.Stamina, Message = "30/100" });
+            if (command != string.Empty)
+            {
+                clientHandler.OutQueue.Enqueue(command);
+            }
 
-            string str = TagType.Health.ToString();
+            List<ParsedMessage> parsedMessages = new List<ParsedMessage>();
+
+            string message;
+            while (clientHandler.InQueue.TryDequeue(out message))
+            {
+                if (message.StartsWith("<Sound>"))
+                {
+                    //handle sound
+                }
+                else if (message.StartsWith("<Map>"))
+                {
+                    //update map
+                }
+                else if (message.StartsWith("<Data>"))
+                {
+                    //not going to local cache stuff so n/a?
+                }
+                else if (message.StartsWith("<FileValidation>"))
+                {
+                    //not going to local cache stuff so n/a?
+                }
+                else
+                {
+                    parsedMessages.AddRange(Parser.Parse(message));
+                }
+            }
 
             List<Tuple<string, string>> tuples = ConvertParsedMessageToTuples(parsedMessages);
-
 
             return Json(tuples);
         }

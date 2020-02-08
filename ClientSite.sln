@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageParser", "MessagePar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{8FDD157A-F620-468E-B7F1-330F4FC926ED}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientTelentCommucication", "Telnet\ClientTelentCommucication\ClientTelentCommucication.csproj", "{7CD79B55-E623-42F2-A55B-6BF20B208B3A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelnetCommunication", "Telnet\TelnetCommunication\TelnetCommunication.csproj", "{F5E30523-7274-47F5-AE82-5A3B0A30E23D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{8FDD157A-F620-468E-B7F1-330F4FC926ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FDD157A-F620-468E-B7F1-330F4FC926ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FDD157A-F620-468E-B7F1-330F4FC926ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD79B55-E623-42F2-A55B-6BF20B208B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD79B55-E623-42F2-A55B-6BF20B208B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD79B55-E623-42F2-A55B-6BF20B208B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD79B55-E623-42F2-A55B-6BF20B208B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5E30523-7274-47F5-AE82-5A3B0A30E23D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E30523-7274-47F5-AE82-5A3B0A30E23D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E30523-7274-47F5-AE82-5A3B0A30E23D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E30523-7274-47F5-AE82-5A3B0A30E23D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
