@@ -1,4 +1,13 @@
 ﻿$(function () {
+
+    setInterval(function () {
+        var guid = $("#guid").val();
+        $.post('Home/SendCommand', { guid: guid, command: "" })
+            .done(function (resp) {
+                ProcessResponse(resp);
+            });
+    }, 500);
+
     var SetGuid = function () {
         var guid = $("#guid");
         if (guid.val() === "a") {

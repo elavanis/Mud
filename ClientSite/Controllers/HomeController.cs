@@ -13,21 +13,27 @@ namespace ClientSite.Controllers
 {
     public class HomeController : Controller
     {
-        public static ClientHandler clientHandler;
+        private static Dictionary<string, ClientHandler> clientHandlers = new Dictionary<string, ClientHandler>();
+
 
         public IActionResult Index()
         {
-            if (clientHandler == null)
-            {
-                clientHandler = new ClientHandler("10.0.1.3", 52475, new JsonMudMessage());
-            }
-
             return View();
         }
 
         public ActionResult SendCommand(string guid, string command)
         {
-            if (command != string.Empty)
+            ClientHandler clientHandler = null;
+            lock (clientHandlers)
+            {
+                if (!clientHandlers.TryGetValue(guid, out clientHandler))
+                {
+                    clientHandler = new ClientHandler("10.0.1.3", 52475, new JsonMudMessage());
+                    clientHandlers.Add(guid, clientHandler);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(command))
             {
                 clientHandler.OutQueue.Enqueue(command);
             }
