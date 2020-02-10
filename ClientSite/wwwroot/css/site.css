@@ -7,6 +7,8 @@ html {
     color: white;
 }
 
+
+
 #display {
     width: 75%;
     height: 100%;
@@ -23,6 +25,10 @@ html {
 
 .right {
     float: right;
+}
+
+.lineBreak {
+    clear: left;
 }
 
 img {
@@ -46,3 +52,7 @@ section {
         display: table;
         clear: both;
     }
+
+pre {
+    margin: 0;
+}

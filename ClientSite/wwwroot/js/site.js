@@ -63,6 +63,14 @@
             element.innerHTML = value["item2"] + " ";
             document.getElementById("display").appendChild(element);
 
+            if (value["item2"].endsWith("\r\n")) {
+                idPos += 1;
+                element = document.createElement("pre");
+                element.setAttribute("class", "lineBreak");
+                element.setAttribute("id", idPos);
+                document.getElementById("display").appendChild(element);
+            }
+
         });
 
         $("#" + idPos).scrollTop($("#" + idPos)[0].scrollIntoView);

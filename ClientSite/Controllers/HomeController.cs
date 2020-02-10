@@ -28,7 +28,7 @@ namespace ClientSite.Controllers
             {
                 if (!clientHandlers.TryGetValue(guid, out clientHandler))
                 {
-                    clientHandler = new ClientHandler("10.0.1.3", 52475, new JsonMudMessage());
+                    clientHandler = new ClientHandler("127.0.0.1", 52475, new JsonMudMessage());
                     clientHandlers.Add(guid, clientHandler);
                 }
             }
