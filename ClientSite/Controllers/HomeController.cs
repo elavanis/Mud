@@ -14,7 +14,7 @@ namespace ClientSite.Controllers
     public class HomeController : Controller
     {
         private static Dictionary<string, ClientHandler> clientHandlers = new Dictionary<string, ClientHandler>();
-
+        private static DateTime dateTime = DateTime.Now;
 
         public IActionResult Index()
         {
@@ -30,6 +30,11 @@ namespace ClientSite.Controllers
                 {
                     clientHandler = new ClientHandler("127.0.0.1", 52475, new JsonMudMessage());
                     clientHandlers.Add(guid, clientHandler);
+                }
+
+                if (DateTime.Now.Subtract(dateTime).TotalMinutes >= 10)
+                {
+                    RemoveDeadConnections();
                 }
             }
 
@@ -68,6 +73,17 @@ namespace ClientSite.Controllers
             List<Tuple<string, string>> tuples = ConvertParsedMessageToTuples(parsedMessages);
 
             return Json(tuples);
+        }
+
+        private static void RemoveDeadConnections()
+        {
+            foreach (string key in clientHandlers.Keys)
+            {
+                if (!clientHandlers[key].Connected)
+                {
+                    clientHandlers.Remove(key);
+                }
+            }
         }
 
         private List<Tuple<string, string>> ConvertParsedMessageToTuples(List<ParsedMessage> parsedMessages)

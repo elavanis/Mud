@@ -27,6 +27,14 @@ namespace TelnetCommunication
             MudMessageInstance = mudMessage;
         }
 
+        public bool Connected
+        {
+            get
+            {
+                return _clientSocket.Connected;
+            }
+        }
+
         private string _previousPartialMessage = "";
 
         protected void GetMessageLoop()
