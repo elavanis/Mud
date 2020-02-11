@@ -1,0 +1,22 @@
+﻿.AsciiArt,
+.ClientCommand,
+.Connection,
+.Communication,
+.DamageDelt,
+.DamageReceived,
+.Exception,
+.Info,
+.Item,
+.Mob,
+.MountStamina,
+.NonPlayerCharacter,
+.PlayerCharacter,
+.Room {
+    clear: left;
+}
+
+.Health,
+.Mana,
+.Stamina {
+    float: left;
+}

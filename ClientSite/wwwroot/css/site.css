@@ -7,8 +7,6 @@ html {
     color: white;
 }
 
-
-
 #display {
     width: 75%;
     height: 100%;
@@ -19,7 +17,10 @@ html {
     overflow: auto;
 }
 
-.left, .Health, .Mana, .Stamina {
+.left,
+.Health,
+.Mana,
+.Stamina {
     float: left;
 }
 
