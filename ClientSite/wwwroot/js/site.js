@@ -71,6 +71,17 @@
                 document.getElementById("display").appendChild(element);
             }
 
+            if (value["item1"] === "Health") {
+                $("#HealthStatus").html(value["item2"]);
+            }
+            else if (value["item1"] === "Mana") {
+                $("#ManaStatus").html(value["item2"]);
+            }
+            else if (value["item1"] === "Stamina") {
+                $("#StaminaStatus").html(value["item2"]);
+            }
+
+
         });
 
         $("#" + idPos).scrollTop($("#" + idPos)[0].scrollIntoView);

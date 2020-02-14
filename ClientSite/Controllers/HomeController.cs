@@ -77,7 +77,8 @@ namespace ClientSite.Controllers
 
         private static void RemoveDeadConnections()
         {
-            foreach (string key in clientHandlers.Keys)
+            List<string> copiedKeys = new List<string>(clientHandlers.Keys);
+            foreach (string key in copiedKeys)
             {
                 if (!clientHandlers[key].Connected)
                 {

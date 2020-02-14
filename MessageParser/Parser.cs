@@ -8,26 +8,18 @@ namespace MessageParser
 {
     public static class Parser
     {
-        private static Stack<TagType> tagTypeStack = new Stack<TagType>();
-
-        private static Dictionary<TagType, Tuple<string, string>> _parsedTagTypes = null;
-        private static Dictionary<TagType, Tuple<string, string>> ParsedTagTypes
+        static Parser()
         {
-            get
+            ParsedTagTypes = new Dictionary<TagType, Tuple<string, string>>();
+
+            foreach (TagType tagType in Enum.GetValues(typeof(TagType)))
             {
-                if (_parsedTagTypes == null)
-                {
-                    _parsedTagTypes = new Dictionary<TagType, Tuple<string, string>>();
-
-                    foreach (TagType tagType in Enum.GetValues(typeof(TagType)))
-                    {
-                        _parsedTagTypes.Add(tagType, new Tuple<string, string>($"<{tagType}>", $"</{tagType}>"));
-                    }
-                }
-
-                return _parsedTagTypes;
+                ParsedTagTypes.Add(tagType, new Tuple<string, string>($"<{tagType}>", $"</{tagType}>"));
             }
         }
+
+        private static Dictionary<TagType, Tuple<string, string>> ParsedTagTypes { get; }
+        private static Stack<TagType> tagTypeStack = new Stack<TagType>();
 
         public static List<ParsedMessage> Parse(string line)
         {

@@ -54,14 +54,17 @@
     color: Green;
 }
 
-.Health {
+.Health,
+#HealthStatus {
     color: Red;
 }
 
-.Mana {
+.Mana,
+#ManaStatus {
     color: Blue;
 }
 
-.Stamina {
+.Stamina,
+#StaminaStatus {
     color: DarkGreen;
 }
