@@ -60,7 +60,19 @@
             var element = document.createElement("pre");
             element.setAttribute("id", idPos);
             element.setAttribute("class", value["item1"]);
-            element.innerHTML = value["item2"] + " ";
+            element.innerHTML = value["item2"];
+
+            if (value["item1"] === "Health"
+                || value["item1"] === "Mana"
+                || value["item1"] === "Stamina") {
+                element.setAttribute("class", value["item1"] + " " + "Left");
+
+                SetStatus(value["item1"], value["item2"]);
+            }
+            else {
+                element.setAttribute("class", value["item1"] + " " + "Linebreak");
+            }
+
             document.getElementById("display").appendChild(element);
 
             if (value["item2"].endsWith("\r\n")) {
@@ -70,24 +82,17 @@
                 element.setAttribute("id", idPos);
                 document.getElementById("display").appendChild(element);
             }
-
-            if (value["item1"] === "Health") {
-                $("#HealthStatus").html(value["item2"]);
-            }
-            else if (value["item1"] === "Mana") {
-                $("#ManaStatus").html(value["item2"]);
-            }
-            else if (value["item1"] === "Stamina") {
-                $("#StaminaStatus").html(value["item2"]);
-            }
-
-
         });
 
         $("#" + idPos).scrollTop($("#" + idPos)[0].scrollIntoView);
 
         idElement.val(idPos);
     };
+
+    var SetStatus = function (status, value) {
+        var element = $("#" + status + "Status");
+        element.html(value);
+    }
 
     $(document).ready(function () {
         SetGuid();

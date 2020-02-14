@@ -17,18 +17,15 @@ html {
     overflow: auto;
 }
 
-.left,
-.Health,
-.Mana,
-.Stamina {
+.Left {
     float: left;
 }
 
-.right {
+.Right {
     float: right;
 }
 
-.lineBreak {
+.LineBreak {
     clear: left;
 }
 
@@ -56,4 +53,5 @@ section {
 
 pre {
     margin: 0;
+    white-space: pre-wrap;
 }
