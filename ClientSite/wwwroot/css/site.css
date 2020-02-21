@@ -29,16 +29,28 @@ html {
     clear: left;
 }
 
+.InputSpan {
+    overflow: hidden;
+    display: block;
+    padding: 0 15px 0 10px;
+}
+
+.Footer{
+    position:fixed;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+}
+
 img {
     width: 25%;
 }
 
 input {
-    width: 95%;
+    width: 100%;
     border: 1px solid white;
     background-color: black;
     color: white;
-    padding-left: 10px;
 }
 
 section {
@@ -55,3 +67,4 @@ pre {
     margin: 0;
     white-space: pre-wrap;
 }
+
