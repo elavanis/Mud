@@ -29,17 +29,21 @@ html {
     clear: left;
 }
 
-.InputSpan {
+.WideSpan {
     overflow: hidden;
     display: block;
     padding: 0 15px 0 10px;
 }
 
-.Footer{
-    position:fixed;
+.Footer {
+    position: fixed;
     bottom: 0px;
     height: 30px;
     width: 100%;
+}
+
+.LeftColumn {
+    width: 70px;
 }
 
 img {
@@ -54,7 +58,7 @@ input {
 }
 
 section {
-    height: 95%;
+    height: 100%;
 }
 
     section:after {
@@ -67,4 +71,3 @@ pre {
     margin: 0;
     white-space: pre-wrap;
 }
-
