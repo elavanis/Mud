@@ -15,19 +15,24 @@
 <section>
     <div id="display" class="left">
     </div>
-    <img id="map" class="left" src="~/map.jpg" />
+    <div class="mapHolder left">
+        <img id="map" class="left" src="~/map.jpg" />
+        @*<img id="mapOverlay" class="left" src="~/6-1.png" />*@
+        <img id="mapOverlay" class="left" />
+    </div>
+
     <span class="WideSpan">
         <div id="info" class="left">
-            <pre class="Health Left LeftColumn">Health </pre> 
-            <pre id="HealthStatus" class="Health Left">10/100</pre> 
+            <pre class="Health Left LeftColumn">Health </pre>
+            <pre id="HealthStatus" class="Health Left">10/100</pre>
             <pre class="LineBreak"></pre>
-            
-            <pre class="Mana Left LeftColumn">Mana </pre> 
-            <pre id="ManaStatus" class="Mana Left">10/100</pre> 
+
+            <pre class="Mana Left LeftColumn">Mana </pre>
+            <pre id="ManaStatus" class="Mana Left">10/100</pre>
             <pre class="LineBreak"></pre>
-            
+
             <pre class="Stamina Left LeftColumn">Stamina </pre>
-            <pre id="StaminaStatus" class="Stamina Left">10/100</pre> 
+            <pre id="StaminaStatus" class="Stamina Left">10/100</pre>
             <pre class="LineBreak"></pre>
         </div>
     </span>

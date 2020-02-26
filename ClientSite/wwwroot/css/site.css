@@ -17,6 +17,14 @@ html {
     overflow: auto;
 }
 
+#mapOverlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+}
+
 .Left {
     float: left;
 }
@@ -46,8 +54,14 @@ html {
     width: 70px;
 }
 
-img {
+
+.mapHolder {
+    position: relative;
     width: 25%;
+}
+
+img {
+    width: 100%;
 }
 
 input {
