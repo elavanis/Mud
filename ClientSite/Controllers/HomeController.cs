@@ -55,6 +55,12 @@ namespace ClientSite.Controllers
                 else if (message.StartsWith("<Map>"))
                 {
                     //update map
+
+                    //jquery 
+                    //https://stackoverflow.com/questions/623172/how-to-get-image-size-height-width-using-javascript
+                    //imageElement.naturalHeight & imageElement.naturalWidth
+
+                    parsedMessages.AddRange(Parser.Parse(message));
                 }
                 else if (message.StartsWith("<Data>"))
                 {

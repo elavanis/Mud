@@ -6,7 +6,12 @@
             .done(function (resp) {
                 ProcessResponse(resp);
             });
+
+        SetSize();
+
     }, 500);
+
+
 
     var SetGuid = function () {
         var guid = $("#guid");
@@ -56,32 +61,38 @@
         var idPos = parseInt(idElement.val());
 
         $.each(resp, function (index, value) {
-            idPos += 1;
-            var element = document.createElement("pre");
-            element.setAttribute("id", idPos);
-            element.setAttribute("class", value["item1"]);
-            element.innerHTML = value["item2"];
-
-            if (value["item1"] === "Health"
-                || value["item1"] === "Mana"
-                || value["item1"] === "Stamina") {
-                element.setAttribute("class", value["item1"] + " " + "Left");
-
-                SetStatus(value["item1"], value["item2"]);
+            if (value["item1"] === "Map") {
+                SetPosition(value["item2"]);
             }
             else {
-                element.setAttribute("class", value["item1"] + " " + "Linebreak");
-            }
-
-            document.getElementById("display").appendChild(element);
-
-            if (value["item2"].endsWith("\r\n")) {
                 idPos += 1;
-                element = document.createElement("pre");
-                element.setAttribute("class", "lineBreak");
+                var element = document.createElement("pre");
                 element.setAttribute("id", idPos);
+                element.setAttribute("class", value["item1"]);
+                element.innerHTML = value["item2"];
+
+                if (value["item1"] === "Health"
+                    || value["item1"] === "Mana"
+                    || value["item1"] === "Stamina") {
+                    element.setAttribute("class", value["item1"] + " " + "Left");
+
+                    SetStatus(value["item1"], value["item2"]);
+                }
+                else {
+                    element.setAttribute("class", value["item1"] + " " + "Linebreak");
+                }
+
                 document.getElementById("display").appendChild(element);
+
+                if (value["item2"].endsWith("\r\n")) {
+                    idPos += 1;
+                    element = document.createElement("pre");
+                    element.setAttribute("class", "lineBreak");
+                    element.setAttribute("id", idPos);
+                    document.getElementById("display").appendChild(element);
+                }
             }
+
         });
 
         $("#" + idPos).scrollTop($("#" + idPos)[0].scrollIntoView);
@@ -92,6 +103,38 @@
     var SetStatus = function (status, value) {
         var element = $("#" + status + "Status");
         element.html(value);
+    }
+
+    var SetPosition = function (positionString) {
+        var splitString = positionString.split("|");
+        var zone = splitString[0];
+        var level = splitString[1];
+        var x = splitString[2];
+        var y = splitString[3];
+
+        var originalWidth = $('#mapOverlay')[0].naturalWidth;
+        var originalHeight = $('#mapOverlay')[0].naturalHeight;
+        var realSize = $('#mapOverlay').width();
+
+        var sizeDiff = realSize / originalWidth;
+
+        var centerWidth = (originalWidth - 10) / 2;
+        var offset = (x - centerWidth) * sizeDiff;
+        $("#pos").css("margin-left", offset + "px");
+
+        var centerHeight = (originalHeight - 10) / 2;
+        offset = (y - centerHeight) * sizeDiff * -1;
+        $("#pos").css("margin-top", offset + "px");
+    };
+
+    var SetSize = function () {
+        var originalSize = $('#mapOverlay')[0].naturalWidth;
+        var realSize = $('#mapOverlay').width();
+
+        var sizeDiff = realSize / originalSize;
+
+        $("#pos").width(sizeDiff * 10);
+        $("#pos").height(sizeDiff * 10);
     }
 
     $(document).ready(function () {
