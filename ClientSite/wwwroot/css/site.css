@@ -25,42 +25,13 @@ html {
     transform: translate(-50%, -50%);
 }
 
-.Left {
-    float: left;
-}
-
-.Right {
-    float: right;
-}
-
-.LineBreak {
-    clear: left;
-}
-
-.WideSpan {
-    overflow: hidden;
-    display: block;
-    padding: 0 15px 0 10px;
-}
-
-.Footer {
-    position: fixed;
-    bottom: 0px;
-    height: 30px;
-    width: 100%;
-}
-
-.LeftColumn {
-    width: 70px;
-}
-
-
-.mapHolder {
+#mapHolder {
     position: relative;
     width: 25%;
 }
 
-.pos {
+
+#pos {
     width: 1px;
     height: 1px;
     position: absolute;
@@ -68,6 +39,45 @@ html {
     left: 50%;
     z-index: 3;
     transform: translate(-50%, -50%);
+}
+
+#footer {
+    position: fixed;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+}
+
+#mainDiv {
+    height: calc(100% - 30px);
+}
+
+    #mainDiv:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+.left {
+    float: left;
+}
+
+/*.Right {
+    float: right;
+}*/
+
+.lineBreak {
+    clear: left;
+}
+
+.wideSpan {
+    overflow: hidden;
+    display: block;
+    padding: 0 15px 0 10px;
+}
+
+.leftColumn {
+    width: 70px;
 }
 
 img {
@@ -81,15 +91,7 @@ input {
     color: white;
 }
 
-section {
-    height: 100%;
-}
 
-    section:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
 
 pre {
     margin: 0;
