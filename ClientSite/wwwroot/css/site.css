@@ -18,11 +18,7 @@ html {
 }
 
 #mapOverlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
     z-index: 2;
-    transform: translate(-50%, -50%);
 }
 
 #mapHolder {
@@ -32,13 +28,9 @@ html {
 
 
 #pos {
-    width: 1px;
-    height: 1px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    width: 0px;
+    height: 0px;
     z-index: 3;
-    transform: translate(-50%, -50%);
 }
 
 #footer {
@@ -80,6 +72,13 @@ html {
     width: 70px;
 }
 
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 img {
     width: 100%;
 }
@@ -90,8 +89,6 @@ input {
     background-color: black;
     color: white;
 }
-
-
 
 pre {
     margin: 0;
