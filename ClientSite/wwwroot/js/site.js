@@ -1,17 +1,19 @@
 ﻿$(function () {
 
     setInterval(function () {
-        var guid = $("#guid").val();
-        $.post('Home/SendCommand', { guid: guid, command: "" })
-            .done(function (resp) {
-                ProcessResponse(resp);
-            });
+        SendBlankCommand();
 
         SetSize();
 
     }, 500);
 
-
+    var SendBlankCommand = function () {
+        var guid = $("#guid").val();
+        $.post('Home/SendCommand', { guid: guid, command: "" })
+            .done(function (resp) {
+                ProcessResponse(resp);
+            });
+    };
 
     var SetGuid = function () {
         var guid = $("#guid");
