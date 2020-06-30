@@ -59,8 +59,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Near the clay pieces are the remnants of some wood.  Perhaps maybe this was a cupboard that fell over spilling the clay vessels onto the floor.";
+            room.LookDescription = "Broken pieces of clay lay shattered on the floor.";
             room.ShortDescription = "Underground cavern";
 
             return room;
