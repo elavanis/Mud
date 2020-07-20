@@ -231,8 +231,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Dropping a small stone down the hole you count, 1, 2, 3, 4, 5.  The splash echoes up the hole and around the cavern.";
+            room.LookDescription = "A hole has been dug into the stone floor.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -241,8 +241,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "It is hard to tell what this wall was for.  It was only two feet tall so maybe a small cage or storage area.";
+            room.LookDescription = "A small bit of a stone wall remains creating a corner.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -251,8 +251,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The bones have not been disturbed for many years but non the less time has not been kind to them making it impossible to tell what they one belonged to.";
+            room.LookDescription = "A few animal bones lay in the corner.";
             room.ShortDescription = "Underground cavern";
 
             return room;
