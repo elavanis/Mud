@@ -211,8 +211,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The ceiling has only a few tiles left as most have fallen to the ground over time.";
+            room.LookDescription = "Small bits of mosaic tiles litter the floor.  Most have been broken with the fall and by underfoot of people who have traveled down here.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -252,7 +252,7 @@ namespace GenerateZones.Zones.UnderGrandView
             IRoom room = IndoorRoomNoLight();
 
             room.ExamineDescription = "The bones have not been disturbed for many years but non the less time has not been kind to them making it impossible to tell what they one belonged to.";
-            room.LookDescription = "A few animal bones lay in the corner.";
+            room.LookDescription = "A few animal bones lay in the corner of what appears to once have been an animal pen.";
             room.ShortDescription = "Underground cavern";
 
             return room;
