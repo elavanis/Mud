@@ -191,9 +191,19 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The doors seem to be in surprising good condition for all the dampness in this tunnel.";
+            room.LookDescription = "Once a large wooden pair of doors blocked the way to the west but have since fallen onto the floor.";
             room.ShortDescription = "Underground cavern";
+
+            IItem door = CreateItem<IItem>();
+            door.Attributes.Add(Item.ItemAttribute.NoGet);
+            door.ExamineDescription = "As you approach the doors a soft blue light sputters and dies.  It repeats itself over and over.  As you move around the glowing follows you.  It is like some type of magic was cast on the door but with time has faded away.";
+            door.LookDescription = "The doors are in surprising good condition for having spent such a long time on a damp tunnel floor.";
+            door.SentenceDescription = "doors";
+            door.ShortDescription = "A pair of large wooden doors that has fallen off its hinges on to the floor.";
+            door.KeyWords.Add("door");
+
+            room.AddItemToRoom(door);
 
             return room;
         }
@@ -201,8 +211,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Climbing up the collapsed ceiling rocks you can see up into the hole ten or so feet but nothing of interest is there.";
+            room.LookDescription = "A large part of the ceiling has fallen in on the north side of the tunnel.";
             room.ShortDescription = "Underground cavern";
 
             return room;
