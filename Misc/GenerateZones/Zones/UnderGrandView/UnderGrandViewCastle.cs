@@ -200,7 +200,7 @@ namespace GenerateZones.Zones.UnderGrandView
             door.ExamineDescription = "As you approach the doors a soft blue light sputters and dies.  It repeats itself over and over.  As you move around the glowing follows you.  It is like some type of magic was cast on the door but with time has faded away.";
             door.LookDescription = "The doors are in surprising good condition for having spent such a long time on a damp tunnel floor.";
             door.SentenceDescription = "doors";
-            door.ShortDescription = "A pair of large wooden doors that has fallen off its hinges on to the floor.";
+            door.ShortDescription = "A pair of large wooden doors that has fallen off their hinges lie on the floor.";
             door.KeyWords.Add("door");
 
             room.AddItemToRoom(door);
