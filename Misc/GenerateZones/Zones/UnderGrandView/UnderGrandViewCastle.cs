@@ -77,31 +77,31 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom4()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            room.ShortDescription = "Shimmering Pool";
 
             return room;
         }
         private IRoom GenerateRoom5()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            room.ShortDescription = "Shimmering Pool";
 
             return room;
         }
         private IRoom GenerateRoom6()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            room.ShortDescription = "Shimmering Pool";
 
             return room;
         }
@@ -159,31 +159,31 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom12()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            room.ShortDescription = "Shimmering Pool";
 
             return room;
         }
         private IRoom GenerateRoom13()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "While you can scoop up the white shimmering liquid it does not feel wet and does not cling to you like water does.";
+            room.LookDescription = "The liquid comes up to your waist and feels warmer than the cool dungeon.";
+            room.ShortDescription = "Shimmering Pool";
 
             return room;
         }
         private IRoom GenerateRoom14()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            room.ShortDescription = "Shimmering Pool";
 
             return room;
         }
@@ -200,7 +200,7 @@ namespace GenerateZones.Zones.UnderGrandView
             door.ExamineDescription = "As you approach the doors a soft blue light sputters and dies.  It repeats itself over and over.  As you move around the glowing follows you.  It is like some type of magic was cast on the door but with time has faded away.";
             door.LookDescription = "The doors are in surprising good condition for having spent such a long time on a damp tunnel floor.";
             door.SentenceDescription = "doors";
-            door.ShortDescription = "A pair of large wooden doors that has fallen off their hinges lie on the floor.";
+            door.ShortDescription = "A pair of large wooden doors have fallen off their hinges and lie on the floor.";
             door.KeyWords.Add("door");
 
             room.AddItemToRoom(door);
@@ -269,31 +269,31 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom22()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            room.ShortDescription = "Shimmering Pool";
 
             return room;
         }
         private IRoom GenerateRoom23()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            room.ShortDescription = "Shimmering Pool";
 
             return room;
         }
         private IRoom GenerateRoom24()
         {
-            IRoom room = IndoorRoomNoLight();
+            IRoom room = IndoorRoomLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            room.ShortDescription = "Shimmering Pool";
 
             return room;
         }

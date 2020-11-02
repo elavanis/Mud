@@ -50,12 +50,14 @@ namespace Objects.Command.PC
                         {
                             if (item is ICorpse corpse)
                             {
-                                if (corpse.Killer != performer)
+                                if (corpse.Killer != null)  //allow you to pick up corpses that don't have a killer
                                 {
-                                    return new Result($"Unable to pickup the corpse belonging to {corpse.Killer.KeyWords[0]}.", true);
+                                    if (corpse.Killer != performer)
+                                    {
+                                        return new Result($"Unable to pickup the corpse belonging to {corpse.Killer.KeyWords[0]}.", true);
+                                    }
                                 }
                             }
-
 
                             IRoom room = performer.Room;
                             GlobalReference.GlobalValues.Engine.Event.Get(performer, item);
