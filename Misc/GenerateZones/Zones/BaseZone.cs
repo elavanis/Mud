@@ -25,7 +25,7 @@ namespace GenerateZones.Zones
     {
         public IZone Zone { get; set; }
         private int RoomId { get; set; } = 1;
-        private int ItemId { get; set; } = 1;
+        protected int ItemId { get; set; } = 1;
         private int NpcId { get; set; } = 1;
 
         public BaseZone(int zoneId)

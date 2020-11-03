@@ -1,4 +1,6 @@
-﻿using Objects.Magic.Interface;
+﻿using Objects.Command.Interface;
+using Objects.Magic.Interface;
+using Objects.Mob.Interface;
 using System.Collections.Generic;
 
 namespace Objects.Interface
@@ -30,5 +32,10 @@ namespace Objects.Interface
         Dictionary<string, List<string>> ZoneSyncOptions { get; }
 
         List<IEnchantment> Enchantments { get; }
+
+        #region Object Commands
+        IResult Turn(IMobileObject performer, ICommand command);
+        IResult Push(IMobileObject performer, ICommand command);
+        #endregion Object Commands
     }
 }

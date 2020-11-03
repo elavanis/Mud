@@ -9,6 +9,7 @@ using Objects.Interface;
 using Objects.Item;
 using Objects.Item.Interface;
 using Objects.Item.Items;
+using Objects.Item.Items.Custom.UnderGrandViewCastle;
 using Objects.Item.Items.Interface;
 using Objects.Language;
 using Objects.Magic.Enchantment;
@@ -23,6 +24,7 @@ using Objects.Zone.Interface;
 using Shared.Sound;
 using Shared.Sound.Interface;
 using static Objects.Global.Direction.Directions;
+using static Objects.Item.Item;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace GenerateZones.Zones.UnderGrandView
@@ -83,6 +85,8 @@ namespace GenerateZones.Zones.UnderGrandView
             room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             room.ShortDescription = "Shimmering Pool";
 
+            room.AddItemToRoom(RunicStatue());
+
             return room;
         }
         private IRoom GenerateRoom5()
@@ -102,6 +106,8 @@ namespace GenerateZones.Zones.UnderGrandView
             room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
             room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             room.ShortDescription = "Shimmering Pool";
+
+            room.AddItemToRoom(RunicStatue());
 
             return room;
         }
@@ -274,6 +280,8 @@ namespace GenerateZones.Zones.UnderGrandView
             room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
             room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             room.ShortDescription = "Shimmering Pool";
+
+            room.AddItemToRoom(RunicStatue());
 
             return room;
         }
@@ -1468,6 +1476,24 @@ namespace GenerateZones.Zones.UnderGrandView
             armor.ExamineDescription = "The fact that no one would want to be around you makes you reconsider but maybe you could fashion some armor out of these.  You would not be the winner of a fashion show but the amount of material required would give you decent protection if not restrict you movement some.";
 
             return armor;
+        }
+        private IItem RunicStatue()
+        {
+            IItem statue = new RunicStatue();
+            statue.Zone = Zone.Id;
+            statue.Id = ItemId++;
+            statue.Attributes.Add(ItemAttribute.NoGet);
+
+            statue.KeyWords.Add("statue");
+            statue.KeyWords.Add("rune");
+            statue.KeyWords.Add("runic");
+            statue.SentenceDescription = "runic statue";
+            statue.ShortDescription = "A stone statue of a priest facing the pool of liquid.";
+            statue.LookDescription = "The statue is of a priest chanting with their arms spread open.  It appears to be carved from the surrounding stone.";
+            statue.ExamineDescription = "The priest is dressed in robes with a medallion hanging from their belt.  The medallion has the ruin ᚠ on it appear to be able to be turned.";
+
+
+            return statue;
         }
         #endregion Items
 

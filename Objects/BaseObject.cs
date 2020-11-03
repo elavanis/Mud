@@ -8,6 +8,8 @@ using Objects.Mob.Interface;
 using Objects.Item.Items.Interface;
 using Objects.Item.Interface;
 using Objects.Room.Interface;
+using Objects.Command.Interface;
+using Objects.Command;
 
 namespace Objects
 {
@@ -98,6 +100,18 @@ namespace Objects
             }
         }
         #endregion Properties
+
+        #region Object Commands
+        public virtual IResult Turn(IMobileObject performer, ICommand command)
+        {
+            return new Result($"You try to turn the {SentenceDescription} but nothing happens.", true);
+        }
+
+        public virtual IResult Push(IMobileObject performer, ICommand command)
+        {
+            return new Result($"You try to push the {SentenceDescription} but nothing happens.", true);
+        }
+        #endregion Object Commands
 
         public virtual void FinishLoad(int zoneObjectSyncValue = -1)
         {
@@ -192,5 +206,7 @@ namespace Objects
                 }
             }
         }
+
+
     }
 }

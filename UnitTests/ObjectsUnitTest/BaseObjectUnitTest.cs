@@ -1,10 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Objects;
+using Objects.Command.Interface;
 using Objects.Global;
 using Objects.Global.Random.Interface;
 using Objects.Magic.Interface;
+using Shared.TagWrapper.Interface;
 using System.Collections.Generic;
+using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest
 {
@@ -12,6 +15,7 @@ namespace ObjectsUnitTest
     public class BaseObjectUnitTest
     {
         BaseObject baseObject;
+        Mock<ITagWrapper> tagWrapper;
         [TestInitialize]
         public void Setup()
         {
@@ -19,6 +23,11 @@ namespace ObjectsUnitTest
 
             //because base object is abstract...
             baseObject = new UnitTestBaseObject();
+            tagWrapper = new Mock<ITagWrapper>();
+
+            tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+
+            GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
         }
 
         [TestMethod]
@@ -131,6 +140,28 @@ namespace ObjectsUnitTest
             Assert.AreEqual("b", baseObject.ExamineDescription);
             Assert.AreEqual("b", baseObject.SentenceDescription);
             Assert.AreEqual("b", baseObject.KeyWords[0]);
+        }
+
+        [TestMethod]
+        public void BaseObject_Turn()
+        {
+            baseObject.SentenceDescription = "sentence";
+
+            IResult result = baseObject.Turn(null, null);
+
+            Assert.AreEqual("You try to turn the sentence but nothing happens.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+        }
+
+        [TestMethod]
+        public void BaseObject_Pushn()
+        {
+            baseObject.SentenceDescription = "sentence";
+
+            IResult result = baseObject.Push(null, null);
+
+            Assert.AreEqual("You try to push the sentence but nothing happens.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
         }
 
         private class UnitTestBaseObject : BaseObject
