@@ -2,12 +2,15 @@
 using Moq;
 using Objects.Command.Interface;
 using Objects.Global;
+using Objects.Global.DefaultValues.Interface;
 using Objects.Global.Engine.Engines.Interface;
 using Objects.Global.Engine.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items;
+using Objects.LoadPercentage.Interface;
 using Objects.Mob.Interface;
 using Shared.TagWrapper.Interface;
+using System.Collections.Generic;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Item.Items
@@ -20,6 +23,9 @@ namespace ObjectsUnitTest.Item.Items
         Mock<IMobileObject> mob;
         Mock<IEngine> engine;
         Mock<IEvent> eventMock;
+        Mock<IItem> item;
+        Mock<ILoadPercentage> loadPercentage;
+        Mock<IDefaultValues> defaultValues;
 
         [TestInitialize]
         public void Setup()
@@ -30,12 +36,19 @@ namespace ObjectsUnitTest.Item.Items
             mob = new Mock<IMobileObject>();
             engine = new Mock<IEngine>();
             eventMock = new Mock<IEvent>();
+            item = new Mock<IItem>();
+            loadPercentage = new Mock<ILoadPercentage>();
+            defaultValues = new Mock<IDefaultValues>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             engine.Setup(e => e.Event).Returns(eventMock.Object);
+            loadPercentage.Setup(e => e.Load).Returns(true);
+            loadPercentage.Setup(e => e.Object).Returns(item.Object);
+            defaultValues.Setup(e => e.MoneyForNpcLevel(It.IsAny<int>())).Returns(1);
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
+            GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
 
             container = new Container();
         }
@@ -67,6 +80,18 @@ namespace ObjectsUnitTest.Item.Items
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("OpenMessage", result.ResultMessage);
             eventMock.Verify(e => e.Open(mob.Object, container));
+        }
+
+        [TestMethod]
+        public void Container_FinishLoad_LoadPercentItem()
+        {
+            container.LoadableItems.Add(loadPercentage.Object);
+
+            container.FinishLoad();
+
+            List<IItem> items = new List<IItem>(container.Items);
+            Assert.IsTrue(items.Contains(item.Object));
+
         }
     }
 }

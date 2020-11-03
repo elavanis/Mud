@@ -1,15 +1,17 @@
 ﻿using Objects.Command;
 using Objects.Command.Interface;
 using Objects.Global;
+using Objects.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
+using Objects.LoadPercentage.Interface;
 using Objects.Mob.Interface;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Objects.Item.Items
 {
-    public class Container : Item, IContainer, IOpenable
+    public class Container : Item, IContainer, IOpenable, ILoadableItems
     {
         [ExcludeFromCodeCoverage]
         public bool Opened { get; set; } = false;
@@ -19,6 +21,9 @@ namespace Objects.Item.Items
 
         [ExcludeFromCodeCoverage]
         public string CloseMessage { get; set; }
+
+        [ExcludeFromCodeCoverage]
+        public List<ILoadPercentage> LoadableItems { get; } = new List<ILoadPercentage>();
 
         private List<IItem> _items = null;
         public List<IItem> Items
@@ -33,6 +38,7 @@ namespace Objects.Item.Items
                 return _items;
             }
         }
+
 
 
         public IResult Open(IMobileObject performer)
