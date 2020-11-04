@@ -27,7 +27,14 @@ namespace Objects.Command.PC
                 IParameter parameter = command.Parameters[0];
                 IBaseObject foundItem = GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, parameter.ParameterValue, parameter.ParameterNumber, true, true, false, false, true);
 
-                return foundItem.Turn(performer, command);
+                if (foundItem != null)
+                {
+                    return foundItem.Turn(performer, command);
+                }
+                else
+                {
+                    return new Result($"You could not find the {command.Parameters[0].ParameterValue} to turn it.", true);
+                }
             }
             else
             {
