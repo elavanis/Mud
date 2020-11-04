@@ -105,11 +105,5 @@ namespace ObjectsUnitTest.Command.PC
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("You can not turn things while asleep.", result.ResultMessage);
         }
-
-        [TestMethod]
-        public void Turn_WriteUnitTests()
-        {
-            Assert.IsTrue(false);
-        }
     }
 }
