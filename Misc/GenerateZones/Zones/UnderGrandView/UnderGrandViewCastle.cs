@@ -1477,9 +1477,10 @@ namespace GenerateZones.Zones.UnderGrandView
 
             return armor;
         }
+
         private IItem RunicStatue()
         {
-            IItem statue = new RunicStatue();
+            RunicStatue statue = new RunicStatue();
             statue.Zone = Zone.Id;
             statue.Id = ItemId++;
             statue.Attributes.Add(ItemAttribute.NoGet);
@@ -1490,7 +1491,7 @@ namespace GenerateZones.Zones.UnderGrandView
             statue.SentenceDescription = "runic statue";
             statue.ShortDescription = "A stone statue of a priest facing the pool of liquid.";
             statue.LookDescription = "The statue is of a priest chanting with their arms spread open.  It appears to be carved from the surrounding stone.";
-            statue.ExamineDescription = "The priest is dressed in robes with a medallion hanging from their belt.  The medallion has the ruin ᚠ on it appear to be able to be turned.";
+            statue.ExamineDescription = statue.CalculateExamDescription();
 
 
             return statue;
