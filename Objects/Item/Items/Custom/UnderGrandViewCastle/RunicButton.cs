@@ -2,6 +2,7 @@
 using Objects.Command.Interface;
 using Objects.Effect;
 using Objects.Global;
+using Objects.Item.Items.Custom.UnderGrandViewCastle.Interface;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
 using System;
@@ -13,17 +14,22 @@ namespace Objects.Item.Items.Custom.UnderGrandViewCastle
 {
     public class RunicButton : Item
     {
+        private int oldRed = 255;
+        private int oldGreen = 255;
+        private int oldBlue = 255;
+
 
         public override IResult Push(IMobileObject performer, ICommand command)
         {
-            int change = 0;
             string message = "";
 
             int red = GetRuneValue(performer, 4);
-            int blue = GetRuneValue(performer, 6);
-            int green = GetRuneValue(performer, 22);
+            int green = GetRuneValue(performer, 6);
+            int blue = GetRuneValue(performer, 22);
 
-            string color = GetColorName(red, blue, green);
+            string color = GetColorName(red, green, blue);
+
+            int change = CalcChange(red, green, blue);
 
             switch (change)
             {
@@ -32,20 +38,46 @@ namespace Objects.Item.Items.Custom.UnderGrandViewCastle
                     break;
                 case 1:
                 case 2:
-                    message = $"The pool of liquid in the center of the room bubbles slightly and turns {color.Name}.";
+                    message = $"The pool of liquid in the center of the room bubbles slightly and turns {color}.";
                     break;
                 case 3:
                 case 4:
-                    message = $"The pool of liquid in the center of the room bubbles and turns {color.Name}.";
+                    message = $"The pool of liquid in the center of the room bubbles and turns {color}.";
                     break;
                 case 5:
                 case 6:
-                    message = $"The pool of liquid in the center of the roars with bubbles splashing on the floor around the pool {color.Name}.";
+                    message = $"The pool of liquid in the center of the roars with bubbles splashing on the floor around the pool {color}.";
                     break;
             }
 
+            oldRed = red;
+            oldBlue = blue;
+            oldGreen = green;
 
             return new Result(message, true);
+        }
+
+        private int CalcChange(int red, int green, int blue)
+        {
+            int change = Math.Abs(ConvertRGBToPos(red) - ConvertRGBToPos(oldRed));
+            change += Math.Abs(ConvertRGBToPos(green) - ConvertRGBToPos(oldGreen));
+            change += Math.Abs(ConvertRGBToPos(blue) - ConvertRGBToPos(oldBlue));
+
+            return change;
+        }
+
+        private int ConvertRGBToPos(int rgb)
+        {
+            switch (rgb)
+            {
+                case 255:
+                    return 2;
+                case 128:
+                    return 1;
+                case 0:
+                default:
+                    return 0;
+            }
         }
 
         private string GetColorName(int red, int green, int blue)
@@ -60,7 +92,7 @@ namespace Objects.Item.Items.Custom.UnderGrandViewCastle
                     }
                     else if (blue == 128)
                     {
-                        return "navy blue";
+                        return "dark blue";
                     }
                     else
                     {
@@ -186,7 +218,7 @@ namespace Objects.Item.Items.Custom.UnderGrandViewCastle
                     }
                     else if (blue == 128)
                     {
-                        return "pale yelow";
+                        return "pale yellow";
                     }
                     else
                     {
@@ -201,7 +233,7 @@ namespace Objects.Item.Items.Custom.UnderGrandViewCastle
             IRoom room = GlobalReference.GlobalValues.World.Zones[performer.Room.Zone].Rooms[roomNumber];
             foreach (var item in room.Items)
             {
-                RunicStatue runicStatue = item as RunicStatue;
+                IRunicStatue runicStatue = item as IRunicStatue;
 
                 if (runicStatue != null)
                 {

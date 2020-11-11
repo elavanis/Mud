@@ -1,5 +1,6 @@
 ﻿using Objects.Command;
 using Objects.Command.Interface;
+using Objects.Item.Items.Custom.UnderGrandViewCastle.Interface;
 using Objects.Mob.Interface;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace Objects.Item.Items.Custom.UnderGrandViewCastle
 {
-    public class RunicStatue : Item
+    public class RunicStatue : Item, IRunicStatue
     {
         private List<string> runes = new List<string>() { "ᚠ", "ᚢ", "ᚱ" };
 
