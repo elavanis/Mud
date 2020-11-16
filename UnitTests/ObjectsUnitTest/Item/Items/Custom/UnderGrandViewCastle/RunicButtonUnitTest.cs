@@ -78,6 +78,10 @@ namespace ObjectsUnitTest.Item.Items.Custom.UnderGrandViewCastle
             button = new RunicButton();
         }
 
+
+
+        #region 0 Red
+        #region 0 Green
         [TestMethod]
         public void RunicButton_Push_0Red0Green0Blue()
         {
@@ -109,9 +113,6 @@ namespace ObjectsUnitTest.Item.Items.Custom.UnderGrandViewCastle
             Assert.AreEqual(0, GetPrivateColor(button, Colors.Green));
             Assert.AreEqual(128, GetPrivateColor(button, Colors.Blue));
         }
-
-        #region 0 Red
-        #region 0 Green
         [TestMethod]
         public void RunicButton_Push_0Red0Green255Blue()
         {
@@ -228,11 +229,303 @@ namespace ObjectsUnitTest.Item.Items.Custom.UnderGrandViewCastle
         #endregion 255 Green
         #endregion 0 Red
 
+        #region 128 Red
+        #region 0 Green
         [TestMethod]
-        public void RunicButton_WriteTests()
+        public void RunicButton_Push_128Red0Green0Blue()
         {
-            Assert.AreEqual(1, 2);
+            statue4.Setup(e => e.SelectedRune).Returns(1);
+            statue6.Setup(e => e.SelectedRune).Returns(2);
+            statue22.Setup(e => e.SelectedRune).Returns(2);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the roars with bubbles splashing on the floor around the pool maroon.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Blue));
         }
+
+        [TestMethod]
+        public void RunicButton_Push_128Red0Green128Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(1);
+            statue6.Setup(e => e.SelectedRune).Returns(2);
+            statue22.Setup(e => e.SelectedRune).Returns(1);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles and turns purple.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Blue));
+        }
+        [TestMethod]
+        public void RunicButton_Push_128Red0Green255Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(1);
+            statue6.Setup(e => e.SelectedRune).Returns(2);
+            statue22.Setup(e => e.SelectedRune).Returns(0);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles and turns violet.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Blue));
+        }
+        #endregion 0 Green
+        #region 128 Green
+        [TestMethod]
+        public void RunicButton_Push_128Red128Green0Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(1);
+            statue6.Setup(e => e.SelectedRune).Returns(1);
+            statue22.Setup(e => e.SelectedRune).Returns(2);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles and turns olive.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Blue));
+        }
+
+        [TestMethod]
+        public void RunicButton_Push_128Red128Green128Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(1);
+            statue6.Setup(e => e.SelectedRune).Returns(1);
+            statue22.Setup(e => e.SelectedRune).Returns(1);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles and turns gray.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Blue));
+        }
+
+        [TestMethod]
+        public void RunicButton_Push_128Red128Green255Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(1);
+            statue6.Setup(e => e.SelectedRune).Returns(1);
+            statue22.Setup(e => e.SelectedRune).Returns(0);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles slightly and turns slate blue.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Blue));
+        }
+        #endregion 128 Green
+        #region 255 Green
+        [TestMethod]
+        public void RunicButton_Push_128Red255Green0Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(1);
+            statue6.Setup(e => e.SelectedRune).Returns(0);
+            statue22.Setup(e => e.SelectedRune).Returns(2);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles and turns chartreuse.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Blue));
+        }
+
+        [TestMethod]
+        public void RunicButton_Push_128Red255Green128Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(1);
+            statue6.Setup(e => e.SelectedRune).Returns(0);
+            statue22.Setup(e => e.SelectedRune).Returns(1);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles slightly and turns mint green.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Blue));
+        }
+
+        [TestMethod]
+        public void RunicButton_Push_128Red255Green255Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(1);
+            statue6.Setup(e => e.SelectedRune).Returns(0);
+            statue22.Setup(e => e.SelectedRune).Returns(0);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles slightly and turns sky blue.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Blue));
+        }
+        #endregion 255 Green
+        #endregion 128 Red
+
+        #region 255 Red
+        #region 0 Green
+        [TestMethod]
+        public void RunicButton_Push_255Red0Green0Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(0);
+            statue6.Setup(e => e.SelectedRune).Returns(2);
+            statue22.Setup(e => e.SelectedRune).Returns(2);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles and turns red.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Blue));
+        }
+
+        [TestMethod]
+        public void RunicButton_Push_255Red0Green128Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(0);
+            statue6.Setup(e => e.SelectedRune).Returns(2);
+            statue22.Setup(e => e.SelectedRune).Returns(1);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles and turns rose.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Blue));
+        }
+        [TestMethod]
+        public void RunicButton_Push_255Red0Green255Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(0);
+            statue6.Setup(e => e.SelectedRune).Returns(2);
+            statue22.Setup(e => e.SelectedRune).Returns(0);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles slightly and turns magenta.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Blue));
+        }
+        #endregion 0 Green
+        #region 128 Green
+        [TestMethod]
+        public void RunicButton_Push_255Red128Green0Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(0);
+            statue6.Setup(e => e.SelectedRune).Returns(1);
+            statue22.Setup(e => e.SelectedRune).Returns(2);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles and turns orange.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Blue));
+        }
+
+        [TestMethod]
+        public void RunicButton_Push_255Red128Green128Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(0);
+            statue6.Setup(e => e.SelectedRune).Returns(1);
+            statue22.Setup(e => e.SelectedRune).Returns(1);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles slightly and turns dark pink.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Blue));
+        }
+
+        [TestMethod]
+        public void RunicButton_Push_255Red128Green255Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(0);
+            statue6.Setup(e => e.SelectedRune).Returns(1);
+            statue22.Setup(e => e.SelectedRune).Returns(0);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles slightly and turns orchid.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Blue));
+        }
+        #endregion 128 Green
+        #region 255 Green
+        [TestMethod]
+        public void RunicButton_Push_255Red255Green0Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(0);
+            statue6.Setup(e => e.SelectedRune).Returns(0);
+            statue22.Setup(e => e.SelectedRune).Returns(2);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles slightly and turns yellow.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(0, GetPrivateColor(button, Colors.Blue));
+        }
+
+        [TestMethod]
+        public void RunicButton_Push_255Red255Green128Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(0);
+            statue6.Setup(e => e.SelectedRune).Returns(0);
+            statue22.Setup(e => e.SelectedRune).Returns(1);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("The pool of liquid in the center of the room bubbles slightly and turns pale yellow.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(128, GetPrivateColor(button, Colors.Blue));
+        }
+
+        [TestMethod]
+        public void RunicButton_Push_255Red255Green255Blue()
+        {
+            statue4.Setup(e => e.SelectedRune).Returns(0);
+            statue6.Setup(e => e.SelectedRune).Returns(0);
+            statue22.Setup(e => e.SelectedRune).Returns(0);
+
+            IResult result = button.Push(performer.Object, null);
+
+            Assert.AreEqual("You push the button but nothing happens.", result.ResultMessage);
+            Assert.IsTrue(result.AllowAnotherCommand);
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Red));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Green));
+            Assert.AreEqual(255, GetPrivateColor(button, Colors.Blue));
+        }
+        #endregion 255 Green
+        #endregion 255 Red
 
         private int GetPrivateColor(RunicButton runicButton, Colors colors)
         {
