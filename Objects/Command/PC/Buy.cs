@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
+using static Objects.Mob.MobileObject;
 
 namespace Objects.Command.PC
 {
@@ -14,6 +15,11 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            if (performer.Position == CharacterPosition.Sleep)
+            {
+                return new Result("You can not buy things while asleep.", true);
+            }
+
             foreach (INonPlayerCharacter npc in performer.Room.NonPlayerCharacters)
             {
                 foreach (IPersonality personality in npc.Personalities)

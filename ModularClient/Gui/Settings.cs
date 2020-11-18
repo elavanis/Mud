@@ -19,16 +19,16 @@ namespace Client
             Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
             MaxLines = int.Parse(ConfigurationManager.AppSettings["MaxLines"]);
             FontSize = int.Parse(ConfigurationManager.AppSettings["FontSize"]);
-            Map = bool.Parse(ConfigurationManager.AppSettings["Map"]);
-            Sound = bool.Parse(ConfigurationManager.AppSettings["Sound"]);
+            DisplayMap = bool.Parse(ConfigurationManager.AppSettings["DisplayMap"]);
+            PlaySound = bool.Parse(ConfigurationManager.AppSettings["PlaySound"]);
         }
 
         public static string ServerAdress { get; set; }
         public static int Port { get; set; }
         public static int MaxLines { get; internal set; }
         public static int FontSize { get; set; }
-        public static bool Map { get; set; }
-        public static bool Sound { get; set; }
+        public static bool DisplayMap { get; set; }
+        public static bool PlaySound { get; set; }
 
 
         private static Dictionary<TagType, Color> _colorDictionary = null;
@@ -122,14 +122,13 @@ namespace Client
                             config.AppSettings.Settings.Add(savedKey, "");
                         }
 
-                        config.AppSettings.Settings[savedKey].Value = ColorDictionary[key].ToString();
+                        config.AppSettings.Settings[savedKey].Value = ColorDictionary[key].Name;
                     }
                 }
                 else
                 {
                     config.AppSettings.Settings[property.Name].Value = property.GetValue(null).ToString();
                 }
-
             }
 
             config.Save(ConfigurationSaveMode.Minimal);

@@ -5,11 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static Objects.Mob.MobileObject;
 
 namespace Objects.Command.PC
 {
-    public class Who : IMobileObjectCommand
+    public class Who : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Who() : base(nameof(Who), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Who", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Who" };

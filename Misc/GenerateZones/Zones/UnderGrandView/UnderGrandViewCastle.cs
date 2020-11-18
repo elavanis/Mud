@@ -303,6 +303,8 @@ namespace GenerateZones.Zones.UnderGrandView
             room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             room.ShortDescription = "Shimmering Pool";
 
+            room.AddItemToRoom(RunicButton());
+
             return room;
         }
         private IRoom GenerateRoom25()
@@ -1495,6 +1497,25 @@ namespace GenerateZones.Zones.UnderGrandView
 
 
             return statue;
+        }
+
+        private IItem RunicButton()
+        {
+            RunicButton button = new RunicButton();
+            button.Zone = Zone.Id;
+            button.Id = ItemId++;
+            button.Attributes.Add(ItemAttribute.NoGet);
+
+            button.KeyWords.Add("button");
+            button.KeyWords.Add("rune");
+            button.KeyWords.Add("runic");
+            button.SentenceDescription = "runic button";
+            button.ShortDescription = "A a large runic button on a stone pedestal.";
+            button.LookDescription = "The stone pedestal rises up from the floor and has a single run on the top.";
+            button.ExamineDescription = "The ᚹ is carved into the top of the pedestal and can be pressed.";
+
+
+            return button;
         }
         #endregion Items
 

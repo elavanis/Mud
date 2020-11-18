@@ -65,11 +65,11 @@ namespace Client.MainInterface
 
             SelectTextEntry(sender, e);
             ResetFontSize();
-            if (Settings.Map)
+            if (Settings.DisplayMap)
             {
                 LoadMap();
             }
-            if (Settings.Sound)
+            if (Settings.PlaySound)
             {
                 LoadSound();
             }

@@ -40,7 +40,8 @@
             // 
             // numericUpDown_FontSize
             // 
-            this.numericUpDown_FontSize.Location = new System.Drawing.Point(152, 9);
+            this.numericUpDown_FontSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown_FontSize.Location = new System.Drawing.Point(152, 70);
             this.numericUpDown_FontSize.Name = "numericUpDown_FontSize";
             this.numericUpDown_FontSize.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown_FontSize.TabIndex = 0;
@@ -49,7 +50,7 @@
             // label_FontSize
             // 
             this.label_FontSize.AutoSize = true;
-            this.label_FontSize.Location = new System.Drawing.Point(12, 11);
+            this.label_FontSize.Location = new System.Drawing.Point(12, 72);
             this.label_FontSize.Name = "label_FontSize";
             this.label_FontSize.Size = new System.Drawing.Size(51, 13);
             this.label_FontSize.TabIndex = 1;
@@ -58,7 +59,7 @@
             // comboBox_ShortCutKey
             // 
             this.comboBox_ShortCutKey.FormattingEnabled = true;
-            this.comboBox_ShortCutKey.Location = new System.Drawing.Point(15, 67);
+            this.comboBox_ShortCutKey.Location = new System.Drawing.Point(15, 25);
             this.comboBox_ShortCutKey.Name = "comboBox_ShortCutKey";
             this.comboBox_ShortCutKey.Size = new System.Drawing.Size(121, 21);
             this.comboBox_ShortCutKey.TabIndex = 22;
@@ -67,7 +68,8 @@
             // 
             // textBox_ShortCutCommand
             // 
-            this.textBox_ShortCutCommand.Location = new System.Drawing.Point(152, 67);
+            this.textBox_ShortCutCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_ShortCutCommand.Location = new System.Drawing.Point(152, 25);
             this.textBox_ShortCutCommand.Name = "textBox_ShortCutCommand";
             this.textBox_ShortCutCommand.Size = new System.Drawing.Size(120, 20);
             this.textBox_ShortCutCommand.TabIndex = 23;
@@ -76,7 +78,7 @@
             // label_ShortCutKey
             // 
             this.label_ShortCutKey.AutoSize = true;
-            this.label_ShortCutKey.Location = new System.Drawing.Point(12, 51);
+            this.label_ShortCutKey.Location = new System.Drawing.Point(12, 9);
             this.label_ShortCutKey.Name = "label_ShortCutKey";
             this.label_ShortCutKey.Size = new System.Drawing.Size(72, 13);
             this.label_ShortCutKey.TabIndex = 24;
@@ -84,8 +86,9 @@
             // 
             // label_ShortCutCommand
             // 
+            this.label_ShortCutCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_ShortCutCommand.AutoSize = true;
-            this.label_ShortCutCommand.Location = new System.Drawing.Point(149, 51);
+            this.label_ShortCutCommand.Location = new System.Drawing.Point(149, 9);
             this.label_ShortCutCommand.Name = "label_ShortCutCommand";
             this.label_ShortCutCommand.Size = new System.Drawing.Size(101, 13);
             this.label_ShortCutCommand.TabIndex = 25;
@@ -95,7 +98,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 112);
+            this.ClientSize = new System.Drawing.Size(284, 116);
             this.Controls.Add(this.label_ShortCutCommand);
             this.Controls.Add(this.label_ShortCutKey);
             this.Controls.Add(this.textBox_ShortCutCommand);
