@@ -95,15 +95,5 @@ namespace ObjectsUnitTest.Command.PC
             command.PerformCommand(mobileObject.Object, mockCommand.Object);
             baseObject.Verify(e => e.Turn(mobileObject.Object, mockCommand.Object), Times.Once);
         }
-
-        [TestMethod]
-        public void Turn_PerformCommand_Asleep()
-        {
-            mobileObject.Setup(e => e.Position).Returns(CharacterPosition.Sleep);
-
-            IResult result = command.PerformCommand(mobileObject.Object, mockCommand.Object);
-            Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("You can not turn things while asleep.", result.ResultMessage);
-        }
     }
 }

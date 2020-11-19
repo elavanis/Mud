@@ -8,14 +8,22 @@ using System.Linq;
 
 namespace Objects.Command.PC
 {
-    public class Put : IMobileObjectCommand
+    public class Put : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Put() : base(nameof(Put), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Put [Item Name] [Container]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Put" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count < 2)
             {
                 return Instructions;

@@ -13,20 +13,23 @@ using Objects.Item.Interface;
 
 namespace Objects.Command.PC
 {
-    public class Look : IMobileObjectCommand
+    public class Look : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Look() : base(nameof(Look), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("(L)ook {Object To Look At}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "L", "Look" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            string message = null;
-
-            if (performer.Position == CharacterPosition.Sleep)
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
             {
-                return new Result("You can not look while asleep.", true);
+                return result;
             }
+
+            string message = null;
 
             if (!GlobalReference.GlobalValues.CanMobDoSomething.SeeDueToLight(performer))
             {

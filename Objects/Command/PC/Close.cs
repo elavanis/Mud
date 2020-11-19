@@ -11,8 +11,10 @@ using static Objects.Global.Direction.Directions;
 
 namespace Objects.Command.PC
 {
-    public class Close : IMobileObjectCommand
+    public class Close : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Close() : base(nameof(Close), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Close [Item Name]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Close" };
@@ -20,6 +22,12 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count == 0)
             {
                 return new Result("What would you like to close?", true);

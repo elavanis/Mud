@@ -37,6 +37,10 @@ namespace Objects.Command
                     characterPositions.Add(CharacterPosition.Sit);
                     characterPositions.Add(CharacterPosition.Stand);
                     break;
+                case ShortCutCharPositions.Standing:
+                    characterPositions.Add(CharacterPosition.Mounted);
+                    characterPositions.Add(CharacterPosition.Stand);
+                    break;
             }
 
             CommandName = commandName;
@@ -46,7 +50,8 @@ namespace Objects.Command
         public enum ShortCutCharPositions
         {
             Any,
-            Awake
+            Awake,
+            Standing
 
         }
 

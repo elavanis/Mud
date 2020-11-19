@@ -150,15 +150,5 @@ namespace ObjectsUnitTest.Command.PC
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("You were ready to attack but then you sense of peace rush over you and you decided not to attack.", result.ResultMessage);
         }
-
-        [TestMethod]
-        public void Kill_PerformCommand_Asleep()
-        {
-            mob.Setup(e => e.Position).Returns(Objects.Mob.MobileObject.CharacterPosition.Sleep);
-
-            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("You can not kill someone while you are asleep.", result.ResultMessage);
-        }
     }
 }

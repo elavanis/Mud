@@ -10,8 +10,10 @@ using Objects.Item.Items.Interface;
 
 namespace Objects.Command.PC
 {
-    public class Recall : IMobileObjectCommand
+    public class Recall : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Recall() : base(nameof(Recall), ShortCutCharPositions.Standing) { }
+
         public IResult Instructions { get; } = new Result("Recall {Set}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Recall" };
@@ -20,6 +22,12 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count >= 1)
             {
                 string param = command.Parameters[0].ParameterValue;

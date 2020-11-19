@@ -7,14 +7,22 @@ using System.Text;
 
 namespace Objects.Command.PC
 {
-    public class Consider : IMobileObjectCommand
+    public class Consider : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Consider() : base(nameof(Consider), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Consider [Mob]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Consider" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count <= 0)
             {
                 return new Result("Who would you like to consider attacking?", true);

@@ -8,14 +8,22 @@ using Objects.Item.Interface;
 
 namespace Objects.Command.PC
 {
-    public class Sell : IMobileObjectCommand
+    public class Sell : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Sell() : base(nameof(Sell), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Sell {Item Keyword}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Sell" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             foreach (INonPlayerCharacter npc in performer.Room.NonPlayerCharacters)
             {
                 foreach (IPersonality personality in npc.Personalities)

@@ -6,14 +6,22 @@ using Objects.Global;
 
 namespace Objects.Command.PC
 {
-    public class Perform : IMobileObjectCommand
+    public class Perform : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Perform() : base(nameof(Perform), ShortCutCharPositions.Standing) { }
+
         public IResult Instructions { get; } = new Result("(P)erform [Skill Name] {Parameter(s)}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "P", "Perform" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count <= 0)
             {
                 return new Result("What skill would you like to use?", true);

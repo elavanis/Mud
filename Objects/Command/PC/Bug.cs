@@ -6,14 +6,22 @@ using System.IO;
 
 namespace Objects.Command.PC
 {
-    public class Bug : IMobileObjectCommand
+    public class Bug : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Bug() : base(nameof(Bug), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Bug [Bug Description]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Bug" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count <= 0)
             {
                 return new Result("Please describe the bug.", true);

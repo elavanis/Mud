@@ -7,15 +7,22 @@ using System.Text;
 
 namespace Objects.Command.PC
 {
-    public class Abilities : IMobileObjectCommand
+    public class Abilities : BaseMobileObjectComand, IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result("Abils|Abilities", true);
+        public Abilities() : base(nameof(Abilities), ShortCutCharPositions.Any) { }
 
+        public IResult Instructions { get; } = new Result("Abils|Abilities", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Abils", "Abilities" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             StringBuilder strBldr = new StringBuilder();
 
             strBldr.AppendLine("Spells");

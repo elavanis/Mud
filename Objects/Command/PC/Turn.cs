@@ -9,17 +9,20 @@ using static Objects.Mob.MobileObject;
 
 namespace Objects.Command.PC
 {
-    public class Turn : IMobileObjectCommand
+    public class Turn : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Turn() : base(nameof(Turn), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Turn {Item Keyword}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Turn" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            if (performer.Position == CharacterPosition.Sleep)
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
             {
-                return new Result("You can not turn things while asleep.", true);
+                return result;
             }
 
             if (command.Parameters.Count > 0)

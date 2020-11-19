@@ -109,15 +109,5 @@ namespace ObjectsUnitTest.Command.PC
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("There is no merchant here to sell to you.", result.ResultMessage);
         }
-
-        [TestMethod]
-        public void Buy_PerformCommand_Asleep()
-        {
-            mobileObject.Setup(e => e.Position).Returns(CharacterPosition.Sleep);
-
-            IResult result = command.PerformCommand(mobileObject.Object, mockCommand.Object);
-            Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("You can not buy things while asleep.", result.ResultMessage);
-        }
     }
 }

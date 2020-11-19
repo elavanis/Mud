@@ -9,17 +9,20 @@ using static Objects.Mob.MobileObject;
 
 namespace Objects.Command.PC
 {
-    public class Push : IMobileObjectCommand
+    public class Push : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Push() : base(nameof(Push), ShortCutCharPositions.Standing) { }
+
         public IResult Instructions { get; } = new Result("Push {Item Keyword}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Push" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            if (performer.Position == CharacterPosition.Sleep)
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
             {
-                return new Result("You can not push things while asleep.", true);
+                return result;
             }
 
             if (command.Parameters.Count > 0)

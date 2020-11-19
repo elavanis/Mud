@@ -11,14 +11,22 @@ using Objects.Global;
 
 namespace Objects.Command.PC
 {
-    public class Equip : IMobileObjectCommand
+    public class Equip : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Equip() : base(nameof(Equip), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Equip [Item Name]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Equip" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count <= 0)
             {
                 StringBuilder strBldr = new StringBuilder();

@@ -9,14 +9,22 @@ using Objects.Item.Items.Interface;
 
 namespace Objects.Command.PC
 {
-    public class Enchant : IMobileObjectCommand
+    public class Enchant : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Enchant() : base(nameof(Enchant), ShortCutCharPositions.Standing) { }
+
         public IResult Instructions { get; } = new Result("Enchant [Item Name]", false);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Enchant" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count >= 1)
             {
                 IBaseObject obj = GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, "Enchantery", 0);
@@ -30,7 +38,7 @@ namespace Objects.Command.PC
 
                         if (performer.Money >= goldCost)
                         {
-                            IResult result = enchantery.Enchant(item);
+                            result = enchantery.Enchant(item);
                             if (result == null)
                             {
                                 //unable to enchant for some reason

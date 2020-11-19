@@ -7,8 +7,10 @@ using System.Text;
 
 namespace Objects.Command.PC
 {
-    public class Mount : IMobileObjectCommand
+    public class Mount : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Mount() : base(nameof(Mount), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result(@"Mount {call}
 Mount {mount}
 Mount [pickup] [Mob Name]", true);
@@ -17,6 +19,12 @@ Mount [pickup] [Mob Name]", true);
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count <= 0)
             {
                 return MountOrCall(performer);

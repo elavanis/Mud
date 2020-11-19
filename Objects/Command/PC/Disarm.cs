@@ -5,17 +5,26 @@ using Objects.Mob.Interface;
 using Objects.Trap.Interface;
 using System.Collections.Generic;
 using System.Linq;
+using static Objects.Mob.MobileObject;
 
 namespace Objects.Command.PC
 {
-    public class Disarm : IMobileObjectCommand
+    public class Disarm : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Disarm() : base(nameof(Disarm), ShortCutCharPositions.Standing) { }
+
         public IResult Instructions { get; } = new Result("Disarm [Trap]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Disarm" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count <= 0)
             {
                 return new Result("What would you like to disarm?", true);

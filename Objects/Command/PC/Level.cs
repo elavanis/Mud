@@ -4,14 +4,22 @@ using Objects.Mob.Interface;
 
 namespace Objects.Command.PC
 {
-    public class Level : IMobileObjectCommand
+    public class Level : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Level() : base(nameof(Level), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Level [Stat] {Amount To Level}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Level" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count == 0)
             {
                 string localmessage = string.Format("You have {0} points to spend.", performer.LevelPoints);
