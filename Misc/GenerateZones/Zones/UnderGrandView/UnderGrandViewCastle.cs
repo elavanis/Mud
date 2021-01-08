@@ -369,8 +369,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "An elaborate door way extends to the east.";
+            room.LookDescription = "The area is decorated with murals painted on the walls and there are some stone seats built up from the floor here.";
             room.ShortDescription = "Underground cavern";
 
             return room;
