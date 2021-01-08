@@ -6,14 +6,22 @@ using System.Linq;
 
 namespace Objects.Command.God
 {
-    public class Possess : IMobileObjectCommand
+    public class Possess : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Possess() : base(nameof(Possess), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Possess {Mob Keyword}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Possess" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count == 0)
             {
                 if (performer.PossedMob != null)

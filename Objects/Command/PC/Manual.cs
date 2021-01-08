@@ -6,14 +6,22 @@ using Objects.Global;
 
 namespace Objects.Command.PC
 {
-    public class Manual : IMobileObjectCommand
+    public class Manual : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Manual() : base(nameof(Manual), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Do you really need to Man the Manual?", false);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Man", "Manual" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count == 0)
             {
                 return AllCommands(performer);

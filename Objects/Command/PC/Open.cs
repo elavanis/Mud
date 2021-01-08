@@ -11,14 +11,22 @@ using static Objects.Global.Direction.Directions;
 
 namespace Objects.Command.PC
 {
-    public class Open : IMobileObjectCommand
+    public class Open : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Open() : base(nameof(Open), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Open [Item Name]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Open" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count == 0)
             {
                 return new Result("While you ponder what to open you let you mouth hang open.  Hey you did open something!", true);
@@ -31,7 +39,7 @@ namespace Objects.Command.PC
             {
                 if (foundItem is IDoor door)
                 {
-                    IResult result = ProcessDoor(performer, door);
+                    result = ProcessDoor(performer, door);
                     if (result != null)
                     {
                         return result;

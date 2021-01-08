@@ -9,13 +9,13 @@ using static Objects.Mob.MobileObject;
 
 namespace Objects.Command.PC
 {
-    public class Turn : BaseMobileObjectComand, IMobileObjectCommand
+    public class Push : BaseMobileObjectComand, IMobileObjectCommand
     {
-        public Turn() : base(nameof(Turn), ShortCutCharPositions.Awake) { }
+        public Push() : base(nameof(Push), ShortCutCharPositions.Standing) { }
 
-        public IResult Instructions { get; } = new Result("Turn {Item Keyword}", true);
+        public IResult Instructions { get; } = new Result("Push {Item Keyword}", true);
 
-        public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Turn" };
+        public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Push" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
@@ -36,7 +36,7 @@ namespace Objects.Command.PC
                 }
                 else
                 {
-                    return new Result($"You could not find the {command.Parameters[0].ParameterValue} to turn it.", true);
+                    return new Result($"You could not find the {command.Parameters[0].ParameterValue} to push it.", true);
                 }
             }
             else

@@ -99,16 +99,6 @@ namespace ObjectsUnitTest.Command.PC
         }
 
         [TestMethod]
-        public void Look_PerformCommand_Sleep()
-        {
-            mob.Setup(e => e.Position).Returns(CharacterPosition.Sleep);
-
-            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-            Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("You can not look while asleep.", result.ResultMessage);
-        }
-
-        [TestMethod]
         public void Look_PerformCommand_Dark()
         {
             canDoSomething.Setup(e => e.SeeDueToLight(mob.Object)).Returns(false);

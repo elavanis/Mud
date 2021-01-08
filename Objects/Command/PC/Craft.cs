@@ -8,14 +8,22 @@ using static Objects.Item.Items.Equipment;
 
 namespace Objects.Command.PC
 {
-    public class Craft : IMobileObjectCommand
+    public class Craft : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Craft() : base(nameof(Craft), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Craft [Position] [Level] [Keyword] [\"SentenceDescription\"] [\"ShortDescription\"] [\"LookDescription\"] [\"ExamineDescription\"] {DamageType}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Craft" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (!(performer is IPlayerCharacter pc))
             {
                 return new Result("Only player characters can have craftsman craft items.", true);

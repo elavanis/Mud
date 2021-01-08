@@ -8,14 +8,22 @@ using Objects.Language.Interface;
 
 namespace Objects.Command.God
 {
-    public class Goto : IMobileObjectCommand
+    public class Goto : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Goto() : base(nameof(Goto), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Goto [ZoneId] [RoomId] \r\nGoto [PlayerName]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Goto" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count >= 2)
             {
                 if (int.TryParse(command.Parameters[0].ParameterValue, out int zoneId)

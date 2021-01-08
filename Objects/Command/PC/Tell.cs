@@ -10,14 +10,22 @@ using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Command.PC
 {
-    public class Tell : IMobileObjectCommand
+    public class Tell : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Tell() : base(nameof(Tell), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Tell [Player Name] [Message]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Tell" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count > 0)
             {
                 if (command.Parameters.Count > 1)

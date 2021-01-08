@@ -8,14 +8,22 @@ using System.Text;
 
 namespace Objects.Command.PC
 {
-    public class Emote : IMobileObjectCommand
+    public class Emote : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Emote() : base(nameof(Emote), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Emote [your emote message]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Emote" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count <= 0)
             {
                 return new Result("What would you like to emote?", true);

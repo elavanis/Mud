@@ -9,14 +9,22 @@ using Objects.Language;
 
 namespace Objects.Command.PC
 {
-    public class Say : IMobileObjectCommand
+    public class Say : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Say() : base(nameof(Say), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Say [Message]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Say" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count > 0)
             {
                 string statement = string.Join(" ", command.Parameters.Select(i => i.ParameterValue));

@@ -8,14 +8,22 @@ using System.Linq;
 
 namespace Objects.Command.PC
 {
-    public class Give : IMobileObjectCommand
+    public class Give : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Give() : base(nameof(Give), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Give [Item Name] [Person]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Give" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count < 2)
             {
                 return Instructions;

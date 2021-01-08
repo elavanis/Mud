@@ -7,14 +7,22 @@ using System.Collections.Generic;
 
 namespace Objects.Command.PC
 {
-    public class Receive : IMobileObjectCommand
+    public class Receive : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Receive() : base(nameof(Receive), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Receive", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Receive" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (!(performer is IPlayerCharacter pc))
             {
                 return new Result("Only player characters can receive.", true);

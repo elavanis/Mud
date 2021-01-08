@@ -156,19 +156,5 @@ namespace ObjectsUnitTest.Command.PC
             Assert.IsTrue(result.AllowAnotherCommand);
             Assert.AreEqual("You can not see here because it is to dark.", result.ResultMessage);
         }
-
-        [TestMethod]
-        public void Examine_PerformCommand_Asleep()
-        {
-            mob.Setup(e => e.Position).Returns(CharacterPosition.Sleep);
-
-            Mock<ICommand> mockCommand = new Mock<ICommand>();
-            mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
-
-            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
-
-            Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("You need to wake up before trying to examining things.", result.ResultMessage);
-        }
     }
 }

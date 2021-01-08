@@ -6,14 +6,22 @@ using System.Text;
 
 namespace Objects.Command.PC
 {
-    public class Title : IMobileObjectCommand
+    public class Title : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Title() : base(nameof(Title), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Title {Message Id}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Title" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             IPlayerCharacter pc = performer as IPlayerCharacter;
 
             if (pc == null)

@@ -10,14 +10,22 @@ using static Objects.Global.Direction.Directions;
 
 namespace Objects.Command.PC
 {
-    public class Flee : IMobileObjectCommand
+    public class Flee : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Flee() : base(nameof(Flee), ShortCutCharPositions.Standing) { }
+
         public IResult Instructions { get; } = new Result("Flee {Direction}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Flee" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (performer.IsInCombat)
             {
                 int attackerRoll = 0;

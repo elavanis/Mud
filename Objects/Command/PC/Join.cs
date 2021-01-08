@@ -5,14 +5,22 @@ using Objects.Personality.Interface;
 
 namespace Objects.Command.PC
 {
-    public class Join : IMobileObjectCommand
+    public class Join : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Join() : base(nameof(Join), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Join", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Join" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             int targetGuildMasterNumber = command.Parameters.Count == 0 ? 0 : command.Parameters[0].ParameterNumber;
             int currentGuildMaster = 0;
 
@@ -29,6 +37,7 @@ namespace Objects.Command.PC
                     }
                 }
             }
+
             return new Result("There is no Guildmaster here to induct you.", true);
         }
     }

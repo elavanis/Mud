@@ -9,8 +9,10 @@ using Objects.Language;
 
 namespace Objects.Command.PC
 {
-    public class Move : IMobileObjectCommand
+    public class Move : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Move() : base(nameof(Move), ShortCutCharPositions.Standing) { }
+
         public IResult Instructions { get; } = new Result(InstructionText(), true);
 
         private static string InstructionText()
@@ -29,6 +31,12 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             //check to see if they are mounted on their mount
             if (performer.Mount != null
                 && performer.Mount.Room == performer.Room
@@ -39,7 +47,7 @@ namespace Objects.Command.PC
                 return null;
             }
 
-            IResult result = GlobalReference.GlobalValues.CanMobDoSomething.Move(performer);
+            result = GlobalReference.GlobalValues.CanMobDoSomething.Move(performer);
             if (result != null)
             {
                 return result;

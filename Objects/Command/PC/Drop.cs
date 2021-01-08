@@ -7,16 +7,23 @@ using Objects.Room.Interface;
 
 namespace Objects.Command.PC
 {
-    public class Drop : IMobileObjectCommand
+    public class Drop : BaseMobileObjectComand, IMobileObjectCommand
     {
-        public IResult Instructions { get; } = new Result("Drop [Item Name]", true);
+        public Drop() : base(nameof(Drop), ShortCutCharPositions.Awake) { }
 
+        public IResult Instructions { get; } = new Result("Drop [Item Name]", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Drop" };
 
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count <= 0)
             {
                 return new Result("What would you like to drop?", true);

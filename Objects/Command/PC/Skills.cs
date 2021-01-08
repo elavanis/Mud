@@ -9,14 +9,22 @@ using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Command.PC
 {
-    public class Skills : IMobileObjectCommand
+    public class Skills : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Skills() : base(nameof(Skills), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Skills", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Skills" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             IOrderedEnumerable<ISkill> skills = performer.KnownSkills.Values.OrderBy(e => e.StaminaCost);
 
             int nameLength = 0;
@@ -32,7 +40,7 @@ namespace Objects.Command.PC
                 stringBuilder.AppendLine($"{skill.AbilityName.PadRight(nameLength)}  {skill.StaminaCost}");
             }
 
-            IResult result = new Result(stringBuilder.ToString().Trim(), true, TagType.Info);
+            result = new Result(stringBuilder.ToString().Trim(), true, TagType.Info);
 
             return result;
         }

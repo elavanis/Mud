@@ -8,20 +8,24 @@ using static Objects.Mob.MobileObject;
 
 namespace Objects.Command.PC
 {
-    public class Kill : IMobileObjectCommand
+    public class Kill : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Kill() : base(nameof(Kill), ShortCutCharPositions.Standing) { }
+
         public IResult Instructions { get; } = new Result("(K)ill {Target}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "K", "Kill" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             IMobileObject target = null;
 
-            if (performer.Position == CharacterPosition.Sleep)
-            {
-                return new Result("You can not kill someone while you are asleep.", true);
-            }
 
             if (command.Parameters.Count == 0)
             {

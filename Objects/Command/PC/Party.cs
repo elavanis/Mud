@@ -10,8 +10,11 @@ using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Command.PC
 {
-    public class Party : IMobileObjectCommand
+    public class Party : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Party() : base(nameof(Party), ShortCutCharPositions.Any) { }
+
+
         public IResult Instructions { get; } = new Result(@"Party Invite {Person To Invite}
 Party Decline
 Party {Message To Send To Party}
@@ -23,6 +26,12 @@ Party Leave", true);
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count == 0)
             {
                 return Instructions;
@@ -46,9 +55,9 @@ Party Leave", true);
             }
         }
 
-      
 
-     
+
+
         private IResult Invite(IMobileObject performer, ICommand command)
         {
             if (command.Parameters.Count > 2)

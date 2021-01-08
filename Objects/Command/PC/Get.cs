@@ -11,14 +11,22 @@ using Objects.Language;
 
 namespace Objects.Command.PC
 {
-    public class Get : IMobileObjectCommand
+    public class Get : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Get() : base(nameof(Get), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Get [Item Name] {Container}", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Get" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (command.Parameters.Count <= 0)
             {
                 return new Result("What would you like to get?", true);

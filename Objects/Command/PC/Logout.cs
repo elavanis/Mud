@@ -7,14 +7,22 @@ using Objects.Language;
 
 namespace Objects.Command.PC
 {
-    public class Logout : IMobileObjectCommand
+    public class Logout : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Logout() : base(nameof(Logout), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("Logout", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Logout" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             if (performer is IPlayerCharacter pc)
             {
                 GlobalReference.GlobalValues.World.LogOutCharacter(pc);

@@ -7,14 +7,22 @@ using System.Text;
 
 namespace Objects.Command.PC
 {
-    public class Statistics : IMobileObjectCommand
+    public class Statistics : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Statistics() : base(nameof(Statistics), ShortCutCharPositions.Any) { }
+
         public IResult Instructions { get; } = new Result("(Stats) Statistics", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Stats", "Statistics" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             int colmunPadding = 2;
             string columnPad = "".PadRight(colmunPadding, ' ');
 

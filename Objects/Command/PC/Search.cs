@@ -6,14 +6,22 @@ using Objects.Trap.Interface;
 
 namespace Objects.Command.PC
 {
-    public class Search : IMobileObjectCommand
+    public class Search : BaseMobileObjectComand, IMobileObjectCommand
     {
+        public Search() : base(nameof(Search), ShortCutCharPositions.Awake) { }
+
         public IResult Instructions { get; } = new Result("Search", true);
 
         public IEnumerable<string> CommandTrigger { get; } = new List<string>() { "Search" };
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
+            IResult result = base.PerfomCommand(performer, command);
+            if (result != null)
+            {
+                return result;
+            }
+
             StringBuilder strbBldr = new StringBuilder();
 
             foreach (ITrap trap in performer.Room.Traps)

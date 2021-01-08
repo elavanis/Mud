@@ -18,7 +18,7 @@ namespace ObjectsUnitTest.Command.PC
 {
     [TestClass]
 
-    public class TurnUnitTest
+    public class PushUnitTest
     {
         IMobileObjectCommand command;
         Mock<ITagWrapper> tagWrapper;
@@ -48,47 +48,47 @@ namespace ObjectsUnitTest.Command.PC
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
 
-            command = new Turn();
+            command = new Push();
         }
 
         [TestMethod]
-        public void Turn_Instructions()
+        public void Push_Instructions()
         {
             IResult result = command.Instructions;
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("Turn {Item Keyword}", result.ResultMessage);
+            Assert.AreEqual("Push {Item Keyword}", result.ResultMessage);
         }
 
         [TestMethod]
-        public void Turn_CommandTrigger()
+        public void Push_CommandTrigger()
         {
             IEnumerable<string> result = command.CommandTrigger;
             Assert.AreEqual(1, result.Count());
-            Assert.IsTrue(result.Contains("Turn"));
+            Assert.IsTrue(result.Contains("Push"));
         }
 
         [TestMethod]
-        public void Turn_PerformCommand_NoParameter()
+        public void Push_PerformCommand_NoParameter()
         {
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>());
 
             IResult result = command.PerformCommand(mobileObject.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("Turn {Item Keyword}", result.ResultMessage);
+            Assert.AreEqual("Push {Item Keyword}", result.ResultMessage);
         }
 
         [TestMethod]
-        public void Turn_PerformCommand_NothingFound()
+        public void Push_PerformCommand_NothingFound()
         {
             parameter.Setup(e => e.ParameterValue).Returns("notFound");
 
             IResult result = command.PerformCommand(mobileObject.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("You could not find the notFound to turn it.", result.ResultMessage);
+            Assert.AreEqual("You could not find the notFound to push it.", result.ResultMessage);
         }
 
         [TestMethod]
-        public void Turn_PerformCommand_TurnObect()
+        public void Push_PerformCommand_TurnObect()
         {
             parameter.Setup(e => e.ParameterValue).Returns("item");
 
