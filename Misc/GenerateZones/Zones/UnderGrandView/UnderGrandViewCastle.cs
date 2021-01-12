@@ -341,12 +341,17 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The platform has four steps each narrower then the one beneath it.";
+            room.LookDescription = "A large oversided gold throne sits upon an elevated platfom.";
             room.ShortDescription = "Underground cavern";
+
+            room.AddItemToRoom(Throne());
 
             return room;
         }
+
+      
+
         private IRoom GenerateRoom29()
         {
             IRoom room = IndoorRoomNoLight();
@@ -1510,10 +1515,27 @@ namespace GenerateZones.Zones.UnderGrandView
             button.KeyWords.Add("rune");
             button.KeyWords.Add("runic");
             button.SentenceDescription = "runic button";
-            button.ShortDescription = "A a large runic button on a stone pedestal.";
+            button.ShortDescription = "A large runic button on a stone pedestal.";
             button.LookDescription = "The stone pedestal rises up from the floor and has a single run on the top.";
             button.ExamineDescription = "The ᚹ is carved into the top of the pedestal and can be pressed.";
 
+
+            return button;
+        }
+
+        private IItem Throne()
+        {
+            IItem button = CreateItem<Item>();
+            button.Zone = Zone.Id;
+            button.Id = ItemId++;
+            button.Attributes.Add(ItemAttribute.NoGet);
+
+            button.KeyWords.Add("throne");
+            button.KeyWords.Add("gold");
+            button.SentenceDescription = "gold throne";
+            button.ShortDescription = "A large gold throne sits here.";
+            button.LookDescription = "The gold throne is quite large and ornate.";
+            button.ExamineDescription = "The gold throne is made entirely of solid gold save a single royal blue saphire that is as big as a fist that is set at the top of the head rest.  It weights to much to move and must be worth a kings randsom.";
 
             return button;
         }
