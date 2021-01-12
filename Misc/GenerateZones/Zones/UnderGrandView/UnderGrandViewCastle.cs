@@ -331,8 +331,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Each pillar while plain in design is ornatly decorated with embeded gems and metals causing it to sparkle and flash as you look examine it.";
+            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -351,8 +351,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Each pillar while plain in design is ornatly decorated with embeded gems and metals causing it to sparkle and flash as you look examine it.";
+            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -381,8 +381,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The stone statues appear to have been carved in place from the existing rock.";
+            room.LookDescription = "Stone statues of minitoaurs rise thirty feet in the air crossing battle axes above your head.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -391,8 +391,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The stone statues appear to have been carved in place from the existing rock.";
+            room.LookDescription = "Stone statues of minitoaurs rise thirty feet in the air crossing battle axes above your head.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -401,8 +401,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "The stone statues appear to have been carved in place from the existing rock.";
+            room.LookDescription = "Stone statues of minitoaurs rise thirty feet in the air crossing battle axes above your head.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -411,8 +411,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Each pillar while plain in design is ornatly decorated with embeded gems and metals causing it to sparkle and flash as you look examine it.";
+            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -431,8 +431,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Each pillar while plain in design is ornatly decorated with embeded gems and metals causing it to sparkle and flash as you look examine it.";
+            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -474,8 +474,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Each pillar while plain in design is ornatly decorated with embeded gems and metals causing it to sparkle and flash as you look examine it.";
+            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -494,8 +494,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Each pillar while plain in design is ornatly decorated with embeded gems and metals causing it to sparkle and flash as you look examine it.";
+            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -627,8 +627,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Each pillar while plain in design is ornatly decorated with embeded gems and metals causing it to sparkle and flash as you look examine it.";
+            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             room.ShortDescription = "Underground cavern";
 
             return room;
@@ -647,8 +647,8 @@ namespace GenerateZones.Zones.UnderGrandView
         {
             IRoom room = IndoorRoomNoLight();
 
-            room.ExamineDescription = "";
-            room.LookDescription = "";
+            room.ExamineDescription = "Each pillar while plain in design is ornatly decorated with embeded gems and metals causing it to sparkle and flash as you look examine it.";
+            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             room.ShortDescription = "Underground cavern";
 
             return room;
