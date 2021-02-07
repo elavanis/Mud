@@ -127,13 +127,38 @@
         var centerHeight = (originalHeight - 10) / 2;
         offset = (y - centerHeight) * sizeDiff * -1;
         $("#pos").css("margin-top", offset + "px");
+
+        
+        var imageSource = zone + "-" + level + ".png"
+        $("#mapOverlay").attr("src", imageSource);
     };
 
     var SetSize = function () {
-        var originalSize = $('#mapOverlay')[0].naturalWidth;
-        var realSize = $('#mapOverlay').width();
 
-        var sizeDiff = realSize / originalSize;
+        var originalSizeWidth = $('#mapOverlay')[0].naturalWidth;
+        var originalSizeHeight = $('#mapOverlay')[0].naturalHeight;
+
+        var mapWidth = $('#map')[0].width;
+        var mapHeight = $('#map')[0].height;
+
+        var percentWidth = mapWidth / originalSizeWidth;
+        var percentHeight = mapHeight / originalSizeHeight;
+
+        var percent = Math.min(percentWidth, percentHeight);
+
+        var newMapOverlayWidth = percent * $('#mapOverlay')[0].naturalWidth;
+        var newMapOverlayHeight = percent * $('#mapOverlay')[0].naturalHeight;
+
+        $('#mapOverlay').width(newMapOverlayWidth);
+        $('#mapOverlay').height(newMapOverlayHeight);
+
+        var realSizeWidth = $('#mapOverlay').width();
+        var sizeDiffWidth = realSizeWidth / originalSizeWidth;
+
+        var realSizeHeight = $('#mapOverlay').height();
+        var sizeDiffHeight = realSizeHeight / originalSizeHeight;
+
+        sizeDiff = Math.min(sizeDiffWidth, sizeDiffHeight);
 
         $("#pos").width(sizeDiff * 10);
         $("#pos").height(sizeDiff * 10);
