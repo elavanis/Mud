@@ -1,4 +1,9 @@
-﻿$(function () {
+﻿var zone = 1;
+var level = 1;
+var x = 1;
+var y = 1;
+
+$(function () {
 
     setInterval(function () {
         SendBlankCommand();
@@ -43,6 +48,24 @@
             }
         });
     };
+
+    var BindImageLoad = function () {
+        $('#mapOverlay').on('load', function () {
+            var originalWidth = $('#mapOverlay')[0].naturalWidth;
+            var originalHeight = $('#mapOverlay')[0].naturalHeight;
+            var realSize = $('#mapOverlay').width();
+
+            var sizeDiff = realSize / originalWidth;
+
+            var centerWidth = (originalWidth - 10) / 2;
+            var offset = (x - centerWidth) * sizeDiff;
+            $("#pos").css("margin-left", offset + "px");
+
+            var centerHeight = (originalHeight - 10) / 2;
+            offset = (y - centerHeight) * sizeDiff * -1;
+            $("#pos").css("margin-top", offset + "px");
+        });
+    }
 
     var SendCommand = function () {
         var command = $("#input").val();
@@ -109,32 +132,16 @@
 
     var SetPosition = function (positionString) {
         var splitString = positionString.split("|");
-        var zone = splitString[0];
-        var level = splitString[1];
-        var x = splitString[2];
-        var y = splitString[3];
+        zone = splitString[0];
+        level = splitString[1];
+        x = splitString[2];
+        y = splitString[3];
 
-        var originalWidth = $('#mapOverlay')[0].naturalWidth;
-        var originalHeight = $('#mapOverlay')[0].naturalHeight;
-        var realSize = $('#mapOverlay').width();
-
-        var sizeDiff = realSize / originalWidth;
-
-        var centerWidth = (originalWidth - 10) / 2;
-        var offset = (x - centerWidth) * sizeDiff;
-        $("#pos").css("margin-left", offset + "px");
-
-        var centerHeight = (originalHeight - 10) / 2;
-        offset = (y - centerHeight) * sizeDiff * -1;
-        $("#pos").css("margin-top", offset + "px");
-
-        
         var imageSource = zone + "-" + level + ".png"
         $("#mapOverlay").attr("src", imageSource);
     };
 
     var SetSize = function () {
-
         var originalSizeWidth = $('#mapOverlay')[0].naturalWidth;
         var originalSizeHeight = $('#mapOverlay')[0].naturalHeight;
 
@@ -164,8 +171,10 @@
         $("#pos").height(sizeDiff * 10);
     }
 
+
     $(document).ready(function () {
         SetGuid();
         BindSubmit();
+        BindImageLoad();
     });
 });
