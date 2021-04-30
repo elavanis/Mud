@@ -8,7 +8,8 @@ $(function () {
     setInterval(function () {
         SendBlankCommand();
 
-        SetSize();
+        SetPosLocation();
+        SetPosSize();
 
     }, 500);
 
@@ -51,19 +52,8 @@ $(function () {
 
     var BindImageLoad = function () {
         $('#mapOverlay').on('load', function () {
-            var originalWidth = $('#mapOverlay')[0].naturalWidth;
-            var originalHeight = $('#mapOverlay')[0].naturalHeight;
-            var realSize = $('#mapOverlay').width();
-
-            var sizeDiff = realSize / originalWidth;
-
-            var centerWidth = (originalWidth - 10) / 2;
-            var offset = (x - centerWidth) * sizeDiff;
-            $("#pos").css("margin-left", offset + "px");
-
-            var centerHeight = (originalHeight - 10) / 2;
-            offset = (y - centerHeight) * sizeDiff * -1;
-            $("#pos").css("margin-top", offset + "px");
+            SetPosLocation();
+            SetPosSize();
         });
     }
 
@@ -87,7 +77,7 @@ $(function () {
 
         $.each(resp, function (index, value) {
             if (value["item1"] === "Map") {
-                SetPosition(value["item2"]);
+                SetPositionValues(value["item2"]);
             }
             else {
                 idPos += 1;
@@ -130,7 +120,7 @@ $(function () {
         element.html(value);
     }
 
-    var SetPosition = function (positionString) {
+    var SetPositionValues = function (positionString) {
         var splitString = positionString.split("|");
         zone = splitString[0];
         level = splitString[1];
@@ -141,7 +131,23 @@ $(function () {
         $("#mapOverlay").attr("src", imageSource);
     };
 
-    var SetSize = function () {
+    var SetPosLocation = function () {
+        var originalWidth = $('#mapOverlay')[0].naturalWidth;
+        var originalHeight = $('#mapOverlay')[0].naturalHeight;
+        var realSize = $('#mapOverlay').width();
+
+        var sizeDiff = realSize / originalWidth;
+
+        var centerWidth = (originalWidth - 10) / 2;
+        var offset = (x - centerWidth) * sizeDiff;
+        $("#pos").css("margin-left", offset + "px");
+
+        var centerHeight = (originalHeight - 10) / 2;
+        offset = (y - centerHeight) * sizeDiff * -1;
+        $("#pos").css("margin-top", offset + "px");
+    }
+
+    var SetPosSize = function () {
         var originalSizeWidth = $('#mapOverlay')[0].naturalWidth;
         var originalSizeHeight = $('#mapOverlay')[0].naturalHeight;
 

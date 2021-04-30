@@ -49,31 +49,34 @@ namespace ClientSite.Controllers
             string message;
             while (clientHandler.InQueue.TryDequeue(out message))
             {
-                if (message.StartsWith("<Sound>"))
+                foreach (var parsedMessage in Parser.Parse(message))
                 {
-                    //handle sound
-                }
-                else if (message.StartsWith("<Map>"))
-                {
-                    //update map
+                    if (parsedMessage.TagType == TagType.Sound)
+                    {
+                        //handle sound
+                    }
+                    else if (parsedMessage.TagType == TagType.Map)
+                    {
+                        //update map
 
-                    //jquery 
-                    //https://stackoverflow.com/questions/623172/how-to-get-image-size-height-width-using-javascript
-                    //imageElement.naturalHeight & imageElement.naturalWidth
+                        //jquery 
+                        //https://stackoverflow.com/questions/623172/how-to-get-image-size-height-width-using-javascript
+                        //imageElement.naturalHeight & imageElement.naturalWidth
 
-                    parsedMessages.AddRange(Parser.Parse(message));
-                }
-                else if (message.StartsWith("<Data>"))
-                {
-                    //not going to local cache stuff so n/a?
-                }
-                else if (message.StartsWith("<FileValidation>"))
-                {
-                    //not going to local cache stuff so n/a?
-                }
-                else
-                {
-                    parsedMessages.AddRange(Parser.Parse(message));
+                        parsedMessages.Add(parsedMessage);
+                    }
+                    else if (parsedMessage.TagType == TagType.Data)
+                    {
+                        //not going to local cache stuff so n/a?
+                    }
+                    else if (parsedMessage.TagType == TagType.FileValidation)
+                    {
+                        //not going to local cache stuff so n/a?
+                    }
+                    else
+                    {
+                        parsedMessages.Add(parsedMessage);
+                    }
                 }
             }
 
@@ -81,8 +84,6 @@ namespace ClientSite.Controllers
 
             return Json(tuples);
         }
-
-        
 
         private static void RemoveDeadConnections()
         {
