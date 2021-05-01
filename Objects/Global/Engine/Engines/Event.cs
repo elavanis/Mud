@@ -87,6 +87,7 @@ namespace Objects.Global.Engine.Engines
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.ALL, message);
             return message;
         }
+
         public int ToDodge(IMobileObject performer, int rolledValue)
         {
             GlobalReference.GlobalValues.Logger.Log(performer, LogLevel.DEBUGVERBOSE, $"{performer.SentenceDescription} attempted to dodge and rolled {rolledValue}.");
