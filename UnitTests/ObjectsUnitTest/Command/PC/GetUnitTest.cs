@@ -308,6 +308,21 @@ namespace ObjectsUnitTest.Command.PC
         }
 
         [TestMethod]
+        public void Get_PerformCommand_GetYourCorpse()
+        {
+            corpse.Setup(e => e.OriginalMob).Returns(mob.Object);
+            findObjects.Setup(e => e.FindItemsInRoom(room.Object, "item", 0)).Returns(itemCorpse.Object);
+            roomItems = new List<IItem>() { itemCorpse.Object };
+
+            IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
+
+            Assert.IsFalse(result.AllowAnotherCommand);
+            Assert.AreEqual("You pickup the SentenceDescription.", result.ResultMessage);
+            Assert.IsTrue(mobItems.Contains(itemCorpse.Object));
+            room.Verify(e => e.RemoveItemFromRoom(itemCorpse.Object));
+        }
+
+        [TestMethod]
         public void Get_PerformCommand_LootCorpse()
         {
             mockCommand.Setup(e => e.Parameters).Returns(new List<IParameter>() { parm1.Object, parm2.Object });
