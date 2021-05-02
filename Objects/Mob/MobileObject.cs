@@ -844,6 +844,7 @@ namespace Objects.Mob
             }
 
             Corpse corpse = new Corpse();
+            corpse.OriginalMob = this;
             corpse.Killer = attacker;
             corpse.TimeOfDeath = DateTime.UtcNow;
             corpse.ShortDescription = "A corpse lies here.";
@@ -1014,7 +1015,7 @@ namespace Objects.Mob
             message = $"{Stamina}/{MaxStamina}";
             strBldr.Append(GlobalReference.GlobalValues.TagWrapper.WrapInTag(message, TagType.Stamina));
 
-            if (Mount != null && Mount.Riders.Contains(this))
+            if (Mount != null && Mount.Riders != null && Mount.Riders.Contains(this))
             {
                 message = $" {Mount.Stamina}/{Mount.MaxStamina}";
                 strBldr.Append(GlobalReference.GlobalValues.TagWrapper.WrapInTag(message, TagType.MountStamina));

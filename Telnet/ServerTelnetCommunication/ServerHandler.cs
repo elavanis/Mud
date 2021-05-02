@@ -2,6 +2,7 @@
 using Objects.Mob.Interface;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
@@ -118,6 +119,7 @@ namespace ServerTelnetCommunication
 
                                             GlobalReference.GlobalValues.Logger.Log(LogLevel.ALL, string.Format("{0} logged in successfully.", _userName));
                                             GlobalReference.GlobalValues.World.AddPlayerQueue.Enqueue(pc);
+                                            RemoveOldConnectionsToSamePc(pc);
                                             GuidToCharacter.AddOrUpdate(_guid, pc, (k, v) => v = pc);
                                             _loginState = LoginState.LoggedIn;
                                         }
@@ -216,6 +218,20 @@ namespace ServerTelnetCommunication
             catch (Exception ex)
             {
                 Console.WriteLine(" >> " + ex.ToString());
+            }
+        }
+
+        private void RemoveOldConnectionsToSamePc(IPlayerCharacter pc)
+        {
+            foreach (var key in GuidToCharacter.Keys)
+            {
+                GuidToCharacter.TryGetValue(key, out IPlayerCharacter tempPc);
+
+                if (tempPc == pc)
+                {
+                    //TODO start storing a way to find the connection so we can close it
+                    GuidToCharacter.TryRemove(key, out IPlayerCharacter temp);
+                }
             }
         }
 

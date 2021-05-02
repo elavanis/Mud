@@ -1,5 +1,6 @@
 ﻿using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
+using Objects.Mob;
 using Objects.Mob.Interface;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -18,6 +19,8 @@ namespace Objects.Item.Items
 
         [ExcludeFromCodeCoverage]
         public IMobileObject Killer { get; set; }
+        [ExcludeFromCodeCoverage]
+        public IMobileObject OriginalMob { get; set; }
 
         public new ICorpse Clone()
         {

@@ -8,9 +8,6 @@ $(function () {
     setInterval(function () {
         SendBlankCommand();
 
-        SetPosLocation();
-        SetPosSize();
-
     }, 500);
 
     var SendBlankCommand = function () {
@@ -52,8 +49,13 @@ $(function () {
 
     var BindImageLoad = function () {
         $('#mapOverlay').on('load', function () {
-            SetPosLocation();
-            SetPosSize();
+            RecalulateMap();
+        });
+    }
+
+    var BindImageResize = function () {
+        $('#mapHolder').on('resize', function () {
+            RecalulateMap();
         });
     }
 
@@ -131,6 +133,11 @@ $(function () {
         $("#mapOverlay").attr("src", imageSource);
     };
 
+    var RecalulateMap = function () {
+        SetPosLocation();
+        SetPosSize();
+    }
+
     var SetPosLocation = function () {
         var originalWidth = $('#mapOverlay')[0].naturalWidth;
         var originalHeight = $('#mapOverlay')[0].naturalHeight;
@@ -182,5 +189,6 @@ $(function () {
         SetGuid();
         BindSubmit();
         BindImageLoad();
+        BindImageResize();
     });
 });

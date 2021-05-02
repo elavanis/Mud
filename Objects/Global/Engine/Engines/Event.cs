@@ -258,100 +258,104 @@ namespace Objects.Global.Engine.Engines
             else
             {
                 IRoom performerRoom = performer.Room;
-                if (performerRoom.Enchantments.Count > 0)
-                {
-                    foreach (IEnchantment enchantment in performerRoom.Enchantments)
-                    {
-                        RunEnchantment(enchantment, eventType, paramerter);
-                    }
-                }
 
-                if (performerRoom.Traps.Count > 0)
+                if (performerRoom != null) //this is null if the player logs out
                 {
-                    foreach (ITrap trap in performerRoom.Traps)
+                    if (performerRoom.Enchantments.Count > 0)
                     {
-                        if (trap.Trigger == Trap.Target.TrapTrigger.All
-                            || (performer is NonPlayerCharacter && trap.Trigger == Trap.Target.TrapTrigger.NPC)
-                            || (performer is PlayerCharacter && trap.Trigger == Trap.Target.TrapTrigger.PC))
-                        {
-                            foreach (IEnchantment enchantment in trap.Enchantments)
-                            {
-                                RunEnchantment(enchantment, eventType, paramerter);
-                            }
-                        }
-                    }
-                }
-
-                if (performerRoom.PlayerCharacters.Count > 0)
-                {
-                    foreach (IPlayerCharacter pc in performerRoom.PlayerCharacters)
-                    {
-                        if (pc.Enchantments.Count > 0)
-                        {
-                            if (pc == performer)
-                            {
-                                //verify the performer is still alive before they can trigger their enchantment
-                                if (performer.Room == performerRoom)
-                                {
-                                    foreach (IEnchantment enchantment in performer.Enchantments)
-                                    {
-                                        RunEnchantment(enchantment, eventType, paramerter);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                //for only fire off when its the enchanted player turn, otherwise it will fire once for each player in the room
-                                //keeping else statement  around in case we want to explain why we don't do this in case we want to try this again later
-                            }
-                        }
-                    }
-                }
-
-                if (performerRoom.NonPlayerCharacters.Count > 0)
-                {
-                    foreach (INonPlayerCharacter npc in performerRoom.NonPlayerCharacters)
-                    {
-                        if (npc.Enchantments.Count > 0)
-                        {
-                            foreach (IEnchantment enchantment in npc.Enchantments)
-                            {
-                                RunEnchantment(enchantment, eventType, paramerter);
-                            }
-                        }
-                    }
-                }
-
-                //store if the item being affected is in the room and its enchantments already triggered
-                bool itemTriggered = false;
-                if (performerRoom.Items.Count > 0)
-                {
-                    foreach (IItem item in performerRoom.Items)
-                    {
-                        if (paramerter.Item == item)
-                        {
-                            itemTriggered = true;
-                        }
-
-                        if (item.Enchantments.Count > 0)
-                        {
-                            foreach (IEnchantment enchantment in item.Enchantments)
-                            {
-                                RunEnchantment(enchantment, eventType, paramerter);
-                            }
-                        }
-                    }
-                }
-
-                //if it hasn't, such as being in a container, then fire its enchantments
-                if (paramerter.Item != null
-                    && !itemTriggered)
-                {
-                    if (paramerter.Item.Enchantments.Count > 0)
-                    {
-                        foreach (IEnchantment enchantment in paramerter.Item.Enchantments)
+                        foreach (IEnchantment enchantment in performerRoom.Enchantments)
                         {
                             RunEnchantment(enchantment, eventType, paramerter);
+                        }
+                    }
+
+                    if (performerRoom.Traps.Count > 0)
+                    {
+                        foreach (ITrap trap in performerRoom.Traps)
+                        {
+                            if (trap.Trigger == Trap.Target.TrapTrigger.All
+                                || (performer is NonPlayerCharacter && trap.Trigger == Trap.Target.TrapTrigger.NPC)
+                                || (performer is PlayerCharacter && trap.Trigger == Trap.Target.TrapTrigger.PC))
+                            {
+                                foreach (IEnchantment enchantment in trap.Enchantments)
+                                {
+                                    RunEnchantment(enchantment, eventType, paramerter);
+                                }
+                            }
+                        }
+                    }
+
+                    if (performerRoom.PlayerCharacters.Count > 0)
+                    {
+                        foreach (IPlayerCharacter pc in performerRoom.PlayerCharacters)
+                        {
+                            if (pc.Enchantments.Count > 0)
+                            {
+                                if (pc == performer)
+                                {
+                                    //verify the performer is still alive before they can trigger their enchantment
+                                    if (performer.Room == performerRoom)
+                                    {
+                                        foreach (IEnchantment enchantment in performer.Enchantments)
+                                        {
+                                            RunEnchantment(enchantment, eventType, paramerter);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    //for only fire off when its the enchanted player turn, otherwise it will fire once for each player in the room
+                                    //keeping else statement  around in case we want to explain why we don't do this in case we want to try this again later
+                                }
+                            }
+                        }
+                    }
+
+                    if (performerRoom.NonPlayerCharacters.Count > 0)
+                    {
+                        foreach (INonPlayerCharacter npc in performerRoom.NonPlayerCharacters)
+                        {
+                            if (npc.Enchantments.Count > 0)
+                            {
+                                foreach (IEnchantment enchantment in npc.Enchantments)
+                                {
+                                    RunEnchantment(enchantment, eventType, paramerter);
+                                }
+                            }
+                        }
+                    }
+
+                    //store if the item being affected is in the room and its enchantments already triggered
+                    bool itemTriggered = false;
+                    if (performerRoom.Items.Count > 0)
+                    {
+                        foreach (IItem item in performerRoom.Items)
+                        {
+                            if (paramerter.Item == item)
+                            {
+                                itemTriggered = true;
+                            }
+
+                            if (item.Enchantments.Count > 0)
+                            {
+                                foreach (IEnchantment enchantment in item.Enchantments)
+                                {
+                                    RunEnchantment(enchantment, eventType, paramerter);
+                                }
+                            }
+                        }
+                    }
+
+                    //if it hasn't, such as being in a container, then fire its enchantments
+                    if (paramerter.Item != null
+                        && !itemTriggered)
+                    {
+                        if (paramerter.Item.Enchantments.Count > 0)
+                        {
+                            foreach (IEnchantment enchantment in paramerter.Item.Enchantments)
+                            {
+                                RunEnchantment(enchantment, eventType, paramerter);
+                            }
                         }
                     }
                 }

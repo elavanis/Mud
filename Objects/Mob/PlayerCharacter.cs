@@ -174,6 +174,7 @@ namespace Objects.Mob
             AddTitle("{performer} the resurrected.");
 
             ICorpse corpse = base.Die(attacker);
+            corpse.LookDescription = $"The corpse of {SentenceDescription} lies here.";
             Corpses.Add(corpse.Clone());  //because if someone picks something up out of the corpse it will be reflected here
 
             Room.RemoveMobileObjectFromRoom(this);

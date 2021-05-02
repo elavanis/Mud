@@ -60,7 +60,13 @@ namespace Objects.Command.PC
                             {
                                 if (corpse.Killer != null)  //allow you to pick up corpses that don't have a killer
                                 {
-                                    if (corpse.Killer != performer)
+                                    IPlayerCharacter playerCharacter = performer as IPlayerCharacter;
+
+                                    if ((corpse.Killer != performer
+                                            && corpse.OriginalMob != performer)
+                                        && (playerCharacter != null
+                                            && corpse.Killer.SentenceDescription != performer.SentenceDescription
+                                            && corpse.OriginalMob.SentenceDescription != performer.SentenceDescription))
                                     {
                                         return new Result($"Unable to pickup the corpse belonging to {corpse.Killer.KeyWords[0]}.", true);
                                     }
