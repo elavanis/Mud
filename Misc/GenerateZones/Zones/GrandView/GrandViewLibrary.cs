@@ -460,7 +460,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = LibraryShelves();
             room.ExamineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Storm Game.\"";
-            room.LookDescription = "Light streams through the stained glass to the west.  The stained glass is of a mountain vista overlooking a lake.  Hues of greens meld into too hues of blue.  Snow covered mountain tops give stark contrast to image below.";
+            room.LookDescription = "Light streams through the stained glass to the west.  The stained glass is of a mountain vista overlooking a lake.  Hues of greens meld into too hues of blue.  Snow covered mountain tops give stark contrast to the image below.";
 
             return room;
         }
