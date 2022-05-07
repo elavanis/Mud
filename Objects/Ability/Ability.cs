@@ -3,6 +3,7 @@ using Objects.Command;
 using Objects.Command.Interface;
 using Objects.Effect;
 using Objects.Effect.Interface;
+using Objects.Language;
 using Objects.Language.Interface;
 using Objects.Mob.Interface;
 using System;
@@ -13,7 +14,7 @@ namespace Objects.Ability
     public abstract class Ability : IAbility
     {
         [ExcludeFromCodeCoverage]
-        public ITranslationMessage RoomNotificationSuccess { get; set; }
+        public ITranslationMessage RoomNotificationSuccess { get; set; } 
         [ExcludeFromCodeCoverage]
         public ITranslationMessage TargetNotificationSuccess { get; set; }
         [ExcludeFromCodeCoverage]

@@ -293,7 +293,7 @@ namespace ObjectsUnitTest.Command.PC
         }
 
         [TestMethod]
-        public void Get_PerformCommand_OnlyAllowGetCorpserThatYouKilled()
+        public void Get_PerformCommand_OnlyAllowGetCorpseThatYouKilled()
         {
             corpse.Setup(e => e.Killer).Returns(mob2.Object);
             findObjects.Setup(e => e.FindItemsInRoom(room.Object, "item", 0)).Returns(itemCorpse.Object);
