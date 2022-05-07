@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <IsPackable>false</IsPackable>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
