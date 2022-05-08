@@ -9,7 +9,14 @@ namespace TelnetCommunication
 {
     public class JsonMudMessage : IMudMessage
     {
-        private static JsonSerializerSettings _settings;
+        private static JsonSerializerSettings? _settings;
+
+        public JsonMudMessage(string guid, string message)
+        {
+            Guid = guid;
+            Message = message;
+        }
+
         public static JsonSerializerSettings Settings
         {
             get
@@ -25,9 +32,9 @@ namespace TelnetCommunication
         }
 
         [ExcludeFromCodeCoverage]
-        public string Guid { get; set; }
+        public string Guid { get; }
         [ExcludeFromCodeCoverage]
-        public string Message { get; set; }
+        public string Message { get; }
         [ExcludeFromCodeCoverage]
         public string Serialize()
         {
@@ -39,9 +46,9 @@ namespace TelnetCommunication
             return JsonConvert.DeserializeObject<JsonMudMessage>(stringMessage, Settings);
         }
 
-        public IMudMessage CreateNewInstance()
+        public IMudMessage CreateNewInstance(string guid, string message)
         {
-            return new JsonMudMessage();
+            return new JsonMudMessage(guid, message);
         }
 
         public Tuple<List<string>, string> ParseRawMessage(string rawMessage)

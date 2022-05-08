@@ -55,7 +55,7 @@ namespace Objects.Command
 
         }
 
-        public IResult PerfomCommand(IMobileObject performer, ICommand command)
+        public IResult? PerfomCommand(IMobileObject performer, ICommand command)
         {
             if (!AllowedCharacterPositions.Contains(performer.Position))
             {

@@ -146,9 +146,7 @@ namespace TelnetCommunication
 
         private void SendMessage(string outboundMessage)
         {
-            IMudMessage message = MudMessageInstance.CreateNewInstance();
-            message.Guid = _guid;
-            message.Message = outboundMessage;
+            IMudMessage message = MudMessageInstance.CreateNewInstance(_guid, outboundMessage);
 
             byte[] sendBytes = Encoding.Unicode.GetBytes(message.Serialize());
             NetworkStream networkStream = _clientSocket.GetStream();

@@ -5,14 +5,14 @@ namespace TelnetCommunication.Interface
 {
     public interface IMudMessage
     {
-        string Guid { get; set; }
-        string Message { get; set; }
+        string Guid { get; }
+        string Message { get; }
 
         string Serialize();
 
         IMudMessage StringToMessage(string stringMessage);
 
-        IMudMessage CreateNewInstance();
+        IMudMessage CreateNewInstance(string guid, string message);
 
         Tuple<List<string>, string> ParseRawMessage(string rawMessage);
 

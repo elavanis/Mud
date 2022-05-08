@@ -8,7 +8,7 @@ namespace Shared.Sound
     public class Sound : ISound
     {
         private static Random _random = new Random();
-        private string _soundName = null;
+        private string? _soundName = null;
         public string SoundName
         {
             get
