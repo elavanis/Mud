@@ -41,7 +41,9 @@ namespace ServerTelnetCommunication
                     return false;
                 }
 
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                 if (failedLogins.TryGetValue(address, out List<DateTime> failedDateTimes))
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
                 {
                     failedDateTimes = RemoveOldItems(failedDateTimes);
                     if (failedDateTimes.Count >= 5)
@@ -63,7 +65,9 @@ namespace ServerTelnetCommunication
                 foreach (IPAddress address in ips)
                 {
                     List<DateTime> failedDateTimes;
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                     if (failedLogins.TryGetValue(address, out failedDateTimes))
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
                     {
                         failedDateTimes = RemoveOldItems(failedDateTimes);
                         if (failedDateTimes.Count == 0)
