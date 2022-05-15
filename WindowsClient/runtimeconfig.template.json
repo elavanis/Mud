@@ -1,0 +1,10 @@
+﻿{
+  "configProperties": {
+    "ServerAdress": "127.0.0.1",
+    "Port": 52475,
+    "MaxLines": 1000,
+    "FontSize": 8,
+    "DisplayMap": true,
+    "PlaySound": true
+  }
+}

@@ -1,137 +1,113 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Shared.FileIO.Interface;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace WindowsClient
 {
-    public static class Settings
+    public class Settings
     {
-        public static void Initialize()
+        public string ServerAdress { get; set; } = "127.0.0.1";
+        public int Port { get; set; } = 52475;
+        public int MaxLines { get; set; } = 1000;
+        public int FontSize { get; set; } = 8;
+        public bool DisplayMap { get; set; } = true;
+        public bool PlaySound { get; set; } = true;
+
+        public Dictionary<TagType, Color> ColorDictionary { get; set; } = new Dictionary<TagType, Color>();
+        public Dictionary<string, string> ShortCutKeys { get; set; } = new Dictionary<string, string>();
+
+
+
+
+        #region Save/Load
+        public Settings(IFileIO fileIO)
         {
-            ServerAdress = ConfigurationManager.AppSettings["ServerAdress"];
-            Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
-            MaxLines = int.Parse(ConfigurationManager.AppSettings["MaxLines"]);
-            FontSize = int.Parse(ConfigurationManager.AppSettings["FontSize"]);
-            DisplayMap = bool.Parse(ConfigurationManager.AppSettings["DisplayMap"]);
-            PlaySound = bool.Parse(ConfigurationManager.AppSettings["PlaySound"]);
+            _io = fileIO;
         }
-
-        public static string ServerAdress { get; set; }
-        public static int Port { get; set; }
-        public static int MaxLines { get; internal set; }
-        public static int FontSize { get; set; }
-        public static bool DisplayMap { get; set; }
-        public static bool PlaySound { get; set; }
-
-
-        private static Dictionary<TagType, Color> _colorDictionary = null;
-
-        public static Dictionary<TagType, Color> ColorDictionary
+        private const string _userSettingsPath = "UserSettings.json";
+        private IFileIO _io;
+        private static JsonSerializerSettings? _jsonSettings;
+        private static JsonSerializerSettings JsonSettings
         {
             get
             {
-                if (_colorDictionary == null)
+                if (_jsonSettings == null)
                 {
-                    _colorDictionary = new Dictionary<TagType, Color>();
-
-                    foreach (TagType item in Enum.GetValues(typeof(TagType)))
-                    {
-                        try
-                        {
-                            Color c = Color.FromName(ConfigurationManager.AppSettings[item.ToString()]);
-                            _colorDictionary.Add(item, c);
-                        }
-                        catch
-                        {
-                            _colorDictionary.Add(item, Color.White);
-                        }
-                    }
+                    var temp = new JsonSerializerSettings();
+                    temp.TypeNameHandling = TypeNameHandling.Objects;
+                    _jsonSettings = temp;
                 }
-
-                return _colorDictionary;
+                return _jsonSettings;
             }
         }
 
-        private static Dictionary<string, string> shortCutKeys = null;
-        public static Dictionary<string, string> ShortCutKeys
+        public void Save()
         {
-            get
-            {
-                if (shortCutKeys == null)
-                {
-                    shortCutKeys = new Dictionary<string, string>();
-                    foreach (string key in ConfigurationManager.AppSettings.AllKeys)
-                    {
-                        if (key.StartsWith("ShortCutKey"))
-                        {
-                            string realKey = key.Replace("ShortCutKey", "");
-                            shortCutKeys.Add(realKey, ConfigurationManager.AppSettings[key]);
-                        }
-                    }
-                }
-
-                return shortCutKeys;
-            }
+            _io.WriteFile(_userSettingsPath, JsonConvert.SerializeObject(this, Formatting.Indented, JsonSettings));
         }
 
-        internal static void Save()
+        public void Load()
         {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
+            Settings settings;
 
-            PropertyInfo[] properties = typeof(Settings).GetProperties();
-            foreach (PropertyInfo property in properties)
+            if (_io.Exists(_userSettingsPath))
             {
-                if (property.Name == "ShortCutKeys")
-                {
-                    foreach (string key in ShortCutKeys.Keys)
-                    {
-                        string savedKey = "ShortCutKey" + key;
+                settings = JsonConvert.DeserializeObject<Settings>(_io.ReadAllText(_userSettingsPath), JsonSettings);
+            }
+            else
+            {
+                settings = new Settings(_io);
+                settings.ColorDictionary.Add(TagType.AsciiArt, Color.Gainsboro);
+                settings.ColorDictionary.Add(TagType.ClientCommand, Color.White);
+                settings.ColorDictionary.Add(TagType.Connection, Color.SteelBlue);
+                settings.ColorDictionary.Add(TagType.Communication, Color.Purple);
+                settings.ColorDictionary.Add(TagType.DamageDelt, Color.Gold);
+                settings.ColorDictionary.Add(TagType.DamageReceived, Color.DarkRed);
+                settings.ColorDictionary.Add(TagType.Info, Color.LightBlue);
+                settings.ColorDictionary.Add(TagType.Item, Color.Yellow);
+                settings.ColorDictionary.Add(TagType.Mob, Color.Cyan);
+                settings.ColorDictionary.Add(TagType.MountStamina, Color.Orange);
+                settings.ColorDictionary.Add(TagType.NonPlayerCharacter, Color.Gray);
+                settings.ColorDictionary.Add(TagType.PlayerCharacter, Color.MediumPurple);
+                settings.ColorDictionary.Add(TagType.Room, Color.Green);
+                settings.ColorDictionary.Add(TagType.Health, Color.Red);
+                settings.ColorDictionary.Add(TagType.Mana, Color.Blue);
+                settings.ColorDictionary.Add(TagType.Stamina, Color.DarkGreen);
 
-                        //add the key if it is missing
-                        if (!config.AppSettings.Settings.AllKeys.Contains(savedKey))
-                        {
-                            config.AppSettings.Settings.Add(savedKey, "");
-                        }
 
-                        //update the key or remove it if it blank
-                        if (string.IsNullOrWhiteSpace(ShortCutKeys[key]))
-                        {
-                            config.AppSettings.Settings.Remove(savedKey);
-                        }
-                        else
-                        {
-                            config.AppSettings.Settings[savedKey].Value = ShortCutKeys[key];
-                        }
-                    }
-                }
-                else if (property.Name == "ColorDictionary")
-                {
-                    foreach (TagType key in ColorDictionary.Keys)
-                    {
-                        string savedKey = key.ToString();
-                        //add the key if it is missing
-                        if (!config.AppSettings.Settings.AllKeys.Contains(savedKey))
-                        {
-                            config.AppSettings.Settings.Add(savedKey, "");
-                        }
+                settings.ShortCutKeys.Add("ShortCutKeyNumPad0", "Kill");
+                settings.ShortCutKeys.Add("ShortCutKeyNumPad1", "Sleep");
+                settings.ShortCutKeys.Add("ShortCutKeyNumPad2", "South");
+                settings.ShortCutKeys.Add("ShortCutKeyNumPad3", "Down");
+                settings.ShortCutKeys.Add("ShortCutKeyNumPad4", "West");
+                settings.ShortCutKeys.Add("ShortCutKeyNumPad5", "Look");
+                settings.ShortCutKeys.Add("ShortCutKeyNumPad6", "East");
+                settings.ShortCutKeys.Add("ShortCutKeyNumPad7", "Stand");
+                settings.ShortCutKeys.Add("ShortCutKeyNumPad8", "North");
+                settings.ShortCutKeys.Add("ShortCutKeyNumPad9", "Up");
 
-                        config.AppSettings.Settings[savedKey].Value = ColorDictionary[key].Name;
-                    }
-                }
-                else
-                {
-                    config.AppSettings.Settings[property.Name].Value = property.GetValue(null).ToString();
-                }
+
             }
 
-            config.Save(ConfigurationSaveMode.Minimal);
+            ServerAdress = settings.ServerAdress;
+            Port = settings.Port;
+            MaxLines = settings.MaxLines;
+            FontSize = settings.FontSize;
+            DisplayMap = settings.DisplayMap;
+            PlaySound = settings.PlaySound;
+            ColorDictionary = settings.ColorDictionary;
+            ShortCutKeys = settings.ShortCutKeys;  
+        }
+        #endregion Save/Load
+
+        public class ColorHolder
+        {
+            public Color Color { get; set; }
         }
     }
 }

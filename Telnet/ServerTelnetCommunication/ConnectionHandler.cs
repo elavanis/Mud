@@ -16,7 +16,7 @@ namespace ServerTelnetCommunication
         public ConnectionHandler(IMudMessage mudMessage)
         {
             ContinueRunning = true;
-            TcpClient clientSocket = default(TcpClient);
+            TcpClient clientSocket = null!;
             TcpListener serverSocket = new TcpListener(IPAddress.Any, GlobalReference.GlobalValues.Settings.Port);
             serverSocket.Start();
 

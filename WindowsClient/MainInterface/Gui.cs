@@ -31,6 +31,8 @@ namespace WindowsClient.MainInterface
         private PreviousCommands _previousCommands;
         private Dictionary<TagType, List<Trigger.Trigger>> _triggers;
         private Map.Map _mapWindow = null;
+        private Settings _settings;
+        private IFileIO _io;
 
         public Gui()
         {
@@ -40,13 +42,18 @@ namespace WindowsClient.MainInterface
         #region StartUp
         private void LoadForm(object sender, EventArgs e)
         {
-            Settings.Initialize();
+            _io = new FileIO();
+
+            _settings = new Settings(_io);
+            _settings.Load();
+            
+
             _previousCommands = new PreviousCommands();
             //_triggers = new Dictionary<TagType, List<Trigger.Trigger>>();
             SetTriggersDictioanry(new TriggerSettings());
             try
             {
-                _telnetHandler = new ClientHandler(Settings.ServerAdress, Settings.Port, new JsonMudMessage("",""));
+                _telnetHandler = new ClientHandler(_settings.ServerAdress, _settings.Port, new JsonMudMessage("", ""));
                 timer_UpdateTimer.Start();
                 //richTextBox1.ReadOnly = true;
                 SetDoubleBufferToOn(myRichTextBox_MainText);
@@ -60,12 +67,12 @@ namespace WindowsClient.MainInterface
             }
 
             SelectTextEntry(sender, e);
-            ResetFontSize();
-            if (Settings.DisplayMap)
+            ResetFontSize(_settings);
+            if (_settings.DisplayMap)
             {
                 LoadMap();
             }
-            if (Settings.PlaySound)
+            if (_settings.PlaySound)
             {
                 LoadSound();
             }
@@ -81,15 +88,16 @@ namespace WindowsClient.MainInterface
         #region Menus
         private void GuiSettings(object sender, EventArgs e)
         {
-            GuiSettings guiSettings = new GuiSettings();
+            GuiSettings guiSettings = new GuiSettings(_settings);
             guiSettings.ShowDialog();
-            ResetFontSize();
-            Settings.Save();
+            ResetFontSize(_settings);
+
+            _settings.Save();
         }
 
-        private void ResetFontSize()
+        private void ResetFontSize(Settings settings)
         {
-            Font font = new Font(myRichTextBox_MainText.Font.FontFamily, Settings.FontSize);
+            Font font = new Font(myRichTextBox_MainText.Font.FontFamily, settings.FontSize);
             myRichTextBox_MainText.Font = font;
             textBox_Intelisense.Font = font;
             textBox_CommandBox.Font = font;
@@ -115,7 +123,7 @@ namespace WindowsClient.MainInterface
                 mapToolStripMenuItem.Checked = false;
             }
 
-            Settings.Save();
+            _settings.Save();
         }
 
         private void LoadMap()
@@ -137,7 +145,8 @@ namespace WindowsClient.MainInterface
                 _soundHandler = null;
                 soundToolStripMenuItem.Checked = false;
             }
-            Settings.Save();
+
+            _settings.Save();
         }
 
         private void LoadSound()
@@ -151,7 +160,7 @@ namespace WindowsClient.MainInterface
             TriggerSettings triggerSettings = new TriggerSettings();
             triggerSettings.ShowDialog();
             SetTriggersDictioanry(triggerSettings);
-            ResetFontSize();
+            ResetFontSize(_settings);
         }
 
         private void SetTriggersDictioanry(TriggerSettings triggerSettings)
@@ -218,7 +227,7 @@ namespace WindowsClient.MainInterface
                 default:
                     string command = null;
 
-                    if (Settings.ShortCutKeys.TryGetValue(e.KeyCode.ToString(), out command))
+                    if (_settings.ShortCutKeys.TryGetValue(e.KeyCode.ToString(), out command))
                     {
                         SendCommandText(command);
                         e.Handled = true;
@@ -293,7 +302,7 @@ namespace WindowsClient.MainInterface
                     _telnetHandler.OutQueue.Enqueue(item);
                     List<ParsedMessage> list = new List<ParsedMessage>();
                     list.Add(new ParsedMessage() { Message = item + Environment.NewLine, TagType = TagType.ClientCommand });
-                    myRichTextBox_MainText.AddFormatedText(list);
+                    myRichTextBox_MainText.AddFormatedText(list, _io, _settings);
                 }
             }
         }
@@ -328,7 +337,7 @@ namespace WindowsClient.MainInterface
                 else
                 {
                     List<ParsedMessage> parsedMessage = Parser.Parse(message);
-                    myRichTextBox_MainText.AddFormatedText(parsedMessage);
+                    myRichTextBox_MainText.AddFormatedText(parsedMessage,_io, _settings);
                     ProcessTriggers(parsedMessage);
 
                     foreach (var item in parsedMessage)
@@ -338,12 +347,12 @@ namespace WindowsClient.MainInterface
                 }
             }
 
-            if (myRichTextBox_MainText.Lines.Length > Settings.MaxLines)
+            if (myRichTextBox_MainText.Lines.Length > _settings.MaxLines)
             {
                 myRichTextBox_MainText.BeginUpdate();
 
                 myRichTextBox_MainText.SelectionStart = 0;
-                myRichTextBox_MainText.SelectionLength = myRichTextBox_MainText.GetFirstCharIndexFromLine(myRichTextBox_MainText.Lines.Length - Settings.MaxLines);
+                myRichTextBox_MainText.SelectionLength = myRichTextBox_MainText.GetFirstCharIndexFromLine(myRichTextBox_MainText.Lines.Length - _settings.MaxLines);
                 myRichTextBox_MainText.SelectedText = "";
 
                 myRichTextBox_MainText.SelectionStart = myRichTextBox_MainText.Text.Length;
@@ -384,8 +393,8 @@ namespace WindowsClient.MainInterface
 
             Data data = JsonConvert.DeserializeObject<Data>(newMessage, JsonMudMessage.Settings);
             Directory.CreateDirectory(Path.GetDirectoryName(data.AssetName));
-            IFileIO io = new FileIO();
-            io.WriteFileBase64(data.AssetName, data.Base64Encoding);
+
+            _io.WriteFileBase64(data.AssetName, data.Base64Encoding);
         }
         #endregion ReceiveMessage
         #endregion SendReceiveMessage

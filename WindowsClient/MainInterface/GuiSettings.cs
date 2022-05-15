@@ -13,12 +13,15 @@ namespace WindowsClient.MainInterface
 {
     public partial class GuiSettings : Form
     {
-        public GuiSettings()
-        {
-            InitializeComponent();
-            numericUpDown_FontSize.Value = Settings.FontSize;
+        private Settings _settings;
 
-            foreach (string key in Settings.ShortCutKeys.Keys)
+        public GuiSettings(Settings settings)
+        {
+            _settings = settings;   
+            InitializeComponent();
+            numericUpDown_FontSize.Value = _settings.FontSize;
+
+            foreach (string key in _settings.ShortCutKeys.Keys)
             {
                 comboBox_ShortCutKey.Items.Add(key);
             }
@@ -29,7 +32,7 @@ namespace WindowsClient.MainInterface
             Font font = new Font(label_FontSize.Font.FontFamily, (float)numericUpDown_FontSize.Value);
             label_FontSize.Font = font;
             numericUpDown_FontSize.Font = font;
-            Settings.FontSize = (int)numericUpDown_FontSize.Value;
+            _settings.FontSize = (int)numericUpDown_FontSize.Value;
         }
 
         private void UpdateSettings(object sender, EventArgs e)
@@ -48,7 +51,7 @@ namespace WindowsClient.MainInterface
             string keyCode = e.KeyCode.ToString();
 
             string value = null;
-            if (Settings.ShortCutKeys.TryGetValue(keyCode, out value))
+            if (_settings.ShortCutKeys.TryGetValue(keyCode, out value))
             {
                 textBox_ShortCutCommand.Text = value;
                 comboBox_ShortCutKey.Text = keyCode;
@@ -57,7 +60,7 @@ namespace WindowsClient.MainInterface
             }
             else
             {
-                Settings.ShortCutKeys.Add(keyCode, "");
+                _settings.ShortCutKeys.Add(keyCode, "");
                 comboBox_ShortCutKey.Text = keyCode;
                 comboBox_ShortCutKey.Items.Add(keyCode);
                 e.Handled = true;
@@ -69,16 +72,16 @@ namespace WindowsClient.MainInterface
         {
             if (!string.IsNullOrEmpty(comboBox_ShortCutKey.Text))
             {
-                if (Settings.ShortCutKeys.ContainsKey(comboBox_ShortCutKey.Text))
+                if (_settings.ShortCutKeys.ContainsKey(comboBox_ShortCutKey.Text))
                 {
-                    Settings.ShortCutKeys[comboBox_ShortCutKey.Text] = textBox_ShortCutCommand.Text;
+                    _settings.ShortCutKeys[comboBox_ShortCutKey.Text] = textBox_ShortCutCommand.Text;
                 }
             }
         }
 
         private void SelectedIndexChanged(object sender, EventArgs e)
         {
-            textBox_ShortCutCommand.Text = Settings.ShortCutKeys[comboBox_ShortCutKey.Text];
+            textBox_ShortCutCommand.Text = _settings.ShortCutKeys[comboBox_ShortCutKey.Text];
         }
     }
 }
