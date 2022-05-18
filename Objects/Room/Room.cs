@@ -27,6 +27,7 @@ namespace Objects.Room
         public Room()
         {
             KeyWords.Add("room");
+            SentenceDescription = "";
         }
 
         public override string ToString()

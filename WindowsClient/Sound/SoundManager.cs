@@ -11,6 +11,7 @@ namespace WindowsClient.Sound
     public static class SoundManager
     {
         //private static IrrKlang.ISoundEngine engine { get; } = new IrrKlang.ISoundEngine();
+        private static ISoundImplementation engine = new NAudioSound();
 
         private static List<ISound> playingSounds { get; } = new List<ISound>();
 
@@ -18,7 +19,7 @@ namespace WindowsClient.Sound
         {
             if (sounds.Count == 0)
             {
-                //engine.StopAllSounds();
+                engine.StopAllSounds();
                 playingSounds.Clear();
                 return;
             }
@@ -37,7 +38,7 @@ namespace WindowsClient.Sound
                     {
                         if (playingSounds[i].SoundName == sound.SoundName)
                         {
-                            //engine.RemoveSoundSource(sound.SoundName);
+                            engine.StopSound(sound);
                             playingSounds.RemoveAt(i);
                             break;
                         }
@@ -52,12 +53,12 @@ namespace WindowsClient.Sound
                 {
                     if (sound.Loop)
                     {
-                        //engine.Play2D(soundFileName, true);
+                        engine.PlaySound(sound);
                         playingSounds.Add(sound);
                     }
                     else
                     {
-                        //engine.Play2D(soundFileName);
+                        engine.PlaySound(sound);
                     }
                 }
             }

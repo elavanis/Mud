@@ -82,8 +82,8 @@ namespace Objects
                 ShortDescription = ShortDescription.Replace(key, selectedFlavorOption);
                 LookDescription = LookDescription.Replace(key, selectedFlavorOption);
                 ExamineDescription = ExamineDescription.Replace(key, selectedFlavorOption);
-
                 SentenceDescription = SentenceDescription.Replace(key, selectedFlavorOption);
+
                 for (int i = 0; i < KeyWords.Count; i++)
                 {
                     KeyWords[i] = KeyWords[i].Replace(key, selectedFlavorOption);

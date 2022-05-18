@@ -25,17 +25,17 @@ using MiscShared;
 
 namespace GenerateZones.Zones.DeepWoodForest
 {
-    public class Woodbrook : BaseZone, IZoneCode
+    public class FortWoodbrook : BaseZone, IZoneCode
     {
 
-        public Woodbrook() : base(10)
+        public FortWoodbrook() : base(10)
         {
         }
 
         public IZone Generate()
         {
             Zone.InGameDaysTillReset = 10;
-            Zone.Name = nameof(Woodbrook);
+            Zone.Name = nameof(FortWoodbrook);
 
             BuildRoomsViaReflection(this.GetType());
 
