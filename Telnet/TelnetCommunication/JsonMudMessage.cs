@@ -41,7 +41,7 @@ namespace TelnetCommunication
             return StartMessageCharacter + JsonConvert.SerializeObject(this, Formatting.Indented, Settings) + EndMessageCharacter;
         }
 
-        public IMudMessage StringToMessage(string stringMessage)
+        public IMudMessage? StringToMessage(string stringMessage)
         {
             return JsonConvert.DeserializeObject<JsonMudMessage>(stringMessage, Settings);
         }
@@ -66,8 +66,11 @@ namespace TelnetCommunication
                 {
                     try
                     {
-                        IMudMessage mudMessage = StringToMessage(newMessage.Remove(newMessage.Length - 1));
-                        parsedMessages.Add(mudMessage.Message);
+                        IMudMessage? mudMessage = StringToMessage(newMessage.Remove(newMessage.Length - 1));
+                        if (mudMessage != null)
+                        {
+                            parsedMessages.Add(mudMessage.Message);
+                        }
                     }
                     catch (Exception)
                     {

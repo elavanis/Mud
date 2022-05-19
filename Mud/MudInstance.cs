@@ -53,7 +53,7 @@ namespace Mud
         }
         #endregion StartMudMethods
 
-        public void StopMud(string zoneFileLocation)
+        public void StopMud(string? zoneFileLocation = null)
         {
             _heartBeat.StopHeartBeat();
 

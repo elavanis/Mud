@@ -10,7 +10,7 @@ namespace TelnetCommunication.Interface
 
         string Serialize();
 
-        IMudMessage StringToMessage(string stringMessage);
+        IMudMessage? StringToMessage(string stringMessage);
 
         IMudMessage CreateNewInstance(string guid, string message);
 

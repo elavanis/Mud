@@ -75,7 +75,7 @@ namespace GenerateZones.Zones
             return weapon;
         }
 
-        public IArmor CreateArmor(AvalableItemPosition position, int level, BaseMaterial material = null)
+        public IArmor CreateArmor(AvalableItemPosition position, int level, BaseMaterial? material = null)
         {
             IArmor armor = new Armor();
             armor.Id = ItemId++;
@@ -88,7 +88,7 @@ namespace GenerateZones.Zones
             return armor;
         }
 
-        public IShield CreateShield(int level, BaseMaterial material = null)
+        public IShield CreateShield(int level, BaseMaterial? material = null)
         {
             IShield shield = new Shield();
             shield.Id = ItemId++;

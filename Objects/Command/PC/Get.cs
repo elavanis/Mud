@@ -136,9 +136,8 @@ namespace Objects.Command.PC
                                 container.Items.Remove(item);
                                 AddItemToPerformer(performer, item);
 
-                                if (item is IMoney)
+                                if (item is IMoney money)
                                 {
-                                    IMoney money = item as IMoney;
                                     string moneyString = GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(money.Value);
                                     message = string.Format("You get the {0} from the {1}.", moneyString, parameterContainer.ParameterValue);
                                 }

@@ -5,7 +5,7 @@ namespace SharedUnitTest.Sound
     [TestClass]
     public class SoundUnitTest
     {
-        Shared.Sound.Sound sound;
+        Shared.Sound.Sound sound = null!;
 
         [TestInitialize]
         public void Setup()

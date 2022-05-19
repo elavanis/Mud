@@ -34,8 +34,8 @@ namespace ServerTelnetCommunication
 
             if (GlobalReference.GlobalValues.Settings.UseCachingFileIO)
             {
-                ICachedFileIO cachedFileIO = GlobalReference.GlobalValues.FileIO as ICachedFileIO;
-                cachedFileIO.Flush();
+                ICachedFileIO? cachedFileIO = GlobalReference.GlobalValues.FileIO as ICachedFileIO;
+                cachedFileIO?.Flush();
             }
         }
 
