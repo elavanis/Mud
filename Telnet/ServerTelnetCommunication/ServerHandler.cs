@@ -77,7 +77,17 @@ namespace ServerTelnetCommunication
                     {
                         if (InQueue.TryDequeue(out string messageFromClient))
                         {
-                            IPAddress address = ((IPEndPoint)ClientSocket.Client.RemoteEndPoint).Address;
+                            IPAddress address;
+
+                            try
+                            {
+                                address = ((IPEndPoint)ClientSocket.Client.RemoteEndPoint).Address;
+                            }
+                            catch 
+                            {
+                                //client disconnected;
+                                return;
+                            }
 
                             switch (_loginState)
                             {

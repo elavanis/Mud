@@ -80,16 +80,16 @@ namespace WindowsClient
                 settings.ColorDictionary.Add(TagType.Stamina, Color.DarkGreen);
 
 
-                settings.ShortCutKeys.Add("ShortCutKeyNumPad0", "Kill");
-                settings.ShortCutKeys.Add("ShortCutKeyNumPad1", "Sleep");
-                settings.ShortCutKeys.Add("ShortCutKeyNumPad2", "South");
-                settings.ShortCutKeys.Add("ShortCutKeyNumPad3", "Down");
-                settings.ShortCutKeys.Add("ShortCutKeyNumPad4", "West");
-                settings.ShortCutKeys.Add("ShortCutKeyNumPad5", "Look");
-                settings.ShortCutKeys.Add("ShortCutKeyNumPad6", "East");
-                settings.ShortCutKeys.Add("ShortCutKeyNumPad7", "Stand");
-                settings.ShortCutKeys.Add("ShortCutKeyNumPad8", "North");
-                settings.ShortCutKeys.Add("ShortCutKeyNumPad9", "Up");
+                settings.ShortCutKeys.Add("NumPad0", "Kill");
+                settings.ShortCutKeys.Add("NumPad1", "Sleep");
+                settings.ShortCutKeys.Add("NumPad2", "South");
+                settings.ShortCutKeys.Add("NumPad3", "Down");
+                settings.ShortCutKeys.Add("NumPad4", "West");
+                settings.ShortCutKeys.Add("NumPad5", "Look");
+                settings.ShortCutKeys.Add("NumPad6", "East");
+                settings.ShortCutKeys.Add("NumPad7", "Stand");
+                settings.ShortCutKeys.Add("NumPad8", "North");
+                settings.ShortCutKeys.Add("NumPad9", "Up");
 
 
             }
