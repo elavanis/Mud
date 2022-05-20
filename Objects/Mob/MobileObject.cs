@@ -957,7 +957,7 @@ namespace Objects.Mob
         #region Message/Commands
         protected ConcurrentQueue<string> _messageQueue { get; } = new ConcurrentQueue<string>();
 
-        public void EnqueueMessage(string message)
+        public void EnqueueMessage(string? message)
         {
             //if a message would be blank it is now marked null
             //skipping null messages will now make it no longer enqueue multiple status updates
@@ -982,7 +982,7 @@ namespace Objects.Mob
 
                     while (_messageQueue.Count >= 100)
                     {
-                        _messageQueue.TryDequeue(out string temp);
+                        _messageQueue.TryDequeue(out string? temp);
                     }
                 }
             }
@@ -1099,8 +1099,7 @@ namespace Objects.Mob
                     {
                         if (GlobalReference.GlobalValues.FileIO.Exists(fileLocation))
                         {
-                            IData data = new Data(Data.DataType.File, fileLocation, GlobalReference.GlobalValues.FileIO);
-                            data.AssetName = splitMessage[2];
+                            IData data = new Data(Data.DataType.File, fileLocation, GlobalReference.GlobalValues.FileIO, splitMessage[2]);
                             string serializedData = GlobalReference.GlobalValues.Serialization.Serialize(data);
                             EnqueueMessage(GlobalReference.GlobalValues.TagWrapper.WrapInTag(serializedData, TagType.Data));
                         }
@@ -1118,13 +1117,13 @@ namespace Objects.Mob
             }
         }
 
-        public string DequeueCommunication()
+        public string? DequeueCommunication()
         {
             _communicationQueue.TryDequeue(out string communication);
             return communication;
         }
 
-        public string DequeueCommand()
+        public string? DequeueCommand()
         {
             _commandQueue.TryDequeue(out string command);
             return command;

@@ -4,7 +4,7 @@ namespace Objects.Command.Interface
 {
     public interface ICommand
     {
-        string CommandName { get; set; }
-        List<IParameter> Parameters { get; set; }
+        string CommandName { get; }
+        List<IParameter> Parameters { get; }
     }
 }

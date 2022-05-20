@@ -52,7 +52,6 @@ namespace Objects.Command
             Any,
             Awake,
             Standing
-
         }
 
         public IResult? PerfomCommand(IMobileObject performer, ICommand command)

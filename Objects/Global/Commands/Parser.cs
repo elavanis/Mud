@@ -22,17 +22,20 @@ namespace Objects.Global.Commands
                 words[i] = words[i].Replace("\"", "");
             }
 
-            ICommand command = new Command.Command();
+            string commandName = "";
+            List<IParameter> commandParameters = new List<IParameter>();
 
             if (words.Count > 0)
             {
-                command.CommandName = words[0].ToUpper();
+                commandName = words[0].ToUpper();
             }
 
             for (int i = 1; i < words.Count; i++)
             {
-                command.Parameters.Add(new Parameter(words[i]));
+                commandParameters.Add(new Parameter(words[i]));
             }
+
+            ICommand command = new Command.Command(commandName, commandParameters);
 
             return command;
         }

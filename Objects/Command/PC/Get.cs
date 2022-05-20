@@ -40,9 +40,9 @@ namespace Objects.Command.PC
                     for (int i = performer.Room.Items.Count - 1; i >= 0; i--)
                     {
                         IItem roomItem = performer.Room.Items[i];
-                        ICommand innerCommand = new Command();
                         IParameter innerParameter = new Parameter(roomItem.KeyWords[0]);
-                        innerCommand.Parameters.Add(innerParameter);
+                        ICommand innerCommand = new Command("REPLACE_ME", new List<IParameter>() { innerParameter });
+
                         IResult innerResult = PerformCommand(performer, innerCommand);
                         GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage(innerResult.ResultMessage));
                     }
@@ -112,10 +112,12 @@ namespace Objects.Command.PC
                         for (int i = container.Items.Count - 1; i >= 0; i--)
                         {
                             IItem containerItem = container.Items[i];
-                            ICommand innerCommand = new Command();
+                            
                             IParameter innerParameter = new Parameter(containerItem.KeyWords[0]);
-                            innerCommand.Parameters.Add(innerParameter);
-                            innerCommand.Parameters.Add(parameterContainer);
+                            List<IParameter> parameters = new List<IParameter>();
+                            parameters.Add(innerParameter);
+                            parameters.Add(parameterContainer);
+                            ICommand innerCommand = new Command("REPLACE_ME", parameters);
                             IResult innerResult = PerformCommand(performer, innerCommand);
                             GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage(innerResult.ResultMessage));
                         }
