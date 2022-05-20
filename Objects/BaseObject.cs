@@ -15,12 +15,39 @@ namespace Objects
 {
     public abstract class BaseObject : ILoadable, IBaseObject
     {
+        //protected BaseObject(int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, List<string> keyWords, Dictionary<string, List<string>> flavorOptions, Dictionary<string, List<string>> zoneSyncOptions, List<IEnchantment> enchantments)
+        //{
+        //    Id = id;
+        //    Zone = zone;
+        //    ExamineDescription = examineDescription;
+        //    LookDescription = lookDescription;
+        //    SentenceDescription = sentenceDescription;
+        //    ShortDescription = shortDescription;
+        //    KeyWords = keyWords;
+        //    FlavorOptions = flavorOptions;
+        //    ZoneSyncOptions = zoneSyncOptions;
+        //    Enchantments = enchantments;
+        //}
+
         #region Properties
         [ExcludeFromCodeCoverage]
         public int Id { get; set; }
 
         [ExcludeFromCodeCoverage]
         public int Zone { get; set; }
+
+
+        /// <summary>
+        /// Description used when examining an item."
+        /// </summary>
+        [ExcludeFromCodeCoverage]
+        public string ExamineDescription { get; set; }
+
+        /// <summary>
+        /// Description used when looking at the item."
+        /// </summary>
+        [ExcludeFromCodeCoverage]
+        public string LookDescription { get; set; }
 
         /// <summary>
         /// Description used in the middle of a sentence."
@@ -33,18 +60,6 @@ namespace Objects
         /// </summary>
         [ExcludeFromCodeCoverage]
         public string ShortDescription { get; set; }
-
-        /// <summary>
-        /// Description used when looking at the item."
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        public string LookDescription { get; set; }
-
-        /// <summary>
-        /// Description used when examining an item."
-        /// </summary>
-        [ExcludeFromCodeCoverage]
-        public string ExamineDescription { get; set; }
 
         public List<string> KeyWords { get; } = new List<string>();
 

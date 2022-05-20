@@ -7,13 +7,13 @@ namespace Shared.TelnetItems
     public class Data : IData
     {
         [ExcludeFromCodeCoverage]
-        public string AssetName { get; set; }
+        public string AssetName { get; set; } 
 
         [ExcludeFromCodeCoverage]
-        public DataType Type { get; set; }
+        public DataType Type { get; set; } 
 
         [ExcludeFromCodeCoverage]
-        public string Base64Encoding { get; set; }
+        public string Base64Encoding { get; set; } 
 
         [ExcludeFromCodeCoverage]
         public Data()

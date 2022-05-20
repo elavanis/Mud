@@ -78,7 +78,7 @@ namespace TelnetCommunication
             {
                 while ((ClientSocket.Connected))
                 {
-                    while (OutQueue.TryDequeue(out string outboundMessage))
+                    while (OutQueue.TryDequeue(out string? outboundMessage))
                     {
                         SendMessage(outboundMessage);
                     }

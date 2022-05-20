@@ -21,7 +21,7 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            IResult result = base.PerfomCommand(performer, command);
+            IResult? result = base.PerfomCommand(performer, command);
             if (result != null)
             {
                 return result;
@@ -58,17 +58,16 @@ namespace Objects.Command.PC
                         {
                             if (item is ICorpse corpse)
                             {
-                                if (corpse.Killer != null)  //allow you to pick up corpses that don't have a killer
+                                if (corpse.Killer != performer
+                                        && corpse.OriginalMob != performer)
                                 {
-                                    IPlayerCharacter playerCharacter = performer as IPlayerCharacter;
-
-                                    if ((corpse.Killer != performer
-                                            && corpse.OriginalMob != performer)
-                                        && (playerCharacter != null
-                                            && corpse.Killer.SentenceDescription != performer.SentenceDescription
-                                            && corpse.OriginalMob.SentenceDescription != performer.SentenceDescription))
+                                    if (performer is IPlayerCharacter playerCharacter)
                                     {
-                                        return new Result($"Unable to pickup the corpse belonging to {corpse.Killer.KeyWords[0]}.", true);
+                                        if (corpse.Killer.SentenceDescription != performer.SentenceDescription
+                                                && corpse.OriginalMob.SentenceDescription != performer.SentenceDescription)
+                                        {
+                                            return new Result($"Unable to pickup the corpse belonging to {corpse.Killer.KeyWords[0]}.", true);
+                                        }
                                     }
                                 }
                             }

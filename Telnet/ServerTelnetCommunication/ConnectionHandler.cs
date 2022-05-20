@@ -16,18 +16,18 @@ namespace ServerTelnetCommunication
         public ConnectionHandler(IMudMessage mudMessage)
         {
             ContinueRunning = true;
-            TcpClient clientSocket = null!;
+            TcpClient clientSocket;
             TcpListener serverSocket = new TcpListener(IPAddress.Any, GlobalReference.GlobalValues.Settings.Port);
             serverSocket.Start();
 
-            while (ContinueRunning)
+            do
             {
                 clientSocket = serverSocket.AcceptTcpClient();
                 LogConnection(clientSocket);
                 clientSocket.ReceiveBufferSize = (int)Math.Pow(2, 20);
                 clientSocket.SendBufferSize = clientSocket.ReceiveBufferSize;
                 ServerHandler serverHandler = new ServerHandler(clientSocket, mudMessage);
-            }
+            } while (ContinueRunning);
 
             clientSocket.Close();
             serverSocket.Stop();

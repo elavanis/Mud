@@ -14,6 +14,7 @@ namespace Objects.Interface
         /// <summary>
         /// Description when Examining
         /// </summary>
+        //string ExamineDescription { get; set; }
         string ExamineDescription { get; set; }
         /// <summary>
         /// Description when looking at object

@@ -2,6 +2,6 @@
 {
     public interface ITagWrapper
     {
-        string WrapInTag(string stringToWrapp, TagWrapper.TagType typeOfTag = TagWrapper.TagType.Info);
+        string? WrapInTag(string stringToWrapp, TagWrapper.TagType typeOfTag = TagWrapper.TagType.Info);
     }
 }
