@@ -73,9 +73,9 @@ namespace Objects.Mob.Interface
         int CalculateDamageBlocked(IArmor armor);
         int CalculateToDodgeRoll(Stats.Stat stat, long weaponId, uint combatRound);
         int CalculateToHitRoll(Stats.Stat stat);
-        string DequeueCommand();
-        string DequeueCommunication();
-        string DequeueMessage();
+        string? DequeueCommand();
+        string? DequeueCommunication();
+        string? DequeueMessage();
         ICorpse Die(IMobileObject attacker);
         void EnqueueCommand(string message);
         void EnqueueMessage(string message);

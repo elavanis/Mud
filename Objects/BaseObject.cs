@@ -15,19 +15,19 @@ namespace Objects
 {
     public abstract class BaseObject : ILoadable, IBaseObject
     {
-        //protected BaseObject(int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, List<string> keyWords, Dictionary<string, List<string>> flavorOptions, Dictionary<string, List<string>> zoneSyncOptions, List<IEnchantment> enchantments)
-        //{
-        //    Id = id;
-        //    Zone = zone;
-        //    ExamineDescription = examineDescription;
-        //    LookDescription = lookDescription;
-        //    SentenceDescription = sentenceDescription;
-        //    ShortDescription = shortDescription;
-        //    KeyWords = keyWords;
-        //    FlavorOptions = flavorOptions;
-        //    ZoneSyncOptions = zoneSyncOptions;
-        //    Enchantments = enchantments;
-        //}
+        protected BaseObject(int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, List<string> keyWords, Dictionary<string, List<string>> flavorOptions, Dictionary<string, List<string>> zoneSyncOptions, List<IEnchantment> enchantments)
+        {
+            Id = id;
+            Zone = zone;
+            ExamineDescription = examineDescription;
+            LookDescription = lookDescription;
+            SentenceDescription = sentenceDescription;
+            ShortDescription = shortDescription;
+            KeyWords = keyWords;
+            FlavorOptions = flavorOptions;
+            ZoneSyncOptions = zoneSyncOptions;
+            Enchantments = enchantments;
+        }
 
         #region Properties
         [ExcludeFromCodeCoverage]

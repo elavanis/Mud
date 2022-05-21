@@ -33,6 +33,7 @@ namespace Objects.Mob
 {
     public abstract class MobileObject : BaseObject, IContainer, IMobileObject
     {
+
         #region Properties
         [ExcludeFromCodeCoverage]
         public bool IsAlive { get; set; } = true;
@@ -128,44 +129,11 @@ namespace Objects.Mob
             return GlobalReference.GlobalValues.Engine.Combat.AreFighting(this, mob);
         }
 
-        private Dictionary<string, ISpell> _spellBook = null;
-        public Dictionary<string, ISpell> SpellBook
-        {
-            get
-            {
-                if (_spellBook == null)
-                {
-                    _spellBook = new Dictionary<string, ISpell>();
-                }
-                return _spellBook;
-            }
-        }
+        public Dictionary<string, ISpell> SpellBook { get; } = new Dictionary<string, ISpell>();
 
-        private Dictionary<string, ISkill> _knownSkills = null;
-        public Dictionary<string, ISkill> KnownSkills
-        {
-            get
-            {
-                if (_knownSkills == null)
-                {
-                    _knownSkills = new Dictionary<string, ISkill>();
-                }
-                return _knownSkills;
-            }
-        }
-
-        private List<MobileAttribute> _mobileAttributes = null;
-        private List<MobileAttribute> AttributesMobileObject
-        {
-            get
-            {
-                if (_mobileAttributes == null)
-                {
-                    _mobileAttributes = new List<MobileAttribute>();
-                }
-                return _mobileAttributes;
-            }
-        }
+        public Dictionary<string, ISkill> KnownSkills { get; }= new Dictionary<string, ISkill>();
+        
+        private List<MobileAttribute> AttributesMobileObject { get; } = new List<MobileAttribute>();
 
         public void AddAttribute(MobileAttribute attribute)
         {
@@ -387,25 +355,18 @@ namespace Objects.Mob
         #endregion Health/Mana/Stamina
 
         #region Equipment
-        private List<IEquipment> _equipment = null;
+        private List<IEquipment> _equipment = new List<IEquipment>();
+
         public IEnumerable<IEquipment> EquipedEquipment
         {
             get
             {
-                if (_equipment == null)
-                {
-                    _equipment = new List<IEquipment>();
-                }
                 return _equipment;
             }
         }
 
         public void AddEquipment(IEquipment equipment)
         {
-            if (_equipment == null)
-            {
-                _equipment = new List<IEquipment>();
-            }
             _equipment.Add(equipment);
 
             ResetMaxStatValues();
@@ -413,10 +374,6 @@ namespace Objects.Mob
 
         public void RemoveEquipment(IEquipment equipment)
         {
-            if (_equipment == null)
-            {
-                return;
-            }
             _equipment.Remove(equipment);
 
             ResetMaxStatValues();
@@ -1026,9 +983,9 @@ namespace Objects.Mob
             return strBldr.ToString();
         }
 
-        public string DequeueMessage()
+        public string? DequeueMessage()
         {
-            _messageQueue.TryDequeue(out string message);
+            _messageQueue.TryDequeue(out string? message);
             return message;
         }
 
@@ -1119,13 +1076,13 @@ namespace Objects.Mob
 
         public string? DequeueCommunication()
         {
-            _communicationQueue.TryDequeue(out string communication);
+            _communicationQueue.TryDequeue(out string? communication);
             return communication;
         }
 
         public string? DequeueCommand()
         {
-            _commandQueue.TryDequeue(out string command);
+            _commandQueue.TryDequeue(out string? command);
             return command;
         }
 
