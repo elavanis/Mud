@@ -84,7 +84,7 @@ namespace Objects.Global.Engine.Engines
             return Combatants.ContainsKey(mob);
         }
 
-        public IMobileObject Opponet(IMobileObject mobileObject)
+        public IMobileObject? Opponet(IMobileObject mobileObject)
         {
             CombatPair pair;
             if (Combatants.TryGetValue(mobileObject, out pair))

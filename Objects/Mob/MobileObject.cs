@@ -60,7 +60,7 @@ namespace Objects.Mob
         public IBaseObjectId RoomId { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public IBaseObjectId RecallPoint { get; set; }
+        public IBaseObjectId? RecallPoint { get; set; }
 
         [ExcludeFromCodeCoverage]
         public uint LastProccessedTick { get; set; } = 0;
@@ -106,7 +106,7 @@ namespace Objects.Mob
         public bool God { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public IMount Mount { get; set; }
+        public IMount? Mount { get; set; }
 
         public bool IsInCombat
         {
@@ -116,7 +116,7 @@ namespace Objects.Mob
             }
         }
 
-        public IMobileObject Opponent
+        public IMobileObject? Opponent
         {
             get
             {
@@ -156,20 +156,20 @@ namespace Objects.Mob
             }
         }
 
-        private IMobileObject followTarget;
-        public IMobileObject FollowTarget
+        private IMobileObject? _followTarget;
+        public IMobileObject? FollowTarget
         {
             get
             {
-                if (followTarget == null)
+                if (_followTarget == null)
                 {
                     return null;
                 }
                 else
                 {
-                    if (followTarget.IsAlive)
+                    if (_followTarget.IsAlive)
                     {
-                        return followTarget;
+                        return _followTarget;
                     }
                     else
                     {
@@ -180,7 +180,7 @@ namespace Objects.Mob
 
             set
             {
-                followTarget = value;
+                _followTarget = value;
             }
         }
 
@@ -386,8 +386,7 @@ namespace Objects.Mob
                 List<IWeapon> weapons = new List<IWeapon>();
                 foreach (IItem item in EquipedEquipment)
                 {
-                    IWeapon weapon = item as IWeapon;
-                    if (weapon != null)
+                    if ( item is IWeapon weapon)
                     {
                         weapons.Add(weapon);
                     }
@@ -417,8 +416,7 @@ namespace Objects.Mob
                 List<IArmor> armors = new List<IArmor>();
                 foreach (IItem item in EquipedEquipment)
                 {
-                    IArmor armor = item as IArmor;
-                    if (armor != null)
+                    if (item is IArmor armor)
                     {
                         armors.Add(armor);
                     }
@@ -551,8 +549,7 @@ namespace Objects.Mob
 
             foreach (IArmor armor in EquipedArmor)
             {
-                IShield shield = armor as IShield;
-                if (shield != null)
+                if (armor is IShield shield)
                 {
                     int shieldNegateRoll = GlobalReference.GlobalValues.Random.Next(101);
                     if (shieldNegateRoll <= shield.NegateDamagePercent)
@@ -632,10 +629,8 @@ namespace Objects.Mob
         private void KillMobAndRewardXP(IMobileObject attacker)
         {
             ICorpse corpse = Die(attacker);
-            INonPlayerCharacter npc = this as INonPlayerCharacter;
-            IPlayerCharacter pc = attacker as IPlayerCharacter;
-            if (npc != null && attacker != null)
-            {
+            if (this is INonPlayerCharacter npc && attacker is IPlayerCharacter pc)
+            { 
                 IReadOnlyList<IMobileObject> partyMembers = GlobalReference.GlobalValues.Engine.Party.CurrentPartyMembers(attacker);
 
                 if (partyMembers == null)
@@ -669,11 +664,11 @@ namespace Objects.Mob
 
             foreach (IMobileObject mob in partyMembers)
             {
-                if (mob is IPlayerCharacter pc2)
+                if (mob is IPlayerCharacter pc)
                 {
-                    pc2.Experience += exp;
-                    pc2.Money += gold;
-                    GlobalReference.GlobalValues.Notify.Mob(pc2, translationMessage);
+                    pc.Experience += exp;
+                    pc.Money += gold;
+                    GlobalReference.GlobalValues.Notify.Mob(pc, translationMessage);
                 }
             }
         }
@@ -1004,12 +999,12 @@ namespace Objects.Mob
         /// <summary>
         /// This is the mob possessing this mob.
         /// </summary>
-        public IMobileObject PossingMob { get; set; }
+        public IMobileObject? PossingMob { get; set; }
 
         /// <summary>
         /// This is the mob that this mob is currently possessing.
         /// </summary>
-        public IMobileObject PossedMob { get; set; }
+        public IMobileObject? PossedMob { get; set; }
 
         public void EnqueueCommand(string message)
         {
