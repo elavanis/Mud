@@ -13,6 +13,7 @@ using Objects.Magic.Interface;
 using Objects.Mob.Interface;
 using Objects.Race.Interface;
 using Objects.Race.Races;
+using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Skill.Interface;
 using Shared.TelnetItems;
@@ -33,6 +34,14 @@ namespace Objects.Mob
 {
     public abstract class MobileObject : BaseObject, IContainer, IMobileObject
     {
+
+        protected MobileObject(IRoom room, string corpseLookDescription, int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, List<string> keyWords, Dictionary<string, List<string>> flavorOptions, Dictionary<string, List<string>> zoneSyncOptions, List<IEnchantment> enchantments) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription, keyWords, flavorOptions, zoneSyncOptions, enchantments)
+        {
+            Room = room;
+            RoomId = new RoomId(room);
+            CorpseLookDescription = corpseLookDescription;
+        }
+
 
         #region Properties
         [ExcludeFromCodeCoverage]
@@ -356,6 +365,8 @@ namespace Objects.Mob
 
         #region Equipment
         private List<IEquipment> _equipment = new List<IEquipment>();
+
+  
 
         public IEnumerable<IEquipment> EquipedEquipment
         {
@@ -928,7 +939,7 @@ namespace Objects.Mob
 
                     if (LevelPoints > 0)
                     {
-                        string levelPointsMessage = GlobalReference.GlobalValues.TagWrapper.WrapInTag(string.Format("You have {0} level points to spend.", LevelPoints));
+                        string? levelPointsMessage = GlobalReference.GlobalValues.TagWrapper.WrapInTag(string.Format("You have {0} level points to spend.", LevelPoints));
                         InternalEnqueueMessage(GlobalReference.GlobalValues.Engine.Event.EnqueueMessage(this, levelPointsMessage));
                     }
 
