@@ -10,7 +10,7 @@ namespace Objects.Personality.Custom.MountainGoblinCamp
 {
     public class ChiefDaughterPresent : IPersonality
     {
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command == null)
             {
@@ -22,7 +22,6 @@ namespace Objects.Personality.Custom.MountainGoblinCamp
                         {
                             npc.EnqueueCommand("say You have brought my daughter back to me.  I am most grateful.");
                             npc.EnqueueCommand("say Please accept this gift as a reward.");
-
 
                             //generate a reward;
                             int level = GlobalReference.GlobalValues.Random.Next(18, 22);

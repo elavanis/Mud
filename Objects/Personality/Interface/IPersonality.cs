@@ -4,6 +4,6 @@ namespace Objects.Personality.Interface
 {
     public interface IPersonality
     {
-        string Process(INonPlayerCharacter npc, string command);
+        string? Process(INonPlayerCharacter npc, string? command);
     }
 }
