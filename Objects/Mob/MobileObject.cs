@@ -35,7 +35,7 @@ namespace Objects.Mob
     public abstract class MobileObject : BaseObject, IContainer, IMobileObject
     {
 
-        protected MobileObject(IRoom room, string corpseLookDescription, int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, List<string> keyWords, Dictionary<string, List<string>> flavorOptions, Dictionary<string, List<string>> zoneSyncOptions, List<IEnchantment> enchantments) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription, keyWords, flavorOptions, zoneSyncOptions, enchantments)
+        protected MobileObject(IRoom room, string corpseLookDescription, int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             Room = room;
             RoomId = new RoomId(room);

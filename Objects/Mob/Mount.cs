@@ -1,6 +1,8 @@
 ﻿using Objects.Command.Interface;
 using Objects.Global;
+using Objects.Magic.Interface;
 using Objects.Mob.Interface;
+using Objects.Room.Interface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -57,11 +59,9 @@ namespace Objects.Mob
         #endregion Descriptions
         #endregion AnimalInfo
 
-        public Mount()
-        {
-        }
+     
 
-        public Mount(DefaultValues defaultValue)
+        public Mount(DefaultValues defaultValue) : base(new Room.Room(), "mount corpse description", 1, 1, "examine description", "look description", "sentince description", "short description")
         {
             LoadDefaultValues(defaultValue);
         }
@@ -174,9 +174,6 @@ namespace Objects.Mob
                     SentenceDescription = "griffin";
                     break;
             }
-
-            ExamineDescription = "you should not see this";
-            LookDescription = "you should not see this";
         }
 
         public enum DefaultValues
