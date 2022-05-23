@@ -88,28 +88,18 @@ namespace GenerateZones
             zone.Id = i;
             int roomId = 1;
             zone.Name = i.ToString();
-
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Personalities.Add(new Wanderer());
-            npc.Zone = i;
-            npc.Id = 1;
-            npc.ExamineDescription = "ExamineDescription";
-            npc.LookDescription = "LookDescription";
-            npc.ShortDescription = "ShortDescription";
-            npc.SentenceDescription = "SentenceDescription";
-            npc.KeyWords.Add("npc");
-            npc.TypeOfMob = NonPlayerCharacter.MobType.Humanoid;
+           
             for (int x = 0; x < 100; x++)
             {
-                IRoom room = new Room();
-                room.Id = roomId++;
-                room.Zone = i;
-                room.ExamineDescription = "ExamineDescription";
-                room.LookDescription = "LookDescription";
-                room.ShortDescription = "ShortDescription";
-                room.SentenceDescription = "SentenceDescription";
+                IRoom room = new Room(x+1,i, "ExamineDescription", "LookDescription", "ShortDescription");
                 room.Attributes.Add(Room.RoomAttribute.Indoor);
                 zone.Rooms.Add(room.Id, room);
+
+                INonPlayerCharacter npc = new NonPlayerCharacter(room, "corpseLookDescription", i, x, "ExamineDescription", "LookDescription", "SentenceDescription", "ShortDescription");
+                npc.Personalities.Add(new Wanderer());
+                npc.KeyWords.Add("npc");
+                npc.TypeOfMob = NonPlayerCharacter.MobType.Humanoid;
+
                 room.AddMobileObjectToRoom(npc);
             }
 
