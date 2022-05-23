@@ -23,7 +23,7 @@ namespace ObjectsUnitTest.Mob
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            mount = new Mount();
+            mount = new Mount(DefaultValues.Horse);
             random = new Mock<IRandom>();
             settings = new Mock<ISettings>();
 

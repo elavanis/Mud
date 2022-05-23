@@ -8,9 +8,8 @@ namespace Objects.Item
 {
     public class Item : BaseObject, IItem
     {
-        public Item()
+        public Item(int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
-
         }
 
         #region Properties
@@ -38,31 +37,9 @@ namespace Objects.Item
             return newItem;
         }
 
-        private List<ItemAttribute> _attributes = null;
-        public List<ItemAttribute> Attributes
-        {
-            get
-            {
-                if (_attributes == null)
-                {
-                    _attributes = new List<ItemAttribute>();
-                }
-                return _attributes;
-            }
-        }
+        public List<ItemAttribute> Attributes { get; } = new List<ItemAttribute>();
 
-        private List<MobileObject.MobileAttribute> _mobAttributes = null;
-        public virtual List<MobileObject.MobileAttribute> AttributesForMobileObjectsWhenEquiped
-        {
-            get
-            {
-                if (_mobAttributes == null)
-                {
-                    _mobAttributes = new List<MobileObject.MobileAttribute>();
-                }
-                return _mobAttributes;
-            }
-        }
+        public virtual List<MobileObject.MobileAttribute> AttributesForMobileObjectsWhenEquiped { get; } = new List<MobileObject.MobileAttribute>();
 
         public enum ItemAttribute
         {

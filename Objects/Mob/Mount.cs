@@ -61,7 +61,7 @@ namespace Objects.Mob
 
      
 
-        public Mount(DefaultValues defaultValue) : base(new Room.Room(), "mount corpse description", 1, 1, "examine description", "look description", "sentince description", "short description")
+        public Mount(DefaultValues defaultValue) : base(new Room.Room(), "mount corpse description", 0, 0, "examine description", "look description", "sentince description", "short description")
         {
             LoadDefaultValues(defaultValue);
         }

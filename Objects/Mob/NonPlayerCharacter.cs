@@ -7,6 +7,7 @@ using Objects.LevelRange.Interface;
 using Objects.Material.Materials;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
+using Objects.Room.Interface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -16,24 +17,11 @@ namespace Objects.Mob
 {
     public class NonPlayerCharacter : MobileObject, INonPlayerCharacter, ILoadableItems
     {
-        public NonPlayerCharacter() : base()
+        public NonPlayerCharacter(IRoom room, string corpseLookDescription, int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(room, corpseLookDescription, id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
-
         }
 
-        private List<IPersonality> _personalities;
-        public List<IPersonality> Personalities
-        {
-            get
-            {
-                if (_personalities == null)
-                {
-                    _personalities = new List<IPersonality>();
-                }
-
-                return _personalities;
-            }
-        }
+        public List<IPersonality> Personalities { get; } = new List<IPersonality>();
 
         #region Exp/Level
         private int _exp = -1;
@@ -127,21 +115,10 @@ namespace Objects.Mob
         }
 
         #region Equipment
-        protected List<IEquipment> _npcEquipment = null;
         /// <summary>
         /// Any equipment placed here will not be dropped when the NPC dies
         /// </summary>
-        public List<IEquipment> NpcEquipedEquipment
-        {
-            get
-            {
-                if (_npcEquipment == null)
-                {
-                    _npcEquipment = new List<IEquipment>();
-                }
-                return _npcEquipment;
-            }
-        }
+        public List<IEquipment> NpcEquipedEquipment { get; } = new List<IEquipment>();
 
         public override IEnumerable<IArmor> EquipedArmor
         {
@@ -150,8 +127,7 @@ namespace Objects.Mob
                 List<IArmor> armors = new List<IArmor>();
                 foreach (IItem item in NpcEquipedEquipment)
                 {
-                    IArmor armor = item as IArmor;
-                    if (armor != null)
+                    if (item is IArmor armor)
                     {
                         armors.Add(armor);
                     }
@@ -168,8 +144,7 @@ namespace Objects.Mob
                 List<IWeapon> weapons = new List<IWeapon>();
                 foreach (IItem item in NpcEquipedEquipment)
                 {
-                    IWeapon weapon = item as IWeapon;
-                    if (weapon != null)
+                    if (item is IWeapon weapon)
                     {
                         weapons.Add(weapon);
                     }
