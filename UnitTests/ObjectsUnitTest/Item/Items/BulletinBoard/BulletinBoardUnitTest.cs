@@ -58,9 +58,7 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
 
-            bulletinBoard = new Objects.Item.Items.BulletinBoard.BulletinBoard();
-            bulletinBoard.Zone = 1;
-            bulletinBoard.Id = 2;
+            bulletinBoard = new Objects.Item.Items.BulletinBoard.BulletinBoard(2, 1, "examine", "look", "sentence", "short");
             PropertyInfo propertyInfo = bulletinBoard.GetType().GetProperty("messages", BindingFlags.Instance | BindingFlags.NonPublic);
             messages = (List<IMessage>)propertyInfo.GetValue(bulletinBoard);
             messages.Add(message.Object);
