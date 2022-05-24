@@ -16,9 +16,9 @@ namespace ObjectsUnitTest.Command.PC
     [TestClass]
     public class AbilitiesUnitTest
     {
-        IMobileObjectCommand command;
-        Mock<IMobileObject> mob;
-        Mock<ITagWrapper> tagWrapper;
+        IMobileObjectCommand command = null!;
+        Mock<IMobileObject> mob = null!;
+        Mock<ITagWrapper> tagWrapper = null!;
         [TestInitialize]
         public void Setup()
         {
@@ -65,7 +65,7 @@ namespace ObjectsUnitTest.Command.PC
         [TestMethod]
         public void Abilities_PerformCommand_Abilities()
         {
-            IResult result = command.PerformCommand(mob.Object, null);
+            IResult result = command.PerformCommand(mob.Object, new Objects.Command.Command());
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("Spells\r\nspell\r\n\r\nSkills\r\nskill  - Active\r\nskill2 - Passive", result.ResultMessage);
         }
@@ -76,7 +76,7 @@ namespace ObjectsUnitTest.Command.PC
             mob.Setup(e => e.SpellBook).Returns(new Dictionary<string, ISpell>());
             mob.Setup(e => e.KnownSkills).Returns(new Dictionary<string, ISkill>());
 
-            IResult result = command.PerformCommand(mob.Object, null);
+            IResult result = command.PerformCommand(mob.Object, new Objects.Command.Command());
             Assert.IsFalse(result.AllowAnotherCommand);
             Assert.AreEqual("Spells\r\n<None>\r\n\r\nSkills\r\n<None>", result.ResultMessage);
         }

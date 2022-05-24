@@ -17,7 +17,7 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            IResult result = base.PerfomCommand(performer, command);
+            IResult? result = base.PerfomCommand(performer, command);
             if (result != null)
             {
                 return result;
@@ -55,7 +55,7 @@ namespace Objects.Command.PC
                 foreach (string skill in performer.KnownSkills.Keys)
                 {
                     ISkill baseskill = performer.KnownSkills[skill];
-                    string activePassive = null;
+                    string activePassive;
                     if (baseskill.Passive)
                     {
                         activePassive = "Passive";

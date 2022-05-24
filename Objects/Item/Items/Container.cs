@@ -13,6 +13,12 @@ namespace Objects.Item.Items
 {
     public class Container : Item, IContainer, IOpenable, ILoadableItems
     {
+        public Container(string openMessage, string closeMessage, int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        {
+            OpenMessage = openMessage;
+            CloseMessage = closeMessage;
+        }
+
         [ExcludeFromCodeCoverage]
         public bool Opened { get; set; } = false;
 
@@ -25,21 +31,7 @@ namespace Objects.Item.Items
         [ExcludeFromCodeCoverage]
         public List<ILoadPercentage> LoadableItems { get; } = new List<ILoadPercentage>();
 
-        private List<IItem> _items = null;
-        public List<IItem> Items
-        {
-            get
-            {
-                if (_items == null)
-                {
-                    _items = new List<IItem>();
-                }
-
-                return _items;
-            }
-        }
-
-
+        public List<IItem> Items { get; } = new List<IItem>();
 
         public IResult Open(IMobileObject performer)
         {

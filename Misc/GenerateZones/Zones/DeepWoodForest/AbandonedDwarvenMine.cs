@@ -35,7 +35,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             //int methodCount = this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic).Count();
             for (int i = 1; i <= 113; i++)
             {
-                IRoom room = null;
+                IRoom? room = null;
                 if (i >= 1 && i <= 6)
                 {
                     room = OreCartStorage();
@@ -75,10 +75,12 @@ namespace GenerateZones.Zones.DeepWoodForest
                 else
                 {
                     string methodName = "GenerateRoom" + i;
-                    MethodInfo method = this.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+                    MethodInfo? method = this.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
                     if (method != null)
                     {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                         room = (IRoom)method.Invoke(this, null);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
                     }
                 }
 
