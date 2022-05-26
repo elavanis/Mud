@@ -967,11 +967,23 @@ namespace Objects.World
 
         private static void SpawnElemental(IRoom room, ElementType elementType)
         {
-            Elemental elemental = new Elemental(elementType);
+            Elemental elemental = new Elemental(elementType, room, "", 1, room.Zone, "", "", "", "");
             elemental.FinishLoad();
             room.AddMobileObjectToRoom(elemental);
-            elemental.Room = room;
-            ITranslationMessage translationMessage = new TranslationMessage($"A {elemental.KeyWords[0]} elemental appears out of nothing.");
+
+            ITranslationMessage translationMessage;
+            switch (elementType)
+            {
+                case ElementType.Fire:
+                case ElementType.Water:
+                    translationMessage = new TranslationMessage($"A {elemental.KeyWords[0]} elemental appears out of nothing.");
+                    break;
+                case ElementType.Air:
+                case ElementType.Earth:
+                default:
+                    translationMessage = new TranslationMessage($"An {elemental.KeyWords[0]} elemental appears out of nothing.");
+                    break;
+            }
             GlobalReference.GlobalValues.Notify.Room(elemental, null, room, translationMessage, null, true);
         }
 
