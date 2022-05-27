@@ -57,7 +57,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
 
-            elemental = new Elemental(ElementType.Air);
+            elemental = new Elemental(ElementType.Air,room.Object);
             roundTickCounter = elemental.GetType().GetProperty("RoundTickCounter", BindingFlags.NonPublic | BindingFlags.Instance);
 
             roundTickCounter.SetValue(elemental, -1);
@@ -66,7 +66,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_Constructor_Air()
         {
-            elemental = new Elemental(ElementType.Air);
+            elemental = new Elemental(ElementType.Air, room.Object);
 
             Assert.AreEqual("air", elemental.KeyWords[0]);
         }
@@ -74,7 +74,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_Constructor_Earth()
         {
-            elemental = new Elemental(ElementType.Earth);
+            elemental = new Elemental(ElementType.Earth, room.Object);
 
             Assert.AreEqual("earth", elemental.KeyWords[0]);
         }
@@ -82,7 +82,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_Constructor_Fire()
         {
-            elemental = new Elemental(ElementType.Fire);
+            elemental = new Elemental(ElementType.Fire, room.Object);
 
             Assert.AreEqual("fire", elemental.KeyWords[0]);
         }
@@ -90,7 +90,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_Constructor_Water()
         {
-            elemental = new Elemental(ElementType.Water);
+            elemental = new Elemental(ElementType.Water, room.Object);
 
             Assert.AreEqual("water", elemental.KeyWords[0]);
         }
@@ -151,7 +151,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_ProcessElementalTick_Earth_LooseLevel()
         {
-            elemental = new Elemental(ElementType.Earth);
+            elemental = new Elemental(ElementType.Earth, room.Object);
             elemental.Room = room.Object;
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { elemental });
             roundTickCounter.SetValue(elemental, -1);
@@ -169,7 +169,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_ProcessElementalTick_Earth_GainLevel()
         {
-            elemental = new Elemental(ElementType.Earth);
+            elemental = new Elemental(ElementType.Earth, room.Object);
             roundTickCounter.SetValue(elemental, -1);
             elemental.Level = 5;
             elemental.FinishLoad();
@@ -187,7 +187,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_ProcessElementalTick_Earth_NoChange()
         {
-            elemental = new Elemental(ElementType.Earth);
+            elemental = new Elemental(ElementType.Earth, room.Object);
             roundTickCounter.SetValue(elemental, -1);
             world.Setup(e => e.Precipitation).Returns(40);
 

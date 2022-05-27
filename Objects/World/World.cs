@@ -490,7 +490,8 @@ namespace Objects.World
 
         public IPlayerCharacter CreateCharacter(string userName, string password)
         {
-            IPlayerCharacter pc = new PlayerCharacter();
+            IRoom tempRoom = new Room.Room(0, 0, "tempExam", "tempLook", "tempShort");
+            IPlayerCharacter pc = new PlayerCharacter(tempRoom, $"The corpse of {userName} lies here.", 1,1, userName, userName, userName, userName);
             pc.Name = userName;
             pc.Password = password;
             pc.StrengthStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
@@ -504,9 +505,6 @@ namespace Objects.World
             pc.Health = pc.MaxHealth;
             pc.Stamina = pc.MaxStamina;
             pc.Mana = pc.MaxStamina;
-            pc.SentenceDescription = pc.Name;
-            pc.ShortDescription = pc.Name;
-            pc.LookDescription = pc.Name;
             pc.KeyWords.Add(pc.Name);
             pc.GuildPoints = 1;
 

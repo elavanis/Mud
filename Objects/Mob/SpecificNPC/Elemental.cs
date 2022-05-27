@@ -29,6 +29,9 @@ namespace Objects.Mob.SpecificNPC
         //    TypeOfMob = MobType.Other;
         //}
 
+        public Elemental(ElementType elementType, IRoom room) : this(elementType, room, "corpseDescription", 1, room.Zone, "exampDescription", "loopDescription", "sentenceDescription", "shortDescription") { }
+       
+
         public Elemental(ElementType elementType, IRoom room, string corpseLookDescription, int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(room, corpseLookDescription, id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             SetElement(elementType);
