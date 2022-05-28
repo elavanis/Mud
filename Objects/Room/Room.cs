@@ -25,12 +25,6 @@ namespace Objects.Room
         private static ReadOnlyCollection<IMobileObject> BlankMobs { get; } = new List<IMobileObject>().AsReadOnly();
         private static ReadOnlyCollection<IItem> BlankItems { get; } = new List<IItem>().AsReadOnly();
 
-        //public Room()
-        //{
-        //    KeyWords.Add("room");
-        //    SentenceDescription = "";
-        //}
-
         public Room(int id, int zone, string examineDescription, string lookDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, "", shortDescription)
         {
             KeyWords.Add("room");
@@ -52,7 +46,6 @@ namespace Objects.Room
             RoomWindSpeedExtraLowBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedExtraLowBegin;
             RoomWindSpeedExtraLowEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedExtraLowEnd;
         }
-
 
         public override string ToString()
         {

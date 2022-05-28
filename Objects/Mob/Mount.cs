@@ -1,12 +1,8 @@
-﻿using Objects.Command.Interface;
-using Objects.Global;
-using Objects.Magic.Interface;
+﻿using Objects.Global;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Objects.Mob
 {
@@ -59,11 +55,19 @@ namespace Objects.Mob
         #endregion Descriptions
         #endregion AnimalInfo
 
-     
 
-        public Mount(DefaultValues defaultValue) : base(new Room.Room(), "mount corpse description", 0, 0, "examine description", "look description", "sentince description", "short description")
+        public Mount(DefaultValues defaultValue, IRoom room): base(room, "mount corpse description", room.Id, room.Zone, "examine description", "look description", "sentience description", "short description")
         {
             LoadDefaultValues(defaultValue);
+        }
+
+        public Mount(DefaultValues defaultValue, IRoom room, string corpseDescription, int id, int zone, string examineDescription, string lookDescription, string sentienceDescription, string shortDescription) : this(defaultValue, room)
+        {
+            CorpseLookDescription = corpseDescription;
+            ExamineDescription = examineDescription;
+            LookDescription = lookDescription;
+            SentenceDescription = sentienceDescription;
+            ShortDescription = shortDescription;
         }
 
         public override void FinishLoad(int zoneObjectSyncValue = -1)
@@ -116,8 +120,11 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(HorseNames));
                     KeyWords.Add("Horse");
+                    ExamineDescription = "The horse is a majestic animal with a fine shinny coat.";
+                    LookDescription = todo;
                     ShortDescription = RandomValue(HorseDescription);
                     SentenceDescription = "horse";
+
                     break;
                 case DefaultValues.Unicorn:
                     Movement = 2;
@@ -125,6 +132,8 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(UnicornNames));
                     KeyWords.Add("Unicorn");
+                    ExamineDescription = todo;
+                    LookDescription = todo;
                     ShortDescription = RandomValue(UnicornDescription);
                     SentenceDescription = "unicorn";
                     break;
@@ -134,6 +143,8 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(NightmareNames));
                     KeyWords.Add("Nightmare");
+                    ExamineDescription = todo;
+                    LookDescription = todo;
                     ShortDescription = RandomValue(NightmareDescription);
                     SentenceDescription = "nightmare";
                     break;
@@ -143,6 +154,8 @@ namespace Objects.Mob
                     MaxRiders = 5;
                     KeyWords.Add(RandomValue(ElephantNames));
                     KeyWords.Add("Elephant");
+                    ExamineDescription = todo;
+                    LookDescription = todo;
                     ShortDescription = RandomValue(ElephantDescription);
                     SentenceDescription = "elephant";
                     break;
@@ -152,6 +165,8 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(ElkNames));
                     KeyWords.Add("Elk");
+                    ExamineDescription = todo;
+                    LookDescription = todo;
                     ShortDescription = RandomValue(ElkDescription);
                     SentenceDescription = "elk";
                     break;
@@ -161,6 +176,8 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(PantherNames));
                     KeyWords.Add("Panther");
+                    ExamineDescription = todo;
+                    LookDescription = todo;
                     ShortDescription = RandomValue(PantherDescription);
                     SentenceDescription = "panther";
                     break;
@@ -170,6 +187,8 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(GriffinNames));
                     KeyWords.Add("Griffin");
+                    ExamineDescription = todo;
+                    LookDescription = todo;
                     ShortDescription = RandomValue(GriffinDescription);
                     SentenceDescription = "griffin";
                     break;
