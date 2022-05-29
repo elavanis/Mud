@@ -225,15 +225,14 @@ namespace GenerateZones.Zones.Mountain
         private IEnchantery Enchantery()
         {
             IEnchantery tempEnchantery = CreateItem<IEnchantery>();     //do this just to increment the numbers
-            IEnchantery enchantery = new EnchantingTable();     //create the real object we need
-            enchantery.Zone = tempEnchantery.Zone;
-            enchantery.Id = tempEnchantery.Id;
+            IEnchantery enchantery = new EnchantingTable(tempEnchantery.Id,
+                                                            tempEnchantery.Zone, 
+                                                            "The table once was a dark oak but with time and enchantments it has begun to glow a slight blue color casting a blue tint on everything in the room.",
+                                                            "The table glows faintly as wisps of energy radiate up into the air before dissipating.",
+                                                            "table",
+                                                            "The table glows with wisps of energy radiating upward.");     //create the real object we need
             enchantery.Attributes.Add(ItemAttribute.NoGet);
             enchantery.KeyWords.Add("table");
-            enchantery.SentenceDescription = "table";
-            enchantery.ShortDescription = "The table glows with wisps of energy radiating upward.";
-            enchantery.LookDescription = "The table glows faintly as wisps of energy radiate up into the air before dissipating.";
-            enchantery.ExamineDescription = "The table once was a dark oak but with time and enchantments it has begun to glow a slight blue color casting a blue tint on everything in the room.";
 
             return enchantery;
         }

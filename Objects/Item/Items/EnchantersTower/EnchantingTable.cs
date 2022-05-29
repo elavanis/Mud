@@ -10,10 +10,10 @@ namespace Objects.Item.Items.EnchantersTower
 {
     public class EnchantingTable : Enchantery
     {
-        public EnchantingTable() : base()
+        public EnchantingTable(int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
-
         }
+
         public override IResult Enchant(IItem item)
         {
             IRoom room = GlobalReference.GlobalValues.World.Zones[23].Rooms[8];
