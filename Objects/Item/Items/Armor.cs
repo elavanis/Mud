@@ -8,6 +8,11 @@ namespace Objects.Item.Items
 {
     public class Armor : Equipment, IArmor
     {
+        public Armor(IDice dice, AvalableItemPosition position, int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(position, id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        {
+            Dice = dice;
+        }
+
         [ExcludeFromCodeCoverage]
         public IDice Dice { get; set; }
 
@@ -76,7 +81,7 @@ namespace Objects.Item.Items
         }
 
         [ExcludeFromCodeCoverage]
-        public IMaterial Material { get; set; } = null;
+        public IMaterial? Material { get; set; } = null;
 
         public override void FinishLoad(int zoneObjectSyncValue = -1)
         {
