@@ -20,7 +20,7 @@ namespace Objects.Item.Items.Interface
         decimal Thunder { get; set; }
 
         IDice Dice { get; set; }
-        IMaterial Material { get; set; }
+        IMaterial? Material { get; set; }
 
         decimal GetTypeModifier(Damage.Damage.DamageType damageType);
     }
