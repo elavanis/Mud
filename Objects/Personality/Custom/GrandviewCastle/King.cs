@@ -1,4 +1,5 @@
-﻿using Objects.Global;
+﻿using Objects.Die.Interface;
+using Objects.Global;
 using Objects.Item.Items;
 using Objects.Item.Items.Interface;
 using Objects.Material.Materials;
@@ -296,21 +297,23 @@ namespace Objects.Personality.Custom.GrandviewCastle
         {
             for (int i = 0; i < howMany; i++)
             {
-                INonPlayerCharacter npc = KingsGuard();
+                INonPlayerCharacter npc = KingsGuard(room);
                 npc.FinishLoad();
                 room.Enter(npc);
             }
         }
 
-        private INonPlayerCharacter KingsGuard()
+        private INonPlayerCharacter KingsGuard(IRoom room)
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
+            string corpseDeath = "The guard has given his life to try to save the King.  There is no nobler death for a guard.";
+            string examineDescription = "Each guard has under gone extensive training in both body in mind to ensure their loyalty unto death.";
+            string lookDescription = "Dressed in golden armor shaped like a male lions head on their breastplate they have sworn their life to protect the King.";
+            string sentenceDescription = "King's guard";
+            string shortDescription = "The King's guard.";
+
+            INonPlayerCharacter npc = new NonPlayerCharacter(room, corpseDeath, examineDescription,  lookDescription, sentenceDescription, shortDescription);
             npc.TypeOfMob = MobType.Humanoid;
             npc.Level = 45;
-            npc.ShortDescription = "The King's guard.";
-            npc.LookDescription = "Dressed in golden armor shaped like a male lions head on their breastplate they have sworn their life to protect the King.";
-            npc.ExamineDescription = "Each guard has under gone extensive training in both body in mind to ensure their loyalty unto death.";
-            npc.SentenceDescription = "King's guard";
             npc.KeyWords.Add("King's guard");
             npc.KeyWords.Add("guard");
 
@@ -330,30 +333,36 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private IArmor BreastPlate()
         {
-            IArmor armor = Armor(AvalableItemPosition.Body);
+            string examineDescription = "This piece of armor appears to be made better than normal.";
+            string lookDescription = "A male lion head is embossed across the front of the breastplate.";
+            string sentenceDescription = "golden breastplate";
+            string shortDescription = "A breastplate made of gold.";
+
+
+            IArmor armor = Armor(AvalableItemPosition.Body, examineDescription, lookDescription, sentenceDescription, shortDescription);
             armor.KeyWords.Add("breastplate");
-            armor.ShortDescription = "A breastplate made of gold.";
-            armor.LookDescription = "A male lion head is embossed across the front of the breastplate.";
-            armor.ExamineDescription = "This piece of armor appears to be made better than normal.";
+            
 
             return armor;
         }
 
         private IArmor Helmet()
         {
-            IArmor armor = Armor(AvalableItemPosition.Head);
+            string examineDescription = "This piece of armor appears to be made better than normal.";
+            string lookDescription = "The helmet is made to make the wearer look like a lion.";
+            string sentenceDescription = "golden helmet";
+            string shortDescription = "A helmet made of gold.";
+            IArmor armor = Armor(AvalableItemPosition.Head, examineDescription, lookDescription, sentenceDescription, shortDescription);
             armor.KeyWords.Add("helmet");
-            armor.ShortDescription = "A helmet made of gold.";
-            armor.LookDescription = "The helmet is made to make the wearer look like a lion.";
-            armor.ExamineDescription = "This piece of armor appears to be made better than normal.";
+            
 
             return armor;
         }
 
-        private static IArmor Armor(AvalableItemPosition avalableItemPosition)
+        private static IArmor Armor(AvalableItemPosition avalableItemPosition, string examinePosition, string lookDescription, string sentenceDescription, string shortDescription)
         {
-            IArmor armor = new Armor();
-            armor.ItemPosition = avalableItemPosition;
+            IDice dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(45);
+            IArmor armor = new Armor(dice, avalableItemPosition, examinePosition, lookDescription, sentenceDescription, shortDescription);
             armor.Level = 45;
             armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(armor.Level + 2);
             armor.Material = new Gold();

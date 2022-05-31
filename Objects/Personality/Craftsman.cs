@@ -31,7 +31,7 @@ namespace Objects.Personality
             switch (position)
             {
                 case Equipment.AvalableItemPosition.Held:
-                    IEquipment equipment = new Equipment(position, 1, 1, examineDescription, lookDescription, sentenceDescription, shortDescription);
+                    IEquipment equipment = new Equipment(position, examineDescription, lookDescription, sentenceDescription, shortDescription);
                     result = BuildItem(craftsman, performer, position, level, keyword, equipment);
                     item = equipment;
                     break;
@@ -49,7 +49,7 @@ namespace Objects.Personality
                     break;
                 default:
                     IDice dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(level);
-                    IArmor armor = new Armor(dice, position, 1, 1, examineDescription, lookDescription, sentenceDescription, shortDescription);
+                    IArmor armor = new Armor(dice, position, examineDescription, lookDescription, sentenceDescription, shortDescription);
                     result = BuildItem(craftsman, performer, position, level, keyword, armor);
                     item = armor;
                     break;

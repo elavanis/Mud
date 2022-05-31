@@ -15,10 +15,8 @@ namespace Objects
 {
     public abstract class BaseObject : ILoadable, IBaseObject
     {
-        protected BaseObject(int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
+        protected BaseObject(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
         {
-            Id = id;
-            Zone = zone;
             ExamineDescription = examineDescription;
             LookDescription = lookDescription;
             SentenceDescription = sentenceDescription;

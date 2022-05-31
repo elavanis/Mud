@@ -53,7 +53,7 @@ namespace Objects.Item.Items
             }
         }
 
-        public Enchantery(int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public Enchantery(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             KeyWords.Add("Enchantery");
         }

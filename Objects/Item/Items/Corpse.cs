@@ -10,7 +10,7 @@ namespace Objects.Item.Items
 {
     public class Corpse : Container, ICorpse
     {
-        public Corpse(int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base("", "", id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public Corpse(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base("", "", examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             Opened = true;
         }
@@ -25,7 +25,7 @@ namespace Objects.Item.Items
 
         public new ICorpse Clone()
         {
-            Corpse corpse = new Corpse(this.Id, this.Zone, this.ExamineDescription, this.LookDescription, this.SentenceDescription, this.ShortDescription);
+            Corpse corpse = new Corpse(this.ExamineDescription, this.LookDescription, this.SentenceDescription, this.ShortDescription);
             corpse.TimeOfDeath = this.TimeOfDeath;
             corpse.Items.AddRange(this.Items);
 

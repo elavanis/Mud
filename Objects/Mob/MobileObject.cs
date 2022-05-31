@@ -35,7 +35,7 @@ namespace Objects.Mob
     public abstract class MobileObject : BaseObject, IContainer, IMobileObject
     {
 
-        protected MobileObject(IRoom room, string corpseLookDescription, int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        protected MobileObject(IRoom room, string corpseLookDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             Room = room;
             RoomId = new RoomId(room);
@@ -806,16 +806,14 @@ namespace Objects.Mob
                 enchantment.EnchantmentEndingDateTime = new DateTime();  //set the end date to the past so its not fired and will be cleaned up 
             }
 
-            Corpse corpse = new Corpse();
+            string examineDescription = CorpseLookDescription ?? "This corpse once was living but no life exists here now.";
+            string lookDescription = CorpseLookDescription ?? "This corpse once was living but no life exists here now.";
+
+            Corpse corpse = new Corpse(examineDescription, lookDescription, "corpse", "A corpse lies here.");
             corpse.OriginalMob = this;
             corpse.Killer = attacker;
             corpse.TimeOfDeath = DateTime.UtcNow;
-            corpse.ShortDescription = "A corpse lies here.";
-            corpse.LookDescription = CorpseLookDescription ?? "This corpse once was living but no life exists here now.";
-            corpse.ExamineDescription = CorpseLookDescription ?? "This corpse once was living but no life exists here now.";
             corpse.KeyWords.Add("Corpse");
-            corpse.SentenceDescription = "corpse";
-
             corpse.Items.AddRange(EquipedEquipment);
             corpse.Items.AddRange(Items);
             _equipment.Clear();

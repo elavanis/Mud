@@ -9,30 +9,22 @@ namespace Objects.Item.Items
         {
         }
 
-        public Money(ulong money)
+        public Money(ulong money):this(money,
+                                        "While the purse is not worth anything the items in side are worth keeping.", 
+                                        string.Format("A purse of coins worth {0}.", GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(money)),
+                                        "coins",
+                                        "A purse of coins.")
+        {
+        }
+
+        public Money(ulong money, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             Value = money;
             AddKeywords();
         }
 
-
-        private ulong _value;
-        public override ulong Value
-        {
-            get
-            {
-                return _value;
-            }
-            set
-            {
-                SentenceDescription = "coins";
-                ShortDescription = "A purse of coins.";
-                LookDescription = string.Format("A purse of coins worth {0}.", GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(value));
-                ExamineDescription = "While the purse is not worth anything the items in side are worth keeping.";
-                _value = value;
-            }
-        }
-
+        public override ulong Value { get; set; }
+        
         private void AddKeywords()
         {
             KeyWords.Add("money");

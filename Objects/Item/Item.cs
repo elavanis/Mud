@@ -8,7 +8,7 @@ namespace Objects.Item
 {
     public class Item : BaseObject, IItem
     {
-        public Item(int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public Item(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
         }
 

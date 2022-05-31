@@ -56,7 +56,7 @@ namespace Objects.Mob
         #endregion AnimalInfo
 
 
-        public Mount(DefaultValues defaultValue, IRoom room): base(room, "mount corpse description", room.Id, room.Zone, "examine description", "look description", "sentience description", "short description")
+        public Mount(DefaultValues defaultValue, IRoom room): base(room, "mount corpse description", "examine description", "look description", "sentience description", "short description")
         {
             LoadDefaultValues(defaultValue);
         }

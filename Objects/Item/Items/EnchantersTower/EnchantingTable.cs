@@ -10,7 +10,7 @@ namespace Objects.Item.Items.EnchantersTower
 {
     public class EnchantingTable : Enchantery
     {
-        public EnchantingTable(int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public EnchantingTable(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
         }
 

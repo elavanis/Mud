@@ -11,7 +11,7 @@ namespace Objects.Item.Items
 {
     public class Door : Item, IDoor
     {
-        public Door(string openMessage, string closeMessage, int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public Door(string openMessage, string closeMessage, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             OpenMessage = openMessage;
             CloseMessage = closeMessage;

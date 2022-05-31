@@ -5,7 +5,7 @@ namespace Objects.Item.Items
 {
     public class Equipment : Item, IEquipment
     {
-        public Equipment(AvalableItemPosition position, int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public Equipment(AvalableItemPosition position, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             ItemPosition = position;
         }

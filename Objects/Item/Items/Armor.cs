@@ -8,7 +8,7 @@ namespace Objects.Item.Items
 {
     public class Armor : Equipment, IArmor
     {
-        public Armor(IDice dice, AvalableItemPosition position, int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(position, id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public Armor(IDice dice, AvalableItemPosition position, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(position, examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             Dice = dice;
         }

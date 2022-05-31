@@ -21,7 +21,7 @@ namespace Objects.Item.Items.BulletinBoard
             }
         }
 
-        public BulletinBoard(int id, int zone, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public BulletinBoard(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             Attributes.Add(ItemAttribute.NoGet);
         }

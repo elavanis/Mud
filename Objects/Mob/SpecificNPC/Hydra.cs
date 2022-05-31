@@ -9,12 +9,20 @@ using Objects.Item.Items.Interface;
 using Objects.Language;
 using Objects.Mob.Interface;
 using Objects.Mob.SpecificNPC.Interface;
+using Objects.Room.Interface;
 using static Objects.Damage.Damage;
 
 namespace Objects.Mob.SpecificNPC
 {
     public class Hydra : NonPlayerCharacter, IHydra
     {
+        public Hydra(IRoom room, string corpseLookDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(room, corpseLookDescription, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        {
+            Personalities.Add(new Personality.Hydra());
+            RoundOfDamage = new RoundOfDamage();
+            AddAttribute(MobileAttribute.NoDisarm);
+        }
+
         [ExcludeFromCodeCoverage]
         private int NewHeadsToGrow { get; set; }
 
@@ -51,13 +59,6 @@ namespace Objects.Mob.SpecificNPC
 
                 base.Level = value;
             }
-        }
-
-        public Hydra() : base()
-        {
-            Personalities.Add(new Personality.Hydra());
-            RoundOfDamage = new RoundOfDamage();
-            AddAttribute(MobileAttribute.NoDisarm);
         }
 
         public override int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker)
