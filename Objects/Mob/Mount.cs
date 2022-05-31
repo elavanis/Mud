@@ -45,13 +45,16 @@ namespace Objects.Mob
         #endregion Names
 
         #region Descriptions
-        private List<string> HorseDescription = new List<string>() { "A large black horse.", "A brown horse with black mane.", "Standing at fifteen hands tall is a white horse with brown spots.", "A horse is white like snow." };
-        private List<string> UnicornDescription = new List<string>() { "The white unicorn looks at you." };
-        private List<string> NightmareDescription = new List<string>() { "Flames burn brightly from the mane and hooves of this black as night horse." };
-        private List<string> ElephantDescription = new List<string>() { "The elephants trunk reaches down toward the ground looking for food." };
-        private List<string> ElkDescription = new List<string>() { "The elk has a large rack with two reigns tied off on a saddle." };
-        private List<string> PantherDescription = new List<string>() { "Yellow eyes almost glow against the black panthers fur." };
-        private List<string> GriffinDescription = new List<string>() { "A majestic griffin stands at the ready." };
+        private List<string> HorseExamineDescription = new List<string>() {"The large black horse swats fly away with its tail." , "The horse's front right hoof has a small patch of white like its wearing a sock.","","" };
+        private List<string> HorseLookDescription = new List<string>() { };
+        private List<string> HorseShortDescription = new List<string>() { "A large black horse.", "A brown horse with black mane.", "Standing at fifteen hands tall is a white horse with brown spots.", "A horse is white like snow." };
+
+        private List<string> UnicornShortDescription = new List<string>() { "The white unicorn looks at you." };
+        private List<string> NightmareShortDescription = new List<string>() { "Flames burn brightly from the mane and hooves of this black as night horse." };
+        private List<string> ElephantShortDescription = new List<string>() { "The elephants trunk reaches down toward the ground looking for food." };
+        private List<string> ElkShortDescription = new List<string>() { "The elk has a large rack with two reigns tied off on a saddle." };
+        private List<string> PantherShortDescription = new List<string>() { "Yellow eyes almost glow against the black panthers fur." };
+        private List<string> GriffinShortDescription = new List<string>() { "A majestic griffin stands at the ready." };
         #endregion Descriptions
         #endregion AnimalInfo
 
@@ -204,6 +207,17 @@ namespace Objects.Mob
             Elk,
             Panther,
             Griffin
+        }
+
+        private PopulateRandomValues(List<string> names, List<string> examines, List<string> looks, List<string> shorts)
+        {
+            int pos = GlobalReference.GlobalValues.Random.Next(names.Count);
+            KeyWords.Add(names[pos]);
+
+            pos = GlobalReference.GlobalValues.Random.Next(names.Count);
+            ExamineDescription = examines[pos];
+            LookDescription = looks[pos];
+            ShortDescription = shorts[pos];
         }
 
         private string RandomValue(List<string> list)
