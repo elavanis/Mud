@@ -45,8 +45,8 @@ namespace Objects.Mob
         #endregion Names
 
         #region Descriptions
-        private List<string> HorseExamineDescription = new List<string>() {"The large black horse swats fly away with its tail." , "The horse's front right hoof has a small patch of white like its wearing a sock.","","" };
-        private List<string> HorseLookDescription = new List<string>() { };
+        private List<string> HorseExamineDescription = new List<string>() {"The large black horse swats fly away with its tail." , "The horse's front right hoof has a small patch of white like its wearing a sock.","The brown spots are spread out on the horse in such a way that it looks like it has chocolate chips in a cookie.","The horse is a pure white that reminds you of freshly fallen snow." };
+        private List<string> HorseLookDescription = new List<string>() { "The horse catches your glance and quickly looks your direction.","The horse stands at attention waiting for directions.","The horse ignores you can continues to contemplate the things horses contemplate.","Almost like the horse is floating it trots around as if playing a game with you."};
         private List<string> HorseShortDescription = new List<string>() { "A large black horse.", "A brown horse with black mane.", "Standing at fifteen hands tall is a white horse with brown spots.", "A horse is white like snow." };
 
         private List<string> UnicornShortDescription = new List<string>() { "The white unicorn looks at you." };
