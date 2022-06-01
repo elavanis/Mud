@@ -45,21 +45,19 @@ namespace Objects.Mob
         #endregion Names
 
         #region Descriptions
-        private List<string> HorseExamineDescription = new List<string>() {"The large black horse swats fly away with its tail." , "The horse's front right hoof has a small patch of white like its wearing a sock.","The brown spots are spread out on the horse in such a way that it looks like it has chocolate chips in a cookie.","The horse is a pure white that reminds you of freshly fallen snow." };
-        private List<string> HorseLookDescription = new List<string>() { "The horse catches your glance and quickly looks your direction.","The horse stands at attention waiting for directions.","The horse ignores you can continues to contemplate the things horses contemplate.","Almost like the horse is floating it trots around as if playing a game with you."};
-        private List<string> HorseShortDescription = new List<string>() { "A large black horse.", "A brown horse with black mane.", "Standing at fifteen hands tall is a white horse with brown spots.", "A horse is white like snow." };
+        private List<MountDescriptions> HorseDescriptions = new List<MountDescriptions>();
+        private List<MountDescriptions> UnicornDescriptions = new List<MountDescriptions>();
+        private List<MountDescriptions> NightmareDescriptions = new List<MountDescriptions>();
+        private List<MountDescriptions> ElephantDescriptions = new List<MountDescriptions>();
+        private List<MountDescriptions> ElkDescription = new List<MountDescriptions>();
+        private List<MountDescriptions> PantherDescription = new List<MountDescriptions>();
+        private List<MountDescriptions> GriffinDescription = new List<MountDescriptions>();
 
-        private List<string> UnicornShortDescription = new List<string>() { "The white unicorn looks at you." };
-        private List<string> NightmareShortDescription = new List<string>() { "Flames burn brightly from the mane and hooves of this black as night horse." };
-        private List<string> ElephantShortDescription = new List<string>() { "The elephants trunk reaches down toward the ground looking for food." };
-        private List<string> ElkShortDescription = new List<string>() { "The elk has a large rack with two reigns tied off on a saddle." };
-        private List<string> PantherShortDescription = new List<string>() { "Yellow eyes almost glow against the black panthers fur." };
-        private List<string> GriffinShortDescription = new List<string>() { "A majestic griffin stands at the ready." };
         #endregion Descriptions
         #endregion AnimalInfo
 
 
-        public Mount(DefaultValues defaultValue, IRoom room): base(room, "mount corpse description", "examine description", "look description", "sentience description", "short description")
+        public Mount(DefaultValues defaultValue, IRoom room) : base(room, "mount corpse description", "examine description", "look description", "sentience description", "short description")
         {
             LoadDefaultValues(defaultValue);
         }
@@ -71,6 +69,19 @@ namespace Objects.Mob
             LookDescription = lookDescription;
             SentenceDescription = sentienceDescription;
             ShortDescription = shortDescription;
+
+            HorseDescriptions.Add(new MountDescriptions("The large black horse swats fly away with its tail.", "The horse catches your glance and quickly looks your direction.", "A large black horse."));
+            HorseDescriptions.Add(new MountDescriptions("The horse's front right hoof has a small patch of white like its wearing a sock.", "The horse stands at attention waiting for directions.", "A brown horse with black mane."));
+            HorseDescriptions.Add(new MountDescriptions("The brown spots are spread out on the horse in such a way that it looks like it has chocolate chips in a cookie.", "The horse ignores you can continues to contemplate the things horses contemplate.", "Almost like the horse is floating it trots around as if playing a game with you."));
+            HorseDescriptions.Add(new MountDescriptions("The horse is a pure white that reminds you of freshly fallen snow.", "Almost like the horse is floating it trots around as if playing a game with you.", "The horse is white like snow."));
+
+            UnicornDescriptions.Add(new MountDescriptions("The unicorns horn is an iridescent color that shimmers as it moves its head.", "The unicorn paws the ground as you look at it.", "The white unicorn looks at you."));
+
+            NightmareDescriptions.Add(new MountDescriptions("As you approach the nightmare it briefly flies into the air leaving behind hoof prints in the air that burst into flames briefly before leaving a slowly fading red glow, this is truly is the stuff of nightmares.", "As you look at this nightmare it snorts at you and fire briefly flares out of its nostrils.", "Flames burn brightly from the mane and hooves of this black as nightmare."));
+            NightmareDescriptions.Add(new MountDescriptions(todo, todo, "The elephants trunk reaches down toward the ground looking for food."));
+            NightmareDescriptions.Add(new MountDescriptions(todo, todo, "The elk has a large rack with two reigns tied off on a saddle."));
+            NightmareDescriptions.Add(new MountDescriptions(todo, todo, "Yellow eyes almost glow against the black panthers fur."));
+            NightmareDescriptions.Add(new MountDescriptions(todo, todo, "A majestic griffin stands at the ready."));
         }
 
         public override void FinishLoad(int zoneObjectSyncValue = -1)
@@ -224,6 +235,20 @@ namespace Objects.Mob
         {
             int pos = GlobalReference.GlobalValues.Random.Next(list.Count);
             return list[pos];
+        }
+
+        private record MountDescriptions
+        {
+            public MountDescriptions(string examineDescription, string lookDescription, string shortDescription)
+            {
+                ExamineDescription = examineDescription;
+                LookDescription = lookDescription;
+                ShortDescription = shortDescription;
+            }
+
+            public string ExamineDescription { get; }
+            public string LookDescription { get; }
+            public string ShortDescription { get; }
         }
     }
 }
