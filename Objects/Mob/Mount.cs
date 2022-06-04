@@ -83,9 +83,9 @@ namespace Objects.Mob
 
             ElkDescriptions.Add(new MountDescription("The elk barks and steps back as you approach it to get a closer look.", "The elk has taupe colored body with a that gets darker as it approaches the head.", "The elk has a large rack with two reigns tied off on a saddle."));
 
-            PantherDescriptions.Add(new MountDescription(todo, todo, "Yellow eyes almost glow against the black panthers fur."));
+            PantherDescriptions.Add(new MountDescription("With soft paws this panther is able to silently stalk its prey and is know as a silent killer.", "Black as night you can see why if you didn't hear you would never know it was there." , "Yellow eyes almost glow against the black panthers fur."));
 
-            GriffinDescriptions.Add(new MountDescription(todo, todo, "A majestic griffin stands at the ready."));
+            GriffinDescriptions.Add(new MountDescription("Standing eighteen feet tall this giraffe towers above you.", "Brown and white spots allows it to hide from predators amongst nature.", "A majestic griffin stands at the ready."));
         }
 
         public override void FinishLoad(int zoneObjectSyncValue = -1)
