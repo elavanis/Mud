@@ -278,89 +278,103 @@ namespace Objects.Global.Random
                 itemPosition = PickRandomItemPosition();
             }
 
-            IArmor armor = new Armor();
-            armor.Level = level;
-            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(effectiveLevel);
-            armor.ItemPosition = itemPosition;
 
-            BaseMaterial randomMaterial = Materials[GlobalReference.GlobalValues.Random.Next(Materials.Count)];
-            armor.Material = randomMaterial;
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "";
+            string sentenceDescription = "";
+            List<string> keyWords = new List<string>();
+            Dictionary<string, List<string>> flavorOptions = new Dictionary<string, List<string>>();
+
+
 
             switch (itemPosition)
             {
                 case AvalableItemPosition.Head:
-                    armor.ExamineDescription = "The helmet has two small holes cut out for seeing out.";
-                    armor.LookDescription = "The helmet is hard and light but well padded giving the ultimate compromise between protection and usability.";
-                    armor.ShortDescription = "A well made helmet that looks like it might fit.";
-                    armor.SentenceDescription = "helmet";
-                    armor.KeyWords.Add("helmet");
+                    examineDescription = "The helmet has two small holes cut out for seeing out.";
+                    lookDescription = "The helmet is hard and light but well padded giving the ultimate compromise between protection and usability.";
+                    shortDescription = "A well made helmet that looks like it might fit.";
+                    sentenceDescription = "helmet";
+                    keyWords.Add("helmet");
                     break;
                 case AvalableItemPosition.Neck:
-                    armor.ExamineDescription = "A {color} stone rests softly in the middle of the necklace.";
-                    armor.LookDescription = "The necklace has a stone attached to it via a round pendent.";
-                    armor.ShortDescription = "A delicate necklace fit for any royal lady to wear to any party.";
-                    armor.SentenceDescription = "necklace";
-                    armor.KeyWords.Add("necklace");
-                    armor.FlavorOptions.Add("{color}", new List<string>() { "black", "clear", "royal purple", "crimson red", "ocean blue", "emerald green" });
+                    examineDescription = "A {color} stone rests softly in the middle of the necklace.";
+                    lookDescription = "The necklace has a stone attached to it via a round pendent.";
+                    shortDescription = "A delicate necklace fit for any royal lady to wear to any party.";
+                    sentenceDescription = "necklace";
+                    keyWords.Add("necklace");
+                    flavorOptions.Add("{color}", new List<string>() { "black", "clear", "royal purple", "crimson red", "ocean blue", "emerald green" });
                     break;
                 case AvalableItemPosition.Arms:
-                    armor.ExamineDescription = "The bracer is made of strips of material held together with leather.";
-                    armor.LookDescription = "Just a hair longer than your arm these bracers look to be a perfect fit.";
-                    armor.ShortDescription = "A pair of bracers that look to offer good protection for your arms.";
-                    armor.SentenceDescription = "bracer";
-                    armor.KeyWords.Add("bracer");
+                    examineDescription = "The bracer is made of strips of material held together with leather.";
+                    lookDescription = "Just a hair longer than your arm these bracers look to be a perfect fit.";
+                    shortDescription = "A pair of bracers that look to offer good protection for your arms.";
+                    sentenceDescription = "bracer";
+                    keyWords.Add("bracer");
                     break;
                 case AvalableItemPosition.Hand:
-                    armor.ExamineDescription = "Made of a thin material these gloves have a magical property to them that grants the wearer protection.";
-                    armor.LookDescription = "The gloves have a {back} design on the back and a {inside} for the design on the inside.";
-                    armor.ShortDescription = "The gloves look to be thin and not offer much protection.";
-                    armor.SentenceDescription = "gloves";
-                    armor.KeyWords.Add("gloves");
-                    armor.FlavorOptions.Add("{back}", new List<string>() { "spider web", "unicorn", "lion", "fountain", "eagle", "griffin" });
-                    armor.FlavorOptions.Add("{inside}", new List<string>() { "spider", "scorpion", "knights head", "horse", "sea shell", "mountain" });
+                    examineDescription = "Made of a thin material these gloves have a magical property to them that grants the wearer protection.";
+                    lookDescription = "The gloves have a {back} design on the back and a {inside} for the design on the inside.";
+                    shortDescription = "The gloves look to be thin and not offer much protection.";
+                    sentenceDescription = "gloves";
+                    keyWords.Add("gloves");
+                    flavorOptions.Add("{back}", new List<string>() { "spider web", "unicorn", "lion", "fountain", "eagle", "griffin" });
+                    flavorOptions.Add("{inside}", new List<string>() { "spider", "scorpion", "knights head", "horse", "sea shell", "mountain" });
                     break;
                 case AvalableItemPosition.Finger:
-                    armor.ExamineDescription = "The ring once had a design on the inside but has been worn smooth with time.";
-                    armor.LookDescription = "The ring is smooth on the outside{design}.";
-                    armor.ShortDescription = "The ring is a simple ring with no special markings or anything to suggest it is magical.";
-                    armor.SentenceDescription = "ring";
-                    armor.KeyWords.Add("ring");
-                    armor.FlavorOptions.Add("{design}", new List<string>() { "", " and has a {color} stone on the top" });
-                    armor.FlavorOptions.Add("{color}", new List<string>() { "black", "clear", "royal purple", "crimson red", "ocean blue", "emerald green" });
+                    examineDescription = "The ring once had a design on the inside but has been worn smooth with time.";
+                    lookDescription = "The ring is smooth on the outside{design}.";
+                    shortDescription = "The ring is a simple ring with no special markings or anything to suggest it is magical.";
+                    sentenceDescription = "ring";
+                    keyWords.Add("ring");
+                    flavorOptions.Add("{design}", new List<string>() { "", " and has a {color} stone on the top" });
+                    flavorOptions.Add("{color}", new List<string>() { "black", "clear", "royal purple", "crimson red", "ocean blue", "emerald green" });
                     break;
                 case AvalableItemPosition.Body:
-                    armor.ExamineDescription = "There is a large emblem on the front of a {emblem}.";
-                    armor.LookDescription = "The breastplate is hard giving the wearer plenty of protection while being light.";
-                    armor.ShortDescription = "A strong breastplate that has a small dent in the left side but otherwise is in perfect condition.";
-                    armor.SentenceDescription = "breastplate";
-                    armor.KeyWords.Add("breastplate");
-                    armor.KeyWords.Add("breast");
-                    armor.KeyWords.Add("plate");
-                    armor.FlavorOptions.Add("{emblem}", new List<string>() { "tree", "griffin", "meteor", "pair of lions on either side of a crown", "pair of lions on either side of a shield" });
+                    examineDescription = "There is a large emblem on the front of a {emblem}.";
+                    lookDescription = "The breastplate is hard giving the wearer plenty of protection while being light.";
+                    shortDescription = "A strong breastplate that has a small dent in the left side but otherwise is in perfect condition.";
+                    sentenceDescription = "breastplate";
+                    keyWords.Add("breastplate");
+                    keyWords.Add("breast");
+                    keyWords.Add("plate");
+                    flavorOptions.Add("{emblem}", new List<string>() { "tree", "griffin", "meteor", "pair of lions on either side of a crown", "pair of lions on either side of a shield" });
                     break;
                 case AvalableItemPosition.Waist:
-                    armor.ExamineDescription = "The belt is made of an unknown material that shifts colors through all the colors of the rainbow.";
-                    armor.LookDescription = "The belt is prismatic.  The color shifts through the rainbow as you move relative to it.";
-                    armor.ShortDescription = "The belt is a prismatic color that shifts wildly.";
-                    armor.SentenceDescription = "belt";
-                    armor.KeyWords.Add("belt");
+                    examineDescription = "The belt is made of an unknown material that shifts colors through all the colors of the rainbow.";
+                    lookDescription = "The belt is prismatic.  The color shifts through the rainbow as you move relative to it.";
+                    shortDescription = "The belt is a prismatic color that shifts wildly.";
+                    sentenceDescription = "belt";
+                    keyWords.Add("belt");
                     break;
                 case AvalableItemPosition.Legs:
-                    armor.ExamineDescription = "The pattern on the leggings produce a soft blue glow.";
-                    armor.LookDescription = "The leggings have are a dark gray color with delicately carved curving lines on the front forming a intricate pattern.";
-                    armor.ShortDescription = "A pair of leggings.";
-                    armor.SentenceDescription = "legging";
-                    armor.KeyWords.Add("legging");
+                    examineDescription = "The pattern on the leggings produce a soft blue glow.";
+                    lookDescription = "The leggings have are a dark gray color with delicately carved curving lines on the front forming a intricate pattern.";
+                    shortDescription = "A pair of leggings.";
+                    sentenceDescription = "legging";
+                    keyWords.Add("legging");
                     break;
                 case AvalableItemPosition.Feet:
-                    armor.ExamineDescription = "Three pouches hang off the outside of each boot allowing you to have quick access to small items.";
-                    armor.LookDescription = "Made of supple leather the boots are soft and easy to wear at the expense of some protection.";
-                    armor.ShortDescription = "A pair of leather boots.";
-                    armor.SentenceDescription = "boot";
-                    armor.KeyWords.Add("boot");
+                    examineDescription = "Three pouches hang off the outside of each boot allowing you to have quick access to small items.";
+                    lookDescription = "Made of supple leather the boots are soft and easy to wear at the expense of some protection.";
+                    shortDescription = "A pair of leather boots.";
+                    sentenceDescription = "boot";
+                    keyWords.Add("boot");
                     break;
             }
 
+            IArmor armor = new Armor(GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(effectiveLevel), itemPosition, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            armor.KeyWords.AddRange(keyWords);
+            armor.Level = level;
+            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(effectiveLevel);
+            armor.ItemPosition = itemPosition;
+            armor.Material = Materials[GlobalReference.GlobalValues.Random.Next(Materials.Count)];
+
+            foreach (var key in flavorOptions.Keys)
+            {
+                armor.FlavorOptions.Add(key, flavorOptions[key]);
+            }
+            
             armor.FinishLoad();
 
             return armor;
