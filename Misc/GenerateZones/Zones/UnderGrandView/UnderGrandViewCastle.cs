@@ -1503,18 +1503,14 @@ namespace GenerateZones.Zones.UnderGrandView
 
         private IItem RunicButton()
         {
-            RunicButton button = new RunicButton();
+            string examineDescription = "The ᚹ is carved into the top of the pedestal and can be pressed.";
+            string lookDescription = "The stone pedestal rises up from the floor and has a single run on the top.";
+            string sentenceDescription = "runic button";
+            string shortDescription = "A large runic button on a stone pedestal.";
+
+            RunicButton button = new RunicButton(examineDescription, lookDescription, sentenceDescription,shortDescription);
             button.Zone = Zone.Id;
             button.Id = ItemId++;
-            button.Attributes.Add(ItemAttribute.NoGet);
-
-            button.KeyWords.Add("button");
-            button.KeyWords.Add("rune");
-            button.KeyWords.Add("runic");
-            button.SentenceDescription = "runic button";
-            button.ShortDescription = "A large runic button on a stone pedestal.";
-            button.LookDescription = "The stone pedestal rises up from the floor and has a single run on the top.";
-            button.ExamineDescription = "The ᚹ is carved into the top of the pedestal and can be pressed.";
 
 
             return button;

@@ -18,6 +18,14 @@ namespace Objects.Item.Items.Custom.UnderGrandViewCastle
         private int oldGreen = 255;
         private int oldBlue = 255;
 
+        public RunicButton(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
+        {
+            Attributes.Add(ItemAttribute.NoGet);
+
+            KeyWords.Add("button");
+            KeyWords.Add("rune");
+            KeyWords.Add("runic");
+        }
 
         public override IResult Push(IMobileObject performer, ICommand command)
         {
