@@ -48,8 +48,7 @@ namespace Objects.Personality
                     result = new Result("", true);
                     break;
                 default:
-                    IDice dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(level);
-                    IArmor armor = new Armor(dice, position, examineDescription, lookDescription, sentenceDescription, shortDescription);
+                    IArmor armor = new Armor(level, position, examineDescription, lookDescription, sentenceDescription, shortDescription);
                     result = BuildItem(craftsman, performer, position, level, keyword, armor);
                     item = armor;
                     break;

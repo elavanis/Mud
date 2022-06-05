@@ -4,7 +4,6 @@ using Objects.Item.Interface;
 using Objects.Item.Items;
 using Objects.Item.Items.Interface;
 using Objects.LevelRange.Interface;
-using Objects.Material.Materials;
 using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 using Objects.Room.Interface;
@@ -103,9 +102,7 @@ namespace Objects.Mob
             {
                 //create 1 piece of armor and add it as many times as needed
                 //saves cpu cycles and memory
-                IArmor armor = new Armor();
-                armor.Level = Level;
-                armor.Material = new NpcInnateArmor(this);
+                IArmor armor = new NpcInateArmor(this, Level);
                 armor.FinishLoad();
                 for (int i = 0; i < additionalPieces; i++)
                 {

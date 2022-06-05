@@ -361,8 +361,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private static IArmor Armor(AvalableItemPosition avalableItemPosition, string examinePosition, string lookDescription, string sentenceDescription, string shortDescription)
         {
-            IDice dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(45);
-            IArmor armor = new Armor(dice, avalableItemPosition, examinePosition, lookDescription, sentenceDescription, shortDescription);
+            IArmor armor = new Armor(45, avalableItemPosition, examinePosition, lookDescription, sentenceDescription, shortDescription);
             armor.Level = 45;
             armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(armor.Level + 2);
             armor.Material = new Gold();

@@ -13,6 +13,11 @@ namespace Objects.Item.Items
             Dice = dice;
         }
 
+        public Armor(int level, AvalableItemPosition position, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : this(GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(level), position, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        {
+            Level = level;
+        }
+
         [ExcludeFromCodeCoverage]
         public IDice Dice { get; set; }
 
@@ -90,11 +95,6 @@ namespace Objects.Item.Items
             if (Material != null)
             {
                 SetDefenses(Material);
-            }
-
-            if (Dice == null)
-            {
-                Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(Level);
             }
         }
 
