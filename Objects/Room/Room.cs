@@ -25,7 +25,7 @@ namespace Objects.Room
         private static ReadOnlyCollection<IMobileObject> BlankMobs { get; } = new List<IMobileObject>().AsReadOnly();
         private static ReadOnlyCollection<IItem> BlankItems { get; } = new List<IItem>().AsReadOnly();
 
-        public Room(int id, int zone, string examineDescription, string lookDescription, string shortDescription) : base(id, zone, examineDescription, lookDescription, "", shortDescription)
+        public Room(string examineDescription, string lookDescription, string shortDescription) : base(examineDescription, lookDescription, "", shortDescription)
         {
             KeyWords.Add("room");
 
