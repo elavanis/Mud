@@ -11,9 +11,10 @@ namespace Objects.Item.Items
         }
 
         [ExcludeFromCodeCoverage]
-        public AvalableItemPosition ItemPosition { get; set; } = AvalableItemPosition.Held;
+        public AvalableItemPosition ItemPosition { get; set; } = AvalableItemPosition.NotSet;
         public enum AvalableItemPosition
         {
+            NotSet,
             Wield,
             Head,
             Neck,

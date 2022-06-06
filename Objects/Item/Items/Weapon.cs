@@ -9,25 +9,14 @@ namespace Objects.Item.Items
 {
     public class Weapon : Equipment, IWeapon
     {
-        public Weapon()
+        public Weapon(AvalableItemPosition position, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(position, examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             ItemPosition = AvalableItemPosition.Wield;
         }
 
-        private List<IDamage> _damage = null;
-        public List<IDamage> DamageList
-        {
-            get
-            {
-                if (_damage == null)
-                {
-                    _damage = new List<IDamage>();
-                }
-                return _damage;
-            }
-        }
+        public List<IDamage> DamageList { get; } = new List<IDamage>();
 
-        public WeaponType? Type { get; set; }
+        public WeaponType Type { get; set; } = WeaponType.NotSet
 
         [ExcludeFromCodeCoverage]
         /// <summary>
@@ -48,6 +37,7 @@ namespace Objects.Item.Items
 
         public enum WeaponType
         {
+            NotSet
             #region Bludgeon
             Club,
             Mace,

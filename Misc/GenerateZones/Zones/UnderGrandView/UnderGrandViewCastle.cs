@@ -1484,19 +1484,15 @@ namespace GenerateZones.Zones.UnderGrandView
 
         private IItem RunicStatue()
         {
-            RunicStatue statue = new RunicStatue();
+            string examineDescription = "will be calculated later";
+            string lookDescription = "The statue is of a priest chanting with their arms spread open.  It appears to be carved from the surrounding stone.";
+            string sentenceDescription = "runic statue";
+            string shortDescription = "A stone statue of a priest facing the pool of liquid.";
+
+            RunicStatue statue = new RunicStatue(examineDescription, lookDescription,sentenceDescription,shortDescription);
             statue.Zone = Zone.Id;
             statue.Id = ItemId++;
-            statue.Attributes.Add(ItemAttribute.NoGet);
-
-            statue.KeyWords.Add("statue");
-            statue.KeyWords.Add("rune");
-            statue.KeyWords.Add("runic");
-            statue.SentenceDescription = "runic statue";
-            statue.ShortDescription = "A stone statue of a priest facing the pool of liquid.";
-            statue.LookDescription = "The statue is of a priest chanting with their arms spread open.  It appears to be carved from the surrounding stone.";
             statue.ExamineDescription = statue.CalculateExamDescription();
-
 
             return statue;
         }

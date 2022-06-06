@@ -14,6 +14,15 @@ namespace Objects.Item.Items.Custom.UnderGrandViewCastle
 
         private int selectedRune = 0;
 
+        public RunicStatue(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
+        {
+            Attributes.Add(ItemAttribute.NoGet);
+
+            KeyWords.Add("statue");
+            KeyWords.Add("rune");
+            KeyWords.Add("runic");
+        }
+
         public int SelectedRune
         {
             get

@@ -28,6 +28,5 @@ namespace Shared.TelnetItems
         {
             File
         }
-
     }
 }
