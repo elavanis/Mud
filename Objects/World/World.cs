@@ -490,8 +490,8 @@ namespace Objects.World
 
         public IPlayerCharacter CreateCharacter(string userName, string password)
         {
-            IRoom tempRoom = new Room.Room(0, 0, "tempExam", "tempLook", "tempShort");
-            IPlayerCharacter pc = new PlayerCharacter(tempRoom, $"The corpse of {userName} lies here.", 1,1, userName, userName, userName, userName);
+            IRoom tempRoom = new Room.Room("tempExam", "tempLook", "tempShort");
+            IPlayerCharacter pc = new PlayerCharacter(tempRoom, $"The corpse of {userName} lies here.", userName, userName, userName, userName);
             pc.Name = userName;
             pc.Password = password;
             pc.StrengthStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
@@ -965,7 +965,7 @@ namespace Objects.World
 
         private static void SpawnElemental(IRoom room, ElementType elementType)
         {
-            Elemental elemental = new Elemental(elementType, room, "", 1, room.Zone, "", "", "", "");
+            Elemental elemental = new Elemental(elementType, room);
             elemental.FinishLoad();
             room.AddMobileObjectToRoom(elemental);
 

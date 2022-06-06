@@ -48,7 +48,7 @@ namespace Objects.Mob.SpecificNPC
                     RemoveEquipment(weapon);
                 }
 
-                IWeapon head = new Weapon();
+                IWeapon head = new Weapon(Equipment.AvalableItemPosition.Wield, "hydra head", "hydra head", "hydra head", "hydra head");
                 Damage.Damage damage = new Damage.Damage() { Type = DamageType.Pierce, Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(Math.Max(1, value - 5)) };
                 head.DamageList.Add(damage);
 

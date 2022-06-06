@@ -371,14 +371,15 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private IWeapon Sword()
         {
-            IWeapon weapon = new Weapon();
-            weapon.ItemPosition = AvalableItemPosition.Wield;
+            string examineDescription = "This sword to be made better than normal.";
+            string lookDescription = "The sword handle has the head of a lion for the pummel.";
+            string sentenceDescription = "A finely crafted sword that is light and quick.";
+            string shortDescription = "A finely crafted sword that is light and quick.";
+
+            IWeapon weapon = new Weapon(AvalableItemPosition.Wield, examineDescription, lookDescription, sentenceDescription,shortDescription);
             weapon.Level = 45;
             weapon.DamageList.Add(new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(weapon.Level + 2)) { Type = DamageType.Slash });
             weapon.KeyWords.Add("sword");
-            weapon.ShortDescription = "A finely crafted sword that is light and quick.";
-            weapon.LookDescription = "The sword handle has the head of a lion for the pummel.";
-            weapon.ExamineDescription = "This sword to be made better than normal.";
 
             return weapon;
         }

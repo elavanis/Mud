@@ -28,6 +28,7 @@ using System.Text;
 using static Objects.Damage.Damage;
 using static Objects.Global.Language.Translator;
 using static Objects.Global.Logging.LogSettings;
+using static Objects.Item.Items.Equipment;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Mob
@@ -405,7 +406,7 @@ namespace Objects.Mob
 
                 if (weapons.Count == 0)
                 {
-                    IWeapon defaultWeapon = new Weapon();
+                    IWeapon defaultWeapon = new Weapon(AvalableItemPosition.Wield, "bare hands", "bare hands", "bare hands", "bare hands");
                     defaultWeapon.AttackerStat = Stats.Stat.Dexterity;
                     defaultWeapon.DeffenderStat = Stats.Stat.Dexterity;
                     int strength = Math.Max(1, StrengthEffective);

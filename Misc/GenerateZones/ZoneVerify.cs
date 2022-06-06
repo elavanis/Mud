@@ -10,6 +10,7 @@ using Objects.Room.Interface;
 using Objects.Skill.Interface;
 using Objects.Zone.Interface;
 using System;
+using static Objects.Item.Items.Weapon;
 using static Objects.Room.Room;
 
 namespace GenerateZones
@@ -332,7 +333,7 @@ namespace GenerateZones
                     ThrowConfigException(item, type, $"No damage set for weapon {item.SentenceDescription}.");
                 }
 
-                if (weapon.Type == null)
+                if (weapon.Type == WeaponType.NotSet)
                 {
                     ThrowConfigException(item, type, $"No weapon type set for weapon {item.SentenceDescription}.");
                 }

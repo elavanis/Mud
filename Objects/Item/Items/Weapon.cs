@@ -16,7 +16,7 @@ namespace Objects.Item.Items
 
         public List<IDamage> DamageList { get; } = new List<IDamage>();
 
-        public WeaponType Type { get; set; } = WeaponType.NotSet
+        public WeaponType Type { get; set; } = WeaponType.NotSet;
 
         [ExcludeFromCodeCoverage]
         /// <summary>
@@ -37,7 +37,7 @@ namespace Objects.Item.Items
 
         public enum WeaponType
         {
-            NotSet
+            NotSet,
             #region Bludgeon
             Club,
             Mace,
