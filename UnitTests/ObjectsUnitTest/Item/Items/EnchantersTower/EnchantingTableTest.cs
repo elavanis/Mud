@@ -40,7 +40,7 @@ namespace ObjectsUnitTest.Item.Items.EnchantersTower
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            enchantingTable = new EnchantingTable();
+            enchantingTable = new EnchantingTable("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             item = new Mock<IItem>();
             room = new Mock<IRoom>();
             pedistalItem = new Mock<IItem>();
@@ -70,6 +70,15 @@ namespace ObjectsUnitTest.Item.Items.EnchantersTower
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.Random = random.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+        }
+
+        [TestMethod]
+        public void EnchantingTable_Constructor()
+        {
+            Assert.AreEqual("examineDescription", enchantingTable.ExamineDescription);
+            Assert.AreEqual("lookDescription", enchantingTable.LookDescription);
+            Assert.AreEqual("sentenceDescription", enchantingTable.SentenceDescription);
+            Assert.AreEqual("shortDescription", enchantingTable.ShortDescription);
         }
 
         [TestMethod]

@@ -36,7 +36,18 @@ namespace ObjectsUnitTest.Item.Items
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
 
-            door = new Door();
+            door = new Door("openMessage", "closeMessage", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+        }
+
+        [TestMethod]
+        public void Door_Constructor()
+        {
+            Assert.AreEqual("openMessage", door.OpenMessage);
+            Assert.AreEqual("closeMessage", door.CloseMessage);
+            Assert.AreEqual("examineDescription", door.ExamineDescription);
+            Assert.AreEqual("lookDescription", door.LookDescription);
+            Assert.AreEqual("sentenceDescription", door.SentenceDescription);
+            Assert.AreEqual("shortDescription", door.ShortDescription);
         }
 
         [TestMethod]

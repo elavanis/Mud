@@ -50,7 +50,18 @@ namespace ObjectsUnitTest.Item.Items
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
 
-            container = new Container();
+            container = new Container("openMessage", "closeMessage", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+        }
+
+        [TestMethod]
+        public void Container_Constructor()
+        {
+            Assert.AreEqual("openMessage", container.OpenMessage);
+            Assert.AreEqual("closeMessage", container.CloseMessage);
+            Assert.AreEqual("examineDescription", container.ExamineDescription);
+            Assert.AreEqual("lookDescription", container.LookDescription);
+            Assert.AreEqual("sentenceDescription", container.SentenceDescription);
+            Assert.AreEqual("shortDescription", container.ShortDescription);
         }
 
         [TestMethod]

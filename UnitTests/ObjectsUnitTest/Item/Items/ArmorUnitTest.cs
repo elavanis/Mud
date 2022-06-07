@@ -13,13 +13,42 @@ namespace ObjectsUnitTest.Item.Items
     public class ArmorUnitTest
     {
         Armor armor;
+        Mock<IDice> dice;
+
 
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
+            dice = new Mock<IDice>();
+            Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
+         
+            defaultValues.Setup(e=>e.DiceForArmorLevel(1)).Returns(dice.Object);
 
-            armor = new Armor();
+            armor = new Armor(dice.Object, Equipment.AvalableItemPosition.Wield, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+        }
+
+        [TestMethod]
+        public void Constructor_Dice()
+        {
+            Assert.AreSame(dice, armor.Dice);
+            Assert.AreSame("examineDescription", armor.ExamineDescription);
+            Assert.AreSame("lookDescription", armor.LookDescription);
+            Assert.AreSame("sentenceDescription", armor.SentenceDescription);
+            Assert.AreSame("shortDescription", armor.ShortDescription);
+        }
+
+        [TestMethod]
+        public void Constructor_Level()
+        {
+            armor = new Armor(1, Equipment.AvalableItemPosition.Wield, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+
+            Assert.AreEqual(1, armor.Level);
+            Assert.AreSame(dice, armor.Dice);
+            Assert.AreSame("examineDescription", armor.ExamineDescription);
+            Assert.AreSame("lookDescription", armor.LookDescription);
+            Assert.AreSame("sentenceDescription", armor.SentenceDescription);
+            Assert.AreSame("shortDescription", armor.ShortDescription);
         }
 
         [TestMethod]

@@ -11,22 +11,31 @@ namespace ObjectsUnitTest.Item
     [TestClass]
     public class ItemUnitTest
     {
-
         Objects.Item.Item item;
         Mock<ISerialization> serialization;
+
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            item = new Objects.Item.Item();
+            item = new Objects.Item.Item("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
 
             serialization = new Mock<ISerialization>();
 
             serialization.Setup(e => e.Serialize(item)).Returns("serial");
-            serialization.Setup(e => e.Deserialize<IItem>("serial")).Returns(new Objects.Item.Item());
+            serialization.Setup(e => e.Deserialize<IItem>("serial")).Returns(new Objects.Item.Item("examineDescription", "lookDescription", "sentenceDescription", "shortDescription"));
 
             GlobalReference.GlobalValues.Serialization = serialization.Object;
+        }
+
+        [TestMethod]
+        public void Item_Constructor()
+        {
+            Assert.AreEqual("examineDescription", item.ExamineDescription);
+            Assert.AreEqual("lookDescription", item.LookDescription);
+            Assert.AreEqual("sentenceDescription", item.SentenceDescription);
+            Assert.AreEqual("shortDescription", item.ShortDescription);
         }
 
         [TestMethod]

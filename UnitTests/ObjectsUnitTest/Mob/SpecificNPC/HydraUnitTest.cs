@@ -10,10 +10,12 @@ using Objects.Global.Notify.Interface;
 using Objects.Language.Interface;
 using Objects.Mob.Interface;
 using Objects.Mob.SpecificNPC;
+using Objects.Room.Interface;
 using Shared.TagWrapper.Interface;
 using System.Linq;
 using System.Reflection;
 using static Objects.Damage.Damage;
+using static Objects.Mob.MobileObject;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace ObjectsUnitTest.Mob.SpecificNPC
@@ -36,6 +38,8 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         PropertyInfo roundOfDamage;
         Mock<INotify> notify;
         Mock<ITagWrapper> tagWrapper;
+        Mock<IRoom> room;
+
         [TestInitialize]
         public void Setup()
         {
@@ -52,6 +56,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             engine = new Mock<IEngine>();
             notify = new Mock<INotify>();
             tagWrapper = new Mock<ITagWrapper>();
+            room = new Mock<IRoom>();
 
             defaultValues.Setup(e => e.DiceForWeaponLevel(1)).Returns(level1Dice.Object);
             defaultValues.Setup(e => e.DiceForWeaponLevel(5)).Returns(level5Dice.Object);
@@ -65,13 +70,27 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
-            hydra = new Hydra();
+            hydra = new Hydra(room.Object, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             hydra.Level = 20;
             hydra.ConstitutionStat = 10; //needs to be set so when max stats are reset it will calculate correctly
 
             newHeadsToGrow = hydra.GetType().GetProperty("NewHeadsToGrow", BindingFlags.Instance | BindingFlags.NonPublic);
             tookFireDamage = hydra.GetType().GetProperty("TookFireDamage", BindingFlags.Instance | BindingFlags.NonPublic);
             roundOfDamage = hydra.GetType().GetProperty("RoundOfDamage", BindingFlags.Instance | BindingFlags.NonPublic);
+        }
+
+        [TestMethod]
+        public void Hydra_Constructor()
+        {
+            Assert.AreEqual(room, hydra.Room);
+            Assert.AreEqual("corpseLookDescription", hydra.CorpseLookDescription);
+            Assert.AreEqual("examineDescription", hydra.ExamineDescription);
+            Assert.AreEqual("lookDescription", hydra.LookDescription);
+            Assert.AreEqual("sentenceDescription", hydra.SentenceDescription);
+            Assert.AreEqual("shortDescription", hydra.ShortDescription);
+            Assert.AreEqual(1, hydra.Personalities.Count);
+            Assert.IsTrue(hydra.Personalities[0] is Objects.Personality.Hydra);
+            Assert.IsTrue(hydra.AttributesCurrent.Contains(MobileAttribute.NoDisarm));
         }
 
         [TestMethod]
