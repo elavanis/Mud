@@ -23,6 +23,7 @@ using Objects.Mob.Interface;
 using Objects.Personality.Interface;
 using Objects.Race.Interface;
 using Objects.Race.Races;
+using Objects.Room.Interface;
 using Objects.Skill.Interface;
 using Shared.FileIO.Interface;
 using Shared.TagWrapper.Interface;
@@ -72,6 +73,7 @@ namespace ObjectsUnitTest.Mob
         Mock<INotify> notify;
         Mock<IMobileObject> attacker;
         Mock<IMount> mount;
+        Mock<IRoom> room;
 
         [TestInitialize]
         public void Setup()
@@ -105,6 +107,7 @@ namespace ObjectsUnitTest.Mob
             notify = new Mock<INotify>();
             attacker = new Mock<IMobileObject>();
             mount = new Mock<IMount>();
+            room = new Mock<IRoom>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Health)).Returns((string x, TagType y) => (x));
@@ -152,8 +155,19 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.Random = random.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
 
-            mob = new UnitTestMobileObject();
+            mob = new UnitTestMobileObject(room.Object, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             mob.Items.Add(item.Object);
+        }
+
+        [TestMethod]
+        public void MobileObject_Constructor()
+        {
+            Assert.AreEqual(room.Object, mob.Room);
+            Assert.AreEqual("corpseLookDescription", mob.CorpseLookDescription);
+            Assert.AreEqual("examineDescription", mob.ExamineDescription);
+            Assert.AreEqual("lookDescription", mob.LookDescription);
+            Assert.AreEqual("sentenceDescription", mob.SentenceDescription);
+            Assert.AreEqual("shortDescription", mob.ShortDescription);
         }
 
         [TestMethod]
@@ -1317,6 +1331,9 @@ namespace ObjectsUnitTest.Mob
 
         private class UnitTestMobileObject : MobileObject, INonPlayerCharacter //needed for exp testing
         {
+            public UnitTestMobileObject(IRoom room, string corpseLookDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(room, corpseLookDescription, examineDescription, lookDescription, sentenceDescription, shortDescription)
+            {
+            }
 
             public int EXP { get; set; }
 
