@@ -75,10 +75,17 @@ namespace ObjectsUnitTest.Item.Items.Custom.UnderGrandViewCastle
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.World = world.Object;
 
-            button = new RunicButton();
+            button = new RunicButton("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
         }
 
-
+        [TestMethod]
+        public void RunicButton_Constructor()
+        {
+            Assert.AreEqual("examineDescription", button.ExamineDescription);
+            Assert.AreEqual("lookDescription", button.LookDescription);
+            Assert.AreEqual("sentenceDescription", button.SentenceDescription);
+            Assert.AreEqual("shortDescription", button.ShortDescription);
+        }
 
         #region 0 Red
         #region 0 Green

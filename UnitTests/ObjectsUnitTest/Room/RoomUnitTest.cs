@@ -106,7 +106,7 @@ namespace ObjectsUnitTest.Room
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
 
-            room = new Objects.Room.Room();
+            room = new Objects.Room.Room("examineDescription", "lookDescription", "shortDescription");
             room.Zone = 1;
             room.Id = 2;
             room.MovementCost = 1;
@@ -125,6 +125,14 @@ namespace ObjectsUnitTest.Room
             npc.Setup(e => e.Room).Returns(room);
             pc.Setup(e => e.Room).Returns(room);
             mob.Setup(e => e.Room).Returns(room);
+        }
+
+        [TestMethod]
+        public void Room_Constructor()
+        {
+            Assert.AreEqual("examineDescription", room.ExamineDescription);
+            Assert.AreEqual("lookDescription", room.LookDescription);
+            Assert.AreEqual("shortDescription", room.ShortDescription);
         }
 
         [TestMethod]
