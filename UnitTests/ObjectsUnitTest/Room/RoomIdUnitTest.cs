@@ -37,11 +37,14 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void RoomId_Constructor_Room()
         {
-            IRoom room = new Objects.Room.Room() { Zone = 1, Id = 2 };
+            IRoom room = new Objects.Room.Room("examineDescription", "lookDescription", "shortDescription") { Zone = 1, Id = 2 };
             roomId = new RoomId(room);
 
             Assert.AreEqual(1, roomId.Zone);
             Assert.AreEqual(2, roomId.Id);
+            Assert.AreEqual("examineDescription", room.ExamineDescription);
+            Assert.AreEqual("lookDescription", room.LookDescription);
+            Assert.AreEqual("shortDescription", room.ShortDescription);
         }
     }
 }

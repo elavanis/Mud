@@ -58,7 +58,6 @@ namespace ObjectsUnitTest.Mob
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            pc = new PlayerCharacter();
             settings = new Mock<ISettings>();
             exp = new Mock<IExperience>();
             multiClassBonus = new Mock<IMultiClassBonus>();
@@ -111,6 +110,19 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.Serialization = serializtion.Object;
             GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
+
+            pc = new PlayerCharacter(room.Object, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_Constructor()
+        {
+            Assert.AreSame(room.Object, pc.Room);
+            Assert.AreEqual("corpseLookDescription", pc.CorpseLookDescription);
+            Assert.AreEqual("examineDescription", pc.ExamineDescription);
+            Assert.AreEqual("lookDescription", pc.LookDescription);
+            Assert.AreEqual("sentenceDescription", pc.SentenceDescription);
+            Assert.AreEqual("shortDescription", pc.ShortDescription);
         }
 
         [TestMethod]

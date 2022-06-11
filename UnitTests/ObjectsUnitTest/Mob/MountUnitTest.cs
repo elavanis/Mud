@@ -4,6 +4,7 @@ using Objects.Global;
 using Objects.Global.Random.Interface;
 using Objects.Global.Settings.Interface;
 using Objects.Mob;
+using Objects.Room.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,15 +18,16 @@ namespace ObjectsUnitTest.Mob
         Mount mount;
         Mock<IRandom> random;
         Mock<ISettings> settings;
+        Mock<IRoom> room;
 
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            mount = new Mount(DefaultValues.Horse);
             random = new Mock<IRandom>();
             settings = new Mock<ISettings>();
+            room = new Mock<IRoom>();
 
             mount.Level = 1;
             random.Setup(e => e.Next(It.IsAny<int>())).Returns(0);
@@ -34,12 +36,15 @@ namespace ObjectsUnitTest.Mob
 
             GlobalReference.GlobalValues.Random = random.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
+
+            mount = new Mount(DefaultValues.Horse, room.Object);
+
         }
 
         [TestMethod]
         public void Mount_Constructor_Horse()
         {
-            mount = new Mount(DefaultValues.Horse);
+            mount = new Mount(DefaultValues.Horse, room.Object);
 
             Assert.AreEqual(2, mount.Movement);
             Assert.AreEqual(10, mount.StaminaMultiplier);
@@ -48,12 +53,13 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual("Horse", mount.KeyWords[1]);
             Assert.AreEqual("A large black horse.", mount.ShortDescription);
             Assert.AreEqual("horse", mount.SentenceDescription);
+            Assert.AreEqual(room.Object, mount.Room);
         }
 
         [TestMethod]
         public void Mount_Constructor_Unicorn()
         {
-            mount = new Mount(DefaultValues.Unicorn);
+            mount = new Mount(DefaultValues.Unicorn, room.Object);
 
             Assert.AreEqual(2, mount.Movement);
             Assert.AreEqual(12, mount.StaminaMultiplier);
@@ -62,12 +68,13 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual("Unicorn", mount.KeyWords[1]);
             Assert.AreEqual("The white unicorn looks at you.", mount.ShortDescription);
             Assert.AreEqual("unicorn", mount.SentenceDescription);
+            Assert.AreEqual(room.Object, mount.Room);
         }
 
         [TestMethod]
         public void Mount_Constructor_Nightmare()
         {
-            mount = new Mount(DefaultValues.Nightmare);
+            mount = new Mount(DefaultValues.Nightmare, room.Object);
 
             Assert.AreEqual(3, mount.Movement);
             Assert.AreEqual(15, mount.StaminaMultiplier);
@@ -76,12 +83,13 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual("Nightmare", mount.KeyWords[1]);
             Assert.AreEqual("Flames burn brightly from the mane and hooves of this black as night horse.", mount.ShortDescription);
             Assert.AreEqual("nightmare", mount.SentenceDescription);
+            Assert.AreEqual(room.Object, mount.Room);
         }
 
         [TestMethod]
         public void Mount_Constructor_Elephant()
         {
-            mount = new Mount(DefaultValues.Elephant);
+            mount = new Mount(DefaultValues.Elephant, room.Object);
 
             Assert.AreEqual(1, mount.Movement);
             Assert.AreEqual(20, mount.StaminaMultiplier);
@@ -90,12 +98,13 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual("Elephant", mount.KeyWords[1]);
             Assert.AreEqual("The elephants trunk reaches down toward the ground looking for food.", mount.ShortDescription);
             Assert.AreEqual("elephant", mount.SentenceDescription);
+            Assert.AreEqual(room.Object, mount.Room);
         }
 
         [TestMethod]
         public void Mount_Constructor_Elk()
         {
-            mount = new Mount(DefaultValues.Elk);
+            mount = new Mount(DefaultValues.Elk, room.Object);
 
             Assert.AreEqual(3, mount.Movement);
             Assert.AreEqual(7, mount.StaminaMultiplier);
@@ -104,12 +113,13 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual("Elk", mount.KeyWords[1]);
             Assert.AreEqual("The elk has a large rack with two reigns tied off on a saddle.", mount.ShortDescription);
             Assert.AreEqual("elk", mount.SentenceDescription);
+            Assert.AreEqual(room.Object, mount.Room);
         }
 
         [TestMethod]
         public void Mount_Constructor_Panther()
         {
-            mount = new Mount(DefaultValues.Panther);
+            mount = new Mount(DefaultValues.Panther, room.Object);
 
             Assert.AreEqual(5, mount.Movement);
             Assert.AreEqual(5, mount.StaminaMultiplier);
@@ -118,12 +128,13 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual("Panther", mount.KeyWords[1]);
             Assert.AreEqual("Yellow eyes almost glow against the black panthers fur.", mount.ShortDescription);
             Assert.AreEqual("panther", mount.SentenceDescription);
+            Assert.AreEqual(room.Object, mount.Room);
         }
 
         [TestMethod]
         public void Mount_Constructor_Griffin()
         {
-            mount = new Mount(DefaultValues.Griffin);
+            mount = new Mount(DefaultValues.Griffin, room.Object);
 
             Assert.AreEqual(3, mount.Movement);
             Assert.AreEqual(7, mount.StaminaMultiplier);
@@ -132,6 +143,7 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual("Griffin", mount.KeyWords[1]);
             Assert.AreEqual("A majestic griffin stands at the ready.", mount.ShortDescription);
             Assert.AreEqual("griffin", mount.SentenceDescription);
+            Assert.AreEqual(room.Object, mount.Room);
         }
 
         [TestMethod]
