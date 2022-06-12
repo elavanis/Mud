@@ -24,6 +24,7 @@ namespace ObjectsUnitTest.Item.Items
             Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
          
             defaultValues.Setup(e=>e.DiceForArmorLevel(1)).Returns(dice.Object);
+            GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
 
             armor = new Armor(dice.Object, Equipment.AvalableItemPosition.Wield, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
         }
@@ -31,7 +32,7 @@ namespace ObjectsUnitTest.Item.Items
         [TestMethod]
         public void Constructor_Dice()
         {
-            Assert.AreSame(dice, armor.Dice);
+            Assert.AreSame(dice.Object, armor.Dice);
             Assert.AreSame("examineDescription", armor.ExamineDescription);
             Assert.AreSame("lookDescription", armor.LookDescription);
             Assert.AreSame("sentenceDescription", armor.SentenceDescription);
@@ -44,7 +45,7 @@ namespace ObjectsUnitTest.Item.Items
             armor = new Armor(1, Equipment.AvalableItemPosition.Wield, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
 
             Assert.AreEqual(1, armor.Level);
-            Assert.AreSame(dice, armor.Dice);
+            Assert.AreSame(dice.Object, armor.Dice);
             Assert.AreSame("examineDescription", armor.ExamineDescription);
             Assert.AreSame("lookDescription", armor.LookDescription);
             Assert.AreSame("sentenceDescription", armor.SentenceDescription);
@@ -262,23 +263,6 @@ namespace ObjectsUnitTest.Item.Items
             Assert.AreEqual(11, armor.Radiant);
             Assert.AreEqual(12, armor.Slash);
             Assert.AreEqual(13, armor.Thunder);
-        }
-
-        [TestMethod]
-        public void Armor_FinishLoad_DiceNull()
-        {
-            Mock<IDice> dice = new Mock<IDice>();
-            dice.Setup(e => e.Die).Returns(1);
-            dice.Setup(e => e.Sides).Returns(2);
-
-            Mock<IDefaultValues> defaultValues = new Mock<IDefaultValues>();
-            defaultValues.Setup(e => e.DiceForArmorLevel(0)).Returns(dice.Object);
-            GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
-
-            armor.FinishLoad();
-
-            Assert.AreEqual(dice.Object.Die, armor.Dice.Die);
-            Assert.AreEqual(dice.Object.Sides, armor.Dice.Sides);
         }
     }
 }

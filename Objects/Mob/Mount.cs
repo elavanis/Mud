@@ -59,17 +59,6 @@ namespace Objects.Mob
 
         public Mount(DefaultValues defaultValue, IRoom room) : base(room, "mount corpse description", "examine description", "look description", "sentience description", "short description")
         {
-            LoadDefaultValues(defaultValue);
-        }
-
-        public Mount(DefaultValues defaultValue, IRoom room, string corpseDescription, int id, int zone, string examineDescription, string lookDescription, string sentienceDescription, string shortDescription) : this(defaultValue, room)
-        {
-            CorpseLookDescription = corpseDescription;
-            ExamineDescription = examineDescription;
-            LookDescription = lookDescription;
-            SentenceDescription = sentienceDescription;
-            ShortDescription = shortDescription;
-
             HorseDescriptions.Add(new MountDescription("The large black horse swats fly away with its tail.", "The horse catches your glance and quickly looks your direction.", "A large black horse."));
             HorseDescriptions.Add(new MountDescription("The horse's front right hoof has a small patch of white like its wearing a sock.", "The horse stands at attention waiting for directions.", "A brown horse with black mane."));
             HorseDescriptions.Add(new MountDescription("The brown spots are spread out on the horse in such a way that it looks like it has chocolate chips in a cookie.", "The horse ignores you can continues to contemplate the things horses contemplate.", "Almost like the horse is floating it trots around as if playing a game with you."));
@@ -83,9 +72,20 @@ namespace Objects.Mob
 
             ElkDescriptions.Add(new MountDescription("The elk barks and steps back as you approach it to get a closer look.", "The elk has taupe colored body with a that gets darker as it approaches the head.", "The elk has a large rack with two reigns tied off on a saddle."));
 
-            PantherDescriptions.Add(new MountDescription("With soft paws this panther is able to silently stalk its prey and is know as a silent killer.", "Black as night you can see why if you didn't hear you would never know it was there." , "Yellow eyes almost glow against the black panthers fur."));
+            PantherDescriptions.Add(new MountDescription("With soft paws this panther is able to silently stalk its prey and is know as a silent killer.", "Black as night you can see why if you didn't hear you would never know it was there.", "Yellow eyes almost glow against the black panthers fur."));
 
             GriffinDescriptions.Add(new MountDescription("Standing eighteen feet tall this giraffe towers above you.", "Brown and white spots allows it to hide from predators amongst nature.", "A majestic griffin stands at the ready."));
+
+            LoadDefaultValues(defaultValue);
+        }
+
+        public Mount(DefaultValues defaultValue, IRoom room, string corpseDescription, int id, int zone, string examineDescription, string lookDescription, string sentienceDescription, string shortDescription) : this(defaultValue, room)
+        {
+            CorpseLookDescription = corpseDescription;
+            ExamineDescription = examineDescription;
+            LookDescription = lookDescription;
+            SentenceDescription = sentienceDescription;
+            ShortDescription = shortDescription;
         }
 
         public override void FinishLoad(int zoneObjectSyncValue = -1)

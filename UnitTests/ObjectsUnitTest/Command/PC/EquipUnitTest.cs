@@ -64,7 +64,7 @@ namespace ObjectsUnitTest.Command.PC
 
             IResult result = command.PerformCommand(mob.Object, mockCommand.Object);
             Assert.IsTrue(result.AllowAnotherCommand);
-            Assert.AreEqual("Wield <Nothing>\r\nHead <Nothing>\r\nNeck <Nothing>\r\nArms <Nothing>\r\nHand <Nothing>\r\nFinger ShortDescription\r\nBody <Nothing>\r\nWaist <Nothing>\r\nLegs <Nothing>\r\nFeet <Nothing>\r\nHeld <Nothing>", result.ResultMessage);
+            Assert.AreEqual("NotSet <Nothing>\r\nWield <Nothing>\r\nHead <Nothing>\r\nNeck <Nothing>\r\nArms <Nothing>\r\nHand <Nothing>\r\nFinger ShortDescription\r\nBody <Nothing>\r\nWaist <Nothing>\r\nLegs <Nothing>\r\nFeet <Nothing>\r\nHeld <Nothing>", result.ResultMessage);
         }
 
         [TestMethod]

@@ -234,6 +234,11 @@ namespace Objects.Global.Random
 
             IWeapon weapon = new Item.Items.Weapon(AvalableItemPosition.Wield, examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.Level = level;
+            weapon.KeyWords.AddRange(keyWords);
+            foreach (var item in flavorOptions.Keys)
+            {
+                weapon.FlavorOptions.Add(item, flavorOptions[item]); 
+            }
 
             IDamage damage = new Damage.Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(effectiveLevel);

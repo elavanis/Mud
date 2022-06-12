@@ -29,7 +29,6 @@ namespace ObjectsUnitTest.Mob
             settings = new Mock<ISettings>();
             room = new Mock<IRoom>();
 
-            mount.Level = 1;
             random.Setup(e => e.Next(It.IsAny<int>())).Returns(0);
             settings.Setup(e => e.BaseStatValue).Returns(5);
             settings.Setup(e => e.AssignableStatPoints).Returns(2);
@@ -38,7 +37,7 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.Settings = settings.Object;
 
             mount = new Mount(DefaultValues.Horse, room.Object);
-
+            mount.Level = 1;
         }
 
         [TestMethod]

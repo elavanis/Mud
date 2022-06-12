@@ -9,6 +9,7 @@ using Objects.Global.Settings.Interface;
 using Objects.Item.Interface;
 using Objects.Item.Items.Interface;
 using Objects.Mob.Interface;
+using System;
 using static Objects.Damage.Damage;
 using static Objects.Item.Items.Equipment;
 using static Objects.Item.Items.Weapon;
@@ -229,7 +230,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Head()
         {
-            random.Setup(e => e.Next(11)).Returns(1);
+            random.Setup(e => e.Next(Enum.GetNames(typeof(AvalableItemPosition)).Length-1)).Returns(2);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -244,7 +245,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Necklace()
         {
-            random.Setup(e => e.Next(11)).Returns(2);
+            random.Setup(e => e.Next(Enum.GetNames(typeof(AvalableItemPosition)).Length-1)).Returns(3);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -259,7 +260,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Arms()
         {
-            random.Setup(e => e.Next(11)).Returns(3);
+            random.Setup(e => e.Next(Enum.GetNames(typeof(AvalableItemPosition)).Length-1)).Returns(4);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -274,7 +275,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Hand()
         {
-            random.Setup(e => e.Next(11)).Returns(4);
+            random.Setup(e => e.Next(Enum.GetNames(typeof(AvalableItemPosition)).Length-1)).Returns(5);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -289,7 +290,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Finger()
         {
-            random.Setup(e => e.Next(11)).Returns(5);
+            random.Setup(e => e.Next(Enum.GetNames(typeof(AvalableItemPosition)).Length-1)).Returns(6);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -304,7 +305,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Body()
         {
-            random.Setup(e => e.Next(11)).Returns(6);
+            random.Setup(e => e.Next(Enum.GetNames(typeof(AvalableItemPosition)).Length-1)).Returns(7);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -321,7 +322,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Waist()
         {
-            random.Setup(e => e.Next(11)).Returns(7);
+            random.Setup(e => e.Next(Enum.GetNames(typeof(AvalableItemPosition)).Length-1)).Returns(8);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -336,7 +337,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Legs()
         {
-            random.Setup(e => e.Next(11)).Returns(8);
+            random.Setup(e => e.Next(Enum.GetNames(typeof(AvalableItemPosition)).Length-1)).Returns(9);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
@@ -351,7 +352,7 @@ namespace ObjectsUnitTest.Global.Random
         [TestMethod]
         public void RandomDropGenerator_GenerateRandomArmor_Feet()
         {
-            random.Setup(e => e.Next(11)).Returns(9);
+            random.Setup(e => e.Next(Enum.GetNames(typeof(AvalableItemPosition)).Length-1)).Returns(10);
 
             IArmor armor = randomDropGenerator.GenerateRandomArmor(1, 1);
 
