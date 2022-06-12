@@ -3,6 +3,7 @@ using Moq;
 using Objects.Damage.Interface;
 using Objects.Global;
 using Objects.Item.Items;
+using static Objects.Item.Items.Equipment;
 
 namespace ObjectsUnitTest.Item.Items
 {
@@ -16,13 +17,17 @@ namespace ObjectsUnitTest.Item.Items
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            weapon = new Weapon();
+            weapon = new Weapon(AvalableItemPosition.Wield, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
         }
 
         [TestMethod]
         public void Weapon_Constructor()
         {
             Assert.AreEqual(Equipment.AvalableItemPosition.Wield, weapon.ItemPosition);
+            Assert.AreEqual("examineDescription", weapon.ExamineDescription);
+            Assert.AreEqual("lookDescription", weapon.LookDescription);
+            Assert.AreEqual("sentenceDescription", weapon.SentenceDescription);
+            Assert.AreEqual("shortDescription", weapon.ShortDescription);
         }
 
         [TestMethod]

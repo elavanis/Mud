@@ -30,7 +30,16 @@ namespace ObjectsUnitTest.Item.Items.Custom.UnderGrandViewCastle
 
                 GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
-                statue = new RunicStatue();
+                statue = new RunicStatue("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            }
+
+            [TestMethod]
+            public void RunisStatue_Constructor()
+            {
+                Assert.AreEqual("examineDescription", statue.ExamineDescription);
+                Assert.AreEqual("lookDescription", statue.LookDescription);
+                Assert.AreEqual("sentenceDescription", statue.SentenceDescription);
+                Assert.AreEqual("shortDescription", statue.ShortDescription);
             }
 
             [TestMethod]

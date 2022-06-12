@@ -25,10 +25,10 @@ namespace ObjectsUnitTest.Zone
             GlobalReference.GlobalValues = new GlobalValues();
 
             zone = new Objects.Zone.Zone();
-            room = new Objects.Room.Room();
-            item = new Objects.Item.Item();
-            npc = new Objects.Mob.NonPlayerCharacter();
-            pc = new Objects.Mob.PlayerCharacter();
+            room = new Objects.Room.Room("examineDescription", "lookDescription", "shortDescription");
+            item = new Objects.Item.Item("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            npc = new Objects.Mob.NonPlayerCharacter(room, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            pc = new Objects.Mob.PlayerCharacter(room, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
 
             zone.Id = 0;
             room.Id = 0;
