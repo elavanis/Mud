@@ -66,7 +66,7 @@ namespace Objects.Mob
 
             UnicornDescriptions.Add(new MountDescription("The unicorns horn is an iridescent color that shimmers as it moves its head.", "The unicorn paws the ground as you look at it.", "The white unicorn looks at you."));
 
-            NightmareDescriptions.Add(new MountDescription("As you approach the nightmare it briefly flies into the air leaving behind hoof prints in the air that burst into flames briefly before leaving a slowly fading red glow, this is truly is the stuff of nightmares.", "As you look at this nightmare it snorts at you and fire briefly flares out of its nostrils.", "Flames burn brightly from the mane and hooves of this black as nightmare."));
+            NightmareDescriptions.Add(new MountDescription("As you approach the nightmare it briefly flies into the air leaving behind hoof prints in the air that burst into flames briefly before leaving a slowly fading red glow, this is truly is the stuff of nightmares.", "As you look at this nightmare it snorts at you and fire briefly flares out of its nostrils.", "Flames burn brightly from the mane and hooves of this black as ink nightmare."));
 
             ElephantDescriptions.Add(new MountDescription("The elephants large flappy ears create a fanning effect as you get near.", "This elephant looks to have seen multiple battles.  It has multiple scars on its thick skin, a broken tusk and looks to be blind in one eye as well.", "The elephants trunk reaches down toward the ground looking for food."));
 

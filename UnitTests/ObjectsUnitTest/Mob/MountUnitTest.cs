@@ -80,7 +80,7 @@ namespace ObjectsUnitTest.Mob
             Assert.AreEqual(1, mount.MaxRiders);
             Assert.AreEqual("Orkiz", mount.KeyWords[0]);
             Assert.AreEqual("Nightmare", mount.KeyWords[1]);
-            Assert.AreEqual("Flames burn brightly from the mane and hooves of this black as night horse.", mount.ShortDescription);
+            Assert.AreEqual("Flames burn brightly from the mane and hooves of this black as ink nightmare.", mount.ShortDescription);
             Assert.AreEqual("nightmare", mount.SentenceDescription);
             Assert.AreEqual(room.Object, mount.Room);
         }

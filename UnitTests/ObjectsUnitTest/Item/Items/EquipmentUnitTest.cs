@@ -27,11 +27,5 @@ namespace ObjectsUnitTest.Item.Items
             Assert.AreEqual("sentenceDescription", equipment.SentenceDescription);
             Assert.AreEqual("shortDescription", equipment.ShortDescription);
         }
-
-        [TestMethod]
-        public void Equipment_ItemPosition()
-        {
-            Assert.AreEqual(AvalableItemPosition.Held, equipment.ItemPosition);
-        }
     }
 }

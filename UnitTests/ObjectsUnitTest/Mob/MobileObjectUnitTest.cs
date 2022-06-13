@@ -138,6 +138,7 @@ namespace ObjectsUnitTest.Mob
             random.Setup(e => e.Next(2)).Returns(1);
             random.Setup(e => e.Next(101)).Returns(0);
             damage.Setup(e => e.Dice).Returns(dice.Object);
+            damage.Setup(e => e.Type).Returns(DamageType.Slash);
             shield.Setup(e => e.Dice).Returns(dice.Object);
             shield.Setup(e => e.GetTypeModifier(DamageType.Slash)).Returns(1);
             shield.Setup(e => e.NegateDamagePercent).Returns(100);
@@ -854,8 +855,8 @@ namespace ObjectsUnitTest.Mob
 
             Assert.IsFalse(mob.IsAlive);
             Assert.AreEqual("A corpse lies here.", corpse.ShortDescription);
-            Assert.AreEqual("This corpse once was living but no life exists here now.", corpse.LookDescription);
-            Assert.AreEqual("This corpse once was living but no life exists here now.", corpse.ExamineDescription);
+            Assert.AreEqual("corpseLookDescription", corpse.LookDescription);
+            Assert.AreEqual("corpseLookDescription", corpse.ExamineDescription);
             Assert.IsTrue(corpse.KeyWords.Contains("Corpse"));
             Assert.AreEqual("corpse", corpse.SentenceDescription);
             Assert.AreEqual(3, corpse.Items.Count);

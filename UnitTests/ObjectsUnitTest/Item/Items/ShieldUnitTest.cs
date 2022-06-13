@@ -31,7 +31,7 @@ namespace ObjectsUnitTest.Item.Items
         {
             shield = new Shield(1, AvalableItemPosition.Wield, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             Assert.AreEqual(1, shield.Level);
-            Assert.AreSame(dice, shield.Dice);
+            Assert.AreSame(dice.Object, shield.Dice);
             Assert.AreEqual(Equipment.AvalableItemPosition.Wield, shield.ItemPosition);
             Assert.AreEqual("examineDescription", shield.ExamineDescription);
             Assert.AreEqual("lookDescription", shield.LookDescription);
