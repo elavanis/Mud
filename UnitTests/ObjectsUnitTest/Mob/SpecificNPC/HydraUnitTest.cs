@@ -82,7 +82,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Hydra_Constructor()
         {
-            Assert.AreEqual(room, hydra.Room);
+            Assert.AreEqual(room.Object, hydra.Room);
             Assert.AreEqual("corpseLookDescription", hydra.CorpseLookDescription);
             Assert.AreEqual("examineDescription", hydra.ExamineDescription);
             Assert.AreEqual("lookDescription", hydra.LookDescription);
@@ -148,7 +148,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
             notify.Verify(e => e.Mob(attacker1.Object, It.Is<ITranslationMessage>(f => f.Message == "You cut off on of the hydras heads.")), Times.Once);
-            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, room.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -165,7 +165,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
             notify.Verify(e => e.Mob(attacker1.Object, It.Is<ITranslationMessage>(f => f.Message == "You cut off on of the hydras heads.")), Times.Once);
-            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, room.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
 
             hydra.TakeCombatDamage(20, damageNonFire.Object, attacker1.Object, 1);
 
@@ -178,7 +178,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
             notify.Verify(e => e.Mob(attacker1.Object, It.Is<ITranslationMessage>(f => f.Message == "You cut off on of the hydras heads.")), Times.Once);
-            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, room.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -206,7 +206,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
             notify.Verify(e => e.Mob(attacker1.Object, It.Is<ITranslationMessage>(f => f.Message == "You cut off on of the hydras heads.")), Times.Once);
-            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, room.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -223,7 +223,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
             notify.Verify(e => e.Mob(attacker1.Object, It.Is<ITranslationMessage>(f => f.Message == "You cut off on of the hydras heads.")), Times.Once);
-            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, room.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
 
             hydra.TakeCombatDamage(20, damageNonFire.Object, attacker2.Object, 1);
 
@@ -236,7 +236,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
             notify.Verify(e => e.Mob(attacker2.Object, It.Is<ITranslationMessage>(f => f.Message == "You cut off on of the hydras heads.")), Times.Once);
-            notify.Verify(e => e.Room(attacker2.Object, hydra, null, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(attacker2.Object, hydra, room.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -253,7 +253,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(1u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
             notify.Verify(e => e.Mob(attacker1.Object, It.Is<ITranslationMessage>(f => f.Message == "You cut off on of the hydras heads.")), Times.Once);
-            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, room.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -298,7 +298,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(0u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
             notify.Verify(e => e.Mob(attacker1.Object, It.Is<ITranslationMessage>(f => f.Message == "You cut off on of the hydras heads.")), Times.Once);
-            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, room.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
 
 
             hydra.TakeDamage(20, damageNonFire.Object, attacker2.Object);
@@ -313,7 +313,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.IsTrue(rndOfDamage2.HeadCut);
             Assert.AreNotSame(rndOfDamage, rndOfDamage2);
             notify.Verify(e => e.Mob(attacker2.Object, It.Is<ITranslationMessage>(f => f.Message == "You cut off on of the hydras heads.")), Times.Once);
-            notify.Verify(e => e.Room(attacker2.Object, hydra, null, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(attacker2.Object, hydra, room.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -330,7 +330,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(0u, rndOfDamage.CombatRound);
             Assert.IsTrue(rndOfDamage.HeadCut);
             notify.Verify(e => e.Mob(attacker1.Object, It.Is<ITranslationMessage>(f => f.Message == "You cut off on of the hydras heads.")), Times.Once);
-            notify.Verify(e => e.Room(attacker1.Object, hydra, null, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(attacker1.Object, hydra, room.Object, It.Is<ITranslationMessage>(f => f.Message == "{performer} cut off on of the hydras heads."), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -342,7 +342,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(9, hydra.EquipedWeapon.Count());
             Assert.AreEqual(0, newHeadsToGrow.GetValue(hydra));
             Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
-            notify.Verify(e => e.Room(hydra, null, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
+            notify.Verify(e => e.Room(hydra, null, room.Object, It.IsAny<ITranslationMessage>(), null, false, false), Times.Once);
         }
 
         [TestMethod]
@@ -355,7 +355,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(5, hydra.EquipedWeapon.Count());
             Assert.AreEqual(0, newHeadsToGrow.GetValue(hydra));
             Assert.IsFalse((bool)tookFireDamage.GetValue(hydra));
-            notify.Verify(e => e.Room(hydra, null, null, It.IsAny<ITranslationMessage>(), null, false, false), Times.Never);
+            notify.Verify(e => e.Room(hydra, null, room.Object, It.IsAny<ITranslationMessage>(), null, false, false), Times.Never);
         }
     }
 }

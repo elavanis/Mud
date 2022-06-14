@@ -79,15 +79,11 @@ namespace ObjectsUnitTest.Mob
             serializtion = new Mock<ISerialization>();
             stringManipulator = new Mock<IStringManipulator>();
             attacker = new Mock<IMobileObject>();
-
             settings.Setup(e => e.Multiplier).Returns(1);
             multiClassBonus.Setup(e => e.CalculateBonus(1, 0)).Returns(1);
             roomId.Setup(e => e.Zone).Returns(1);
             roomId.Setup(e => e.Id).Returns(1);
-            pc.Room = room.Object;
-            pc.RespawnPoint = roomId.Object;
-            pc.KeyWords.Add("pc");
-            pcs.Add(pc);
+            
             room.Setup(e => e.PlayerCharacters).Returns(pcs);
             room2.Setup(e => e.PlayerCharacters).Returns(pcs2);
             world.Setup(e => e.Zones).Returns(zoneDictionary);
@@ -112,6 +108,10 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
 
             pc = new PlayerCharacter(room.Object, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            pc.Room = room.Object;
+            pc.RespawnPoint = roomId.Object;
+            pc.KeyWords.Add("pc");
+            pcs.Add(pc);
         }
 
         [TestMethod]

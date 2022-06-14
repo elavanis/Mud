@@ -117,7 +117,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(2, elemental.Level);
             Assert.AreEqual(2, elemental.EquipedArmor.Count());
             world.Verify(e => e.WindSpeed, Times.AtLeastOnce);
-            notify.Verify(e => e.Room(elemental, null, null, It.Is<ITranslationMessage>(f => f.Message == "The air elemental grows stronger."), null, true, false), Times.Once);
+            notify.Verify(e => e.Room(elemental, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "The air elemental grows stronger."), null, true, false), Times.Once);
         }
 
         [TestMethod]
@@ -133,7 +133,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(4, elemental.Level);
             Assert.AreEqual(4, elemental.EquipedArmor.Count());
             world.Verify(e => e.WindSpeed, Times.AtLeastOnce);
-            notify.Verify(e => e.Room(elemental, null, null, It.Is<ITranslationMessage>(f => f.Message == "The air elemental grows weaker."), null, true, false), Times.Once);
+            notify.Verify(e => e.Room(elemental, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "The air elemental grows weaker."), null, true, false), Times.Once);
         }
 
         [TestMethod]
@@ -145,7 +145,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
 
             Assert.AreEqual(1, elemental.Level);
             world.Verify(e => e.WindSpeed, Times.AtLeastOnce);
-            notify.Verify(e => e.Room(elemental, null, null, It.IsAny<ITranslationMessage>(), null, true, false), Times.Never);
+            notify.Verify(e => e.Room(elemental, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Never);
         }
 
         [TestMethod]
@@ -181,7 +181,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(6, elemental.Level);
             Assert.AreEqual(6, elemental.EquipedArmor.Count());
             world.Verify(e => e.Precipitation, Times.AtLeastOnce);
-            notify.Verify(e => e.Room(elemental, null, null, It.Is<ITranslationMessage>(f => f.Message == "The earth elemental grows stronger."), null, true, false), Times.Once);
+            notify.Verify(e => e.Room(elemental, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "The earth elemental grows stronger."), null, true, false), Times.Once);
         }
 
         [TestMethod]
@@ -195,7 +195,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
 
             Assert.AreEqual(1, elemental.Level);
             world.Verify(e => e.Precipitation, Times.AtLeastOnce);
-            notify.Verify(e => e.Room(elemental, null, null, It.IsAny<ITranslationMessage>(), null, true, false), Times.Never);
+            notify.Verify(e => e.Room(elemental, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Never);
         }
     }
 }
