@@ -23,8 +23,12 @@ namespace ObjectsUnitTest.Zone
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
+            GlobalReference.GlobalValues.Initilize();
 
             zone = new Objects.Zone.Zone();
+
+            GlobalReference.GlobalValues.World.Zones.Add(0, zone);
+
             room = new Objects.Room.Room("examineDescription", "lookDescription", "shortDescription");
             item = new Objects.Item.Item("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             npc = new Objects.Mob.NonPlayerCharacter(room, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
@@ -44,9 +48,6 @@ namespace ObjectsUnitTest.Zone
             pc.Level = 1;
             pc.MaxHealth = 10;
             pc.Name = "pc";
-
-            GlobalReference.GlobalValues.Initilize();
-            GlobalReference.GlobalValues.World.Zones.Add(0, zone);
         }
 
         [TestMethod]

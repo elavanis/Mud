@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Objects.Global;
 using Objects.Room;
 using Objects.Room.Interface;
+using Objects.World.Interface;
 
 namespace ObjectsUnitTest.Room
 {
@@ -37,14 +39,20 @@ namespace ObjectsUnitTest.Room
         [TestMethod]
         public void RoomId_Constructor_Room()
         {
-            IRoom room = new Objects.Room.Room("examineDescription", "lookDescription", "shortDescription") { Zone = 1, Id = 2 };
-            roomId = new RoomId(room);
+            Mock<IRoom> room = new Mock<IRoom>();
+            room.Setup(e => e.ExamineDescription).Returns("examineDescription");
+            room.Setup(e => e.LookDescription).Returns("lookDescription");
+            room.Setup(e => e.ShortDescription).Returns("shortDescription");
+            room.Setup(e => e.Zone).Returns(1);
+            room.Setup(e => e.Id).Returns(2);
+            
+            roomId = new RoomId(room.Object);
 
             Assert.AreEqual(1, roomId.Zone);
             Assert.AreEqual(2, roomId.Id);
-            Assert.AreEqual("examineDescription", room.ExamineDescription);
-            Assert.AreEqual("lookDescription", room.LookDescription);
-            Assert.AreEqual("shortDescription", room.ShortDescription);
+            Assert.AreEqual("examineDescription", room.Object.ExamineDescription);
+            Assert.AreEqual("lookDescription", room.Object.LookDescription);
+            Assert.AreEqual("shortDescription", room.Object.ShortDescription);
         }
     }
 }
