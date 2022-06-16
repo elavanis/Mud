@@ -48,6 +48,10 @@ namespace ObjectsUnitTest.Zone
             pc.Level = 1;
             pc.MaxHealth = 10;
             pc.Name = "pc";
+
+            //fix circular serialization issue
+            npc.Room = null!;
+            pc.Room = null!;
         }
 
         [TestMethod]

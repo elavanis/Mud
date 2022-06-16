@@ -39,10 +39,14 @@ namespace Objects.Mob
         protected MobileObject(IRoom room, string corpseLookDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             Room = room;
-            RoomId = new RoomId(room);
+
+            if (room != null)  //because room is null when deserializing we need to set account for it
+            {
+                RoomId = new RoomId(room);
+            }
+
             CorpseLookDescription = corpseLookDescription;
         }
-
 
         #region Properties
         [ExcludeFromCodeCoverage]
