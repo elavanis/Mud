@@ -88,9 +88,9 @@ namespace GenerateZones.Zones
             return armor;
         }
 
-        public IShield CreateShield(int level, BaseMaterial? material = null)
+        public IShield CreateShield(int level, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, BaseMaterial? material = null)
         {
-            IShield shield = new Shield();
+            IShield shield = new Shield(level, examineDescription, lookDescription, sentenceDescription, shortDescription);
             shield.Id = ItemId++;
             shield.Zone = Zone.Id;
             shield.Level = level;

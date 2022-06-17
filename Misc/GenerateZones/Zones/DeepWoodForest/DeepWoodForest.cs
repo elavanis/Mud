@@ -922,6 +922,11 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter KolboldGuard()
         {
+            string examineDescription;
+            string lookDescription;
+            string sentenceDescription;
+            string shortDescription ;
+
             INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 7);
 
             npc.KeyWords.Add("Kobold");
@@ -935,14 +940,15 @@ namespace GenerateZones.Zones.DeepWoodForest
             IGuard guardPersonality = new Guard(Direction.South);
             npc.Personalities.Add(guardPersonality);
 
-            IShield shield = CreateShield(7, new Leather());
+            examineDescription = "The shield is surprisingly light for it's size but also feels less durable than originally anticipated.";
+            lookDescription = "The shield is made of a wooden ring with leather hides stretched across.";
+            sentenceDescription = "a leather shield";
+            shortDescription = "A well made leather shields.";
+            IShield shield = CreateShield(7, examineDescription, lookDescription, sentenceDescription, shortDescription,  new Leather());
             shield.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(shield.Level);
             shield.KeyWords.Add("leather");
             shield.KeyWords.Add("shield");
-            shield.ShortDescription = "A well made leather shields.";
-            shield.LookDescription = "The shield is made of a wooden ring with leather hides stretched across.";
-            shield.SentenceDescription = "a leather shield";
-            shield.ExamineDescription = "The shield is surprisingly light for it's size but also feels less durable than originally anticipated.";
+
             npc.AddEquipment(shield);
 
             IWeapon weapon = CreateWeapon(WeaponType.Spear, 7);

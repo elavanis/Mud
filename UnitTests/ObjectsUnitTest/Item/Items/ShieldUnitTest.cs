@@ -29,7 +29,7 @@ namespace ObjectsUnitTest.Item.Items
         [TestMethod]
         public void Shield_Constructor_Level()
         {
-            shield = new Shield(1, AvalableItemPosition.Wield, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            shield = new Shield(1, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             Assert.AreEqual(1, shield.Level);
             Assert.AreSame(dice.Object, shield.Dice);
             Assert.AreEqual(Equipment.AvalableItemPosition.Wield, shield.ItemPosition);
