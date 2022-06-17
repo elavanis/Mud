@@ -17,7 +17,7 @@ namespace ObjectsUnitTest.Item.Items
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            weapon = new Weapon(AvalableItemPosition.Wield, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            weapon = new Weapon("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
         }
 
         [TestMethod]

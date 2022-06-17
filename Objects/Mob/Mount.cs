@@ -57,7 +57,7 @@ namespace Objects.Mob
         #endregion AnimalInfo
 
 
-        public Mount(DefaultValues defaultValue, IRoom room) : base(room, "mount corpse description", "examine description", "look description", "sentience description", "short description")
+        public Mount(DefaultValues defaultValue, IRoom room) : base(room, "examine description", "look description", "sentience description", "short description")
         {
             HorseDescriptions.Add(new MountDescription("The large black horse swats fly away with its tail.", "The horse catches your glance and quickly looks your direction.", "A large black horse."));
             HorseDescriptions.Add(new MountDescription("The horse's front right hoof has a small patch of white like its wearing a sock.", "The horse stands at attention waiting for directions.", "A brown horse with black mane."));
@@ -81,7 +81,7 @@ namespace Objects.Mob
 
         public Mount(DefaultValues defaultValue, IRoom room, string corpseDescription, int id, int zone, string examineDescription, string lookDescription, string sentienceDescription, string shortDescription) : this(defaultValue, room)
         {
-            CorpseLookDescription = corpseDescription;
+            CorpseDescription = corpseDescription;
             ExamineDescription = examineDescription;
             LookDescription = lookDescription;
             SentenceDescription = sentienceDescription;

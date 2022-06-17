@@ -7,6 +7,7 @@ using Objects.Global.DefaultValues.Interface;
 using Objects.Global.Engine.Engines.Interface;
 using Objects.Global.Engine.Interface;
 using Objects.Global.Notify.Interface;
+using Objects.Global.Random.Interface;
 using Objects.Language.Interface;
 using Objects.Mob.Interface;
 using Objects.Mob.SpecificNPC;
@@ -39,6 +40,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         Mock<INotify> notify;
         Mock<ITagWrapper> tagWrapper;
         Mock<IRoom> room;
+        Mock<IRandom> random;
 
         [TestInitialize]
         public void Setup()
@@ -57,6 +59,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             notify = new Mock<INotify>();
             tagWrapper = new Mock<ITagWrapper>();
             room = new Mock<IRoom>();
+            random = new Mock<IRandom>();
 
             defaultValues.Setup(e => e.DiceForWeaponLevel(1)).Returns(level1Dice.Object);
             defaultValues.Setup(e => e.DiceForWeaponLevel(5)).Returns(level5Dice.Object);
@@ -64,13 +67,15 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             damageFire.Setup(e => e.Type).Returns(DamageType.Fire);
             engine.Setup(e => e.Event).Returns(evnt.Object);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
+            random.Setup(e => e.Next(1)).Returns(0);
 
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+            GlobalReference.GlobalValues.Random = random.Object;
 
-            hydra = new Hydra(room.Object, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            hydra = new Hydra(room.Object, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription", "corpseLookDescription");
             hydra.Level = 20;
             hydra.ConstitutionStat = 10; //needs to be set so when max stats are reset it will calculate correctly
 
@@ -83,7 +88,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         public void Hydra_Constructor()
         {
             Assert.AreEqual(room.Object, hydra.Room);
-            Assert.AreEqual("corpseLookDescription", hydra.CorpseLookDescription);
+            Assert.AreEqual("corpseLookDescription", hydra.CorpseDescription);
             Assert.AreEqual("examineDescription", hydra.ExamineDescription);
             Assert.AreEqual("lookDescription", hydra.LookDescription);
             Assert.AreEqual("sentenceDescription", hydra.SentenceDescription);

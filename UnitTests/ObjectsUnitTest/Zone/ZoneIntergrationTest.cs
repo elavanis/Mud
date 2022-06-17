@@ -31,8 +31,8 @@ namespace ObjectsUnitTest.Zone
 
             room = new Objects.Room.Room("examineDescription", "lookDescription", "shortDescription");
             item = new Objects.Item.Item("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
-            npc = new Objects.Mob.NonPlayerCharacter(room, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
-            pc = new Objects.Mob.PlayerCharacter(room, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            npc = new Objects.Mob.NonPlayerCharacter(room, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            pc = new Objects.Mob.PlayerCharacter(room,  "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
 
             zone.Id = 0;
             room.Id = 0;

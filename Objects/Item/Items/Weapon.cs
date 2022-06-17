@@ -9,9 +9,8 @@ namespace Objects.Item.Items
 {
     public class Weapon : Equipment, IWeapon
     {
-        public Weapon(AvalableItemPosition position, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(position, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public Weapon(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(AvalableItemPosition.Wield, examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
-            ItemPosition = AvalableItemPosition.Wield;
         }
 
         public List<IDamage> DamageList { get; } = new List<IDamage>();

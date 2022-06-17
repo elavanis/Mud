@@ -35,8 +35,9 @@ namespace Objects.Mob
 {
     public abstract class MobileObject : BaseObject, IContainer, IMobileObject
     {
+        private static List<string> CorpseDescriptions = new List<string>() { "This corpse once was living but no life exists here now." };
 
-        protected MobileObject(IRoom room, string corpseLookDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
+        protected MobileObject(IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, string? corpseDescription = null) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             Room = room;
 
@@ -45,7 +46,19 @@ namespace Objects.Mob
                 RoomId = new RoomId(room);
             }
 
-            CorpseLookDescription = corpseLookDescription;
+            if (corpseDescription != null)
+            {
+                CorpseDescription = corpseDescription;
+            }
+            else
+            {
+                CorpseDescription = PickARandomCorpseDescription();
+            }
+        }
+
+        private string PickARandomCorpseDescription()
+        {
+            return CorpseDescriptions[GlobalReference.GlobalValues.Random.Next(CorpseDescriptions.Count)];
         }
 
         #region Properties
@@ -108,7 +121,7 @@ namespace Objects.Mob
         }
 
         [ExcludeFromCodeCoverage]
-        public string CorpseLookDescription { get; set; }
+        public string CorpseDescription { get; set; }
 
         [ExcludeFromCodeCoverage]
         public List<IItem> Items { get; } = new List<IItem>();
@@ -145,8 +158,8 @@ namespace Objects.Mob
 
         public Dictionary<string, ISpell> SpellBook { get; } = new Dictionary<string, ISpell>();
 
-        public Dictionary<string, ISkill> KnownSkills { get; }= new Dictionary<string, ISkill>();
-        
+        public Dictionary<string, ISkill> KnownSkills { get; } = new Dictionary<string, ISkill>();
+
         private List<MobileAttribute> AttributesMobileObject { get; } = new List<MobileAttribute>();
 
         public void AddAttribute(MobileAttribute attribute)
@@ -371,7 +384,7 @@ namespace Objects.Mob
         #region Equipment
         private List<IEquipment> _equipment = new List<IEquipment>();
 
-  
+
 
         public IEnumerable<IEquipment> EquipedEquipment
         {
@@ -402,7 +415,7 @@ namespace Objects.Mob
                 List<IWeapon> weapons = new List<IWeapon>();
                 foreach (IItem item in EquipedEquipment)
                 {
-                    if ( item is IWeapon weapon)
+                    if (item is IWeapon weapon)
                     {
                         weapons.Add(weapon);
                     }
@@ -410,7 +423,7 @@ namespace Objects.Mob
 
                 if (weapons.Count == 0)
                 {
-                    IWeapon defaultWeapon = new Weapon(AvalableItemPosition.Wield, "bare hands", "bare hands", "bare hands", "bare hands");
+                    IWeapon defaultWeapon = new Weapon("bare hands", "bare hands", "bare hands", "bare hands");
                     defaultWeapon.AttackerStat = Stats.Stat.Dexterity;
                     defaultWeapon.DeffenderStat = Stats.Stat.Dexterity;
                     int strength = Math.Max(1, StrengthEffective);
@@ -646,7 +659,7 @@ namespace Objects.Mob
         {
             ICorpse corpse = Die(attacker);
             if (this is INonPlayerCharacter npc && attacker is IPlayerCharacter pc)
-            { 
+            {
                 IReadOnlyList<IMobileObject> partyMembers = GlobalReference.GlobalValues.Engine.Party.CurrentPartyMembers(attacker);
 
                 if (partyMembers == null)
@@ -811,10 +824,7 @@ namespace Objects.Mob
                 enchantment.EnchantmentEndingDateTime = new DateTime();  //set the end date to the past so its not fired and will be cleaned up 
             }
 
-            string examineDescription = CorpseLookDescription ?? "This corpse once was living but no life exists here now.";
-            string lookDescription = CorpseLookDescription ?? "This corpse once was living but no life exists here now.";
-
-            Corpse corpse = new Corpse(examineDescription, lookDescription, "corpse", "A corpse lies here.");
+            Corpse corpse = new Corpse(CorpseDescription, CorpseDescription, "corpse", "A corpse lies here.");
             corpse.OriginalMob = this;
             corpse.Killer = attacker;
             corpse.TimeOfDeath = DateTime.UtcNow;

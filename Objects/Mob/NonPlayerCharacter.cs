@@ -16,7 +16,7 @@ namespace Objects.Mob
 {
     public class NonPlayerCharacter : MobileObject, INonPlayerCharacter, ILoadableItems
     {
-        public NonPlayerCharacter(IRoom room, string corpseLookDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(room, corpseLookDescription, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public NonPlayerCharacter(IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, string? corpseDescription = null) : base(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription)
         {
         }
 

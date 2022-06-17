@@ -36,7 +36,7 @@ namespace Objects.Personality
                     item = equipment;
                     break;
                 case Equipment.AvalableItemPosition.Wield:
-                    IWeapon weapon = new Weapon(position, examineDescription, lookDescription, sentenceDescription, shortDescription);
+                    IWeapon weapon = new Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
                     result = BuildItem(craftsman, performer, position, level, keyword, weapon);
                     IDamage damage = new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level));
                     damage.Type = damageType;

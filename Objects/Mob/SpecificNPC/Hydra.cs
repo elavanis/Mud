@@ -16,7 +16,7 @@ namespace Objects.Mob.SpecificNPC
 {
     public class Hydra : NonPlayerCharacter, IHydra
     {
-        public Hydra(IRoom room, string corpseLookDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(room, corpseLookDescription, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public Hydra(IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, string? corpseDescription = null) : base(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription)
         {
             Personalities.Add(new Personality.Hydra());
             RoundOfDamage = new RoundOfDamage();
@@ -48,7 +48,7 @@ namespace Objects.Mob.SpecificNPC
                     RemoveEquipment(weapon);
                 }
 
-                IWeapon head = new Weapon(Equipment.AvalableItemPosition.Wield, "hydra head", "hydra head", "hydra head", "hydra head");
+                IWeapon head = new Weapon("hydra head", "hydra head", "hydra head", "hydra head");
                 Damage.Damage damage = new Damage.Damage() { Type = DamageType.Pierce, Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(Math.Max(1, value - 5)) };
                 head.DamageList.Add(damage);
 

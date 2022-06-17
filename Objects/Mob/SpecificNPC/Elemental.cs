@@ -29,10 +29,10 @@ namespace Objects.Mob.SpecificNPC
         //    TypeOfMob = MobType.Other;
         //}
 
-        public Elemental(ElementType elementType, IRoom room) : this(elementType, room, "", "", "", "", "") { }
+        public Elemental(ElementType elementType, IRoom room) : this(elementType, room, "", "", "", "") { }
        
 
-        public Elemental(ElementType elementType, IRoom room, string corpseLookDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(room, corpseLookDescription, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public Elemental(ElementType elementType, IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, string? corpseLookDescription = null) : base(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseLookDescription)
         {
             SetElement(elementType);
             Personalities.Add(new Personality.Elemental());

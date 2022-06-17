@@ -51,9 +51,9 @@ namespace GenerateZones.Zones
         }
 
         #region NPC
-        public INonPlayerCharacter CreateNonplayerCharacter(MobType typeOfMob, IRoom room, string corpseDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, int level = 0)
+        public INonPlayerCharacter CreateNonplayerCharacter(MobType typeOfMob, IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, int level = 0, string? corpseDescription = null)
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter(room, corpseDescription, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            INonPlayerCharacter npc = new NonPlayerCharacter(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription);
             npc.Id = NpcId++;
             npc.Zone = Zone.Id;
             npc.TypeOfMob = typeOfMob;
@@ -64,9 +64,9 @@ namespace GenerateZones.Zones
         #endregion NPC
 
         #region Item
-        public IWeapon CreateWeapon(WeaponType weaponType, AvalableItemPosition position, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, int level)
+        public IWeapon CreateWeapon(WeaponType weaponType, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, int level)
         {
-            IWeapon weapon = new Weapon(position, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            IWeapon weapon = new Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.Id = ItemId++;
             weapon.Zone = Zone.Id;
             weapon.Type = weaponType;

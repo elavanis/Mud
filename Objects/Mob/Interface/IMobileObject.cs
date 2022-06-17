@@ -20,7 +20,7 @@ namespace Objects.Mob.Interface
         int CommmandQueueCount { get; }
         int ConstitutionEffective { get; }
         int ConstitutionStat { get; set; }
-        string CorpseLookDescription { get; set; }
+        string CorpseDescription { get; set; }
         int DexterityEffective { get; }
         int DexterityStat { get; set; }
 

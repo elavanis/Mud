@@ -232,7 +232,7 @@ namespace Objects.Global.Random
                     break;
             }
 
-            IWeapon weapon = new Item.Items.Weapon(AvalableItemPosition.Wield, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            IWeapon weapon = new Item.Items.Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.Level = level;
             weapon.KeyWords.AddRange(keyWords);
             foreach (var item in flavorOptions.Keys)

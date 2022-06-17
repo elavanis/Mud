@@ -276,7 +276,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             string sentenceDescription = "Queen's guard";
             string shortDescription = "The Queen's guard.";
 
-            INonPlayerCharacter npc = new NonPlayerCharacter(room, corpseDescription, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            INonPlayerCharacter npc = new NonPlayerCharacter(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription);
             npc.TypeOfMob = MobType.Humanoid;
             npc.Level = 45;
             npc.KeyWords.Add("Queen's guard");
@@ -298,13 +298,13 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private IArmor BreastPlate(INonPlayerCharacter npc)
         {
-            IDice dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(npc.Level+2);
+            IDice dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(npc.Level + 2);
             string examineDescription = "This piece of armor appears to be made better than normal.";
             string lookDescription = "A female lion head is embossed across the front of the breastplate.";
             string sentenceDescription = "beautiful silver breastplate";
             string shortDescription = "A breastplate made of silver.";
 
-            IArmor armor = new Armor(dice, AvalableItemPosition.Body, examineDescription, lookDescription,  sentenceDescription, shortDescription);
+            IArmor armor = new Armor(dice, AvalableItemPosition.Body, examineDescription, lookDescription, sentenceDescription, shortDescription);
             armor.KeyWords.Add("breastplate");
             armor.Material = new Silver();
 
@@ -313,7 +313,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private IArmor Helmet(INonPlayerCharacter npc)
         {
-            IDice dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(npc.Level+2);
+            IDice dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(npc.Level + 2);
             string examineDescription = "This piece of armor appears to be made better than normal.";
             string lookDescription = "The helmet is made to make the wearer look like a lioness.";
             string sentenceDescription = "beautiful silver helmet with intricate lines carved in it";
@@ -333,11 +333,11 @@ namespace Objects.Personality.Custom.GrandviewCastle
             string sentenceDescription = "a finely crafted sword";
             string shortDescription = "A finely crafted sword that is light and quick.";
 
-            IWeapon weapon = new Weapon(AvalableItemPosition.Wield, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            IWeapon weapon = new Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.Level = npc.Level;
             weapon.DamageList.Add(new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(weapon.Level + 2)) { Type = DamageType.Slash });
             weapon.KeyWords.Add("sword");
-            
+
 
             return weapon;
         }

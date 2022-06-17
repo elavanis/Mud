@@ -135,6 +135,7 @@ namespace ObjectsUnitTest.Mob
             moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("0 coin");
             randomDropGenerator.Setup(e => e.GenerateRandomDrop(It.IsAny<INonPlayerCharacter>())).Returns(item.Object);
             random.Setup(e => e.Next(It.IsAny<int>())).Returns((int x) => (x));
+            random.Setup(e => e.Next(1)).Returns(0);
             random.Setup(e => e.Next(2)).Returns(1);
             random.Setup(e => e.Next(101)).Returns(0);
             damage.Setup(e => e.Dice).Returns(dice.Object);
@@ -156,7 +157,7 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.Random = random.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
 
-            mob = new UnitTestMobileObject(room.Object, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            mob = new UnitTestMobileObject(room.Object, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription", "corpseLookDescription");
             mob.Items.Add(item.Object);
         }
 
@@ -164,7 +165,7 @@ namespace ObjectsUnitTest.Mob
         public void MobileObject_Constructor()
         {
             Assert.AreEqual(room.Object, mob.Room);
-            Assert.AreEqual("corpseLookDescription", mob.CorpseLookDescription);
+            Assert.AreEqual("corpseLookDescription", mob.CorpseDescription);
             Assert.AreEqual("examineDescription", mob.ExamineDescription);
             Assert.AreEqual("lookDescription", mob.LookDescription);
             Assert.AreEqual("sentenceDescription", mob.SentenceDescription);
@@ -442,7 +443,7 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void MobileObject_CalculateToHitRoll()
         {
-            mob.StrengthStat = 1;
+            mob.StrengthStat = 2;
 
             Assert.AreEqual(1, mob.CalculateToHitRoll(Stats.Stat.Strength));
         }
@@ -900,7 +901,7 @@ namespace ObjectsUnitTest.Mob
         [TestMethod]
         public void MobileObject_Die_CorpseDescriptionSet()
         {
-            mob.CorpseLookDescription = "corp desc";
+            mob.CorpseDescription = "corp desc";
             EquipedEquipment(mob).Add(armor.Object);
             mob.Money = 10;
 
@@ -1332,7 +1333,7 @@ namespace ObjectsUnitTest.Mob
 
         private class UnitTestMobileObject : MobileObject, INonPlayerCharacter //needed for exp testing
         {
-            public UnitTestMobileObject(IRoom room, string corpseLookDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(room, corpseLookDescription, examineDescription, lookDescription, sentenceDescription, shortDescription)
+            public UnitTestMobileObject(IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, string corpseDescription) : base(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription)
             {
             }
 

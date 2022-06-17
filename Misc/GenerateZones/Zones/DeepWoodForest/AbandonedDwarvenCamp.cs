@@ -44,7 +44,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             for (int i = 0; i < 50; i++)
             {
                 int roomId = GlobalReference.GlobalValues.Random.Next(Zone.Rooms.Count) + 1;
-                Zone.Rooms[roomId].AddMobileObjectToRoom(TunnelGoblin());
+                Zone.Rooms[roomId].AddMobileObjectToRoom(TunnelGoblin(Zone.Rooms[roomId]));
             }
         }
 
@@ -140,8 +140,8 @@ namespace GenerateZones.Zones.DeepWoodForest
 
             room.Attributes.Add(Room.RoomAttribute.Light);
 
-            room.AddMobileObjectToRoom(Goblin());
-            room.AddMobileObjectToRoom(Goblin());
+            room.AddMobileObjectToRoom(Goblin(room));
+            room.AddMobileObjectToRoom(Goblin(room));
 
             return room;
         }
@@ -259,31 +259,35 @@ namespace GenerateZones.Zones.DeepWoodForest
         #endregion Rooms
 
         #region NPC
-        private INonPlayerCharacter Goblin()
+        private INonPlayerCharacter Goblin(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 14);
+            string corpseDescription = "A small broken green lies here.";
+            string examineDescription = "The goblin stares at you with fright in its eyes.";
+            string lookDescription = "The goblin cowers in the corner watching you very intently.";
+            string shortDescription = "A frightened goblin.";
+            string sentenceDescription = "goblin";
 
-            npc.ExamineDescription = "The goblin stares at you with fright in its eyes.";
-            npc.LookDescription = "The goblin cowers in the corner watching you very intently.";
-            npc.ShortDescription = "A frightened goblin.";
-            npc.SentenceDescription = "goblin";
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, shortDescription, sentenceDescription, 14, corpseDescription);
+
             npc.KeyWords.Add("goblin");
 
             return npc;
         }
 
-        private INonPlayerCharacter TunnelGoblin()
+        private INonPlayerCharacter TunnelGoblin(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid);
+            string corpseDescription = "A small broken green lies here.";
+            string examineDescription = "The goblin is armed to the teeth and appears to be on some type of war patrol.";
+            string lookDescription = "A well armed goblin appears before you with weapon drawn.";
+            string shortDescription = "An armed goblin.";
+            string sentenceDescription = "goblin";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription);
             npc.LevelRange = new LevelRange() { LowerLevel = 14, UpperLevel = 16 };
 
             npc.Personalities.Add(new Aggressive());
             npc.Personalities.Add(new Wanderer());
 
-            npc.ExamineDescription = "The goblin is armed to the teeth and appears to be on some type of war patrol.";
-            npc.LookDescription = "A well armed goblin appears before you with weapon drawn.";
-            npc.ShortDescription = "An armed goblin.";
-            npc.SentenceDescription = "goblin";
             npc.KeyWords.Add("goblin");
 
             npc.AddEquipment(Dogslicer());
@@ -296,14 +300,16 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IEquipment Dogslicer()
         {
-            IWeapon weapon = CreateWeapon(WeaponType.Sword, 15);
+            string examineDescription = "The Dogslicer is poorly made and looks like it will fail in combat at some point.";
+            string lookDescription = "The sword is crudely made with spots of rust where the iron has gotten wet.";
+            string sentenceDescription = "Dogslicer";
+            string shortDescription = "The goblin Dogslicer has three holes in the blade making it lighter and easier to swing.";
+
+            IWeapon weapon = CreateWeapon(WeaponType.Sword, examineDescription, lookDescription, sentenceDescription, shortDescription, 15);
             weapon.KeyWords.Add("sword");
             weapon.KeyWords.Add("dog");
             weapon.KeyWords.Add("slicer");
-            weapon.LookDescription = "The sword is crudely made with spots of rust where the iron has gotten wet.";
-            weapon.ShortDescription = "The goblin Dogslicer has three holes in the blade making it lighter and easier to swing.";
-            weapon.SentenceDescription = "Dogslicer";
-            weapon.ExamineDescription = "The Dogslicer is poorly made and looks like it will fail in combat at some point.";
+
 
             IDamage damage = new Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);

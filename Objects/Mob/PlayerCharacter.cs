@@ -17,7 +17,7 @@ namespace Objects.Mob
 {
     public class PlayerCharacter : MobileObject, IPlayerCharacter
     {
-        public PlayerCharacter(IRoom room, string corpseLookDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(room, corpseLookDescription, examineDescription, lookDescription, sentenceDescription, shortDescription)
+        public PlayerCharacter(IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, string? corpseDescription = null) : base(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription)
         {
         }
 

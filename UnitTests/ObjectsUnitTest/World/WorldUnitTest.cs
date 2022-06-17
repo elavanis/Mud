@@ -960,7 +960,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_LoadCharacter_LoadFromFile()
         {
-            PlayerCharacter realPc = new PlayerCharacter(room.Object, "corpseLookDescription", "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            PlayerCharacter realPc = new PlayerCharacter(room.Object, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
 
             serialization.Setup(e => e.Deserialize<PlayerCharacter>("serializedPlayer")).Returns(realPc);
 

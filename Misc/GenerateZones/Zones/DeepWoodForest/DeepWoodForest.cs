@@ -315,7 +315,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.LookDescription = "Burned trees stumps stretch in all directions.";
             room.ShortDescription = "Deep Wood Forest";
 
-            room.AddMobileObjectToRoom(Owl());
+            room.AddMobileObjectToRoom(Owl(room));
 
             return room;
         }
@@ -656,7 +656,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.LookDescription = "Some scat lies scattered around the forest floor here.";
             room.ShortDescription = "Deep Wood Forest";
 
-            room.AddMobileObjectToRoom(Owl());
+            room.AddMobileObjectToRoom(Owl(room));
 
             return room;
         }
@@ -911,32 +911,31 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.LookDescription = "A cooking fire burns next to an entrance of a cave.";
             room.ShortDescription = "Deep Wood Forest";
 
-            INonPlayerCharacter npc = KolboldGuard();
+            INonPlayerCharacter npc = KolboldGuard(room);
             room.AddMobileObjectToRoom(npc);
 
-            npc = KolboldGuard();
+            npc = KolboldGuard(room);
             room.AddMobileObjectToRoom(npc);
 
             return room;
         }
 
-        private INonPlayerCharacter KolboldGuard()
+        private INonPlayerCharacter KolboldGuard(IRoom room)
         {
+            string corpseDescription;
             string examineDescription;
             string lookDescription;
             string sentenceDescription;
-            string shortDescription ;
+            string shortDescription;
 
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 7);
-
+            corpseDescription = "He died while defending his den and did not run like most kobolds would.";
+            examineDescription = "The guard stands about 3 feet tall and is lizard like in his features.";
+            lookDescription = "The kobold has a few scars where it has been through tough training.";
+            sentenceDescription = "kobold guard";
+            shortDescription = "The guard snarls at you trying to make you leave but it does not advance from the entrance.";
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 7, corpseDescription);
             npc.KeyWords.Add("Kobold");
             npc.KeyWords.Add("Guard");
-            npc.CorpseLookDescription = "He died while defending his den and did not run like most kobolds would.";
-            npc.LookDescription = "The kobold has a few scars where it has been through tough training.";
-            npc.SentenceDescription = "kobold guard";
-            npc.ShortDescription = "The guard snarls at you trying to make you leave but it does not advance from the entrance.";
-            npc.ExamineDescription = "The guard stands about 3 feet tall and is lizard like in his features.";
-
             IGuard guardPersonality = new Guard(Direction.South);
             npc.Personalities.Add(guardPersonality);
 
@@ -944,130 +943,130 @@ namespace GenerateZones.Zones.DeepWoodForest
             lookDescription = "The shield is made of a wooden ring with leather hides stretched across.";
             sentenceDescription = "a leather shield";
             shortDescription = "A well made leather shields.";
-            IShield shield = CreateShield(7, examineDescription, lookDescription, sentenceDescription, shortDescription,  new Leather());
-            shield.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(shield.Level);
+            IShield shield = CreateShield(7, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             shield.KeyWords.Add("leather");
             shield.KeyWords.Add("shield");
-
             npc.AddEquipment(shield);
 
-            IWeapon weapon = CreateWeapon(WeaponType.Spear, 7);
+            examineDescription = "The point of this spear is fashioned from animal and lashed to a large stick.";
+            lookDescription = "A spear crafted from animal bone and a stick.";
+            sentenceDescription = "a spear";
+            shortDescription = "A hastily made weapon made of readily available materials.";
+            IWeapon weapon = CreateWeapon(WeaponType.Spear, examineDescription, lookDescription, sentenceDescription, shortDescription, 7);
             weapon.KeyWords.Add("spear");
-            weapon.LookDescription = "A spear crafted from animal bone and a stick.";
-            weapon.SentenceDescription = "a spear";
-            weapon.ShortDescription = "A hastily made weapon made of readily available materials.";
-            weapon.ExamineDescription = "The point of this spear is fashioned from animal and lashed to a large stick.";
             IDamage damage = new Objects.Damage.Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
             damage.Type = DamageType.Pierce;
             weapon.DamageList.Add(damage);
             weapon.FinishLoad();
             npc.AddEquipment(weapon);
 
-            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 7, new Leather());
+            examineDescription = "The bracers are fairly plain but are well made.";
+            lookDescription = "The bracers extend up the wearers arm a good ways giving the user extra protection.";
+            sentenceDescription = "a pair of leather bracers";
+            shortDescription = "A well made pair leather bracers.";
+            IArmor armor = CreateArmor(7, AvalableItemPosition.Arms, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("bracer");
-            armor.ShortDescription = "A well made pair leather bracers.";
-            armor.LookDescription = "The bracers extend up the wearers arm a good ways giving the user extra protection.";
-            armor.SentenceDescription = "a pair of leather bracers";
-            armor.ExamineDescription = "The bracers are fairly plain but are well made.";
             npc.AddEquipment(armor);
 
-            armor = CreateArmor(AvalableItemPosition.Body, 7, new Leather());
-            armor.KeyWords.Add("leather");
-            armor.KeyWords.Add("vest");
-            armor.ShortDescription = "A leather vest with several pockets.";
+            armor.ExamineDescription = "The vest is a light brown natural leather color. It has four large pockets on the front and the top left one is torn slightly.";
             armor.LookDescription = "The leather vest looks to be as utilitarian as protectant.";
             armor.SentenceDescription = "a leather vest";
-            armor.ExamineDescription = "The vest is a light brown natural leather color. It has four large pockets on the front and the top left one is torn slightly.";
+            armor.ShortDescription = "A leather vest with several pockets.";
+            armor = CreateArmor(7, AvalableItemPosition.Body, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            armor.KeyWords.Add("leather");
+            armor.KeyWords.Add("vest");
             npc.AddEquipment(armor);
             return npc;
         }
         #endregion Rooms
 
         #region Animals
-        private INonPlayerCharacter Owl()
+        private INonPlayerCharacter Owl(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 7);
-            npc.Personalities.Add(new Wanderer());
+            string corpseDescription = "This once beautiful owl could mistaken for sleeping if not for the way its body is twisted.";
+            string examineDescription = "Its hard to get a good view of the owl as it won't let you get near it.";
+            string lookDescription = "The owl is brown in color with some black feathers for camouflage.";
+            string sentenceDescription = "an owl";
+            string shortDescription = "An owl looks at you as you walk through the forest.";
 
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 7, corpseDescription);
+            npc.Personalities.Add(new Wanderer());
             npc.KeyWords.Add("Owl");
-            npc.LookDescription = "The owl is brown in color with some black feathers for camouflage.";
-            npc.SentenceDescription = "an owl";
-            npc.ShortDescription = "An owl looks at you as you walk through the forest.";
-            npc.ExamineDescription = "Its hard to get a good view of the owl as it won't let you get near it.";
 
             return npc;
         }
 
-        private INonPlayerCharacter Mouse()
+        private INonPlayerCharacter Mouse(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
+            string corpseDescription = "This tiny mouse looks cute even in death.";
+            string examineDescription = "You would need to catch it first before you could examine it.";
+            string lookDescription = "The mouse is {color} in color little pink nose.";
+            string sentenceDescription = "a mouse";
+            string shortDescription = "The mouse skitters away as you get close.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 7, corpseDescription);
             npc.Personalities.Add(new Wanderer());
-
             npc.KeyWords.Add("Mouse");
-            npc.LookDescription = "The mouse is {color} in color little pink nose.";
-            npc.SentenceDescription = "a mouse";
-            npc.ShortDescription = "The mouse skitters away as you get close.";
-            npc.ExamineDescription = "You would need to catch it first before you could examine it.";
-
             npc.FlavorOptions.Add("color", new List<string>() { "brown", "black", "white" });
 
             return npc;
         }
 
-        private INonPlayerCharacter Squirrel()
+        private INonPlayerCharacter Squirrel(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
-            npc.Personalities.Add(new Wanderer());
+            string corpseDescription = "The bushy tail on this squirrel could make a nice pipe cleaner.";
+            string examineDescription = "It has a long fluffy tail and gray fur on its back.  The underside is a pale white like snow.";
+            string lookDescription = "The Squirrel is runs to and fro looking for nuts.";
+            string sentenceDescription = "a squirrel";
+            string shortDescription = "A squirrel looks at you for a moment before choosing to ignore you.";
 
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 7, corpseDescription);
+            npc.Personalities.Add(new Wanderer());
             npc.KeyWords.Add("Squirrel");
-            npc.LookDescription = "The Squirrel is runs to and fro looking for nuts.";
-            npc.SentenceDescription = "a squirrel";
-            npc.ShortDescription = "A squirrel looks at you for a moment before choosing to ignore you.";
-            npc.ExamineDescription = "It has a long fluffy tail and gray fur on its back.  The underside is a pale white like snow.";
-
             return npc;
         }
 
-        private INonPlayerCharacter Crow()
+        private INonPlayerCharacter Crow(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
-            npc.Personalities.Add(new Wanderer());
+            string corpseDescription = "If you killed three crows you could say you murdered a murder of crows.";
+            string examineDescription = "It seems to have been born of the night with black feathers, feet and beak. The small black beady eyes are the only thing to reflect any light.";
+            string lookDescription = "As you and the crow stare at each other it starts crowing loudly as trying to win a staring contest by making you look away.";
+            string sentenceDescription = "a crow";
+            string shortDescription = "A black as night crow calls out a warning as you approach.";
 
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 7, corpseDescription);
+            npc.Personalities.Add(new Wanderer());
             npc.KeyWords.Add("Crow");
-            npc.LookDescription = "As you and the crow stare at each other it starts crowing loudly as trying to win a staring contest by making you look away.";
-            npc.SentenceDescription = "a crow";
-            npc.ShortDescription = "A black as night crow calls out a warning as you approach.";
-            npc.ExamineDescription = "It seems to have been born of the night with black feathers, feet and beak. The small black beady eyes are the only thing to reflect any light.";
 
             return npc;
         }
 
-        private INonPlayerCharacter Fox()
+        private INonPlayerCharacter Fox(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
+            string corpseDescription = "This fox looks to have put up a good fight was bested in the end.";
+            string examineDescription = "The fur on the fox looks soft but you will not be able to get close enough to it while it has a choice.";
+            string lookDescription = "A red fox scurries along trying to catch mice.";
+            string sentenceDescription = "a fox";
+            string shortDescription = "A small fox looks at you.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 7, corpseDescription);
             npc.Personalities.Add(new Wanderer());
-
             npc.KeyWords.Add("Fox");
-            npc.LookDescription = "A red fox scurries along trying to catch mice.";
-            npc.SentenceDescription = "a fox";
-            npc.ShortDescription = "A small fox looks at you.";
-            npc.ExamineDescription = "The fur on the fox looks soft but you will not be able to get close enough to it while it has a choice.";
 
             return npc;
         }
 
-        private INonPlayerCharacter Bear()
+        private INonPlayerCharacter Bear(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 10);
+            string examineDescription = "It looks like a giant black teddy bear but you know this is one teddy you don't want to get a bear hug from.";
+            string lookDescription = "The black bear looks to be thirty two inches long weigh over 200 lbs.";
+            string sentenceDescription = "a black bear";
+            string shortDescription = "The black bear looks at you curiously but cautiously.";
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other,room, examineDescription,  lookDescription, sentenceDescription, shortDescription, 10);
             npc.Personalities.Add(new Wanderer());
 
             npc.KeyWords.Add("Bear");
-            npc.LookDescription = "The black bear looks to be thirty two inches long weigh over 200 lbs.";
-            npc.SentenceDescription = "a fox";
-            npc.ShortDescription = "A small fox looks at you.";
-            npc.ExamineDescription = "It looks like a giant black teddy bear but you know this is one teddy you don't want to get a bear hug from.";
 
             return npc;
         }

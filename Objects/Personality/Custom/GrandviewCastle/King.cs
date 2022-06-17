@@ -305,13 +305,13 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
         private INonPlayerCharacter KingsGuard(IRoom room)
         {
-            string corpseDeath = "The guard has given his life to try to save the King.  There is no nobler death for a guard.";
+            string corpseDescription = "The guard has given his life to try to save the King.  There is no nobler death for a guard.";
             string examineDescription = "Each guard has under gone extensive training in both body in mind to ensure their loyalty unto death.";
             string lookDescription = "Dressed in golden armor shaped like a male lions head on their breastplate they have sworn their life to protect the King.";
             string sentenceDescription = "King's guard";
             string shortDescription = "The King's guard.";
 
-            INonPlayerCharacter npc = new NonPlayerCharacter(room, corpseDeath, examineDescription,  lookDescription, sentenceDescription, shortDescription);
+            INonPlayerCharacter npc = new NonPlayerCharacter(room, examineDescription,  lookDescription, sentenceDescription, shortDescription, corpseDescription);
             npc.TypeOfMob = MobType.Humanoid;
             npc.Level = 45;
             npc.KeyWords.Add("King's guard");
@@ -376,7 +376,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             string sentenceDescription = "A finely crafted sword that is light and quick.";
             string shortDescription = "A finely crafted sword that is light and quick.";
 
-            IWeapon weapon = new Weapon(AvalableItemPosition.Wield, examineDescription, lookDescription, sentenceDescription,shortDescription);
+            IWeapon weapon = new Weapon( examineDescription, lookDescription, sentenceDescription,shortDescription);
             weapon.Level = 45;
             weapon.DamageList.Add(new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(weapon.Level + 2)) { Type = DamageType.Slash });
             weapon.KeyWords.Add("sword");
