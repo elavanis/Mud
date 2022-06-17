@@ -51,9 +51,9 @@ namespace GenerateZones.Zones
         }
 
         #region NPC
-        public INonPlayerCharacter CreateNonplayerCharacter(MobType typeOfMob, int level = 0)
+        public INonPlayerCharacter CreateNonplayerCharacter(MobType typeOfMob, IRoom room, string corpseDescription, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, int level = 0)
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
+            INonPlayerCharacter npc = new NonPlayerCharacter(room, corpseDescription, examineDescription, lookDescription, sentenceDescription, shortDescription);
             npc.Id = NpcId++;
             npc.Zone = Zone.Id;
             npc.TypeOfMob = typeOfMob;
@@ -64,9 +64,9 @@ namespace GenerateZones.Zones
         #endregion NPC
 
         #region Item
-        public IWeapon CreateWeapon(WeaponType weaponType, int level)
+        public IWeapon CreateWeapon(WeaponType weaponType, AvalableItemPosition position, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, int level)
         {
-            IWeapon weapon = new Weapon();
+            IWeapon weapon = new Weapon(position, examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.Id = ItemId++;
             weapon.Zone = Zone.Id;
             weapon.Type = weaponType;
@@ -75,9 +75,9 @@ namespace GenerateZones.Zones
             return weapon;
         }
 
-        public IArmor CreateArmor(AvalableItemPosition position, int level, BaseMaterial? material = null)
+        public IArmor CreateArmor(int level, AvalableItemPosition position, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, BaseMaterial? material = null)
         {
-            IArmor armor = new Armor();
+            IArmor armor = new Armor(level, position, examineDescription, lookDescription, sentenceDescription, shortDescription);
             armor.Id = ItemId++;
             armor.Zone = Zone.Id;
             armor.ItemPosition = position;

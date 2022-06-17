@@ -12,7 +12,7 @@ namespace MiscShared
     {
         public static void ConnectZone(IRoom room, Direction roomExitDirection, int zoneId, int roomId, DoorInfo doorInfo = null)
         {
-            IRoom dummyRoom = new Room();
+            IRoom dummyRoom = new Room("dummyRoom", "dummyRoom", "dummyRoom");
             dummyRoom.Zone = zoneId;
             dummyRoom.Id = roomId;
             ConnectRoom(room, roomExitDirection, dummyRoom, doorInfo);
@@ -104,15 +104,10 @@ namespace MiscShared
 
             if (doorInfo != null)
             {
-                exit.Door = new Door();
+                exit.Door = new Door(doorInfo.OpenMessage, doorInfo.CloseMessage, doorInfo.Description, doorInfo.Description, doorInfo.Name, doorInfo.Name);
                 exit.Door.Zone = room1.Zone;    //needed to pass verification
                 exit.Door.Id = room1.Id;        //needed to pass verification
                 exit.Door.KeyWords.Add(doorInfo.Name);
-                exit.Door.ExamineDescription = doorInfo.Description;
-                exit.Door.LookDescription = doorInfo.Description;
-                exit.Door.ShortDescription = doorInfo.Name;
-                exit.Door.SentenceDescription = doorInfo.Name;
-                exit.Door.OpenMessage = doorInfo.OpenMessage;
                 exit.Door.Linked = doorInfo.Linked;
                 exit.Door.Opened = doorInfo.Opened;
                 exit.Door.Locked = doorInfo.Locked;

@@ -26,7 +26,6 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.MountainGoblinCamp
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            receiverPersonality = new ChiefReceiveDaughterItem();
             performer = new Mock<IMobileObject>();
             receiver = new Mock<IMobileObject>();
             item = new Mock<IItem>();
@@ -38,9 +37,8 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.MountainGoblinCamp
             baseObjectId.Setup(e => e.Zone).Returns(2);
             item.Setup(e => e.Id).Returns(1);
             item.Setup(e => e.Zone).Returns(2);
-            receiverPersonality.TriggerObjectId = baseObjectId.Object;
-            receiverPersonality.ResponseMessage = "response";
-            receiverPersonality.Reward = item.Object;
+
+            receiverPersonality = new ChiefReceiveDaughterItem(item.Object, "response", baseObjectId.Object);
         }
 
         [TestMethod]
