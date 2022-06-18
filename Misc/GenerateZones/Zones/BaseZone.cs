@@ -100,9 +100,9 @@ namespace GenerateZones.Zones
             return shield;
         }
 
-        public IEquipment CreateEquipment(int level)
+        public IEquipment CreateEquipment(AvalableItemPosition avalableItemPosition, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, int level)
         {
-            IEquipment equipment = new Equipment();
+            IEquipment equipment = new Equipment(avalableItemPosition,examineDescription, lookDescription, sentenceDescription, shortDescription);
             equipment.Id = ItemId++;
             equipment.Zone = Zone.Id;
             equipment.Level = level;
@@ -110,37 +110,18 @@ namespace GenerateZones.Zones
             return equipment;
         }
 
-        public T CreateItem<T>()
+        public T CreateItem<T>() where T: IRecallBeacon, IMoney
         {
             Type type = typeof(T);
             IItem item = null;
 
-            if (type == typeof(IItem)
-                || type == typeof(Item))
-            {
-                item = new Item();
-            }
-            else if (type == typeof(Fountain))
-            {
-                item = new Fountain();
-            }
-            else if (type == typeof(IRecallBeacon)
+            if (type == typeof(IRecallBeacon)
                 || type == typeof(RecallBeacon))
             {
                 item = new RecallBeacon();
             }
-            else if (type == typeof(IContainer)
-                || type == typeof(Container))
-            {
-                item = new Container();
-            }
-            else if (type == typeof(IEnchantery)
-                || type == typeof(Enchantery))
-            {
-                item = new Enchantery();
-            }
             else if (type == typeof(IMoney)
-                || type == typeof(Money))
+               || type == typeof(Money))
             {
                 item = new Money();
             }
@@ -157,12 +138,71 @@ namespace GenerateZones.Zones
 
             return (T)item;
         }
+
+
+        public T CreateItem<T>(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) where T : Fountain, IItem, IEnchantery
+                
+        {
+            Type type = typeof(T);
+            IItem item = null;
+
+            if (type == typeof(IItem)
+                || type == typeof(Item))
+            {
+                item = new Item(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            }
+            else if (type == typeof(Fountain))
+            {
+                item = new Fountain(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            }
+            else if (type == typeof(IEnchantery)
+                || type == typeof(Enchantery))
+            {
+                item = new Enchantery(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            }
+
+            if (item == null)
+            {
+                throw new Exception($"Unsupported type {type.ToString()}");
+            }
+            else
+            {
+                item.Id = ItemId++;
+                item.Zone = Zone.Id;
+            }
+
+            return (T)item;
+        }
+
+        public T CreateItem<T>(string openMessage, string closeMessage, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) where T : IContainer
+        {
+            Type type = typeof(T);
+            IItem item = null;
+           
+            if (type == typeof(IContainer)
+                || type == typeof(Container))
+            {
+                item = new Container(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            }
+            
+            if (item == null)
+            {
+                throw new Exception($"Unsupported type {type.ToString()}");
+            }
+            else
+            {
+                item.Id = ItemId++;
+                item.Zone = Zone.Id;
+            }
+
+            return (T)item;
+        }
         #endregion Item
 
         #region Room
-        public IRoom CreateRoom(int movementCost = 1)
+        public IRoom CreateRoom(string examineDescription, string lookDescription, string shortDescription,  int movementCost = 1)
         {
-            IRoom room = new Room();
+            IRoom room = new Room(examineDescription, lookDescription, shortDescription);
             room.Id = RoomId++;
             room.Zone = Zone.Id;
             room.MovementCost = movementCost;

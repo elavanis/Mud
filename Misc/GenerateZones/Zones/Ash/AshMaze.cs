@@ -62,7 +62,7 @@ namespace GenerateZones.Zones.Ash
             string shortDescription = "Ash Witch";
             string sentenceDescription = "Ash Witch";
 
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, corpseDescription, examineDescription, lookDescription, sentenceDescription, shortDescription, 85);
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room,  examineDescription, lookDescription, sentenceDescription, shortDescription, 85, corpseDescription);
             npc.KeyWords.Add("Ash");
             npc.KeyWords.Add("Witch");
             npc.God = true;     //needed to phase
@@ -86,7 +86,7 @@ namespace GenerateZones.Zones.Ash
             string shortDescription = "LZoir";
             string sentenceDescription = "LZoir";
 
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, room, corpseDescription, examineDescription, lookDescription, sentenceDescription, shortDescription, 80);
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 80, corpseDescription);
             npc.KeyWords.Add("LZoir");
             npc.God = true;     //needed to phase
 

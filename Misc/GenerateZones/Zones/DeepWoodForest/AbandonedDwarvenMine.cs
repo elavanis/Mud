@@ -102,15 +102,16 @@ namespace GenerateZones.Zones.DeepWoodForest
         {
             for (int i = 0; i < 40; i++)
             {
-                INonPlayerCharacter npc = Shadow();
+                int roomId = GlobalReference.GlobalValues.Random.Next(Zone.Rooms.Count) + 1;
+                IRoom room = Zone.Rooms[roomId];
+                INonPlayerCharacter npc = Shadow(room);
+                room.AddMobileObjectToRoom(npc);
+
                 if (i % 2 == 0)
                 {
                     npc.Personalities.Add(new Wanderer());
                 }
 
-                int roomId = GlobalReference.GlobalValues.Random.Next(Zone.Rooms.Count) + 1;
-                IRoom room = Zone.Rooms[roomId];
-                room.AddMobileObjectToRoom(npc);
             }
         }
 
@@ -594,7 +595,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.LookDescription = "A large stone throne dominates the room.";
             room.ShortDescription = "Dark Mine Floor";
 
-            room.AddMobileObjectToRoom(Balrog());
+            room.AddMobileObjectToRoom(Balrog(room));
 
             return room;
         }
@@ -666,17 +667,17 @@ namespace GenerateZones.Zones.DeepWoodForest
         #endregion Rooms
 
         #region NPC
-        private INonPlayerCharacter Balrog()
+        private INonPlayerCharacter Balrog(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 87);
+            string examineDescription = "The demon is ablaze with fire will smoke hides its true form from view.";
+            string lookDescription = "A large demon of fire and smoke standing twenty feet tall.";
+            string shortDescription = "A large flaming Balrog.";
+            string sentenceDescription = "Balrog";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 87);
             npc.KeyWords.Add("Balrog");
             npc.Personalities.Add(new Aggressive());
             npc.Personalities.Add(new Wanderer());
-
-            npc.ExamineDescription = "The demon is ablaze with fire will smoke hides its true form from view.";
-            npc.LookDescription = "A large demon of fire and smoke standing twenty feet tall.";
-            npc.ShortDescription = "A large flaming Balrog.";
-            npc.SentenceDescription = "Balrog";
 
             npc.Enchantments.Add(FireAura());
             npc.AddEquipment(BalrogSword());
@@ -713,7 +714,12 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IWeapon BalrogSword()
         {
-            IWeapon weapon = CreateWeapon(WeaponType.Sword, 87);
+            string examineDescription = "As you get closer to the sword flames flair up engulfing the sword in fire and smoke choking the air and making it hard to determine its true size and shape.";
+            string lookDescription = "When the Balrog wielded the sword it had flames leaping from it, now it just smolders.";
+            string shortDescription = "A large flaming sword.";
+            string sentenceDescription = "sword";
+
+            IWeapon weapon = CreateWeapon(WeaponType.Sword, examineDescription, lookDescription, sentenceDescription, shortDescription, 87);
 
             IDamage damage = new Objects.Damage.Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
@@ -733,23 +739,24 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.RequiredHands = 2;
             weapon.KeyWords.Add("Balrog");
             weapon.KeyWords.Add("Sword");
-            weapon.ExamineDescription = "As you get closer to the sword flames flair up engulfing the sword in fire and smoke choking the air and making it hard to determine its true size and shape.";
-            weapon.LookDescription = "When the Balrog wielded the sword it had flames leaping from it, now it just smolders.";
-            weapon.SentenceDescription = "sword";
-            weapon.ShortDescription = "A large flaming sword.";
 
             return weapon;
         }
 
-        private INonPlayerCharacter Shadow()
+        private INonPlayerCharacter Shadow(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 14);
+            string examineDescription = "The dark figure is hard to see and blends into the shadows.";
+            string lookDescription = "The figure seems to fade in and out of existence as it moves among the shadows.";
+            string shortDescription = "A shadowy figure.";
+            string sentenceDescription = "shadow";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 14);
             npc.KeyWords.Add("Shadow");
             npc.Personalities.Add(new Wanderer());
 
-            npc.ExamineDescription = "The dark figure is hard to see and blends into the shadows.";
-            npc.LookDescription = "The figure seems to fade in and out of existence as it moves among the shadows.";
-            npc.ShortDescription = "A shadowy figure.";
+            npc.ExamineDescription =
+            npc.LookDescription =
+            npc.ShortDescription =
             npc.SentenceDescription = "shadow";
 
             npc.Race.Acid = 1.5M;
