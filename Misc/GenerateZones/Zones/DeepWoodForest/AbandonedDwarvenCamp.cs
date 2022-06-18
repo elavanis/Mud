@@ -282,7 +282,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "An armed goblin.";
             string sentenceDescription = "goblin";
 
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription);
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 0, corpseDescription);
             npc.LevelRange = new LevelRange() { LowerLevel = 14, UpperLevel = 16 };
 
             npc.Personalities.Add(new Aggressive());
@@ -321,55 +321,58 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IEquipment Bracer()
         {
-            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 15, new Leather());
+            string examineDescription = "The bracers are fairly plain but are poorly made.";
+            string lookDescription = "The bracers extend up the wearers arm a good ways giving the user extra protection.";
+            string shortDescription = "A poorly made pair leather bracers.";
+            string sentenceDescription = "a pair of leather bracers";
+
+            IArmor armor = CreateArmor(15, AvalableItemPosition.Arms, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("bracer");
-            armor.ShortDescription = "A poorly made pair leather bracers.";
-            armor.LookDescription = "The bracers extend up the wearers arm a good ways giving the user extra protection.";
-            armor.SentenceDescription = "a pair of leather bracers";
-            armor.ExamineDescription = "The bracers are fairly plain but are poorly made.";
 
             return armor;
         }
 
         private IEquipment ChainMail()
         {
-            IArmor armor = CreateArmor(AvalableItemPosition.Body, 15, new Steel());
+            string examineDescription = "The chain mail is a light steel color. It has a few missing links but other wise looks good.";
+            string lookDescription = "The chain mail looks to be as utilitarian as protectant.";
+            string shortDescription = "A chain mail shirt with a few missing links.";
+            string sentenceDescription = "a chain mail shirt";
+
+            IArmor armor = CreateArmor(15, AvalableItemPosition.Body, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
             armor.KeyWords.Add("chain mail");
             armor.KeyWords.Add("mail");
             armor.KeyWords.Add("shirt");
-            armor.ShortDescription = "A chain mail shirt with a few missing links.";
-            armor.LookDescription = "The chain mail looks to be as utilitarian as protectant.";
-            armor.SentenceDescription = "a chain mail shirt";
-            armor.ExamineDescription = "The chain mail is a light steel color. It has a few missing links but other wise looks good.";
 
             return armor;
         }
 
         private IEquipment Helmet()
         {
-            IArmor armor = CreateArmor(AvalableItemPosition.Head, 15, new Steel());
+            string examineDescription = "The helmet is of good quality for goblin craftsmanship.";
+            string lookDescription = "The helmet sits crooked on the user slightly obscuring their vision.";
+            string shortDescription = "A steel helmet that is more functional then attractive.";
+            string sentenceDescription = "a steel helmet";
+
+            IArmor armor = CreateArmor(15, AvalableItemPosition.Head, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
             armor.KeyWords.Add("helmet");
             armor.KeyWords.Add("steel");
-            armor.Material = new Steel();
-            armor.ShortDescription = "A steel helmet that is more functional then attractive.";
-            armor.LookDescription = "The helmet sits crooked on the user slightly obscuring their vision.";
-            armor.SentenceDescription = "a steel helmet";
-            armor.ExamineDescription = "The helmet is of good quality for goblin craftsmanship.";
 
             return armor;
         }
 
         private IEquipment LeathPants()
         {
-            IArmor armor = CreateArmor(AvalableItemPosition.Legs, 15, new Leather());
+            string examineDescription = "The leather pants have lots of stains from the life in the caves.";
+            string lookDescription = "These pants once belonged to a goblin and look well worn.";
+            string shortDescription = "Leather pants.";
+            string sentenceDescription = "leather pants";
+
+            IArmor armor = CreateArmor(15, AvalableItemPosition.Legs, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("pants");
             armor.KeyWords.Add("pant");
-            armor.ShortDescription = "Leather pants.";
-            armor.LookDescription = "These pants once belonged to a goblin and look well worn.";
-            armor.SentenceDescription = "leather pants";
-            armor.ExamineDescription = "The leather pants have lots of stains from the life in the caves.";
 
             return armor;
         }
