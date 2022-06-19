@@ -102,7 +102,7 @@ namespace GenerateZones.Zones
 
         public IEquipment CreateEquipment(AvalableItemPosition avalableItemPosition, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, int level)
         {
-            IEquipment equipment = new Equipment(avalableItemPosition,examineDescription, lookDescription, sentenceDescription, shortDescription);
+            IEquipment equipment = new Equipment(avalableItemPosition, examineDescription, lookDescription, sentenceDescription, shortDescription);
             equipment.Id = ItemId++;
             equipment.Zone = Zone.Id;
             equipment.Level = level;
@@ -110,7 +110,7 @@ namespace GenerateZones.Zones
             return equipment;
         }
 
-        public T CreateItem<T>() where T: IRecallBeacon, IMoney
+        public T CreateItem<T>() where T : IRecallBeacon, IMoney
         {
             Type type = typeof(T);
             IItem item = null;
@@ -141,7 +141,7 @@ namespace GenerateZones.Zones
 
 
         public T CreateItem<T>(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) where T : Fountain, IItem, IEnchantery
-                
+
         {
             Type type = typeof(T);
             IItem item = null;
@@ -178,13 +178,13 @@ namespace GenerateZones.Zones
         {
             Type type = typeof(T);
             IItem item = null;
-           
+
             if (type == typeof(IContainer)
                 || type == typeof(Container))
             {
                 item = new Container(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
             }
-            
+
             if (item == null)
             {
                 throw new Exception($"Unsupported type {type.ToString()}");
@@ -200,7 +200,7 @@ namespace GenerateZones.Zones
         #endregion Item
 
         #region Room
-        public IRoom CreateRoom(string examineDescription, string lookDescription, string shortDescription,  int movementCost = 1)
+        private IRoom CreateRoom(string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
         {
             IRoom room = new Room(examineDescription, lookDescription, shortDescription);
             room.Id = RoomId++;
@@ -210,27 +210,27 @@ namespace GenerateZones.Zones
             return room;
         }
 
-        public virtual IRoom OutdoorRoom(int movementCost = 1)
+        public virtual IRoom OutdoorRoom(string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
         {
-            IRoom room = CreateRoom(movementCost);
+            IRoom room = CreateRoom(examineDescription, lookDescription, shortDescription, movementCost);
             room.Attributes.Add(RoomAttribute.Outdoor);
             room.Attributes.Add(RoomAttribute.Weather);
 
             return room;
         }
 
-        public virtual IRoom IndoorRoomLight(int movementCost = 1)
+        public virtual IRoom IndoorRoomLight(string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
         {
-            IRoom room = CreateRoom(movementCost);
+            IRoom room = CreateRoom(examineDescription, lookDescription, shortDescription, movementCost);
             room.Attributes.Add(RoomAttribute.Indoor);
             room.Attributes.Add(RoomAttribute.Light);
 
             return room;
         }
 
-        public virtual IRoom IndoorRoomNoLight(int movementCost = 1)
+        public virtual IRoom IndoorRoomNoLight(string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
         {
-            IRoom room = CreateRoom(movementCost);
+            IRoom room = CreateRoom(examineDescription, lookDescription, shortDescription, movementCost);
             room.Attributes.Add(RoomAttribute.Indoor);
             room.Attributes.Add(RoomAttribute.NoLight);
 
