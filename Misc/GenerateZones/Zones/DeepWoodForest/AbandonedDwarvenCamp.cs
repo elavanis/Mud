@@ -53,92 +53,97 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom1()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "Each statue is larger than life coming in at eight feet tall.  Their axes raised in a salute touching overhead forming the entrance way in which to walk in or out of the camp.";
-            room.LookDescription = "A pair of dwarven statues are carved into the rock faces.";
-            room.ShortDescription = "Dwarven Mining Camp";
+            string examineDescription = "Each statue is larger than life coming in at eight feet tall.  Their axes raised in a salute touching overhead forming the entrance way in which to walk in or out of the camp.";
+            string lookDescription = "A pair of dwarven statues are carved into the rock faces.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom2()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The cavern begins to open up more here to allow for the larger camp.";
-            room.LookDescription = "The dwarven mining camp opens to the east and the camp ends with a pair of statues to the west.";
-            room.ShortDescription = "Dwarven Mining Camp";
+            string examineDescription = "The cavern begins to open up more here to allow for the larger camp.";
+            string lookDescription = "The dwarven mining camp opens to the east and the camp ends with a pair of statues to the west.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom3()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The store front was carved out the rock but the right half has been ripped apart like it was a kids Lincoln Logs.";
-            room.LookDescription = "The old store front of the blacksmith has been partly destroyed.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "The store front was carved out the rock but the right half has been ripped apart like it was a kids Lincoln Logs.";
+            string lookDescription = "The old store front of the blacksmith has been partly destroyed.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom4()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The smoke carries the smell of meat and vegetables to your nostrils.";
-            room.LookDescription = "Smoke slowly rolls out of what used to be the old dwarven tavern.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "The smoke carries the smell of meat and vegetables to your nostrils.";
+            string lookDescription = "Smoke slowly rolls out of what used to be the old dwarven tavern.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom5()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The hole leading down to the water is all that remains.";
-            room.LookDescription = "Once upon a time there used to be a well here but has since been removed.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "The hole leading down to the water is all that remains.";
+            string lookDescription = "Once upon a time there used to be a well here but has since been removed.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom6()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "Small piles of rubble are all that are left of the stone walls that was one stood high above.";
-            room.LookDescription = "Piles of rubble, a dwarven anvil and a long dead forge are all that remain of the dwarven blacksmith hall.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "Small piles of rubble are all that are left of the stone walls that was one stood high above.";
+            string lookDescription = "Piles of rubble, a dwarven anvil and a long dead forge are all that remain of the dwarven blacksmith hall.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom7()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The place has been ransacked and looted.  A few empty bottles are all that remain of what was surely a well stocked store.";
-            room.LookDescription = "You stand in what was a general store of sorts.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "The place has been ransacked and looted.  A few empty bottles are all that remain of what was surely a well stocked store.";
+            string lookDescription = "You stand in what was a general store of sorts.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom8()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "Not much remains of the bar.  Just a few broken table and chairs.";
-            room.LookDescription = "Broken tables are piled in one corner while the booze behind the bar has been emptied.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "Not much remains of the bar.  Just a few broken table and chairs.";
+            string lookDescription = "Broken tables are piled in one corner while the booze behind the bar has been emptied.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom9()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "Peering into the cooking pot revels a stew of sorts slowly bubbling.";
-            room.LookDescription = "A small cooking fire burns giving light to the room and filling the room with the scent of food.";
-            room.ShortDescription = "Dwarven Mining Camp";
 
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            string examineDescription = "Peering into the cooking pot revels a stew of sorts slowly bubbling.";
+            string lookDescription = "A small cooking fire burns giving light to the room and filling the room with the scent of food.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(Goblin(room));
             room.AddMobileObjectToRoom(Goblin(room));
@@ -148,10 +153,11 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom10()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "Faint light comes from one end of the tunnel while inky blackness fills the other end.";
-            room.LookDescription = "A natural tunnel was revealed when the wall to the bar was broken.";
-            room.ShortDescription = "Cavern Tunnels";
+
+            string examineDescription = "Faint light comes from one end of the tunnel while inky blackness fills the other end.";
+            string lookDescription = "A natural tunnel was revealed when the wall to the bar was broken.";
+            string shortDescription = "Cavern Tunnels";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -248,10 +254,11 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom CavernTunnel()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The small tunnel was formed by flowing water long since gone.";
-            room.LookDescription = "You stand in a small tunnel part of a larger cave system.";
-            room.ShortDescription = "Cavern Tunnels";
+
+            string examineDescription = "The small tunnel was formed by flowing water long since gone.";
+            string lookDescription = "You stand in a small tunnel part of a larger cave system.";
+            string shortDescription = "Cavern Tunnels";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }

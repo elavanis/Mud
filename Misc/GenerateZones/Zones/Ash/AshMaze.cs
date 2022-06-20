@@ -62,7 +62,7 @@ namespace GenerateZones.Zones.Ash
             string shortDescription = "Ash Witch";
             string sentenceDescription = "Ash Witch";
 
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room,  examineDescription, lookDescription, sentenceDescription, shortDescription, 85, corpseDescription);
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 85, corpseDescription);
             npc.KeyWords.Add("Ash");
             npc.KeyWords.Add("Witch");
             npc.God = true;     //needed to phase
@@ -105,10 +105,11 @@ namespace GenerateZones.Zones.Ash
 
         private IRoom GetRoom()
         {
-            IRoom room = OutdoorRoom();
-            room.ShortDescription = "A world of ash.";
-            room.ExamineDescription = "Flakes of ash fall like gray snow on the ground from some unseen fire.";
-            room.LookDescription = "Ash floats through the air making it hard to see and breath.";
+
+            string shortDescription = "A world of ash.";
+            string examineDescription = "Flakes of ash fall like gray snow on the ground from some unseen fire.";
+            string lookDescription = "Ash floats through the air making it hard to see and breath.";
+            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
 
             return room;
         }

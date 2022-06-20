@@ -113,7 +113,7 @@ namespace GenerateZones.Zones
         public T CreateItem<T>() where T : IRecallBeacon, IMoney
         {
             Type type = typeof(T);
-            IItem item = null;
+            IItem item = null!;
 
             if (type == typeof(IRecallBeacon)
                 || type == typeof(RecallBeacon))
@@ -140,11 +140,10 @@ namespace GenerateZones.Zones
         }
 
 
-        public T CreateItem<T>(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) where T : Fountain, IItem, IEnchantery
-
+        public T CreateItem<T>(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) where T : IFountain, IItem, IEnchantery
         {
             Type type = typeof(T);
-            IItem item = null;
+            IItem item = null!;
 
             if (type == typeof(IItem)
                 || type == typeof(Item))
@@ -177,7 +176,7 @@ namespace GenerateZones.Zones
         public T CreateItem<T>(string openMessage, string closeMessage, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) where T : IContainer
         {
             Type type = typeof(T);
-            IItem item = null;
+            IItem item = null!;
 
             if (type == typeof(IContainer)
                 || type == typeof(Container))
