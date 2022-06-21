@@ -432,7 +432,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "Deep Wood Forest";
             IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 5);
 
-            room.AddMobileObjectToRoom(Fish());
+            room.AddMobileObjectToRoom(Fish(room));
 
             return room;
         }
@@ -636,7 +636,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "Deep Wood Forest";
             IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 5);
 
-            room.AddMobileObjectToRoom(Chipmunk());
+            room.AddMobileObjectToRoom(Chipmunk(room));
 
             return room;
         }
@@ -782,7 +782,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "Deep Wood Forest";
             IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 5);
 
-            room.AddMobileObjectToRoom(Fish());
+            room.AddMobileObjectToRoom(Fish(room));
 
             return room;
         }
@@ -861,15 +861,17 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IItem SwordHammer()
         {
-            IItem item = CreateItem<IItem>();
+            string examineDescription = "The sword appears to be made of an unknown type of metal that cut into the iron hammer but became lodged.  The war hammer runes can still be seen quite clearly even with the large amount of weathering that has occurred.  The sword still is as sharp as ever and looks to be untouched by time.";
+            string lookDescription = "Each weapon is colossal and could wielded only be something equally as big.  The hammer is impressive at over 30 feet long had to be wielded buy something equally as big while the sword is longer yet.  The chaos that these two fighters must have caused makes you glad they are long gone.";
+            string sentenceDescription = "sword fused with a hammer";
+            string shortDescription = "A sword fused with a hammer lies partly covered in vines.";
+
+            IItem item = CreateItem<IItem>(examineDescription, lookDescription, sentenceDescription, shortDescription);
             item.Attributes.Add(Item.ItemAttribute.NoGet);
             item.KeyWords.Add("sword");
             item.KeyWords.Add("hammer");
 
-            item.ExamineDescription = "The sword appears to be made of an unknown type of metal that cut into the iron hammer but became lodged.  The war hammer runes can still be seen quite clearly even with the large amount of weathering that has occurred.  The sword still is as sharp as ever and looks to be untouched by time.";
-            item.LookDescription = "Each weapon is colossal and could wielded only be something equally as big.  The hammer is impressive at over 30 feet long had to be wielded buy something equally as big while the sword is longer yet.  The chaos that these two fighters must have caused makes you glad they are long gone.";
-            item.SentenceDescription = "sword fused with a hammer";
-            item.ShortDescription = "A sword fused with a hammer lies partly covered in vines.";
+            
 
             return item;
         }
@@ -1073,29 +1075,29 @@ namespace GenerateZones.Zones.DeepWoodForest
             return npc;
         }
 
-        private INonPlayerCharacter Chipmunk()
+        private INonPlayerCharacter Chipmunk(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
-            npc.Personalities.Add(new Wanderer());
+            string examineDescription = "For a minute it cocks it head to the side and stares at you as if trying to decide if it could fit you in its cheek.";
+            string lookDescription = "A little chipmunk runs underneath your feet with its fat cheeks stuffed full of food.";
+            string sentenceDescription = "a chipmunk";
+            string shortDescription = "A chipmunk with two full cheeks stands here.";
 
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 7);
+            npc.Personalities.Add(new Wanderer());
             npc.KeyWords.Add("Chipmunk");
-            npc.LookDescription = "A little chipmunk runs underneath your feet with its fat cheeks stuffed full of food.";
-            npc.SentenceDescription = "a chipmunk";
-            npc.ShortDescription = "A chipmunk with two full cheeks stands here.";
-            npc.ExamineDescription = "For a minute it cocks it head to the side and stares at you as if trying to decide if it could fit you in its cheek.";
 
             return npc;
         }
 
-        private INonPlayerCharacter Fish()
-        {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, 7);
+        private INonPlayerCharacter Fish(IRoom room)
+        { 
+            string examineDescription = "The top of the fish is a bit green in color on top and a bit of orange on its belly.";
+            string lookDescription = "It is a silver fish with a blue spot behind its gill.";
+            string sentenceDescription = "a chipmunk";
+            string shortDescription = "A small fish swims back and forth in the stream";
 
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, room, examineDescription, lookDescription,sentenceDescription, shortDescription, 7);
             npc.KeyWords.Add("Fish");
-            npc.LookDescription = "It is a silver fish with a blue spot behind its gill.";
-            npc.SentenceDescription = "a chipmunk";
-            npc.ShortDescription = "A small fish swims back and forth in the stream";
-            npc.ExamineDescription = "The top of the fish is a bit green in color on top and a bit of orange on its belly.";
 
             IWanderer wanderer = new Wanderer();
             wanderer.NavigableRooms.Add(new RoomId(9, 35));

@@ -31,8 +31,6 @@ namespace GenerateZones.Zones.GrandView
         }
 
         #region Rooms
-
-
         private IRoom GenerateRoom1()
         {
             string examineDescription = "Faint humming sounds can be heard from below.";
@@ -101,8 +99,6 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom GenerateRoom6()
         {
-
-
             string examineDescription = "In the center of the circle is a statue of Charon guiding his boat down the river with his mighty oar.";
             string lookDescription = "A small circle has been drawn in chalk on the cave floor.";
             string shortDescription = "Charon Temple";
@@ -110,20 +106,20 @@ namespace GenerateZones.Zones.GrandView
 
             for (int i = 0; i < 8; i++)
             {
-                room.AddMobileObjectToRoom(Priest());
+                room.AddMobileObjectToRoom(Priest(room));
             }
             return room;
         }
 
-        private INonPlayerCharacter Priest()
+        private INonPlayerCharacter Priest(IRoom room)
         {
-            INonPlayerCharacter nonPlayerCharacter = CreateNonplayerCharacter(MobType.Humanoid, 20);
-            nonPlayerCharacter.Personalities.Add(new Guardian());
             string examineDescription = "Clothed in a gray tunic the priest stands in meditation while emitting a humming sound.";
             string lookDescription = "The priest mostly ignores you as all are welcome to the temple of Charon.";
+            string sentenceDescription = "priest";
             string shortDescription = "A mediative priest stands in his place in the circle.";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
-            nonPlayerCharacter.SentenceDescription = "priest";
+            INonPlayerCharacter nonPlayerCharacter = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 20);
+            
+            nonPlayerCharacter.Personalities.Add(new Guardian());
             nonPlayerCharacter.KeyWords.Add("Priest");
 
             return nonPlayerCharacter;

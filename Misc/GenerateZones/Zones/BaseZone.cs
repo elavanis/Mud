@@ -110,7 +110,7 @@ namespace GenerateZones.Zones
             return equipment;
         }
 
-        public T CreateItem<T>() where T : IRecallBeacon, IMoney
+        public T CreateItem<T>() //where T : IRecallBeacon, IMoney
         {
             Type type = typeof(T);
             IItem item = null!;
@@ -140,7 +140,7 @@ namespace GenerateZones.Zones
         }
 
 
-        public T CreateItem<T>(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) where T : IFountain, IItem, IEnchantery
+        public T CreateItem<T>(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) //where T : IFountain, IItem, IEnchantery
         {
             Type type = typeof(T);
             IItem item = null!;
@@ -173,7 +173,7 @@ namespace GenerateZones.Zones
             return (T)item;
         }
 
-        public T CreateItem<T>(string openMessage, string closeMessage, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) where T : IContainer
+        public T CreateItem<T>(string openMessage, string closeMessage, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) //where T : IContainer
         {
             Type type = typeof(T);
             IItem item = null!;
