@@ -38,28 +38,28 @@ namespace GenerateZones.Zones.Mountain
         private IRoom GenerateRoom1()
         {
             IRoom room = GroundFloor();
-            room.AddMobileObjectToRoom(DusterAutomaton());
+            room.AddMobileObjectToRoom(DusterAutomaton(room));
             return room;
         }
 
         private IRoom GenerateRoom2()
         {
             IRoom room = GroundFloor();
-            room.AddMobileObjectToRoom(DusterAutomaton());
+            room.AddMobileObjectToRoom(DusterAutomaton(room));
             return room;
         }
 
         private IRoom GenerateRoom3()
         {
             IRoom room = GroundFloor();
-            room.AddMobileObjectToRoom(DusterAutomaton());
+            room.AddMobileObjectToRoom(DusterAutomaton(room));
             return room;
         }
 
         private IRoom GenerateRoom4()
         {
             IRoom room = GroundFloor();
-            room.AddMobileObjectToRoom(DusterAutomaton());
+            room.AddMobileObjectToRoom(DusterAutomaton(room));
             return room;
         }
 
@@ -86,37 +86,37 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom GenerateRoom8()
         {
-            IRoom room = IndoorRoomLight();
+            string shortDescription = "Top Floor";
+            string examineDescription = "A large collection of mirrors and lenses seem to be setup to collect energy into a single point in the center of the room.";
+            string lookDescription = "Everything in the room seems to be focused on the center pedestal.";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
-            room.ShortDescription = "Top Floor";
-            room.ExamineDescription = "A large collection of mirrors and lenses seem to be setup to collect energy into a single point in the center of the room.";
-            room.LookDescription = "Everything in the room seems to be focused on the center pedestal.";
-
-            Container pedestal = CreateItem<Container>();
-            pedestal.ExamineDescription = "The pedestal has a socket that looks to be designed to hold a focusing item.";
-            pedestal.LookDescription = "The pedestal is made of a creamy white stone.";
-            pedestal.ShortDescription = "A white stone pedestal stands in the center of the room with everything else focused on it.";
-            pedestal.SentenceDescription = "pedestal";
+            examineDescription = "The pedestal has a socket that looks to be designed to hold a focusing item.";
+            lookDescription = "The pedestal is made of a creamy white stone.";
+            shortDescription = "A white stone pedestal stands in the center of the room with everything else focused on it.";
+            string sentenceDescription = "pedestal";
+            string openMessage = "";
+            string closeMessage = "";
+            Container pedestal = CreateItem<Container>(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
             pedestal.KeyWords.Add("pedestal");
             pedestal.KeyWords.Add("stone");
             pedestal.Attributes.Add(ItemAttribute.NoGet);
 
             room.AddItemToRoom(pedestal);
-            room.AddMobileObjectToRoom(ButlerAutomaton());
+            room.AddMobileObjectToRoom(ButlerAutomaton(room));
 
             return room;
         }
 
         private IRoom GenerateRoom9()
         {
-            IRoom room = IndoorRoomLight();
+            string shortDescription = "Top Floor";
+            string examineDescription = "The room has a small window over looking the plateau to the east.";
+            string lookDescription = "A pair of five inch holes exist in the ceiling and the floor.";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
-            room.ShortDescription = "Top Floor";
-            room.ExamineDescription = "The room has a small window over looking the plateau to the east.";
-            room.LookDescription = "A pair of five inch holes exist in the ceiling and the floor.";
-
-            room.AddMobileObjectToRoom(ButlerAutomaton());
+            room.AddMobileObjectToRoom(ButlerAutomaton(room));
 
             return room;
         }
@@ -125,98 +125,100 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = Stairs();
 
-            room.AddMobileObjectToRoom(ButlerAutomaton());
+            room.AddMobileObjectToRoom(ButlerAutomaton(room));
 
             return room;
         }
 
         private IRoom GenerateRoom11()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ShortDescription = "Enchanting Room";
-            room.ExamineDescription = "The table glows faintly with the residual energy of the thousands of enchantments performed on it.";
-            room.LookDescription = "A small table sits in the center of the room with light filtering down on it form a five inch hole in the ceiling.";
+            string shortDescription = "Enchanting Room";
+            string examineDescription = "The table glows faintly with the residual energy of the thousands of enchantments performed on it.";
+            string lookDescription = "A small table sits in the center of the room with light filtering down on it form a five inch hole in the ceiling.";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(Enchantery());
-            room.AddMobileObjectToRoom(ButlerAutomaton());
+            room.AddMobileObjectToRoom(ButlerAutomaton(room));
 
             return room;
         }
 
         private IRoom GenerateRoom12()
         {
-            IRoom room = IndoorRoomLight();
+            string shortDescription = "Holding Cells";
+            string lookDescription = "There are several cages along the walls used for holding prisoners.";
+            string examineDescription = "Some of the cages show signs of distress where prisoners have tried to escape.  Whether they were successful or not is anyones guess.";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
-            room.ShortDescription = "Holding Cells";
-            room.LookDescription = "There are several cages along the walls used for holding prisoners.";
-            room.ExamineDescription = "Some of the cages show signs of distress where prisoners have tried to escape.  Whether they were successful or not is anyones guess.";
-
-            room.AddMobileObjectToRoom(ButlerAutomaton());
-            room.AddMobileObjectToRoom(GoblinDaughter());
-            room.AddMobileObjectToRoom(GuardAutomaton());
+            room.AddMobileObjectToRoom(ButlerAutomaton(room));
+            room.AddMobileObjectToRoom(GoblinDaughter(room));
+            room.AddMobileObjectToRoom(GuardAutomaton(room));
 
             return room;
         }
         #endregion Rooms
 
         #region Npc
-        private INonPlayerCharacter DusterAutomaton()
+        private INonPlayerCharacter DusterAutomaton(IRoom room)
         {
-            INonPlayerCharacter npc = GenerateAutomaton();
+            string examineDescription = "The automaton wanders aimlessly around dusting things with a feather duster.";
+            string lookDescription = "The automaton dust both high and low leaving no dust safe.";
+            string sentenceDescription = "dusting automaton";
+            string shortDescription = "A duster automaton.";
+
+            INonPlayerCharacter npc = GenerateAutomaton(room, examineDescription, lookDescription, sentenceDescription, shortDescription);
             npc.KeyWords.Add("duster");
-            npc.ShortDescription = "A duster automaton.";
-            npc.LookDescription = "The automaton dust both high and low leaving no dust safe.";
-            npc.ExamineDescription = "The automaton wanders aimlessly around dusting things with a feather duster.";
-            npc.SentenceDescription = "dusting automaton";
 
             return npc;
         }
 
-        private INonPlayerCharacter GenerateAutomaton()
+        private INonPlayerCharacter GenerateAutomaton(IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 20);
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 20);
             npc.KeyWords.Add("automaton");
             npc.Personalities.Add(new Wanderer());
             return npc;
         }
 
-        private INonPlayerCharacter ButlerAutomaton()
+        private INonPlayerCharacter ButlerAutomaton(IRoom room)
         {
-            INonPlayerCharacter npc = GenerateAutomaton();
+            string examineDescription = "The automaton is always alert for the slightest sign that its master needs it to perform a duty.";
+            string lookDescription = "The automaton walks around tiding up the place and waits for instructions form its master.";
+            string shortDescription = "A butler automaton.";
+            string sentenceDescription = "butler automaton";
+
+            INonPlayerCharacter npc = GenerateAutomaton(room, examineDescription, lookDescription, sentenceDescription, shortDescription);
             npc.KeyWords.Add("butler");
-            npc.ShortDescription = "A butler automaton.";
-            npc.LookDescription = "The automaton walks around tiding up the place and waits for instructions form its master.";
-            npc.ExamineDescription = "The automaton is always alert for the slightest sign that its master needs it to perform a duty.";
-            npc.SentenceDescription = "butler automaton";
 
             return npc;
         }
 
-        private INonPlayerCharacter GoblinDaughter()
+        private INonPlayerCharacter GoblinDaughter(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 20);
-            npc.ShortDescription = "Goblin chief daughter.";
-            npc.LookDescription = "The goblin chiefs daughter appears to be in good health.";
-            npc.ExamineDescription = "The goblin chiefs daughter has been crying but have been given free rein of the room.";
-            npc.SentenceDescription = "goblin chief daughter";
+            string examineDescription = "The goblin chiefs daughter has been crying but have been given free rein of the room.";
+            string lookDescription = "The goblin chiefs daughter appears to be in good health.";
+            string shortDescription = "Goblin chief daughter.";
+            string sentenceDescription = "goblin chief daughter";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 20);
+
             npc.KeyWords.Add("goblin");
             npc.KeyWords.Add("daughter");
-
             npc.Personalities.Add(new FollowPlayerAfterRescue());
 
             return npc;
         }
 
-        private INonPlayerCharacter GuardAutomaton()
+        private INonPlayerCharacter GuardAutomaton(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 20);
+            string examineDescription = "The guard stands at the door ready to keep any of the prisoners from escaping.";
+            string lookDescription = "The guard seems to allow prisoners to roam around the room.";
+            string shortDescription = "A guard automaton.";
+            string sentenceDescription = "guard automaton";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 20);
             npc.KeyWords.Add("automaton");
             npc.KeyWords.Add("guard");
-            npc.ShortDescription = "A guard automaton.";
-            npc.LookDescription = "The guard seems to allow prisoners to roam around the room.";
-            npc.ExamineDescription = "The guard stands at the door ready to keep any of the prisoners from escaping.";
-            npc.SentenceDescription = "guard automaton";
 
             return npc;
         }
@@ -224,13 +226,13 @@ namespace GenerateZones.Zones.Mountain
 
         private IEnchantery Enchantery()
         {
-            IEnchantery tempEnchantery = CreateItem<IEnchantery>();     //do this just to increment the numbers
-            IEnchantery enchantery = new EnchantingTable("The table once was a dark oak but with time and enchantments it has begun to glow a slight blue color casting a blue tint on everything in the room.",
-                                                            "The table glows faintly as wisps of energy radiate up into the air before dissipating.",
-                                                            "table",
-                                                            "The table glows with wisps of energy radiating upward.");     //create the real object we need
-            enchantery.Id = tempEnchantery.Id;
-            enchantery.Zone = tempEnchantery.Zone;
+            string examineDescription = "The table once was a dark oak but with time and enchantments it has begun to glow a slight blue color casting a blue tint on everything in the room.";
+            string lookDescription = "The table glows faintly as wisps of energy radiate up into the air before dissipating.";
+            string shortDescription = "table";
+            string sentenceDescription = "The table glows with wisps of energy radiating upward.";
+
+            IEnchantery enchantery = CreateItem<IEnchantery>(examineDescription, lookDescription, shortDescription, sentenceDescription);
+
             enchantery.Attributes.Add(ItemAttribute.NoGet);
             enchantery.KeyWords.Add("table");
 
@@ -239,21 +241,19 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom Stairs()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ShortDescription = "Spiral Staircase";
-            room.ExamineDescription = "The stairs are surprisingly made of wood instead of stone and creak slightly as you walk on them.";
-            room.LookDescription = "The spiral stairs ascend up the tower as well as down into a basement area.";
+            string shortDescription = "Spiral Staircase";
+            string examineDescription = "The stairs are surprisingly made of wood instead of stone and creak slightly as you walk on them.";
+            string lookDescription = "The spiral stairs ascend up the tower as well as down into a basement area.";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             return room;
         }
 
         private IRoom GroundFloor()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ShortDescription = "Ground Floor";
-            room.ExamineDescription = "The stone hallway is lit with a pair of torches ever twelve feet.";
-            room.LookDescription = "A stone hallway leading outside the tower and deeper inside toward a stairwell.";
+            string shortDescription = "Ground Floor";
+            string examineDescription = "The stone hallway is lit with a pair of torches ever twelve feet.";
+            string lookDescription = "A stone hallway leading outside the tower and deeper inside toward a stairwell.";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             return room;
         }
 
@@ -271,10 +271,10 @@ namespace GenerateZones.Zones.Mountain
             ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.East, Zone.Rooms[11]);
             ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.East, Zone.Rooms[12]);
 
-            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 22, 3, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a bear standing on its hind legs."));
-            ZoneHelper.ConnectZone(Zone.Rooms[2], Direction.North, 22, 7, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a fish swallowing a man."));
-            ZoneHelper.ConnectZone(Zone.Rooms[3], Direction.East, 22, 11, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a lion killing an antelope."));
-            ZoneHelper.ConnectZone(Zone.Rooms[4], Direction.South, 22, 15, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a eagle catching a fish."));
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 22, 3, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a bear standing on its hind legs."));
+            ZoneHelper.ConnectZone(Zone.Rooms[2], Direction.North, 22, 7, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a fish swallowing a man."));
+            ZoneHelper.ConnectZone(Zone.Rooms[3], Direction.East, 22, 11, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a lion killing an antelope."));
+            ZoneHelper.ConnectZone(Zone.Rooms[4], Direction.South, 22, 15, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a eagle catching a fish."));
         }
     }
 }
