@@ -294,7 +294,7 @@ namespace GenerateZones.Zones.Mountain
             npc.Items.Add(focusingCrystal);
 
             npc.Personalities.Add(new ChiefDaughterPresent());
-            npc.Personalities.Add(new ChiefReceiveDaughterItem());
+            //npc.Personalities.Add(new ChiefReceiveDaughterItem(null!, null!, null!));
 
             IResponder responder = new Responder();
             List<IOptionalWords> listOptionalWords = new List<IOptionalWords>();
@@ -343,7 +343,7 @@ namespace GenerateZones.Zones.Mountain
             string sentenceDescription = "sleeves";
             string shortDescription = "A pair of lamb skin sleeves.";
 
-            IArmor armor = CreateArmor(17, AvalableItemPosition.Arms, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 17, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("lamb");
             armor.KeyWords.Add("skin");
             armor.KeyWords.Add("sleeve");
@@ -358,7 +358,7 @@ namespace GenerateZones.Zones.Mountain
             string sentenceDescription = "bearskin";
             string shortDescription = "A bearskin.";
 
-            IArmor armor = CreateArmor(17, AvalableItemPosition.Body, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            IArmor armor = CreateArmor( AvalableItemPosition.Body, 17, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.ItemPosition = AvalableItemPosition.Body;
             armor.Material = new Leather();
             armor.KeyWords.Add("bear");
@@ -374,7 +374,7 @@ namespace GenerateZones.Zones.Mountain
             string sentenceDescription = "boots";
             string shortDescription = "A dark black pair of boats.";
 
-            IArmor armor = CreateArmor(17, AvalableItemPosition.Feet, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            IArmor armor = CreateArmor(AvalableItemPosition.Feet, 17, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("black");
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("boots");
@@ -389,7 +389,7 @@ namespace GenerateZones.Zones.Mountain
             string sentenceDescription = "ring";
             string shortDescription = "Gold Ring.";
 
-            IArmor armor = CreateArmor(17, AvalableItemPosition.Finger, examineDescription, lookDescription, sentenceDescription, shortDescription, new Gold());
+            IArmor armor = CreateArmor( AvalableItemPosition.Finger, 17, examineDescription, lookDescription, sentenceDescription, shortDescription, new Gold());
             armor.KeyWords.Add("red");
             armor.KeyWords.Add("stone");
             armor.KeyWords.Add("gold");
@@ -411,7 +411,7 @@ namespace GenerateZones.Zones.Mountain
             string sentenceDescription = "lace gloves";
             string shortDescription = "A silver pair of ballroom lace gloves.";
 
-            IArmor armor = CreateArmor(17, AvalableItemPosition.Hand, examineDescription, lookDescription, sentenceDescription, shortDescription, new Cloth());
+            IArmor armor = CreateArmor(AvalableItemPosition.Hand, 17, examineDescription, lookDescription, sentenceDescription, shortDescription, new Cloth());
             armor.KeyWords.Add("silver");
             armor.KeyWords.Add("lace");
             armor.KeyWords.Add("gloves");
@@ -426,7 +426,7 @@ namespace GenerateZones.Zones.Mountain
             string sentenceDescription = "skull cap";
             string shortDescription = "A leather skull cap.";
 
-            IArmor armor = CreateArmor(17, AvalableItemPosition.Head, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            IArmor armor = CreateArmor( AvalableItemPosition.Head, 17, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("skull");
             armor.KeyWords.Add("cap");
             armor.KeyWords.Add("leather");
@@ -441,7 +441,7 @@ namespace GenerateZones.Zones.Mountain
             string sentenceDescription = "leggings";
             string shortDescription = "A decorative pair of leggings.";
 
-            IArmor armor = CreateArmor(17, AvalableItemPosition.Legs, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
+            IArmor armor = CreateArmor(AvalableItemPosition.Legs, 17, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
             armor.KeyWords.Add("leggings");
             armor.KeyWords.Add("decorative");
 
@@ -455,7 +455,7 @@ namespace GenerateZones.Zones.Mountain
             string sentenceDescription = "necklace";
             string shortDescription = "A bone necklace.";
 
-            IArmor armor = CreateArmor(17, AvalableItemPosition.Neck, examineDescription, lookDescription, sentenceDescription, shortDescription, new Bone());
+            IArmor armor = CreateArmor( AvalableItemPosition.Neck, 17, examineDescription, lookDescription, sentenceDescription, shortDescription, new Bone());
             armor.KeyWords.Add("necklace");
             armor.KeyWords.Add("bone");
 
@@ -469,7 +469,7 @@ namespace GenerateZones.Zones.Mountain
             string sentenceDescription = "rope";
             string shortDescription = "A short piece of rope.";
 
-            IArmor armor = CreateArmor(17, AvalableItemPosition.Waist, examineDescription, lookDescription, sentenceDescription, shortDescription, new Cloth());
+            IArmor armor = CreateArmor(AvalableItemPosition.Waist, 17, examineDescription, lookDescription, sentenceDescription, shortDescription, new Cloth());
             armor.KeyWords.Add("rope");
 
             return armor;

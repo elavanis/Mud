@@ -956,7 +956,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             lookDescription = "A spear crafted from animal bone and a stick.";
             sentenceDescription = "a spear";
             shortDescription = "A hastily made weapon made of readily available materials.";
-            IWeapon weapon = CreateWeapon(WeaponType.Spear, examineDescription, lookDescription, sentenceDescription, shortDescription, 7);
+            IWeapon weapon = CreateWeapon(WeaponType.Spear, 7, examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.KeyWords.Add("spear");
             IDamage damage = new Objects.Damage.Damage();
             damage.Type = DamageType.Pierce;
@@ -968,7 +968,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             lookDescription = "The bracers extend up the wearers arm a good ways giving the user extra protection.";
             sentenceDescription = "a pair of leather bracers";
             shortDescription = "A well made pair leather bracers.";
-            IArmor armor = CreateArmor(7, AvalableItemPosition.Arms, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 7, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("bracer");
             npc.AddEquipment(armor);
@@ -977,7 +977,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             armor.LookDescription = "The leather vest looks to be as utilitarian as protectant.";
             armor.SentenceDescription = "a leather vest";
             armor.ShortDescription = "A leather vest with several pockets.";
-            armor = CreateArmor(7, AvalableItemPosition.Body, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            armor = CreateArmor(AvalableItemPosition.Body, 7, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("vest");
             npc.AddEquipment(armor);

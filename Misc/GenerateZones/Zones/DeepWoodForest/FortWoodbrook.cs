@@ -576,7 +576,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string sentenceDescription = "sword";
             string shortDescription = "A metal sword.";
 
-            IWeapon weapon = CreateWeapon(WeaponType.Sword, examineDescription, lookDescription, sentenceDescription, shortDescription, level);
+            IWeapon weapon = CreateWeapon(WeaponType.Sword, level, examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.KeyWords.Add("sword");
             weapon.AttackerStat = Stats.Stat.Dexterity;
             weapon.DeffenderStat = Stats.Stat.Dexterity;
@@ -598,7 +598,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string sentenceDescription = "spear";
             string shortDescription = "A wooden spear.";
 
-            IWeapon weapon = CreateWeapon(WeaponType.Spear, examineDescription, lookDescription, sentenceDescription, shortDescription, level);
+            IWeapon weapon = CreateWeapon(WeaponType.Spear, level, examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.KeyWords.Add("spear");
             weapon.AttackerStat = Stats.Stat.Dexterity;
             weapon.DeffenderStat = Stats.Stat.Dexterity;
@@ -618,7 +618,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The bracer has a intricate design of intersecting lines running up and down the length of the item.";
             string sentenceDescription = "bracer";
 
-            IArmor armor = CreateArmor(level, AvalableItemPosition.Arms, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            IArmor armor = CreateArmor(AvalableItemPosition.Arms, level, examineDescription, lookDescription, sentenceDescription, shortDescription);
             armor.KeyWords.Add("bracer");
 
             return armor;
@@ -626,7 +626,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IArmor Body(int level, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
         {
-            IArmor armor = CreateArmor(level, AvalableItemPosition.Body, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            IArmor armor = CreateArmor(AvalableItemPosition.Body, level, examineDescription, lookDescription, sentenceDescription, shortDescription);
 
             return armor;
         }
@@ -636,7 +636,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The boots still have some cob webs on them but otherwise look to be in good shape.";
             string sentenceDescription = "boots";
 
-            IArmor armor = CreateArmor(level, AvalableItemPosition.Feet, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            IArmor armor = CreateArmor(AvalableItemPosition.Feet, level, examineDescription, lookDescription, sentenceDescription, shortDescription);
 
             armor.KeyWords.Add("boots");
 
@@ -648,7 +648,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The leather gloves have an emblem of a burning phoenix stamped into the back of each glove.";
             string sentenceDescription = "leather";
 
-            IArmor armor = CreateArmor(level, AvalableItemPosition.Hand, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            IArmor armor = CreateArmor(AvalableItemPosition.Hand, level, examineDescription, lookDescription, sentenceDescription, shortDescription);
 
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("glove");
@@ -661,7 +661,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The helmet's insides are padded with soft animal fur.";
             string sentenceDescription = "helmet";
 
-            IArmor armor = CreateArmor(level, AvalableItemPosition.Head, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            IArmor armor = CreateArmor(AvalableItemPosition.Head, level, examineDescription, lookDescription, sentenceDescription, shortDescription);
 
             armor.KeyWords.Add("helmet");
 
@@ -673,7 +673,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The leather the design of fire going up each leg.";
             string sentenceDescription = "pants";
 
-            IArmor armor = CreateArmor(level, AvalableItemPosition.Legs, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            IArmor armor = CreateArmor(AvalableItemPosition.Legs, level, examineDescription, lookDescription, sentenceDescription, shortDescription);
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("pants");
             armor.KeyWords.Add("pant");

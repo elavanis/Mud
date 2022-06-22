@@ -64,7 +64,7 @@ namespace GenerateZones.Zones
         #endregion NPC
 
         #region Item
-        public IWeapon CreateWeapon(WeaponType weaponType, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, int level)
+        public IWeapon CreateWeapon(WeaponType weaponType, int level, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
         {
             IWeapon weapon = new Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.Id = ItemId++;
@@ -75,7 +75,7 @@ namespace GenerateZones.Zones
             return weapon;
         }
 
-        public IArmor CreateArmor(int level, AvalableItemPosition position, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, BaseMaterial? material = null)
+        public IArmor CreateArmor(AvalableItemPosition position, int level, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, BaseMaterial? material = null)
         {
             IArmor armor = new Armor(level, position, examineDescription, lookDescription, sentenceDescription, shortDescription);
             armor.Id = ItemId++;
@@ -100,7 +100,7 @@ namespace GenerateZones.Zones
             return shield;
         }
 
-        public IEquipment CreateEquipment(AvalableItemPosition avalableItemPosition, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, int level)
+        public IEquipment CreateEquipment(AvalableItemPosition avalableItemPosition, int level, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
         {
             IEquipment equipment = new Equipment(avalableItemPosition, examineDescription, lookDescription, sentenceDescription, shortDescription);
             equipment.Id = ItemId++;

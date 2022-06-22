@@ -752,7 +752,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "A large flaming sword.";
             string sentenceDescription = "sword";
 
-            IWeapon weapon = CreateWeapon(WeaponType.Sword, examineDescription, lookDescription, sentenceDescription, shortDescription, 87);
+            IWeapon weapon = CreateWeapon(WeaponType.Sword, 87, examineDescription, lookDescription, sentenceDescription, shortDescription);
 
             IDamage damage = new Objects.Damage.Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);

@@ -312,7 +312,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string sentenceDescription = "Dogslicer";
             string shortDescription = "The goblin Dogslicer has three holes in the blade making it lighter and easier to swing.";
 
-            IWeapon weapon = CreateWeapon(WeaponType.Sword, examineDescription, lookDescription, sentenceDescription, shortDescription, 15);
+            IWeapon weapon = CreateWeapon(WeaponType.Sword, 15, examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.KeyWords.Add("sword");
             weapon.KeyWords.Add("dog");
             weapon.KeyWords.Add("slicer");
@@ -333,7 +333,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "A poorly made pair leather bracers.";
             string sentenceDescription = "a pair of leather bracers";
 
-            IArmor armor = CreateArmor(15, AvalableItemPosition.Arms, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 15, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("bracer");
 
@@ -347,7 +347,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "A chain mail shirt with a few missing links.";
             string sentenceDescription = "a chain mail shirt";
 
-            IArmor armor = CreateArmor(15, AvalableItemPosition.Body, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
+            IArmor armor = CreateArmor(AvalableItemPosition.Body, 15, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
             armor.KeyWords.Add("chain mail");
             armor.KeyWords.Add("mail");
             armor.KeyWords.Add("shirt");
@@ -362,7 +362,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "A steel helmet that is more functional then attractive.";
             string sentenceDescription = "a steel helmet";
 
-            IArmor armor = CreateArmor(15, AvalableItemPosition.Head, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
+            IArmor armor = CreateArmor( AvalableItemPosition.Head, 15, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
             armor.KeyWords.Add("helmet");
             armor.KeyWords.Add("steel");
 
@@ -376,7 +376,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "Leather pants.";
             string sentenceDescription = "leather pants";
 
-            IArmor armor = CreateArmor(15, AvalableItemPosition.Legs, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            IArmor armor = CreateArmor(AvalableItemPosition.Legs, 15, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("pants");
             armor.KeyWords.Add("pant");
