@@ -41,21 +41,21 @@ namespace GenerateZones.Zones
             room.LookDescription = "The coliseum towers far dizzily above you.  Different color pennant are affixed to poles going around the top of the coliseum.  From down here it is hard to see what is on them.";
             room.ShortDescription = "Before the coliseum.";
 
-            INonPlayerCharacter ticketVendor = TicketVendor();
+            INonPlayerCharacter ticketVendor = TicketVendor(room);
             room.AddMobileObjectToRoom(ticketVendor);
             ticketVendor.Room = room;
 
             return room;
         }
 
-        private INonPlayerCharacter TicketVendor()
+        private INonPlayerCharacter TicketVendor(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 3);
+            string examineDescription = "The vendor is dressed in a white shirt with gray pants.  He is wearing a red straw hat that looks to be two sizes to big slightly off to one side.";
+            string lookDescription = "The ticket vendor holds 3 tickets in his hand and is trying to sell it to anyone willing to listen.";
+            string sentenceDescription = "ticket vendor";
+            string shortDescription = "A ticket vendor selling tickets.";
 
-            npc.ExamineDescription = "The vendor is dressed in a white shirt with gray pants.  He is wearing a red straw hat that looks to be two sizes to big slightly off to one side.";
-            npc.LookDescription = "The ticket vendor holds 3 tickets in his hand and is trying to sell it to anyone willing to listen.";
-            npc.ShortDescription = "A ticket vendor selling tickets.";
-            npc.SentenceDescription = "ticket vendor";
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 3);
             npc.KeyWords.Add("vendor");
 
             Speaker speaker = new Speaker();
