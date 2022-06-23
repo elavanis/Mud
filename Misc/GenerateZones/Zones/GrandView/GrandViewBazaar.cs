@@ -325,7 +325,6 @@ namespace GenerateZones.Zones
             IArmor bracer = CreateArmor(AvalableItemPosition.Arms, 1, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             bracer.KeyWords.Add("Bracer");
             bracer.KeyWords.Add("Leather");
-            bracer.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(bracer.Level);
             bracer.FinishLoad();
             return bracer;
         }
@@ -340,7 +339,6 @@ namespace GenerateZones.Zones
             IArmor leggings = CreateArmor(AvalableItemPosition.Legs, 1, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             leggings.KeyWords.Add("Leggings");
             leggings.KeyWords.Add("Leather");
-            leggings.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(leggings.Level);
             leggings.FinishLoad();
             return leggings;
         }
@@ -399,7 +397,6 @@ namespace GenerateZones.Zones
             boots.KeyWords.Add("boots");
             boots.KeyWords.Add("cloth");
 
-            boots.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(boots.Level);
             boots.FinishLoad();
             return boots;
         }
@@ -416,7 +413,6 @@ namespace GenerateZones.Zones
             sash.KeyWords.Add("sash");
             sash.KeyWords.Add("cloth");
             sash.Charisma = 2;
-            sash.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(sash.Level);
             sash.FinishLoad();
 
             sash.Value = (ulong)(sash.Value * 1.2);

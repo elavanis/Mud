@@ -293,7 +293,6 @@ namespace GenerateZones.Zones.DeepWoodForest
         private IArmor MiningHelmet()
         {
             IArmor armor = CreateArmor(AvalableItemPosition.Head, 11, new Steel());
-            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(armor.Level);
 
             armor.KeyWords.Add("Mining");
             armor.KeyWords.Add("Helmet");
@@ -902,8 +901,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             armor.KeyWords.Add("bone");
             armor.KeyWords.Add("bracer");
 
-            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(13);
-
             return armor;
         }
 
@@ -920,8 +917,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             armor.KeyWords.Add("breast");
             armor.KeyWords.Add("plate");
 
-            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(13);
-
             return armor;
         }
 
@@ -935,8 +930,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             armor.SentenceDescription = "leather gloves";
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("gloves");
-
-            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(13);
 
             return armor;
         }
@@ -952,8 +945,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             armor.KeyWords.Add("mask");
             armor.KeyWords.Add("bone");
 
-            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(13);
-
             return armor;
         }
 
@@ -967,8 +958,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             armor.SentenceDescription = "greaves";
             armor.KeyWords.Add("greaves");
             armor.KeyWords.Add("bone");
-
-            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(13);
 
             return armor;
         }

@@ -572,7 +572,6 @@ namespace GenerateZones.Zones.GrandView
             item.LookDescription = "The potato seems rather out of place as if the maker really liked potatoes.";
             item.ExamineDescription = "Standing four and half feet tall this shield is almost as tall as the shoppekeep.";
             item.SentenceDescription = "potato kite shield";
-            item.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(item.Level);
             item.FinishLoad();
             return item;
         }
@@ -600,7 +599,6 @@ namespace GenerateZones.Zones.GrandView
             item.LookDescription = "The green piece of splint mail still has the new look.";
             item.ExamineDescription = "Each piece of mail has been carefully place riveted into place.";
             item.SentenceDescription = "splint mail";
-            item.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(item.Level);
             item.FinishLoad();
             return item;
         }
@@ -615,7 +613,6 @@ namespace GenerateZones.Zones.GrandView
             item.LookDescription = "Each glove has a slight iridescent color that changes from green to brown and back again.";
             item.ExamineDescription = "The gloves are made of eel skin and have a green brown color that is hard to describe.";
             item.SentenceDescription = "gloves";
-            item.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(item.Level);
             item.FinishLoad();
             return item;
         }

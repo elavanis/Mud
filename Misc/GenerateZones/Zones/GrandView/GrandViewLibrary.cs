@@ -345,7 +345,6 @@ namespace GenerateZones.Zones
             ring.SentenceDescription = "gold ring";
             ring.KeyWords.Add("gold");
             ring.KeyWords.Add("ring");
-            ring.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(ring.Level);
 
             return ring;
         }

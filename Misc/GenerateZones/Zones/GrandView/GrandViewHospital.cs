@@ -141,7 +141,6 @@ namespace GenerateZones.Zones.GrandView
             armor.LookDescription = "This is your everyday hospital gown.  White with little blue dots with a tie in the back that exposes a little to much of your rear.";
             armor.ExamineDescription = "Thin and airy this would not provide much defense against anything other than people staring at you.  On second thought if you wore this out in public, people would stare.  This really wouldn't do much good.";
             armor.SentenceDescription = "hospital gown";
-            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(armor.Level);
             armor.FinishLoad();
             return armor;
         }
