@@ -182,11 +182,6 @@ namespace GenerateZones.Zones
 
             Damage damage = new Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(staff.Level);
-            damage.Type = Damage.DamageType.Bludgeon;
-            staff.DamageList.Add(damage);
-
-            damage = new Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(staff.Level);
             damage.Type = Damage.DamageType.Cold;
             damage.BonusDamageStat = Stats.Stat.Intelligence;
             staff.DamageList.Add(damage);

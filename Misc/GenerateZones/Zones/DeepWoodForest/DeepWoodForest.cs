@@ -958,9 +958,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             shortDescription = "A hastily made weapon made of readily available materials.";
             IWeapon weapon = CreateWeapon(WeaponType.Spear, 7, examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.KeyWords.Add("spear");
-            IDamage damage = new Objects.Damage.Damage();
-            damage.Type = DamageType.Pierce;
-            weapon.DamageList.Add(damage);
             weapon.FinishLoad();
             npc.AddEquipment(weapon);
 

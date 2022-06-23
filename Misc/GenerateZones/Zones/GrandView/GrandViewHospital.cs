@@ -190,11 +190,6 @@ namespace GenerateZones.Zones.GrandView
             scalpel.SentenceDescription = "surgical scalpel";
             scalpel.AttackerStat = Stat.Dexterity;
             scalpel.DeffenderStat = Stat.Dexterity;
-
-            IDamage damage = new Objects.Damage.Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(scalpel.Level);
-            damage.Type = DamageType.Slash;
-            scalpel.DamageList.Add(damage);
             scalpel.FinishLoad();
             return scalpel;
         }

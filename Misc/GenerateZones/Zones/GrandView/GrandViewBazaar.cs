@@ -251,11 +251,6 @@ namespace GenerateZones.Zones
             dagger.KeyWords.Add("Dagger");
             dagger.AttackerStat = Stats.Stat.Dexterity;
             dagger.DeffenderStat = Stats.Stat.Dexterity;
-
-            IDamage damage = new Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(dagger.Level);
-            damage.Type = Damage.DamageType.Slash;
-            dagger.DamageList.Add(damage);
             dagger.FinishLoad();
             return dagger;
         }

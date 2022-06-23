@@ -583,11 +583,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.FlavorOptions.Add("{grip}", new List<string>() { "wrapped in brown leather", "wrapped in black leather", "made of a textured metal", "wrapped in cord" });
             weapon.FlavorOptions.Add("{pommel}", new List<string>() { "crystal blue stone", "white iridescent opal stone", "small metal skull", "lions head", "pair of vipers wrapping around a metal hexagon striking each other", "large metal disc", "wolfs head", "dragons head" });
 
-            IDamage damage = new Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
-            damage.Type = Damage.DamageType.Slash;
-            weapon.DamageList.Add(damage);
-
             return weapon;
         }
 
@@ -603,6 +598,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.AttackerStat = Stats.Stat.Dexterity;
             weapon.DeffenderStat = Stats.Stat.Dexterity;
 
+            weapon.DamageList.Clear(); //remove the default damage
             IDamage damage = new Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level - 2);
             damage.Type = Damage.DamageType.Pierce;

@@ -585,11 +585,6 @@ namespace GenerateZones.Zones.GrandView
             item.LookDescription = "The sword in remarkable if only in being unremarkable.";
             item.ExamineDescription = "The sword is nothing special and appears to be a mass produced sword for the soldiers stationed at the castle.";
             item.SentenceDescription = "sword";
-
-            IDamage damage = new Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(item.Level);
-            damage.Type = Damage.DamageType.Slash;
-            item.DamageList.Add(damage);
             item.FinishLoad();
             return item;
         }

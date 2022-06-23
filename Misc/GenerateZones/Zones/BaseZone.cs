@@ -1,4 +1,6 @@
 ﻿using MiscShared;
+using Objects.Damage;
+using Objects.Damage.Interface;
 using Objects.Global;
 using Objects.Item;
 using Objects.Item.Interface;
@@ -71,6 +73,30 @@ namespace GenerateZones.Zones
             weapon.Zone = Zone.Id;
             weapon.Type = weaponType;
             weapon.Level = level;
+
+            IDamage damage = new Damage();
+            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
+            weapon.DamageList.Add(damage);
+
+            switch (weaponType)
+            {
+                case WeaponType.Club:
+                case WeaponType.Mace:
+                case WeaponType.WizardStaff:
+                    damage.Type = Damage.DamageType.Bludgeon;
+                    break;
+
+                case WeaponType.Axe:
+                case WeaponType.Sword:
+                    damage.Type = Damage.DamageType.Slash;
+                    break;
+
+                case WeaponType.Dagger:
+                case WeaponType.Pick:
+                case WeaponType.Spear:
+                    damage.Type = Damage.DamageType.Slash;
+                    break;
+            }
 
             return weapon;
         }

@@ -764,11 +764,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             damage.Type = DamageType.Poison;
             weapon.DamageList.Add(damage);
 
-            damage = new Objects.Damage.Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
-            damage.Type = DamageType.Slash;
-            weapon.DamageList.Add(damage);
-
             weapon.RequiredHands = 2;
             weapon.KeyWords.Add("Balrog");
             weapon.KeyWords.Add("Sword");

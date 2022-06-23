@@ -309,10 +309,6 @@ namespace GenerateZones.Zones.DeepWoodForest
         private IWeapon MiningPick()
         {
             IWeapon weapon = CreateWeapon(WeaponType.Pick, 11);
-            IDamage damage = new Objects.Damage.Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
-            damage.Type = Objects.Damage.Damage.DamageType.Slash;
-            weapon.DamageList.Add(damage);
 
             weapon.KeyWords.Add("Mining");
             weapon.KeyWords.Add("Pick");
@@ -891,11 +887,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.ShortDescription = "A small shoddily made spear.";
             weapon.SentenceDescription = "small spear";
             weapon.KeyWords.Add("spear");
-
-            IDamage damage = new Objects.Damage.Damage();
-            damage.Type = DamageType.Pierce;
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(13);
-            weapon.DamageList.Add(damage);
 
             return weapon;
         }

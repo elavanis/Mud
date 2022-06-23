@@ -317,12 +317,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.KeyWords.Add("dog");
             weapon.KeyWords.Add("slicer");
 
-
-            IDamage damage = new Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
-            damage.Type = Damage.DamageType.Slash;
-            weapon.DamageList.Add(damage);
-
             return weapon;
         }
 
