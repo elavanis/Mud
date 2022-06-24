@@ -98,6 +98,8 @@ namespace GenerateZones.Zones
                     break;
             }
 
+            weapon.KeyWords.Add(weaponType.ToString());
+
             return weapon;
         }
 

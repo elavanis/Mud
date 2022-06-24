@@ -565,7 +565,6 @@ namespace GenerateZones.Zones.GrandView
             string shortDescription = "A well balanced sword.";
 
             IWeapon item = CreateWeapon(WeaponType.Sword, 28, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            item.KeyWords.Add("sword");
             item.FinishLoad();
             return item;
         }

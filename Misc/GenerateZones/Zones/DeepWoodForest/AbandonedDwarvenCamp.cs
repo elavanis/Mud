@@ -313,7 +313,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "The goblin Dogslicer has three holes in the blade making it lighter and easier to swing.";
 
             IWeapon weapon = CreateWeapon(WeaponType.Sword, 15, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            weapon.KeyWords.Add("sword");
             weapon.KeyWords.Add("dog");
             weapon.KeyWords.Add("slicer");
 

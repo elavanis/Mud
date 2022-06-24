@@ -185,6 +185,7 @@ namespace GenerateZones.Zones.GrandView
             string shortDescription = "A surgical scalpel.";
 
             IWeapon scalpel = CreateWeapon(WeaponType.Dagger, 1, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            scalpel.KeyWords.Clear();
             scalpel.KeyWords.Add("Scalpel");
             scalpel.AttackerStat = Stat.Dexterity;
             scalpel.DeffenderStat = Stat.Dexterity;

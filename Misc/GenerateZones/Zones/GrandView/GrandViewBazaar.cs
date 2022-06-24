@@ -248,7 +248,6 @@ namespace GenerateZones.Zones
             string shortDescription = "A basic dagger.";
 
             IWeapon dagger = CreateWeapon(WeaponType.Dagger, 1, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            dagger.KeyWords.Add("Dagger");
             dagger.AttackerStat = Stats.Stat.Dexterity;
             dagger.DeffenderStat = Stats.Stat.Dexterity;
             dagger.FinishLoad();

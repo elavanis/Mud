@@ -53,7 +53,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = Plateau();
             Container chest = Chest();
-            chest.ExamineDescription = "The carvings show a mighty lion roaring into the distant.";
+            string examineDescription = "The carvings show a mighty lion roaring into the distant.";
             room.AddItemToRoom(chest);
             IItem lion = Lion();
             chest.Items.Add(lion);
@@ -104,7 +104,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = Plateau();
             Container chest = Chest();
-            chest.ExamineDescription = "The carvings show a majestic eagle soaring in the clouds.";
+            string examineDescription = "The carvings show a majestic eagle soaring in the clouds.";
             room.AddItemToRoom(chest);
             chest.Items.Add(Eagle());
 
@@ -154,7 +154,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = Plateau();
             Container chest = Chest();
-            chest.ExamineDescription = "The carvings show a bear climbing the tree of life.";
+            string examineDescription = "The carvings show a bear climbing the tree of life.";
             room.AddItemToRoom(chest);
             chest.Items.Add(Bear());
 
@@ -204,7 +204,7 @@ namespace GenerateZones.Zones.Mountain
         {
             IRoom room = Plateau();
             Container chest = Chest();
-            chest.ExamineDescription = "The carvings show a large fish swallowing the world.";
+            string examineDescription = "The carvings show a large fish swallowing the world.";
             room.AddItemToRoom(chest);
             chest.Items.Add(Fish());
 
@@ -238,11 +238,10 @@ namespace GenerateZones.Zones.Mountain
 
         private IRoom Plateau()
         {
-            IRoom room = OutdoorRoom();
-
-            room.ShortDescription = "Plateau";
-            room.ExamineDescription = "The plateau is dominated by the tower in the center.  The rest is covered in small clumps of grass and lichen.";
-            room.LookDescription = "A large tower rises up before you.";
+            string shortDescription = "Plateau";
+            string examineDescription = "The plateau is dominated by the tower in the center.  The rest is covered in small clumps of grass and lichen.";
+            string lookDescription = "A large tower rises up before you.";
+            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
             return room;
         }
         #endregion Rooms
@@ -251,9 +250,9 @@ namespace GenerateZones.Zones.Mountain
         public Container Chest()
         {
             Container chest = CreateItem<Container>();
-            //chest.ExamineDescription = "";
-            chest.LookDescription = "The chest is made carefully chiseled stone.";
-            chest.ShortDescription = "A small stone chest with intricate carvings.";
+            string examineDescription = "";
+            string lookDescription = "The chest is made carefully chiseled stone.";
+            string shortDescription = "A small stone chest with intricate carvings.";
             chest.SentenceDescription = "chest";
             chest.KeyWords.Add("chest");
             chest.Attributes.Add(ItemAttribute.NoGet);
@@ -264,9 +263,9 @@ namespace GenerateZones.Zones.Mountain
         public IItem Lion()
         {
             IItem item = CreateItem<Item>();
-            item.ExamineDescription = "The statue shows a male lion with a full mane.";
-            item.LookDescription = "The statue is make of a sandy colored stone material.";
-            item.ShortDescription = "A small statue of a lion.";
+            string examineDescription = "The statue shows a male lion with a full mane.";
+            string lookDescription = "The statue is make of a sandy colored stone material.";
+            string shortDescription = "A small statue of a lion.";
             item.SentenceDescription = "lion statue";
             item.KeyWords.Add("statue");
             item.KeyWords.Add("lion");
@@ -277,9 +276,9 @@ namespace GenerateZones.Zones.Mountain
         public IItem Eagle()
         {
             IItem item = CreateItem<Item>();
-            item.ExamineDescription = "The eagle in the statue is taking perched on a branch overlooking a nest of its young.";
-            item.LookDescription = "The statue is make of a sandy colored stone material.";
-            item.ShortDescription = "A small statue of a eagle.";
+            string examineDescription = "The eagle in the statue is taking perched on a branch overlooking a nest of its young.";
+            string lookDescription = "The statue is make of a sandy colored stone material.";
+            string shortDescription = "A small statue of a eagle.";
             item.SentenceDescription = "eagle statue";
             item.KeyWords.Add("statue");
             item.KeyWords.Add("eagle");
@@ -290,9 +289,9 @@ namespace GenerateZones.Zones.Mountain
         public IItem Bear()
         {
             IItem item = CreateItem<Item>();
-            item.ExamineDescription = "A statue depicting bear reaching out on a tree branch to reach a bee's hive.";
-            item.LookDescription = "The statue is make of a sandy colored stone material.";
-            item.ShortDescription = "A small statue of a bear.";
+            string examineDescription = "A statue depicting bear reaching out on a tree branch to reach a bee's hive.";
+            string lookDescription = "The statue is make of a sandy colored stone material.";
+            string shortDescription = "A small statue of a bear.";
             item.SentenceDescription = "bear statue";
             item.KeyWords.Add("statue");
             item.KeyWords.Add("bear");
@@ -303,9 +302,9 @@ namespace GenerateZones.Zones.Mountain
         public IItem Fish()
         {
             IItem item = CreateItem<Item>();
-            item.ExamineDescription = "The statue shows a fish jumping out of a lake to catch a dragon fly.";
-            item.LookDescription = "The statue is make of a sandy colored stone material.";
-            item.ShortDescription = "A small statue of a fish.";
+            string examineDescription = "The statue shows a fish jumping out of a lake to catch a dragon fly.";
+            string lookDescription = "The statue is make of a sandy colored stone material.";
+            string shortDescription = "A small statue of a fish.";
             item.SentenceDescription = "fish statue";
             item.KeyWords.Add("statue");
             item.KeyWords.Add("fish");
@@ -334,22 +333,28 @@ namespace GenerateZones.Zones.Mountain
             ZoneHelper.ConnectRoom(Zone.Rooms[15], Direction.West, Zone.Rooms[16]);
             ZoneHelper.ConnectRoom(Zone.Rooms[16], Direction.West, Zone.Rooms[1]);
 
-            ZoneHelper.ConnectZone(Zone.Rooms[3], Direction.East, 23, 1, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a bear standing on its hind legs."));
+            string openMessage = "The door slides open with the sound of stone sliding on stone.";
+            string closeMessage = "The door slides closed with the sound of stone sliding on stone";
+            string description = "The door depicts a bear standing on its hind legs.";
+            ZoneHelper.ConnectZone(Zone.Rooms[3], Direction.East, 23, 1, new DoorInfo("door", openMessage, closeMessage, true, description));
             IDoor door = Zone.Rooms[3].East.Door;
             door.Locked = true;
             door.Pickable = false;
 
-            ZoneHelper.ConnectZone(Zone.Rooms[7], Direction.South, 23, 2, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a fish swallowing a man."));
+            description = "The door depicts a fish swallowing a man.";
+            ZoneHelper.ConnectZone(Zone.Rooms[7], Direction.South, 23, 2, new DoorInfo("door", openMessage, closeMessage, true, description));
             door = Zone.Rooms[7].South.Door;
             door.Locked = true;
             door.Pickable = false;
 
-            ZoneHelper.ConnectZone(Zone.Rooms[11], Direction.West, 23, 3, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a lion killing an antelope."));
+            description = "The door depicts a lion killing an antelope.";
+            ZoneHelper.ConnectZone(Zone.Rooms[11], Direction.West, 23, 3, new DoorInfo("door", openMessage, closeMessage, true, description));
             door = Zone.Rooms[11].West.Door;
             door.Locked = true;
             door.Pickable = false;
 
-            ZoneHelper.ConnectZone(Zone.Rooms[15], Direction.North, 23, 4, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", true, "The door depicts a eagle catching a fish."));
+            description = "The door depicts a eagle catching a fish.";
+            ZoneHelper.ConnectZone(Zone.Rooms[15], Direction.North, 23, 4, new DoorInfo("door", openMessage, closeMessage, true, description));
             door = Zone.Rooms[15].North.Door;
             door.Locked = true;
             door.Pickable = false;

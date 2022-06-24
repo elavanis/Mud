@@ -577,7 +577,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "A metal sword.";
 
             IWeapon weapon = CreateWeapon(WeaponType.Sword, level, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            weapon.KeyWords.Add("sword");
             weapon.AttackerStat = Stats.Stat.Dexterity;
             weapon.DeffenderStat = Stats.Stat.Dexterity;
             weapon.FlavorOptions.Add("{grip}", new List<string>() { "wrapped in brown leather", "wrapped in black leather", "made of a textured metal", "wrapped in cord" });
@@ -594,7 +593,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             string shortDescription = "A wooden spear.";
 
             IWeapon weapon = CreateWeapon(WeaponType.Spear, level, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            weapon.KeyWords.Add("spear");
             weapon.AttackerStat = Stats.Stat.Dexterity;
             weapon.DeffenderStat = Stats.Stat.Dexterity;
 

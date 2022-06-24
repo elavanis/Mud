@@ -44,7 +44,7 @@ namespace GenerateZones.Zones
 
             room.AddItemToRoom(Weapon());
 
-            IMount mount = new Mount(Mount.DefaultValues.Elephant);
+            IMount mount = new Mount(Mount.DefaultValues.Elephant, room);
             mount.Id = 1;
             mount.Zone = -1;
             mount.Level = 1;
@@ -67,7 +67,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom()
         {
-            IRoom room = CreateRoom();
+            IRoom room = OutdoorRoom("examineDescription", "lookDescription", "shortDescription");
 
             //room.AddMobileObjectToRoom(new Elemental(ElementType.Air) { Id = 1 });
             //room.AddMobileObjectToRoom(new Elemental(ElementType.Earth) { Id = 1 });
@@ -86,7 +86,7 @@ namespace GenerateZones.Zones
 
         private IWeapon Weapon()
         {
-            IWeapon weapon = CreateWeapon(Objects.Item.Items.Weapon.WeaponType.Axe, 1);
+            IWeapon weapon = CreateWeapon(Objects.Item.Items.Weapon.WeaponType.Axe, 1, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             IDamage damage = new Damage();
             damage.Dice = new Dice(10, 10);
             for (int i = 0; i < 1000; i++)

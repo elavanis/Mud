@@ -91,11 +91,11 @@ namespace GenerateZones
            
             for (int x = 0; x < 100; x++)
             {
-                IRoom room = new Room(x+1,i, "ExamineDescription", "LookDescription", "ShortDescription");
+                IRoom room = new Room( "ExamineDescription", "LookDescription", "ShortDescription");
                 room.Attributes.Add(Room.RoomAttribute.Indoor);
                 zone.Rooms.Add(room.Id, room);
 
-                INonPlayerCharacter npc = new NonPlayerCharacter(room, "corpseLookDescription", i, x, "ExamineDescription", "LookDescription", "SentenceDescription", "ShortDescription");
+                INonPlayerCharacter npc = new NonPlayerCharacter(room, "ExamineDescription", "LookDescription", "SentenceDescription", "ShortDescription");
                 npc.Personalities.Add(new Wanderer());
                 npc.KeyWords.Add("npc");
                 npc.TypeOfMob = NonPlayerCharacter.MobType.Humanoid;

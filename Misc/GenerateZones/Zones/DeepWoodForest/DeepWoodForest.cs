@@ -957,7 +957,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             sentenceDescription = "a spear";
             shortDescription = "A hastily made weapon made of readily available materials.";
             IWeapon weapon = CreateWeapon(WeaponType.Spear, 7, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            weapon.KeyWords.Add("spear");
             weapon.FinishLoad();
             npc.AddEquipment(weapon);
 

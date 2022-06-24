@@ -82,16 +82,17 @@ namespace GenerateZones
 
         private int AddRoom(IZone zone, int roomNumber)
         {
-            IRoom room = new Room();
+            int key = GlobalReference.GlobalValues.Random.Next(RoomDescriptions.Count);
+
+            string examineDescription = RoomDescriptions[key].ExamineDescription;
+            string lookDescription = RoomDescriptions[key].LookDescription;
+            string shortDescription = RoomDescriptions[key].ShortDescription;
+
+            IRoom room = new Room(examineDescription, lookDescription, shortDescription);
             roomNumber++;
 
             room.Zone = ZoneId;
             room.Id = roomNumber;
-
-            int key = GlobalReference.GlobalValues.Random.Next(RoomDescriptions.Count);
-            room.LookDescription = RoomDescriptions[key].LookDescription;
-            room.ExamineDescription = RoomDescriptions[key].ExamineDescription;
-            room.ShortDescription = RoomDescriptions[key].ShortDescription;
 
             if (RoomFlavorText.Count > 0)
             {

@@ -753,6 +753,8 @@ namespace GenerateZones.Zones.DeepWoodForest
             string sentenceDescription = "sword";
 
             IWeapon weapon = CreateWeapon(WeaponType.Sword, 87, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            weapon.RequiredHands = 2;
+            weapon.KeyWords.Add("Balrog");
 
             IDamage damage = new Objects.Damage.Damage();
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
@@ -763,10 +765,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
             damage.Type = DamageType.Poison;
             weapon.DamageList.Add(damage);
-
-            weapon.RequiredHands = 2;
-            weapon.KeyWords.Add("Balrog");
-            weapon.KeyWords.Add("Sword");
 
             return weapon;
         }
