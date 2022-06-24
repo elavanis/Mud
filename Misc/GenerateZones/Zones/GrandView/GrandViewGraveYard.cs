@@ -141,16 +141,15 @@ namespace GenerateZones.Zones.GrandView
 
         private IRoom Room26()
         {
-            IRoom room = IndoorRoomLight();
-            room.Id = 26;
-            room.Zone = Zone.Id;
+            string lookDescription = "You shouldn't see this but since you can some how before you is the groundskeeper house.  It is a simple house with a cooking stove, table and chair and single bed for sleeping.";
+            string examineDescription = "Maybe you should report the bug that you got here.";
+            string shortDescription = "GroundsKeeper House";
+
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             room.Owner = "the grounds keeper";
             room.Guests.Add("Groundskeeper");
-            room.LookDescription = "You shouldn't see this but since you can some how before you is the groundskeeper house.  It is a simple house with a cooking stove, table and chair and single bed for sleeping.";
-            room.ExamineDescription = "Maybe you should report the bug that you got here.";
-            room.ShortDescription = "GroundsKeeper House";
 
-            room.AddMobileObjectToRoom(GroundsKeeper());
+            room.AddMobileObjectToRoom(GroundsKeeper(room));
 
             return room;
         }
@@ -163,13 +162,14 @@ namespace GenerateZones.Zones.GrandView
             room.ShortDescription = "Temple";
         }
 
-        private IMobileObject GroundsKeeper()
+        private IMobileObject GroundsKeeper(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 30);
-            npc.LookDescription = "The groundskeeper looks tired of his job and dreams of a better place.";
-            npc.ExamineDescription = "Heavy gray eyes stare at you. He seems intently aware that you're not part of the normal surroundings but unaware what to do about it.";
-            npc.ShortDescription = "Groundskeeper";
-            npc.SentenceDescription = "groundskeeper";
+            string examineDescription = "Heavy gray eyes stare at you. He seems intently aware that you're not part of the normal surroundings but unaware what to do about it.";
+            string lookDescription = "The groundskeeper looks tired of his job and dreams of a better place.";
+            string sentenceDescription = "groundskeeper";
+            string shortDescription = "Groundskeeper";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 30);
             npc.KeyWords.Add("Groundskeeper");
             npc.KeyWords.Add("Grounds");
             npc.KeyWords.Add("ground");
@@ -182,13 +182,15 @@ namespace GenerateZones.Zones.GrandView
 
         private INonPlayerCharacter Skeleton()
         {
-            INonPlayerCharacter npc = BuildNpc();
+            string examineDescription = "There air takes on a slight chill as the skeleton turns and looks at you.";
+            string lookDescription = "Somewhere the skeleton lost part of its arm.";
+            string sentenceDescription = "skeleton";
+            string shortDescription = "A skeleton walks bones clatter as it walks around.";
+
+            //we pass null for the room since this does not have a room and has one set when its cloned
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, null!, examineDescription, lookDescription, sentenceDescription, shortDescription);
             npc.LevelRange = new LevelRange() { LowerLevel = 17, UpperLevel = 19 };
             npc.KeyWords.Add("skeleton");
-            npc.SentenceDescription = "skeleton";
-            npc.ShortDescription = "A skeleton walks bones clatter as it walks around.";
-            npc.LookDescription = "Somewhere the skeleton lost part of its arm.";
-            npc.ExamineDescription = "There air takes on a slight chill as the skeleton turns and looks at you.";
 
             npc.Personalities.Add(new DeathDuringDay());
             npc.Personalities.Add(Wanderer());
@@ -198,13 +200,15 @@ namespace GenerateZones.Zones.GrandView
 
         private INonPlayerCharacter Zombie()
         {
-            INonPlayerCharacter npc = BuildNpc();
+            string examineDescription = "The smell of rotting flesh emanates from the zombie as you get close to it.";
+            string lookDescription = "The zombie is wearing clothes or at least what used to be clothes.  A small red handkerchief can be seen sticking out of what is left of its suit.";
+            string sentenceDescription = "zombie";
+            string shortDescription = "A zombie stares off into the distance looking at nothing.";
+
+            //we pass null for the room since this does not have a room and has one set when its cloned
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, null!, examineDescription, lookDescription, sentenceDescription, shortDescription);
             npc.LevelRange = new LevelRange() { LowerLevel = 17, UpperLevel = 19 };
             npc.KeyWords.Add("zombie");
-            npc.SentenceDescription = "zombie";
-            npc.ShortDescription = "A zombie stares off into the distance looking at nothing.";
-            npc.LookDescription = "The zombie is wearing clothes or at least what used to be clothes.  A small red handkerchief can be seen sticking out of what is left of its suit.";
-            npc.ExamineDescription = "The smell of rotting flesh emanates from the zombie as you get close to it.";
 
             npc.Personalities.Add(new DeathDuringDay());
             npc.Personalities.Add(new Aggressive());
@@ -215,24 +219,20 @@ namespace GenerateZones.Zones.GrandView
 
         private INonPlayerCharacter Crow()
         {
-            INonPlayerCharacter npc = BuildNpc();
+            string examineDescription = "It seems to have been born of the night with black feathers, feet and beak. The small black beady eyes are the only thing to reflect any light.";
+            string lookDescription = "As you and the crow stare at each other it starts crowing loudly as trying to win a staring contest by making you look away.";
+            string sentenceDescription = "a crow";
+            string shortDescription = "A black as night crow calls out a warning as you approach.";
+
+            //we pass null for the room since this does not have a room and has one set when its cloned
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, null!, examineDescription, lookDescription, sentenceDescription, shortDescription);
             npc.LevelRange = new LevelRange() { LowerLevel = 16, UpperLevel = 17 };
             npc.KeyWords.Add("Crow");
-            npc.LookDescription = "As you and the crow stare at each other it starts crowing loudly as trying to win a staring contest by making you look away.";
-            npc.SentenceDescription = "a crow";
-            npc.ShortDescription = "A black as night crow calls out a warning as you approach.";
-            npc.ExamineDescription = "It seems to have been born of the night with black feathers, feet and beak. The small black beady eyes are the only thing to reflect any light.";
 
             npc.Personalities.Add(Wanderer());
 
             return npc;
-        }
-
-        private INonPlayerCharacter BuildNpc()
-        {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other);
-            return npc;
-        }
+        }      
 
         private Wanderer Wanderer()
         {

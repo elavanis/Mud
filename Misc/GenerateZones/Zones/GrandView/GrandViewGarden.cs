@@ -44,10 +44,12 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom()
         {
-            IRoom room = OutdoorRoom();
-            room.ShortDescription = "A rose garden";
-            room.LookDescription = "Hedges of roses tower above you blocking your view forming a maze.";
-            room.ExamineDescription = "The red rose bush is in full bloom while the white roses are starting to open up.  There is a red and yellow mix close to your feet that is an interesting color while the pink one slightly above your eye level looks to be straight out of a bouquet.";
+            string examineDescription = "The red rose bush is in full bloom while the white roses are starting to open up.  There is a red and yellow mix close to your feet that is an interesting color while the pink one slightly above your eye level looks to be straight out of a bouquet.";
+            string lookDescription = "Hedges of roses tower above you blocking your view forming a maze.";
+            string shortDescription = "A rose garden";
+
+            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+
             return room;
         }
 

@@ -42,12 +42,12 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom1()
         {
-            IRoom room = IndoorRoomLight();
-            room.Attributes.Add(Room.RoomAttribute.NoNPC);
+            string examineDescription = "The floor is a beautiful mosaic of the surrounding areas.  The mountains to the north and west and the forest to the east are both represented. For some reason the map maker left out the south.  Still the map must be old because fort Woodbrook is shown miles from the forest and it has long since been overgrown and lies deep in heart of the forest.";
+            string lookDescription = "The entrance to the library is a sandstone entry way.  The ceiling is domed and has \"Cave ab homine unius libri.\" written on it.  The floor is a mosaic of the surrounding lands.";
+            string shortDescription = "Entrance to the great library";
 
-            room.ExamineDescription = "The floor is a beautiful mosaic of the surrounding areas.  The mountains to the north and west and the forest to the east are both represented. For some reason the map maker left out the south.  Still the map must be old because fort Woodbrook is shown miles from the forest and it has long since been overgrown and lies deep in heart of the forest.";
-            room.LookDescription = "The entrance to the library is a sandstone entry way.  The ceiling is domed and has \"Cave ab homine unius libri.\" written on it.  The floor is a mosaic of the surrounding lands.";
-            room.ShortDescription = "Entrance to the great library";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            room.Attributes.Add(Room.RoomAttribute.NoNPC);
             return room;
         }
 
@@ -78,26 +78,26 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom7()
         {
-            IRoom room = IndoorRoomLight();
+            string examineDescription = "This corner of the library is used by the wizards as their guild hall.  Scrolls and books are scattered about with stacks ranging from a few feet to as hight as the ceiling.";
+            string lookDescription = "This corner of the basement is designated as the wizards guild.  Dimly lit candles burn at desks with scrolls inviting practitioners of magic to learn something new.";
+            string shortDescription = "Library Basement";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
-            room.ExamineDescription = "This corner of the library is used by the wizards as their guild hall.  Scrolls and books are scattered about with stacks ranging from a few feet to as hight as the ceiling.";
-            room.LookDescription = "This corner of the basement is designated as the wizards guild.  Dimly lit candles burn at desks with scrolls inviting practitioners of magic to learn something new.";
-            room.ShortDescription = "Library Basement";
-
-            INonPlayerCharacter guildMaster = WizardGuildMaster();
+            INonPlayerCharacter guildMaster = WizardGuildMaster(room);
 
             room.AddMobileObjectToRoom(guildMaster);
 
             return room;
         }
 
-        private INonPlayerCharacter WizardGuildMaster()
+        private INonPlayerCharacter WizardGuildMaster(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 20);
-            npc.ExamineDescription = "The Guildmaster is dressed in a tattered gray cloak that looks to at one point been white.  He has a beard that is almost as long as he is tall and is long since lost any sign of color.";
-            npc.LookDescription = "He stares into space as if contemplating things you couldn't even imagine.  Occasionally he says something as if he is talking to someone yet you can not see who.  Has he gone mad or talking to something beyond this realm?";
-            npc.ShortDescription = "The wizard Guildmaster.";
-            npc.SentenceDescription = "Guildmaster";
+            string examineDescription = "The Guildmaster is dressed in a tattered gray cloak that looks to at one point been white.  He has a beard that is almost as long as he is tall and is long since lost any sign of color.";
+            string lookDescription = "He stares into space as if contemplating things you couldn't even imagine.  Occasionally he says something as if he is talking to someone yet you can not see who.  Has he gone mad or talking to something beyond this realm?";
+            string sentenceDescription = "Guildmaster";
+            string shortDescription = "The wizard Guildmaster.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 20);
             npc.KeyWords.Add("GuildMaster");
             npc.KeyWords.Add("Wizard");
             npc.Personalities.Add(new GuildMaster(Guilds.Wizard));
@@ -113,7 +113,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = LibraryBasement();
 
-            INonPlayerCharacter apprentice = Male_Apprentice();
+            INonPlayerCharacter apprentice = Male_Apprentice(room);
             room.AddMobileObjectToRoom(apprentice);
             apprentice.Room = room;
 
@@ -159,7 +159,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = LibraryBasement();
 
-            INonPlayerCharacter apprentice = Female_Apprentice();
+            INonPlayerCharacter apprentice = Female_Apprentice(room);
             room.AddMobileObjectToRoom(apprentice);
             apprentice.Room = room;
             apprentice.AddEquipment(WizardStaff());
@@ -169,12 +169,12 @@ namespace GenerateZones.Zones
 
         private IEquipment WizardStaff()
         {
-            IWeapon staff = CreateWeapon(WeaponType.WizardStaff, 1);
+            string examineDescription = "Examining the staff reveals the slight shimmer is a thin layer of frost.  The head of the staff is emitting extreme cold that could useful in battle or drinks at parties.";
+            string lookDescription = "The gnarled staff is twisted age seems to have a slight shimmer at the head of the staff.";
+            string sentenceDescription = "wizard staff";
+            string shortDescription = "A wizards staff hewn from an oak tree.";
 
-            staff.ExamineDescription = "Examining the staff reveals the slight shimmer is a thin layer of frost.  The head of the staff is emitting extreme cold that could useful in battle or drinks at parties.";
-            staff.LookDescription = "The gnarled staff is twisted age seems to have a slight shimmer at the head of the staff.";
-            staff.ShortDescription = "A wizards staff hewn from an oak tree.";
-            staff.SentenceDescription = "wizard staff";
+            IWeapon staff = CreateWeapon(WeaponType.WizardStaff, 1, examineDescription, lookDescription, sentenceDescription, shortDescription);
             staff.KeyWords.Add("staff");
             staff.KeyWords.Add("ice");
             staff.AttackerStat = Stats.Stat.Dexterity;
@@ -203,7 +203,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = LibraryBasement();
 
-            INonPlayerCharacter apprentice = Female_Apprentice();
+            INonPlayerCharacter apprentice = Female_Apprentice(room);
             room.AddMobileObjectToRoom(apprentice);
             apprentice.Room = room;
 
@@ -254,7 +254,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = LibraryBasement();
 
-            INonPlayerCharacter apprentice = Male_Apprentice();
+            INonPlayerCharacter apprentice = Male_Apprentice(room);
             room.AddMobileObjectToRoom(apprentice);
             apprentice.Room = room;
 
@@ -285,7 +285,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = LibraryBasement();
 
-            INonPlayerCharacter apprentice = Female_Apprentice();
+            INonPlayerCharacter apprentice = Female_Apprentice(room);
             room.AddMobileObjectToRoom(apprentice);
             apprentice.Room = room;
 
@@ -306,7 +306,7 @@ namespace GenerateZones.Zones
         {
             IRoom room = LibraryBasement();
 
-            INonPlayerCharacter apprentice = Male_Apprentice();
+            INonPlayerCharacter apprentice = Male_Apprentice(room);
             room.AddMobileObjectToRoom(apprentice);
             apprentice.Room = room;
 
@@ -317,47 +317,45 @@ namespace GenerateZones.Zones
 
         private IRoom BasementSteps()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The stairs are eerily quiet, to quiet to be exact.  Perhaps since it is a library there is some magic that helps maintain the quietness.";
-            room.LookDescription = "Worn stone steps connect the basement to the entrance of the library.";
-            room.ShortDescription = "Basement Stairs";
+            string examineDescription = "The stairs are eerily quiet, to quiet to be exact.  Perhaps since it is a library there is some magic that helps maintain the quietness.";
+            string lookDescription = "Worn stone steps connect the basement to the entrance of the library.";
+            string shortDescription = "Basement Stairs";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             return room;
         }
 
         private IRoom LibraryBasement()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The books are quite dusty from being in the basement for so long but the cool temperature has helped preserve the oldest ones.";
-            room.LookDescription = "Piles of books are strewn across the floor here and there.";
-            room.ShortDescription = "Library Basement";
+            string examineDescription = "The books are quite dusty from being in the basement for so long but the cool temperature has helped preserve the oldest ones.";
+            string lookDescription = "Piles of books are strewn across the floor here and there.";
+            string shortDescription = "Library Basement";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             return room;
         }
 
         private IArmor Ring()
         {
-            IArmor ring = CreateArmor(AvalableItemPosition.Legs, 1, new Gold());
+            string examineDescription = "You throughly examine the ring but can find nothing of interest.  It appears to be nothing more than a gold ring.";
+            string lookDescription = "A small round gold ring which otherwise is quite ordinary.";
+            string sentenceDescription = "gold ring";
+            string shortDescription = "A small gold ring.";
 
-            ring.ExamineDescription = "You throughly examine the ring but can find nothing of interest.  It appears to be nothing more than a gold ring.";
-            ring.LookDescription = "A small round gold ring which otherwise is quite ordinary.";
-            ring.ShortDescription = "A small gold ring.";
-            ring.SentenceDescription = "gold ring";
+            IArmor ring = CreateArmor(AvalableItemPosition.Legs, 1, examineDescription, lookDescription, sentenceDescription, shortDescription, new Gold());
             ring.KeyWords.Add("gold");
             ring.KeyWords.Add("ring");
 
             return ring;
         }
 
-        private INonPlayerCharacter Female_Apprentice()
+        private INonPlayerCharacter Female_Apprentice(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 2);
-            npc.Personalities.Add(new Wanderer());
+            string examineDescription = "She glances at you staring at her but quickly returns her task.";
+            string lookDescription = "She wears a {adjective} {color} robe with {embroiderment} embroiderment.  A white sash is draped over her shoulders indicating her status of a {year} level apprentice.";
+            string sentenceDescription = "Female apprentice";
+            string shortDescription = "An female apprentice is wandering around looking for books.";
 
-            npc.ExamineDescription = "She glances at you staring at her but quickly returns her task.";
-            npc.LookDescription = "She wears a {adjective} {color} robe with {embroiderment} embroiderment.  A white sash is draped over her shoulders indicating her status of a {year} level apprentice.";
-            npc.ShortDescription = "An female apprentice is wandering around looking for books.";
-            npc.SentenceDescription = "Female apprentice";
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 2);
+            npc.Personalities.Add(new Wanderer());
             npc.KeyWords.Add("female");
             npc.KeyWords.Add("apprentice");
 
@@ -373,15 +371,15 @@ namespace GenerateZones.Zones
             return npc;
         }
 
-        private INonPlayerCharacter Male_Apprentice()
+        private INonPlayerCharacter Male_Apprentice(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 2);
-            npc.Personalities.Add(new Wanderer());
+            string examineDescription = "The apprentice is wandering around the basement aimlessly.";
+            string lookDescription = "He wears a {adjective} {color} robe with {embroiderment} embroiderment.  A white sash is draped over his shoulders indicating his status of a {year} level apprentice.";
+            string sentenceDescription = "Male apprentice";
+            string shortDescription = "An male apprentice is wandering around looking for books.";
 
-            npc.ExamineDescription = "The apprentice is wandering around the basement aimlessly.";
-            npc.LookDescription = "He wears a {adjective} {color} robe with {embroiderment} embroiderment.  A white sash is draped over his shoulders indicating his status of a {year} level apprentice.";
-            npc.ShortDescription = "An male apprentice is wandering around looking for books.";
-            npc.SentenceDescription = "Male apprentice";
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 2);
+            npc.Personalities.Add(new Wanderer());
             npc.KeyWords.Add("male");
             npc.KeyWords.Add("apprentice");
 
@@ -401,10 +399,10 @@ namespace GenerateZones.Zones
         #region Library Upstairs
         private IRoom GenerateRoom38()
         {
-            IRoom room = LibraryShelves();
-            room.ExamineDescription = "Looking through all the old books on the shelves you come across a copy of \"Land of Nothing.\"";
-            room.LookDescription = "Light streams through the stained glass to the west depicting a beautiful green field with mountains in the background.  Several small flowers are depicted breaking up the large expanse of green grass.";
-
+            string examineDescription = "Looking through all the old books on the shelves you come across a copy of \"Land of Nothing.\"";
+            string lookDescription = "Light streams through the stained glass to the west depicting a beautiful green field with mountains in the background.  Several small flowers are depicted breaking up the large expanse of green grass.";
+            
+            IRoom room = LibraryShelves(examineDescription, lookDescription);
             return room;
         }
 
@@ -415,26 +413,26 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom40()
         {
-            IRoom room = LibraryShelves();
-            room.ExamineDescription = "Looking through all the old books on the shelves you come across a copy of \"Black Shaman.\"";
-            room.LookDescription = "Light streams through the stained glass to the east.  The scene is from the perspective of a person looking out a balcony overlooking a town below.";
+            string examineDescription = "Looking through all the old books on the shelves you come across a copy of \"Black Shaman.\"";
+            string lookDescription = "Light streams through the stained glass to the east.  The scene is from the perspective of a person looking out a balcony overlooking a town below.";
 
+            IRoom room = LibraryShelves(examineDescription, lookDescription);
             return room;
         }
 
         private IRoom GenerateRoom41()
         {
-            IRoom room = LibraryShelves();
-            room.ExamineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Neverending Song.\"";
-            room.LookDescription = "Light streams through the stained glass to the west depicting a well. The bucket sits on the edge of the well and a path leads towards a village but no one is around.";
+            string examineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Neverending Song.\"";
+            string lookDescription = "Light streams through the stained glass to the west depicting a well. The bucket sits on the edge of the well and a path leads towards a village but no one is around.";
 
+            IRoom room = LibraryShelves(examineDescription, lookDescription);
             return room;
         }
 
         private IRoom GenerateRoom42()
         {
             IRoom room = LibraryTables();
-            INonPlayerCharacter npc = LibaryPatron();
+            INonPlayerCharacter npc = LibaryPatron(room);
             room.AddMobileObjectToRoom(npc);
             npc.Room = room;
 
@@ -443,26 +441,26 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom43()
         {
-            IRoom room = LibraryShelves();
-            room.ExamineDescription = "Looking through all the old books on the shelves you come across a copy of \"Star Saga.\"";
-            room.LookDescription = "Light streams through the stained glass to the east depicting a majestic dragon flying low over an ocean while a lighting storms strikes in the distance.";
+            string examineDescription = "Looking through all the old books on the shelves you come across a copy of \"Star Saga.\"";
+            string lookDescription = "Light streams through the stained glass to the east depicting a majestic dragon flying low over an ocean while a lighting storms strikes in the distance.";
 
+            IRoom room = LibraryShelves(examineDescription, lookDescription);
             return room;
         }
 
         private IRoom GenerateRoom44()
         {
-            IRoom room = LibraryShelves();
-            room.ExamineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Storm Game.\"";
-            room.LookDescription = "Light streams through the stained glass to the west.  The stained glass is of a mountain vista overlooking a lake.  Hues of greens meld into too hues of blue.  Snow covered mountain tops give stark contrast to image below.";
+            string examineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Storm Game.\"";
+            string lookDescription = "Light streams through the stained glass to the west.  The stained glass is of a mountain vista overlooking a lake.  Hues of greens meld into too hues of blue.  Snow covered mountain tops give stark contrast to image below.";
 
+            IRoom room = LibraryShelves(examineDescription, lookDescription);
             return room;
         }
 
         private IRoom GenerateRoom45()
         {
             IRoom room = LibraryTables();
-            INonPlayerCharacter npc = LibaryPatron();
+            INonPlayerCharacter npc = LibaryPatron(room);
             room.AddMobileObjectToRoom(npc);
             npc.Room = room;
 
@@ -471,19 +469,19 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom46()
         {
-            IRoom room = LibraryShelves();
-            room.ExamineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Cry of the Rose.\"";
-            room.LookDescription = "Light streams through the stained glass to the east.  The stained glass windows is of a two armies battling each other.  Swords and spears are drawn as each side charges the other.";
+            string examineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Cry of the Rose.\"";
+            string lookDescription = "Light streams through the stained glass to the east.  The stained glass windows is of a two armies battling each other.  Swords and spears are drawn as each side charges the other.";
 
+            IRoom room = LibraryShelves(examineDescription, lookDescription);
             return room;
         }
 
         private IRoom GenerateRoom47()
         {
-            IRoom room = LibraryShelves();
-            room.ExamineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Chair's Trader.\"";
-            room.LookDescription = "Light streams through the stained glass to the west depicting a foggy sunset.  The setting sun causes the light to be hues of orange and red while the fog causes the landscape colors to be hidden.  Combined the image caused the artist to go for a monochromatic scene broken only by silhouette of evergreens.";
+            string examineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Chair's Trader.\"";
+            string lookDescription = "Light streams through the stained glass to the west depicting a foggy sunset.  The setting sun causes the light to be hues of orange and red while the fog causes the landscape colors to be hidden.  Combined the image caused the artist to go for a monochromatic scene broken only by silhouette of evergreens.";
 
+            IRoom room = LibraryShelves(examineDescription, lookDescription);
             return room;
         }
 
@@ -494,26 +492,26 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom49()
         {
-            IRoom room = LibraryShelves();
-            room.ExamineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Magic Argument.\"";
-            room.LookDescription = "Light streams through the stained glass to the east depicting a humming bird eating from a red flower.  Drops of dew hang from the petals indicating it is still morning.";
+            string examineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Magic Argument.\"";
+            string lookDescription = "Light streams through the stained glass to the east depicting a humming bird eating from a red flower.  Drops of dew hang from the petals indicating it is still morning.";
 
+            IRoom room = LibraryShelves(examineDescription, lookDescription);
             return room;
         }
 
         private IRoom GenerateRoom50()
         {
-            IRoom room = LibraryShelves();
-            room.ExamineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Son of Winter.\"";
-            room.LookDescription = "Light streams through the stained glass to the west which is of a cloud covered moon over looking an ocean port.  A sailing ship can be seen leaving port.";
+            string examineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Son of Winter.\"";
+            string lookDescription = "Light streams through the stained glass to the west which is of a cloud covered moon over looking an ocean port.  A sailing ship can be seen leaving port.";
 
+            IRoom room = LibraryShelves(examineDescription, lookDescription);
             return room;
         }
 
         private IRoom GenerateRoom51()
         {
             IRoom room = LibraryTables();
-            INonPlayerCharacter npc = LibaryPatron();
+            INonPlayerCharacter npc = LibaryPatron(room);
             room.AddMobileObjectToRoom(npc);
             npc.Room = room;
 
@@ -522,35 +520,34 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom52()
         {
-            IRoom room = LibraryShelves();
-            room.ExamineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Atlas's Code.\"";
-            room.LookDescription = "Light streams through the stained glass to the east which is of a mermaid sitting on a rock while a tall sailing ship is anchored in a harbor behind her.";
+            string examineDescription = "Looking through all the old books on the shelves you come across a copy of \"The Atlas's Code.\"";
+            string lookDescription = "Light streams through the stained glass to the east which is of a mermaid sitting on a rock while a tall sailing ship is anchored in a harbor behind her.";
 
+            IRoom room = LibraryShelves(examineDescription, lookDescription);
             return room;
         }
 
-        private IRoom LibraryShelves()
+        private IRoom LibraryShelves(string examineDescription, string lookDescription)
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ShortDescription = "Library shelves";
+            string shortDescription = "Library shelves";
+            
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             return room;
         }
 
         private IRoom LibraryTables()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The tables are strong and well built with many chairs on either side.  The tables sits on a pure white stone floor causing you to double check you didn't track anything into the library.";
-            room.LookDescription = "Two large tables stretch from the west to east shelves filling up most of the room except for a center isle.";
-            room.ShortDescription = "Library tables";
+            string examineDescription = "The tables are strong and well built with many chairs on either side.  The tables sits on a pure white stone floor causing you to double check you didn't track anything into the library.";
+            string lookDescription = "Two large tables stretch from the west to east shelves filling up most of the room except for a center isle.";
+            string shortDescription = "Library tables";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             return room;
         }
 
         private IRoom GenerateRoom53()
         {
             IRoom room = LibraryStairs();
-            INonPlayerCharacter npc = LibaryPatron();
+            INonPlayerCharacter npc = LibaryPatron(room);
             room.AddMobileObjectToRoom(npc);
             npc.Room = room;
 
@@ -560,7 +557,7 @@ namespace GenerateZones.Zones
         private IRoom GenerateRoom54()
         {
             IRoom room = LibraryBalcony();
-            INonPlayerCharacter npc = LibaryPatron();
+            INonPlayerCharacter npc = LibaryPatron(room);
             room.AddMobileObjectToRoom(npc);
             npc.Room = room;
 
@@ -575,7 +572,7 @@ namespace GenerateZones.Zones
         private IRoom GenerateRoom56()
         {
             IRoom room = LibraryBalcony();
-            INonPlayerCharacter npc = LibaryPatron();
+            INonPlayerCharacter npc = LibaryPatron(room);
             room.AddMobileObjectToRoom(npc);
             npc.Room = room;
 
@@ -595,7 +592,7 @@ namespace GenerateZones.Zones
         private IRoom GenerateRoom59()
         {
             IRoom room = LibraryBalcony();
-            INonPlayerCharacter npc = LibaryPatron();
+            INonPlayerCharacter npc = LibaryPatron(room);
             room.AddMobileObjectToRoom(npc);
             npc.Room = room;
 
@@ -629,33 +626,31 @@ namespace GenerateZones.Zones
 
         private IRoom LibraryStairs()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The spiral stairs are well worn with age and use.";
-            room.LookDescription = "While there are no books in this part of the library it has seen its fair use of traffic as well.";
-            room.ShortDescription = "Spiral Staircase";
+            string examineDescription = "The spiral stairs are well worn with age and use.";
+            string lookDescription = "While there are no books in this part of the library it has seen its fair use of traffic as well.";
+            string shortDescription = "Spiral Staircase";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             return room;
         }
 
         private IRoom LibraryBalcony()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "You look around the room but are drawn back to the balcony and its simple beauty.";
-            room.LookDescription = "There are books up here but the true prize is the balcony over looking the library below and the arched dome above.";
-            room.ShortDescription = "Library Balcony";
+            string examineDescription = "You look around the room but are drawn back to the balcony and its simple beauty.";
+            string lookDescription = "There are books up here but the true prize is the balcony over looking the library below and the arched dome above.";
+            string shortDescription = "Library Balcony";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             return room;
         }
 
-        private INonPlayerCharacter LibaryPatron()
+        private INonPlayerCharacter LibaryPatron(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 2);
-            npc.Personalities.Add(new Wanderer());
+            string examineDescription = "The library patron is carrying a stack of {BookCount} books.";
+            string lookDescription = "The library patron glances at you and smiles then returns to looking for the next book on their list.";
+            string sentenceDescription = "A library patron";
+            string shortDescription = "The library patron is wandering around the library looking for another book to read.";
 
-            npc.ExamineDescription = "The library patron is carrying a stack of {BookCount} books.";
-            npc.LookDescription = "The library patron glances at you and smiles then returns to looking for the next book on their list.";
-            npc.ShortDescription = "The library patron is wandering around the library looking for another book to read.";
-            npc.SentenceDescription = "A library patron";
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 2);
+            npc.Personalities.Add(new Wanderer());
             npc.KeyWords.Add("library");
             npc.KeyWords.Add("patron");
 
