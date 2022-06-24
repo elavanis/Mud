@@ -49,41 +49,37 @@ namespace GenerateZones.Zones.UnderGrandView
         #region Rooms
         private IRoom GenerateRoom1()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Upon closer inspection the few spots that have not been eaten indicate this was a fine piece of furniture but now its only use is firewood.";
-            room.LookDescription = "Remnants of a wooden chair have been gnawed on by animals to the point that it hard to tell what it once was.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Upon closer inspection the few spots that have not been eaten indicate this was a fine piece of furniture but now its only use is firewood.";
+            string lookDescription = "Remnants of a wooden chair have been gnawed on by animals to the point that it hard to tell what it once was.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom2()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Near the clay pieces are the remnants of some wood.  Perhaps maybe this was a cupboard that fell over spilling the clay vessels onto the floor.";
-            room.LookDescription = "Broken pieces of clay lay shattered on the floor.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Near the clay pieces are the remnants of some wood.  Perhaps maybe this was a cupboard that fell over spilling the clay vessels onto the floor.";
+            string lookDescription = "Broken pieces of clay lay shattered on the floor.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom3()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The straw matts are torn and tattered and generally decayed but you can tell what they once were.";
-            room.LookDescription = "Straw matts lay on the floor in this corner of the room.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The straw matts are torn and tattered and generally decayed but you can tell what they once were.";
+            string lookDescription = "Straw matts lay on the floor in this corner of the room.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom4()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
-            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
-            room.ShortDescription = "Shimmering Pool";
+            string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            string shortDescription = "Shimmering Pool";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(RunicStatue());
 
@@ -91,21 +87,19 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom5()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
-            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
-            room.ShortDescription = "Shimmering Pool";
+            string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            string shortDescription = "Shimmering Pool";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom6()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
-            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
-            room.ShortDescription = "Shimmering Pool";
+            string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            string shortDescription = "Shimmering Pool";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(RunicStatue());
 
@@ -113,51 +107,46 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom7()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The collapsed wall once had a colorful mosaic on it but has crumbled beyond any home of recognition now.";
-            room.LookDescription = "Part of the wall has collapsed here making the turn here more difficult to navigate.  Still the path is navigable allowing you to continue on.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The collapsed wall once had a colorful mosaic on it but has crumbled beyond any home of recognition now.";
+            string lookDescription = "Part of the wall has collapsed here making the turn here more difficult to navigate.  Still the path is navigable allowing you to continue on.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom8()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Along the edge of the wall on the floor you can see what looks like dried up flower petals.  It would seem that these used to be flowers adjoining the walls.";
-            room.LookDescription = "Long dead vines still cling to a lattice on the walls.  They were well maintained in the day and were sure to add some color to the place but now they are just dry and rotting.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Along the edge of the wall on the floor you can see what looks like dried up flower petals.  It would seem that these used to be flowers adjoining the walls.";
+            string lookDescription = "Long dead vines still cling to a lattice on the walls.  They were well maintained in the day and were sure to add some color to the place but now they are just dry and rotting.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom9()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Some rusted hinges still cling to the stone entry way.  The wooden door is gone but the latch sits strewn on the ground nearby.";
-            room.LookDescription = "This looks like it might have been the entry way to a house at one point.  Stone tiles are on the floor to give it a entrance feel.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Some rusted hinges still cling to the stone entry way.  The wooden door is gone but the latch sits strewn on the ground nearby.";
+            string lookDescription = "This looks like it might have been the entry way to a house at one point.  Stone tiles are on the floor to give it a entrance feel.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom10()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "A medium size patch of moss has taken up residence near where the water drips from the ceiling above.  It is soft and green very inviting asking you to curl up on it and drift off to the sound of water dripping.";
-            room.LookDescription = "Drops of water occasionally fall onto what is left of a cooking hearth.  The ceiling above has a hole cut out where the smoke would rise up but no light can be seen filtering down from it.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "A medium size patch of moss has taken up residence near where the water drips from the ceiling above.  It is soft and green very inviting asking you to curl up on it and drift off to the sound of water dripping.";
+            string lookDescription = "Drops of water occasionally fall onto what is left of a cooking hearth.  The ceiling above has a hole cut out where the smoke would rise up but no light can be seen filtering down from it.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom11()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "This area would have been close to the fire.  Perhaps it was used for sleeping.  The animal skins might have been furs for sleeping.";
-            room.LookDescription = "Tatters of old animal furs lie on the floor.  At one time these would have kept a person warm but now they serve little purpose.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "This area would have been close to the fire.  Perhaps it was used for sleeping.  The animal skins might have been furs for sleeping.";
+            string lookDescription = "Tatters of old animal furs lie on the floor.  At one time these would have kept a person warm but now they serve little purpose.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
             room.AddItemToRoom(AnimalSkins());
             room.AddItemToRoom(AnimalSkins());
 
@@ -165,48 +154,44 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom12()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
-            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
-            room.ShortDescription = "Shimmering Pool";
+            string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            string shortDescription = "Shimmering Pool";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom13()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "While you can scoop up the white shimmering liquid it does not feel wet and does not cling to you like water does.";
-            room.LookDescription = "The liquid comes up to your waist and feels warmer than the cool dungeon.";
-            room.ShortDescription = "Shimmering Pool";
+            string examineDescription = "While you can scoop up the white shimmering liquid it does not feel wet and does not cling to you like water does.";
+            string lookDescription = "The liquid comes up to your waist and feels warmer than the cool dungeon.";
+            string shortDescription = "Shimmering Pool";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom14()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
-            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
-            room.ShortDescription = "Shimmering Pool";
+            string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            string shortDescription = "Shimmering Pool";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom15()
         {
-            IRoom room = IndoorRoomNoLight();
+            string examineDescription = "The doors seem to be in surprising good condition for all the dampness in this tunnel.";
+            string lookDescription = "Once a large wooden pair of doors blocked the way to the west but have since fallen onto the floor.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
-            room.ExamineDescription = "The doors seem to be in surprising good condition for all the dampness in this tunnel.";
-            room.LookDescription = "Once a large wooden pair of doors blocked the way to the west but have since fallen onto the floor.";
-            room.ShortDescription = "Underground cavern";
-
-            IItem door = CreateItem<IItem>();
+            examineDescription = "As you approach the doors a soft blue light sputters and dies.  It repeats itself over and over.  As you move around the glowing follows you.  It is like some type of magic was cast on the door but with time has faded away.";
+            lookDescription = "The doors are in surprising good condition for having spent such a long time on a damp tunnel floor.";
+            string sentenceDescription = "doors";
+            shortDescription = "A pair of large wooden doors have fallen off their hinges and lie on the floor.";
+            IItem door = CreateItem<IItem>(examineDescription, lookDescription, sentenceDescription, shortDescription);
             door.Attributes.Add(Item.ItemAttribute.NoGet);
-            door.ExamineDescription = "As you approach the doors a soft blue light sputters and dies.  It repeats itself over and over.  As you move around the glowing follows you.  It is like some type of magic was cast on the door but with time has faded away.";
-            door.LookDescription = "The doors are in surprising good condition for having spent such a long time on a damp tunnel floor.";
-            door.SentenceDescription = "doors";
-            door.ShortDescription = "A pair of large wooden doors have fallen off their hinges and lie on the floor.";
             door.KeyWords.Add("door");
 
             room.AddItemToRoom(door);
@@ -215,71 +200,64 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom16()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Climbing up the collapsed ceiling rocks you can see up into the hole ten or so feet but nothing of interest is there.";
-            room.LookDescription = "A large part of the ceiling has fallen in on the north side of the tunnel.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Climbing up the collapsed ceiling rocks you can see up into the hole ten or so feet but nothing of interest is there.";
+            string lookDescription = "A large part of the ceiling has fallen in on the north side of the tunnel.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom17()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The ceiling has only a few tiles left as most have fallen to the ground over time.";
-            room.LookDescription = "Small bits of mosaic tiles litter the floor.  Most have been broken with the fall and by underfoot of people who have traveled down here.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The ceiling has only a few tiles left as most have fallen to the ground over time.";
+            string lookDescription = "Small bits of mosaic tiles litter the floor.  Most have been broken with the fall and by underfoot of people who have traveled down here.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom18()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The dome seems to indicate at one point this cavern use to be on the surface and allowed sun light through during the day.";
-            room.LookDescription = "A large crystal dome still stands defiantly against the crushing weight of dirt above.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The dome seems to indicate at one point this cavern use to be on the surface and allowed sun light through during the day.";
+            string lookDescription = "A large crystal dome still stands defiantly against the crushing weight of dirt above.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom19()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Dropping a small stone down the hole you count, 1, 2, 3, 4, 5.  The splash echoes up the hole and around the cavern.";
-            room.LookDescription = "A hole has been dug into the stone floor.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Dropping a small stone down the hole you count, 1, 2, 3, 4, 5.  The splash echoes up the hole and around the cavern.";
+            string lookDescription = "A hole has been dug into the stone floor.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom20()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "It is hard to tell what this wall was for.  It was only two feet tall so maybe a small cage or storage area.";
-            room.LookDescription = "A small bit of a stone wall remains creating a corner.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "It is hard to tell what this wall was for.  It was only two feet tall so maybe a small cage or storage area.";
+            string lookDescription = "A small bit of a stone wall remains creating a corner.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom21()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The bones have not been disturbed for many years but non the less time has not been kind to them making it impossible to tell what they one belonged to.";
-            room.LookDescription = "A few animal bones lay in the corner of what appears to once have been an animal pen.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The bones have not been disturbed for many years but non the less time has not been kind to them making it impossible to tell what they one belonged to.";
+            string lookDescription = "A few animal bones lay in the corner of what appears to once have been an animal pen.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom22()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
-            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
-            room.ShortDescription = "Shimmering Pool";
+            string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            string shortDescription = "Shimmering Pool";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(RunicStatue());
 
@@ -287,21 +265,19 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom23()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
-            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
-            room.ShortDescription = "Shimmering Pool";
+            string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            string shortDescription = "Shimmering Pool";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom24()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
-            room.LookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
-            room.ShortDescription = "Shimmering Pool";
+            string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
+            string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
+            string shortDescription = "Shimmering Pool";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(RunicButton());
 
@@ -309,41 +285,37 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom25()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The tapestries each have a silver emblem of a star and moon.";
-            room.LookDescription = "A pair of purple tapestries line the walls of the hallway.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The tapestries each have a silver emblem of a star and moon.";
+            string lookDescription = "A pair of purple tapestries line the walls of the hallway.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom26()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The tapestries each have a gold emblem of a pair of minotaurs with a tree between them.";
-            room.LookDescription = "A pair of red tapestries line the walls of the hallway.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The tapestries each have a gold emblem of a pair of minotaurs with a tree between them.";
+            string lookDescription = "A pair of red tapestries line the walls of the hallway.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom27()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
-            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
+            string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom28()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The platform has four steps each narrower then the one beneath it.";
-            room.LookDescription = "A large oversized gold throne sits upon an elevated platform.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The platform has four steps each narrower then the one beneath it.";
+            string lookDescription = "A large oversized gold throne sits upon an elevated platform.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(Throne());
 
@@ -351,440 +323,397 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom29()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
-            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
+            string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom30()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The point of the archway has a keystone that holds the whole thing in place.";
-            room.LookDescription = "White stone archways rise from floor to a point in the ceiling.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The point of the archway has a keystone that holds the whole thing in place.";
+            string lookDescription = "White stone archways rise from floor to a point in the ceiling.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom31()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "An elaborate door way extends to the east.";
-            room.LookDescription = "The area is decorated with murals painted on the walls and there are some stone seats built up from the floor here.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "An elaborate door way extends to the east.";
+            string lookDescription = "The area is decorated with murals painted on the walls and there are some stone seats built up from the floor here.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom32()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The stone statues appear to have been carved in place from the existing rock.";
-            room.LookDescription = "Stone statues of minotaurs rise thirty feet in the air crossing battle axes above your head.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The stone statues appear to have been carved in place from the existing rock.";
+            string lookDescription = "Stone statues of minotaurs rise thirty feet in the air crossing battle axes above your head.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom33()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The stone statues appear to have been carved in place from the existing rock.";
-            room.LookDescription = "Stone statues of minotaurs rise thirty feet in the air crossing battle axes above your head.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The stone statues appear to have been carved in place from the existing rock.";
+            string lookDescription = "Stone statues of minotaurs rise thirty feet in the air crossing battle axes above your head.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom34()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The stone statues appear to have been carved in place from the existing rock.";
-            room.LookDescription = "Stone statues of minitoaurs rise thirty feet in the air crossing battle axes above your head.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The stone statues appear to have been carved in place from the existing rock.";
+            string lookDescription = "Stone statues of minitoaurs rise thirty feet in the air crossing battle axes above your head.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom35()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
-            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
+            string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom36()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The chandelier appears to be approximately fifteen feet across with three levels of candles.";
-            room.LookDescription = "A large iron chandelier hangs from the ceiling.  The candles have long since burned out.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The chandelier appears to be approximately fifteen feet across with three levels of candles.";
+            string lookDescription = "A large iron chandelier hangs from the ceiling.  The candles have long since burned out.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom37()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
-            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
+            string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom38()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
-            room.LookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
-            room.ShortDescription = "Underground forest";
+            string examineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
+            string lookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
+            string shortDescription = "Underground forest";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom39()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
-            room.LookDescription = "A small path through a forest stretches out before you.";
-            room.ShortDescription = "Underground forest";
+            string examineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
+            string lookDescription = "A small path through a forest stretches out before you.";
+            string shortDescription = "Underground forest";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom40()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
-            room.LookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
-            room.ShortDescription = "Underground forest";
+            string examineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
+            string lookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
+            string shortDescription = "Underground forest";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom41()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
-            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
+            string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom42()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The chandelier appears to be approximately fifteen feet across with three levels of candles.";
-            room.LookDescription = "A large iron chandelier hangs from the ceiling.  The candles have long since burned out.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The chandelier appears to be approximately fifteen feet across with three levels of candles.";
+            string lookDescription = "A large iron chandelier hangs from the ceiling.  The candles have long since burned out.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom43()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
-            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
+            string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom44()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Aside immediate damage from the cave ins from the north the hallway seems in good shape.";
-            room.LookDescription = "The hallway to the north ends a mere foot after it begins in a a collapsed ceiling.  The path to the east is also collapsing.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Aside immediate damage from the cave ins from the north the hallway seems in good shape.";
+            string lookDescription = "The hallway to the north ends a mere foot after it begins in a a collapsed ceiling.  The path to the east is also collapsing.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom45()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The one statue that still stands has an inscription. \"Sir Malculms \"The Wall\"  Lost in the battle of widows while defiantly holding back a waves of advancing orcs so his troops could escape.";
-            room.LookDescription = "Part of the north wall has caved in, held up only by one statue that did not break and has held the line.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The one statue that still stands has an inscription. \"Sir Malculms \"The Wall\"  Lost in the battle of widows while defiantly holding back a waves of advancing orcs so his troops could escape.";
+            string lookDescription = "Part of the north wall has caved in, held up only by one statue that did not break and has held the line.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom46()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The faint sound of dirt can be heard falling into water through the crack in the floor.";
-            room.LookDescription = "Small avalanches of dirt continue to slide down the mound before disappearing in a crack in the floor.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The faint sound of dirt can be heard falling into water through the crack in the floor.";
+            string lookDescription = "Small avalanches of dirt continue to slide down the mound before disappearing in a crack in the floor.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom47()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Dirt from above still occasionally falls down and one day may fill the hallway.";
-            room.LookDescription = "The ceiling to the hallway has collapsed and dirt from above has fallen in.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Dirt from above still occasionally falls down and one day may fill the hallway.";
+            string lookDescription = "The ceiling to the hallway has collapsed and dirt from above has fallen in.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom48()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The dirt from above has filled most of this cavern.  Several small tunnels lead off but most are impassable beyond a few feet.";
-            room.LookDescription = "A large mound of dirt fills the cavern.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The dirt from above has filled most of this cavern.  Several small tunnels lead off but most are impassable beyond a few feet.";
+            string lookDescription = "A large mound of dirt fills the cavern.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom49()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Each statue is carved from stone and in a regal pose.";
-            room.LookDescription = "The hallway is lined with statues of knights in their armor.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Each statue is carved from stone and in a regal pose.";
+            string lookDescription = "The hallway is lined with statues of knights in their armor.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom50()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
-            room.LookDescription = "A small path through a forest stretches out before you.";
-            room.ShortDescription = "Underground forest";
+            string examineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
+            string lookDescription = "A small path through a forest stretches out before you.";
+            string shortDescription = "Underground forest";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom51()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "Light from the sun warms your body but something is strange...  Its as if the sun never moves.";
-            room.LookDescription = "Light streams down from the sun high above on to the clearing.";
-            room.ShortDescription = "Underground forest";
+            string examineDescription = "Light from the sun warms your body but something is strange...  Its as if the sun never moves.";
+            string lookDescription = "Light streams down from the sun high above on to the clearing.";
+            string shortDescription = "Underground forest";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom52()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
-            room.LookDescription = "A small path through a forest stretches out before you.";
-            room.ShortDescription = "Underground forest";
+            string examineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
+            string lookDescription = "A small path through a forest stretches out before you.";
+            string shortDescription = "Underground forest";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom53()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom54()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom55()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom56()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
-            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
+            string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom57()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The chandelier appears to be approximately fifteen feet across with three levels of candles.";
-            room.LookDescription = "A large iron chandelier hangs from the ceiling.  The candles have long since burned out.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The chandelier appears to be approximately fifteen feet across with three levels of candles.";
+            string lookDescription = "A large iron chandelier hangs from the ceiling.  The candles have long since burned out.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom58()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
-            room.LookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
+            string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom59()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom60()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The statues lances cross just below your head such that you would need to bow slightly in reverence to enter the chamber to the south.";
-            room.LookDescription = "A pair of stone statues have lances crossed above the entrance to the chamber to the south.";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "The statues lances cross just below your head such that you would need to bow slightly in reverence to enter the chamber to the south.";
+            string lookDescription = "A pair of stone statues have lances crossed above the entrance to the chamber to the south.";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom61()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
-            room.LookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
-            room.ShortDescription = "Underground forest";
+            string examineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
+            string lookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
+            string shortDescription = "Underground forest";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom62()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
-            room.LookDescription = "A small path through a forest stretches out before you.";
-            room.ShortDescription = "Underground forest";
+            string examineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
+            string lookDescription = "A small path through a forest stretches out before you.";
+            string shortDescription = "Underground forest";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom63()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
-            room.LookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
-            room.ShortDescription = "Underground forest";
+            string examineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
+            string lookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
+            string shortDescription = "Underground forest";
+            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
         }
         private IRoom GenerateRoom64()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom65()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
-            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
-            room.ShortDescription = "Burial Chamber";
+            string examineDescription = "Sarcophagi line the walls of the chamber.";
+            string lookDescription = "A slight bit of fog covers the ground of this chamber.";
+            string shortDescription = "Burial Chamber";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom66()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
-            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
-            room.ShortDescription = "Burial Chamber";
+            string examineDescription = "Sarcophagi line the walls of the chamber.";
+            string lookDescription = "A slight bit of fog covers the ground of this chamber.";
+            string shortDescription = "Burial Chamber";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom67()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
-            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
-            room.ShortDescription = "Burial Chamber";
+            string examineDescription = "Sarcophagi line the walls of the chamber.";
+            string lookDescription = "A slight bit of fog covers the ground of this chamber.";
+            string shortDescription = "Burial Chamber";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom68()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom69()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom70()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
-            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
-            room.ShortDescription = "Burial Chamber";
+            string examineDescription = "Sarcophagi line the walls of the chamber.";
+            string lookDescription = "A slight bit of fog covers the ground of this chamber.";
+            string shortDescription = "Burial Chamber";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom71()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "The sarcophagus seems slightly out of place only because it ornately decorated while most everything else is plainly decorated.";
-            room.LookDescription = "The center of the chamber is dominated by a single sarcophagus.";
-            room.ShortDescription = "Burial Chamber";
+            string examineDescription = "The sarcophagus seems slightly out of place only because it ornately decorated while most everything else is plainly decorated.";
+            string lookDescription = "The center of the chamber is dominated by a single sarcophagus.";
+            string shortDescription = "Burial Chamber";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(Sarcophagus());
 
@@ -792,611 +721,550 @@ namespace GenerateZones.Zones.UnderGrandView
         }
         private IRoom GenerateRoom72()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
-            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
-            room.ShortDescription = "Burial Chamber";
+            string examineDescription = "Sarcophagi line the walls of the chamber.";
+            string lookDescription = "A slight bit of fog covers the ground of this chamber.";
+            string shortDescription = "Burial Chamber";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom73()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom74()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom75()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom76()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom77()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom78()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom79()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom80()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom81()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
-            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
-            room.ShortDescription = "Burial Chamber";
+            string examineDescription = "Sarcophagi line the walls of the chamber.";
+            string lookDescription = "A slight bit of fog covers the ground of this chamber.";
+            string shortDescription = "Burial Chamber";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom82()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
-            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
-            room.ShortDescription = "Burial Chamber";
+            string examineDescription = "Sarcophagi line the walls of the chamber.";
+            string lookDescription = "A slight bit of fog covers the ground of this chamber.";
+            string shortDescription = "Burial Chamber";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom83()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Sarcophagi line the walls of the chamber.";
-            room.LookDescription = "A slight bit of fog covers the ground of this chamber.";
-            room.ShortDescription = "Burial Chamber";
+            string examineDescription = "Sarcophagi line the walls of the chamber.";
+            string lookDescription = "A slight bit of fog covers the ground of this chamber.";
+            string shortDescription = "Burial Chamber";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom84()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom85()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom86()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom87()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom88()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom89()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom90()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom91()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom92()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom93()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom94()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom95()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom96()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom97()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom98()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom99()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom100()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom101()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom102()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom103()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom104()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom105()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom106()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom107()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom108()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom109()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom110()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom111()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom112()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom113()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom114()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom115()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom116()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom117()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom118()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom119()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom120()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom121()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom122()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom123()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom124()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom125()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom126()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom127()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom128()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom129()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom130()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom131()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
         private IRoom GenerateRoom132()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "";
-            room.LookDescription = "";
-            room.ShortDescription = "Underground cavern";
+            string examineDescription = "";
+            string lookDescription = "";
+            string shortDescription = "Underground cavern";
+            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1464,20 +1332,19 @@ namespace GenerateZones.Zones.UnderGrandView
 
         private IArmor AnimalSkins()
         {
-            IArmor armor = CreateArmor(Equipment.AvalableItemPosition.Body, 5, new Leather());
+            string examineDescription = "The fact that no one would want to be around you makes you reconsider but maybe you could fashion some armor out of these.  You would not be the winner of a fashion show but the amount of material required would give you decent protection if not restrict you movement some.";
+            string lookDescription = "The animal furs are tattered and give off a foul odor making them almost useless.";
+            string sentenceDescription = "animals furs";
+            string shortDescription = "A tatter of animal furs.";
+
+            IArmor armor = CreateArmor(Equipment.AvalableItemPosition.Body, 5, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.Dexterity = -2;
             armor.Charisma = -5;
-
             armor.Bludgeon = 1.5M;
             armor.Necrotic = 1.5M;
-
             armor.KeyWords.Add("animal");
             armor.KeyWords.Add("fur");
             armor.KeyWords.Add("furs");
-            armor.SentenceDescription = "animals furs";
-            armor.ShortDescription = "A tatter of animal furs.";
-            armor.LookDescription = "The animal furs are tattered and give off a foul odor making them almost useless.";
-            armor.ExamineDescription = "The fact that no one would want to be around you makes you reconsider but maybe you could fashion some armor out of these.  You would not be the winner of a fashion show but the amount of material required would give you decent protection if not restrict you movement some.";
 
             return armor;
         }
@@ -1489,7 +1356,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string sentenceDescription = "runic statue";
             string shortDescription = "A stone statue of a priest facing the pool of liquid.";
 
-            RunicStatue statue = new RunicStatue(examineDescription, lookDescription,sentenceDescription,shortDescription);
+            RunicStatue statue = new RunicStatue(examineDescription, lookDescription, sentenceDescription, shortDescription);
             statue.Zone = Zone.Id;
             statue.Id = ItemId++;
             statue.ExamineDescription = statue.CalculateExamDescription();
@@ -1504,7 +1371,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string sentenceDescription = "runic button";
             string shortDescription = "A large runic button on a stone pedestal.";
 
-            RunicButton button = new RunicButton(examineDescription, lookDescription, sentenceDescription,shortDescription);
+            RunicButton button = new RunicButton(examineDescription, lookDescription, sentenceDescription, shortDescription);
             button.Zone = Zone.Id;
             button.Id = ItemId++;
 
@@ -1562,16 +1429,18 @@ namespace GenerateZones.Zones.UnderGrandView
         #region Mobs
         private IMobileObject Skeleton()
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
+            string examineDescription = "The bones rattle slightly as they move toward you.";
+            string lookDescription = "Red beady eyes burn with rage at the desecration of their tomb.";
+            string sentenceDescription = "minotaur";
+            string shortDescription = "A minotaur skeleton.";
+
+            INonPlayerCharacter npc = new NonPlayerCharacter(null!, examineDescription, lookDescription, sentenceDescription, shortDescription);
             npc.Level = 23;
             npc.Personalities.Add(new Aggressive());
             npc.Personalities.Add(new Wanderer());
             npc.KeyWords.Add("skeleton");
             npc.KeyWords.Add("minotaur");
-            npc.SentenceDescription = "minotaur";
-            npc.ShortDescription = "A minotaur skeleton.";
-            npc.LookDescription = "Red beady eyes burn with rage at the desecration of their tomb.";
-            npc.ExamineDescription = "The bones rattle slightly as they move toward you.";
+
             return npc;
         }
         #endregion Mobs
@@ -1659,7 +1528,7 @@ namespace GenerateZones.Zones.UnderGrandView
             ZoneHelper.ConnectRoom(Zone.Rooms[57], Direction.East, Zone.Rooms[58]);
             ZoneHelper.ConnectRoom(Zone.Rooms[58], Direction.East, Zone.Rooms[59]);
             ZoneHelper.ConnectRoom(Zone.Rooms[59], Direction.South, Zone.Rooms[64]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[60], Direction.South, Zone.Rooms[66], new DoorInfo("stone", "", true, "The stone perfectly seals the entry way preventing anyone from entering or leaving.", true, true));
+            ZoneHelper.ConnectRoom(Zone.Rooms[60], Direction.South, Zone.Rooms[66], new DoorInfo("stone", "", "", true, "The stone perfectly seals the entry way preventing anyone from entering or leaving.", true, true));
             ZoneHelper.ConnectRoom(Zone.Rooms[61], Direction.East, Zone.Rooms[62]);
             ZoneHelper.ConnectRoom(Zone.Rooms[62], Direction.East, Zone.Rooms[63]);
             ZoneHelper.ConnectRoom(Zone.Rooms[62], Direction.South, Zone.Rooms[68]);
