@@ -38,7 +38,7 @@ namespace GenerateZones.Zones
             string examineDescription = "It is hard to judge the full size of the coliseum from the ground.  The coliseum extends as far as the eye can see to the north and south and towers above you to the east.";
             string lookDescription = "The coliseum towers far dizzily above you.  Different color pennant are affixed to poles going around the top of the coliseum.  From down here it is hard to see what is on them.";
             string shortDescription = "Before the coliseum.";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 5);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 5);
 
             INonPlayerCharacter ticketVendor = TicketVendor(room);
             room.AddMobileObjectToRoom(ticketVendor);
@@ -71,7 +71,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The coliseum is built out of massive limestones. Some of the stones are staggering and baffle the imagination causing you to wonder how this was built in the first place.";
             string lookDescription = "You stand in the entrance to the coliseum.  To the east you can see the arena floor.  Down you can see stairs leading beneath the arena where the gladiators prepare.";
             string shortDescription = "Entrance to the coliseum";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             return room;
@@ -82,7 +82,7 @@ namespace GenerateZones.Zones
             string examineDescription = "While the smell of smoke is strong you can start to make out the smells of animals used in the gladiatorial fights.  You can hear the sounds of lions, tigers and bears off in the distance.";
             string lookDescription = "The air quickly turns smoky as torches are the sole source of light the area under the coliseum.";
             string shortDescription = "Beneath the coliseum";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             INonPlayerCharacter guildMaster = GladiatorGuildMaster(room);
@@ -111,7 +111,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The ladder is made of brass rings attached to a single pole that runs the height of the room.";
             string lookDescription = "This part of the coliseum basement only has two exits. A ladder leading up or a path leading back to the rest of the basement.";
             string shortDescription = "Beneath the coliseum";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             return room;
@@ -124,7 +124,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far north west corner of the arena.  To the south east you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The wall of the arena made to look like a castle is to the north.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -143,7 +143,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far north of the arena.  To the south you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The wall of the arena made to look like a castle is to the north.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -161,7 +161,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far north of the arena.  To the south you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
 
             List<string> arenaExamine = new List<string>() { "The wall of the arena made to look like a castle gate is to the north.  You think back to \"Battle\" which was more of a slaughter as the king forced the peasants to defend the city.",
@@ -179,7 +179,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far north of the arena.  To the south you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The wall of the arena made to look like a castle is to the north.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -197,7 +197,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far north east of the arena.  To the south west you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The wall of the arena made to look like a castle is to the north.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -215,7 +215,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far west of the arena.  To the east you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             INonPlayerCharacter arenaMob = ArenaMob(room);
             room.AddMobileObjectToRoom(arenaMob);
@@ -237,7 +237,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             INonPlayerCharacter arenaMob = ArenaMob(room);
             room.AddMobileObjectToRoom(arenaMob);
@@ -263,7 +263,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -281,7 +281,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -299,7 +299,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far east of the arena.  To the west you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -317,7 +317,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far west of the arena.  To the east you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -335,7 +335,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             INonPlayerCharacter arenaMob = ArenaMob(room);
             room.AddMobileObjectToRoom(arenaMob);
@@ -357,7 +357,7 @@ namespace GenerateZones.Zones
             string examineDescription = "From down here the arena floor looks much bigger but also more dangerous.";
             string lookDescription = "You stand at the center of the arena floor with the arena extending in a all directions.  Beyond the arena floor the stadium seats extend upward almost out of sight.";
             string shortDescription = "Center of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             return room;
         }
@@ -367,7 +367,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -385,7 +385,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far east of the arena.  To the west you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -403,7 +403,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far west of the arena.  To the east you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -421,7 +421,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -439,7 +439,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -457,7 +457,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand in the middle of the arena.  All around you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             INonPlayerCharacter arenaMob = ArenaMob(room);
             room.AddMobileObjectToRoom(arenaMob);
@@ -479,7 +479,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far east of the arena.  To the west you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -497,7 +497,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far south west of the arena.  To the north east you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -515,7 +515,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far south of the arena.  To the north you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -533,7 +533,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far south of the arena.  To the north you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -551,7 +551,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far south of the arena.  To the north you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "The battlefield grass is a luscious green.  The arena workers did a good job of recreating the fertile lands of Nulst.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -569,7 +569,7 @@ namespace GenerateZones.Zones
             string examineDescription = "{ArenaExamine}";
             string lookDescription = "You stand at the far south east of the arena.  To the north west you can see {ArenaLong}.";
             string shortDescription = "Inside of the coliseum arena";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 2);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription, 2);
 
             List<string> arenaExamine = new List<string>() { "Broken swords and spears are strewn here and there amongst the bodies.",
                                                                 "Waist high grass covers the area here making it hard to see if anything might be hiding in wait." };
@@ -686,7 +686,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The arena seats are made of white marble that shine in the sun and glow in the moonlight.";
             string lookDescription = "The height of the seating in this area is about perfect.  You can see the entire arena while making out the participants.";
             string shortDescription = "Arena seating";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 
@@ -745,7 +745,7 @@ namespace GenerateZones.Zones
             string examineDescription = "You can see why the King and Queen have seats here.  This is by far the best seats in the house.";
             string lookDescription = "The King and Queens thrown's are here overlooking the arena floor below.";
             string shortDescription = "Box seating";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             return room;
@@ -756,7 +756,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The nose bleed arena seats are made of wood.  At least they don't have splinters.";
             string lookDescription = "The nose bleed section of the arena is a bit high to see anything but when the arena is full the energy of the crowd makes this a good seat.";
             string shortDescription = "Nose bleed seating";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 

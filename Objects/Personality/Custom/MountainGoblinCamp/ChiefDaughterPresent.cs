@@ -16,7 +16,7 @@ namespace Objects.Personality.Custom.MountainGoblinCamp
             {
                 foreach (INonPlayerCharacter otherNpc in npc.Room.NonPlayerCharacters)
                 {
-                    if (otherNpc.Zone == 23 && otherNpc.Id == 10)  //chief daughter info
+                    if (otherNpc.ZoneId == 23 && otherNpc.Id == 10)  //chief daughter info
                     {
                         if (otherNpc.FollowTarget != null) //don't keep giving the reward over and over
                         {

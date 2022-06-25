@@ -36,7 +36,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "Faint humming sounds can be heard from below.";
             string lookDescription = "Stairs descend downward into the darkness of the of the temple.";
             string shortDescription = "Charon Temple";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -46,7 +46,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
             string lookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
             string shortDescription = "Charon Temple";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -56,7 +56,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
             string lookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
             string shortDescription = "Charon Temple";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -66,7 +66,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
             string lookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
             string shortDescription = "Charon Temple";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -76,7 +76,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "A small shrine has been setup next to the dock.";
             string lookDescription = "There is dock extending twenty or thirty feet into a river that extends into the darkness.";
             string shortDescription = "Charon Temple";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(Shrine());
 
@@ -89,8 +89,8 @@ namespace GenerateZones.Zones.GrandView
             string lookDescription = "The shrine is make of old wooden boat planks.";
             string sentenceDescription = "shrine";
             string shortDescription = "The shrine has a small lantern lit in the center of the wooden shrine.";
-            IItem shrine = CreateItem<IItem>(examineDescription, lookDescription, sentenceDescription, shortDescription);
-            shrine.Zone = Zone.Id;
+            IItem shrine = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            shrine.ZoneId = Zone.Id;
             shrine.SentenceDescription = "shrine";
             shrine.KeyWords.Add("shrine");
 
@@ -102,7 +102,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "In the center of the circle is a statue of Charon guiding his boat down the river with his mighty oar.";
             string lookDescription = "A small circle has been drawn in chalk on the cave floor.";
             string shortDescription = "Charon Temple";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             for (int i = 0; i < 8; i++)
             {

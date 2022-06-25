@@ -46,7 +46,7 @@ namespace GenerateZones.Zones
             string lookDescription = "The entrance to the library is a sandstone entry way.  The ceiling is domed and has \"Cave ab homine unius libri.\" written on it.  The floor is a mosaic of the surrounding lands.";
             string shortDescription = "Entrance to the great library";
 
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
             return room;
         }
@@ -81,7 +81,7 @@ namespace GenerateZones.Zones
             string examineDescription = "This corner of the library is used by the wizards as their guild hall.  Scrolls and books are scattered about with stacks ranging from a few feet to as hight as the ceiling.";
             string lookDescription = "This corner of the basement is designated as the wizards guild.  Dimly lit candles burn at desks with scrolls inviting practitioners of magic to learn something new.";
             string shortDescription = "Library Basement";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             INonPlayerCharacter guildMaster = WizardGuildMaster(room);
 
@@ -320,7 +320,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The stairs are eerily quiet, to quiet to be exact.  Perhaps since it is a library there is some magic that helps maintain the quietness.";
             string lookDescription = "Worn stone steps connect the basement to the entrance of the library.";
             string shortDescription = "Basement Stairs";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 
@@ -329,7 +329,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The books are quite dusty from being in the basement for so long but the cool temperature has helped preserve the oldest ones.";
             string lookDescription = "Piles of books are strewn across the floor here and there.";
             string shortDescription = "Library Basement";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 
@@ -531,7 +531,7 @@ namespace GenerateZones.Zones
         {
             string shortDescription = "Library shelves";
             
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 
@@ -540,7 +540,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The tables are strong and well built with many chairs on either side.  The tables sits on a pure white stone floor causing you to double check you didn't track anything into the library.";
             string lookDescription = "Two large tables stretch from the west to east shelves filling up most of the room except for a center isle.";
             string shortDescription = "Library tables";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 
@@ -629,7 +629,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The spiral stairs are well worn with age and use.";
             string lookDescription = "While there are no books in this part of the library it has seen its fair use of traffic as well.";
             string shortDescription = "Spiral Staircase";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 
@@ -638,7 +638,7 @@ namespace GenerateZones.Zones
             string examineDescription = "You look around the room but are drawn back to the balcony and its simple beauty.";
             string lookDescription = "There are books up here but the true prize is the balcony over looking the library below and the arched dome above.";
             string shortDescription = "Library Balcony";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 

@@ -148,7 +148,7 @@ namespace GenerateZones.Zones
 
         private IRoom BelowDeck(string examineDescription, string lookDescription, string shortDescription)
         {
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Enchantments.Add(FireDamage());
 
             return room;
@@ -172,7 +172,7 @@ namespace GenerateZones.Zones
 
         private IRoom OnDeck(string examineDescription, string lookDescription, string shortDescription)
         {
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(RoomAttribute.Light);
             room.Enchantments.Add(DragonBreath());
 

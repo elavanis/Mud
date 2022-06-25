@@ -58,7 +58,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             gameDateTime = new Mock<IGameDateTime>();
 
             npc.Setup(e => e.Room).Returns(room.Object);
-            room.Setup(e => e.Zone).Returns(24);
+            room.Setup(e => e.ZoneId).Returns(24);
             room.Setup(e => e.Id).Returns(22);
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "queens guard")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "King")).Returns(new List<INonPlayerCharacter>() { npc.Object });

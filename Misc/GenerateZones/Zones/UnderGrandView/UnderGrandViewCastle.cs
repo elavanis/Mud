@@ -52,7 +52,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Upon closer inspection the few spots that have not been eaten indicate this was a fine piece of furniture but now its only use is firewood.";
             string lookDescription = "Remnants of a wooden chair have been gnawed on by animals to the point that it hard to tell what it once was.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -61,7 +61,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Near the clay pieces are the remnants of some wood.  Perhaps maybe this was a cupboard that fell over spilling the clay vessels onto the floor.";
             string lookDescription = "Broken pieces of clay lay shattered on the floor.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -70,7 +70,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The straw matts are torn and tattered and generally decayed but you can tell what they once were.";
             string lookDescription = "Straw matts lay on the floor in this corner of the room.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -79,7 +79,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
             string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             string shortDescription = "Shimmering Pool";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(RunicStatue());
 
@@ -90,7 +90,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
             string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             string shortDescription = "Shimmering Pool";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -99,7 +99,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
             string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             string shortDescription = "Shimmering Pool";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(RunicStatue());
 
@@ -110,7 +110,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The collapsed wall once had a colorful mosaic on it but has crumbled beyond any home of recognition now.";
             string lookDescription = "Part of the wall has collapsed here making the turn here more difficult to navigate.  Still the path is navigable allowing you to continue on.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -119,7 +119,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Along the edge of the wall on the floor you can see what looks like dried up flower petals.  It would seem that these used to be flowers adjoining the walls.";
             string lookDescription = "Long dead vines still cling to a lattice on the walls.  They were well maintained in the day and were sure to add some color to the place but now they are just dry and rotting.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -128,7 +128,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Some rusted hinges still cling to the stone entry way.  The wooden door is gone but the latch sits strewn on the ground nearby.";
             string lookDescription = "This looks like it might have been the entry way to a house at one point.  Stone tiles are on the floor to give it a entrance feel.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -137,7 +137,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "A medium size patch of moss has taken up residence near where the water drips from the ceiling above.  It is soft and green very inviting asking you to curl up on it and drift off to the sound of water dripping.";
             string lookDescription = "Drops of water occasionally fall onto what is left of a cooking hearth.  The ceiling above has a hole cut out where the smoke would rise up but no light can be seen filtering down from it.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -146,7 +146,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "This area would have been close to the fire.  Perhaps it was used for sleeping.  The animal skins might have been furs for sleeping.";
             string lookDescription = "Tatters of old animal furs lie on the floor.  At one time these would have kept a person warm but now they serve little purpose.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.AddItemToRoom(AnimalSkins());
             room.AddItemToRoom(AnimalSkins());
 
@@ -157,7 +157,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
             string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             string shortDescription = "Shimmering Pool";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -166,7 +166,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "While you can scoop up the white shimmering liquid it does not feel wet and does not cling to you like water does.";
             string lookDescription = "The liquid comes up to your waist and feels warmer than the cool dungeon.";
             string shortDescription = "Shimmering Pool";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -175,7 +175,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
             string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             string shortDescription = "Shimmering Pool";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -184,13 +184,13 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The doors seem to be in surprising good condition for all the dampness in this tunnel.";
             string lookDescription = "Once a large wooden pair of doors blocked the way to the west but have since fallen onto the floor.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             examineDescription = "As you approach the doors a soft blue light sputters and dies.  It repeats itself over and over.  As you move around the glowing follows you.  It is like some type of magic was cast on the door but with time has faded away.";
             lookDescription = "The doors are in surprising good condition for having spent such a long time on a damp tunnel floor.";
             string sentenceDescription = "doors";
             shortDescription = "A pair of large wooden doors have fallen off their hinges and lie on the floor.";
-            IItem door = CreateItem<IItem>(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            IItem door = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             door.Attributes.Add(Item.ItemAttribute.NoGet);
             door.KeyWords.Add("door");
 
@@ -203,7 +203,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Climbing up the collapsed ceiling rocks you can see up into the hole ten or so feet but nothing of interest is there.";
             string lookDescription = "A large part of the ceiling has fallen in on the north side of the tunnel.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -212,7 +212,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The ceiling has only a few tiles left as most have fallen to the ground over time.";
             string lookDescription = "Small bits of mosaic tiles litter the floor.  Most have been broken with the fall and by underfoot of people who have traveled down here.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -221,7 +221,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The dome seems to indicate at one point this cavern use to be on the surface and allowed sun light through during the day.";
             string lookDescription = "A large crystal dome still stands defiantly against the crushing weight of dirt above.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -230,7 +230,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Dropping a small stone down the hole you count, 1, 2, 3, 4, 5.  The splash echoes up the hole and around the cavern.";
             string lookDescription = "A hole has been dug into the stone floor.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -239,7 +239,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "It is hard to tell what this wall was for.  It was only two feet tall so maybe a small cage or storage area.";
             string lookDescription = "A small bit of a stone wall remains creating a corner.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -248,7 +248,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The bones have not been disturbed for many years but non the less time has not been kind to them making it impossible to tell what they one belonged to.";
             string lookDescription = "A few animal bones lay in the corner of what appears to once have been an animal pen.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -257,7 +257,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
             string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             string shortDescription = "Shimmering Pool";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(RunicStatue());
 
@@ -268,7 +268,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
             string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             string shortDescription = "Shimmering Pool";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -277,7 +277,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The white shimmering liquid cast reflections on to chamber wall creating dancing lines sparkle to and fro.";
             string lookDescription = "A shimmering pool of white glowing liquid fills the room with light.";
             string shortDescription = "Shimmering Pool";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(RunicButton());
 
@@ -288,7 +288,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The tapestries each have a silver emblem of a star and moon.";
             string lookDescription = "A pair of purple tapestries line the walls of the hallway.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -297,7 +297,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The tapestries each have a gold emblem of a pair of minotaurs with a tree between them.";
             string lookDescription = "A pair of red tapestries line the walls of the hallway.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -306,7 +306,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
             string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -315,7 +315,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The platform has four steps each narrower then the one beneath it.";
             string lookDescription = "A large oversized gold throne sits upon an elevated platform.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(Throne());
 
@@ -326,7 +326,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
             string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -335,7 +335,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The point of the archway has a keystone that holds the whole thing in place.";
             string lookDescription = "White stone archways rise from floor to a point in the ceiling.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -344,7 +344,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "An elaborate door way extends to the east.";
             string lookDescription = "The area is decorated with murals painted on the walls and there are some stone seats built up from the floor here.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -353,7 +353,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The stone statues appear to have been carved in place from the existing rock.";
             string lookDescription = "Stone statues of minotaurs rise thirty feet in the air crossing battle axes above your head.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -362,7 +362,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The stone statues appear to have been carved in place from the existing rock.";
             string lookDescription = "Stone statues of minotaurs rise thirty feet in the air crossing battle axes above your head.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -371,7 +371,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The stone statues appear to have been carved in place from the existing rock.";
             string lookDescription = "Stone statues of minitoaurs rise thirty feet in the air crossing battle axes above your head.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -380,7 +380,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
             string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -389,7 +389,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The chandelier appears to be approximately fifteen feet across with three levels of candles.";
             string lookDescription = "A large iron chandelier hangs from the ceiling.  The candles have long since burned out.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -398,7 +398,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
             string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -407,7 +407,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
             string lookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
             string shortDescription = "Underground forest";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
@@ -417,7 +417,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
             string lookDescription = "A small path through a forest stretches out before you.";
             string shortDescription = "Underground forest";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
@@ -427,7 +427,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
             string lookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
             string shortDescription = "Underground forest";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
@@ -437,7 +437,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
             string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -446,7 +446,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The chandelier appears to be approximately fifteen feet across with three levels of candles.";
             string lookDescription = "A large iron chandelier hangs from the ceiling.  The candles have long since burned out.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -455,7 +455,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
             string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -464,7 +464,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Aside immediate damage from the cave ins from the north the hallway seems in good shape.";
             string lookDescription = "The hallway to the north ends a mere foot after it begins in a a collapsed ceiling.  The path to the east is also collapsing.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -473,7 +473,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The one statue that still stands has an inscription. \"Sir Malculms \"The Wall\"  Lost in the battle of widows while defiantly holding back a waves of advancing orcs so his troops could escape.";
             string lookDescription = "Part of the north wall has caved in, held up only by one statue that did not break and has held the line.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -482,7 +482,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The faint sound of dirt can be heard falling into water through the crack in the floor.";
             string lookDescription = "Small avalanches of dirt continue to slide down the mound before disappearing in a crack in the floor.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -491,7 +491,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Dirt from above still occasionally falls down and one day may fill the hallway.";
             string lookDescription = "The ceiling to the hallway has collapsed and dirt from above has fallen in.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -500,7 +500,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The dirt from above has filled most of this cavern.  Several small tunnels lead off but most are impassable beyond a few feet.";
             string lookDescription = "A large mound of dirt fills the cavern.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -509,7 +509,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Each statue is carved from stone and in a regal pose.";
             string lookDescription = "The hallway is lined with statues of knights in their armor.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -518,7 +518,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
             string lookDescription = "A small path through a forest stretches out before you.";
             string shortDescription = "Underground forest";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
@@ -528,7 +528,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Light from the sun warms your body but something is strange...  Its as if the sun never moves.";
             string lookDescription = "Light streams down from the sun high above on to the clearing.";
             string shortDescription = "Underground forest";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
@@ -538,7 +538,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
             string lookDescription = "A small path through a forest stretches out before you.";
             string shortDescription = "Underground forest";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
@@ -548,7 +548,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -557,7 +557,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -566,7 +566,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -575,7 +575,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
             string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -584,7 +584,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The chandelier appears to be approximately fifteen feet across with three levels of candles.";
             string lookDescription = "A large iron chandelier hangs from the ceiling.  The candles have long since burned out.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -593,7 +593,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Each pillar while plain in design is ornately decorated with embedded gems and metals causing it to sparkle and flash as you look examine it.";
             string lookDescription = "A row of stone pillars run north and south supporting the massive chamber's ceiling.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -602,7 +602,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -611,7 +611,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The statues lances cross just below your head such that you would need to bow slightly in reverence to enter the chamber to the south.";
             string lookDescription = "A pair of stone statues have lances crossed above the entrance to the chamber to the south.";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -620,7 +620,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
             string lookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
             string shortDescription = "Underground forest";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
@@ -630,7 +630,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Large trees reach up toward the sky with there leaves forming a perfect canopy on either side of you.";
             string lookDescription = "A small path through a forest stretches out before you.";
             string shortDescription = "Underground forest";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
@@ -640,7 +640,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "It is only upon closer inspection that you notice these trees are stone.  Who ever carved them did an magnificent job of making the stone life like.  Each leave is intricately carved with veins and delicately painted.  Each piece of bark looks and feels like real wood save the coldness of the stone.";
             string lookDescription = "Each tree extends up twenty or thirty feet into the air before exploding into a massive green canopy of leaves.";
             string shortDescription = "Underground forest";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Sounds.Add(BirdsSound());
 
             return room;
@@ -650,7 +650,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -659,7 +659,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Sarcophagi line the walls of the chamber.";
             string lookDescription = "A slight bit of fog covers the ground of this chamber.";
             string shortDescription = "Burial Chamber";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -668,7 +668,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Sarcophagi line the walls of the chamber.";
             string lookDescription = "A slight bit of fog covers the ground of this chamber.";
             string shortDescription = "Burial Chamber";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -677,7 +677,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Sarcophagi line the walls of the chamber.";
             string lookDescription = "A slight bit of fog covers the ground of this chamber.";
             string shortDescription = "Burial Chamber";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -686,7 +686,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -695,7 +695,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -704,7 +704,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Sarcophagi line the walls of the chamber.";
             string lookDescription = "A slight bit of fog covers the ground of this chamber.";
             string shortDescription = "Burial Chamber";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -713,7 +713,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "The sarcophagus seems slightly out of place only because it ornately decorated while most everything else is plainly decorated.";
             string lookDescription = "The center of the chamber is dominated by a single sarcophagus.";
             string shortDescription = "Burial Chamber";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(Sarcophagus());
 
@@ -724,7 +724,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Sarcophagi line the walls of the chamber.";
             string lookDescription = "A slight bit of fog covers the ground of this chamber.";
             string shortDescription = "Burial Chamber";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -733,7 +733,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -742,7 +742,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -751,7 +751,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -760,7 +760,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -769,7 +769,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -778,7 +778,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -787,7 +787,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -796,7 +796,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -805,7 +805,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Sarcophagi line the walls of the chamber.";
             string lookDescription = "A slight bit of fog covers the ground of this chamber.";
             string shortDescription = "Burial Chamber";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -814,7 +814,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Sarcophagi line the walls of the chamber.";
             string lookDescription = "A slight bit of fog covers the ground of this chamber.";
             string shortDescription = "Burial Chamber";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -823,7 +823,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "Sarcophagi line the walls of the chamber.";
             string lookDescription = "A slight bit of fog covers the ground of this chamber.";
             string shortDescription = "Burial Chamber";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -832,7 +832,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -841,7 +841,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -850,7 +850,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -859,7 +859,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -868,7 +868,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -877,7 +877,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -886,7 +886,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -895,7 +895,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -904,7 +904,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -913,7 +913,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -922,7 +922,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -931,7 +931,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -940,7 +940,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -949,7 +949,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -958,7 +958,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -967,7 +967,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -976,7 +976,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -985,7 +985,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -994,7 +994,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1003,7 +1003,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1012,7 +1012,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1021,7 +1021,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1030,7 +1030,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1039,7 +1039,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1048,7 +1048,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1057,7 +1057,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1066,7 +1066,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1075,7 +1075,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1084,7 +1084,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1093,7 +1093,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1102,7 +1102,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1111,7 +1111,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1120,7 +1120,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1129,7 +1129,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1138,7 +1138,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1147,7 +1147,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1156,7 +1156,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1165,7 +1165,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1174,7 +1174,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1183,7 +1183,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1192,7 +1192,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1201,7 +1201,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1210,7 +1210,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1219,7 +1219,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1228,7 +1228,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1237,7 +1237,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1246,7 +1246,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1255,7 +1255,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1264,7 +1264,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string examineDescription = "";
             string lookDescription = "";
             string shortDescription = "Underground cavern";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -1283,9 +1283,9 @@ namespace GenerateZones.Zones.UnderGrandView
         #region Items
         private Container Sarcophagus()
         {
-            Container sarcophagus = CreateItem<Container>();
+            Container sarcophagus = CreateContainer(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
 
-            IItem money = CreateItem<Item>();
+            IItem money = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             money.Value = 1000;
             money.KeyWords.Add("coin");
             money.KeyWords.Add("coins");
@@ -1357,7 +1357,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string shortDescription = "A stone statue of a priest facing the pool of liquid.";
 
             RunicStatue statue = new RunicStatue(examineDescription, lookDescription, sentenceDescription, shortDescription);
-            statue.Zone = Zone.Id;
+            statue.ZoneId = Zone.Id;
             statue.Id = ItemId++;
             statue.ExamineDescription = statue.CalculateExamDescription();
 
@@ -1372,7 +1372,7 @@ namespace GenerateZones.Zones.UnderGrandView
             string shortDescription = "A large runic button on a stone pedestal.";
 
             RunicButton button = new RunicButton(examineDescription, lookDescription, sentenceDescription, shortDescription);
-            button.Zone = Zone.Id;
+            button.ZoneId = Zone.Id;
             button.Id = ItemId++;
 
 
@@ -1381,8 +1381,8 @@ namespace GenerateZones.Zones.UnderGrandView
 
         private IItem Throne()
         {
-            IItem button = CreateItem<Item>();
-            button.Zone = Zone.Id;
+            IItem button = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            button.ZoneId = Zone.Id;
             button.Id = ItemId++;
             button.Attributes.Add(ItemAttribute.NoGet);
 

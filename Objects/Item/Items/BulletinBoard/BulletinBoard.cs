@@ -17,7 +17,7 @@ namespace Objects.Item.Items.BulletinBoard
         {
             get
             {
-                return Path.Combine(GlobalReference.GlobalValues.Settings.BulletinBoardDirectory, $"{Zone}-{Id}.BulletinBoard");
+                return Path.Combine(GlobalReference.GlobalValues.Settings.BulletinBoardDirectory, $"{ZoneId}-{Id}.BulletinBoard");
             }
         }
 

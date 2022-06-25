@@ -24,9 +24,9 @@ namespace Objects.Effect.Zone.GrandViewGarden
                 IRoom oldRoom = mob.Room;
 
                 //only process if they are in the garden and in the other dimension
-                if (oldRoom.Zone == 11 && oldRoom.Id > 10)
+                if (oldRoom.ZoneId == 11 && oldRoom.Id > 10)
                 {
-                    IRoom newRoom = GlobalReference.GlobalValues.World.Zones[mob.Room.Zone].Rooms[mob.Room.Id - 10];
+                    IRoom newRoom = GlobalReference.GlobalValues.World.Zones[mob.Room.ZoneId].Rooms[mob.Room.Id - 10];
 
                     oldRoom.RemoveMobileObjectFromRoom(mob);
 

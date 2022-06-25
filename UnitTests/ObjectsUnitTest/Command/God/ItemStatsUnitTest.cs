@@ -94,7 +94,7 @@ namespace ObjectsUnitTest.Command.God
         {
             Mock<IItem> item = new Mock<IItem>();
             item.Setup(e => e.KeyWords).Returns(new List<string>() { "keyword" });
-            item.Setup(e => e.Zone).Returns(1);
+            item.Setup(e => e.ZoneId).Returns(1);
             item.Setup(e => e.Id).Returns(2);
             item.Setup(e => e.Level).Returns(3);
             item.Setup(e => e.Weight).Returns(4);
@@ -124,7 +124,7 @@ namespace ObjectsUnitTest.Command.God
             Mock<IShield> item = new Mock<IShield>();
             int uniqueNumber = 1;
             item.Setup(e => e.KeyWords).Returns(new List<string>() { "keyword" });
-            item.Setup(e => e.Zone).Returns(uniqueNumber++);
+            item.Setup(e => e.ZoneId).Returns(uniqueNumber++);
             item.Setup(e => e.Id).Returns(uniqueNumber++);
             item.Setup(e => e.Level).Returns(uniqueNumber++);
             item.Setup(e => e.Weight).Returns(uniqueNumber++);
@@ -187,7 +187,7 @@ namespace ObjectsUnitTest.Command.God
             Mock<IWeapon> item = new Mock<IWeapon>();
             int uniqueNumber = 1;
             item.Setup(e => e.KeyWords).Returns(new List<string>() { "keyword" });
-            item.Setup(e => e.Zone).Returns(uniqueNumber++);
+            item.Setup(e => e.ZoneId).Returns(uniqueNumber++);
             item.Setup(e => e.Id).Returns(uniqueNumber++);
             item.Setup(e => e.Level).Returns(uniqueNumber++);
             item.Setup(e => e.Weight).Returns(uniqueNumber++);

@@ -91,7 +91,7 @@ namespace GenerateZones
            
             for (int x = 0; x < 100; x++)
             {
-                IRoom room = new Room( "ExamineDescription", "LookDescription", "ShortDescription");
+                IRoom room = new Room(zone.Id, "ExamineDescription", "LookDescription", "ShortDescription");
                 room.Attributes.Add(Room.RoomAttribute.Indoor);
                 zone.Rooms.Add(room.Id, room);
 
@@ -124,7 +124,6 @@ namespace GenerateZones
             if (zone != null)
             {
                 ZoneVerify.VerifyZone(zone);
-                GlobalReference.GlobalValues.World.Zones.Add(zone.Id, zone);
 
                 Console.WriteLine(string.Format("Starting serialization for {0}.", zone.Name));
                 using (TextWriter tw = new StreamWriter(Path.Combine(GlobalReference.GlobalValues.Settings.ZoneDirectory, zone.Name + ".zone")))

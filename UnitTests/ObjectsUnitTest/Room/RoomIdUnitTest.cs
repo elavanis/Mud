@@ -43,7 +43,7 @@ namespace ObjectsUnitTest.Room
             room.Setup(e => e.ExamineDescription).Returns("examineDescription");
             room.Setup(e => e.LookDescription).Returns("lookDescription");
             room.Setup(e => e.ShortDescription).Returns("shortDescription");
-            room.Setup(e => e.Zone).Returns(1);
+            room.Setup(e => e.ZoneId).Returns(1);
             room.Setup(e => e.Id).Returns(2);
             
             roomId = new RoomId(room.Object);

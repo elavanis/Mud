@@ -126,7 +126,7 @@ namespace ObjectsUnitTest.Room
             GlobalReference.GlobalValues.World = world.Object;
 
             room = new Objects.Room.Room("examineDescription", "lookDescription", "shortDescription");
-            room.Zone = 1;
+            room.ZoneId = 1;
             room.Id = 2;
             room.MovementCost = 1;
 

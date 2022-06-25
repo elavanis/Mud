@@ -206,7 +206,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                 return "West";
             }
 
-            if (npc.Room.Id != 21 && npc.Room.Zone == 24)
+            if (npc.Room.Id != 21 && npc.Room.ZoneId == 24)
             {
                 if (npc.Room.PlayerCharacters.Count > 0)
                 {
@@ -265,7 +265,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             else if (StateMachine == State.Sleep)
             {
-                if (npc.Room.Zone == 24
+                if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 14)
                 {
                     if (npc.Position != MobileObject.CharacterPosition.Sleep)

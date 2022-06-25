@@ -28,7 +28,7 @@ namespace Objects
         public int Id { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public int Zone { get; set; }
+        public int ZoneId { get; set; }
 
 
         /// <summary>

@@ -375,14 +375,14 @@ namespace GenerateZones.Zones.Mountain
         private IRoom RockFace(string examineDescription, string lookDescription)
         {
             string shortDescription = "Mountain Face";
-            IRoom room = new Room(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 
         private IRoom RockPath(string examineDescription, string lookDescription)
         {
             string shortDescription = "Path up the side of the mountain";
-            IRoom room = new Room(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 

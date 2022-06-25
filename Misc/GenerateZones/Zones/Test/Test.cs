@@ -46,7 +46,7 @@ namespace GenerateZones.Zones
 
             IMount mount = new Mount(Mount.DefaultValues.Elephant, room);
             mount.Id = 1;
-            mount.Zone = -1;
+            mount.ZoneId = -1;
             mount.Level = 1;
             mount.StaminaMultiplier = 10;
             //mount.Movement = 1;
@@ -67,7 +67,7 @@ namespace GenerateZones.Zones
 
         private IRoom GenerateRoom()
         {
-            IRoom room = OutdoorRoom("examineDescription", "lookDescription", "shortDescription");
+            IRoom room = OutdoorRoom(Zone.Id, "examineDescription", "lookDescription", "shortDescription");
 
             //room.AddMobileObjectToRoom(new Elemental(ElementType.Air) { Id = 1 });
             //room.AddMobileObjectToRoom(new Elemental(ElementType.Earth) { Id = 1 });
@@ -99,7 +99,7 @@ namespace GenerateZones.Zones
             weapon.SentenceDescription = "sentence";
             weapon.ShortDescription = "short";
             weapon.KeyWords.Add("weapon");
-            weapon.Zone = -1;
+            weapon.ZoneId = -1;
 
 
             return weapon;

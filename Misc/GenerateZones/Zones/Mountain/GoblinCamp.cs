@@ -60,7 +60,7 @@ namespace GenerateZones.Zones.Mountain
         private IRoom CampOutSide(string examineDescription, string lookDescription)
         {
             string shortDescription = "Goblin Camp";
-            IRoom room = new Room(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 
@@ -132,9 +132,9 @@ namespace GenerateZones.Zones.Mountain
             string examineDescription = "A small table for eating sits to the west while a smaller room for sleeping is to the north.  Several swords and shields spaced evenly apart decorate the walls.";
             string lookDescription = "The large room is has animal hides for a floor with several torches for lighting the area nicely.";
             string shortDescription = "Goblin Chief Hut";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.AddMobileObjectToRoom(GoblinChief(room));
-            room.AddItemToRoom(CreateItem<IRecallBeacon>());
+            room.AddItemToRoom(CreateRecallBeacon());
             return room;
         }
 
@@ -143,7 +143,7 @@ namespace GenerateZones.Zones.Mountain
             string examineDescription = "Small totems of different animal spirits sit around the fire.";
             string lookDescription = "The hut is mostly empty save for a small fire in the middle of the hut.";
             string shortDescription = "Goblin Shaman Hut";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.AddMobileObjectToRoom(Shaman(room));
             return room;
         }
@@ -169,7 +169,7 @@ namespace GenerateZones.Zones.Mountain
             string examineDescription = "A the desk has several papers on it but they are so poorly written that it makes reading impossible.";
             string lookDescription = "The hut contains a small desk for writing as well a place to sleep.";
             string shortDescription = "A goblin hut";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -179,7 +179,7 @@ namespace GenerateZones.Zones.Mountain
             string examineDescription = "Several strips of meat hang from the hut and are slowly becoming jerky in the smoke.";
             string lookDescription = "The hut is filled with smoke making it hard to see.";
             string shortDescription = "A goblin hut";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -189,7 +189,7 @@ namespace GenerateZones.Zones.Mountain
             string examineDescription = "Five sets of bunks extend out from the table.  Who ever was the 3rd player would won the hand with a royal flush.";
             string lookDescription = "Several small bunks extend out past a table with cards on it.";
             string shortDescription = "A goblin hut";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             Container container = Chest();
             container.Items.Add(Arms());
@@ -222,7 +222,7 @@ namespace GenerateZones.Zones.Mountain
             string examineDescription = "There is a carving in one of the tables.  TJ + CJ";
             string lookDescription = "Several rows of tables are in line.  A small cooking area behind a counter is in the back.";
             string shortDescription = "A goblin hut";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -311,11 +311,12 @@ namespace GenerateZones.Zones.Mountain
         #region Items
         private IItem FocusingCrystal()
         {
-            IItem focusingCrystal = CreateItem<IItem>();
-            focusingCrystal.ShortDescription = "A small clear crystal.";
-            focusingCrystal.LookDescription = "The crystal has been cut in such a way to focus all the light entering the crystal through the bottom.";
-            focusingCrystal.ExamineDescription = "Upon closer examination of the crystal you notice a small figurine of a fairy in the center.";
-            focusingCrystal.SentenceDescription = "crystal";
+            string examineDescription = "Upon closer examination of the crystal you notice a small figurine of a fairy in the center.";
+            string lookDescription = "The crystal has been cut in such a way to focus all the light entering the crystal through the bottom.";
+            string sentenceDescription = "crystal";
+            string shortDescription = "A small clear crystal.";
+            
+            IItem focusingCrystal = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             focusingCrystal.KeyWords.Add("focus");
             focusingCrystal.KeyWords.Add("focusing");
             focusingCrystal.KeyWords.Add("crystal");
@@ -325,11 +326,14 @@ namespace GenerateZones.Zones.Mountain
 
         private Container Chest()
         {
-            Container chest = CreateItem<Container>();
-            chest.ExamineDescription = "The chest is a standard issue goblin warrior chest.";
-            chest.LookDescription = "The chest is made of wood and reinforced with steel bands.";
-            chest.ShortDescription = "A small chest for storing equipment.";
-            chest.SentenceDescription = "chest";
+            string examineDescription = "The chest is a standard issue goblin warrior chest.";
+            string lookDescription = "The chest is made of wood and reinforced with steel bands.";
+            string sentenceDescription = "chest";
+            string shortDescription = "A small chest for storing equipment.";
+            string openMessage = "As you open the lid of the chest you wonder what treasures it might hold.";
+            string closeMessage = "The lid of the chest closes with a slight creak.";
+
+            Container chest = CreateContainer(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
             chest.KeyWords.Add("chest");
             chest.Attributes.Add(ItemAttribute.NoGet);
 

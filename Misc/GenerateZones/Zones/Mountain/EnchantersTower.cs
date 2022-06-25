@@ -89,7 +89,7 @@ namespace GenerateZones.Zones.Mountain
             string shortDescription = "Top Floor";
             string examineDescription = "A large collection of mirrors and lenses seem to be setup to collect energy into a single point in the center of the room.";
             string lookDescription = "Everything in the room seems to be focused on the center pedestal.";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             examineDescription = "The pedestal has a socket that looks to be designed to hold a focusing item.";
             lookDescription = "The pedestal is made of a creamy white stone.";
@@ -97,7 +97,7 @@ namespace GenerateZones.Zones.Mountain
             string sentenceDescription = "pedestal";
             string openMessage = "";
             string closeMessage = "";
-            Container pedestal = CreateItem<Container>(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            Container pedestal = CreateContainer(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
             pedestal.KeyWords.Add("pedestal");
             pedestal.KeyWords.Add("stone");
             pedestal.Attributes.Add(ItemAttribute.NoGet);
@@ -113,7 +113,7 @@ namespace GenerateZones.Zones.Mountain
             string shortDescription = "Top Floor";
             string examineDescription = "The room has a small window over looking the plateau to the east.";
             string lookDescription = "A pair of five inch holes exist in the ceiling and the floor.";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.Weather);
 
             room.AddMobileObjectToRoom(ButlerAutomaton(room));
@@ -135,7 +135,7 @@ namespace GenerateZones.Zones.Mountain
             string shortDescription = "Enchanting Room";
             string examineDescription = "The table glows faintly with the residual energy of the thousands of enchantments performed on it.";
             string lookDescription = "A small table sits in the center of the room with light filtering down on it form a five inch hole in the ceiling.";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(Enchantery());
             room.AddMobileObjectToRoom(ButlerAutomaton(room));
@@ -148,7 +148,7 @@ namespace GenerateZones.Zones.Mountain
             string shortDescription = "Holding Cells";
             string lookDescription = "There are several cages along the walls used for holding prisoners.";
             string examineDescription = "Some of the cages show signs of distress where prisoners have tried to escape.  Whether they were successful or not is anyones guess.";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(ButlerAutomaton(room));
             room.AddMobileObjectToRoom(GoblinDaughter(room));
@@ -231,7 +231,7 @@ namespace GenerateZones.Zones.Mountain
             string shortDescription = "table";
             string sentenceDescription = "The table glows with wisps of energy radiating upward.";
 
-            IEnchantery enchantery = CreateItem<IEnchantery>(examineDescription, lookDescription, shortDescription, sentenceDescription);
+            IEnchantery enchantery =CreateEnchantery(examineDescription, lookDescription, shortDescription, sentenceDescription);
 
             enchantery.Attributes.Add(ItemAttribute.NoGet);
             enchantery.KeyWords.Add("table");
@@ -244,7 +244,7 @@ namespace GenerateZones.Zones.Mountain
             string shortDescription = "Spiral Staircase";
             string examineDescription = "The stairs are surprisingly made of wood instead of stone and creak slightly as you walk on them.";
             string lookDescription = "The spiral stairs ascend up the tower as well as down into a basement area.";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 
@@ -253,7 +253,7 @@ namespace GenerateZones.Zones.Mountain
             string shortDescription = "Ground Floor";
             string examineDescription = "The stone hallway is lit with a pair of torches ever twelve feet.";
             string lookDescription = "A stone hallway leading outside the tower and deeper inside toward a stairwell.";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 

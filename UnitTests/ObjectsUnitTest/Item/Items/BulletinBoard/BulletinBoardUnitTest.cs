@@ -59,7 +59,7 @@ namespace ObjectsUnitTest.Item.Items.BulletinBoard
             GlobalReference.GlobalValues.DefaultValues = defaultValues.Object;
 
             bulletinBoard = new Objects.Item.Items.BulletinBoard.BulletinBoard("examine", "look", "sentence", "short");
-            bulletinBoard.Zone = 1;
+            bulletinBoard.ZoneId = 1;
             bulletinBoard.Id = 2;
             PropertyInfo propertyInfo = bulletinBoard.GetType().GetProperty("messages", BindingFlags.Instance | BindingFlags.NonPublic);
             messages = (List<IMessage>)propertyInfo.GetValue(bulletinBoard);

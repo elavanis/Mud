@@ -135,7 +135,7 @@ namespace Objects.Command.PC
 
             if (performer is IPlayerCharacter playerCharacter && playerCharacter.Debug)
             {
-                strBldr.AppendLine(string.Format("[Zone{0} - Room{1}]", room.Zone, room.Id));
+                strBldr.AppendLine(string.Format("[Zone{0} - Room{1}]", room.ZoneId, room.Id));
             }
 
             strBldr.AppendLine(string.Format("[{0}]", room.ShortDescription));

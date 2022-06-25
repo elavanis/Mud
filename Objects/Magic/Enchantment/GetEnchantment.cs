@@ -16,7 +16,7 @@ namespace Objects.Magic.Enchantment
             {
                 IBaseObject containerObject = container as IBaseObject;
                 if (MatchingContainerId == null
-                    || (MatchingContainerId.Zone == containerObject.Zone
+                    || (MatchingContainerId.Zone == containerObject.ZoneId
                         && MatchingContainerId.Id == containerObject.Id)
                    )
                 {

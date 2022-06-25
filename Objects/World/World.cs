@@ -490,7 +490,7 @@ namespace Objects.World
 
         public IPlayerCharacter CreateCharacter(string userName, string password)
         {
-            IRoom tempRoom = new Room.Room("tempExam", "tempLook", "tempShort");
+            IRoom tempRoom = new Room.Room(0, "tempExam", "tempLook", "tempShort");
             IPlayerCharacter pc = new PlayerCharacter(tempRoom, userName, userName, userName, userName, $"The corpse of {userName} lies here.");
             pc.Name = userName;
             pc.Password = password;
@@ -1263,7 +1263,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
                 IRoom pcRoom = pc.Room;
                 if (pcRoom != null
                     && pc.LastProccessedTick != GlobalReference.GlobalValues.TickCounter
-                    && pcRoom != Zones[pcRoom.Zone].Rooms[pcRoom.Id])
+                    && pcRoom != Zones[pcRoom.ZoneId].Rooms[pcRoom.Id])
                 {
                     ProcessRoom(pc.Room);
                 }

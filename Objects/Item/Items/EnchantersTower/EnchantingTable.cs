@@ -23,7 +23,7 @@ namespace Objects.Item.Items.EnchantersTower
             {
                 foreach (IItem itemsInPedistal in container.Items)
                 {
-                    if (itemsInPedistal.Zone == 16
+                    if (itemsInPedistal.ZoneId == 16
                         && itemsInPedistal.Id == 1)
                     {
                         return base.Enchant(item);

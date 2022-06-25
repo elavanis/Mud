@@ -35,7 +35,7 @@ namespace Objects.Personality.Custom.MountainGoblinCamp
         public IResult ReceivedItem(IMobileObject performer, IMobileObject receiver, IItem itemReceived)
         {
             if (itemReceived.Id == TriggerObjectId.Id
-                && itemReceived.Zone == TriggerObjectId.Zone)
+                && itemReceived.ZoneId == TriggerObjectId.Zone)
             {
                 performer.Items.Add((IItem)Reward.Clone());
 

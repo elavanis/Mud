@@ -50,7 +50,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The cell is cold and damp just like you would imagine it to be.  However upon closer inspection you notice that the wall to the east is actually a door.";
             string lookDescription = "You are in what appears to be an old jail cell.  Light flickers from beyond the bars causing your shadow to dance on the walls.";
             string shortDescription = "A cell";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.Peaceful);
 
             //string message = "Perform the following commands." + Environment.NewLine + "OPEN WALL" + Environment.NewLine + "EAST";
@@ -64,7 +64,7 @@ namespace GenerateZones.Zones
             string examineDescription = "Drops of water can be heard falling in the cavern.  The moisture makes the rocks slippery and would be a slipping hazard if you were able to stand and walk.";
             string lookDescription = "This area is a low tunnel connecting the cell to an underground cavern.";
             string shortDescription = "A tunnel";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             //string message = "Perform the following commands." + Environment.NewLine + "EAST";
             //room.Enchantments.Add(EnterRoomMessage(message, TagWrapper.TagType.Info));
@@ -76,7 +76,7 @@ namespace GenerateZones.Zones
             string examineDescription = "Because of all the glowing mushrooms you can see the cavern ceiling.  Stalactites hang down from the ceiling above stalagmites.  Each trying desperately to reach the other.";
             string lookDescription = "The cavern opens up to a large area here.  Several colorful glowing mushrooms are growing here making it easy to see.  Maybe you should pick some up.";
             string shortDescription = "An underground cavern";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             //string message = "Perform the following commands." + Environment.NewLine + "GET MUSHROOM" + Environment.NewLine + "EAST";
             //room.Enchantments.Add(EnterRoomMessage(message, TagWrapper.TagType.Info));
@@ -111,7 +111,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The tunnel here is only slightly taller then you.  At points you have to crawl on your belly to get through.";
             string lookDescription = "The tunnel here is steep and bendy.  The walls seem to close in on you as you make your way through.";
             string shortDescription = "A steep bendy tunnel";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             //string message = "Perform the following commands." + Environment.NewLine + "EQUIP MUSHROOM" + Environment.NewLine + "LOOK" + Environment.NewLine + "EAST";
             //room.Enchantments.Add(EnterRoomMessage(message, TagWrapper.TagType.Info));
@@ -124,7 +124,7 @@ namespace GenerateZones.Zones
             string examineDescription = "You can hear the sounds of water cascading over rocks from the east, however it a sheer cliff that descends into darkness of unknown depth.  A shoddy built wooden ladder made of twine and logs ascends into the darkness above.";
             string lookDescription = "The tunnel makes an abrupt direction change here.  To the east is are cliff and the sound of water.  Up is a ladder and to the west a tunnel of darkness.";
             string shortDescription = "A tunnel";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             //string message = "Perform the following commands." + Environment.NewLine + "UP";
             //room.Enchantments.Add(EnterRoomMessage(message, TagWrapper.TagType.Info));
@@ -137,7 +137,7 @@ namespace GenerateZones.Zones
             string examineDescription = "Looking around you are not sure if this part of the tunnel is natural or not.  You know for sure the ladder is not natural.";
             string lookDescription = "You are on a ladder.  Above you is darkness, below you is darkness.";
             string shortDescription = "A ladder";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             //string message = "Perform the following commands." + Environment.NewLine + "UP";
             //room.Enchantments.Add(EnterRoomMessage(message, TagWrapper.TagType.Info));
@@ -150,7 +150,7 @@ namespace GenerateZones.Zones
             string examineDescription = "Looking around you are not sure if this part of the tunnel is natural or not.  You know for sure the ladder is not natural.";
             string lookDescription = "You are on a ladder.  Above you is darkness, below you is darkness.";
             string shortDescription = "A ladder";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             //string message = "Perform the following commands." + Environment.NewLine + "UP";
             //room.Enchantments.Add(EnterRoomMessage(message, TagWrapper.TagType.Info));
@@ -163,7 +163,7 @@ namespace GenerateZones.Zones
             string examineDescription = "Light comes into the tunnel from cracks between the stone and hole above.";
             string lookDescription = "You can see light above you and darkness below.  Be careful not to fall.";
             string shortDescription = "A ladder";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             //string message = "Perform the following commands." + Environment.NewLine + "OPEN STONE" + Environment.NewLine + "UP";

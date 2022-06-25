@@ -82,7 +82,7 @@ namespace ObjectsUnitTest.Command.PC
             room.Setup(e => e.Attributes).Returns(roomAttributes);
             room.Setup(e => e.PlayerCharacters).Returns(pcInRoom);
             room.Setup(e => e.NonPlayerCharacters).Returns(npcInRoom);
-            room.Setup(e => e.Zone).Returns(1);
+            room.Setup(e => e.ZoneId).Returns(1);
             room.Setup(e => e.Id).Returns(2);
             mob.Setup(e => e.RecallPoint).Returns(roomId.Object);
             mob.Setup(e => e.Room).Returns(room.Object);

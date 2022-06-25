@@ -145,7 +145,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "Maybe you should report the bug that you got here.";
             string shortDescription = "GroundsKeeper House";
 
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Owner = "the grounds keeper";
             room.Guests.Add("Groundskeeper");
 

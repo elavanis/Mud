@@ -241,7 +241,7 @@ namespace GenerateZones.Zones.Mountain
             string shortDescription = "Plateau";
             string examineDescription = "The plateau is dominated by the tower in the center.  The rest is covered in small clumps of grass and lichen.";
             string lookDescription = "A large tower rises up before you.";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
         #endregion Rooms
@@ -249,7 +249,7 @@ namespace GenerateZones.Zones.Mountain
         #region Items
         public Container Chest()
         {
-            Container chest = CreateItem<Container>();
+            Container chest = CreateContainer(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
             string examineDescription = "";
             string lookDescription = "The chest is made carefully chiseled stone.";
             string shortDescription = "A small stone chest with intricate carvings.";
@@ -262,7 +262,7 @@ namespace GenerateZones.Zones.Mountain
 
         public IItem Lion()
         {
-            IItem item = CreateItem<Item>();
+            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             string examineDescription = "The statue shows a male lion with a full mane.";
             string lookDescription = "The statue is make of a sandy colored stone material.";
             string shortDescription = "A small statue of a lion.";
@@ -275,7 +275,7 @@ namespace GenerateZones.Zones.Mountain
 
         public IItem Eagle()
         {
-            IItem item = CreateItem<Item>();
+            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             string examineDescription = "The eagle in the statue is taking perched on a branch overlooking a nest of its young.";
             string lookDescription = "The statue is make of a sandy colored stone material.";
             string shortDescription = "A small statue of a eagle.";
@@ -288,7 +288,7 @@ namespace GenerateZones.Zones.Mountain
 
         public IItem Bear()
         {
-            IItem item = CreateItem<Item>();
+            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             string examineDescription = "A statue depicting bear reaching out on a tree branch to reach a bee's hive.";
             string lookDescription = "The statue is make of a sandy colored stone material.";
             string shortDescription = "A small statue of a bear.";
@@ -301,7 +301,7 @@ namespace GenerateZones.Zones.Mountain
 
         public IItem Fish()
         {
-            IItem item = CreateItem<Item>();
+            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             string examineDescription = "The statue shows a fish jumping out of a lake to catch a dragon fly.";
             string lookDescription = "The statue is make of a sandy colored stone material.";
             string shortDescription = "A small statue of a fish.";

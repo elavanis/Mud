@@ -47,7 +47,7 @@ namespace GenerateZones.Zones
             string examineDescription = "Tapestries of every color adore the bazaar here.  The one on the right might be look good in your house.  Further in the back you can see the seamstresses work.";
             string lookDescription = "Colorful tapestries and other cloth materials hang on display all around you.";
             string shortDescription = "Bazaar";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -57,7 +57,7 @@ namespace GenerateZones.Zones
             string examineDescription = "There are all kinds of fish here.  Bass, trout and walleye as well as ocean imports swordfish and shark.  For the adventurous there are squid and eel.  In the north side of the fish market there is some live lobster and crab.";
             string lookDescription = "The smell of fish assault your nostrils.  Everywhere you look you see fish.";
             string shortDescription = "Bazaar";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -67,7 +67,7 @@ namespace GenerateZones.Zones
             string examineDescription = "Wheels of fresh Gouda and mozzarella are on display on the left.  Fresh baguettes and other loaves of breads are on the right.";
             string lookDescription = "The smell of fresh breeds and cheeses emanate from the market.";
             string shortDescription = "Bazaar";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -77,7 +77,7 @@ namespace GenerateZones.Zones
             string examineDescription = "Wooden bowls come in all shapes and sizes.  Carved from the most beautiful woods some have beautiful designs while other are the more economical choice variety.";
             string lookDescription = "Wooden chairs tables, carts and other things lay littered on the ground.";
             string shortDescription = "Bazaar";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -87,7 +87,7 @@ namespace GenerateZones.Zones
             string examineDescription = "With so many things on display its actually not as bad to maneuver though here as you might think.  The organization leaves a bit to be desired but its not cluttered.  Pieces range in quality and in price.  While the life size statue of Charon might not be practical maybe a necklace with Charon's symbol on it might be good.";
             string lookDescription = "This appears to be the metalworkers area.  Metal utensils, small figurines as well as swords, shields and entire suits of armor are on display here.";
             string shortDescription = "Bazaar";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -97,7 +97,7 @@ namespace GenerateZones.Zones
             string examineDescription = "Leather items range from furniture to pieces of armor.  They come are available in all shapes and sizes.";
             string lookDescription = "Tanned leather pieces are hung for purchase as well as finished products.";
             string shortDescription = "Bazaar";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -205,7 +205,7 @@ namespace GenerateZones.Zones
             string examineDescription = "Anything that you can could need for self protection exists in this shop.  It only a matter of finding something you like.";
             string lookDescription = "Swords, shields and armor adorn the walls of the little shop.  While mannequins display items on the floor.";
             string shortDescription = "The Basic Dagger";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             INonPlayerCharacter npc = BlackSmith(room);
 
@@ -277,7 +277,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The smell of fresh leather drifts through the shop.  The various shades of browns give the shop a warm look and in the evening the light of the setting sun can be seen entering through the front of the store.  It reflects off the leather samples in the store and creates a nice warm inviting atmosphere, so much so that the shop keeper says that over 20% of her business come at sunset.";
             string lookDescription = "Different type of leather armor line one wall while raw materials line the other.";
             string shortDescription = "Hyde's Hides";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             INonPlayerCharacter npc = LeatherWorker(room);
 
@@ -350,7 +350,7 @@ namespace GenerateZones.Zones
             string examineDescription = "The black tailored suit and the purple ball gown are most exquisite.  Both are tucked in just the right places to show of the wearers figure and show an eye for detail by the tailor.";
             string lookDescription = "Fine tailored suits and formal gowns are displayed in the front window.  The armor is in the back half of the store.";
             string shortDescription = "The better than nothing armor shop";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             INonPlayerCharacter npc = Tailor(room);
 

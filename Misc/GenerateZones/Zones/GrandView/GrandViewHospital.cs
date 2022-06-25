@@ -58,7 +58,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The place is dry and well lit.  The beds are comfortable and clean.  While the initial scan of the place seems nice it is still a hospital.  People are here because they are sick.";
             string lookDescription = "This corner of the hospital is quiet.  One or two beds are occupied by sleeping patients.";
             string shortDescription = "A quiet corner of the hospital";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.Peaceful);
 
             room.AddMobileObjectToRoom(Nurse(room));
@@ -151,7 +151,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The hallway way is fairly long and is covered from the floor to the walls in tie.  Foot steps echo up and down giving an empty cold and sterile feeling.";
             string lookDescription = "You stand at the intersection of the recovery, surgery and entrance of the hospital.";
             string shortDescription = "A hallway";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 
@@ -160,7 +160,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The entrance to GrandView Hospital presents a nice face for what could be an awful experience.  The receptions desk is situated such that it is the first thing you see.  Made of some type of imported wood it stands several feet tall and has a stone top.  Several pieces of paper and pens sit neatly arranged on the desk.";
             string lookDescription = "The entrance of GrandView Hospital is before you.  By the entrance is the receptions desk and general seating is behind there.  To the west is the surgery and recovery wing and to the south is the morgue.";
             string shortDescription = "The entrance of GrandView Hospital";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
 
@@ -169,7 +169,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The operating table sits in the middle of the room.  It has straps for holding the patient in place while the operation is underway.  There is a tray of surgical utensils next to the table and on the far west wall a poster labeling the different body parts.";
             string lookDescription = "You have entered the main operating room.  It looks like the room is ready for an operation but there is no one here.";
             string shortDescription = "Surgery";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(Scalpel());
             room.AddItemToRoom(Scalpel());
@@ -198,7 +198,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "Each of the shelves hold five bodies wrapped in white sheets.  There are a pair of bodies in the corner drained of blood being filed with embalming fluids.";
             string lookDescription = "The morgue is filled with shelves of dead bodies wrapped in white sheets.";
             string shortDescription = "Morgue";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(GlowingJar());
             room.AddItemToRoom(GlowingJar());
@@ -219,7 +219,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The place is dry and well lit.  The beds are comfortable and clean.  While the initial scan of the place seems nice it is still a hospital.  People are here because they are sick.";
             string lookDescription = "This corner of the hospital is quiet.  One or two beds are occupied by sleeping patients.";
             string shortDescription = "A quiet corner of the hospital";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.Peaceful);
 
             EnterRoomEnchantment enter = new EnterRoomEnchantment();
@@ -251,7 +251,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The place is dry and well lit.  The beds are comfortable and clean.  While the initial scan of the place seems nice it is still a hospital.  People are here because they are sick.";
             string lookDescription = "This corner of the hospital is quiet.  One or two beds are occupied by sleeping patients.";
             string shortDescription = "A quiet corner of the hospital";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.Peaceful);
 
             EnterRoomEnchantment enter = new EnterRoomEnchantment();
@@ -284,7 +284,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The place is dry and well lit.  The beds are comfortable and clean.  While the initial scan of the place seems nice it is still a hospital.  People are here because they are sick.";
             string lookDescription = "This corner of the hospital is quiet.  One or two beds are occupied by sleeping patients.";
             string shortDescription = "A quiet corner of the hospital";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.Peaceful);
 
             EnterRoomEnchantment enter = new EnterRoomEnchantment();

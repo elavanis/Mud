@@ -109,7 +109,7 @@ namespace GenerateZones.Zones.Ash
             string shortDescription = "A world of ash.";
             string examineDescription = "Flakes of ash fall like gray snow on the ground from some unseen fire.";
             string lookDescription = "Ash floats through the air making it hard to see and breath.";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -157,7 +157,7 @@ namespace GenerateZones.Zones.Ash
 
             IExit exit = new Exit();
             exit.Room = 1;
-            exit.Zone = room1.Zone;
+            exit.Zone = room1.ZoneId;
 
             if (room1.North == null)
             {

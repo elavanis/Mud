@@ -77,7 +77,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The stone walls were carved in place from the side of the mountain.  This leads to their strength as it is on solid piece of stone.";
             string lookDescription = "The original castle's stone gate still stands strong.";
             string shortDescription = "Front Gate";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(Guard(room));
             room.AddMobileObjectToRoom(Guard(room));
@@ -90,7 +90,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "Standing in the center of the barbican you get a sense of dread for anyone who get trapped here attacking the castle.";
             string lookDescription = "Walls of stone rise up on all sides with places for guards to fire arrows as well as dump fire down on you if you were an attacker.";
             string shortDescription = "Inside the barbican";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -100,7 +100,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The inside of the castle court yard you begin to realize the amount of work that went into creating this castle.  Tons of raw stone was removed from the mountain side just to clear the area for this courtyard.";
             string lookDescription = "The court yard extends a ways to the west before disappearing into the mountain.  The blacksmith and enchanter is to south.  The captains quarters, and stables are to the north.";
             string shortDescription = "The courtyard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(Page(room));
             room.AddMobileObjectToRoom(Page(room));
@@ -115,7 +115,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "A rather large wooden structure stand here with a sign reading \"Ye Old Shoppe\" hangs above the doorway.";
             string lookDescription = "A small ally is formed by the shops and the castle walls.";
             string shortDescription = "Side alley";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -125,7 +125,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "As you stand in front of the enchanters shop a large boom can be heard from the back of shop.  Black smoke can be seen pouring out of the front door.";
             string lookDescription = "The ally stretches around the corner of the enchanters shop.";
             string shortDescription = "Side alley";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -135,7 +135,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "Different wares are hung from the wall.  Swords, axes, leggings and a kite shield with a potato painted on it...";
             string lookDescription = "The sound of a fire and clanging can be heard in the back.";
             string shortDescription = "Ye Old Shoppe";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(ShoppeKeep(room));
 
@@ -147,7 +147,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The room surprisingly does not have any lights and is instead lit by the soft glow of the enchanted items for sale. ";
             string lookDescription = "upon entering the room you notice the items for sale slowly drift around the room.";
             string shortDescription = "The Magic Circle";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(Enchantress(room));
             room.AddItemToRoom(Enchantery());
@@ -160,7 +160,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "A large barn with rows of stalls used for keeping horses.";
             string lookDescription = "Walking into the alley immediately tells you that you have found the horses stables.";
             string shortDescription = "Side alley";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -170,7 +170,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The captains quarters are testament to what can be done with superb craftsmanship.";
             string lookDescription = "The captains building stands in front of you.";
             string shortDescription = "Side alley";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -180,7 +180,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "Each stall has two sets of doors.  The inside doors let the animals be lead to center of the stables and the outside doors lets the animals go outside and frolic in the area around the stables. ";
             string lookDescription = "Walking up and down the isle you can see the name of each horse on a placard hanging above their stall. Rapidflame, Autumn, Maverick and Shadowbolt to name a few.";
             string shortDescription = "Stables";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -190,7 +190,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The floor has a beautiful inlay of different types of wood.  Each piece was carefully placed to form a crane in mid flight.";
             string lookDescription = "You stand in the entrance of the captains quarters.  To the left is a meeting room and to the right is smaller waiting room.  In the back is a hall leading to the sleeping area.";
             string shortDescription = "Captains Quarters";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(Captain(room));
 
@@ -202,7 +202,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The table is made of oak and has a large vase of flowers in the center.  Several torches light the room causing shadows to dance on the walls.";
             string lookDescription = "The large round table dominates the meeting room.";
             string shortDescription = "Captains Quarters";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -212,7 +212,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "A small set of desks are arranged in a u shape with a map of the mines on the far wall.";
             string lookDescription = "The small room feels cramped with three desks filling up the room.";
             string shortDescription = "Captains Quarters";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -222,7 +222,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "There is a writing desk with a couple of papers on it.  One of them lists the attacks on miners from monsters in the mine.";
             string lookDescription = "A modest but decent size bed is in one side of the room under with a window over looking the court yard.";
             string shortDescription = "Captains Quarters";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -232,7 +232,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "To the north you can see the horses running behind the fence.";
             string lookDescription = "The court yard has been packed with lots of foot traffic.";
             string shortDescription = "Court Yard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(Page(room));
             room.AddMobileObjectToRoom(Page(room));
@@ -247,7 +247,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "To the north you can see the horses running behind the fence.";
             string lookDescription = "The court yard has been packed with lots of foot traffic.";
             string shortDescription = "Court Yard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(Page(room));
             room.AddMobileObjectToRoom(Page(room));
@@ -262,7 +262,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The door to the keep was made of heavy oak several inches thick.  In times of war it would withhold all but the fiercest attacks.";
             string lookDescription = "Standing inside the entrance of the keep this is would be the last line of defense for would be defenders.";
             string shortDescription = "Keep Entrance";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -272,7 +272,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "Swords, shields, pikes, bows and arrows are on rack at the ready to be used to defend the keep.";
             string lookDescription = "Large racks of weapons line the walls.";
             string shortDescription = "Armor Rack";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -282,7 +282,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The large fireplace has a giant iron pot used for cooking soups for the entire castle staff.";
             string lookDescription = "Pots and pans hand from the wall above a large fire place.";
             string shortDescription = "Kitchen";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(CookMan(room, 1));
             room.AddMobileObjectToRoom(CookMan(room, 2));
@@ -297,7 +297,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "Several bench seats are against the wall.  They are covered in plush red velvet giving a sharp contrast to the cool gray stone.";
             string lookDescription = "The area has plenty of seating for guest while they wait to be seen.";
             string shortDescription = "Antechamber";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -307,7 +307,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The throne room has large pillars of stone rising twenty feet into the air.  Large tapestries of times past line the walls giving some warmth to the otherwise cold echoing hall.";
             string lookDescription = "A large throne made of many iron swords melted together sits in the center of the hall.";
             string shortDescription = "Throne Room";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(RoyalGuard(room));
             room.AddMobileObjectToRoom(RoyalGuard(room));
@@ -323,7 +323,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "The room is actually modestly equipped for a king and queen's room.";
             string lookDescription = "A large four post bed with a canopy dominates this room.";
             string shortDescription = "Bedroom Room";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(Bed());
             room.AddMobileObjectToRoom(King(room));
@@ -337,7 +337,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "There is a story that this room was made because during a long siege the king and queen were unable to go out and see the stars.  The king never wanted to miss seeing the stars again so a special room was made of their bedroom where they formed a balcony and painted stars on the ceiling to simulate the stars at night.";
             string lookDescription = "A balcony over looks mural of stars and grass.";
             string shortDescription = "Balcony";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -347,7 +347,7 @@ namespace GenerateZones.Zones.GrandView
             string examineDescription = "There is also a counter of sorts with a beaten sheet of tin used as a mirror.  In the far end of the room is hole in the floor and a curtain used to shield you when doing your business.";
             string lookDescription = "A large claw tube sits in the corner with a bucket of soapy water.";
             string shortDescription = "Lavatory";
-            IRoom room = IndoorRoomLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -602,30 +602,32 @@ namespace GenerateZones.Zones.GrandView
 
         private IItem Enchantery()
         {
-            IEnchantery item = CreateItem<IEnchantery>();
+            string examineDescription = "Green filaments of energy spark out from the table about an inch forming arches before falling back and being reabsorbed.";
+            string lookDescription = "The table at one time was nothing more than some wood but has gain magical energy from hundreds nay thousands of enchantments.";
+            string sentenceDescription = "enchanting table";
+            string shortDescription = "An enchanting table.";
+
+            IEnchantery item =CreateEnchantery(examineDescription, lookDescription, sentenceDescription, shortDescription);
             item.SuccessRate = -.85M;
             item.CostToEnchantLevel1Item = (int)(1.1 * item.CostToEnchantLevel1Item);
             item.KeyWords.Add("table");
             item.KeyWords.Add("enchant");
             item.KeyWords.Add("enchanting");
             item.Attributes.Add(ItemAttribute.NoGet);
-            item.ShortDescription = "An enchanting table.";
-            item.LookDescription = "The table at one time was nothing more than some wood but has gain magical energy from hundreds nay thousands of enchantments.";
-            item.ExamineDescription = "Green filaments of energy spark out from the table about an inch forming arches before falling back and being reabsorbed.";
-            item.SentenceDescription = "enchanting table";
 
             return item;
         }
 
         private IItem Bed()
         {
-            IItem item = CreateItem<IItem>();
+            string examineDescription = "The bed frame is made of a dark wood with carvings of the GrandView crest on the foot and headboards.";
+            string lookDescription = "The bed look very soft with lots of fluffy light blue pillows.";
+            string sentenceDescription = "bed";
+            string shortDescription = "A canopy bed.";
+
+            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             item.Attributes.Add(ItemAttribute.NoGet);
             item.KeyWords.Add("bed");
-            item.ShortDescription = "A canopy bed.";
-            item.LookDescription = "The bed look very soft with lots of fluffy light blue pillows.";
-            item.ExamineDescription = "The bed frame is made of a dark wood with carvings of the GrandView crest on the foot and headboards.";
-            item.SentenceDescription = "bed";
 
             return item;
         }

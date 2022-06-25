@@ -43,9 +43,9 @@ namespace RandomZone.Internal
                 {
                     if (rooms[x, y] != null)
                     {
-                        IRoom room = new Objects.Room.Room("examineDescription", "lookDescription", "shortDescription");
+                        IRoom room = new Objects.Room.Room(zone.Id, "examineDescription", "lookDescription", "shortDescription");
                         room.Id = roomPositionToRoomMap.Keys.Count() + 1;
-                        room.Zone = zoneId;
+                        room.ZoneId = zoneId;
                         roomPositionToRoomMap.Add($"{x},{y}", room);
                         zone.Rooms.Add(room.Id, room);
                     }

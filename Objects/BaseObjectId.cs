@@ -17,7 +17,7 @@ namespace Objects
 
         public BaseObjectId(IBaseObject baseObject)
         {
-            Zone = baseObject.Zone;
+            Zone = baseObject.ZoneId;
             Id = baseObject.Id;
         }
 

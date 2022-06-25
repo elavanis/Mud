@@ -25,31 +25,35 @@ namespace Objects.Room
         private static ReadOnlyCollection<IMobileObject> BlankMobs { get; } = new List<IMobileObject>().AsReadOnly();
         private static ReadOnlyCollection<IItem> BlankItems { get; } = new List<IItem>().AsReadOnly();
 
-        public Room(string examineDescription, string lookDescription, string shortDescription) : base(examineDescription, lookDescription, "", shortDescription)
+        public Room(int zoneId, string examineDescription, string lookDescription, string shortDescription) : base(examineDescription, lookDescription, "", shortDescription)
         {
+            ZoneId = zoneId;
             KeyWords.Add("room");
 
-            RoomPrecipitationHighBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationHighBegin;
-            RoomPrecipitationHighEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationHighEnd;
-            RoomPrecipitationExtraHighBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationExtraHighBegin;
-            RoomPrecipitationExtraHighEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationExtraHighEnd;
-            RoomWindSpeedHighBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedHighBegin;
-            RoomWindSpeedHighEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedHighEnd;
-            RoomWindSpeedExtraHighBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedExtraHighBegin;
-            RoomWindSpeedExtraHighEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedExtraHighEnd;
-            RoomPrecipitationLowBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationLowBegin;
-            RoomPrecipitationLowEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationLowEnd;
-            RoomPrecipitationExtraLowBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationExtraLowBegin;
-            RoomPrecipitationExtraLowEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationExtraLowEnd;
-            RoomWindSpeedLowBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedLowBegin;
-            RoomWindSpeedLowEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedLowEnd;
-            RoomWindSpeedExtraLowBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedExtraLowBegin;
-            RoomWindSpeedExtraLowEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedExtraLowEnd;
+            if (GlobalReference.GlobalValues.World.Zones.ContainsKey(ZoneId))
+            {
+                RoomPrecipitationHighBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationHighBegin;
+                RoomPrecipitationHighEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationHighEnd;
+                RoomPrecipitationExtraHighBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationExtraHighBegin;
+                RoomPrecipitationExtraHighEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationExtraHighEnd;
+                RoomWindSpeedHighBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedHighBegin;
+                RoomWindSpeedHighEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedHighEnd;
+                RoomWindSpeedExtraHighBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedExtraHighBegin;
+                RoomWindSpeedExtraHighEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedExtraHighEnd;
+                RoomPrecipitationLowBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationLowBegin;
+                RoomPrecipitationLowEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationLowEnd;
+                RoomPrecipitationExtraLowBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationExtraLowBegin;
+                RoomPrecipitationExtraLowEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationExtraLowEnd;
+                RoomWindSpeedLowBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedLowBegin;
+                RoomWindSpeedLowEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedLowEnd;
+                RoomWindSpeedExtraLowBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedExtraLowBegin;
+                RoomWindSpeedExtraLowEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedExtraLowEnd;
+            }
         }
 
         public override string ToString()
         {
-            return string.Format("{0}-{1}", Zone, Id);
+            return string.Format("{0}-{1}", ZoneId, Id);
         }
 
         [ExcludeFromCodeCoverage]
@@ -432,7 +436,7 @@ namespace Objects.Room
         private void SaveVault()
         {
             string serializedItems = GlobalReference.GlobalValues.Serialization.Serialize(_items);
-            string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{Zone}-{Id}.vault");
+            string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{ZoneId}-{Id}.vault");
             GlobalReference.GlobalValues.FileIO.WriteFile(file, serializedItems);
         }
 
@@ -615,7 +619,7 @@ namespace Objects.Room
 
         private void ReloadVault()
         {
-            string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{Zone}-{Id}.vault");
+            string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{ZoneId}-{Id}.vault");
             if (GlobalReference.GlobalValues.FileIO.Exists(file))
             {
                 string fileContents = GlobalReference.GlobalValues.FileIO.ReadAllText(file);

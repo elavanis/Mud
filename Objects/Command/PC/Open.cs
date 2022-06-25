@@ -101,7 +101,7 @@ namespace Objects.Command.PC
             bool canOpen = true;
             if (door.Locked)
             {
-                IEnumerable<IItem> keyPosibility = mob.Items.Where(i => i.Id == door.KeyNumber && i.Zone == door.Zone);
+                IEnumerable<IItem> keyPosibility = mob.Items.Where(i => i.Id == door.KeyNumber && i.ZoneId == door.ZoneId);
                 IItem key = keyPosibility.FirstOrDefault();
                 if (key == null)
                 {

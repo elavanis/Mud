@@ -61,7 +61,7 @@ namespace Objects.Personality
             IRoom nextRoom = null;
             List<string> validDirections = new List<string>();
 
-            if (currentRoom.North != null && currentRoom.North.Zone == currentRoom.Zone
+            if (currentRoom.North != null && currentRoom.North.Zone == currentRoom.ZoneId
                 && currentRoom.CheckLeaveDirection(npc, Direction.North) == null)
             {
                 nextRoom = GlobalReference.GlobalValues.World.Zones[currentRoom.North.Zone].Rooms[currentRoom.North.Room];
@@ -71,7 +71,7 @@ namespace Objects.Personality
                 }
             }
 
-            if (currentRoom.East != null && currentRoom.East.Zone == currentRoom.Zone
+            if (currentRoom.East != null && currentRoom.East.Zone == currentRoom.ZoneId
                 && currentRoom.CheckLeaveDirection(npc, Direction.East) == null)
             {
                 nextRoom = GlobalReference.GlobalValues.World.Zones[currentRoom.East.Zone].Rooms[currentRoom.East.Room];
@@ -81,7 +81,7 @@ namespace Objects.Personality
                 }
             }
 
-            if (currentRoom.South != null && currentRoom.South.Zone == currentRoom.Zone
+            if (currentRoom.South != null && currentRoom.South.Zone == currentRoom.ZoneId
                 && currentRoom.CheckLeaveDirection(npc, Direction.South) == null)
             {
                 nextRoom = GlobalReference.GlobalValues.World.Zones[currentRoom.South.Zone].Rooms[currentRoom.South.Room];
@@ -91,7 +91,7 @@ namespace Objects.Personality
                 }
             }
 
-            if (currentRoom.West != null && currentRoom.West.Zone == currentRoom.Zone
+            if (currentRoom.West != null && currentRoom.West.Zone == currentRoom.ZoneId
                 && currentRoom.CheckLeaveDirection(npc, Direction.West) == null)
             {
                 nextRoom = GlobalReference.GlobalValues.World.Zones[currentRoom.West.Zone].Rooms[currentRoom.West.Room];
@@ -101,7 +101,7 @@ namespace Objects.Personality
                 }
             }
 
-            if (currentRoom.Up != null && currentRoom.Up.Zone == currentRoom.Zone
+            if (currentRoom.Up != null && currentRoom.Up.Zone == currentRoom.ZoneId
                 && currentRoom.CheckLeaveDirection(npc, Direction.Up) == null)
             {
                 nextRoom = GlobalReference.GlobalValues.World.Zones[currentRoom.Up.Zone].Rooms[currentRoom.Up.Room];
@@ -111,7 +111,7 @@ namespace Objects.Personality
                 }
             }
 
-            if (currentRoom.Down != null && currentRoom.Down.Zone == currentRoom.Zone
+            if (currentRoom.Down != null && currentRoom.Down.Zone == currentRoom.ZoneId
                 && currentRoom.CheckLeaveDirection(npc, Direction.Down) == null)
             {
                 nextRoom = GlobalReference.GlobalValues.World.Zones[currentRoom.Down.Zone].Rooms[currentRoom.Down.Room];
@@ -136,7 +136,7 @@ namespace Objects.Personality
         {
             if ((nextRoom.CheckEnter(npc) == null)
                && (NavigableRooms.Count == 0
-                    || NavigableRooms.Where(x => x.Zone == nextRoom.Zone).Where(y => y.Id == nextRoom.Id).Count() >= 1))
+                    || NavigableRooms.Where(x => x.Zone == nextRoom.ZoneId).Where(y => y.Id == nextRoom.Id).Count() >= 1))
             {
                 return true;
             }

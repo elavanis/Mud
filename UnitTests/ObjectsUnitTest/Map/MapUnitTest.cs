@@ -41,7 +41,7 @@ namespace ObjectsUnitTest.Map
             map = new Objects.Global.Map.Map();
 
             mob.Setup(e => e.Room).Returns(room.Object);
-            room.Setup(e => e.Zone).Returns(1);
+            room.Setup(e => e.ZoneId).Returns(1);
             room.Setup(e => e.Id).Returns(2);
             settings.Setup(e => e.AssetsDirectory).Returns("assetsDir");
             fileIO.Setup(e => e.Exists(@"assetsDir\Maps\1.MapConversion")).Returns(true);

@@ -45,7 +45,7 @@ namespace ObjectsUnitTest.Magic.Enchantment
             random.Setup(e => e.PercentDiceRoll(100)).Returns(true);
             performer.Setup(e => e.Room).Returns(room.Object);
             containerObject.Setup(e => e.Id).Returns(1);
-            containerObject.Setup(e => e.Zone).Returns(2);
+            containerObject.Setup(e => e.ZoneId).Returns(2);
             objectId.Setup(e => e.Id).Returns(1);
             objectId.Setup(e => e.Zone).Returns(2);
             enchantment.ActivationPercent = 100;

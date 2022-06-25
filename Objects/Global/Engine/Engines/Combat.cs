@@ -128,7 +128,7 @@ namespace Objects.Global.Engine.Engines
             {
                 if (weapon.WeaponId == 0)
                 {
-                    if (weapon.Id == 0 && weapon.Zone == 0)
+                    if (weapon.Id == 0 && weapon.ZoneId == 0)
                     {
                         //someone is using bare hands so just set a random value that shouldn't be used
                         weapon.WeaponId = GlobalReference.GlobalValues.Random.Next(int.MinValue, 0);

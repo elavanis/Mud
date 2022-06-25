@@ -63,7 +63,7 @@ namespace Objects.Command.God
 
             strBldr.AppendLine(item.SentenceDescription);
             strBldr.AppendLine("Item Type: " + item.GetType().Name);
-            strBldr.AppendLine("Zone: " + item.Zone);
+            strBldr.AppendLine("Zone: " + item.ZoneId);
             strBldr.AppendLine("Id: " + item.Id);
             strBldr.AppendLine("Level: " + item.Level);
 

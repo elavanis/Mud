@@ -90,7 +90,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             else if (StateMachine == State.Up)
             {
-                if (npc.Room.Zone == 24
+                if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 22)
                 {
                     return "East";
@@ -125,7 +125,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             if (StateMachine == State.GotoBalcony)
             {
-                if (npc.Room.Zone == 24
+                if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 22)
                 {
                     Step = 0;
@@ -170,17 +170,17 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             else if (StateMachine == State.Bath)
             {
-                if (npc.Room.Zone == 24
+                if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 23)
                 {
                     return "South";
                 }
-                else if (npc.Room.Zone == 24
+                else if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 22)
                 {
                     return "South";
                 }
-                else if (npc.Room.Zone == 24
+                else if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 24)
                 {
                     if (Step % 5 == 0)
@@ -226,12 +226,12 @@ namespace Objects.Personality.Custom.GrandviewCastle
             {
                 if (Step % 5 == 0)
                 {
-                    if (npc.Room.Zone == 24
+                    if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 24)
                     {
                         return "North";
                     }
-                    else if (npc.Room.Zone == 24
+                    else if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 22)
                     {
                         return "Sleep";

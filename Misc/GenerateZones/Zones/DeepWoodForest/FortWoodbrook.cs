@@ -50,7 +50,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "While the wooden gates are still strong they have fallen off the hinges and lay strewn on ground.";
             string lookDescription = "Both sets of gates have fallen off the hinges and allow access to the fort.";
             string shortDescription = "Entrance to the fort";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -60,7 +60,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "To the north a collapsed building has fallen down.  To the east and west are stairs leading to the ramparts.";
             string lookDescription = "The court yard is overgrown with grass and small trees.";
             string shortDescription = "Inside the court yard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -70,7 +70,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The stairs are worn but look like they should hold your weight.";
             string lookDescription = "Wooden stairs lead up to the rampart.";
             string shortDescription = "Inside the court yard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -80,7 +80,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "If the well had a cover it is long gone but there is still water in the well.  If only the bucket was around you could get a drink.";
             string lookDescription = "A small stone well dominates the area here.";
             string shortDescription = "Inside the court yard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -90,7 +90,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The part of the eastern wall has started to collapse allowing you to see out into the forest.";
             string lookDescription = "Thick grass has grown up obscuring what this part of the court yard might have been used for.";
             string shortDescription = "Inside the court yard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -100,7 +100,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "It looks like this might have been stalls for horses but the building has long since collapsed.";
             string lookDescription = "A collapsed building lays before you.";
             string shortDescription = "Inside the court yard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -110,7 +110,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "A several trees have started to grow up pushing the stone pavers out of the way.";
             string lookDescription = "You stand in what was once the center of the court yard.";
             string shortDescription = "Inside the court yard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -120,7 +120,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "Peeking into the building you can see part of a shelf on the right but not any further as the walls have collapsed.";
             string lookDescription = "A small building such as a shed stands to the north.";
             string shortDescription = "Inside the court yard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -130,7 +130,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The door to the building is ajar and hangs only by one nail that refuses to give up.";
             string lookDescription = "The main building in the fort is to the west while the court yard opens to the east.";
             string shortDescription = "Inside the court yard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -140,7 +140,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The stairs have long been neglected and have succumb to mother nature and father time.";
             string lookDescription = "The stairs leading up to the ramparts have collapsed.";
             string shortDescription = "Inside the court yard";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -150,7 +150,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The forest would have been cut back to allow lookouts to see approaching people sooner. How much is hard to say though.";
             string lookDescription = "The top of the rampart you are able to see the court yard below.  This would have given watchers a good view point of the forest below as well as the court yard.";
             string shortDescription = "On the rampart";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -160,7 +160,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The whole fort seems to let out a low creak as you walk on this part of the rampart.";
             string lookDescription = "As you step on to this part of the rampart it lets out a grown in protest at your presence.";
             string shortDescription = "On the rampart";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             ISound sound = new Sound();
             sound.SoundName = $"{Zone.Name}\\WooodenCreak.mp3";
@@ -174,7 +174,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "At some point someone carved TLJ + CLG inside a big heart.";
             string lookDescription = "The rampart continues north and south.";
             string shortDescription = "On the rampart";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -184,7 +184,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The wall to the north has begun to fall away and you can see the forest starting to grow through.";
             string lookDescription = "The rampart to the north has fallen down and is no longer passable.";
             string shortDescription = "On the rampart";
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription, 1);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -194,7 +194,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "Large amounts of dust covers the ground.";
             string lookDescription = "A long dark hallway stretches to the west while the court yard opens to the east.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -204,7 +204,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The root proves to be a small tripping hazard but could be an issue if you needed to run through here in a hurry.";
             string lookDescription = "A tree root grows up through the floor before going back down into the ground.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -214,7 +214,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "A hall";
             string lookDescription = "A hall";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
 
             return room;
@@ -225,7 +225,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "A hall";
             string lookDescription = "A hall";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -235,7 +235,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "A hall";
             string lookDescription = "A hall";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -245,7 +245,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "Most weapons appear to be of training quality and the little that was of better quality has suffered the ravages of time and neglect.";
             string lookDescription = "While this room is filled with swords and shields there does not appear to be anything of actual use.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -255,7 +255,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "It appears over time animals have made this room a favorite sleeping area.";
             string lookDescription = "What is left of several beds litter the room.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -265,7 +265,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "A large wooden table has several small spider webs on it from lack of use.";
             string lookDescription = "A large wooden table with several scattered chairs fill this part of the room.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(BabySpider(room));
 
@@ -277,7 +277,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "A large wooden table has several small spider webs on it from lack of use.";
             string lookDescription = "A large wooden table with several scattered chairs fill this part of the room.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(BabySpider(room));
 
@@ -289,7 +289,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The spider webs have become an integral part of the furniture creating an almost haunted look..";
             string lookDescription = "Spider webs cover large amounts of the chairs and table here.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(BabySpider(room));
 
@@ -301,7 +301,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "A large wooden table has several small spider webs on it from lack of use.";
             string lookDescription = "A large wooden table with several scattered chairs fill this part of the room.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(BabySpider(room));
 
@@ -313,7 +313,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The spider webs have become an integral part of the furniture creating an almost haunted look..";
             string lookDescription = "Spider webs cover large amounts of the chairs and table here.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(BabySpider(room));
 
@@ -325,7 +325,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The spider webs have grown so complete that they cover the furniture like a giant white sheet.";
             string lookDescription = "The spider webs have grown thick and cover the furniture completely hiding it from view.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(BabySpider(room));
 
@@ -337,7 +337,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The spider webs have become an integral part of the furniture creating an almost haunted look..";
             string lookDescription = "Spider webs cover large amounts of the chairs and table here.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(BabySpider(room));
 
@@ -349,7 +349,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The spider webs have grown so complete that they cover the furniture like a giant white sheet.";
             string lookDescription = "The spider webs have grown thick and cover the furniture completely hiding it from view.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(BabySpider(room));
 
@@ -361,7 +361,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "The spider webs criss cross into a solid web wall of web save a small opening to the north.";
             string lookDescription = "The spider webs cover the entirety of the room from the floor to the ceiling.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddMobileObjectToRoom(BabySpider(room));
 
@@ -373,7 +373,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "White silken webs are every where creating a silver shimmer ever where you look.";
             string lookDescription = "A tunnel of spider webs leads north and south.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
             room.Attributes.Add(Room.RoomAttribute.NoNPC);
             room.Attributes.Add(Room.RoomAttribute.NoRecall);
 
@@ -387,7 +387,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             string examineDescription = "Examining the dark spots closer reveal them to be corpses of adventures who were victims of the spider.";
             string lookDescription = "Several dark spots in the spider silk web do the walls of the room.";
             string shortDescription = "In Fort Woodbrook";
-            IRoom room = IndoorRoomNoLight(examineDescription, lookDescription, shortDescription);
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             LoadEquipment(room);
 

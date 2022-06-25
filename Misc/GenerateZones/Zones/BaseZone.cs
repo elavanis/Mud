@@ -34,6 +34,11 @@ namespace GenerateZones.Zones
         {
             Zone = new Zone();
             Zone.Id = zoneId;
+
+            if (!GlobalReference.GlobalValues.World.Zones.TryAdd(zoneId, Zone))
+            {
+                GlobalReference.GlobalValues.World.Zones[zoneId] = Zone;
+            }
         }
 
         public void BuildRoomsViaReflection(Type type)
@@ -46,7 +51,7 @@ namespace GenerateZones.Zones
                 if (method != null)
                 {
                     IRoom room = (IRoom)method.Invoke(this, null);
-                    room.Zone = Zone.Id;
+                    room.ZoneId = Zone.Id;
                     ZoneHelper.AddRoom(Zone, room);
                 }
             }
@@ -57,7 +62,7 @@ namespace GenerateZones.Zones
         {
             INonPlayerCharacter npc = new NonPlayerCharacter(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription);
             npc.Id = NpcId++;
-            npc.Zone = Zone.Id;
+            npc.ZoneId = Zone.Id;
             npc.TypeOfMob = typeOfMob;
             npc.Level = level;
 
@@ -70,7 +75,7 @@ namespace GenerateZones.Zones
         {
             IWeapon weapon = new Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.Id = ItemId++;
-            weapon.Zone = Zone.Id;
+            weapon.ZoneId = Zone.Id;
             weapon.Type = weaponType;
             weapon.Level = level;
 
@@ -107,7 +112,7 @@ namespace GenerateZones.Zones
         {
             IArmor armor = new Armor(level, position, examineDescription, lookDescription, sentenceDescription, shortDescription);
             armor.Id = ItemId++;
-            armor.Zone = Zone.Id;
+            armor.ZoneId = Zone.Id;
             armor.ItemPosition = position;
             armor.Level = level;
             armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(level);
@@ -120,7 +125,7 @@ namespace GenerateZones.Zones
         {
             IShield shield = new Shield(level, examineDescription, lookDescription, sentenceDescription, shortDescription);
             shield.Id = ItemId++;
-            shield.Zone = Zone.Id;
+            shield.ZoneId = Zone.Id;
             shield.Level = level;
             shield.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(level);
             shield.Material = material;
@@ -132,132 +137,105 @@ namespace GenerateZones.Zones
         {
             IEquipment equipment = new Equipment(avalableItemPosition, examineDescription, lookDescription, sentenceDescription, shortDescription);
             equipment.Id = ItemId++;
-            equipment.Zone = Zone.Id;
+            equipment.ZoneId = Zone.Id;
             equipment.Level = level;
 
             return equipment;
         }
 
-        public T CreateItem<T>() //where T : IRecallBeacon, IMoney
+        #region Create Stuff
+        #region No Params
+        public IRecallBeacon CreateRecallBeacon()
         {
-            Type type = typeof(T);
-            IItem item = null!;
+            IRecallBeacon item = new RecallBeacon();
+            item.Id = ItemId++;
+            item.ZoneId = Zone.Id;
+            return item;
+        }
+        public IMoney CreateMoney() 
+        {
+            Money item = new Money();
+            item.Id = ItemId++;
+            item.ZoneId = Zone.Id;
+            return item;
+        }
+        #endregion No Params
 
-            if (type == typeof(IRecallBeacon)
-                || type == typeof(RecallBeacon))
-            {
-                item = new RecallBeacon();
-            }
-            else if (type == typeof(IMoney)
-               || type == typeof(Money))
-            {
-                item = new Money();
-            }
+        #region descriptions
+        public IItem CreateItem(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
+        {
+            IItem item = new Item(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            item.Id = ItemId++;
+            item.ZoneId = Zone.Id;
 
-            if (item == null)
-            {
-                throw new Exception($"Unsupported type {type.ToString()}");
-            }
-            else
-            {
-                item.Id = ItemId++;
-                item.Zone = Zone.Id;
-            }
-
-            return (T)item;
+            return item;
         }
 
-
-        public T CreateItem<T>(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) //where T : IFountain, IItem, IEnchantery
+        public Fountain CreateFountain(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
         {
-            Type type = typeof(T);
-            IItem item = null!;
+            Fountain item = new Fountain(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            item.Id = ItemId++;
+            item.ZoneId = Zone.Id;
 
-            if (type == typeof(IItem)
-                || type == typeof(Item))
-            {
-                item = new Item(examineDescription, lookDescription, sentenceDescription, shortDescription);
-            }
-            else if (type == typeof(Fountain))
-            {
-                item = new Fountain(examineDescription, lookDescription, sentenceDescription, shortDescription);
-            }
-            else if (type == typeof(IEnchantery)
-                || type == typeof(Enchantery))
-            {
-                item = new Enchantery(examineDescription, lookDescription, sentenceDescription, shortDescription);
-            }
-
-            if (item == null)
-            {
-                throw new Exception($"Unsupported type {type.ToString()}");
-            }
-            else
-            {
-                item.Id = ItemId++;
-                item.Zone = Zone.Id;
-            }
-
-            return (T)item;
+            return item;
         }
 
-        public T CreateItem<T>(string openMessage, string closeMessage, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) //where T : IContainer
+        public IEnchantery CreateEnchantery(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
         {
-            Type type = typeof(T);
-            IItem item = null!;
+            IEnchantery item = new Enchantery(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            item.Id = ItemId++;
+            item.ZoneId = Zone.Id;
 
-            if (type == typeof(IContainer)
-                || type == typeof(Container))
-            {
-                item = new Container(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            }
-
-            if (item == null)
-            {
-                throw new Exception($"Unsupported type {type.ToString()}");
-            }
-            else
-            {
-                item.Id = ItemId++;
-                item.Zone = Zone.Id;
-            }
-
-            return (T)item;
+            return item;
         }
+        #endregion descriptions
+
+        #region Openable
+
+        public Container CreateContainer(string openMessage, string closeMessage, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
+        {
+            Container item = new Container(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            item.Id = ItemId++;
+            item.ZoneId = Zone.Id;
+
+            return item;
+        }
+        #endregion Openable
+        #endregion Create Stuff
         #endregion Item
 
         #region Room
-        private IRoom CreateRoom(string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
+        private IRoom CreateRoom(int zoneId, string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
         {
-            IRoom room = new Room(examineDescription, lookDescription, shortDescription);
+            IRoom room = new Room(zoneId, examineDescription, lookDescription, shortDescription);
             room.Id = RoomId++;
-            room.Zone = Zone.Id;
+            room.ZoneId = Zone.Id;
             room.MovementCost = movementCost;
 
             return room;
         }
 
-        public virtual IRoom OutdoorRoom(string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
+        public virtual IRoom OutdoorRoom(int zoneId, string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
         {
-            IRoom room = CreateRoom(examineDescription, lookDescription, shortDescription, movementCost);
+            IRoom room = CreateRoom(zoneId, examineDescription, lookDescription, shortDescription, movementCost);
             room.Attributes.Add(RoomAttribute.Outdoor);
             room.Attributes.Add(RoomAttribute.Weather);
 
             return room;
         }
 
-        public virtual IRoom IndoorRoomLight(string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
+        public virtual IRoom IndoorRoomLight(int zoneId, string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
         {
-            IRoom room = CreateRoom(examineDescription, lookDescription, shortDescription, movementCost);
+            IRoom room = CreateRoom(zoneId, examineDescription, lookDescription, shortDescription, movementCost);
             room.Attributes.Add(RoomAttribute.Indoor);
             room.Attributes.Add(RoomAttribute.Light);
 
             return room;
         }
 
-        public virtual IRoom IndoorRoomNoLight(string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
+        public virtual IRoom IndoorRoomNoLight(int zoneId, string examineDescription, string lookDescription, string shortDescription, int movementCost = 1)
         {
-            IRoom room = CreateRoom(examineDescription, lookDescription, shortDescription, movementCost);
+            IRoom room = CreateRoom(zoneId, examineDescription, lookDescription, shortDescription, movementCost);
             room.Attributes.Add(RoomAttribute.Indoor);
             room.Attributes.Add(RoomAttribute.NoLight);
 

@@ -216,8 +216,8 @@ namespace ObjectsUnitTest.World
             room.Setup(e => e.OtherMobs).Returns(new List<IMobileObject>());
             room.Setup(e => e.PrecipitationNotification).Returns("rain");
             room.Setup(e => e.WindSpeedNotification).Returns("wind");
-            room.Setup(e => e.Zone).Returns(1);
-            room2.Setup(e => e.Zone).Returns(1);
+            room.Setup(e => e.ZoneId).Returns(1);
+            room2.Setup(e => e.ZoneId).Returns(1);
             room2.Setup(e => e.Id).Returns(1);
             room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
             room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());

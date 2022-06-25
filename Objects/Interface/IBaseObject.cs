@@ -29,7 +29,7 @@ namespace Objects.Interface
         /// </summary>
         string SentenceDescription { get; set; }
         /// 
-        int Zone { get; set; }
+        int ZoneId { get; set; }
         Dictionary<string, List<string>> ZoneSyncOptions { get; }
 
         List<IEnchantment> Enchantments { get; }

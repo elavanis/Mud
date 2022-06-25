@@ -88,10 +88,10 @@ namespace GenerateZones
             string lookDescription = RoomDescriptions[key].LookDescription;
             string shortDescription = RoomDescriptions[key].ShortDescription;
 
-            IRoom room = new Room(examineDescription, lookDescription, shortDescription);
+            IRoom room = new Room(zone.Id, examineDescription, lookDescription, shortDescription);
             roomNumber++;
 
-            room.Zone = ZoneId;
+            room.ZoneId = ZoneId;
             room.Id = roomNumber;
 
             if (RoomFlavorText.Count > 0)

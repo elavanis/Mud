@@ -30,14 +30,14 @@ namespace Objects.Global.Map
 
         private static string FindRoomPosition(IRoom room)
         {
-            string roomKey = room.Zone + "|" + room.Id;
+            string roomKey = room.ZoneId + "|" + room.Id;
 
             string result;
 
             _mapPositionCache.TryGetValue(roomKey, out result);
             if (result == null)
             {
-                string file = Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps", room.Zone + ".MapConversion");
+                string file = Path.Combine(GlobalReference.GlobalValues.Settings.AssetsDirectory, "Maps", room.ZoneId + ".MapConversion");
                 if (GlobalReference.GlobalValues.FileIO.Exists(file))
                 {
                     foreach (string line in GlobalReference.GlobalValues.FileIO.ReadLines(file))
@@ -47,7 +47,7 @@ namespace Objects.Global.Map
                             string[] splitLine = line.Split('|');
                             if (splitLine[0] == room.Id.ToString())
                             {
-                                result = $"{room.Zone}|{splitLine[1]}|{splitLine[2]}|{splitLine[3]}";
+                                result = $"{room.ZoneId}|{splitLine[1]}|{splitLine[2]}|{splitLine[3]}";
                                 _mapPositionCache.Add(roomKey, result);
                             }
                         }

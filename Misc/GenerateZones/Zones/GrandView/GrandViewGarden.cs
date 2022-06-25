@@ -28,7 +28,7 @@ namespace GenerateZones.Zones
             for (int i = 1; i < 20; i++)
             {
                 IRoom room = GenerateRoom();
-                room.Zone = Zone.Id;
+                room.ZoneId = Zone.Id;
                 ZoneHelper.AddRoom(Zone, room);
             }
 
@@ -48,20 +48,20 @@ namespace GenerateZones.Zones
             string lookDescription = "Hedges of roses tower above you blocking your view forming a maze.";
             string shortDescription = "A rose garden";
 
-            IRoom room = OutdoorRoom(examineDescription, lookDescription, shortDescription);
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         public IItem PrizeRose()
         {
-            IItem rose = CreateItem<IItem>();
-            rose.KeyWords.Add("rose");
-            rose.SentenceDescription = "rose";
-            rose.ShortDescription = "A beautiful prize {color} rose.";
-            rose.LookDescription = "This is the prize rose that the Kings Gardner has been growing.";
-            rose.ExamineDescription = "The rose has the most perfect flower that is in full boom.  It's no wonder that it is the prize flower in the garden.";
+            string examineDescription = "The rose has the most perfect flower that is in full boom.  It's no wonder that it is the prize flower in the garden.";
+            string lookDescription = "This is the prize rose that the Kings Gardner has been growing.";
+            string sentenceDescription = "rose";
+            string shortDescription = "A beautiful prize {color} rose.";
 
+            IItem rose = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            rose.KeyWords.Add("rose");
             rose.FlavorOptions.Add("{color}", new List<string>() { "red", "white", "yellow", "pink", "orange", "lilac", "purple" });
 
             IEnchantment enchantment = new GetEnchantment();
@@ -84,13 +84,15 @@ namespace GenerateZones.Zones
 
         public IItem Sign()
         {
-            IEnchantery sign = CreateItem<IEnchantery>();
+            string examineDescription = "As you continue to examine the sign it shifts into readable words.  This fountain is used for enchanting items.  To use the fountain use the command \"Enchant [Item].\"";
+            string lookDescription = "ƎƠȴɕȶφΩ ЉѣѼѿ ӁқԘհե";
+            string sentenceDescription = "sign";
+            string shortDescription = "A sign floats weightlessly in the air.";
+
+            IEnchantery sign =CreateEnchantery(examineDescription, lookDescription, sentenceDescription, shortDescription);
             sign.KeyWords.Add("sign");
             sign.Attributes.Add(Item.ItemAttribute.NoGet);
-            sign.SentenceDescription = "sign";
-            sign.ShortDescription = "A sign floats weightlessly in the air.";
-            sign.LookDescription = "ƎƠȴɕȶφΩ ЉѣѼѿ ӁқԘհե";
-            sign.ExamineDescription = "As you continue to examine the sign it shifts into readable words.  This fountain is used for enchanting items.  To use the fountain use the command \"Enchant [Item].\"";
+
             return sign;
         }
 
