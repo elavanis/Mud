@@ -29,7 +29,7 @@ namespace ObjectsUnitTest.Zone
 
             GlobalReference.GlobalValues.World.Zones.Add(0, zone);
 
-            room = new Objects.Room.Room("examineDescription", "lookDescription", "shortDescription");
+            room = new Objects.Room.Room(0, "examineDescription", "lookDescription", "shortDescription");
             item = new Objects.Item.Item("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             npc = new Objects.Mob.NonPlayerCharacter(room, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             pc = new Objects.Mob.PlayerCharacter(room,  "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");

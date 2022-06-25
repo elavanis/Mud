@@ -108,7 +108,7 @@ namespace ObjectsUnitTest.Room
             zone.Setup(e => e.ZoneWindSpeedLowEnd).Returns("ZoneWindSpeedLowEnd");
             zone.Setup(e => e.ZoneWindSpeedExtraLowBegin).Returns("ZoneWindSpeedExtraLowBegin");
             zone.Setup(e => e.ZoneWindSpeedExtraLowEnd).Returns("ZoneWindSpeedExtraLowEnd");
-            
+
             engine.Setup(e => e.Event).Returns(evnt.Object);
             guard.Setup(e => e.GuardDirections).Returns(new HashSet<Direction>() { Direction.North });
             guard.Setup(e => e.BlockLeaveMessage).Returns("You can not leave.");
@@ -125,7 +125,7 @@ namespace ObjectsUnitTest.Room
             GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
             GlobalReference.GlobalValues.World = world.Object;
 
-            room = new Objects.Room.Room("examineDescription", "lookDescription", "shortDescription");
+            room = new Objects.Room.Room(0, "examineDescription", "lookDescription", "shortDescription");
             room.ZoneId = 1;
             room.Id = 2;
             room.MovementCost = 1;
