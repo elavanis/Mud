@@ -249,10 +249,14 @@ namespace GenerateZones.Zones.Mountain
         #region Items
         public Container Chest()
         {
-            Container chest = CreateContainer(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            string examineDescription = "";
+            string openMessage = "You strain to open the lid but in the end are successful.";
+            string closeMessage = "The lid closes with a resounding thud.";
+            string examineDescription = "Being made of stone the chest is quite heavy and is unmovable.";
             string lookDescription = "The chest is made carefully chiseled stone.";
+            string sentenceDescription = "";
             string shortDescription = "A small stone chest with intricate carvings.";
+
+            Container chest = CreateContainer(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
             chest.SentenceDescription = "chest";
             chest.KeyWords.Add("chest");
             chest.Attributes.Add(ItemAttribute.NoGet);
@@ -262,11 +266,12 @@ namespace GenerateZones.Zones.Mountain
 
         public IItem Lion()
         {
-            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             string examineDescription = "The statue shows a male lion with a full mane.";
             string lookDescription = "The statue is make of a sandy colored stone material.";
+            string sentenceDescription = "lion statue";
             string shortDescription = "A small statue of a lion.";
-            item.SentenceDescription = "lion statue";
+
+            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             item.KeyWords.Add("statue");
             item.KeyWords.Add("lion");
 
@@ -275,11 +280,12 @@ namespace GenerateZones.Zones.Mountain
 
         public IItem Eagle()
         {
-            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             string examineDescription = "The eagle in the statue is taking perched on a branch overlooking a nest of its young.";
             string lookDescription = "The statue is make of a sandy colored stone material.";
+            string sentenceDescription = "eagle statue";
             string shortDescription = "A small statue of a eagle.";
-            item.SentenceDescription = "eagle statue";
+
+            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             item.KeyWords.Add("statue");
             item.KeyWords.Add("eagle");
 
@@ -288,11 +294,12 @@ namespace GenerateZones.Zones.Mountain
 
         public IItem Bear()
         {
-            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             string examineDescription = "A statue depicting bear reaching out on a tree branch to reach a bee's hive.";
             string lookDescription = "The statue is make of a sandy colored stone material.";
+            string sentenceDescription = "bear statue";
             string shortDescription = "A small statue of a bear.";
-            item.SentenceDescription = "bear statue";
+
+            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             item.KeyWords.Add("statue");
             item.KeyWords.Add("bear");
 
@@ -301,11 +308,12 @@ namespace GenerateZones.Zones.Mountain
 
         public IItem Fish()
         {
-            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             string examineDescription = "The statue shows a fish jumping out of a lake to catch a dragon fly.";
             string lookDescription = "The statue is make of a sandy colored stone material.";
+            string sentenceDescription = "fish  statue";
             string shortDescription = "A small statue of a fish.";
-            item.SentenceDescription = "fish statue";
+
+            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             item.KeyWords.Add("statue");
             item.KeyWords.Add("fish");
 

@@ -1283,16 +1283,20 @@ namespace GenerateZones.Zones.UnderGrandView
         #region Items
         private Container Sarcophagus()
         {
+            string openMessage = "The lid of the sarcophagus slides off with a loud thud and cracks slightly.";
+            string closeMessage = "Lifting the lid of the sarcophagus was quite hard and you are worn out leaving the lid slightly ajar.";
+            string examineDescription = "The coins are made of different materials so it is hard to estimate their worth.";
+            string lookDescription = "The head of coins have minotaurs on them and on the back different runes.";
+            string sentenceDescription = "coins";
+            string shortDescription = "A pile of coins.";
+
             Container sarcophagus = CreateContainer(openMessage, closeMessage, examineDescription, lookDescription, sentenceDescription, shortDescription);
 
             IItem money = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             money.Value = 1000;
             money.KeyWords.Add("coin");
             money.KeyWords.Add("coins");
-            money.SentenceDescription = "coins";
-            money.ShortDescription = "A pile of coins.";
-            money.LookDescription = "The head of coins have minotaurs on them and on the back different runes.";
-            money.ExamineDescription = "The coins are made of different materials so it is hard to estimate their worth.";
+         
             money.Enchantments.Add(LoadSkeletonMinotaur(65));
             money.Enchantments.Add(LoadSkeletonMinotaur(66));
             money.Enchantments.Add(LoadSkeletonMinotaur(67));
@@ -1381,6 +1385,11 @@ namespace GenerateZones.Zones.UnderGrandView
 
         private IItem Throne()
         {
+            string examineDescription = "The gold throne is made entirely of solid gold save a single royal blue sapphire that is as big as a fist that is set at the top of the head rest.  It weights to much to move and must be worth a kings randsom.";
+            string lookDescription = "The gold throne is quite large and ornate.";
+            string sentenceDescription = "gold throne";
+            string shortDescription = "A large gold throne sits here.";
+
             IItem button = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
             button.ZoneId = Zone.Id;
             button.Id = ItemId++;
@@ -1388,11 +1397,7 @@ namespace GenerateZones.Zones.UnderGrandView
 
             button.KeyWords.Add("throne");
             button.KeyWords.Add("gold");
-            button.SentenceDescription = "gold throne";
-            button.ShortDescription = "A large gold throne sits here.";
-            button.LookDescription = "The gold throne is quite large and ornate.";
-            button.ExamineDescription = "The gold throne is made entirely of solid gold save a single royal blue saphire that is as big as a fist that is set at the top of the head rest.  It weights to much to move and must be worth a kings randsom.";
-
+         
             return button;
         }
         #endregion Items
