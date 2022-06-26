@@ -268,7 +268,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         #region NPC
         private INonPlayerCharacter Goblin(IRoom room)
         {
-            string corpseDescription = "A small broken green lies here.";
+            string corpseDescription = "A small broken green goblin lies here.";
             string examineDescription = "The goblin stares at you with fright in its eyes.";
             string lookDescription = "The goblin cowers in the corner watching you very intently.";
             string shortDescription = "A frightened goblin.";
@@ -283,7 +283,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private INonPlayerCharacter TunnelGoblin(IRoom room)
         {
-            string corpseDescription = "A small broken green lies here.";
+            string corpseDescription = "A small broken green goblin lies here.";
             string examineDescription = "The goblin is armed to the teeth and appears to be on some type of war patrol.";
             string lookDescription = "A well armed goblin appears before you with weapon drawn.";
             string shortDescription = "An armed goblin.";
