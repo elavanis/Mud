@@ -323,6 +323,11 @@ namespace Objects.World
                 {
                     room.RemoveMobileObjectFromRoom(pc);
                 }
+
+                foreach (IMobileObject mob in room.OtherMobs)
+                {
+                    mob.Room = null;
+                }
             }
 
             return GlobalReference.GlobalValues.Serialization.Serialize(zone);

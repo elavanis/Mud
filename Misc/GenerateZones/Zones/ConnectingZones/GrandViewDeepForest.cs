@@ -89,22 +89,22 @@ namespace GenerateZones.Zones.ConnectingZones
             foreach (IRoom room in Zone.Rooms.Values)
             {
                 ILoadableItems loadable = (ILoadableItems)room;
-                loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Cow(room) });
-                loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Horse(room) });
-                loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Chicken(room) });
+                loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Cow() });
+                loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Horse() });
+                loadable.LoadableItems.Add(new LoadPercentage() { PercentageLoad = percent, Object = Chicken() });
 
             }
             return Zone;
         }
 
-        private INonPlayerCharacter Cow(IRoom room)
+        private INonPlayerCharacter Cow()
         {
             string examineDescription = "The cow looks to be about five feet tall and could easily push you out of the way if it wanted the grass you were standing on.";
             string lookDescription = "A dairy cow lazily eats grass.";
             string sentenceDescription = "cow";
             string shortDescription = "A dairy cow.";
 
-            INonPlayerCharacter npc = BuildNpc(room, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            INonPlayerCharacter npc = BuildNpc(examineDescription, lookDescription, sentenceDescription, shortDescription);
             npc.LevelRange = new LevelRange() { LowerLevel = 8, UpperLevel = 10 };
             npc.Personalities.Add(new Wanderer());
             npc.KeyWords.Add("cow");
@@ -115,14 +115,14 @@ namespace GenerateZones.Zones.ConnectingZones
             return npc;
         }
 
-        private INonPlayerCharacter Horse(IRoom room)
+        private INonPlayerCharacter Horse()
         {
             string examineDescription = "The {color} horse.";
             string lookDescription = "A beautiful {color} horse stands looking at you.";
             string sentenceDescription = "horse";
             string shortDescription = "A fine horse stands here.";
 
-            INonPlayerCharacter npc = BuildNpc(room, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            INonPlayerCharacter npc = BuildNpc(examineDescription, lookDescription, sentenceDescription, shortDescription);
             npc.LevelRange = new LevelRange() { LowerLevel = 9, UpperLevel = 11 };
             npc.KeyWords.Add("horse");
             npc.FlavorOptions.Add("{color}", new List<string>() { "black", "brown" });
@@ -130,23 +130,24 @@ namespace GenerateZones.Zones.ConnectingZones
             return npc;
         }
 
-        private INonPlayerCharacter Chicken(IRoom room)
+        private INonPlayerCharacter Chicken()
         {
             string examineDescription = "The chicken looks to be just the right size for some good eating.";
             string lookDescription = "The chicken struts around pecking the ground looking for something to eat.";
             string sentenceDescription = "chicken";
             string shortDescription = "A chicken";
 
-            INonPlayerCharacter npc = BuildNpc(room, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            INonPlayerCharacter npc = BuildNpc(examineDescription, lookDescription, sentenceDescription, shortDescription);
             npc.LevelRange = new LevelRange() { LowerLevel = 5, UpperLevel = 8 };
             npc.KeyWords.Add("chicken");
 
             return npc;
         }
 
-        private INonPlayerCharacter BuildNpc(IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
+        private INonPlayerCharacter BuildNpc(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, room, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            //these are template characters so don't add the room
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, null!, examineDescription, lookDescription, sentenceDescription, shortDescription);
             npc.Personalities.Add(new Wanderer());
             return npc;
         }
