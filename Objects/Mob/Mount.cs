@@ -1,6 +1,7 @@
 ﻿using Objects.Global;
 using Objects.Mob.Interface;
 using Objects.Room.Interface;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -56,6 +57,10 @@ namespace Objects.Mob
         #endregion Descriptions
         #endregion AnimalInfo
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        [Obsolete("Needed for deserialization.", true)]
+        public Mount() : base(null, null, null, null, null) { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         public Mount(DefaultValues defaultValue, IRoom room) : base(room, "examine description", "look description", "sentience description", "short description")
         {
@@ -79,9 +84,8 @@ namespace Objects.Mob
             LoadDefaultValues(defaultValue);
         }
 
-        public Mount(DefaultValues defaultValue, IRoom room, string corpseDescription, int id, int zone, string examineDescription, string lookDescription, string sentienceDescription, string shortDescription) : this(defaultValue, room)
+        public Mount(DefaultValues defaultValue, IRoom room, string examineDescription, string lookDescription, string sentienceDescription, string shortDescription) : this(defaultValue, room)
         {
-            CorpseDescription = corpseDescription;
             ExamineDescription = examineDescription;
             LookDescription = lookDescription;
             SentenceDescription = sentienceDescription;
