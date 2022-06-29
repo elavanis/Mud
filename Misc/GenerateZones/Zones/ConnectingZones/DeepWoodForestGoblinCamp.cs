@@ -10,11 +10,9 @@ namespace GenerateZones.Zones.ConnectingZones
 {
     public class DeepWoodForestGoblinCamp : BaseZone, IZoneCode
     {
-
         public DeepWoodForestGoblinCamp() : base(17)
         {
         }
-
 
         #region Rooms
         IZone IZoneCode.Generate()

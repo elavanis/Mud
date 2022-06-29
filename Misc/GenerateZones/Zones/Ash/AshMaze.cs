@@ -49,60 +49,10 @@ namespace GenerateZones.Zones.Ash
 
             ConnectRooms();
 
-
-
             return Zone;
         }
 
-        private IMobileObject AshWitch(IRoom room)
-        {
-            string corpseDescription = "A pile of wispy ash lies here.";
-            string examineDescription = "The witch stands eight feet tall ans is slender.  It is made entirely of gray ash and has no face.";
-            string lookDescription = "An ash witch goes around trying to sweep up all the ash in vain.";
-            string shortDescription = "Ash Witch";
-            string sentenceDescription = "Ash Witch";
-
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 85, corpseDescription);
-            npc.KeyWords.Add("Ash");
-            npc.KeyWords.Add("Witch");
-            npc.God = true;     //needed to phase
-
-            IPhase phase = new Phase();
-
-            foreach (IRoom localroom in Zone.Rooms.Values)
-            {
-                phase.RoomsToPhaseTo.Add(new BaseObjectId(localroom));
-            }
-
-            npc.Personalities.Add(phase);
-            return npc;
-        }
-
-        private IMobileObject LZoir(IRoom room)
-        {
-            string corpseDescription = "A giant LZoir corpse slowly turns gray.";
-            string examineDescription = "A large insect resembling a mosquito with two stingers and spots of red on its wings.";
-            string lookDescription = "A large insect that seems drawn to heat.";
-            string shortDescription = "LZoir";
-            string sentenceDescription = "LZoir";
-
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 80, corpseDescription);
-            npc.KeyWords.Add("LZoir");
-            npc.God = true;     //needed to phase
-
-            npc.Personalities.Add(new Aggressive());
-            IPhase phase = new Phase();
-
-            foreach (IRoom localroom in Zone.Rooms.Values)
-            {
-                phase.RoomsToPhaseTo.Add(new BaseObjectId(localroom));
-            }
-
-            npc.Personalities.Add(phase);
-
-            return npc;
-        }
-
+        #region Rooms
         private IRoom GetRoom()
         {
 
@@ -240,5 +190,57 @@ namespace GenerateZones.Zones.Ash
             leaveRoomEnchantment.Effect = new MoveMob();
             return leaveRoomEnchantment;
         }
+        #endregion Rooms
+
+        #region Npcs
+        private IMobileObject AshWitch(IRoom room)
+        {
+            string corpseDescription = "A pile of wispy ash lies here.";
+            string examineDescription = "The witch stands eight feet tall ans is slender.  It is made entirely of gray ash and has no face.";
+            string lookDescription = "An ash witch goes around trying to sweep up all the ash in vain.";
+            string shortDescription = "Ash Witch";
+            string sentenceDescription = "Ash Witch";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 85, corpseDescription);
+            npc.KeyWords.Add("Ash");
+            npc.KeyWords.Add("Witch");
+            npc.God = true;     //needed to phase
+
+            IPhase phase = new Phase();
+
+            foreach (IRoom localroom in Zone.Rooms.Values)
+            {
+                phase.RoomsToPhaseTo.Add(new BaseObjectId(localroom));
+            }
+
+            npc.Personalities.Add(phase);
+            return npc;
+        }
+
+        private IMobileObject LZoir(IRoom room)
+        {
+            string corpseDescription = "A giant LZoir corpse slowly turns gray.";
+            string examineDescription = "A large insect resembling a mosquito with two stingers and spots of red on its wings.";
+            string lookDescription = "A large insect that seems drawn to heat.";
+            string shortDescription = "LZoir";
+            string sentenceDescription = "LZoir";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Other, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 80, corpseDescription);
+            npc.KeyWords.Add("LZoir");
+            npc.God = true;     //needed to phase
+
+            npc.Personalities.Add(new Aggressive());
+            IPhase phase = new Phase();
+
+            foreach (IRoom localroom in Zone.Rooms.Values)
+            {
+                phase.RoomsToPhaseTo.Add(new BaseObjectId(localroom));
+            }
+
+            npc.Personalities.Add(phase);
+
+            return npc;
+        }
+        #endregion Npcs
     }
 }

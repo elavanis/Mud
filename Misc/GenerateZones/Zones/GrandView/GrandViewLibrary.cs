@@ -39,7 +39,6 @@ namespace GenerateZones.Zones
 
         #region Rooms
         #region Library Basement
-
         private IRoom GenerateRoom1()
         {
             string examineDescription = "The floor is a beautiful mosaic of the surrounding areas.  The mountains to the north and west and the forest to the east are both represented. For some reason the map maker left out the south.  Still the map must be old because fort Woodbrook is shown miles from the forest and it has long since been overgrown and lies deep in heart of the forest.";
@@ -88,20 +87,6 @@ namespace GenerateZones.Zones
             room.AddMobileObjectToRoom(guildMaster);
 
             return room;
-        }
-
-        private INonPlayerCharacter WizardGuildMaster(IRoom room)
-        {
-            string examineDescription = "The Guildmaster is dressed in a tattered gray cloak that looks to at one point been white.  He has a beard that is almost as long as he is tall and is long since lost any sign of color.";
-            string lookDescription = "He stares into space as if contemplating things you couldn't even imagine.  Occasionally he says something as if he is talking to someone yet you can not see who.  Has he gone mad or talking to something beyond this realm?";
-            string sentenceDescription = "Guildmaster";
-            string shortDescription = "The wizard Guildmaster.";
-
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 20);
-            npc.KeyWords.Add("GuildMaster");
-            npc.KeyWords.Add("Wizard");
-            npc.Personalities.Add(new GuildMaster(Guilds.Wizard));
-            return npc;
         }
 
         private IRoom GenerateRoom8()
@@ -165,28 +150,6 @@ namespace GenerateZones.Zones
             apprentice.AddEquipment(WizardStaff());
 
             return room;
-        }
-
-        private IEquipment WizardStaff()
-        {
-            string examineDescription = "Examining the staff reveals the slight shimmer is a thin layer of frost.  The head of the staff is emitting extreme cold that could useful in battle or drinks at parties.";
-            string lookDescription = "The gnarled staff is twisted age seems to have a slight shimmer at the head of the staff.";
-            string sentenceDescription = "wizard staff";
-            string shortDescription = "A wizards staff hewn from an oak tree.";
-
-            IWeapon staff = CreateWeapon(WeaponType.WizardStaff, 1, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            staff.KeyWords.Add("staff");
-            staff.KeyWords.Add("ice");
-            staff.AttackerStat = Stats.Stat.Dexterity;
-            staff.DeffenderStat = Stats.Stat.Dexterity;
-
-            Damage damage = new Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(staff.Level);
-            damage.Type = Damage.DamageType.Cold;
-            damage.BonusDamageStat = Stats.Stat.Intelligence;
-            staff.DamageList.Add(damage);
-
-            return staff;
         }
 
         private IRoom GenerateRoom18()
@@ -270,7 +233,7 @@ namespace GenerateZones.Zones
         {
             return LibraryBasement();
         }
-
+        
         private IRoom GenerateRoom32()
         {
             return LibraryBasement();
@@ -333,67 +296,7 @@ namespace GenerateZones.Zones
             return room;
         }
 
-        private IArmor Ring()
-        {
-            string examineDescription = "You throughly examine the ring but can find nothing of interest.  It appears to be nothing more than a gold ring.";
-            string lookDescription = "A small round gold ring which otherwise is quite ordinary.";
-            string sentenceDescription = "gold ring";
-            string shortDescription = "A small gold ring.";
-
-            IArmor ring = CreateArmor(AvalableItemPosition.Legs, 1, examineDescription, lookDescription, sentenceDescription, shortDescription, new Gold());
-            ring.KeyWords.Add("gold");
-            ring.KeyWords.Add("ring");
-
-            return ring;
-        }
-
-        private INonPlayerCharacter Female_Apprentice(IRoom room)
-        {
-            string examineDescription = "She glances at you staring at her but quickly returns her task.";
-            string lookDescription = "She wears a {adjective} {color} robe with {embroiderment} embroiderment.  A white sash is draped over her shoulders indicating her status of a {year} level apprentice.";
-            string sentenceDescription = "Female apprentice";
-            string shortDescription = "An female apprentice is wandering around looking for books.";
-
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 2);
-            npc.Personalities.Add(new Wanderer());
-            npc.KeyWords.Add("female");
-            npc.KeyWords.Add("apprentice");
-
-            List<string> adjective = new List<string>() { "dark", "light" };
-            List<string> colors = new List<string>() { "red", "blue", "green", "purple", "yellow" };
-            List<string> embroiderment = new List<string>() { "gold", "silver" };
-            List<string> year = new List<string>() { "first", "second", "third" };
-
-            npc.FlavorOptions.Add("{adjective}", adjective);
-            npc.FlavorOptions.Add("{color}", colors);
-            npc.FlavorOptions.Add("{embroiderment}", embroiderment);
-            npc.FlavorOptions.Add("{year}", year);
-            return npc;
-        }
-
-        private INonPlayerCharacter Male_Apprentice(IRoom room)
-        {
-            string examineDescription = "The apprentice is wandering around the basement aimlessly.";
-            string lookDescription = "He wears a {adjective} {color} robe with {embroiderment} embroiderment.  A white sash is draped over his shoulders indicating his status of a {year} level apprentice.";
-            string sentenceDescription = "Male apprentice";
-            string shortDescription = "An male apprentice is wandering around looking for books.";
-
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 2);
-            npc.Personalities.Add(new Wanderer());
-            npc.KeyWords.Add("male");
-            npc.KeyWords.Add("apprentice");
-
-            List<string> adjective = new List<string>() { "dark", "light" };
-            List<string> colors = new List<string>() { "red", "blue", "green", "purple", "yellow" };
-            List<string> embroiderment = new List<string>() { "gold", "silver" };
-            List<string> year = new List<string>() { "first", "second", "third" };
-
-            npc.FlavorOptions.Add("{adjective}", adjective);
-            npc.FlavorOptions.Add("{color}", colors);
-            npc.FlavorOptions.Add("{embroiderment}", embroiderment);
-            npc.FlavorOptions.Add("{year}", year);
-            return npc;
-        }
+        
         #endregion Library Basement
 
         #region Library Upstairs
@@ -662,6 +565,109 @@ namespace GenerateZones.Zones
         }
         #endregion Library Upstairs
         #endregion End Rooms
+
+        #region Npcs
+        private INonPlayerCharacter WizardGuildMaster(IRoom room)
+        {
+            string examineDescription = "The Guildmaster is dressed in a tattered gray cloak that looks to at one point been white.  He has a beard that is almost as long as he is tall and is long since lost any sign of color.";
+            string lookDescription = "He stares into space as if contemplating things you couldn't even imagine.  Occasionally he says something as if he is talking to someone yet you can not see who.  Has he gone mad or talking to something beyond this realm?";
+            string sentenceDescription = "Guildmaster";
+            string shortDescription = "The wizard Guildmaster.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 20);
+            npc.KeyWords.Add("GuildMaster");
+            npc.KeyWords.Add("Wizard");
+            npc.Personalities.Add(new GuildMaster(Guilds.Wizard));
+            return npc;
+        }
+
+        private INonPlayerCharacter Female_Apprentice(IRoom room)
+        {
+            string examineDescription = "She glances at you staring at her but quickly returns her task.";
+            string lookDescription = "She wears a {adjective} {color} robe with {embroiderment} embroiderment.  A white sash is draped over her shoulders indicating her status of a {year} level apprentice.";
+            string sentenceDescription = "Female apprentice";
+            string shortDescription = "An female apprentice is wandering around looking for books.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 2);
+            npc.Personalities.Add(new Wanderer());
+            npc.KeyWords.Add("female");
+            npc.KeyWords.Add("apprentice");
+
+            List<string> adjective = new List<string>() { "dark", "light" };
+            List<string> colors = new List<string>() { "red", "blue", "green", "purple", "yellow" };
+            List<string> embroiderment = new List<string>() { "gold", "silver" };
+            List<string> year = new List<string>() { "first", "second", "third" };
+
+            npc.FlavorOptions.Add("{adjective}", adjective);
+            npc.FlavorOptions.Add("{color}", colors);
+            npc.FlavorOptions.Add("{embroiderment}", embroiderment);
+            npc.FlavorOptions.Add("{year}", year);
+            return npc;
+        }
+
+        private INonPlayerCharacter Male_Apprentice(IRoom room)
+        {
+            string examineDescription = "The apprentice is wandering around the basement aimlessly.";
+            string lookDescription = "He wears a {adjective} {color} robe with {embroiderment} embroiderment.  A white sash is draped over his shoulders indicating his status of a {year} level apprentice.";
+            string sentenceDescription = "Male apprentice";
+            string shortDescription = "An male apprentice is wandering around looking for books.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 2);
+            npc.Personalities.Add(new Wanderer());
+            npc.KeyWords.Add("male");
+            npc.KeyWords.Add("apprentice");
+
+            List<string> adjective = new List<string>() { "dark", "light" };
+            List<string> colors = new List<string>() { "red", "blue", "green", "purple", "yellow" };
+            List<string> embroiderment = new List<string>() { "gold", "silver" };
+            List<string> year = new List<string>() { "first", "second", "third" };
+
+            npc.FlavorOptions.Add("{adjective}", adjective);
+            npc.FlavorOptions.Add("{color}", colors);
+            npc.FlavorOptions.Add("{embroiderment}", embroiderment);
+            npc.FlavorOptions.Add("{year}", year);
+            return npc;
+        }
+        #endregion Npcs
+
+        #region Items
+        private IEquipment WizardStaff()
+        {
+            string examineDescription = "Examining the staff reveals the slight shimmer is a thin layer of frost.  The head of the staff is emitting extreme cold that could useful in battle or drinks at parties.";
+            string lookDescription = "The gnarled staff is twisted age seems to have a slight shimmer at the head of the staff.";
+            string sentenceDescription = "wizard staff";
+            string shortDescription = "A wizards staff hewn from an oak tree.";
+
+            IWeapon staff = CreateWeapon(WeaponType.WizardStaff, 1, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            staff.KeyWords.Add("staff");
+            staff.KeyWords.Add("ice");
+            staff.AttackerStat = Stats.Stat.Dexterity;
+            staff.DeffenderStat = Stats.Stat.Dexterity;
+
+            Damage damage = new Damage();
+            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(staff.Level);
+            damage.Type = Damage.DamageType.Cold;
+            damage.BonusDamageStat = Stats.Stat.Intelligence;
+            staff.DamageList.Add(damage);
+
+            return staff;
+        }
+
+        private IArmor Ring()
+        {
+            string examineDescription = "You throughly examine the ring but can find nothing of interest.  It appears to be nothing more than a gold ring.";
+            string lookDescription = "A small round gold ring which otherwise is quite ordinary.";
+            string sentenceDescription = "gold ring";
+            string shortDescription = "A small gold ring.";
+
+            IArmor ring = CreateArmor(AvalableItemPosition.Legs, 1, examineDescription, lookDescription, sentenceDescription, shortDescription, new Gold());
+            ring.KeyWords.Add("gold");
+            ring.KeyWords.Add("ring");
+
+            return ring;
+        }
+
+        #endregion Items
 
         private void ConnectRooms()
         {

@@ -83,20 +83,6 @@ namespace GenerateZones.Zones.GrandView
             return room;
         }
 
-        private IItem Shrine()
-        {
-            string examineDescription = "The shrine is full of small coins carefully placed there.";
-            string lookDescription = "The shrine is make of old wooden boat planks.";
-            string sentenceDescription = "shrine";
-            string shortDescription = "The shrine has a small lantern lit in the center of the wooden shrine.";
-            IItem shrine = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
-            shrine.ZoneId = Zone.Id;
-            shrine.SentenceDescription = "shrine";
-            shrine.KeyWords.Add("shrine");
-
-            return shrine;
-        }
-
         private IRoom GenerateRoom6()
         {
             string examineDescription = "In the center of the circle is a statue of Charon guiding his boat down the river with his mighty oar.";
@@ -110,7 +96,9 @@ namespace GenerateZones.Zones.GrandView
             }
             return room;
         }
+        #endregion Rooms
 
+        #region Npcs
         private INonPlayerCharacter Priest(IRoom room)
         {
             string examineDescription = "Clothed in a gray tunic the priest stands in meditation while emitting a humming sound.";
@@ -118,14 +106,29 @@ namespace GenerateZones.Zones.GrandView
             string sentenceDescription = "priest";
             string shortDescription = "A mediative priest stands in his place in the circle.";
             INonPlayerCharacter nonPlayerCharacter = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 20);
-            
+
             nonPlayerCharacter.Personalities.Add(new Guardian());
             nonPlayerCharacter.KeyWords.Add("Priest");
 
             return nonPlayerCharacter;
         }
+        #endregion Npcs
 
-        #endregion Rooms
+        #region Items
+        private IItem Shrine()
+        {
+            string examineDescription = "The shrine is full of small coins carefully placed there.";
+            string lookDescription = "The shrine is make of old wooden boat planks.";
+            string sentenceDescription = "shrine";
+            string shortDescription = "The shrine has a small lantern lit in the center of the wooden shrine.";
+            IItem shrine = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            shrine.ZoneId = Zone.Id;
+            shrine.SentenceDescription = "shrine";
+            shrine.KeyWords.Add("shrine");
+
+            return shrine;
+        }
+        #endregion Items
 
         private void ConnectRooms()
         {

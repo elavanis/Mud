@@ -127,32 +127,6 @@ namespace GenerateZones.Zones.DeepWoodForest
 
 
         #region Rooms
-
-        private static ITrap BuildTrap(DamageType damageType, List<string> disarmWords, string effectMessage)
-        {
-            ITrap trap = new Trap();
-            trap.DisarmWord = disarmWords;
-            //take the dice that we would use for damage and use those values for the disarm value
-            //we pass 50% so that the pc has a 50/50 odds of disarming
-            IDice tempDice = GlobalReference.GlobalValues.DefaultValues.DiceForTrapLevel(11, 50);
-            trap.DisarmSuccessRoll = tempDice.Die * tempDice.Sides;
-
-            IEnchantment enchantment = new LeaveRoomEnchantment();
-            enchantment.ActivationPercent = 100;
-            enchantment.Effect = new Objects.Effect.Damage();
-
-            IEffectParameter effectParameter = new EffectParameter();
-            IDamage damage = new Objects.Damage.Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForTrapLevel(11, 100);
-            damage.Type = damageType;
-            effectParameter.Damage = damage;
-            effectParameter.TargetMessage = new TranslationMessage(effectMessage);
-
-            enchantment.Parameter = effectParameter;
-            trap.Enchantments.Add(enchantment);
-            return trap;
-        }
-
         #region Leading To Mine Shaft
         private IRoom GenerateRoom1()
         {
@@ -224,21 +198,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             return room;
         }
 
-        private IItem Statue()
-        {
-            string examineDescription = "The statue is carved from a the natural stone in the cave.  The statue appears some how follow you with its eyes as you walk around the chamber.";
-            string lookDescription = "The statue stands twenty or thirty feet tall almost touching the top of the chamber.  He holds a pick in one hand and a shovel in the other.";
-            string sentenceDescription = "statue";
-            string shortDescription = "Statue of Krutulmak";
-
-            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
-            item.KeyWords.Add("statue");
-            item.KeyWords.Add("Krutulmak");
-            item.Attributes.Add(Item.ItemAttribute.NoGet);
-           
-            return item;
-        }
-
         private IRoom GenerateRoom7()
         {
             string examineDescription = "The walls of the tunnel are rough with the scars of pick axes.  Unsure what the kobolds were mining here it will impossible to tell as the walls have been picked clean of any thing that might give a clue.";
@@ -287,34 +246,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.AddItemToRoom(MiningPick());
 
             return room;
-        }
-
-        private IArmor MiningHelmet()
-        {
-            string examineDescription = "The helmet appears to be made of steal and has two small cut outs for ears of a kobold.";
-            string lookDescription = "The helmet looks to be in good shape.  It has a place for a small candle for light in the front.  Right behind where the candle would go is a name.  {Name}";
-            string sentenceDescription = "mining helmet";
-            string shortDescription = "A miners helmet.";
-
-            IArmor armor = CreateArmor(AvalableItemPosition.Head, 11, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
-            armor.KeyWords.Add("Mining");
-            armor.KeyWords.Add("Helmet");
-            armor.FlavorOptions.Add("{Name}", new List<string>() { "Jaap", "Qrink", "Grun", "Gregho", "Eezrark", "Jelo", "Kedzod", "Vokzoxild", "Nuneato", "Rardikzu" });
-            return armor;
-        }
-
-        private IWeapon MiningPick()
-        {
-            string examineDescription = "The shaft of the pick has the name {Name} carved into the handle but is almost worn smooth.";
-            string lookDescription = "A well balanced pick this tool has seen a lot of use over the years.  The handle is worn smooth and the pick is slightly bent.";
-            string sentenceDescription = "miner pick";
-            string shortDescription = "A miners pick.";
-
-            IWeapon weapon = CreateWeapon(WeaponType.Pick, 11, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            weapon.KeyWords.Add("Mining");
-            weapon.FlavorOptions.Add("{Name}", new List<string>() { "Jaap", "Qrink", "Grun", "Gregho", "Eezrark", "Jelo", "Kedzod", "Vokzoxild", "Nuneato", "Rardikzu" });
-
-            return weapon;
         }
         #endregion Leading To Mine Shaft
 
@@ -412,24 +343,6 @@ namespace GenerateZones.Zones.DeepWoodForest
 
             return room;
         }
-
-        private INonPlayerCharacter Miner(IRoom room)
-        {
-            string examineDescription = "The miner ignores you at first then notices you looking at them.  Started at first it decides the best thing to do is ignore you and hope you go away.";
-            string lookDescription = "The miner is hard at work building new tunnels and mining materials.";
-            string sentenceDescription = "Kobold miner";
-            string shortDescription = "A Kobold miner.";
-
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 11);
-            npc.Personalities.Add(new Wanderer());
-            npc.KeyWords.Add("kobold");
-            npc.KeyWords.Add("miner");
-            npc.AddEquipment(MiningPick());
-            npc.AddEquipment(MiningHelmet());
-
-            return npc;
-        }
-
         #endregion Shaft
 
         #region Level 2
@@ -826,128 +739,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             return room;
         }
 
-        private INonPlayerCharacter WanderingGuard(IRoom room)
-        {
-            INonPlayerCharacter npc = Guard(room);
-            Wanderer wanderer = new Wanderer();
-            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 2));
-            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 3));
-            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 4));
-            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 5));
-            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 56));
-            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 57));
-            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 58));
-            npc.Personalities.Add(wanderer);
-
-            return npc;
-        }
-
-        private INonPlayerCharacter Guard(IRoom room)
-        {
-            string examineDescription = "The guard looks tougher than a normal kobold, like its been trained extra hard and will fight to defend the tribe.";
-            string lookDescription = "The kobold is slightly taller than most at a little over four feet tall.";
-            string sentenceDescription = "guard";
-            string shortDescription = "A kobold guard.";
-
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 13);
-
-            npc.KeyWords.Add("guard");
-            npc.KeyWords.Add("kobold");
-            npc.Personalities.Add(new Aggressive());
-            npc.AddEquipment(Spear());
-            npc.AddEquipment(Bracer());
-            npc.AddEquipment(BreastPlate());
-            npc.AddEquipment(Gloves());
-            npc.AddEquipment(Mask());
-            npc.AddEquipment(Greaves());
-
-            return npc;
-        }
-
-        private IWeapon Spear()
-        {
-            string examineDescription = "The spear is about three feet long and made of wood.  It had a point of cobalt on it that is very sharp to the touch.";
-            string lookDescription = "A spear about three feet long with a sharp point of cobalt on the end.";
-            string sentenceDescription = "small spear";
-            string shortDescription = "A small shoddily made spear.";
-
-            IWeapon weapon = CreateWeapon(WeaponType.Spear, 13, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            return weapon;
-        }
-
-        private IArmor Bracer()
-        {
-            string examineDescription = "The bracer is made of several smaller bones sewn on a strip of leather wrapped around the wearers arm.";
-            string lookDescription = "A leather bracer made with bone for extra protection.";
-            string sentenceDescription = "bone bracer";
-            string shortDescription = "A bone bracer.";
-
-            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 13, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
-            armor.KeyWords.Add("bone");
-            armor.KeyWords.Add("bracer");
-
-            return armor;
-        }
-
-        private IArmor BreastPlate()
-        {
-            string examineDescription = "The chest plate looks to like someone took a bears rib cage and set it before you and told you to wear it for armor.";
-            string lookDescription = "You look at what looks to be a bears rib cage, a set of breastplate armor made of bone.";
-            string sentenceDescription = "bone breastplate";
-            string shortDescription = "A breastplate made of bone.";
-
-            IArmor armor = CreateArmor(AvalableItemPosition.Body, 13, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
-            armor.KeyWords.Add("bone");
-            armor.KeyWords.Add("breastplate");
-            armor.KeyWords.Add("breast");
-            armor.KeyWords.Add("plate");
-
-            return armor;
-        }
-
-        private IArmor Gloves()
-        {
-            string examineDescription = "The gloves are made of leather and fit pretty nicely.  Each finger has a cutout for you fingers to slide through as well as what looks to be some type of claw that extends over each finger to help scratch the target.";
-            string lookDescription = "The gloves appear to made of leather of varying grades of quality.  Still they serve their purpose of providing extra protection even if they don't look good.";
-            string sentenceDescription = "leather gloves";
-            string shortDescription = "A pair of leather gloves.";
-
-            IArmor armor = CreateArmor(AvalableItemPosition.Hand, 13, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
-            armor.KeyWords.Add("leather");
-            armor.KeyWords.Add("gloves");
-
-            return armor;
-        }
-
-        private IArmor Mask()
-        {
-            string examineDescription = "The mask does limit your visibility slightly but does protect your face from attacks.";
-            string lookDescription = "The mask covers the wearer's face and provides some protection from attacks.";
-            string sentenceDescription = "small mask";
-            string shortDescription = "A mask made of bone.";
-
-            IArmor armor = CreateArmor(AvalableItemPosition.Head, 13, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
-            armor.KeyWords.Add("mask");
-            armor.KeyWords.Add("bone");
-
-            return armor;
-        }
-
-        private IArmor Greaves()
-        {
-            string examineDescription = "The right greave has several large gashes while the left one looks brand new.  Maybe these are a mismatched set.";
-            string lookDescription = "The greaves are made of leather with a bone outer covering.";
-            string sentenceDescription = "greaves";
-            string shortDescription = "A pair of bone greaves.";
-
-            IArmor armor = CreateArmor(AvalableItemPosition.Legs, 13, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
-            armor.KeyWords.Add("greaves");
-            armor.KeyWords.Add("bone");
-
-            return armor;
-        }
-
-
         private IRoom GenerateRoom57()
         {
             string examineDescription = "The tunnel is a bit difficult to navigate as the floor is full of fallen debris.";
@@ -1125,21 +916,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             room.AddMobileObjectToRoom(EggCareTaker(room));
             return room;
         }
-
-        private INonPlayerCharacter EggCareTaker(IRoom room)
-        {
-            string examineDescription = "The care giver carefully goes around examining each egg and makes sure it is growing properly.";
-            string lookDescription = "Dressed in a light blue apron the kobold gives you a peaceful sensation.";
-            string sentenceDescription = "kobold";
-            string shortDescription = "A kobold care giver.";
-
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 11); 
-            npc.KeyWords.Add("giver");
-            npc.KeyWords.Add("kobold");
-
-            return npc;
-        }
-
+     
         private IRoom GenerateRoom72()
         {
             string examineDescription = "Several books used for teaching are placed on a shelf in the back of the room.  In addition a large chalk board on wheels is nearby with a ring of sitting mats forming a small semi circle.";
@@ -1149,18 +926,6 @@ namespace GenerateZones.Zones.DeepWoodForest
 
             //small kobold
             return room;
-        }
-
-        private INonPlayerCharacter ChildrenKobold(IRoom room)
-        {
-            string examineDescription = "It appears that when the teacher is away that the children really do play.";
-            string lookDescription = "The small kobold ignores you and continues to play.";
-            string sentenceDescription = "child kobold";
-            string shortDescription = "A small kobold runs around the playing.";
-
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 8);
-            npc.KeyWords.Add("kobold");
-            return npc;
         }
 
         private IRoom GenerateRoom73()
@@ -1183,8 +948,6 @@ namespace GenerateZones.Zones.DeepWoodForest
             return room;
         }
 
-
-
         private IRoom GenerateRoom75()
         {
             string examineDescription = "There food is stacked neatly on the shelves.  Going through the food though reveals that kobolds will eat most anything, bark, dirt, leather, eggshells.";
@@ -1196,5 +959,241 @@ namespace GenerateZones.Zones.DeepWoodForest
         }
         #endregion Other Part of Cave
         #endregion Rooms
+
+        #region Npcs
+        private INonPlayerCharacter ChildrenKobold(IRoom room)
+        {
+            string examineDescription = "It appears that when the teacher is away that the children really do play.";
+            string lookDescription = "The small kobold ignores you and continues to play.";
+            string sentenceDescription = "child kobold";
+            string shortDescription = "A small kobold runs around the playing.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 8);
+            npc.KeyWords.Add("kobold");
+            return npc;
+        }
+
+        private INonPlayerCharacter EggCareTaker(IRoom room)
+        {
+            string examineDescription = "The care giver carefully goes around examining each egg and makes sure it is growing properly.";
+            string lookDescription = "Dressed in a light blue apron the kobold gives you a peaceful sensation.";
+            string sentenceDescription = "kobold";
+            string shortDescription = "A kobold care giver.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 11);
+            npc.KeyWords.Add("giver");
+            npc.KeyWords.Add("kobold");
+
+            return npc;
+        }
+
+        private INonPlayerCharacter WanderingGuard(IRoom room)
+        {
+            INonPlayerCharacter npc = Guard(room);
+            Wanderer wanderer = new Wanderer();
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 2));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 3));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 4));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 5));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 56));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 57));
+            wanderer.NavigableRooms.Add(new BaseObjectId(Zone.Id, 58));
+            npc.Personalities.Add(wanderer);
+
+            return npc;
+        }
+
+        private INonPlayerCharacter Guard(IRoom room)
+        {
+            string examineDescription = "The guard looks tougher than a normal kobold, like its been trained extra hard and will fight to defend the tribe.";
+            string lookDescription = "The kobold is slightly taller than most at a little over four feet tall.";
+            string sentenceDescription = "guard";
+            string shortDescription = "A kobold guard.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 13);
+
+            npc.KeyWords.Add("guard");
+            npc.KeyWords.Add("kobold");
+            npc.Personalities.Add(new Aggressive());
+            npc.AddEquipment(Spear());
+            npc.AddEquipment(Bracer());
+            npc.AddEquipment(BreastPlate());
+            npc.AddEquipment(Gloves());
+            npc.AddEquipment(Mask());
+            npc.AddEquipment(Greaves());
+
+            return npc;
+        }
+
+        private INonPlayerCharacter Miner(IRoom room)
+        {
+            string examineDescription = "The miner ignores you at first then notices you looking at them.  Started at first it decides the best thing to do is ignore you and hope you go away.";
+            string lookDescription = "The miner is hard at work building new tunnels and mining materials.";
+            string sentenceDescription = "Kobold miner";
+            string shortDescription = "A Kobold miner.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 11);
+            npc.Personalities.Add(new Wanderer());
+            npc.KeyWords.Add("kobold");
+            npc.KeyWords.Add("miner");
+            npc.AddEquipment(MiningPick());
+            npc.AddEquipment(MiningHelmet());
+
+            return npc;
+        }
+        #endregion Npcs
+
+        #region Items
+        private IItem Statue()
+        {
+            string examineDescription = "The statue is carved from a the natural stone in the cave.  The statue appears some how follow you with its eyes as you walk around the chamber.";
+            string lookDescription = "The statue stands twenty or thirty feet tall almost touching the top of the chamber.  He holds a pick in one hand and a shovel in the other.";
+            string sentenceDescription = "statue";
+            string shortDescription = "Statue of Krutulmak";
+
+            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            item.KeyWords.Add("statue");
+            item.KeyWords.Add("Krutulmak");
+            item.Attributes.Add(Item.ItemAttribute.NoGet);
+
+            return item;
+        }
+
+        private IWeapon Spear()
+        {
+            string examineDescription = "The spear is about three feet long and made of wood.  It had a point of cobalt on it that is very sharp to the touch.";
+            string lookDescription = "A spear about three feet long with a sharp point of cobalt on the end.";
+            string sentenceDescription = "small spear";
+            string shortDescription = "A small shoddily made spear.";
+
+            IWeapon weapon = CreateWeapon(WeaponType.Spear, 13, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            return weapon;
+        }
+
+        private IArmor Bracer()
+        {
+            string examineDescription = "The bracer is made of several smaller bones sewn on a strip of leather wrapped around the wearers arm.";
+            string lookDescription = "A leather bracer made with bone for extra protection.";
+            string sentenceDescription = "bone bracer";
+            string shortDescription = "A bone bracer.";
+
+            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 13, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            armor.KeyWords.Add("bone");
+            armor.KeyWords.Add("bracer");
+
+            return armor;
+        }
+
+        private IArmor BreastPlate()
+        {
+            string examineDescription = "The chest plate looks to like someone took a bears rib cage and set it before you and told you to wear it for armor.";
+            string lookDescription = "You look at what looks to be a bears rib cage, a set of breastplate armor made of bone.";
+            string sentenceDescription = "bone breastplate";
+            string shortDescription = "A breastplate made of bone.";
+
+            IArmor armor = CreateArmor(AvalableItemPosition.Body, 13, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            armor.KeyWords.Add("bone");
+            armor.KeyWords.Add("breastplate");
+            armor.KeyWords.Add("breast");
+            armor.KeyWords.Add("plate");
+
+            return armor;
+        }
+
+        private IArmor Gloves()
+        {
+            string examineDescription = "The gloves are made of leather and fit pretty nicely.  Each finger has a cutout for you fingers to slide through as well as what looks to be some type of claw that extends over each finger to help scratch the target.";
+            string lookDescription = "The gloves appear to made of leather of varying grades of quality.  Still they serve their purpose of providing extra protection even if they don't look good.";
+            string sentenceDescription = "leather gloves";
+            string shortDescription = "A pair of leather gloves.";
+
+            IArmor armor = CreateArmor(AvalableItemPosition.Hand, 13, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            armor.KeyWords.Add("leather");
+            armor.KeyWords.Add("gloves");
+
+            return armor;
+        }
+
+        private IArmor Mask()
+        {
+            string examineDescription = "The mask does limit your visibility slightly but does protect your face from attacks.";
+            string lookDescription = "The mask covers the wearer's face and provides some protection from attacks.";
+            string sentenceDescription = "small mask";
+            string shortDescription = "A mask made of bone.";
+
+            IArmor armor = CreateArmor(AvalableItemPosition.Head, 13, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            armor.KeyWords.Add("mask");
+            armor.KeyWords.Add("bone");
+
+            return armor;
+        }
+
+        private IArmor Greaves()
+        {
+            string examineDescription = "The right greave has several large gashes while the left one looks brand new.  Maybe these are a mismatched set.";
+            string lookDescription = "The greaves are made of leather with a bone outer covering.";
+            string sentenceDescription = "greaves";
+            string shortDescription = "A pair of bone greaves.";
+
+            IArmor armor = CreateArmor(AvalableItemPosition.Legs, 13, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
+            armor.KeyWords.Add("greaves");
+            armor.KeyWords.Add("bone");
+
+            return armor;
+        }
+
+        private IArmor MiningHelmet()
+        {
+            string examineDescription = "The helmet appears to be made of steal and has two small cut outs for ears of a kobold.";
+            string lookDescription = "The helmet looks to be in good shape.  It has a place for a small candle for light in the front.  Right behind where the candle would go is a name.  {Name}";
+            string sentenceDescription = "mining helmet";
+            string shortDescription = "A miners helmet.";
+
+            IArmor armor = CreateArmor(AvalableItemPosition.Head, 11, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
+            armor.KeyWords.Add("Mining");
+            armor.KeyWords.Add("Helmet");
+            armor.FlavorOptions.Add("{Name}", new List<string>() { "Jaap", "Qrink", "Grun", "Gregho", "Eezrark", "Jelo", "Kedzod", "Vokzoxild", "Nuneato", "Rardikzu" });
+            return armor;
+        }
+
+        private IWeapon MiningPick()
+        {
+            string examineDescription = "The shaft of the pick has the name {Name} carved into the handle but is almost worn smooth.";
+            string lookDescription = "A well balanced pick this tool has seen a lot of use over the years.  The handle is worn smooth and the pick is slightly bent.";
+            string sentenceDescription = "miner pick";
+            string shortDescription = "A miners pick.";
+
+            IWeapon weapon = CreateWeapon(WeaponType.Pick, 11, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            weapon.KeyWords.Add("Mining");
+            weapon.FlavorOptions.Add("{Name}", new List<string>() { "Jaap", "Qrink", "Grun", "Gregho", "Eezrark", "Jelo", "Kedzod", "Vokzoxild", "Nuneato", "Rardikzu" });
+
+            return weapon;
+        }
+        #endregion Items
+
+        private static ITrap BuildTrap(DamageType damageType, List<string> disarmWords, string effectMessage)
+        {
+            ITrap trap = new Trap();
+            trap.DisarmWord = disarmWords;
+            //take the dice that we would use for damage and use those values for the disarm value
+            //we pass 50% so that the pc has a 50/50 odds of disarming
+            IDice tempDice = GlobalReference.GlobalValues.DefaultValues.DiceForTrapLevel(11, 50);
+            trap.DisarmSuccessRoll = tempDice.Die * tempDice.Sides;
+
+            IEnchantment enchantment = new LeaveRoomEnchantment();
+            enchantment.ActivationPercent = 100;
+            enchantment.Effect = new Objects.Effect.Damage();
+
+            IEffectParameter effectParameter = new EffectParameter();
+            IDamage damage = new Objects.Damage.Damage();
+            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForTrapLevel(11, 100);
+            damage.Type = damageType;
+            effectParameter.Damage = damage;
+            effectParameter.TargetMessage = new TranslationMessage(effectMessage);
+
+            enchantment.Parameter = effectParameter;
+            trap.Enchantments.Add(enchantment);
+            return trap;
+        }
     }
 }

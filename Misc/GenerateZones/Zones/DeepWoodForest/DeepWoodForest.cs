@@ -981,7 +981,7 @@ namespace GenerateZones.Zones.DeepWoodForest
         }
         #endregion Rooms
 
-        #region Animals
+        #region Npcs
         private INonPlayerCharacter Owl(IRoom room)
         {
             string corpseDescription = "This once beautiful owl could mistaken for sleeping if not for the way its body is twisted.";
@@ -1114,7 +1114,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
             return npc;
         }
-        #endregion Animals
+        #endregion Npcs
 
         private void ConnectRooms()
         {

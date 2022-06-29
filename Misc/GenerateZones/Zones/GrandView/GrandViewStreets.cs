@@ -88,20 +88,6 @@ namespace GenerateZones.Zones.GrandView
 
             return room;
         }
-        private IItem LionStatue()
-        {
-            string examineDescription = "Each lion is in a sitting position with one paw holding a shield with the cities crest upright.";
-            string lookDescription = "The steps are flanked on each side by a pair of black marble lions which seem to almost come to life.";
-            string sentenceDescription = "statue";
-            string shortDescription = "A lion statue.";
-
-            IItem statue = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
-            statue.Attributes.Add(Item.ItemAttribute.NoGet);
-            statue.KeyWords.Add("Lion");
-            statue.KeyWords.Add("statue");
-
-            return statue;
-        }
 
         private IRoom GenerateRoom5()
         {
@@ -114,25 +100,6 @@ namespace GenerateZones.Zones.GrandView
             room.Sounds.Add(FountainSound());
 
             return room;
-        }
-
-        private ISound FountainSound()
-        {
-            ISound sound = new Sound();
-            sound.Loop = true;
-            sound.SoundName = string.Format("{0}\\{1}", Zone.Name, "Fountain.mp3");
-            return sound;
-        }
-
-        private Fountain Room13_Fountain()
-        {
-            string examineDescription = "The fountain is made of blue glass with four tiers.  The first three tiers flow down into the 4th tier and the bottom pool shoots water up into the 4th tier.  The blue color causes the fountain to blend into the water making the whole thing appear as one big moving fountain of water.";
-            string lookDescription = "A large ornate fountain pours water down several tiers.";
-            string sentenceDescription = "fountain";
-            string shortDescription = "An ornate fountain.";
-
-            Fountain fountain = CreateFountain(examineDescription, lookDescription, sentenceDescription, shortDescription);
-            return fountain;
         }
 
         private IRoom GenerateRoom6()
@@ -277,8 +244,6 @@ East: The Training Hall";
             IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
             return room;
         }
-
-
         #endregion City
 
         #region City Pt2
@@ -417,21 +382,44 @@ East: The Training Hall";
             return room;
         }
 
-        private IItem Sign()
+    
+        #endregion Duck Pond
+
+        private IRoom GenerateRoom29()
         {
-            string examineDescription = "Made of some type of metal it is firmly attached to the bottom of the pond.  Maybe instead of messing with the sign you should what it says.";
-            string lookDescription = "The sign says \"IF YOU CAN READ THIS GET OUT OF THE DUCK POND\"";
-            string sentenceDescription = "sign";
-            string shortDescription = "A small metal sign lies on bottom of the pond about two feet deep.";
+            string examineDescription = "The entrance to the temple of Charon can be seen on the hill to the west.";
+            string lookDescription = "A main road of the city it the cobble stones have been warn smooth.";
+            string shortDescription = "A main road.";
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
 
-            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
-            item.Attributes.Add(Item.ItemAttribute.NoGet);
-            item.KeyWords.Add("sign");
-            item.KeyWords.Add("statue");
-
-            return item;
+            return room;
         }
 
+        private IRoom GenerateRoom30()
+        {
+            string examineDescription = "A coin has become wedged in between to stones but try as you might it won't come loose.";
+            string lookDescription = "A few dandelions push their way up through the cracks in the road.";
+            string shortDescription = "A main road.";
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
+
+            return room;
+        }
+
+        private IRoom GenerateRoom31()
+        {
+            string examineDescription = "Dandelions grow in the grass along side the road creating a blanket of yellow.";
+            string lookDescription = "Part of the road has sunken down causing a small dip on the right side of the road.";
+            string shortDescription = "A main road.";
+            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
+
+            room.AddItemToRoom(BrokenCart());
+
+            return room;
+        }
+
+        #endregion End Rooms
+
+        #region Npcs
         private INonPlayerCharacter DaddyDuck(IRoom room)
         {
             string examineDescription = "The bright green head gives away that this is an adult male mallard duck.";
@@ -502,38 +490,57 @@ East: The Training Hall";
 
             return npc;
         }
-        #endregion Duck Pond
+        #endregion Npcs
 
-        private IRoom GenerateRoom29()
+
+        #region Items
+        private IItem LionStatue()
         {
-            string examineDescription = "The entrance to the temple of Charon can be seen on the hill to the west.";
-            string lookDescription = "A main road of the city it the cobble stones have been warn smooth.";
-            string shortDescription = "A main road.";
-            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
+            string examineDescription = "Each lion is in a sitting position with one paw holding a shield with the cities crest upright.";
+            string lookDescription = "The steps are flanked on each side by a pair of black marble lions which seem to almost come to life.";
+            string sentenceDescription = "statue";
+            string shortDescription = "A lion statue.";
 
-            return room;
+            IItem statue = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            statue.Attributes.Add(Item.ItemAttribute.NoGet);
+            statue.KeyWords.Add("Lion");
+            statue.KeyWords.Add("statue");
+
+            return statue;
         }
 
-        private IRoom GenerateRoom30()
+        private ISound FountainSound()
         {
-            string examineDescription = "A coin has become wedged in between to stones but try as you might it won't come loose.";
-            string lookDescription = "A few dandelions push their way up through the cracks in the road.";
-            string shortDescription = "A main road.";
-            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
-
-            return room;
+            ISound sound = new Sound();
+            sound.Loop = true;
+            sound.SoundName = string.Format("{0}\\{1}", Zone.Name, "Fountain.mp3");
+            return sound;
         }
 
-        private IRoom GenerateRoom31()
+        private Fountain Room13_Fountain()
         {
-            string examineDescription = "Dandelions grow in the grass along side the road creating a blanket of yellow.";
-            string lookDescription = "Part of the road has sunken down causing a small dip on the right side of the road.";
-            string shortDescription = "A main road.";
-            IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
+            string examineDescription = "The fountain is made of blue glass with four tiers.  The first three tiers flow down into the 4th tier and the bottom pool shoots water up into the 4th tier.  The blue color causes the fountain to blend into the water making the whole thing appear as one big moving fountain of water.";
+            string lookDescription = "A large ornate fountain pours water down several tiers.";
+            string sentenceDescription = "fountain";
+            string shortDescription = "An ornate fountain.";
 
-            room.AddItemToRoom(BrokenCart());
+            Fountain fountain = CreateFountain(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            return fountain;
+        }
 
-            return room;
+        private IItem Sign()
+        {
+            string examineDescription = "Made of some type of metal it is firmly attached to the bottom of the pond.  Maybe instead of messing with the sign you should what it says.";
+            string lookDescription = "The sign says \"IF YOU CAN READ THIS GET OUT OF THE DUCK POND\"";
+            string sentenceDescription = "sign";
+            string shortDescription = "A small metal sign lies on bottom of the pond about two feet deep.";
+
+            IItem item = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            item.Attributes.Add(Item.ItemAttribute.NoGet);
+            item.KeyWords.Add("sign");
+            item.KeyWords.Add("statue");
+
+            return item;
         }
 
         private IItem BrokenCart()
@@ -550,9 +557,7 @@ East: The Training Hall";
             return item;
         }
 
-
-
-        #endregion End Rooms
+        #endregion Items
 
         private void ConnectRooms()
         {

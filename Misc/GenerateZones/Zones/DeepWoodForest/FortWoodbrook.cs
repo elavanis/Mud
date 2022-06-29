@@ -393,9 +393,9 @@ namespace GenerateZones.Zones.DeepWoodForest
 
             return room;
         }
+        #endregion Rooms
 
-
-
+        #region Npcs
         private INonPlayerCharacter BabySpider(IRoom room)
         {
             string examineDescription = "The spider has the trade mark red hour glass indicating its a black widow.  It might be good to leave this spider alone.";
@@ -427,7 +427,7 @@ namespace GenerateZones.Zones.DeepWoodForest
 
             return npc;
         }
-        #endregion Rooms
+        #endregion Npcs
 
         #region Equipment
         private void LoadEquipment(IRoom room)

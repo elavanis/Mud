@@ -40,8 +40,6 @@ namespace GenerateZones.Zones
             return Zone;
         }
 
-
-
         private IRoom GenerateRoom()
         {
             string examineDescription = "The red rose bush is in full bloom while the white roses are starting to open up.  There is a red and yellow mix close to your feet that is an interesting color while the pink one slightly above your eye level looks to be straight out of a bouquet.";

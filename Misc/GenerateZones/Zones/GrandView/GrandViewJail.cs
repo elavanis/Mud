@@ -44,7 +44,6 @@ namespace GenerateZones.Zones
         //    return enchantment;
         //}
 
-
         private IRoom GenerateRoom1()
         {
             string examineDescription = "The cell is cold and damp just like you would imagine it to be.  However upon closer inspection you notice that the wall to the east is actually a door.";
@@ -57,7 +56,6 @@ namespace GenerateZones.Zones
             //room.Enchantments.Add(EnterRoomMessage(message, TagWrapper.TagType.Info));
             return room;
         }
-
 
         private IRoom GenerateRoom2()
         {
@@ -172,8 +170,6 @@ namespace GenerateZones.Zones
             return room;
         }
         #endregion JailTunnel
-
-
         #endregion End Rooms
 
         private void ConnectRooms()

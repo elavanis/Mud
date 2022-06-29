@@ -34,6 +34,26 @@ namespace GenerateZones.Zones.Mountain
             return Zone;
         }
 
+        private void ConnectRooms()
+        {
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.South, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.West, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.North, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.Up, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.Up, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[7], Direction.East, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.East, Zone.Rooms[9]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.Down, Zone.Rooms[10]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.East, Zone.Rooms[11]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.East, Zone.Rooms[12]);
+
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 22, 3, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a bear standing on its hind legs."));
+            ZoneHelper.ConnectZone(Zone.Rooms[2], Direction.North, 22, 7, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a fish swallowing a man."));
+            ZoneHelper.ConnectZone(Zone.Rooms[3], Direction.East, 22, 11, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a lion killing an antelope."));
+            ZoneHelper.ConnectZone(Zone.Rooms[4], Direction.South, 22, 15, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a eagle catching a fish."));
+        }
+
         #region Rooms
         private IRoom GenerateRoom1()
         {
@@ -156,6 +176,24 @@ namespace GenerateZones.Zones.Mountain
 
             return room;
         }
+
+        private IRoom Stairs()
+        {
+            string shortDescription = "Spiral Staircase";
+            string examineDescription = "The stairs are surprisingly made of wood instead of stone and creak slightly as you walk on them.";
+            string lookDescription = "The spiral stairs ascend up the tower as well as down into a basement area.";
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
+            return room;
+        }
+
+        private IRoom GroundFloor()
+        {
+            string shortDescription = "Ground Floor";
+            string examineDescription = "The stone hallway is lit with a pair of torches ever twelve feet.";
+            string lookDescription = "A stone hallway leading outside the tower and deeper inside toward a stairwell.";
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
+            return room;
+        }
         #endregion Rooms
 
         #region Npc
@@ -224,6 +262,7 @@ namespace GenerateZones.Zones.Mountain
         }
         #endregion Npc
 
+        #region Items
         private IEnchantery Enchantery()
         {
             string examineDescription = "The table once was a dark oak but with time and enchantments it has begun to glow a slight blue color casting a blue tint on everything in the room.";
@@ -231,7 +270,7 @@ namespace GenerateZones.Zones.Mountain
             string shortDescription = "table";
             string sentenceDescription = "The table glows with wisps of energy radiating upward.";
 
-            IEnchantery enchantery =CreateEnchantery(examineDescription, lookDescription, shortDescription, sentenceDescription);
+            IEnchantery enchantery = CreateEnchantery(examineDescription, lookDescription, shortDescription, sentenceDescription);
 
             enchantery.Attributes.Add(ItemAttribute.NoGet);
             enchantery.KeyWords.Add("table");
@@ -239,42 +278,6 @@ namespace GenerateZones.Zones.Mountain
             return enchantery;
         }
 
-        private IRoom Stairs()
-        {
-            string shortDescription = "Spiral Staircase";
-            string examineDescription = "The stairs are surprisingly made of wood instead of stone and creak slightly as you walk on them.";
-            string lookDescription = "The spiral stairs ascend up the tower as well as down into a basement area.";
-            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
-            return room;
-        }
-
-        private IRoom GroundFloor()
-        {
-            string shortDescription = "Ground Floor";
-            string examineDescription = "The stone hallway is lit with a pair of torches ever twelve feet.";
-            string lookDescription = "A stone hallway leading outside the tower and deeper inside toward a stairwell.";
-            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
-            return room;
-        }
-
-        private void ConnectRooms()
-        {
-            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.South, Zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.West, Zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.North, Zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.Up, Zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.Up, Zone.Rooms[7]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[7], Direction.East, Zone.Rooms[8]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.East, Zone.Rooms[9]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.Down, Zone.Rooms[10]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[10], Direction.East, Zone.Rooms[11]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[11], Direction.East, Zone.Rooms[12]);
-
-            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.West, 22, 3, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a bear standing on its hind legs."));
-            ZoneHelper.ConnectZone(Zone.Rooms[2], Direction.North, 22, 7, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a fish swallowing a man."));
-            ZoneHelper.ConnectZone(Zone.Rooms[3], Direction.East, 22, 11, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a lion killing an antelope."));
-            ZoneHelper.ConnectZone(Zone.Rooms[4], Direction.South, 22, 15, new DoorInfo("door", "The door slides open with the sound of stone sliding on stone.", "The door slides closed with the sound of stone sliding on stone.", true, "The door depicts a eagle catching a fish."));
-        }
+        #endregion Items
     }
 }

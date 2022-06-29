@@ -67,85 +67,7 @@ namespace GenerateZones.Zones.GrandView
             room.AddItemToRoom(HospitalGown());
             return room;
         }
-
-
-        private INonPlayerCharacter Nurse(IRoom room)
-        {
-            string examineDescription = "The nurse is dressed in blue dress with a white apron that covers the front of her and ties in the back.  On her head she wears a white cloth that drapes down on either side of her head.";
-            string lookDescription = "A nurse busily attends to her patients, taking care to make sure each one is as comfortable as possible.";
-            string sentenceDescription = "nurse";
-            string shortDescription = "A nurse attending patients.";
-
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid,room, examineDescription, lookDescription, sentenceDescription, shortDescription, 20); ;
-            npc.KeyWords.Add("Nurse");
-
-            npc.Personalities.Add(new Healer() { CastPercent = 10 });
-            npc.SpellBook.Add("HEALTH", Health());
-            npc.SpellBook.Add("MAGIC", Magic());
-            npc.SpellBook.Add("STAMIA", Stamina());
-
-            return npc;
-        }
-
-        private ISpell Health()
-        {
-            ISpell heal = BuildSpell("health");
-
-            heal.TargetNotificationSuccess = new TranslationMessage("You feel healthier.");
-            heal.Effect = new RecoverHealth();
-
-            return heal;
-        }
-
-        private static ISpell BuildSpell(string spellName)
-        {
-            ISpell spell = new SingleTargetSpell();
-            spell.SpellName = spellName;
-            spell.ManaCost = 0;
-            spell.Parameter.Dice = GlobalReference.GlobalValues.DefaultValues.ReduceValues(1, 100);
-            string message = "The nurse says {0} and is briefly surrounded in a aura of light.";
-            List<ITranslationPair> translate = new List<ITranslationPair>();
-            ITranslationPair translationPair = new TranslationPair(Translator.Languages.Magic, spellName);
-            translate.Add(translationPair);
-            ITranslationMessage translationMessage = new TranslationMessage(message, TagType.Info, translate);
-            spell.RoomNotificationSuccess = translationMessage;
-            spell.PerformerNotificationSuccess = new TranslationMessage("you cast a spell");
-            return spell;
-        }
-
-        private ISpell Magic()
-        {
-            ISpell heal = BuildSpell("magic");
-            heal.TargetNotificationSuccess = new TranslationMessage("You feel more magical.");
-            heal.Effect = new RecoverMana();
-
-            return heal;
-        }
-
-        private ISpell Stamina()
-        {
-            ISpell heal = BuildSpell("stamina");
-            heal.TargetNotificationSuccess = new TranslationMessage("You feel more energetic.");
-            heal.Effect = new RecoverStamina();
-
-            return heal;
-        }
-
-        private IArmor HospitalGown()
-        {
-            string examineDescription = "Thin and airy this would not provide much defense against anything other than people staring at you.  On second thought if you wore this out in public, people would stare.  This really wouldn't do much good.";
-            string lookDescription = "This is your everyday hospital gown.  White with little blue dots with a tie in the back that exposes a little to much of your rear.";
-            string sentenceDescription = "hospital gown";
-            string shortDescription = "A loose fitting hospital gown";
-
-            IArmor armor = CreateArmor(AvalableItemPosition.Body, 1,examineDescription, lookDescription,sentenceDescription, shortDescription, new Cloth());
-            armor.KeyWords.Add("Hospital");
-            armor.KeyWords.Add("Gown");
-
-            armor.FinishLoad();
-            return armor;
-        }
-
+       
         private IRoom GenerateRoom4()
         {
             string examineDescription = "The hallway way is fairly long and is covered from the floor to the walls in tie.  Foot steps echo up and down giving an empty cold and sterile feeling.";
@@ -177,22 +99,6 @@ namespace GenerateZones.Zones.GrandView
             return room;
         }
 
-        private IWeapon Scalpel()
-        {
-            string examineDescription = "Useful for making surgical cuts in the hands of a doctor and looking like you escaped from a mental hospital in yours.  Perhaps you should try to find a better, less psycho imagery inducing weapon.";
-            string lookDescription = "Made of precision surgical steel it as reflective as it is sharp.";
-            string sentenceDescription = "surgical scalpel";
-            string shortDescription = "A surgical scalpel.";
-
-            IWeapon scalpel = CreateWeapon(WeaponType.Dagger, 1, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            scalpel.KeyWords.Clear();
-            scalpel.KeyWords.Add("Scalpel");
-            scalpel.AttackerStat = Stat.Dexterity;
-            scalpel.DeffenderStat = Stat.Dexterity;
-            scalpel.FinishLoad();
-            return scalpel;
-        }
-
         private IRoom GenerateRoom7()
         {
             string examineDescription = "Each of the shelves hold five bodies wrapped in white sheets.  There are a pair of bodies in the corner drained of blood being filed with embalming fluids.";
@@ -208,7 +114,6 @@ namespace GenerateZones.Zones.GrandView
 
             return room;
         }
-
 
         /// <summary>
         /// This is the room you will enter after dieing on the lifeboat on the starting ship.
@@ -274,7 +179,6 @@ namespace GenerateZones.Zones.GrandView
             return room;
         }
 
-
         /// <summary>
         /// This is the room you will respawn while dieing on the ship.
         /// </summary>
@@ -306,6 +210,60 @@ namespace GenerateZones.Zones.GrandView
             room.AddItemToRoom(HospitalGown());
             return room;
         }
+        #endregion Rooms
+
+        #region Npcs
+        private INonPlayerCharacter Nurse(IRoom room)
+        {
+            string examineDescription = "The nurse is dressed in blue dress with a white apron that covers the front of her and ties in the back.  On her head she wears a white cloth that drapes down on either side of her head.";
+            string lookDescription = "A nurse busily attends to her patients, taking care to make sure each one is as comfortable as possible.";
+            string sentenceDescription = "nurse";
+            string shortDescription = "A nurse attending patients.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 20); ;
+            npc.KeyWords.Add("Nurse");
+
+            npc.Personalities.Add(new Healer() { CastPercent = 10 });
+            npc.SpellBook.Add("HEALTH", Health());
+            npc.SpellBook.Add("MAGIC", Magic());
+            npc.SpellBook.Add("STAMIA", Stamina());
+
+            return npc;
+        }
+
+        #endregion Npcs
+
+        #region Items
+        private IArmor HospitalGown()
+        {
+            string examineDescription = "Thin and airy this would not provide much defense against anything other than people staring at you.  On second thought if you wore this out in public, people would stare.  This really wouldn't do much good.";
+            string lookDescription = "This is your everyday hospital gown.  White with little blue dots with a tie in the back that exposes a little to much of your rear.";
+            string sentenceDescription = "hospital gown";
+            string shortDescription = "A loose fitting hospital gown";
+
+            IArmor armor = CreateArmor(AvalableItemPosition.Body, 1, examineDescription, lookDescription, sentenceDescription, shortDescription, new Cloth());
+            armor.KeyWords.Add("Hospital");
+            armor.KeyWords.Add("Gown");
+
+            armor.FinishLoad();
+            return armor;
+        }
+
+        private IWeapon Scalpel()
+        {
+            string examineDescription = "Useful for making surgical cuts in the hands of a doctor and looking like you escaped from a mental hospital in yours.  Perhaps you should try to find a better, less psycho imagery inducing weapon.";
+            string lookDescription = "Made of precision surgical steel it as reflective as it is sharp.";
+            string sentenceDescription = "surgical scalpel";
+            string shortDescription = "A surgical scalpel.";
+
+            IWeapon scalpel = CreateWeapon(WeaponType.Dagger, 1, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            scalpel.KeyWords.Clear();
+            scalpel.KeyWords.Add("Scalpel");
+            scalpel.AttackerStat = Stat.Dexterity;
+            scalpel.DeffenderStat = Stat.Dexterity;
+            scalpel.FinishLoad();
+            return scalpel;
+        }
 
         private IItem GlowingJar()
         {
@@ -322,7 +280,54 @@ namespace GenerateZones.Zones.GrandView
 
             return item;
         }
-        #endregion Rooms
+
+        #endregion Items
+
+        #region Spells
+        private ISpell Health()
+        {
+            ISpell heal = BuildSpell("health");
+
+            heal.TargetNotificationSuccess = new TranslationMessage("You feel healthier.");
+            heal.Effect = new RecoverHealth();
+
+            return heal;
+        }
+
+        private static ISpell BuildSpell(string spellName)
+        {
+            ISpell spell = new SingleTargetSpell();
+            spell.SpellName = spellName;
+            spell.ManaCost = 0;
+            spell.Parameter.Dice = GlobalReference.GlobalValues.DefaultValues.ReduceValues(1, 100);
+            string message = "The nurse says {0} and is briefly surrounded in a aura of light.";
+            List<ITranslationPair> translate = new List<ITranslationPair>();
+            ITranslationPair translationPair = new TranslationPair(Translator.Languages.Magic, spellName);
+            translate.Add(translationPair);
+            ITranslationMessage translationMessage = new TranslationMessage(message, TagType.Info, translate);
+            spell.RoomNotificationSuccess = translationMessage;
+            spell.PerformerNotificationSuccess = new TranslationMessage("you cast a spell");
+            return spell;
+        }
+
+        private ISpell Magic()
+        {
+            ISpell heal = BuildSpell("magic");
+            heal.TargetNotificationSuccess = new TranslationMessage("You feel more magical.");
+            heal.Effect = new RecoverMana();
+
+            return heal;
+        }
+
+        private ISpell Stamina()
+        {
+            ISpell heal = BuildSpell("stamina");
+            heal.TargetNotificationSuccess = new TranslationMessage("You feel more energetic.");
+            heal.Effect = new RecoverStamina();
+
+            return heal;
+        }
+        #endregion Spells
 
         private void ConnectRooms()
         {

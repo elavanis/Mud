@@ -84,7 +84,6 @@ namespace GenerateZones.Zones.ConnectingZones
                 }
             }
 
-
             int percent = 20 / animalChoices;
             foreach (IRoom room in Zone.Rooms.Values)
             {
@@ -115,6 +114,7 @@ namespace GenerateZones.Zones.ConnectingZones
             return npc;
         }
 
+        #region Npcs
         private INonPlayerCharacter Horse()
         {
             string examineDescription = "The {color} horse.";
@@ -151,5 +151,6 @@ namespace GenerateZones.Zones.ConnectingZones
             npc.Personalities.Add(new Wanderer());
             return npc;
         }
+        #endregion Npcs
     }
 }

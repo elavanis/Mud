@@ -11,6 +11,7 @@ using Objects.LoadPercentage;
 using Objects.Magic.Enchantment;
 using Objects.Mob.Interface;
 using Objects.Personality;
+using Objects.Personality.Interface;
 using Objects.Personality.Custom.GrandViewGraveYard;
 using Objects.Room.Interface;
 using Objects.Zone.Interface;
@@ -139,6 +140,7 @@ namespace GenerateZones.Zones.GrandView
             ZoneHelper.ConnectZone(Zone.Rooms[5], Direction.North, 5, 29);
         }
 
+        #region Rooms
         private IRoom Room26()
         {
             string lookDescription = "You shouldn't see this but since you can some how before you is the groundskeeper house.  It is a simple house with a cooking stove, table and chair and single bed for sleeping.";
@@ -161,7 +163,9 @@ namespace GenerateZones.Zones.GrandView
             room.ExamineDescription = "Reliefs of Charon ferrying people to the underworld can be seen carved into the side of the mausoleum.";
             room.ShortDescription = "Temple";
         }
+        #endregion Rooms
 
+        #region Npcs
         private IMobileObject GroundsKeeper(IRoom room)
         {
             string examineDescription = "Heavy gray eyes stare at you. He seems intently aware that you're not part of the normal surroundings but unaware what to do about it.";
@@ -234,7 +238,7 @@ namespace GenerateZones.Zones.GrandView
             return npc;
         }      
 
-        private Wanderer Wanderer()
+        private IWanderer Wanderer()
         {
             Wanderer wanderer = new Wanderer();
             for (int i = 0; i < 25; i++)
@@ -244,5 +248,7 @@ namespace GenerateZones.Zones.GrandView
 
             return wanderer;
         }
+        #endregion Npcs
+
     }
 }

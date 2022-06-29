@@ -43,7 +43,30 @@ namespace GenerateZones.Zones
             return Zone;
         }
 
+        private void ConnectRooms()
+        {
+            //ZoneHelper.ConnectRoom(Zone.Rooms[1], "W", Zone.Rooms[2]);
+            Zone.Rooms[1].West = new Exit() { Zone = 1, Room = 2 };
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.West, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.Up, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.West, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.West, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.Down, Zone.Rooms[7]);
+        }
 
+        private void AddAmbientSound()
+        {
+            ISound sound = new Sound();
+            sound.Loop = true;
+            sound.SoundName = string.Format("{0}\\{1}", Zone.Name, "ShipFire.mp3");
+
+            foreach (Room room in Zone.Rooms.Values)
+            {
+                room.Sounds.Add(sound);
+            }
+        }
+
+        #region Rooms
         private IRoom GenerateRoom1()
         {
             string examineDescription = "Is it really wise to be taking your time to examine the room while the ship is on FIRE!!!!  None the less you are in your room.  Flames are consuming the walls to the east and north.  The wall to the south still looks to be in good shape but it might not be a good idea to stay and find out how it takes for a wooden ship to burn.  Instead try leaving to the WEST.";
@@ -153,23 +176,6 @@ namespace GenerateZones.Zones
 
             return room;
         }
-
-        private IEnchantment FireDamage()
-        {
-            IEnchantment fireDamage = new HeartbeatBigTickEnchantment();
-            fireDamage.Effect = new Damage();
-            fireDamage.ActivationPercent = 5;
-            fireDamage.EnchantmentEndingDateTime = new DateTime(9999, 12, 31);
-            IDamage damage = new Objects.Damage.Damage();
-            damage.Dice = new Dice(1, 6);
-            damage.Type = DamageType.Fire;
-            fireDamage.Parameter.Damage = damage;
-            fireDamage.Parameter.TargetMessage = new TranslationMessage("Fire leaps up and burns you.");
-            fireDamage.Parameter.Description = "fire";
-
-            return fireDamage;
-        }
-
         private IRoom OnDeck(string examineDescription, string lookDescription, string shortDescription)
         {
             IRoom room = OutdoorRoom(Zone.Id, examineDescription, lookDescription, shortDescription);
@@ -179,29 +185,9 @@ namespace GenerateZones.Zones
             return room;
         }
 
-        private IEnchantment DragonBreath()
-        {
-            ISound sound = new Sound();
-            sound.Loop = false;
-            sound.RandomSounds.Add($"{Zone.Name}\\DragonFireball_Center.mp3");
-            sound.RandomSounds.Add($"{Zone.Name}\\DragonFireball_L-R.mp3");
-            sound.RandomSounds.Add($"{Zone.Name}\\DragonFireball_R-L.mp3");
+        #endregion Rooms
 
-            IEnchantment fireDamage = new HeartbeatBigTickEnchantment();
-            fireDamage.Effect = new Damage(sound);
-            fireDamage.ActivationPercent = 3;
-            fireDamage.EnchantmentEndingDateTime = new DateTime(9999, 12, 31);
-
-            IDamage damage = new Objects.Damage.Damage();
-            damage.Dice = new Dice(5, 6);
-            damage.Type = DamageType.Fire;
-            fireDamage.Parameter.Damage = damage;
-            fireDamage.Parameter.TargetMessage = new TranslationMessage("A dragon sweeps down and breaths fire on you.");
-            fireDamage.Parameter.Description = "a dragon";
-
-            return fireDamage;
-        }
-
+        #region Npcs
         private INonPlayerCharacter DeckCrew(IRoom room)
         {
             string examineDescription = "He looks like your average sailer, dressed in slightly raged clothing and well tanned from his time at sea.";
@@ -230,27 +216,46 @@ namespace GenerateZones.Zones
             return npc;
         }
 
-        private void ConnectRooms()
+        #endregion Npcs
+
+        private IEnchantment FireDamage()
         {
-            //ZoneHelper.ConnectRoom(Zone.Rooms[1], "W", Zone.Rooms[2]);
-            Zone.Rooms[1].West = new Exit() { Zone = 1, Room = 2 };
-            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.West, Zone.Rooms[3]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.Up, Zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.West, Zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.West, Zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.Down, Zone.Rooms[7]);
+            IEnchantment fireDamage = new HeartbeatBigTickEnchantment();
+            fireDamage.Effect = new Damage();
+            fireDamage.ActivationPercent = 5;
+            fireDamage.EnchantmentEndingDateTime = new DateTime(9999, 12, 31);
+            IDamage damage = new Objects.Damage.Damage();
+            damage.Dice = new Dice(1, 6);
+            damage.Type = DamageType.Fire;
+            fireDamage.Parameter.Damage = damage;
+            fireDamage.Parameter.TargetMessage = new TranslationMessage("Fire leaps up and burns you.");
+            fireDamage.Parameter.Description = "fire";
+
+            return fireDamage;
         }
 
-        private void AddAmbientSound()
+
+        private IEnchantment DragonBreath()
         {
             ISound sound = new Sound();
-            sound.Loop = true;
-            sound.SoundName = string.Format("{0}\\{1}", Zone.Name, "ShipFire.mp3");
+            sound.Loop = false;
+            sound.RandomSounds.Add($"{Zone.Name}\\DragonFireball_Center.mp3");
+            sound.RandomSounds.Add($"{Zone.Name}\\DragonFireball_L-R.mp3");
+            sound.RandomSounds.Add($"{Zone.Name}\\DragonFireball_R-L.mp3");
 
-            foreach (Room room in Zone.Rooms.Values)
-            {
-                room.Sounds.Add(sound);
-            }
+            IEnchantment fireDamage = new HeartbeatBigTickEnchantment();
+            fireDamage.Effect = new Damage(sound);
+            fireDamage.ActivationPercent = 3;
+            fireDamage.EnchantmentEndingDateTime = new DateTime(9999, 12, 31);
+
+            IDamage damage = new Objects.Damage.Damage();
+            damage.Dice = new Dice(5, 6);
+            damage.Type = DamageType.Fire;
+            fireDamage.Parameter.Damage = damage;
+            fireDamage.Parameter.TargetMessage = new TranslationMessage("A dragon sweeps down and breaths fire on you.");
+            fireDamage.Parameter.Description = "a dragon";
+
+            return fireDamage;
         }
     }
 }

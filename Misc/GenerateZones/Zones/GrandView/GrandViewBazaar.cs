@@ -39,6 +39,20 @@ namespace GenerateZones.Zones
             return Zone;
         }
 
+        private void ConnectRooms()
+        {
+            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.North, 3, 1);
+            ZoneHelper.ConnectZone(Zone.Rooms[6], Direction.East, 9, 61);
+
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.East, Zone.Rooms[5]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.East, Zone.Rooms[6]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.North, Zone.Rooms[7]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.North, Zone.Rooms[8]);
+            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.South, Zone.Rooms[9]);
+        }
 
 
         #region Rooms
@@ -101,7 +115,75 @@ namespace GenerateZones.Zones
 
             return room;
         }
+      
+        private void AddFlavorNpc(int flavorRooms)
+        {
+            for (int pos = 1; pos <= flavorRooms; pos++)
+            {
+                IRoom room = Zone.Rooms[pos];
 
+                for (int mob = 0; mob < 3; mob++)
+                {
+                    switch (mob)
+                    {
+                        case 0:
+                            room.AddMobileObjectToRoom(MalePatron(room));
+                            break;
+                        case 1:
+                            room.AddMobileObjectToRoom(FemalePatron(room));
+                            break;
+                        case 2:
+                            room.AddMobileObjectToRoom(Beggar(room));
+                            break;
+                    }
+                }
+            }
+        }
+
+        private IRoom GenerateRoom7()
+        {
+            string examineDescription = "Anything that you can could need for self protection exists in this shop.  It only a matter of finding something you like.";
+            string lookDescription = "Swords, shields and armor adorn the walls of the little shop.  While mannequins display items on the floor.";
+            string shortDescription = "The Basic Dagger";
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
+
+            INonPlayerCharacter npc = BlackSmith(room);
+
+            room.AddMobileObjectToRoom(npc);
+
+            return room;
+        }
+        
+        private IRoom GenerateRoom8()
+        {
+            string examineDescription = "The smell of fresh leather drifts through the shop.  The various shades of browns give the shop a warm look and in the evening the light of the setting sun can be seen entering through the front of the store.  It reflects off the leather samples in the store and creates a nice warm inviting atmosphere, so much so that the shop keeper says that over 20% of her business come at sunset.";
+            string lookDescription = "Different type of leather armor line one wall while raw materials line the other.";
+            string shortDescription = "Hyde's Hides";
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
+
+            INonPlayerCharacter npc = LeatherWorker(room);
+
+            room.AddMobileObjectToRoom(npc);
+
+            return room;
+        }
+
+        private IRoom GenerateRoom9()
+        {
+            string examineDescription = "The black tailored suit and the purple ball gown are most exquisite.  Both are tucked in just the right places to show of the wearers figure and show an eye for detail by the tailor.";
+            string lookDescription = "Fine tailored suits and formal gowns are displayed in the front window.  The armor is in the back half of the store.";
+            string shortDescription = "The better than nothing armor shop";
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
+
+            INonPlayerCharacter npc = Tailor(room);
+
+            room.AddMobileObjectToRoom(npc);
+
+            return room;
+        }
+        #endregion Rooms
+
+        #region Npcs
         private INonPlayerCharacter MalePatron(IRoom room)
         {
             string examineDescription = "Dressed in a {adjective} tunic of {color1} and {color2} he wanders the bazaar looking for some {item} for his {target}.";
@@ -175,44 +257,6 @@ namespace GenerateZones.Zones
 
             return npc;
         }
-        private void AddFlavorNpc(int flavorRooms)
-        {
-            for (int pos = 1; pos <= flavorRooms; pos++)
-            {
-                IRoom room = Zone.Rooms[pos];
-
-                for (int mob = 0; mob < 3; mob++)
-                {
-                    switch (mob)
-                    {
-                        case 0:
-                            room.AddMobileObjectToRoom(MalePatron(room));
-                            break;
-                        case 1:
-                            room.AddMobileObjectToRoom(FemalePatron(room));
-                            break;
-                        case 2:
-                            room.AddMobileObjectToRoom(Beggar(room));
-                            break;
-                    }
-                }
-            }
-        }
-
-        #region BlackSmith
-        private IRoom GenerateRoom7()
-        {
-            string examineDescription = "Anything that you can could need for self protection exists in this shop.  It only a matter of finding something you like.";
-            string lookDescription = "Swords, shields and armor adorn the walls of the little shop.  While mannequins display items on the floor.";
-            string shortDescription = "The Basic Dagger";
-            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
-
-            INonPlayerCharacter npc = BlackSmith(room);
-
-            room.AddMobileObjectToRoom(npc);
-
-            return room;
-        }
 
         private INonPlayerCharacter BlackSmith(IRoom room)
         {
@@ -238,52 +282,6 @@ namespace GenerateZones.Zones
             npc.KeyWords.Add("blacksmith");
 
             return npc;
-        }
-
-        private IWeapon BlackSmithDagger()
-        {
-            string examineDescription = "The dagger lacks any intricate engravings, the blade is however is very sharp and is thick enough to attack an enemy without fear of breaking.  It is in all regards a basic dagger.";
-            string lookDescription = "Made of steel it is a sharp and pointy dagger.";
-            string sentenceDescription = "small dagger";
-            string shortDescription = "A basic dagger.";
-
-            IWeapon dagger = CreateWeapon(WeaponType.Dagger, 1, examineDescription, lookDescription, sentenceDescription, shortDescription);
-            dagger.AttackerStat = Stats.Stat.Dexterity;
-            dagger.DeffenderStat = Stats.Stat.Dexterity;
-            dagger.FinishLoad();
-            return dagger;
-        }
-
-        private IArmor BlackSmithBreastPlate()
-        {
-            string examineDescription = "Examining the plate closer you notice there is a knick in the front right, a dent in the upper left and the one of the straps for holding it together is starting to tear.  Maybe the reason this was such a good deal was because it was used.";
-            string lookDescription = "Made of steel this breastplate is rather heavy but effective.";
-            string sentenceDescription = "breastplate";
-            string shortDescription = "A steel breastplate.";
-
-            IArmor breastPlate = CreateArmor(AvalableItemPosition.Body, 1, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
-            breastPlate.KeyWords.Add("BreastPlate");
-            breastPlate.KeyWords.Add("Breast");
-            breastPlate.KeyWords.Add("Plate");
-            breastPlate.FinishLoad();
-            return breastPlate;
-        }
-        #endregion BlackSmith
-
-
-        #region Leather Worker
-        private IRoom GenerateRoom8()
-        {
-            string examineDescription = "The smell of fresh leather drifts through the shop.  The various shades of browns give the shop a warm look and in the evening the light of the setting sun can be seen entering through the front of the store.  It reflects off the leather samples in the store and creates a nice warm inviting atmosphere, so much so that the shop keeper says that over 20% of her business come at sunset.";
-            string lookDescription = "Different type of leather armor line one wall while raw materials line the other.";
-            string shortDescription = "Hyde's Hides";
-            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
-
-            INonPlayerCharacter npc = LeatherWorker(room);
-
-            room.AddMobileObjectToRoom(npc);
-
-            return room;
         }
 
         private INonPlayerCharacter LeatherWorker(IRoom room)
@@ -314,6 +312,64 @@ namespace GenerateZones.Zones
             return npc;
         }
 
+        private INonPlayerCharacter Tailor(IRoom room)
+        {
+            string examineDescription = "Talking with Taylor some more you she tells you she wanted to be a seamstress when she grew up but when her dad became ill she had to take over the family, how the gods are cruel for not letting her fulfill her life dream to become a seamstress and since she has enjoyed your company if you buy today she'll give you a 10% discount.";
+            string lookDescription = "Talking to the tailor you find out that her name is Taylor.  Its almost as if the gods that control the world though it would be funny to have her become a tailor in life.";
+            string sentenceDescription = "tailor";
+            string shortDescription = "A tailor.";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 5);
+            Merchant merchant = new Merchant();
+
+            merchant.Sellables.Add(ClothBoots());
+            merchant.Sellables.Add(ClothSash());
+
+            npc.Personalities.Add(merchant);
+            npc.Personalities.Add(new Craftsman());
+
+            npc.KeyWords.Add("Merchant");
+            npc.KeyWords.Add("shop");
+            npc.KeyWords.Add("keeper");
+            npc.KeyWords.Add("shopkeeper");
+            npc.KeyWords.Add("tailor");
+            npc.KeyWords.Add("Taylor");
+
+            return npc;
+        }
+
+        #endregion Npcs
+
+        #region Items
+        private IWeapon BlackSmithDagger()
+        {
+            string examineDescription = "The dagger lacks any intricate engravings, the blade is however is very sharp and is thick enough to attack an enemy without fear of breaking.  It is in all regards a basic dagger.";
+            string lookDescription = "Made of steel it is a sharp and pointy dagger.";
+            string sentenceDescription = "small dagger";
+            string shortDescription = "A basic dagger.";
+
+            IWeapon dagger = CreateWeapon(WeaponType.Dagger, 1, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            dagger.AttackerStat = Stats.Stat.Dexterity;
+            dagger.DeffenderStat = Stats.Stat.Dexterity;
+            dagger.FinishLoad();
+            return dagger;
+        }
+
+        private IArmor BlackSmithBreastPlate()
+        {
+            string examineDescription = "Examining the plate closer you notice there is a knick in the front right, a dent in the upper left and the one of the straps for holding it together is starting to tear.  Maybe the reason this was such a good deal was because it was used.";
+            string lookDescription = "Made of steel this breastplate is rather heavy but effective.";
+            string sentenceDescription = "breastplate";
+            string shortDescription = "A steel breastplate.";
+
+            IArmor breastPlate = CreateArmor(AvalableItemPosition.Body, 1, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
+            breastPlate.KeyWords.Add("BreastPlate");
+            breastPlate.KeyWords.Add("Breast");
+            breastPlate.KeyWords.Add("Plate");
+            breastPlate.FinishLoad();
+            return breastPlate;
+        }
+
         private IArmor LeatherSmithBracer()
         {
             string examineDescription = "A small woven design is made weaves back and forth over the leather bracer.  It is a slightly darker color than the rich brown of the rest of the bracer.";
@@ -340,49 +396,6 @@ namespace GenerateZones.Zones
             leggings.KeyWords.Add("Leather");
             leggings.FinishLoad();
             return leggings;
-        }
-        #endregion Leather Worker
-
-
-        #region Tailor 
-        private IRoom GenerateRoom9()
-        {
-            string examineDescription = "The black tailored suit and the purple ball gown are most exquisite.  Both are tucked in just the right places to show of the wearers figure and show an eye for detail by the tailor.";
-            string lookDescription = "Fine tailored suits and formal gowns are displayed in the front window.  The armor is in the back half of the store.";
-            string shortDescription = "The better than nothing armor shop";
-            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
-
-            INonPlayerCharacter npc = Tailor(room);
-
-            room.AddMobileObjectToRoom(npc);
-
-            return room;
-        }
-
-        private INonPlayerCharacter Tailor(IRoom room)
-        {
-            string examineDescription = "Talking with Taylor some more you she tells you she wanted to be a seamstress when she grew up but when her dad became ill she had to take over the family, how the gods are cruel for not letting her fulfill her life dream to become a seamstress and since she has enjoyed your company if you buy today she'll give you a 10% discount.";
-            string lookDescription = "Talking to the tailor you find out that her name is Taylor.  Its almost as if the gods that control the world though it would be funny to have her become a tailor in life.";
-            string sentenceDescription = "tailor";
-            string shortDescription = "A tailor.";
-
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room ,examineDescription, lookDescription, sentenceDescription, shortDescription, 5);
-            Merchant merchant = new Merchant();
-
-            merchant.Sellables.Add(ClothBoots());
-            merchant.Sellables.Add(ClothSash());
-
-            npc.Personalities.Add(merchant);
-            npc.Personalities.Add(new Craftsman());
-
-            npc.KeyWords.Add("Merchant");
-            npc.KeyWords.Add("shop");
-            npc.KeyWords.Add("keeper");
-            npc.KeyWords.Add("shopkeeper");
-            npc.KeyWords.Add("tailor");
-            npc.KeyWords.Add("Taylor");
-
-            return npc;
         }
 
         private IArmor ClothBoots()
@@ -417,22 +430,7 @@ namespace GenerateZones.Zones
             sash.Value = (ulong)(sash.Value * 1.2);
             return sash;
         }
-        #endregion Tailor
-        #endregion Rooms
+        #endregion Items
 
-        private void ConnectRooms()
-        {
-            ZoneHelper.ConnectZone(Zone.Rooms[1], Direction.North, 3, 1);
-            ZoneHelper.ConnectZone(Zone.Rooms[6], Direction.East, 9, 61);
-
-            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.East, Zone.Rooms[2]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[2], Direction.East, Zone.Rooms[3]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[3], Direction.East, Zone.Rooms[4]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[4], Direction.East, Zone.Rooms[5]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.East, Zone.Rooms[6]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[5], Direction.North, Zone.Rooms[7]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[6], Direction.North, Zone.Rooms[8]);
-            ZoneHelper.ConnectRoom(Zone.Rooms[1], Direction.South, Zone.Rooms[9]);
-        }
     }
 }
