@@ -8,7 +8,7 @@ namespace Objects.Skill.Skills.Generic
 {
     public class SingleTargetSkill : BaseSkill
     {
-        public SingleTargetSkill(string skillName) : base(skillName)
+        public SingleTargetSkill(string skillName, int staminaCost) : base(skillName, staminaCost, false)
         {
 
         }

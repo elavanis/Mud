@@ -10,6 +10,12 @@ namespace Objects.Skill
 {
     public abstract class BaseSkill : Ability.Ability, ISkill
     {
+        protected BaseSkill(string skillName, int staminaCost, bool passive) : base(skillName)
+        {
+            StaminaCost = staminaCost;
+            Passive = passive;
+        }
+
         [ExcludeFromCodeCoverage]
         public bool Passive { get; set; } = false;
         [ExcludeFromCodeCoverage]
@@ -35,10 +41,7 @@ namespace Objects.Skill
             }
         }
 
-        public BaseSkill(string skillName)
-        {
-            SkillName = skillName;
-        }
+
 
         public virtual IResult ProcessSkill(IMobileObject performer, ICommand command)
         {

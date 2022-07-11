@@ -59,8 +59,8 @@ namespace ObjectsUnitTest.Skill.Skills.Damage
 
         private class LocalBaseDamageSkill : BaseDamageSkill
         {
-            public LocalBaseDamageSkill(string skillName, int die, int sides, DamageType damageType, int statminaCost = -1)
-                : base(skillName, die, sides, damageType, statminaCost)
+            public LocalBaseDamageSkill(string skillName, int die, int sides, DamageType damageType, int staminaCost = -1)
+                : base(skillName, die, sides, damageType, staminaCost)
             {
 
             }

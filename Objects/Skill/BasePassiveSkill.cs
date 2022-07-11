@@ -2,9 +2,8 @@
 {
     public abstract class BasePassiveSkill : BaseSkill
     {
-        public BasePassiveSkill(string skillName) : base(skillName)
+        public BasePassiveSkill(string skillName) : base(skillName, 0, true)
         {
-            Passive = true;
         }
     }
 }

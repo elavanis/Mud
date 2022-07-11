@@ -13,33 +13,34 @@ namespace Objects.Ability
 {
     public abstract class Ability : IAbility
     {
-        [ExcludeFromCodeCoverage]
-        public ITranslationMessage RoomNotificationSuccess { get; set; } 
-        [ExcludeFromCodeCoverage]
-        public ITranslationMessage TargetNotificationSuccess { get; set; }
-        [ExcludeFromCodeCoverage]
-        public ITranslationMessage PerformerNotificationSuccess { get; set; }
+        protected Ability(string abilityName)
+        {
+            AbilityName = abilityName;
+        }
 
-        [ExcludeFromCodeCoverage]
-        public ITranslationMessage RoomNotificationFailure { get; set; }
-        [ExcludeFromCodeCoverage]
-        public ITranslationMessage TargetNotificationFailure { get; set; }
-        [ExcludeFromCodeCoverage]
-        public ITranslationMessage PerformerNotificationFailure { get; set; }
-
-
-        [ExcludeFromCodeCoverage]
-        public IEffect Effect { get; set; }
-        [ExcludeFromCodeCoverage]
-        public IEffectParameter Parameter { get; set; } = new EffectParameter();
         [ExcludeFromCodeCoverage]
         public string AbilityName { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public virtual IResult RequirementsFailureMessage
-        {
-            get => new Result("Unspecified requirements failure", true);
-        }
+        public ITranslationMessage? RoomNotificationSuccess { get; set; }
+        [ExcludeFromCodeCoverage]
+        public ITranslationMessage? TargetNotificationSuccess { get; set; }
+        [ExcludeFromCodeCoverage]
+        public ITranslationMessage? PerformerNotificationSuccess { get; set; }
+
+        [ExcludeFromCodeCoverage]
+        public ITranslationMessage? RoomNotificationFailure { get; set; }
+        [ExcludeFromCodeCoverage]
+        public ITranslationMessage? TargetNotificationFailure { get; set; }
+        [ExcludeFromCodeCoverage]
+        public ITranslationMessage? PerformerNotificationFailure { get; set; }
+
+        [ExcludeFromCodeCoverage]
+        public IEffect? Effect { get; set; }
+        [ExcludeFromCodeCoverage]
+        public IEffectParameter Parameter { get; set; } = new EffectParameter();
+        [ExcludeFromCodeCoverage]
+        public virtual IResult RequirementsFailureMessage { get; } = new Result("Unspecified requirements failure", true);
 
         [ExcludeFromCodeCoverage]
         protected IResult AbilityFailed(IMobileObject performer, IMobileObject target)

@@ -11,6 +11,11 @@ namespace Objects.Magic
 {
     public abstract class BaseSpell : Ability.Ability, ISpell
     {
+        protected BaseSpell(string spellName, int manaCost) : base(spellName)
+        {
+            ManaCost = manaCost;
+        }
+
         [ExcludeFromCodeCoverage]
         public int ManaCost { get; set; }
 
