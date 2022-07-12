@@ -19,7 +19,7 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
     [TestClass]
     public class SingleTargetSkillUnitTest
     {
-        Mock<SingleTargetSkill> singleTargetSkill;
+        SingleTargetSkill singleTargetSkill;
         Mock<INonPlayerCharacter> npc;
         Mock<INonPlayerCharacter> npc2;
         Mock<ICommand> command;
@@ -36,7 +36,6 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            singleTargetSkill = new Mock<SingleTargetSkill>("abc");
             npc = new Mock<INonPlayerCharacter>();
             npc2 = new Mock<INonPlayerCharacter>();
             command = new Mock<ICommand>();
@@ -48,10 +47,9 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
             stringManipulator = new Mock<IStringManipulator>();
             translationMessage = new Mock<ITranslationMessage>();
 
-            singleTargetSkill.CallBase = true;
-            singleTargetSkill.Object.Effect = effect.Object;
-            singleTargetSkill.Object.PerformerNotificationSuccess = translationMessage.Object;
+           
             npc.Setup(e => e.SentenceDescription).Returns("npc");
+            npc.Setup(e => e.Stamina).Returns(1);
             npc2.Setup(e => e.SentenceDescription).Returns("npc2");
             parameter0.Setup(e => e.ParameterValue).Returns("param0");
             parameter1.Setup(e => e.ParameterValue).Returns("param1");
@@ -65,6 +63,18 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
+
+            singleTargetSkill = new SingleTargetSkill("abc", 1);
+            singleTargetSkill.Effect = effect.Object;
+            singleTargetSkill.PerformerNotificationSuccess = translationMessage.Object;
+        }
+
+        [TestMethod]
+        public void SingleTargetSkill_Constructor()
+        {
+            Assert.AreEqual("abc", singleTargetSkill.SkillName);
+            Assert.AreEqual(1, singleTargetSkill.StaminaCost);
+            Assert.IsFalse(singleTargetSkill.Passive);
         }
 
         [TestMethod]
@@ -72,7 +82,7 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
         {
             command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter0.Object });
 
-            IResult result = singleTargetSkill.Object.ProcessSkill(npc.Object, command.Object);
+            IResult result = singleTargetSkill.ProcessSkill(npc.Object, command.Object);
             Assert.AreEqual("The skill param0 requires a target.", result.ResultMessage);
             Assert.IsTrue(result.AllowAnotherCommand);
         }
@@ -82,7 +92,7 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
         {
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(npc.Object, parameter1.Object.ParameterValue, 0, true, true, true, true, true)).Returns((IBaseObject)null);
 
-            IResult result = singleTargetSkill.Object.ProcessSkill(npc.Object, command.Object);
+            IResult result = singleTargetSkill.ProcessSkill(npc.Object, command.Object);
             Assert.AreEqual("Unable to find param1.", result.ResultMessage);
             Assert.IsTrue(result.AllowAnotherCommand);
         }
@@ -90,10 +100,10 @@ namespace ObjectsUnitTest.Skill.Skills.Generic
         [TestMethod]
         public void SingleTargetSkill_ProcessSkill_Found()
         {
-            IResult result = singleTargetSkill.Object.ProcessSkill(npc.Object, command.Object);
+            IResult result = singleTargetSkill.ProcessSkill(npc.Object, command.Object);
             Assert.AreEqual("updated", result.ResultMessage);
             Assert.IsFalse(result.AllowAnotherCommand);
-            effect.Verify(e => e.ProcessEffect(singleTargetSkill.Object.Parameter));
+            effect.Verify(e => e.ProcessEffect(singleTargetSkill.Parameter));
             stringManipulator.Verify(e => e.UpdateTargetPerformer("npc", "npc2", "success"));
         }
     }

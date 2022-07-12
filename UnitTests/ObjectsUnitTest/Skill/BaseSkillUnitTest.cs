@@ -41,7 +41,6 @@ namespace ObjectsUnitTest.Skill
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            baseSkill = new UnitTestSkill();
             performer = new Mock<INonPlayerCharacter>();
             target = new Mock<INonPlayerCharacter>();
             command = new Mock<ICommand>();
@@ -65,16 +64,7 @@ namespace ObjectsUnitTest.Skill
             translationMessageRoomFailure.Setup(e => e.GetTranslatedMessage(performer.Object)).Returns("roomNotifyFailure");
             translationMessageTargetFailure.Setup(e => e.GetTranslatedMessage(performer.Object)).Returns("targetNotifyFailure");
             translationMessagePerformerFailure.Setup(e => e.GetTranslatedMessage(performer.Object)).Returns("performNotifyFailure");
-            baseSkill.Effect = effect.Object;
-            baseSkill.StaminaCost = 1;
-            baseSkill.RoomNotificationSuccess = translationMessageRoomSuccess.Object;
-            baseSkill.TargetNotificationSuccess = translationMessageTargetSuccess.Object;
-            baseSkill.PerformerNotificationSuccess = translationMessagePerformerSuccess.Object;
-            baseSkill.RoomNotificationFailure = translationMessageRoomFailure.Object;
-            baseSkill.TargetNotificationFailure = translationMessageTargetFailure.Object;
-            baseSkill.PerformerNotificationFailure = translationMessagePerformerFailure.Object;
-
-            baseSkill.Parameter = effectParameter.Object;
+           
             performer.Setup(e => e.Stamina).Returns(2);
             performer.Setup(e => e.Room).Returns(room.Object);
             command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter0.Object });
@@ -86,6 +76,25 @@ namespace ObjectsUnitTest.Skill
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
+
+            baseSkill = new UnitTestSkill();
+            baseSkill.Effect = effect.Object;
+            baseSkill.StaminaCost = 1;
+            baseSkill.RoomNotificationSuccess = translationMessageRoomSuccess.Object;
+            baseSkill.TargetNotificationSuccess = translationMessageTargetSuccess.Object;
+            baseSkill.PerformerNotificationSuccess = translationMessagePerformerSuccess.Object;
+            baseSkill.RoomNotificationFailure = translationMessageRoomFailure.Object;
+            baseSkill.TargetNotificationFailure = translationMessageTargetFailure.Object;
+            baseSkill.PerformerNotificationFailure = translationMessagePerformerFailure.Object;
+            baseSkill.Parameter = effectParameter.Object;
+        }
+
+        [TestMethod]
+        public void BaseSkill_Constructor()
+        {
+            Assert.AreEqual("unitTestSkill", baseSkill.SkillName);
+            Assert.AreEqual(1, baseSkill.StaminaCost);
+            Assert.IsTrue(baseSkill.Passive);
         }
 
         [TestMethod]
@@ -129,7 +138,7 @@ namespace ObjectsUnitTest.Skill
         {
             public bool Successful { get; set; } = true;
 
-            public UnitTestSkill() : base("unitTestSkill")
+            public UnitTestSkill() : base("unitTestSkill",1, true)
             {
 
             }

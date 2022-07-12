@@ -38,7 +38,6 @@ namespace ObjectsUnitTest.Magic
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            spell = new UnitTestSpell();
             npc = new Mock<INonPlayerCharacter>();
             command = new Mock<ICommand>();
             parameter0 = new Mock<IParameter>();
@@ -51,16 +50,10 @@ namespace ObjectsUnitTest.Magic
             translationMessageTarget = new Mock<ITranslationMessage>();
             translationMessagePerformer = new Mock<ITranslationMessage>();
             stringManipulator = new Mock<IStringManipulator>();
-
             translationMessageRoom.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("roomNotify");
             translationMessageTarget.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("targetNotify");
             translationMessagePerformer.Setup(e => e.GetTranslatedMessage(npc.Object)).Returns("performNotify");
-            spell.Effect = effect.Object;
-            spell.ManaCost = 1;
-            spell.RoomNotificationSuccess = translationMessageRoom.Object;
-            spell.TargetNotificationSuccess = translationMessageTarget.Object;
-            spell.PerformerNotificationSuccess = translationMessagePerformer.Object;
-            spell.Parameter = effectParameter.Object;
+           
             npc.Setup(e => e.Mana).Returns(2);
             npc.Setup(e => e.Room).Returns(room.Object);
             command.Setup(e => e.Parameters).Returns(new List<IParameter>() { parameter0.Object });
@@ -72,6 +65,21 @@ namespace ObjectsUnitTest.Magic
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
+
+            spell = new UnitTestSpell();
+            spell.Effect = effect.Object;
+            spell.ManaCost = 1;
+            spell.RoomNotificationSuccess = translationMessageRoom.Object;
+            spell.TargetNotificationSuccess = translationMessageTarget.Object;
+            spell.PerformerNotificationSuccess = translationMessagePerformer.Object;
+            spell.Parameter = effectParameter.Object;
+        }
+
+        [TestMethod]
+        public void BaseSpell_Constructor()
+        {
+            Assert.AreEqual("unitTestSpell", spell.SpellName);
+            Assert.AreEqual(1, spell.ManaCost);
         }
 
         [TestMethod]
@@ -110,7 +118,9 @@ namespace ObjectsUnitTest.Magic
 
         private class UnitTestSpell : BaseSpell
         {
-
+            public UnitTestSpell() : base("unitTestSpell", 1)
+            {
+            }
         }
     }
 }

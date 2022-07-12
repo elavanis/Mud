@@ -35,7 +35,6 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            singleTargetSpell = new SingleTargetSpell();
             npc = new Mock<INonPlayerCharacter>();
             npc2 = new Mock<INonPlayerCharacter>();
             command = new Mock<ICommand>();
@@ -47,8 +46,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
             translationMessage = new Mock<ITranslationMessage>();
             stringManipulator = new Mock<IStringManipulator>();
 
-            singleTargetSpell.Effect = effect.Object;
-            singleTargetSpell.PerformerNotificationSuccess = translationMessage.Object;
+            npc.Setup(e => e.Mana).Returns(1);
             parameter0.Setup(e => e.ParameterValue).Returns("param0");
             parameter1.Setup(e => e.ParameterValue).Returns("param1");
             findObjects.Setup(e => e.FindObjectOnPersonOrInRoom(npc.Object, parameter1.Object.ParameterValue, 0, true, true, true, true, true)).Returns(npc2.Object);
@@ -60,6 +58,17 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
+
+            singleTargetSpell = new SingleTargetSpell("singleTargetSpell", 1);
+            singleTargetSpell.Effect = effect.Object;
+            singleTargetSpell.PerformerNotificationSuccess = translationMessage.Object;
+        }
+
+        [TestMethod]
+        public void SingleTargetSpell_Constructor()
+        {
+            Assert.AreEqual("singleTargetSpell", singleTargetSpell.SpellName);
+            Assert.AreEqual(1, singleTargetSpell.ManaCost);
         }
 
         [TestMethod]

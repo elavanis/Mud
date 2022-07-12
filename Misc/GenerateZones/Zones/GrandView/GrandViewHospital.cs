@@ -296,9 +296,7 @@ namespace GenerateZones.Zones.GrandView
 
         private static ISpell BuildSpell(string spellName)
         {
-            ISpell spell = new SingleTargetSpell();
-            spell.SpellName = spellName;
-            spell.ManaCost = 0;
+            ISpell spell = new SingleTargetSpell(spellName, 0);
             spell.Parameter.Dice = GlobalReference.GlobalValues.DefaultValues.ReduceValues(1, 100);
             string message = "The nurse says {0} and is briefly surrounded in a aura of light.";
             List<ITranslationPair> translate = new List<ITranslationPair>();
