@@ -94,7 +94,7 @@ namespace ObjectsUnitTest.Command.God
         {
             Mock<IItem> item = new Mock<IItem>();
             item.Setup(e => e.KeyWords).Returns(new List<string>() { "keyword" });
-            item.Setup(e => e.Zone).Returns(1);
+            item.Setup(e => e.ZoneId).Returns(1);
             item.Setup(e => e.Id).Returns(2);
             item.Setup(e => e.Level).Returns(3);
             item.Setup(e => e.Weight).Returns(4);
@@ -124,7 +124,7 @@ namespace ObjectsUnitTest.Command.God
             Mock<IShield> item = new Mock<IShield>();
             int uniqueNumber = 1;
             item.Setup(e => e.KeyWords).Returns(new List<string>() { "keyword" });
-            item.Setup(e => e.Zone).Returns(uniqueNumber++);
+            item.Setup(e => e.ZoneId).Returns(uniqueNumber++);
             item.Setup(e => e.Id).Returns(uniqueNumber++);
             item.Setup(e => e.Level).Returns(uniqueNumber++);
             item.Setup(e => e.Weight).Returns(uniqueNumber++);
@@ -164,7 +164,7 @@ namespace ObjectsUnitTest.Command.God
             IResult result = command.PerformCommand(mob.Object, commandMock.Object);
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Regex regex = new Regex(@"SentenceDescription\r\nItem Type: ObjectProxy_\d+\r\nZone: 1\r\nId: 2\r\nLevel: 3\r\nKeywords: keyword\r\nSentenceDescription: SentenceDescription\r\nShortDescription: ShortDescription\r\nLookDescription: LookDescription\r\nExamineDescription: ExamineDescription\r\nWeight :4\r\nShieldNegateDamagePercent: 5\r\nDie: 100\r\nSides: 101\r\nSlash: 6\r\nPierce: 7\r\nBludgeon: 8\r\nAcid: 9\r\nFire: 10\r\nCold: 11\r\nPoison: 12\r\nNecrotic: 13\r\nRadiant: 14\r\nLightning: 15\r\nPsychic: 16\r\nThunder: 17\r\nForce: 18\r\nStrength: 19\r\nDexterity: 20\r\nConstitution: 21\r\nIntelligence: 22\r\nWisdom: 23\r\nCharisma: 24\r\nMaxHealth: 25\r\nMaxMana: 26\r\nMaxStamina: 27\r\nItemPosition: Wield\r\nAttributes: Light\r\nEnchantments: enchantment");
+            Regex regex = new Regex(@"SentenceDescription\r\nItem\ Type:\ ObjectProxy_\d+\r\nZone:\ 1\r\nId:\ 2\r\nLevel:\ 3\r\nKeywords:\ keyword\r\nSentenceDescription:\ SentenceDescription\r\nShortDescription:\ ShortDescription\r\nLookDescription:\ LookDescription\r\nExamineDescription:\ ExamineDescription\r\nWeight\ :4\r\nShieldNegateDamagePercent:\ 5\r\nDie:\ 100\r\nSides:\ 101\r\nNotSet:\ 0\r\nSlash:\ 6\r\nPierce:\ 7\r\nBludgeon:\ 8\r\nAcid:\ 9\r\nFire:\ 10\r\nCold:\ 11\r\nPoison:\ 12\r\nNecrotic:\ 13\r\nRadiant:\ 14\r\nLightning:\ 15\r\nPsychic:\ 16\r\nThunder:\ 17\r\nForce:\ 18\r\nStrength:\ 19\r\nDexterity:\ 20\r\nConstitution:\ 21\r\nIntelligence:\ 22\r\nWisdom:\ 23\r\nCharisma:\ 24\r\nMaxHealth:\ 25\r\nMaxMana:\ 26\r\nMaxStamina:\ 27\r\nItemPosition:\ NotSet\r\nAttributes:\ Light\r\nEnchantments:\ enchantment");
             Assert.IsTrue(regex.Match(result.ResultMessage).Success);
         }
 
@@ -187,7 +187,7 @@ namespace ObjectsUnitTest.Command.God
             Mock<IWeapon> item = new Mock<IWeapon>();
             int uniqueNumber = 1;
             item.Setup(e => e.KeyWords).Returns(new List<string>() { "keyword" });
-            item.Setup(e => e.Zone).Returns(uniqueNumber++);
+            item.Setup(e => e.ZoneId).Returns(uniqueNumber++);
             item.Setup(e => e.Id).Returns(uniqueNumber++);
             item.Setup(e => e.Level).Returns(uniqueNumber++);
             item.Setup(e => e.Weight).Returns(uniqueNumber++);
@@ -214,7 +214,7 @@ namespace ObjectsUnitTest.Command.God
             IResult result = command.PerformCommand(mob.Object, commandMock.Object);
 
             Assert.IsFalse(result.AllowAnotherCommand);
-            Regex regex = new Regex(@"SentenceDescription\r\nItem Type: ObjectProxy_\d+\r\nZone: 1\r\nId: 2\r\nLevel: 3\r\nKeywords: keyword\r\nSentenceDescription: SentenceDescription\r\nShortDescription: ShortDescription\r\nLookDescription: LookDescription\r\nExamineDescription: ExamineDescription\r\nWeight :4\r\nDamageType: Fire\r\nDie: 100\r\nSides: 101\r\nBonusDamageStat: Strength\r\nBonusDefenseStat: Dexterity\r\nStrength: 5\r\nDexterity: 6\r\nConstitution: 7\r\nIntelligence: 8\r\nWisdom: 9\r\nCharisma: 10\r\nMaxHealth: 11\r\nMaxMana: 12\r\nMaxStamina: 13\r\nItemPosition: Wield\r\nAttributes: Light\r\nEnchantments: enchantment");
+            Regex regex = new Regex(@"SentenceDescription\r\nItem\ Type:\ ObjectProxy_\d+\r\nZone:\ 1\r\nId:\ 2\r\nLevel:\ 3\r\nKeywords:\ keyword\r\nSentenceDescription:\ SentenceDescription\r\nShortDescription:\ ShortDescription\r\nLookDescription:\ LookDescription\r\nExamineDescription:\ ExamineDescription\r\nWeight\ :4\r\nDamageType:\ Fire\r\nDie:\ 100\r\nSides:\ 101\r\nBonusDamageStat:\ Strength\r\nBonusDefenseStat:\ Dexterity\r\nStrength:\ 5\r\nDexterity:\ 6\r\nConstitution:\ 7\r\nIntelligence:\ 8\r\nWisdom:\ 9\r\nCharisma:\ 10\r\nMaxHealth:\ 11\r\nMaxMana:\ 12\r\nMaxStamina:\ 13\r\nItemPosition:\ NotSet\r\nAttributes:\ Light\r\nEnchantments:\ enchantment");
             Assert.IsTrue(regex.Match(result.ResultMessage).Success);
         }
     }

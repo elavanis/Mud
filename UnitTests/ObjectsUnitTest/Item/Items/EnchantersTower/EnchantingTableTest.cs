@@ -40,7 +40,7 @@ namespace ObjectsUnitTest.Item.Items.EnchantersTower
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            enchantingTable = new EnchantingTable();
+            enchantingTable = new EnchantingTable("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             item = new Mock<IItem>();
             room = new Mock<IRoom>();
             pedistalItem = new Mock<IItem>();
@@ -61,7 +61,7 @@ namespace ObjectsUnitTest.Item.Items.EnchantersTower
             rooms.Add(8, room.Object);
             findObjects.Setup(e => e.FindItemsInRoom(room.Object, "pedestal")).Returns(new List<IItem> { (IItem)pedistalContainer.Object });
             pedistalContainer.Setup(e => e.Items).Returns(new List<IItem>() { gem.Object });
-            gem.Setup(e => e.Zone).Returns(16);
+            gem.Setup(e => e.ZoneId).Returns(16);
             gem.Setup(e => e.Id).Returns(1);
             item.Setup(e => e.Enchantments).Returns(new List<IEnchantment>());
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
@@ -70,6 +70,15 @@ namespace ObjectsUnitTest.Item.Items.EnchantersTower
             GlobalReference.GlobalValues.FindObjects = findObjects.Object;
             GlobalReference.GlobalValues.Random = random.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+        }
+
+        [TestMethod]
+        public void EnchantingTable_Constructor()
+        {
+            Assert.AreEqual("examineDescription", enchantingTable.ExamineDescription);
+            Assert.AreEqual("lookDescription", enchantingTable.LookDescription);
+            Assert.AreEqual("sentenceDescription", enchantingTable.SentenceDescription);
+            Assert.AreEqual("shortDescription", enchantingTable.ShortDescription);
         }
 
         [TestMethod]

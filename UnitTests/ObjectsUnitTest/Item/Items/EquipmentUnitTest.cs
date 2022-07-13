@@ -15,13 +15,17 @@ namespace ObjectsUnitTest.Item.Items
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            equipment = new Equipment();
+            equipment = new Equipment(AvalableItemPosition.Wield, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
         }
 
         [TestMethod]
-        public void Equipment_ItemPosition()
+        public void Equipment_Constructor()
         {
-            Assert.AreEqual(AvalableItemPosition.Held, equipment.ItemPosition);
+            Assert.AreEqual(AvalableItemPosition.Wield, equipment.ItemPosition);
+            Assert.AreEqual("examineDescription", equipment.ExamineDescription);
+            Assert.AreEqual("lookDescription", equipment.LookDescription);
+            Assert.AreEqual("sentenceDescription", equipment.SentenceDescription);
+            Assert.AreEqual("shortDescription", equipment.ShortDescription);
         }
     }
 }

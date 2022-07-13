@@ -91,6 +91,24 @@ namespace ObjectsUnitTest.Room
             pc.Setup(e => e.SentenceDescription).Returns("pc");
             mob.Setup(e => e.Stamina).Returns(10);
             mob.Setup(e => e.SentenceDescription).Returns("mob");
+            world.Setup(e => e.Zones).Returns(new Dictionary<int, IZone>() { { 0, zone.Object } });
+            zone.Setup(e => e.ZonePrecipitationHighBegin).Returns("ZonePrecipitationHighBegin");
+            zone.Setup(e => e.ZonePrecipitationHighEnd).Returns("ZonePrecipitationHighEnd");
+            zone.Setup(e => e.ZonePrecipitationExtraHighBegin).Returns("ZonePrecipitationExtraHighBegin");
+            zone.Setup(e => e.ZonePrecipitationExtraHighEnd).Returns("ZonePrecipitationExtraHighEnd");
+            zone.Setup(e => e.ZoneWindSpeedHighBegin).Returns("ZoneWindSpeedHighBegin");
+            zone.Setup(e => e.ZoneWindSpeedHighEnd).Returns("ZoneWindSpeedHighEnd");
+            zone.Setup(e => e.ZoneWindSpeedExtraHighBegin).Returns("ZoneWindSpeedExtraHighBegin");
+            zone.Setup(e => e.ZoneWindSpeedExtraHighEnd).Returns("ZoneWindSpeedExtraHighEnd");
+            zone.Setup(e => e.ZonePrecipitationLowBegin).Returns("ZonePrecipitationLowBegin");
+            zone.Setup(e => e.ZonePrecipitationLowEnd).Returns("ZonePrecipitationLowEnd");
+            zone.Setup(e => e.ZonePrecipitationExtraLowBegin).Returns("ZonePrecipitationExtraLowBegin");
+            zone.Setup(e => e.ZonePrecipitationExtraLowEnd).Returns("ZonePrecipitationExtraLowEnd");
+            zone.Setup(e => e.ZoneWindSpeedLowBegin).Returns("ZoneWindSpeedLowBegin");
+            zone.Setup(e => e.ZoneWindSpeedLowEnd).Returns("ZoneWindSpeedLowEnd");
+            zone.Setup(e => e.ZoneWindSpeedExtraLowBegin).Returns("ZoneWindSpeedExtraLowBegin");
+            zone.Setup(e => e.ZoneWindSpeedExtraLowEnd).Returns("ZoneWindSpeedExtraLowEnd");
+
             engine.Setup(e => e.Event).Returns(evnt.Object);
             guard.Setup(e => e.GuardDirections).Returns(new HashSet<Direction>() { Direction.North });
             guard.Setup(e => e.BlockLeaveMessage).Returns("You can not leave.");
@@ -105,9 +123,10 @@ namespace ObjectsUnitTest.Room
             GlobalReference.GlobalValues.Engine = engine.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
+            GlobalReference.GlobalValues.World = world.Object;
 
-            room = new Objects.Room.Room();
-            room.Zone = 1;
+            room = new Objects.Room.Room(0, "examineDescription", "lookDescription", "shortDescription");
+            room.ZoneId = 1;
             room.Id = 2;
             room.MovementCost = 1;
 
@@ -125,6 +144,14 @@ namespace ObjectsUnitTest.Room
             npc.Setup(e => e.Room).Returns(room);
             pc.Setup(e => e.Room).Returns(room);
             mob.Setup(e => e.Room).Returns(room);
+        }
+
+        [TestMethod]
+        public void Room_Constructor()
+        {
+            Assert.AreEqual("examineDescription", room.ExamineDescription);
+            Assert.AreEqual("lookDescription", room.LookDescription);
+            Assert.AreEqual("shortDescription", room.ShortDescription);
         }
 
         [TestMethod]

@@ -1,4 +1,5 @@
-﻿using Objects.Global;
+﻿using Objects.Die.Interface;
+using Objects.Global;
 using Objects.Item.Items;
 using Objects.Item.Items.Interface;
 using Objects.Material.Materials;
@@ -89,7 +90,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             else if (StateMachine == State.Up)
             {
-                if (npc.Room.Zone == 24
+                if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 22)
                 {
                     return "East";
@@ -124,7 +125,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             if (StateMachine == State.GotoBalcony)
             {
-                if (npc.Room.Zone == 24
+                if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 22)
                 {
                     Step = 0;
@@ -169,17 +170,17 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             else if (StateMachine == State.Bath)
             {
-                if (npc.Room.Zone == 24
+                if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 23)
                 {
                     return "South";
                 }
-                else if (npc.Room.Zone == 24
+                else if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 22)
                 {
                     return "South";
                 }
-                else if (npc.Room.Zone == 24
+                else if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 24)
                 {
                     if (Step % 5 == 0)
@@ -225,12 +226,12 @@ namespace Objects.Personality.Custom.GrandviewCastle
             {
                 if (Step % 5 == 0)
                 {
-                    if (npc.Room.Zone == 24
+                    if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 24)
                     {
                         return "North";
                     }
-                    else if (npc.Room.Zone == 24
+                    else if (npc.Room.ZoneId == 24
                     && npc.Room.Id == 22)
                     {
                         return "Sleep";
@@ -261,27 +262,29 @@ namespace Objects.Personality.Custom.GrandviewCastle
         {
             for (int i = 0; i < howMany; i++)
             {
-                INonPlayerCharacter npc = QueensGuard();
+                INonPlayerCharacter npc = QueensGuard(room);
                 npc.FinishLoad();
                 room.Enter(npc);
             }
         }
 
-        private INonPlayerCharacter QueensGuard()
+        private INonPlayerCharacter QueensGuard(IRoom room)
         {
-            INonPlayerCharacter npc = new NonPlayerCharacter();
+            string corpseDescription = "A look of fear is frozen upon the queens guard face.";
+            string lookDescription = "Dressed in silver armor shaped like a female lions head on their breastplate they have sworn their life to protect the queen.";
+            string examineDescription = "Each guard has under gone extensive training in both body in mind to ensure their loyalty unto death.";
+            string sentenceDescription = "Queen's guard";
+            string shortDescription = "The Queen's guard.";
+
+            INonPlayerCharacter npc = new NonPlayerCharacter(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription);
             npc.TypeOfMob = MobType.Humanoid;
             npc.Level = 45;
-            npc.ShortDescription = "The Queen's guard.";
-            npc.LookDescription = "Dressed in silver armor shaped like a female lions head on their breastplate they have sworn their life to protect the queen.";
-            npc.ExamineDescription = "Each guard has under gone extensive training in both body in mind to ensure their loyalty unto death.";
-            npc.SentenceDescription = "Queen's guard";
             npc.KeyWords.Add("Queen's guard");
             npc.KeyWords.Add("guard");
 
-            npc.AddEquipment(BreastPlate());
-            npc.AddEquipment(Helmet());
-            npc.AddEquipment(Sword());
+            npc.AddEquipment(BreastPlate(npc));
+            npc.AddEquipment(Helmet(npc));
+            npc.AddEquipment(Sword(npc));
 
             IWanderer wanderer = new Wanderer();
             wanderer.NavigableRooms.Add(new BaseObjectId(24, 22));
@@ -293,49 +296,48 @@ namespace Objects.Personality.Custom.GrandviewCastle
             return npc;
         }
 
-        private IArmor BreastPlate()
+        private IArmor BreastPlate(INonPlayerCharacter npc)
         {
-            IArmor armor = Armor(AvalableItemPosition.Body);
+            IDice dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(npc.Level + 2);
+            string examineDescription = "This piece of armor appears to be made better than normal.";
+            string lookDescription = "A female lion head is embossed across the front of the breastplate.";
+            string sentenceDescription = "beautiful silver breastplate";
+            string shortDescription = "A breastplate made of silver.";
+
+            IArmor armor = new Armor(dice, AvalableItemPosition.Body, examineDescription, lookDescription, sentenceDescription, shortDescription);
             armor.KeyWords.Add("breastplate");
-            armor.ShortDescription = "A breastplate made of silver.";
-            armor.LookDescription = "A female lion head is embossed across the front of the breastplate.";
-            armor.ExamineDescription = "This piece of armor appears to be made better than normal.";
-
-            return armor;
-        }
-
-        private IArmor Helmet()
-        {
-            IArmor armor = Armor(AvalableItemPosition.Head);
-            armor.KeyWords.Add("helmet");
-            armor.ShortDescription = "A helmet made of silver.";
-            armor.LookDescription = "The helmet is made to make the wearer look like a lioness.";
-            armor.ExamineDescription = "This piece of armor appears to be made better than normal.";
-
-            return armor;
-        }
-
-        private static IArmor Armor(AvalableItemPosition avalableItemPosition)
-        {
-            IArmor armor = new Armor();
-            armor.ItemPosition = avalableItemPosition;
-            armor.Level = 45;
-            armor.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(armor.Level + 2);
             armor.Material = new Silver();
 
             return armor;
         }
 
-        private IWeapon Sword()
+        private IArmor Helmet(INonPlayerCharacter npc)
         {
-            IWeapon weapon = new Weapon();
-            weapon.ItemPosition = AvalableItemPosition.Wield;
-            weapon.Level = 45;
+            IDice dice = GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(npc.Level + 2);
+            string examineDescription = "This piece of armor appears to be made better than normal.";
+            string lookDescription = "The helmet is made to make the wearer look like a lioness.";
+            string sentenceDescription = "beautiful silver helmet with intricate lines carved in it";
+            string shortDescription = "A helmet made of silver.";
+
+            IArmor armor = new Armor(dice, AvalableItemPosition.Head, examineDescription, lookDescription, sentenceDescription, shortDescription);
+            armor.KeyWords.Add("helmet");
+            armor.Material = new Silver();
+
+            return armor;
+        }
+
+        private IWeapon Sword(INonPlayerCharacter npc)
+        {
+            string examineDescription = "This sword to be made better than normal.";
+            string lookDescription = "The sword handle has the head of a lioness for the pummel.";
+            string sentenceDescription = "a finely crafted sword";
+            string shortDescription = "A finely crafted sword that is light and quick.";
+
+            IWeapon weapon = new Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            weapon.Level = npc.Level;
             weapon.DamageList.Add(new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(weapon.Level + 2)) { Type = DamageType.Slash });
             weapon.KeyWords.Add("sword");
-            weapon.ShortDescription = "A finely crafted sword that is light and quick.";
-            weapon.LookDescription = "The sword handle has the head of a lioness for the pummel.";
-            weapon.ExamineDescription = "This sword to be made better than normal.";
+
 
             return weapon;
         }

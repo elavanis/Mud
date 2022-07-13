@@ -7,7 +7,7 @@ namespace SharedUnitTest.PerformanceCounters
     [TestClass]
     public class PerformanceCountersUnitTest
     {
-        Counters counters;
+        Counters counters = null!;
         [TestInitialize]
         public void Setup()
         {

@@ -19,19 +19,21 @@ namespace TelnetCommunication
 
         public IMudMessage MudMessageInstance { get; }
 
-        protected TcpClient _clientSocket;
-        protected string _guid { get; set; }
+        protected TcpClient ClientSocket { get; }
+        protected string GuidString { get; }
 
-        public TelnetHandler(IMudMessage mudMessage)
+        public TelnetHandler(TcpClient tcpClient, IMudMessage mudMessage, string guid)
         {
+            ClientSocket = tcpClient;
             MudMessageInstance = mudMessage;
+            GuidString = guid;
         }
 
         public bool Connected
         {
             get
             {
-                return _clientSocket.Connected;
+                return ClientSocket.Connected;
             }
         }
 
@@ -41,7 +43,7 @@ namespace TelnetCommunication
         {
             try
             {
-                while ((_clientSocket.Connected))
+                while ((ClientSocket.Connected))
                 {
                     //Handle message from client
                     try
@@ -58,7 +60,7 @@ namespace TelnetCommunication
                     }
                 }
 
-                if (!_clientSocket.Connected)
+                if (!ClientSocket.Connected)
                 {
                     throw new Exception("Server shutdown.");
                 }
@@ -66,7 +68,7 @@ namespace TelnetCommunication
             catch (Exception ex)
             {
                 InQueue.Enqueue("<Exception> " + ex.ToString() + " </Exception>");
-                _clientSocket.Close();
+                ClientSocket.Close();
             }
         }
 
@@ -74,9 +76,9 @@ namespace TelnetCommunication
         {
             try
             {
-                while ((_clientSocket.Connected))
+                while ((ClientSocket.Connected))
                 {
-                    while (OutQueue.TryDequeue(out string outboundMessage))
+                    while (OutQueue.TryDequeue(out string? outboundMessage))
                     {
                         SendMessage(outboundMessage);
                     }
@@ -91,9 +93,9 @@ namespace TelnetCommunication
 
         private void GetMessage()
         {
-            byte[] bytesFrom = new byte[_clientSocket.ReceiveBufferSize];
+            byte[] bytesFrom = new byte[ClientSocket.ReceiveBufferSize];
 
-            _clientSocket.Client.Receive(bytesFrom);
+            ClientSocket.Client.Receive(bytesFrom);
 
             string dataFromClient = Encoding.Unicode.GetString(bytesFrom);
 
@@ -111,7 +113,7 @@ namespace TelnetCommunication
                     {
                         if (message == "<Info>You have been successfully logged out.</Info>")
                         {
-                            _clientSocket.Close();
+                            ClientSocket.Close();
                         }
 
                         InQueue.Enqueue(message);
@@ -146,12 +148,10 @@ namespace TelnetCommunication
 
         private void SendMessage(string outboundMessage)
         {
-            IMudMessage message = MudMessageInstance.CreateNewInstance();
-            message.Guid = _guid;
-            message.Message = outboundMessage;
+            IMudMessage message = MudMessageInstance.CreateNewInstance(GuidString, outboundMessage);
 
             byte[] sendBytes = Encoding.Unicode.GetBytes(message.Serialize());
-            NetworkStream networkStream = _clientSocket.GetStream();
+            NetworkStream networkStream = ClientSocket.GetStream();
             networkStream.Write(sendBytes, 0, sendBytes.Length);
             networkStream.Flush();
         }

@@ -19,7 +19,7 @@ Mount [pickup] [Mob Name]", true);
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            IResult result = base.PerfomCommand(performer, command);
+            IResult? result = base.PerfomCommand(performer, command);
             if (result != null)
             {
                 return result;
@@ -62,7 +62,7 @@ Mount [pickup] [Mob Name]", true);
 
         private IResult PickupRider(IMobileObject performer, IParameter parameter)
         {
-            IMount mount = performer.Mount;
+            IMount? mount = performer.Mount;
 
             if (mount == null)
             {
@@ -85,7 +85,7 @@ Mount [pickup] [Mob Name]", true);
                 return new Result("Your mount can not carry additional riders.", true);
             }
 
-            IMobileObject mobToPickup = GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, parameter.ParameterValue, parameter.ParameterNumber, false, false, true, true, false) as IMobileObject;
+            IMobileObject? mobToPickup = GlobalReference.GlobalValues.FindObjects.FindObjectOnPersonOrInRoom(performer, parameter.ParameterValue, parameter.ParameterNumber, false, false, true, true, false) as IMobileObject;
 
             if (mobToPickup != null)
             {
@@ -105,35 +105,50 @@ Mount [pickup] [Mob Name]", true);
 
         private IResult SummonMount(IMobileObject performer)
         {
-            IMount mount = performer.Mount;
-            GlobalReference.GlobalValues.World.AddMountToWorld(mount);
-            mount.Riders.Clear();
-            mount.Room?.RemoveMobileObjectFromRoom(mount);
-            performer.Room.AddMobileObjectToRoom(mount);
-            mount.Room = performer.Room;
+            IMount? mount = performer.Mount;
 
-            return new Result("Your mount has been called.", true);
+            if (mount != null)
+            {
+                GlobalReference.GlobalValues.World.AddMountToWorld(mount);
+                mount.Riders.Clear();
+                mount.Room?.RemoveMobileObjectFromRoom(mount);
+                performer.Room.AddMobileObjectToRoom(mount);
+                mount.Room = performer.Room;
+
+                return new Result("Your mount has been called.", true);
+            }
+            else
+            {
+                return new Result("You have no mount.", true);
+            }
         }
 
         private IResult MountYourMount(IMobileObject performer)
         {
-            IMount mount = performer.Mount;
+            IMount? mount = performer.Mount;
 
-            if (mount.Riders.Count > 0
-                && mount.Riders[0] == performer)
+            if (mount != null)
             {
-                return new Result($"You are already mounted on your {performer.Mount.SentenceDescription}.", true);
+                if (mount.Riders.Count > 0
+                    && mount.Riders[0] == performer)
+                {
+                    return new Result($"You are already mounted on your {mount.SentenceDescription}.", true);
+                }
+
+                mount.Riders.Insert(0, performer);
+
+                while (mount.Riders.Count > mount.MaxRiders)
+                {
+                    mount.Riders.RemoveAt(mount.Riders.Count - 1);
+                }
+
+
+                return new Result($"You mount your {mount.SentenceDescription}.", false);
             }
-
-            mount.Riders.Insert(0, performer);
-
-            while (mount.Riders.Count > mount.MaxRiders)
+            else
             {
-                mount.Riders.RemoveAt(mount.Riders.Count - 1);
+                return new Result("You have no mount.", true);
             }
-
-
-            return new Result($"You mount your {performer.Mount.SentenceDescription}.", false);
         }
     }
 }

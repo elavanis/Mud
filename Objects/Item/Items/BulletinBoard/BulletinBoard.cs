@@ -17,11 +17,11 @@ namespace Objects.Item.Items.BulletinBoard
         {
             get
             {
-                return Path.Combine(GlobalReference.GlobalValues.Settings.BulletinBoardDirectory, $"{Zone}-{Id}.BulletinBoard");
+                return Path.Combine(GlobalReference.GlobalValues.Settings.BulletinBoardDirectory, $"{ZoneId}-{Id}.BulletinBoard");
             }
         }
 
-        public BulletinBoard()
+        public BulletinBoard(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             Attributes.Add(ItemAttribute.NoGet);
         }

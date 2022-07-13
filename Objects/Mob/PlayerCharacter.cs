@@ -11,14 +11,14 @@ using Objects.Language;
 using Shared.Sound.Interface;
 using Shared.Sound;
 using static Shared.TagWrapper.TagWrapper;
+using Objects.Room.Interface;
 
 namespace Objects.Mob
 {
     public class PlayerCharacter : MobileObject, IPlayerCharacter
     {
-        public PlayerCharacter() : base()
+        public PlayerCharacter(IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, string? corpseDescription = null) : base(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription)
         {
-
         }
 
         [ExcludeFromCodeCoverage]

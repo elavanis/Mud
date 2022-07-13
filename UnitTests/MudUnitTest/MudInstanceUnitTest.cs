@@ -65,7 +65,7 @@ namespace MudUnitTest
 
             Thread.Sleep(200); //allow time for heartbeat code to finish
 
-            mud.StopMud(null);
+            mud.StopMud();
 
             logger.Verify(e => e.Log(LogLevel.INFO, "Loading World"), Times.Once);
             world.Verify(e => e.LoadWorld(), Times.Once);
@@ -81,12 +81,12 @@ namespace MudUnitTest
             });
             thread.Start();
 
-            PropertyInfo pi = mud.GetType().GetProperty("_heartBeat", BindingFlags.Instance | BindingFlags.NonPublic);
+            PropertyInfo? pi = mud.GetType().GetProperty("_heartBeat", BindingFlags.Instance | BindingFlags.NonPublic);
             Mock<IHeartBeat> heartBeat = new Mock<IHeartBeat>();
-            pi.SetValue(mud, heartBeat.Object);
+            pi?.SetValue(mud, heartBeat.Object);
 
             pi = mud.GetType().GetProperty("_heartBeatThread", BindingFlags.Instance | BindingFlags.NonPublic);
-            pi.SetValue(mud, thread);
+            pi?.SetValue(mud, thread);
 
             Mock<IGlobalValues> globalValues = new Mock<IGlobalValues>();
             Mock<ILogger> logger = new Mock<ILogger>();
@@ -95,7 +95,7 @@ namespace MudUnitTest
 
             GlobalReference.GlobalValues = globalValues.Object;
 
-            mud.StopMud(null);
+            mud.StopMud();
 
             heartBeat.Verify(e => e.StopHeartBeat(), Times.Once);
             logger.Verify(e => e.FlushLogs(), Times.Once);

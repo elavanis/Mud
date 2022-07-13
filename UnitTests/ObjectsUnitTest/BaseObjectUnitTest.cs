@@ -22,12 +22,21 @@ namespace ObjectsUnitTest
             GlobalReference.GlobalValues = new GlobalValues();
 
             //because base object is abstract...
-            baseObject = new UnitTestBaseObject();
+            baseObject = new UnitTestBaseObject("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             tagWrapper = new Mock<ITagWrapper>();
 
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+        }
+
+        [TestMethod]
+        public void BaseObject_Constructor()
+        {
+            Assert.AreEqual("examineDescription", baseObject.ExamineDescription);
+            Assert.AreEqual("lookDescription", baseObject.LookDescription);
+            Assert.AreEqual("sentenceDescription", baseObject.SentenceDescription);
+            Assert.AreEqual("shortDescription", baseObject.ShortDescription);
         }
 
         [TestMethod]
@@ -166,7 +175,10 @@ namespace ObjectsUnitTest
 
         private class UnitTestBaseObject : BaseObject
         {
-
+            public UnitTestBaseObject(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
+            {
+            }
         }
     }
 }
+

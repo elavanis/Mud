@@ -27,7 +27,19 @@ namespace ObjectsUnitTest.Item.Items
 
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
 
-            corpse = new Corpse();
+            corpse = new Corpse("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+        }
+
+        [TestMethod]
+        public void Corpse_Constructor()
+        {
+            Assert.AreEqual("examineDescription", corpse.ExamineDescription);
+            Assert.AreEqual("lookDescription", corpse.LookDescription);
+            Assert.AreEqual("sentenceDescription", corpse.SentenceDescription);
+            Assert.AreEqual("shortDescription", corpse.ShortDescription);
+            Assert.IsTrue(corpse.Opened);
+            Assert.AreEqual("", corpse.OpenMessage);
+            Assert.AreEqual("", corpse.CloseMessage);
         }
 
         [TestMethod]

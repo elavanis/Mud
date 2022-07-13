@@ -20,17 +20,17 @@ namespace Objects.Mob.Interface
         int CommmandQueueCount { get; }
         int ConstitutionEffective { get; }
         int ConstitutionStat { get; set; }
-        string CorpseLookDescription { get; set; }
+        string CorpseDescription { get; set; }
         int DexterityEffective { get; }
         int DexterityStat { get; set; }
 
-        IMobileObject PossingMob { get; set; }
-        IMobileObject PossedMob { get; set; }
+        IMobileObject? PossingMob { get; set; }
+        IMobileObject? PossedMob { get; set; }
 
         IEnumerable<IArmor> EquipedArmor { get; }
         IEnumerable<IEquipment> EquipedEquipment { get; }
         IEnumerable<IWeapon> EquipedWeapon { get; }
-        IMobileObject FollowTarget { get; set; }
+        IMobileObject? FollowTarget { get; set; }
         bool God { get; set; }
         HashSet<Guild.Guild.Guilds> Guild { get; set; }
         int GuildPoints { get; set; }
@@ -41,7 +41,7 @@ namespace Objects.Mob.Interface
         int IntelligenceStat { get; set; }
         bool IsAlive { get; set; }
         bool IsInCombat { get; }
-        IMobileObject Opponent { get; }
+        IMobileObject? Opponent { get; }
         List<IItem> Items { get; }
         Dictionary<string, ISkill> KnownSkills { get; }
         HashSet<Languages> KnownLanguages { get; set; }
@@ -56,7 +56,7 @@ namespace Objects.Mob.Interface
         ulong Money { get; set; }
         MobileObject.CharacterPosition Position { get; set; }
         IRace Race { get; set; }
-        IBaseObjectId RecallPoint { get; set; }
+        IBaseObjectId? RecallPoint { get; set; }
         IRoom Room { get; set; }
         IBaseObjectId RoomId { get; set; }
         Dictionary<string, ISpell> SpellBook { get; }
@@ -73,9 +73,9 @@ namespace Objects.Mob.Interface
         int CalculateDamageBlocked(IArmor armor);
         int CalculateToDodgeRoll(Stats.Stat stat, long weaponId, uint combatRound);
         int CalculateToHitRoll(Stats.Stat stat);
-        string DequeueCommand();
-        string DequeueCommunication();
-        string DequeueMessage();
+        string? DequeueCommand();
+        string? DequeueCommunication();
+        string? DequeueMessage();
         ICorpse Die(IMobileObject attacker);
         void EnqueueCommand(string message);
         void EnqueueMessage(string message);
@@ -86,6 +86,6 @@ namespace Objects.Mob.Interface
         int TakeDamage(int totalDamage, IDamage damage, IMobileObject attacker);
         int TakeDamage(int totalDamage, IDamage damage, string attackerDescription);
         int TakeCombatDamage(int totalDamage, IDamage damage, IMobileObject attacker, uint combatRound);
-        IMount Mount { get; set; }
+        IMount? Mount { get; set; }
     }
 }

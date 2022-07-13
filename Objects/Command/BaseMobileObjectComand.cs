@@ -52,10 +52,9 @@ namespace Objects.Command
             Any,
             Awake,
             Standing
-
         }
 
-        public IResult PerfomCommand(IMobileObject performer, ICommand command)
+        public IResult? PerfomCommand(IMobileObject performer, ICommand command)
         {
             if (!AllowedCharacterPositions.Contains(performer.Position))
             {

@@ -48,7 +48,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             pc.Setup(e => e.CharismaEffective).Returns(1);
             pc.Setup(e => e.KeyWords).Returns(new List<string>() { "pc" });
             npc.Setup(e => e.CharismaEffective).Returns(2);
-            npc.Setup(e => e.Zone).Returns(1);
+            npc.Setup(e => e.ZoneId).Returns(1);
             npc.Setup(e => e.Id).Returns(2);
             pc.Setup(e => e.Money).Returns(1000);
             pc.Setup(e => e.CraftsmanObjects).Returns(craftsmanObjects);

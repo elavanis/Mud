@@ -18,6 +18,14 @@ namespace Objects.Item.Items.Custom.UnderGrandViewCastle
         private int oldGreen = 255;
         private int oldBlue = 255;
 
+        public RunicButton(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
+        {
+            Attributes.Add(ItemAttribute.NoGet);
+
+            KeyWords.Add("button");
+            KeyWords.Add("rune");
+            KeyWords.Add("runic");
+        }
 
         public override IResult Push(IMobileObject performer, ICommand command)
         {
@@ -230,7 +238,7 @@ namespace Objects.Item.Items.Custom.UnderGrandViewCastle
 
         private int GetRuneValue(IMobileObject performer, int roomNumber)
         {
-            IRoom room = GlobalReference.GlobalValues.World.Zones[performer.Room.Zone].Rooms[roomNumber];
+            IRoom room = GlobalReference.GlobalValues.World.Zones[performer.Room.ZoneId].Rooms[roomNumber];
             foreach (var item in room.Items)
             {
                 IRunicStatue runicStatue = item as IRunicStatue;

@@ -48,7 +48,7 @@ namespace ObjectsUnitTest.Command.PC
             pc.Setup(e => e.CraftsmanObjects).Returns(craftsmanObjects);
             pc.Setup(e => e.Items).Returns(items);
             pc.Setup(e => e.KeyWords).Returns(new List<string>() { "pc" });
-            npc.Setup(e => e.Zone).Returns(1);
+            npc.Setup(e => e.ZoneId).Returns(1);
             npc.Setup(e => e.Id).Returns(2);
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { npc.Object });
             npc.Setup(e => e.Personalities).Returns(new List<IPersonality>());

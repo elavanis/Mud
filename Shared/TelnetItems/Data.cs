@@ -7,32 +7,26 @@ namespace Shared.TelnetItems
     public class Data : IData
     {
         [ExcludeFromCodeCoverage]
-        public string AssetName { get; set; }
+        public string AssetName { get; set; } 
 
         [ExcludeFromCodeCoverage]
-        public DataType Type { get; set; }
+        public DataType Type { get; set; } 
 
         [ExcludeFromCodeCoverage]
-        public string Base64Encoding { get; set; }
+        public string Base64Encoding { get; set; } 
 
-        [ExcludeFromCodeCoverage]
-        public Data()
-        {
 
-        }
-
-        public Data(DataType type, string fileLocation, IFileIO io)
+        public Data(DataType type, string fileLocation, IFileIO io, string assetName)
         {
             Base64Encoding = io.ReadFileBase64(fileLocation);
 
             Type = type;
-            AssetName = fileLocation;
+            AssetName = assetName;
         }
 
         public enum DataType
         {
             File
         }
-
     }
 }

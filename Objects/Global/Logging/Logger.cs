@@ -25,9 +25,9 @@ namespace Objects.Global.Logging
             {
                 if (performer is INonPlayerCharacter npc)
                 {
-                    if (Settings.ZoneLevel(npc.Zone) <= logLevel)
+                    if (Settings.ZoneLevel(npc.ZoneId) <= logLevel)
                     {
-                        Queue.Enqueue(new LogMessage(FormatLineForLog(message), LogType.NonPlayerCharacter, string.Format("{0}-{1}", npc.Zone, npc.Id)));
+                        Queue.Enqueue(new LogMessage(FormatLineForLog(message), LogType.NonPlayerCharacter, string.Format("{0}-{1}", npc.ZoneId, npc.Id)));
                     }
                 }
                 else
@@ -44,7 +44,7 @@ namespace Objects.Global.Logging
                 //room will be null if the player is logging out
                 if (performer.Room != null)
                 {
-                    if (GlobalReference.GlobalValues.World.Zones.TryGetValue(performer.Room.Zone, out IZone zone))
+                    if (GlobalReference.GlobalValues.World.Zones.TryGetValue(performer.Room.ZoneId, out IZone zone))
                     {
                         Log(zone, logLevel, message);
                     }

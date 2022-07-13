@@ -2,6 +2,7 @@
 using Objects.Language;
 using Objects.Language.Interface;
 using Objects.Mob.SpecificNPC.Interface;
+using Objects.Room.Interface;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Objects.Mob.SpecificNPC
@@ -21,13 +22,17 @@ namespace Objects.Mob.SpecificNPC
 
         private int RoundTickCounter { get; set; } = 0;
 
-        [ExcludeFromCodeCoverage]
-        public Elemental()
-        {
+        //public Elemental(ElementType elementType)
+        //{
+        //    SetElement(elementType);
+        //    Personalities.Add(new Personality.Elemental());
+        //    TypeOfMob = MobType.Other;
+        //}
 
-        }
+        public Elemental(ElementType elementType, IRoom room) : this(elementType, room, "", "", "", "") { }
+       
 
-        public Elemental(ElementType elementType)
+        public Elemental(ElementType elementType, IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, string? corpseLookDescription = null) : base(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseLookDescription)
         {
             SetElement(elementType);
             Personalities.Add(new Personality.Elemental());
@@ -97,7 +102,7 @@ namespace Objects.Mob.SpecificNPC
 
         private void RemoveEquipment()
         {
-            _npcEquipment?.Clear();
+            NpcEquipedEquipment.Clear();
         }
 
         private void ResetStats()

@@ -4,9 +4,8 @@ namespace Objects.Skill.Skills.CauseOpponentEffect
 {
     public class BaseCauseOpponentEffect : SingleTargetSkill
     {
-        public BaseCauseOpponentEffect(string skillName, int statminaCost) : base(skillName)
+        public BaseCauseOpponentEffect(string skillName, int staminaCost) : base(skillName, staminaCost)
         {
-            StaminaCost = statminaCost;
         }
     }
 }

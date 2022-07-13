@@ -14,6 +14,7 @@ using Objects.LoadPercentage.Interface;
 using Objects.Trap.Interface;
 using System.Collections.ObjectModel;
 using Objects.Language;
+using Shared.Sound.Interface;
 
 namespace Objects.Room
 {
@@ -24,14 +25,35 @@ namespace Objects.Room
         private static ReadOnlyCollection<IMobileObject> BlankMobs { get; } = new List<IMobileObject>().AsReadOnly();
         private static ReadOnlyCollection<IItem> BlankItems { get; } = new List<IItem>().AsReadOnly();
 
-        public Room()
+        public Room(int zoneId, string examineDescription, string lookDescription, string shortDescription) : base(examineDescription, lookDescription, "", shortDescription)
         {
+            ZoneId = zoneId;
             KeyWords.Add("room");
+
+            if (GlobalReference.GlobalValues.World.Zones.ContainsKey(ZoneId))
+            {
+                RoomPrecipitationHighBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationHighBegin;
+                RoomPrecipitationHighEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationHighEnd;
+                RoomPrecipitationExtraHighBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationExtraHighBegin;
+                RoomPrecipitationExtraHighEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationExtraHighEnd;
+                RoomWindSpeedHighBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedHighBegin;
+                RoomWindSpeedHighEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedHighEnd;
+                RoomWindSpeedExtraHighBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedExtraHighBegin;
+                RoomWindSpeedExtraHighEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedExtraHighEnd;
+                RoomPrecipitationLowBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationLowBegin;
+                RoomPrecipitationLowEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationLowEnd;
+                RoomPrecipitationExtraLowBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationExtraLowBegin;
+                RoomPrecipitationExtraLowEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZonePrecipitationExtraLowEnd;
+                RoomWindSpeedLowBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedLowBegin;
+                RoomWindSpeedLowEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedLowEnd;
+                RoomWindSpeedExtraLowBegin = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedExtraLowBegin;
+                RoomWindSpeedExtraLowEnd = GlobalReference.GlobalValues.World.Zones[ZoneId].ZoneWindSpeedExtraLowEnd;
+            }
         }
 
         public override string ToString()
         {
-            return string.Format("{0}-{1}", Zone, Id);
+            return string.Format("{0}-{1}", ZoneId, Id);
         }
 
         [ExcludeFromCodeCoverage]
@@ -159,12 +181,12 @@ namespace Objects.Room
         }
 
         [ExcludeFromCodeCoverage]
-        public string Owner { get; set; }
+        public string? Owner { get; set; }
         [ExcludeFromCodeCoverage]
         public HashSet<string> Guests { get; set; } = new HashSet<string>();
 
         [ExcludeFromCodeCoverage]
-        public List<Shared.Sound.Interface.ISound> Sounds { get; } = new List<Shared.Sound.Interface.ISound>();
+        public List<ISound> Sounds { get; } = new List<ISound>();
 
         public string SerializedSounds
         {
@@ -176,23 +198,22 @@ namespace Objects.Room
 
         #region Exits
         [ExcludeFromCodeCoverage]
-        public IExit North { get; set; }
+        public IExit? North { get; set; }
         [ExcludeFromCodeCoverage]
-        public IExit East { get; set; }
+        public IExit? East { get; set; }
         [ExcludeFromCodeCoverage]
-        public IExit South { get; set; }
+        public IExit? South { get; set; }
         [ExcludeFromCodeCoverage]
-        public IExit West { get; set; }
+        public IExit? West { get; set; }
         [ExcludeFromCodeCoverage]
-        public IExit Up { get; set; }
+        public IExit? Up { get; set; }
         [ExcludeFromCodeCoverage]
-        public IExit Down { get; set; }
+        public IExit? Down { get; set; }
         #endregion Exits
 
-        public IResult CheckEnter(IMobileObject mobileObject)
+        public IResult? CheckEnter(IMobileObject mobileObject)
         {
-            INonPlayerCharacter npc = mobileObject as INonPlayerCharacter;
-            if (npc != null)
+            if (mobileObject is INonPlayerCharacter npc)
             {
                 if (Attributes.Contains(RoomAttribute.Small))
                 {
@@ -208,8 +229,7 @@ namespace Objects.Room
                 }
             }
 
-            IPlayerCharacter pc = mobileObject as IPlayerCharacter;
-            if (pc != null)
+            if (mobileObject is IPlayerCharacter pc)
             {
                 if (Attributes.Contains(RoomAttribute.Small))
                 {
@@ -232,7 +252,7 @@ namespace Objects.Room
             return null;
         }
 
-        public IResult CheckLeave(IMobileObject mobileObject)
+        public IResult? CheckLeave(IMobileObject mobileObject)
         {
             IResult result = CheckFlee(mobileObject);
             if (result != null)
@@ -249,7 +269,7 @@ namespace Objects.Room
             return null;
         }
 
-        public IResult CheckFlee(IMobileObject mobileObject)
+        public IResult? CheckFlee(IMobileObject mobileObject)
         {
             //mob does not have enough stamina to cover room movement cost
             //we want to make them fully recover so they are not stuck
@@ -270,7 +290,7 @@ namespace Objects.Room
             return null;
         }
 
-        public IResult CheckLeaveDirection(IMobileObject mobileObject, Direction direction)
+        public IResult? CheckLeaveDirection(IMobileObject mobileObject, Direction direction)
         {
             //check if there is a guard in the room blocking the direction the mob is trying to leave
             IRoom room = mobileObject.Room;
@@ -311,8 +331,7 @@ namespace Objects.Room
 
         public void AddMobileObjectToRoom(IMobileObject mob)
         {
-            INonPlayerCharacter npc = mob as INonPlayerCharacter;
-            if (npc != null)
+            if (mob is INonPlayerCharacter npc)
             {
                 lock (_nonPlayerCharactersLock)
                 {
@@ -321,8 +340,7 @@ namespace Objects.Room
                 return;
             }
 
-            IPlayerCharacter pc = mob as IPlayerCharacter;
-            if (pc != null)
+            if (mob is IPlayerCharacter pc)
             {
                 lock (_playerCharactersLock)
                 {
@@ -380,8 +398,7 @@ namespace Objects.Room
 
         public bool RemoveMobileObjectFromRoom(IMobileObject mob)
         {
-            INonPlayerCharacter npc = mob as INonPlayerCharacter;
-            if (npc != null)
+            if (mob is INonPlayerCharacter npc)
             {
                 lock (_nonPlayerCharactersLock)
                 {
@@ -389,8 +406,7 @@ namespace Objects.Room
                 }
             }
 
-            IPlayerCharacter pc = mob as IPlayerCharacter;
-            if (pc != null)
+            if (mob is IPlayerCharacter pc)
             {
                 lock (_playerCharactersLock)
                 {
@@ -420,7 +436,7 @@ namespace Objects.Room
         private void SaveVault()
         {
             string serializedItems = GlobalReference.GlobalValues.Serialization.Serialize(_items);
-            string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{Zone}-{Id}.vault");
+            string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{ZoneId}-{Id}.vault");
             GlobalReference.GlobalValues.FileIO.WriteFile(file, serializedItems);
         }
 
@@ -472,282 +488,27 @@ namespace Objects.Room
         #region Weather
         #region Weather Messages
         #region Weather High Points
-        private string roomPrecipitationHighBegin;
-        public string RoomPrecipitationHighBegin
-        {
-            get
-            {
-                if (roomPrecipitationHighBegin == null)
-                {
-                    roomPrecipitationHighBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationHighBegin;
-                }
-                return roomPrecipitationHighBegin;
-            }
-            set
-            {
-                roomPrecipitationHighBegin = value;
-            }
-        }
-
-        private string roomPrecipitationHighEnd;
-        public string RoomPrecipitationHighEnd
-        {
-            get
-            {
-                if (roomPrecipitationHighEnd == null)
-                {
-                    roomPrecipitationHighEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationHighEnd;
-                }
-                return roomPrecipitationHighEnd;
-            }
-            set
-            {
-                roomPrecipitationHighEnd = value;
-            }
-        }
-
-        private string roomPrecipitationExtraHighBegin;
-        public string RoomPrecipitationExtraHighBegin
-        {
-            get
-            {
-                if (roomPrecipitationExtraHighBegin == null)
-                {
-                    roomPrecipitationExtraHighBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationExtraHighBegin;
-                }
-                return roomPrecipitationExtraHighBegin;
-            }
-            set
-            {
-                roomPrecipitationExtraHighBegin = value;
-            }
-        }
-
-        private string roomPrecipitationExtraHighEnd;
-        public string RoomPrecipitationExtraHighEnd
-        {
-            get
-            {
-                if (roomPrecipitationExtraHighEnd == null)
-                {
-                    roomPrecipitationExtraHighEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationExtraHighEnd;
-                }
-                return roomPrecipitationExtraHighEnd;
-            }
-            set
-            {
-                roomPrecipitationExtraHighEnd = value;
-            }
-        }
-
-        private string roomWindSpeedHighBegin;
-        public string RoomWindSpeedHighBegin
-        {
-            get
-            {
-                if (roomWindSpeedHighBegin == null)
-                {
-                    roomWindSpeedHighBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedHighBegin;
-                }
-                return roomWindSpeedHighBegin;
-            }
-            set
-            {
-                roomWindSpeedHighBegin = value;
-            }
-        }
-
-        private string roomWindSpeedHighEnd;
-        public string RoomWindSpeedHighEnd
-        {
-            get
-            {
-                if (roomWindSpeedHighEnd == null)
-                {
-                    roomWindSpeedHighEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedHighEnd;
-                }
-                return roomWindSpeedHighEnd;
-            }
-            set
-            {
-                roomWindSpeedHighEnd = value;
-            }
-        }
-
-        private string roomWindSpeedExtraHighBegin;
-        public string RoomWindSpeedExtraHighBegin
-        {
-            get
-            {
-                if (roomWindSpeedExtraHighBegin == null)
-                {
-                    roomWindSpeedExtraHighBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedExtraHighBegin;
-                }
-                return roomWindSpeedExtraHighBegin;
-            }
-            set
-            {
-                roomWindSpeedExtraHighBegin = value;
-            }
-        }
-
-        private string roomWindSpeedExtraHighEnd;
-        public string RoomWindSpeedExtraHighEnd
-        {
-            get
-            {
-                if (roomWindSpeedExtraHighEnd == null)
-                {
-                    roomWindSpeedExtraHighEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedExtraHighEnd;
-                }
-                return roomWindSpeedExtraHighEnd;
-            }
-            set
-            {
-                roomWindSpeedExtraHighEnd = value;
-            }
-        }
+        public string RoomPrecipitationHighBegin { get; set; }
+        public string RoomPrecipitationHighEnd { get; set; }
+        public string RoomPrecipitationExtraHighBegin { get; set; }
+        public string RoomPrecipitationExtraHighEnd { get; set; }
+        public string RoomWindSpeedHighBegin { get; set; }
+        public string RoomWindSpeedHighEnd { get; set; }
+        public string RoomWindSpeedExtraHighBegin { get; set; }
+        public string RoomWindSpeedExtraHighEnd { get; set; }
         #endregion Weather High Points
 
         #region Weather Low Points
-        private string roomPrecipitationLowBegin;
-        public string RoomPrecipitationLowBegin
-        {
-            get
-            {
-                if (roomPrecipitationLowBegin == null)
-                {
-                    roomPrecipitationLowBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationLowBegin;
-                }
-                return roomPrecipitationLowBegin;
-            }
-            set
-            {
-                roomPrecipitationLowBegin = value;
-            }
-        }
-
-        private string roomPrecipitationLowEnd;
-        public string RoomPrecipitationLowEnd
-        {
-            get
-            {
-                if (roomPrecipitationLowEnd == null)
-                {
-                    roomPrecipitationLowEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationLowEnd;
-                }
-                return roomPrecipitationLowEnd;
-            }
-            set
-            {
-                roomPrecipitationLowEnd = value;
-            }
-        }
-
-        private string roomPrecipitationExtraLowBegin;
-        public string RoomPrecipitationExtraLowBegin
-        {
-            get
-            {
-                if (roomPrecipitationExtraLowBegin == null)
-                {
-                    roomPrecipitationExtraLowBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationExtraLowBegin;
-                }
-                return roomPrecipitationExtraLowBegin;
-            }
-            set
-            {
-                roomPrecipitationExtraLowBegin = value;
-            }
-        }
-
-        private string roomPrecipitationExtraLowEnd;
-        public string RoomPrecipitationExtraLowEnd
-        {
-            get
-            {
-                if (roomPrecipitationExtraLowEnd == null)
-                {
-                    roomPrecipitationExtraLowEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZonePrecipitationExtraLowEnd;
-                }
-                return roomPrecipitationExtraLowEnd;
-            }
-            set
-            {
-                roomPrecipitationExtraLowEnd = value;
-            }
-        }
-
-        private string roomWindSpeedLowBegin;
-        public string RoomWindSpeedLowBegin
-        {
-            get
-            {
-                if (roomWindSpeedLowBegin == null)
-                {
-                    roomWindSpeedLowBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedLowBegin;
-                }
-                return roomWindSpeedLowBegin;
-            }
-            set
-            {
-                roomWindSpeedLowBegin = value;
-            }
-        }
-
-        private string roomWindSpeedLowEnd;
-        public string RoomWindSpeedLowEnd
-        {
-            get
-            {
-                if (roomWindSpeedLowEnd == null)
-                {
-                    roomWindSpeedLowEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedLowEnd;
-                }
-                return roomWindSpeedLowEnd;
-            }
-            set
-            {
-                roomWindSpeedLowEnd = value;
-            }
-        }
-
-        private string roomWindSpeedExtraLowBegin;
-        public string RoomWindSpeedExtraLowBegin
-        {
-            get
-            {
-                if (roomWindSpeedExtraLowBegin == null)
-                {
-                    roomWindSpeedExtraLowBegin = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedExtraLowBegin;
-                }
-                return roomWindSpeedExtraLowBegin;
-            }
-            set
-            {
-                roomWindSpeedExtraLowBegin = value;
-            }
-        }
-
-        private string roomWindSpeedExtraLowEnd;
-        public string RoomWindSpeedExtraLowEnd
-        {
-            get
-            {
-                if (roomWindSpeedExtraLowEnd == null)
-                {
-                    roomWindSpeedExtraLowEnd = GlobalReference.GlobalValues.World.Zones[Zone].ZoneWindSpeedExtraLowEnd;
-                }
-                return roomWindSpeedExtraLowEnd;
-            }
-            set
-            {
-                roomWindSpeedExtraLowEnd = value;
-            }
-        }
+        public string RoomPrecipitationLowBegin { get; set; }
+        public string RoomPrecipitationLowEnd { get; set; }
+        public string RoomPrecipitationExtraLowBegin { get; set; }
+        public string RoomPrecipitationExtraLowEnd { get; set; }
+        public string RoomWindSpeedLowBegin { get; set; }
+        public string RoomWindSpeedLowEnd { get; set; }
+        public string RoomWindSpeedExtraLowBegin { get; set; }
+        public string RoomWindSpeedExtraLowEnd { get; set; }
         #endregion Weather Low Points
         #endregion Weather Messages
-
 
         public string PrecipitationNotification
         {
@@ -765,10 +526,9 @@ namespace Objects.Room
             }
         }
 
-
-        private string GetWeatherMessage(string weatherType)
+        private string? GetWeatherMessage(string weatherType)
         {
-            string weatherMessage = null;
+            string? weatherMessage = null;
             switch (weatherType)
             {
                 case "Precipitation":
@@ -859,7 +619,7 @@ namespace Objects.Room
 
         private void ReloadVault()
         {
-            string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{Zone}-{Id}.vault");
+            string file = Path.Combine(GlobalReference.GlobalValues.Settings.VaultDirectory, $"{ZoneId}-{Id}.vault");
             if (GlobalReference.GlobalValues.FileIO.Exists(file))
             {
                 string fileContents = GlobalReference.GlobalValues.FileIO.ReadAllText(file);

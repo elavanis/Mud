@@ -7,6 +7,7 @@ using Objects.Global.Exp.Interface;
 using Objects.Global.MoneyToCoins.Interface;
 using Objects.Global.MultiClassBonus.Interface;
 using Objects.Global.Notify.Interface;
+using Objects.Global.Random.Interface;
 using Objects.Global.Serialization.Interface;
 using Objects.Global.Settings.Interface;
 using Objects.Global.StringManuplation.Interface;
@@ -52,13 +53,13 @@ namespace ObjectsUnitTest.Mob
         Mock<ISerialization> serializtion;
         Mock<IStringManipulator> stringManipulator;
         Mock<IMobileObject> attacker;
+        Mock<IRandom> random;
 
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            pc = new PlayerCharacter();
             settings = new Mock<ISettings>();
             exp = new Mock<IExperience>();
             multiClassBonus = new Mock<IMultiClassBonus>();
@@ -80,15 +81,12 @@ namespace ObjectsUnitTest.Mob
             serializtion = new Mock<ISerialization>();
             stringManipulator = new Mock<IStringManipulator>();
             attacker = new Mock<IMobileObject>();
+            random = new Mock<IRandom>();
 
             settings.Setup(e => e.Multiplier).Returns(1);
             multiClassBonus.Setup(e => e.CalculateBonus(1, 0)).Returns(1);
             roomId.Setup(e => e.Zone).Returns(1);
             roomId.Setup(e => e.Id).Returns(1);
-            pc.Room = room.Object;
-            pc.RespawnPoint = roomId.Object;
-            pc.KeyWords.Add("pc");
-            pcs.Add(pc);
             room.Setup(e => e.PlayerCharacters).Returns(pcs);
             room2.Setup(e => e.PlayerCharacters).Returns(pcs2);
             world.Setup(e => e.Zones).Returns(zoneDictionary);
@@ -100,6 +98,7 @@ namespace ObjectsUnitTest.Mob
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             serializtion.Setup(e => e.Serialize(It.IsAny<List<ISound>>())).Returns("sound");
             stringManipulator.Setup(e => e.UpdateTargetPerformer("pc", null, "{performer} title")).Returns("pc title");
+            random.Setup(e => e.Next(1)).Returns(0);
 
             GlobalReference.GlobalValues.Settings = settings.Object;
             GlobalReference.GlobalValues.Experience = exp.Object;
@@ -111,6 +110,24 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.Serialization = serializtion.Object;
             GlobalReference.GlobalValues.StringManipulator = stringManipulator.Object;
+            GlobalReference.GlobalValues.Random = random.Object;
+
+            pc = new PlayerCharacter(room.Object, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription", "corpseLookDescription");
+            pc.Room = room.Object;
+            pc.RespawnPoint = roomId.Object;
+            pc.KeyWords.Add("pc");
+            pcs.Add(pc);
+        }
+
+        [TestMethod]
+        public void PlayerCharacter_Constructor()
+        {
+            Assert.AreSame(room.Object, pc.Room);
+            Assert.AreEqual("corpseLookDescription", pc.CorpseDescription);
+            Assert.AreEqual("examineDescription", pc.ExamineDescription);
+            Assert.AreEqual("lookDescription", pc.LookDescription);
+            Assert.AreEqual("sentenceDescription", pc.SentenceDescription);
+            Assert.AreEqual("shortDescription", pc.ShortDescription);
         }
 
         [TestMethod]

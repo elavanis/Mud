@@ -71,11 +71,11 @@ namespace ObjectsUnitTest.Effect.Zone.GrandViewGarden
             roomDict.Add(1, room.Object);
             roomDict.Add(11, room2.Object);
 
-            room.Setup(e => e.Zone).Returns(11);
+            room.Setup(e => e.ZoneId).Returns(11);
             room.Setup(e => e.Id).Returns(1);
             room.Setup(e => e.NonPlayerCharacters).Returns(lNpc);
             room.Setup(e => e.PlayerCharacters).Returns(lPc);
-            room2.Setup(e => e.Zone).Returns(11);
+            room2.Setup(e => e.ZoneId).Returns(11);
             room2.Setup(e => e.Id).Returns(11);
             room2.Setup(e => e.NonPlayerCharacters).Returns(lNpc2);
             room2.Setup(e => e.PlayerCharacters).Returns(lPc2);

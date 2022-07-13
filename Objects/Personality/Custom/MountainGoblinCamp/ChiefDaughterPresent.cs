@@ -10,19 +10,18 @@ namespace Objects.Personality.Custom.MountainGoblinCamp
 {
     public class ChiefDaughterPresent : IPersonality
     {
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command == null)
             {
                 foreach (INonPlayerCharacter otherNpc in npc.Room.NonPlayerCharacters)
                 {
-                    if (otherNpc.Zone == 23 && otherNpc.Id == 10)  //chief daughter info
+                    if (otherNpc.ZoneId == 23 && otherNpc.Id == 10)  //chief daughter info
                     {
                         if (otherNpc.FollowTarget != null) //don't keep giving the reward over and over
                         {
                             npc.EnqueueCommand("say You have brought my daughter back to me.  I am most grateful.");
                             npc.EnqueueCommand("say Please accept this gift as a reward.");
-
 
                             //generate a reward;
                             int level = GlobalReference.GlobalValues.Random.Next(18, 22);

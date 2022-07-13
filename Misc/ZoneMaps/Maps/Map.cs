@@ -82,7 +82,7 @@ namespace Maps
                     int zone = 0;
                     foreach (var item in grid.Grid.Keys)
                     {
-                        zone = item.Zone;
+                        zone = item.ZoneId;
                         break;
                     }
 

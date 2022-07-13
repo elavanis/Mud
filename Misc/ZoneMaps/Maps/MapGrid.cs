@@ -53,7 +53,7 @@ namespace Maps
                 if (room.North != null)
                 {
                     IExit exit = room.North;
-                    if (exit.Zone == room.Zone)
+                    if (exit.Zone == room.ZoneId)
                     {
                         IRoom newRoom = zone.Rooms[exit.Room];
                         if (!Grid.ContainsKey(newRoom))
@@ -72,7 +72,7 @@ namespace Maps
                 if (room.East != null)
                 {
                     IExit exit = room.East;
-                    if (exit.Zone == room.Zone)
+                    if (exit.Zone == room.ZoneId)
                     {
                         IRoom newRoom = zone.Rooms[exit.Room];
                         if (!Grid.ContainsKey(newRoom))
@@ -91,7 +91,7 @@ namespace Maps
                 if (room.South != null)
                 {
                     IExit exit = room.South;
-                    if (exit.Zone == room.Zone)
+                    if (exit.Zone == room.ZoneId)
                     {
                         IRoom newRoom = zone.Rooms[exit.Room];
                         if (!Grid.ContainsKey(newRoom))
@@ -109,7 +109,7 @@ namespace Maps
                 if (room.West != null)
                 {
                     IExit exit = room.West;
-                    if (exit.Zone == room.Zone)
+                    if (exit.Zone == room.ZoneId)
                     {
                         IRoom newRoom = zone.Rooms[exit.Room];
                         if (!Grid.ContainsKey(newRoom))
@@ -127,7 +127,7 @@ namespace Maps
                 if (room.Up != null)
                 {
                     IExit exit = room.Up;
-                    if (exit.Zone == room.Zone)
+                    if (exit.Zone == room.ZoneId)
                     {
                         IRoom newRoom = zone.Rooms[exit.Room];
                         if (!Grid.ContainsKey(newRoom))
@@ -145,7 +145,7 @@ namespace Maps
                 if (room.Down != null)
                 {
                     IExit exit = room.Down;
-                    if (exit.Zone == room.Zone)
+                    if (exit.Zone == room.ZoneId)
                     {
                         IRoom newRoom = zone.Rooms[exit.Room];
                         if (!Grid.ContainsKey(newRoom))

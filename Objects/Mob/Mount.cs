@@ -1,10 +1,9 @@
-﻿using Objects.Command.Interface;
-using Objects.Global;
+﻿using Objects.Global;
 using Objects.Mob.Interface;
+using Objects.Room.Interface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Objects.Mob
 {
@@ -47,23 +46,50 @@ namespace Objects.Mob
         #endregion Names
 
         #region Descriptions
-        private List<string> HorseDescription = new List<string>() { "A large black horse.", "A brown horse with black mane.", "Standing at fifteen hands tall is a white horse with brown spots.", "A horse is white like snow." };
-        private List<string> UnicornDescription = new List<string>() { "The white unicorn looks at you." };
-        private List<string> NightmareDescription = new List<string>() { "Flames burn brightly from the mane and hooves of this black as night horse." };
-        private List<string> ElephantDescription = new List<string>() { "The elephants trunk reaches down toward the ground looking for food." };
-        private List<string> ElkDescription = new List<string>() { "The elk has a large rack with two reigns tied off on a saddle." };
-        private List<string> PantherDescription = new List<string>() { "Yellow eyes almost glow against the black panthers fur." };
-        private List<string> GriffinDescription = new List<string>() { "A majestic griffin stands at the ready." };
+        private List<MountDescription> HorseDescriptions = new List<MountDescription>();
+        private List<MountDescription> UnicornDescriptions = new List<MountDescription>();
+        private List<MountDescription> NightmareDescriptions = new List<MountDescription>();
+        private List<MountDescription> ElephantDescriptions = new List<MountDescription>();
+        private List<MountDescription> ElkDescriptions = new List<MountDescription>();
+        private List<MountDescription> PantherDescriptions = new List<MountDescription>();
+        private List<MountDescription> GriffinDescriptions = new List<MountDescription>();
+
         #endregion Descriptions
         #endregion AnimalInfo
 
-        public Mount()
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        [Obsolete("Needed for deserialization.", true)]
+        public Mount() : base(null, null, null, null, null) { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+        public Mount(DefaultValues defaultValue, IRoom room) : base(room, "examine description", "look description", "sentience description", "short description")
         {
+            HorseDescriptions.Add(new MountDescription("The large black horse swats fly away with its tail.", "The horse catches your glance and quickly looks your direction.", "A large black horse."));
+            HorseDescriptions.Add(new MountDescription("The horse's front right hoof has a small patch of white like its wearing a sock.", "The horse stands at attention waiting for directions.", "A brown horse with black mane."));
+            HorseDescriptions.Add(new MountDescription("The brown spots are spread out on the horse in such a way that it looks like it has chocolate chips in a cookie.", "The horse ignores you can continues to contemplate the things horses contemplate.", "Almost like the horse is floating it trots around as if playing a game with you."));
+            HorseDescriptions.Add(new MountDescription("The horse is a pure white that reminds you of freshly fallen snow.", "Almost like the horse is floating it trots around as if playing a game with you.", "The horse is white like snow."));
+
+            UnicornDescriptions.Add(new MountDescription("The unicorns horn is an iridescent color that shimmers as it moves its head.", "The unicorn paws the ground as you look at it.", "The white unicorn looks at you."));
+
+            NightmareDescriptions.Add(new MountDescription("As you approach the nightmare it briefly flies into the air leaving behind hoof prints in the air that burst into flames briefly before leaving a slowly fading red glow, this is truly is the stuff of nightmares.", "As you look at this nightmare it snorts at you and fire briefly flares out of its nostrils.", "Flames burn brightly from the mane and hooves of this black as ink nightmare."));
+
+            ElephantDescriptions.Add(new MountDescription("The elephants large flappy ears create a fanning effect as you get near.", "This elephant looks to have seen multiple battles.  It has multiple scars on its thick skin, a broken tusk and looks to be blind in one eye as well.", "The elephants trunk reaches down toward the ground looking for food."));
+
+            ElkDescriptions.Add(new MountDescription("The elk barks and steps back as you approach it to get a closer look.", "The elk has taupe colored body with a that gets darker as it approaches the head.", "The elk has a large rack with two reigns tied off on a saddle."));
+
+            PantherDescriptions.Add(new MountDescription("With soft paws this panther is able to silently stalk its prey and is know as a silent killer.", "Black as night you can see why if you didn't hear you would never know it was there.", "Yellow eyes almost glow against the black panthers fur."));
+
+            GriffinDescriptions.Add(new MountDescription("Standing eighteen feet tall this giraffe towers above you.", "Brown and white spots allows it to hide from predators amongst nature.", "A majestic griffin stands at the ready."));
+
+            LoadDefaultValues(defaultValue);
         }
 
-        public Mount(DefaultValues defaultValue)
+        public Mount(DefaultValues defaultValue, IRoom room, string examineDescription, string lookDescription, string sentienceDescription, string shortDescription) : this(defaultValue, room)
         {
-            LoadDefaultValues(defaultValue);
+            ExamineDescription = examineDescription;
+            LookDescription = lookDescription;
+            SentenceDescription = sentienceDescription;
+            ShortDescription = shortDescription;
         }
 
         public override void FinishLoad(int zoneObjectSyncValue = -1)
@@ -108,6 +134,7 @@ namespace Objects.Mob
 
         private void LoadDefaultValues(DefaultValues defaultValue)
         {
+            MountDescription mountDescription = null!;
             switch (defaultValue)
             {
                 case DefaultValues.Horse:
@@ -116,8 +143,8 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(HorseNames));
                     KeyWords.Add("Horse");
-                    ShortDescription = RandomValue(HorseDescription);
                     SentenceDescription = "horse";
+                    mountDescription = RandomValue(HorseDescriptions);
                     break;
                 case DefaultValues.Unicorn:
                     Movement = 2;
@@ -125,8 +152,8 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(UnicornNames));
                     KeyWords.Add("Unicorn");
-                    ShortDescription = RandomValue(UnicornDescription);
                     SentenceDescription = "unicorn";
+                    mountDescription = RandomValue(UnicornDescriptions);
                     break;
                 case DefaultValues.Nightmare:
                     Movement = 3;
@@ -134,8 +161,8 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(NightmareNames));
                     KeyWords.Add("Nightmare");
-                    ShortDescription = RandomValue(NightmareDescription);
                     SentenceDescription = "nightmare";
+                    mountDescription = RandomValue(NightmareDescriptions);
                     break;
                 case DefaultValues.Elephant:
                     Movement = 1;
@@ -143,8 +170,8 @@ namespace Objects.Mob
                     MaxRiders = 5;
                     KeyWords.Add(RandomValue(ElephantNames));
                     KeyWords.Add("Elephant");
-                    ShortDescription = RandomValue(ElephantDescription);
                     SentenceDescription = "elephant";
+                    mountDescription = RandomValue(ElephantDescriptions);
                     break;
                 case DefaultValues.Elk:
                     Movement = 3;
@@ -152,8 +179,8 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(ElkNames));
                     KeyWords.Add("Elk");
-                    ShortDescription = RandomValue(ElkDescription);
                     SentenceDescription = "elk";
+                    mountDescription = RandomValue(ElkDescriptions);
                     break;
                 case DefaultValues.Panther:
                     Movement = 5;
@@ -161,8 +188,8 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(PantherNames));
                     KeyWords.Add("Panther");
-                    ShortDescription = RandomValue(PantherDescription);
                     SentenceDescription = "panther";
+                    mountDescription = RandomValue(PantherDescriptions);
                     break;
                 case DefaultValues.Griffin:
                     Movement = 3;
@@ -170,13 +197,14 @@ namespace Objects.Mob
                     MaxRiders = 1;
                     KeyWords.Add(RandomValue(GriffinNames));
                     KeyWords.Add("Griffin");
-                    ShortDescription = RandomValue(GriffinDescription);
                     SentenceDescription = "griffin";
+                    mountDescription = RandomValue(GriffinDescriptions);
                     break;
             }
 
-            ExamineDescription = "you should not see this";
-            LookDescription = "you should not see this";
+            ExamineDescription = mountDescription.ExamineDescription;
+            LookDescription = mountDescription.LookDescription;
+            ShortDescription = mountDescription.ShortDescription;
         }
 
         public enum DefaultValues
@@ -190,10 +218,24 @@ namespace Objects.Mob
             Griffin
         }
 
-        private string RandomValue(List<string> list)
+        private T RandomValue<T>(List<T> list)
         {
             int pos = GlobalReference.GlobalValues.Random.Next(list.Count);
             return list[pos];
+        }
+
+        private record MountDescription
+        {
+            public MountDescription(string examineDescription, string lookDescription, string shortDescription)
+            {
+                ExamineDescription = examineDescription;
+                LookDescription = lookDescription;
+                ShortDescription = shortDescription;
+            }
+
+            public string ExamineDescription { get; }
+            public string LookDescription { get; }
+            public string ShortDescription { get; }
         }
     }
 }

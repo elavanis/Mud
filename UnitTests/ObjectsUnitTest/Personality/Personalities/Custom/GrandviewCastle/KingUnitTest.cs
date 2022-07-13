@@ -70,7 +70,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.GrandviewCastle
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "Queen")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             findObjects.Setup(e => e.FindNpcInRoom(room.Object, "servant")).Returns(new List<INonPlayerCharacter>() { npc.Object });
             room.Setup(e => e.Id).Returns(21);
-            room.Setup(e => e.Zone).Returns(24);
+            room.Setup(e => e.ZoneId).Returns(24);
             room.Setup(e => e.PlayerCharacters).Returns(players);
             defaultValues.Setup(e => e.DiceForArmorLevel(47)).Returns(dice.Object);
             random.Setup(e => e.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(10);

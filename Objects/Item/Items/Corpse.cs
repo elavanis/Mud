@@ -3,13 +3,14 @@ using Objects.Item.Items.Interface;
 using Objects.Mob;
 using Objects.Mob.Interface;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Objects.Item.Items
 {
     public class Corpse : Container, ICorpse
     {
-        public Corpse()
+        public Corpse(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base("", "", examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             Opened = true;
         }
@@ -24,17 +25,9 @@ namespace Objects.Item.Items
 
         public new ICorpse Clone()
         {
-            Corpse corpse = new Corpse();
-            corpse.ExamineDescription = this.ExamineDescription;
-            corpse.LookDescription = this.LookDescription;
-            corpse.SentenceDescription = this.SentenceDescription;
-            corpse.ShortDescription = this.ShortDescription;
+            Corpse corpse = new Corpse(this.ExamineDescription, this.LookDescription, this.SentenceDescription, this.ShortDescription);
             corpse.TimeOfDeath = this.TimeOfDeath;
-
-            foreach (IItem item in this.Items)
-            {
-                corpse.Items.Add(item);
-            }
+            corpse.Items.AddRange(this.Items);
 
             return corpse;
         }

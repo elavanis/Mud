@@ -18,10 +18,10 @@ namespace TelnetCommunicationUnitTest
         [TestMethod]
         public void JsonMudMessage_Serialize()
         {
-            JsonMudMessage mudMessage = new JsonMudMessage();
-            mudMessage.Message = "test";
+            JsonMudMessage mudMessage = new JsonMudMessage("", "test");
+            //mudMessage.Message = "test";
 
-            string expected = "ù{\r\n  \"$type\": \"TelnetCommunication.JsonMudMessage, TelnetCommunication\",\r\n  \"Guid\": null,\r\n  \"Message\": \"test\"\r\n}ÿ";
+            string expected = "ù{\r\n  \"$type\": \"TelnetCommunication.JsonMudMessage, TelnetCommunication\",\r\n  \"Guid\": \"\",\r\n  \"Message\": \"test\"\r\n}ÿ";
             Assert.AreEqual(expected, mudMessage.Serialize());
         }
 
@@ -29,7 +29,7 @@ namespace TelnetCommunicationUnitTest
         public void JsonMudMessage_Deserialize()
         {
             string rawMessage = "ù{\r\n  \"$type\": \"TelnetCommunication.JsonMudMessage, TelnetCommunication\",\r\n  \"Guid\": null,\r\n  \"Message\": \"1st message\"\r\n}ÿù{\r\n  \"$type\": \"TelnetCommunication.JsonMudMessage, TelnetCommunication\",\r\n  \"Guid\": null,\r\n  \"Message\": \"2nd message\"\r\n}ù{\r\n  \"$type\": \"TelnetCommunication.JsonMudMessage, TelnetCommunication\",\r\n  \"Guid\": null,\r\n  \"Message\": \"3rd message\"\r\n}ÿù{\r\n  \"$type\": \"TelnetCommunication.JsonMudMessage, TelnetCommunication\",\r\n  \"Guid\": null,\r\n  \"Message\": \"4th message\"\r\n}";
-            JsonMudMessage mudMessage = new JsonMudMessage();
+            JsonMudMessage mudMessage = new JsonMudMessage("","");
 
             Tuple<List<string>, string> result = mudMessage.ParseRawMessage(rawMessage);
 
@@ -43,8 +43,8 @@ namespace TelnetCommunicationUnitTest
         [TestMethod]
         public void JsonMudMessage_Constructor()
         {
-            JsonMudMessage mudMessage = new JsonMudMessage();
-            Assert.IsTrue(mudMessage.CreateNewInstance() is JsonMudMessage);
+            JsonMudMessage mudMessage = new JsonMudMessage("","");
+            Assert.IsTrue(mudMessage.CreateNewInstance("","") is JsonMudMessage);
         }
     }
 }

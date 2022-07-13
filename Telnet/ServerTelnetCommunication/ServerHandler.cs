@@ -38,10 +38,8 @@ namespace ServerTelnetCommunication
             }
         }
 
-        public ServerHandler(TcpClient clientSocket, IMudMessage mudMessage) : base(mudMessage)
+        public ServerHandler(TcpClient clientSocket, IMudMessage mudMessage) : base(clientSocket, mudMessage, Guid.NewGuid().ToString())
         {
-            _guid = Guid.NewGuid().ToString();
-            _clientSocket = clientSocket;
             _loginState = LoginState.AsciiArt;
             Thread messageHandlerLoopThread = new Thread(MessageHandlerLoop);
             messageHandlerLoopThread.IsBackground = true;
@@ -64,7 +62,7 @@ namespace ServerTelnetCommunication
             DateTime lastMessage = DateTime.Now;
             try
             {
-                while (continueToLoop && _clientSocket.Connected)
+                while (continueToLoop && ClientSocket.Connected)
                 {
                     //Need to make the thread sleep
                     Thread.Sleep(10);
@@ -79,7 +77,17 @@ namespace ServerTelnetCommunication
                     {
                         if (InQueue.TryDequeue(out string messageFromClient))
                         {
-                            IPAddress address = ((IPEndPoint)_clientSocket.Client.RemoteEndPoint).Address;
+                            IPAddress address;
+
+                            try
+                            {
+                                address = ((IPEndPoint)ClientSocket.Client.RemoteEndPoint).Address;
+                            }
+                            catch 
+                            {
+                                //client disconnected;
+                                return;
+                            }
 
                             switch (_loginState)
                             {
@@ -120,7 +128,7 @@ namespace ServerTelnetCommunication
                                             GlobalReference.GlobalValues.Logger.Log(LogLevel.ALL, string.Format("{0} logged in successfully.", _userName));
                                             GlobalReference.GlobalValues.World.AddPlayerQueue.Enqueue(pc);
                                             RemoveOldConnectionsToSamePc(pc);
-                                            GuidToCharacter.AddOrUpdate(_guid, pc, (k, v) => v = pc);
+                                            GuidToCharacter.AddOrUpdate(GuidString, pc, (k, v) => v = pc);
                                             _loginState = LoginState.LoggedIn;
                                         }
                                         else
@@ -134,7 +142,7 @@ namespace ServerTelnetCommunication
                                     break;
                                 case LoginState.LoggedIn:
                                     //player character should be loaded
-                                    GuidToCharacter.TryGetValue(_guid, out pc);
+                                    GuidToCharacter.TryGetValue(GuidString, out pc);
                                     if (pc != null)
                                     {
                                         //don't accept commands from possessed mobs
@@ -161,7 +169,7 @@ namespace ServerTelnetCommunication
                                     if (messageFromClient.Substring(0, 1).ToUpper() == "Y")
                                     {
                                         pc = GlobalReference.GlobalValues.World.CreateCharacter(_userName, _password);
-                                        GuidToCharacter.AddOrUpdate(_guid, pc, (k, v) => v = pc);
+                                        GuidToCharacter.AddOrUpdate(GuidString, pc, (k, v) => v = pc);
                                         _loginState = LoginState.LoggedIn;
                                     }
                                     else if (messageFromClient.Substring(0, 1).ToUpper() == "N")
@@ -199,10 +207,10 @@ namespace ServerTelnetCommunication
                     }
 
 
-                    if (_guid != null)
+                    if (GuidString != null)
                     {
                         pc = null;
-                        GuidToCharacter.TryGetValue(_guid, out pc);
+                        GuidToCharacter.TryGetValue(GuidString, out pc);
                         if (pc != null)
                         {
                             string messageToClient = pc.DequeueMessage();
@@ -240,7 +248,7 @@ namespace ServerTelnetCommunication
             //if the player has not sent any command for 30 minutes log the player out
             if (DateTime.Now.Subtract(lastMessage).TotalMinutes > 30)
             {
-                GuidToCharacter.TryGetValue(_guid, out pc);
+                GuidToCharacter.TryGetValue(GuidString, out pc);
                 if (pc != null)
                 {
                     pc.EnqueueCommand("Logout");

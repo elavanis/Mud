@@ -24,12 +24,13 @@ namespace ObjectsUnitTest.Item.Items
         Mock<IDefaultValues> defaults;
         Mock<ITagWrapper> tagWrapper;
         List<IEnchantment> enchantments;
+
         [TestInitialize]
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            enchantery = new Enchantery();
+            enchantery = new Enchantery("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
             weapon = new Mock<IWeapon>();
             armor = new Mock<IArmor>();
             random = new Mock<IRandom>();
@@ -48,6 +49,16 @@ namespace ObjectsUnitTest.Item.Items
             GlobalReference.GlobalValues.Random = random.Object;
             GlobalReference.GlobalValues.DefaultValues = defaults.Object;
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
+        }
+
+        [TestMethod]
+        public void Enchantery_Constructor()
+        {
+            Assert.AreEqual("examineDescription", enchantery.ExamineDescription);
+            Assert.AreEqual("lookDescription", enchantery.LookDescription);
+            Assert.AreEqual("sentenceDescription", enchantery.SentenceDescription);
+            Assert.AreEqual("shortDescription", enchantery.ShortDescription);
+            Assert.IsTrue(enchantery.KeyWords.Contains("Enchantery"));
         }
 
         [TestMethod]

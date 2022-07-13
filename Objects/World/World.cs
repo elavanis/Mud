@@ -323,6 +323,11 @@ namespace Objects.World
                 {
                     room.RemoveMobileObjectFromRoom(pc);
                 }
+
+                foreach (IMobileObject mob in room.OtherMobs)
+                {
+                    mob.Room = null;
+                }
             }
 
             return GlobalReference.GlobalValues.Serialization.Serialize(zone);
@@ -490,7 +495,8 @@ namespace Objects.World
 
         public IPlayerCharacter CreateCharacter(string userName, string password)
         {
-            IPlayerCharacter pc = new PlayerCharacter();
+            IRoom tempRoom = new Room.Room(0, "tempExam", "tempLook", "tempShort");
+            IPlayerCharacter pc = new PlayerCharacter(tempRoom, userName, userName, userName, userName, $"The corpse of {userName} lies here.");
             pc.Name = userName;
             pc.Password = password;
             pc.StrengthStat = GlobalReference.GlobalValues.Settings.BaseStatValue;
@@ -504,9 +510,6 @@ namespace Objects.World
             pc.Health = pc.MaxHealth;
             pc.Stamina = pc.MaxStamina;
             pc.Mana = pc.MaxStamina;
-            pc.SentenceDescription = pc.Name;
-            pc.ShortDescription = pc.Name;
-            pc.LookDescription = pc.Name;
             pc.KeyWords.Add(pc.Name);
             pc.GuildPoints = 1;
 
@@ -967,11 +970,23 @@ namespace Objects.World
 
         private static void SpawnElemental(IRoom room, ElementType elementType)
         {
-            Elemental elemental = new Elemental(elementType);
+            Elemental elemental = new Elemental(elementType, room);
             elemental.FinishLoad();
             room.AddMobileObjectToRoom(elemental);
-            elemental.Room = room;
-            ITranslationMessage translationMessage = new TranslationMessage($"A {elemental.KeyWords[0]} elemental appears out of nothing.");
+
+            ITranslationMessage translationMessage;
+            switch (elementType)
+            {
+                case ElementType.Fire:
+                case ElementType.Water:
+                    translationMessage = new TranslationMessage($"A {elemental.KeyWords[0]} elemental appears out of nothing.");
+                    break;
+                case ElementType.Air:
+                case ElementType.Earth:
+                default:
+                    translationMessage = new TranslationMessage($"An {elemental.KeyWords[0]} elemental appears out of nothing.");
+                    break;
+            }
             GlobalReference.GlobalValues.Notify.Room(elemental, null, room, translationMessage, null, true);
         }
 
@@ -1253,7 +1268,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
                 IRoom pcRoom = pc.Room;
                 if (pcRoom != null
                     && pc.LastProccessedTick != GlobalReference.GlobalValues.TickCounter
-                    && pcRoom != Zones[pcRoom.Zone].Rooms[pcRoom.Id])
+                    && pcRoom != Zones[pcRoom.ZoneId].Rooms[pcRoom.Id])
                 {
                     ProcessRoom(pc.Room);
                 }

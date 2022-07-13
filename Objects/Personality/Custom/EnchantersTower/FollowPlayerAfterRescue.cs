@@ -11,7 +11,7 @@ namespace Objects.Personality.Custom.EnchantersTower
             {
                 if (npc.FollowTarget == null)
                 {
-                    if (npc.Room.Zone == 16 && npc.Room.Id == 7) //don't start following in the room with the goblin chief
+                    if (npc.Room.ZoneId == 16 && npc.Room.Id == 7) //don't start following in the room with the goblin chief
                     {
                         return command;
                     }
@@ -19,7 +19,7 @@ namespace Objects.Personality.Custom.EnchantersTower
                     bool guardFound = false;
                     foreach (INonPlayerCharacter nonPlayerCharacter in npc.Room.NonPlayerCharacters)
                     {
-                        if (nonPlayerCharacter.Zone == npc.Zone && nonPlayerCharacter.Id == 11)
+                        if (nonPlayerCharacter.ZoneId == npc.ZoneId && nonPlayerCharacter.Id == 11)
                         {
                             guardFound = true;
                             break;

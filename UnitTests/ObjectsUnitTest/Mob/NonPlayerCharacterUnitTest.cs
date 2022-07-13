@@ -108,10 +108,19 @@ namespace ObjectsUnitTest.Mob
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
 
-            npc = new NonPlayerCharacter();
-            npc.Room = room.Object;
+            npc = new NonPlayerCharacter(room.Object, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription", "corpseLookDescription");
             npcList.Add(npc);
+        }
 
+        [TestMethod]
+        public void NonPlayerCharacter_Constructor()
+        {
+            Assert.AreSame(room.Object, npc.Room);
+            Assert.AreEqual("corpseLookDescription", npc.CorpseDescription);
+            Assert.AreEqual("examineDescription", npc.ExamineDescription);
+            Assert.AreEqual("lookDescription", npc.LookDescription);
+            Assert.AreEqual("sentenceDescription", npc.SentenceDescription);
+            Assert.AreEqual("shortDescription", npc.ShortDescription);
         }
 
         [TestMethod]

@@ -76,7 +76,7 @@ namespace ObjectsUnitTest.Skill.Skills
             room.Setup(e => e.East).Returns(exit.Object);
             room.Setup(e => e.West).Returns(exit2.Object);
             room2.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
-            room3.Setup(e => e.Zone).Returns(2);
+            room3.Setup(e => e.ZoneId).Returns(2);
             room3.Setup(e => e.Attributes).Returns(new HashSet<RoomAttribute>());
             zone.Setup(e => e.Rooms).Returns(rooms);
             zone2.Setup(e => e.Rooms).Returns(rooms2);

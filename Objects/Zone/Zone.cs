@@ -16,6 +16,10 @@ namespace Objects.Zone
 {
     public class Zone : BaseObject, IZone, ILoadable
     {
+        public Zone() : base("zone description", "zone description", "zone description", "zone description")
+        {
+        }
+
         [ExcludeFromCodeCoverage]
         public bool RepeatZoneProcessing { get; set; }
 

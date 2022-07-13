@@ -11,6 +11,12 @@ namespace Objects.Item.Items
 {
     public class Door : Item, IDoor
     {
+        public Door(string openMessage, string closeMessage, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
+        {
+            OpenMessage = openMessage;
+            CloseMessage = closeMessage;
+        }
+
         [ExcludeFromCodeCoverage]
         public string OpenMessage { get; set; }
 
@@ -36,7 +42,7 @@ namespace Objects.Item.Items
         public bool Linked { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public IBaseObjectId LinkedRoomId { get; set; }
+        public IBaseObjectId? LinkedRoomId { get; set; }
 
         [ExcludeFromCodeCoverage]
         public Directions.Direction LinkedRoomDirection { get; set; }

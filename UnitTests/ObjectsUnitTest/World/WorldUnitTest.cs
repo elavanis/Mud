@@ -216,8 +216,8 @@ namespace ObjectsUnitTest.World
             room.Setup(e => e.OtherMobs).Returns(new List<IMobileObject>());
             room.Setup(e => e.PrecipitationNotification).Returns("rain");
             room.Setup(e => e.WindSpeedNotification).Returns("wind");
-            room.Setup(e => e.Zone).Returns(1);
-            room2.Setup(e => e.Zone).Returns(1);
+            room.Setup(e => e.ZoneId).Returns(1);
+            room2.Setup(e => e.ZoneId).Returns(1);
             room2.Setup(e => e.Id).Returns(1);
             room2.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>());
             room2.Setup(e => e.PlayerCharacters).Returns(new List<IPlayerCharacter>());
@@ -236,6 +236,23 @@ namespace ObjectsUnitTest.World
             tickTimes.Setup(e => e.MedianTime).Returns(1m);
             zone.Setup(e => e.ResetTime).Returns(gameDateTime.Object);
             zone.Setup(e => e.Rooms).Returns(dictionaryRoom);
+            zone.Setup(e => e.ZonePrecipitationHighBegin).Returns("ZonePrecipitationHighBegin");
+            zone.Setup(e => e.ZonePrecipitationHighEnd).Returns("ZonePrecipitationHighEnd");
+            zone.Setup(e => e.ZonePrecipitationExtraHighBegin).Returns("ZonePrecipitationExtraHighBegin");
+            zone.Setup(e => e.ZonePrecipitationExtraHighEnd).Returns("ZonePrecipitationExtraHighEnd");
+            zone.Setup(e => e.ZoneWindSpeedHighBegin).Returns("ZoneWindSpeedHighBegin");
+            zone.Setup(e => e.ZoneWindSpeedHighEnd).Returns("ZoneWindSpeedHighEnd");
+            zone.Setup(e => e.ZoneWindSpeedExtraHighBegin).Returns("ZoneWindSpeedExtraHighBegin");
+            zone.Setup(e => e.ZoneWindSpeedExtraHighEnd).Returns("ZoneWindSpeedExtraHighEnd");
+            zone.Setup(e => e.ZonePrecipitationLowBegin).Returns("ZonePrecipitationLowBegin");
+            zone.Setup(e => e.ZonePrecipitationLowEnd).Returns("ZonePrecipitationLowEnd");
+            zone.Setup(e => e.ZonePrecipitationExtraLowBegin).Returns("ZonePrecipitationExtraLowBegin");
+            zone.Setup(e => e.ZonePrecipitationExtraLowEnd).Returns("ZonePrecipitationExtraLowEnd");
+            zone.Setup(e => e.ZoneWindSpeedLowBegin).Returns("ZoneWindSpeedLowBegin");
+            zone.Setup(e => e.ZoneWindSpeedLowEnd).Returns("ZoneWindSpeedLowEnd");
+            zone.Setup(e => e.ZoneWindSpeedExtraLowBegin).Returns("ZoneWindSpeedExtraLowBegin");
+            zone.Setup(e => e.ZoneWindSpeedExtraLowEnd).Returns("ZoneWindSpeedExtraLowEnd");
+
 
             dictionaryRoom.Add(0, room.Object);
             enchantments.Add(enchantment.Object);
@@ -269,6 +286,8 @@ namespace ObjectsUnitTest.World
             notifiyWindSpeed = world.GetType().GetProperty("NotifyWindSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
             fieldInfo = world.GetType().GetField("_followMobQueue", BindingFlags.NonPublic | BindingFlags.Instance);
             followMobQueue = (ConcurrentQueue<IMobileObject>)fieldInfo.GetValue(world);
+
+            GlobalReference.GlobalValues.World = world;
         }
 
         #region PerformTick
@@ -941,7 +960,7 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_LoadCharacter_LoadFromFile()
         {
-            PlayerCharacter realPc = new PlayerCharacter();
+            PlayerCharacter realPc = new PlayerCharacter(room.Object, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
 
             serialization.Setup(e => e.Deserialize<PlayerCharacter>("serializedPlayer")).Returns(realPc);
 
@@ -1066,6 +1085,8 @@ To see info on how to use a command type MAN and then the COMMAND.";
         [TestMethod]
         public void World_CreateCharacter()
         {
+            world.Zones.Add(0, zone.Object); //needed for new char
+
             IPlayerCharacter result = world.CreateCharacter("userName", "password");
 
             Assert.AreEqual("userName", result.Name);

@@ -14,7 +14,7 @@ namespace Objects.Room
 
         }
 
-        public RoomId(IRoom room) : base(room.Zone, room.Id)
+        public RoomId(IRoom room) : base(room.ZoneId, room.Id)
         {
 
         }

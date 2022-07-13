@@ -88,28 +88,18 @@ namespace GenerateZones
             zone.Id = i;
             int roomId = 1;
             zone.Name = i.ToString();
-
-            INonPlayerCharacter npc = new NonPlayerCharacter();
-            npc.Personalities.Add(new Wanderer());
-            npc.Zone = i;
-            npc.Id = 1;
-            npc.ExamineDescription = "ExamineDescription";
-            npc.LookDescription = "LookDescription";
-            npc.ShortDescription = "ShortDescription";
-            npc.SentenceDescription = "SentenceDescription";
-            npc.KeyWords.Add("npc");
-            npc.TypeOfMob = NonPlayerCharacter.MobType.Humanoid;
+           
             for (int x = 0; x < 100; x++)
             {
-                IRoom room = new Room();
-                room.Id = roomId++;
-                room.Zone = i;
-                room.ExamineDescription = "ExamineDescription";
-                room.LookDescription = "LookDescription";
-                room.ShortDescription = "ShortDescription";
-                room.SentenceDescription = "SentenceDescription";
+                IRoom room = new Room(zone.Id, "ExamineDescription", "LookDescription", "ShortDescription");
                 room.Attributes.Add(Room.RoomAttribute.Indoor);
                 zone.Rooms.Add(room.Id, room);
+
+                INonPlayerCharacter npc = new NonPlayerCharacter(room, "ExamineDescription", "LookDescription", "SentenceDescription", "ShortDescription");
+                npc.Personalities.Add(new Wanderer());
+                npc.KeyWords.Add("npc");
+                npc.TypeOfMob = NonPlayerCharacter.MobType.Humanoid;
+
                 room.AddMobileObjectToRoom(npc);
             }
 
@@ -134,7 +124,6 @@ namespace GenerateZones
             if (zone != null)
             {
                 ZoneVerify.VerifyZone(zone);
-                GlobalReference.GlobalValues.World.Zones.Add(zone.Id, zone);
 
                 Console.WriteLine(string.Format("Starting serialization for {0}.", zone.Name));
                 using (TextWriter tw = new StreamWriter(Path.Combine(GlobalReference.GlobalValues.Settings.ZoneDirectory, zone.Name + ".zone")))

@@ -31,107 +31,104 @@ namespace GenerateZones.Zones.GrandView
         }
 
         #region Rooms
-
-
         private IRoom GenerateRoom1()
         {
-            IRoom room = IndoorRoomNoLight();
-
-            room.ExamineDescription = "Faint humming sounds can be heard from below.";
-            room.LookDescription = "Stairs descend downward into the darkness of the of the temple.";
-            room.ShortDescription = "Charon Temple";
+            string examineDescription = "Faint humming sounds can be heard from below.";
+            string lookDescription = "Stairs descend downward into the darkness of the of the temple.";
+            string shortDescription = "Charon Temple";
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom2()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
-            room.LookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
-            room.ShortDescription = "Charon Temple";
+            string examineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
+            string lookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
+            string shortDescription = "Charon Temple";
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom3()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
-            room.LookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
-            room.ShortDescription = "Charon Temple";
+            string examineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
+            string lookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
+            string shortDescription = "Charon Temple";
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom4()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
-            room.LookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
-            room.ShortDescription = "Charon Temple";
+            string examineDescription = "The blue fire does not radiate heat or produce sound.  Just a cold blue light.";
+            string lookDescription = "The temple tunnel is lined on both sides with cauldrons of blue fire.";
+            string shortDescription = "Charon Temple";
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom5()
         {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "A small shrine has been setup next to the dock.";
-            room.LookDescription = "There is dock extending twenty or thirty feet into a river that extends into the darkness.";
-            room.ShortDescription = "Charon Temple";
+            string examineDescription = "A small shrine has been setup next to the dock.";
+            string lookDescription = "There is dock extending twenty or thirty feet into a river that extends into the darkness.";
+            string shortDescription = "Charon Temple";
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             room.AddItemToRoom(Shrine());
 
             return room;
         }
 
+        private IRoom GenerateRoom6()
+        {
+            string examineDescription = "In the center of the circle is a statue of Charon guiding his boat down the river with his mighty oar.";
+            string lookDescription = "A small circle has been drawn in chalk on the cave floor.";
+            string shortDescription = "Charon Temple";
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
+
+            for (int i = 0; i < 8; i++)
+            {
+                room.AddMobileObjectToRoom(Priest(room));
+            }
+            return room;
+        }
+        #endregion Rooms
+
+        #region Npcs
+        private INonPlayerCharacter Priest(IRoom room)
+        {
+            string examineDescription = "Clothed in a gray tunic the priest stands in meditation while emitting a humming sound.";
+            string lookDescription = "The priest mostly ignores you as all are welcome to the temple of Charon.";
+            string sentenceDescription = "priest";
+            string shortDescription = "A mediative priest stands in his place in the circle.";
+            INonPlayerCharacter nonPlayerCharacter = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 20);
+
+            nonPlayerCharacter.Personalities.Add(new Guardian());
+            nonPlayerCharacter.KeyWords.Add("Priest");
+
+            return nonPlayerCharacter;
+        }
+        #endregion Npcs
+
+        #region Items
         private IItem Shrine()
         {
-            IItem shrine = CreateItem<IItem>();
-            shrine.Zone = Zone.Id;
-            shrine.ExamineDescription = "The shrine is full of small coins carefully placed there.";
-            shrine.LookDescription = "The shrine is make of old wooden boat planks.";
-            shrine.ShortDescription = "The shrine has a small lantern lit in the center of the wooden shrine.";
+            string examineDescription = "The shrine is full of small coins carefully placed there.";
+            string lookDescription = "The shrine is make of old wooden boat planks.";
+            string sentenceDescription = "shrine";
+            string shortDescription = "The shrine has a small lantern lit in the center of the wooden shrine.";
+            IItem shrine = CreateItem(examineDescription, lookDescription, sentenceDescription, shortDescription);
+            shrine.ZoneId = Zone.Id;
             shrine.SentenceDescription = "shrine";
             shrine.KeyWords.Add("shrine");
 
             return shrine;
         }
-
-        private IRoom GenerateRoom6()
-        {
-            IRoom room = IndoorRoomLight();
-
-            room.ExamineDescription = "In the center of the circle is a statue of Charon guiding his boat down the river with his mighty oar.";
-            room.LookDescription = "A small circle has been drawn in chalk on the cave floor.";
-            room.ShortDescription = "Charon Temple";
-
-            for (int i = 0; i < 8; i++)
-            {
-                room.AddMobileObjectToRoom(Priest());
-            }
-            return room;
-        }
-
-        private INonPlayerCharacter Priest()
-        {
-            INonPlayerCharacter nonPlayerCharacter = CreateNonplayerCharacter(MobType.Humanoid, 20);
-            nonPlayerCharacter.Personalities.Add(new Guardian());
-            nonPlayerCharacter.ExamineDescription = "Clothed in a gray tunic the priest stands in meditation while emitting a humming sound.";
-            nonPlayerCharacter.LookDescription = "The priest mostly ignores you as all are welcome to the temple of Charon.";
-            nonPlayerCharacter.ShortDescription = "A mediative priest stands in his place in the circle.";
-            nonPlayerCharacter.SentenceDescription = "priest";
-            nonPlayerCharacter.KeyWords.Add("Priest");
-
-            return nonPlayerCharacter;
-        }
-
-        #endregion Rooms
+        #endregion Items
 
         private void ConnectRooms()
         {
@@ -145,3 +142,4 @@ namespace GenerateZones.Zones.GrandView
         }
     }
 }
+

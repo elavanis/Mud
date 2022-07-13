@@ -20,7 +20,7 @@ namespace ObjectsUnitTest
             baseObjectId = new BaseObjectId();
             baseObject = new Mock<IBaseObject>();
 
-            baseObject.Setup(e => e.Zone).Returns(1);
+            baseObject.Setup(e => e.ZoneId).Returns(1);
             baseObject.Setup(e => e.Id).Returns(2);
         }
 

@@ -9,7 +9,7 @@ Id	Lvl	Name
 7	20	GrandViewHospital
 8	7	DeepWoodForest
 9	0	GrandViewDeepForest
-10	6	Woodbrook
+10	6	FortWoodbrook
 11	0	GrandViewGarden
 12	11	KoboldLair
 13	14	AbandonedDwarvenMine

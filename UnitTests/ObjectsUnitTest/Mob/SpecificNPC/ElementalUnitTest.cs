@@ -4,6 +4,7 @@ using Objects.Global;
 using Objects.Global.DefaultValues.Interface;
 using Objects.Global.MoneyToCoins.Interface;
 using Objects.Global.Notify.Interface;
+using Objects.Global.Random.Interface;
 using Objects.Global.Settings.Interface;
 using Objects.Language.Interface;
 using Objects.Mob.Interface;
@@ -30,6 +31,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         Mock<INotify> notify;
         Mock<IRoom> room;
         Mock<IMoneyToCoins> moneyToCoins;
+        Mock<IRandom> random;
 
         [TestInitialize]
         public void Setup()
@@ -43,12 +45,14 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             notify = new Mock<INotify>();
             room = new Mock<IRoom>();
             moneyToCoins = new Mock<IMoneyToCoins>();
+            random = new Mock<IRandom>();
 
             world.Setup(e => e.Precipitation).Returns(100);
             world.Setup(e => e.WindSpeed).Returns(100);
             settings.Setup(e => e.MaxLevel).Returns(100);
             tagWrapper.Setup(e => e.WrapInTag(It.IsAny<string>(), TagType.Info)).Returns((string x, TagType y) => (x));
             moneyToCoins.Setup(e => e.FormatedAsCoins(0)).Returns("0 coins");
+            random.Setup(e => e.Next(1)).Returns(0);
 
             GlobalReference.GlobalValues.World = world.Object;
             GlobalReference.GlobalValues.Settings = settings.Object;
@@ -56,8 +60,9 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             GlobalReference.GlobalValues.TagWrapper = tagWrapper.Object;
             GlobalReference.GlobalValues.Notify = notify.Object;
             GlobalReference.GlobalValues.MoneyToCoins = moneyToCoins.Object;
+            GlobalReference.GlobalValues.Random = random.Object;
 
-            elemental = new Elemental(ElementType.Air);
+            elemental = new Elemental(ElementType.Air,room.Object);
             roundTickCounter = elemental.GetType().GetProperty("RoundTickCounter", BindingFlags.NonPublic | BindingFlags.Instance);
 
             roundTickCounter.SetValue(elemental, -1);
@@ -66,7 +71,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_Constructor_Air()
         {
-            elemental = new Elemental(ElementType.Air);
+            elemental = new Elemental(ElementType.Air, room.Object);
 
             Assert.AreEqual("air", elemental.KeyWords[0]);
         }
@@ -74,7 +79,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_Constructor_Earth()
         {
-            elemental = new Elemental(ElementType.Earth);
+            elemental = new Elemental(ElementType.Earth, room.Object);
 
             Assert.AreEqual("earth", elemental.KeyWords[0]);
         }
@@ -82,7 +87,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_Constructor_Fire()
         {
-            elemental = new Elemental(ElementType.Fire);
+            elemental = new Elemental(ElementType.Fire, room.Object);
 
             Assert.AreEqual("fire", elemental.KeyWords[0]);
         }
@@ -90,7 +95,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_Constructor_Water()
         {
-            elemental = new Elemental(ElementType.Water);
+            elemental = new Elemental(ElementType.Water, room.Object);
 
             Assert.AreEqual("water", elemental.KeyWords[0]);
         }
@@ -117,7 +122,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(2, elemental.Level);
             Assert.AreEqual(2, elemental.EquipedArmor.Count());
             world.Verify(e => e.WindSpeed, Times.AtLeastOnce);
-            notify.Verify(e => e.Room(elemental, null, null, It.Is<ITranslationMessage>(f => f.Message == "The air elemental grows stronger."), null, true, false), Times.Once);
+            notify.Verify(e => e.Room(elemental, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "The air elemental grows stronger."), null, true, false), Times.Once);
         }
 
         [TestMethod]
@@ -133,7 +138,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(4, elemental.Level);
             Assert.AreEqual(4, elemental.EquipedArmor.Count());
             world.Verify(e => e.WindSpeed, Times.AtLeastOnce);
-            notify.Verify(e => e.Room(elemental, null, null, It.Is<ITranslationMessage>(f => f.Message == "The air elemental grows weaker."), null, true, false), Times.Once);
+            notify.Verify(e => e.Room(elemental, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "The air elemental grows weaker."), null, true, false), Times.Once);
         }
 
         [TestMethod]
@@ -145,13 +150,13 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
 
             Assert.AreEqual(1, elemental.Level);
             world.Verify(e => e.WindSpeed, Times.AtLeastOnce);
-            notify.Verify(e => e.Room(elemental, null, null, It.IsAny<ITranslationMessage>(), null, true, false), Times.Never);
+            notify.Verify(e => e.Room(elemental, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Never);
         }
 
         [TestMethod]
         public void Elemental_ProcessElementalTick_Earth_LooseLevel()
         {
-            elemental = new Elemental(ElementType.Earth);
+            elemental = new Elemental(ElementType.Earth, room.Object);
             elemental.Room = room.Object;
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { elemental });
             roundTickCounter.SetValue(elemental, -1);
@@ -169,7 +174,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
         [TestMethod]
         public void Elemental_ProcessElementalTick_Earth_GainLevel()
         {
-            elemental = new Elemental(ElementType.Earth);
+            elemental = new Elemental(ElementType.Earth, room.Object);
             roundTickCounter.SetValue(elemental, -1);
             elemental.Level = 5;
             elemental.FinishLoad();
@@ -181,13 +186,13 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
             Assert.AreEqual(6, elemental.Level);
             Assert.AreEqual(6, elemental.EquipedArmor.Count());
             world.Verify(e => e.Precipitation, Times.AtLeastOnce);
-            notify.Verify(e => e.Room(elemental, null, null, It.Is<ITranslationMessage>(f => f.Message == "The earth elemental grows stronger."), null, true, false), Times.Once);
+            notify.Verify(e => e.Room(elemental, null, room.Object, It.Is<ITranslationMessage>(f => f.Message == "The earth elemental grows stronger."), null, true, false), Times.Once);
         }
 
         [TestMethod]
         public void Elemental_ProcessElementalTick_Earth_NoChange()
         {
-            elemental = new Elemental(ElementType.Earth);
+            elemental = new Elemental(ElementType.Earth, room.Object);
             roundTickCounter.SetValue(elemental, -1);
             world.Setup(e => e.Precipitation).Returns(40);
 
@@ -195,7 +200,7 @@ namespace ObjectsUnitTest.Mob.SpecificNPC
 
             Assert.AreEqual(1, elemental.Level);
             world.Verify(e => e.Precipitation, Times.AtLeastOnce);
-            notify.Verify(e => e.Room(elemental, null, null, It.IsAny<ITranslationMessage>(), null, true, false), Times.Never);
+            notify.Verify(e => e.Room(elemental, null, room.Object, It.IsAny<ITranslationMessage>(), null, true, false), Times.Never);
         }
     }
 }

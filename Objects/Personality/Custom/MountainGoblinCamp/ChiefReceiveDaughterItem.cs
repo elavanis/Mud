@@ -11,7 +11,7 @@ namespace Objects.Personality.Custom.MountainGoblinCamp
     public class ChiefReceiveDaughterItem : IReceiver
     {
         [ExcludeFromCodeCoverage]
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             return command;
         }
@@ -25,10 +25,17 @@ namespace Objects.Personality.Custom.MountainGoblinCamp
         [ExcludeFromCodeCoverage]
         public IBaseObjectId TriggerObjectId { get; set; }
 
+        public ChiefReceiveDaughterItem(IItem reward, string responseMessage, IBaseObjectId triggerObjectId)
+        {
+            Reward = reward;
+            ResponseMessage = responseMessage;
+            TriggerObjectId = triggerObjectId;
+        }
+
         public IResult ReceivedItem(IMobileObject performer, IMobileObject receiver, IItem itemReceived)
         {
             if (itemReceived.Id == TriggerObjectId.Id
-                && itemReceived.Zone == TriggerObjectId.Zone)
+                && itemReceived.ZoneId == TriggerObjectId.Zone)
             {
                 performer.Items.Add((IItem)Reward.Clone());
 

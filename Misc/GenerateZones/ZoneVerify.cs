@@ -10,6 +10,7 @@ using Objects.Room.Interface;
 using Objects.Skill.Interface;
 using Objects.Zone.Interface;
 using System;
+using static Objects.Item.Items.Weapon;
 using static Objects.Room.Room;
 
 namespace GenerateZones
@@ -90,7 +91,7 @@ namespace GenerateZones
             {
                 if (!room.Attributes.Contains(RoomAttribute.Weather))
                 {
-                    Console.WriteLine($"Room {room.Zone} - {room.Id} has outdoors but not weather.");
+                    Console.WriteLine($"Room {room.ZoneId} - {room.Id} has outdoors but not weather.");
                 }
             }
 
@@ -332,7 +333,7 @@ namespace GenerateZones
                     ThrowConfigException(item, type, $"No damage set for weapon {item.SentenceDescription}.");
                 }
 
-                if (weapon.Type == null)
+                if (weapon.Type == WeaponType.NotSet)
                 {
                     ThrowConfigException(item, type, $"No weapon type set for weapon {item.SentenceDescription}.");
                 }
@@ -348,10 +349,13 @@ namespace GenerateZones
 
                 foreach (Damage.DamageType damage in Enum.GetValues(typeof(Damage.DamageType)))
                 {
-                    if (armor.GetTypeModifier(damage) == Decimal.MaxValue
-                        && armor.Material == null)
+                    if (damage != Damage.DamageType.NotSet) //skip not set
                     {
-                        ThrowConfigException(item, type, string.Format("Damage type {0} not set.", damage));
+                        if (armor.GetTypeModifier(damage) == Decimal.MaxValue
+                            && armor.Material == null)
+                        {
+                            ThrowConfigException(item, type, string.Format("Damage type {0} not set.", damage));
+                        }
                     }
                 }
 
@@ -400,7 +404,7 @@ namespace GenerateZones
 
         private static void VerifyIds(IBaseObject item, string type)
         {
-            if (item.Zone == 0)
+            if (item.ZoneId == 0)
             {
                 ThrowConfigException(item, type, "Zone = 0");
             }

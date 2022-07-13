@@ -13,6 +13,7 @@ using Objects.Magic.Interface;
 using Objects.Mob.Interface;
 using Objects.Race.Interface;
 using Objects.Race.Races;
+using Objects.Room;
 using Objects.Room.Interface;
 using Objects.Skill.Interface;
 using Shared.TelnetItems;
@@ -27,12 +28,39 @@ using System.Text;
 using static Objects.Damage.Damage;
 using static Objects.Global.Language.Translator;
 using static Objects.Global.Logging.LogSettings;
+using static Objects.Item.Items.Equipment;
 using static Shared.TagWrapper.TagWrapper;
 
 namespace Objects.Mob
 {
     public abstract class MobileObject : BaseObject, IContainer, IMobileObject
     {
+        private static List<string> CorpseDescriptions = new List<string>() { "This corpse once was living but no life exists here now." };
+
+        protected MobileObject(IRoom room, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription, string? corpseDescription = null) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
+        {
+            Room = room;
+
+            if (room != null)  //because room is null when deserializing we need to set account for it
+            {
+                RoomId = new RoomId(room);
+            }
+
+            if (corpseDescription != null)
+            {
+                CorpseDescription = corpseDescription;
+            }
+            else
+            {
+                CorpseDescription = PickARandomCorpseDescription();
+            }
+        }
+
+        private string PickARandomCorpseDescription()
+        {
+            return CorpseDescriptions[GlobalReference.GlobalValues.Random.Next(CorpseDescriptions.Count)];
+        }
+
         #region Properties
         [ExcludeFromCodeCoverage]
         public bool IsAlive { get; set; } = true;
@@ -59,7 +87,7 @@ namespace Objects.Mob
         public IBaseObjectId RoomId { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public IBaseObjectId RecallPoint { get; set; }
+        public IBaseObjectId? RecallPoint { get; set; }
 
         [ExcludeFromCodeCoverage]
         public uint LastProccessedTick { get; set; } = 0;
@@ -93,7 +121,7 @@ namespace Objects.Mob
         }
 
         [ExcludeFromCodeCoverage]
-        public string CorpseLookDescription { get; set; }
+        public string CorpseDescription { get; set; }
 
         [ExcludeFromCodeCoverage]
         public List<IItem> Items { get; } = new List<IItem>();
@@ -105,7 +133,7 @@ namespace Objects.Mob
         public bool God { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public IMount Mount { get; set; }
+        public IMount? Mount { get; set; }
 
         public bool IsInCombat
         {
@@ -115,7 +143,7 @@ namespace Objects.Mob
             }
         }
 
-        public IMobileObject Opponent
+        public IMobileObject? Opponent
         {
             get
             {
@@ -128,44 +156,11 @@ namespace Objects.Mob
             return GlobalReference.GlobalValues.Engine.Combat.AreFighting(this, mob);
         }
 
-        private Dictionary<string, ISpell> _spellBook = null;
-        public Dictionary<string, ISpell> SpellBook
-        {
-            get
-            {
-                if (_spellBook == null)
-                {
-                    _spellBook = new Dictionary<string, ISpell>();
-                }
-                return _spellBook;
-            }
-        }
+        public Dictionary<string, ISpell> SpellBook { get; } = new Dictionary<string, ISpell>();
 
-        private Dictionary<string, ISkill> _knownSkills = null;
-        public Dictionary<string, ISkill> KnownSkills
-        {
-            get
-            {
-                if (_knownSkills == null)
-                {
-                    _knownSkills = new Dictionary<string, ISkill>();
-                }
-                return _knownSkills;
-            }
-        }
+        public Dictionary<string, ISkill> KnownSkills { get; } = new Dictionary<string, ISkill>();
 
-        private List<MobileAttribute> _mobileAttributes = null;
-        private List<MobileAttribute> AttributesMobileObject
-        {
-            get
-            {
-                if (_mobileAttributes == null)
-                {
-                    _mobileAttributes = new List<MobileAttribute>();
-                }
-                return _mobileAttributes;
-            }
-        }
+        private List<MobileAttribute> AttributesMobileObject { get; } = new List<MobileAttribute>();
 
         public void AddAttribute(MobileAttribute attribute)
         {
@@ -188,20 +183,20 @@ namespace Objects.Mob
             }
         }
 
-        private IMobileObject followTarget;
-        public IMobileObject FollowTarget
+        private IMobileObject? _followTarget;
+        public IMobileObject? FollowTarget
         {
             get
             {
-                if (followTarget == null)
+                if (_followTarget == null)
                 {
                     return null;
                 }
                 else
                 {
-                    if (followTarget.IsAlive)
+                    if (_followTarget.IsAlive)
                     {
-                        return followTarget;
+                        return _followTarget;
                     }
                     else
                     {
@@ -212,7 +207,7 @@ namespace Objects.Mob
 
             set
             {
-                followTarget = value;
+                _followTarget = value;
             }
         }
 
@@ -387,25 +382,20 @@ namespace Objects.Mob
         #endregion Health/Mana/Stamina
 
         #region Equipment
-        private List<IEquipment> _equipment = null;
+        private List<IEquipment> _equipment = new List<IEquipment>();
+
+
+
         public IEnumerable<IEquipment> EquipedEquipment
         {
             get
             {
-                if (_equipment == null)
-                {
-                    _equipment = new List<IEquipment>();
-                }
                 return _equipment;
             }
         }
 
         public void AddEquipment(IEquipment equipment)
         {
-            if (_equipment == null)
-            {
-                _equipment = new List<IEquipment>();
-            }
             _equipment.Add(equipment);
 
             ResetMaxStatValues();
@@ -413,10 +403,6 @@ namespace Objects.Mob
 
         public void RemoveEquipment(IEquipment equipment)
         {
-            if (_equipment == null)
-            {
-                return;
-            }
             _equipment.Remove(equipment);
 
             ResetMaxStatValues();
@@ -429,8 +415,7 @@ namespace Objects.Mob
                 List<IWeapon> weapons = new List<IWeapon>();
                 foreach (IItem item in EquipedEquipment)
                 {
-                    IWeapon weapon = item as IWeapon;
-                    if (weapon != null)
+                    if (item is IWeapon weapon)
                     {
                         weapons.Add(weapon);
                     }
@@ -438,7 +423,7 @@ namespace Objects.Mob
 
                 if (weapons.Count == 0)
                 {
-                    IWeapon defaultWeapon = new Weapon();
+                    IWeapon defaultWeapon = new Weapon("bare hands", "bare hands", "bare hands", "bare hands");
                     defaultWeapon.AttackerStat = Stats.Stat.Dexterity;
                     defaultWeapon.DeffenderStat = Stats.Stat.Dexterity;
                     int strength = Math.Max(1, StrengthEffective);
@@ -460,8 +445,7 @@ namespace Objects.Mob
                 List<IArmor> armors = new List<IArmor>();
                 foreach (IItem item in EquipedEquipment)
                 {
-                    IArmor armor = item as IArmor;
-                    if (armor != null)
+                    if (item is IArmor armor)
                     {
                         armors.Add(armor);
                     }
@@ -594,8 +578,7 @@ namespace Objects.Mob
 
             foreach (IArmor armor in EquipedArmor)
             {
-                IShield shield = armor as IShield;
-                if (shield != null)
+                if (armor is IShield shield)
                 {
                     int shieldNegateRoll = GlobalReference.GlobalValues.Random.Next(101);
                     if (shieldNegateRoll <= shield.NegateDamagePercent)
@@ -675,9 +658,7 @@ namespace Objects.Mob
         private void KillMobAndRewardXP(IMobileObject attacker)
         {
             ICorpse corpse = Die(attacker);
-            INonPlayerCharacter npc = this as INonPlayerCharacter;
-            IPlayerCharacter pc = attacker as IPlayerCharacter;
-            if (npc != null && attacker != null)
+            if (this is INonPlayerCharacter npc && attacker is IPlayerCharacter pc)
             {
                 IReadOnlyList<IMobileObject> partyMembers = GlobalReference.GlobalValues.Engine.Party.CurrentPartyMembers(attacker);
 
@@ -712,11 +693,11 @@ namespace Objects.Mob
 
             foreach (IMobileObject mob in partyMembers)
             {
-                if (mob is IPlayerCharacter pc2)
+                if (mob is IPlayerCharacter pc)
                 {
-                    pc2.Experience += exp;
-                    pc2.Money += gold;
-                    GlobalReference.GlobalValues.Notify.Mob(pc2, translationMessage);
+                    pc.Experience += exp;
+                    pc.Money += gold;
+                    GlobalReference.GlobalValues.Notify.Mob(pc, translationMessage);
                 }
             }
         }
@@ -843,16 +824,11 @@ namespace Objects.Mob
                 enchantment.EnchantmentEndingDateTime = new DateTime();  //set the end date to the past so its not fired and will be cleaned up 
             }
 
-            Corpse corpse = new Corpse();
+            Corpse corpse = new Corpse(CorpseDescription, CorpseDescription, "corpse", "A corpse lies here.");
             corpse.OriginalMob = this;
             corpse.Killer = attacker;
             corpse.TimeOfDeath = DateTime.UtcNow;
-            corpse.ShortDescription = "A corpse lies here.";
-            corpse.LookDescription = CorpseLookDescription ?? "This corpse once was living but no life exists here now.";
-            corpse.ExamineDescription = CorpseLookDescription ?? "This corpse once was living but no life exists here now.";
             corpse.KeyWords.Add("Corpse");
-            corpse.SentenceDescription = "corpse";
-
             corpse.Items.AddRange(EquipedEquipment);
             corpse.Items.AddRange(Items);
             _equipment.Clear();
@@ -957,7 +933,7 @@ namespace Objects.Mob
         #region Message/Commands
         protected ConcurrentQueue<string> _messageQueue { get; } = new ConcurrentQueue<string>();
 
-        public void EnqueueMessage(string message)
+        public void EnqueueMessage(string? message)
         {
             //if a message would be blank it is now marked null
             //skipping null messages will now make it no longer enqueue multiple status updates
@@ -976,13 +952,13 @@ namespace Objects.Mob
 
                     if (LevelPoints > 0)
                     {
-                        string levelPointsMessage = GlobalReference.GlobalValues.TagWrapper.WrapInTag(string.Format("You have {0} level points to spend.", LevelPoints));
+                        string? levelPointsMessage = GlobalReference.GlobalValues.TagWrapper.WrapInTag(string.Format("You have {0} level points to spend.", LevelPoints));
                         InternalEnqueueMessage(GlobalReference.GlobalValues.Engine.Event.EnqueueMessage(this, levelPointsMessage));
                     }
 
                     while (_messageQueue.Count >= 100)
                     {
-                        _messageQueue.TryDequeue(out string temp);
+                        _messageQueue.TryDequeue(out string? temp);
                     }
                 }
             }
@@ -1026,9 +1002,9 @@ namespace Objects.Mob
             return strBldr.ToString();
         }
 
-        public string DequeueMessage()
+        public string? DequeueMessage()
         {
-            _messageQueue.TryDequeue(out string message);
+            _messageQueue.TryDequeue(out string? message);
             return message;
         }
 
@@ -1047,12 +1023,12 @@ namespace Objects.Mob
         /// <summary>
         /// This is the mob possessing this mob.
         /// </summary>
-        public IMobileObject PossingMob { get; set; }
+        public IMobileObject? PossingMob { get; set; }
 
         /// <summary>
         /// This is the mob that this mob is currently possessing.
         /// </summary>
-        public IMobileObject PossedMob { get; set; }
+        public IMobileObject? PossedMob { get; set; }
 
         public void EnqueueCommand(string message)
         {
@@ -1099,8 +1075,7 @@ namespace Objects.Mob
                     {
                         if (GlobalReference.GlobalValues.FileIO.Exists(fileLocation))
                         {
-                            IData data = new Data(Data.DataType.File, fileLocation, GlobalReference.GlobalValues.FileIO);
-                            data.AssetName = splitMessage[2];
+                            IData data = new Data(Data.DataType.File, fileLocation, GlobalReference.GlobalValues.FileIO, splitMessage[2]);
                             string serializedData = GlobalReference.GlobalValues.Serialization.Serialize(data);
                             EnqueueMessage(GlobalReference.GlobalValues.TagWrapper.WrapInTag(serializedData, TagType.Data));
                         }
@@ -1118,15 +1093,15 @@ namespace Objects.Mob
             }
         }
 
-        public string DequeueCommunication()
+        public string? DequeueCommunication()
         {
-            _communicationQueue.TryDequeue(out string communication);
+            _communicationQueue.TryDequeue(out string? communication);
             return communication;
         }
 
-        public string DequeueCommand()
+        public string? DequeueCommand()
         {
-            _commandQueue.TryDequeue(out string command);
+            _commandQueue.TryDequeue(out string? command);
             return command;
         }
 

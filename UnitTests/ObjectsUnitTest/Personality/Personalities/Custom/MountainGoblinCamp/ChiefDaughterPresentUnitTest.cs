@@ -42,7 +42,7 @@ namespace ObjectsUnitTest.Personality.Personalities.Custom.MountainGoblinCamp
             chief.Setup(e => e.KeyWords).Returns(new List<string>() { "chief" });
             chief.Setup(e => e.Room).Returns(room.Object);
             daughter.Setup(e => e.FollowTarget).Returns(chief.Object);
-            daughter.Setup(e => e.Zone).Returns(23);
+            daughter.Setup(e => e.ZoneId).Returns(23);
             daughter.Setup(e => e.Id).Returns(10);
             room.Setup(e => e.NonPlayerCharacters).Returns(new List<INonPlayerCharacter>() { chief.Object, daughter.Object });
             randomDropGenerator.Setup(e => e.GenerateRandomEquipment(0, 0)).Returns(equipment.Object);

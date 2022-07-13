@@ -5,10 +5,16 @@ namespace Objects.Item.Items
 {
     public class Equipment : Item, IEquipment
     {
+        public Equipment(AvalableItemPosition position, string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
+        {
+            ItemPosition = position;
+        }
+
         [ExcludeFromCodeCoverage]
-        public AvalableItemPosition ItemPosition { get; set; } = AvalableItemPosition.Held;
+        public AvalableItemPosition ItemPosition { get; set; } = AvalableItemPosition.NotSet;
         public enum AvalableItemPosition
         {
+            NotSet,
             Wield,
             Head,
             Neck,

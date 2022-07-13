@@ -23,7 +23,7 @@ namespace Objects.Damage
         public IDice Dice { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public DamageType Type { get; set; }
+        public DamageType Type { get; set; } = DamageType.NotSet;
 
         [ExcludeFromCodeCoverage]
         public Stats.Stat? BonusDamageStat { get; set; }
@@ -33,6 +33,7 @@ namespace Objects.Damage
 
         public enum DamageType
         {
+            NotSet,
             Slash,
             Pierce,
             Bludgeon,

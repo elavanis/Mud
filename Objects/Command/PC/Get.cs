@@ -21,7 +21,7 @@ namespace Objects.Command.PC
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            IResult result = base.PerfomCommand(performer, command);
+            IResult? result = base.PerfomCommand(performer, command);
             if (result != null)
             {
                 return result;
@@ -40,9 +40,9 @@ namespace Objects.Command.PC
                     for (int i = performer.Room.Items.Count - 1; i >= 0; i--)
                     {
                         IItem roomItem = performer.Room.Items[i];
-                        ICommand innerCommand = new Command();
                         IParameter innerParameter = new Parameter(roomItem.KeyWords[0]);
-                        innerCommand.Parameters.Add(innerParameter);
+                        ICommand innerCommand = new Command("REPLACE_ME", new List<IParameter>() { innerParameter });
+
                         IResult innerResult = PerformCommand(performer, innerCommand);
                         GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage(innerResult.ResultMessage));
                     }
@@ -58,17 +58,16 @@ namespace Objects.Command.PC
                         {
                             if (item is ICorpse corpse)
                             {
-                                if (corpse.Killer != null)  //allow you to pick up corpses that don't have a killer
+                                if (corpse.Killer != performer
+                                        && corpse.OriginalMob != performer)
                                 {
-                                    IPlayerCharacter playerCharacter = performer as IPlayerCharacter;
-
-                                    if ((corpse.Killer != performer
-                                            && corpse.OriginalMob != performer)
-                                        && (playerCharacter != null
-                                            && corpse.Killer.SentenceDescription != performer.SentenceDescription
-                                            && corpse.OriginalMob.SentenceDescription != performer.SentenceDescription))
+                                    if (performer is IPlayerCharacter playerCharacter)
                                     {
-                                        return new Result($"Unable to pickup the corpse belonging to {corpse.Killer.KeyWords[0]}.", true);
+                                        if (corpse.Killer.SentenceDescription != performer.SentenceDescription
+                                                && corpse.OriginalMob.SentenceDescription != performer.SentenceDescription)
+                                        {
+                                            return new Result($"Unable to pickup the corpse belonging to {corpse.Killer.KeyWords[0]}.", true);
+                                        }
                                     }
                                 }
                             }
@@ -113,10 +112,12 @@ namespace Objects.Command.PC
                         for (int i = container.Items.Count - 1; i >= 0; i--)
                         {
                             IItem containerItem = container.Items[i];
-                            ICommand innerCommand = new Command();
+                            
                             IParameter innerParameter = new Parameter(containerItem.KeyWords[0]);
-                            innerCommand.Parameters.Add(innerParameter);
-                            innerCommand.Parameters.Add(parameterContainer);
+                            List<IParameter> parameters = new List<IParameter>();
+                            parameters.Add(innerParameter);
+                            parameters.Add(parameterContainer);
+                            ICommand innerCommand = new Command("REPLACE_ME", parameters);
                             IResult innerResult = PerformCommand(performer, innerCommand);
                             GlobalReference.GlobalValues.Notify.Mob(performer, new TranslationMessage(innerResult.ResultMessage));
                         }
@@ -136,9 +137,8 @@ namespace Objects.Command.PC
                                 container.Items.Remove(item);
                                 AddItemToPerformer(performer, item);
 
-                                if (item is IMoney)
+                                if (item is IMoney money)
                                 {
-                                    IMoney money = item as IMoney;
                                     string moneyString = GlobalReference.GlobalValues.MoneyToCoins.FormatedAsCoins(money.Value);
                                     message = string.Format("You get the {0} from the {1}.", moneyString, parameterContainer.ParameterValue);
                                 }

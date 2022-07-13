@@ -3,6 +3,7 @@ using Objects.Command.Interface;
 using Objects.Crafting;
 using Objects.Crafting.Interface;
 using Objects.Damage.Interface;
+using Objects.Die.Interface;
 using Objects.GameDateTime.Interface;
 using Objects.Global;
 using Objects.Item.Interface;
@@ -30,13 +31,13 @@ namespace Objects.Personality
             switch (position)
             {
                 case Equipment.AvalableItemPosition.Held:
-                    IEquipment equipment = new Equipment();
-                    result = BuildItem(craftsman, performer, position, level, keyword, sentenceDescription, shortDescription, lookDescription, examineDescription, equipment);
+                    IEquipment equipment = new Equipment(position, examineDescription, lookDescription, sentenceDescription, shortDescription);
+                    result = BuildItem(craftsman, performer, position, level, keyword, equipment);
                     item = equipment;
                     break;
                 case Equipment.AvalableItemPosition.Wield:
-                    IWeapon weapon = new Weapon();
-                    result = BuildItem(craftsman, performer, position, level, keyword, sentenceDescription, shortDescription, lookDescription, examineDescription, weapon);
+                    IWeapon weapon = new Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
+                    result = BuildItem(craftsman, performer, position, level, keyword, weapon);
                     IDamage damage = new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level));
                     damage.Type = damageType;
                     weapon.DamageList.Add(damage);
@@ -47,8 +48,8 @@ namespace Objects.Personality
                     result = new Result("", true);
                     break;
                 default:
-                    IArmor armor = new Armor();
-                    result = BuildItem(craftsman, performer, position, level, keyword, sentenceDescription, shortDescription, lookDescription, examineDescription, armor);
+                    IArmor armor = new Armor(level, position, examineDescription, lookDescription, sentenceDescription, shortDescription);
+                    result = BuildItem(craftsman, performer, position, level, keyword, armor);
                     item = armor;
                     break;
             }
@@ -66,7 +67,7 @@ namespace Objects.Personality
             return result;
         }
 
-        private IResult BuildItem(INonPlayerCharacter craftsman, IMobileObject performer, Equipment.AvalableItemPosition position, int level, string keyword, string sentenceDescription, string shortDescription, string lookDescription, string examineDescription, IEquipment equipment)
+        private IResult BuildItem(INonPlayerCharacter craftsman, IMobileObject performer, Equipment.AvalableItemPosition position, int level, string keyword, IEquipment equipment)
         {
             IResult result = null;
             result = CheckMoney(craftsman, performer, level, equipment);
@@ -77,11 +78,6 @@ namespace Objects.Personality
 
             equipment.ItemPosition = position;
             equipment.KeyWords.Add(keyword);
-            equipment.SentenceDescription = sentenceDescription;
-            equipment.ShortDescription = shortDescription;
-            equipment.LookDescription = lookDescription;
-            equipment.ExamineDescription = examineDescription;
-
             equipment.FinishLoad();
 
             DateTime completionDate = DateTime.UtcNow.AddMinutes(equipment.Level);  //make it take 1 hour game for each level

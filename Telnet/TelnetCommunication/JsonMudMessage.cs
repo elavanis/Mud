@@ -9,7 +9,14 @@ namespace TelnetCommunication
 {
     public class JsonMudMessage : IMudMessage
     {
-        private static JsonSerializerSettings _settings;
+        private static JsonSerializerSettings? _settings;
+
+        public JsonMudMessage(string guid, string message)
+        {
+            Guid = guid;
+            Message = message;
+        }
+
         public static JsonSerializerSettings Settings
         {
             get
@@ -25,23 +32,23 @@ namespace TelnetCommunication
         }
 
         [ExcludeFromCodeCoverage]
-        public string Guid { get; set; }
+        public string Guid { get; }
         [ExcludeFromCodeCoverage]
-        public string Message { get; set; }
+        public string Message { get; }
         [ExcludeFromCodeCoverage]
         public string Serialize()
         {
             return StartMessageCharacter + JsonConvert.SerializeObject(this, Formatting.Indented, Settings) + EndMessageCharacter;
         }
 
-        public IMudMessage StringToMessage(string stringMessage)
+        public IMudMessage? StringToMessage(string stringMessage)
         {
             return JsonConvert.DeserializeObject<JsonMudMessage>(stringMessage, Settings);
         }
 
-        public IMudMessage CreateNewInstance()
+        public IMudMessage CreateNewInstance(string guid, string message)
         {
-            return new JsonMudMessage();
+            return new JsonMudMessage(guid, message);
         }
 
         public Tuple<List<string>, string> ParseRawMessage(string rawMessage)
@@ -59,8 +66,11 @@ namespace TelnetCommunication
                 {
                     try
                     {
-                        IMudMessage mudMessage = StringToMessage(newMessage.Remove(newMessage.Length - 1));
-                        parsedMessages.Add(mudMessage.Message);
+                        IMudMessage? mudMessage = StringToMessage(newMessage.Remove(newMessage.Length - 1));
+                        if (mudMessage != null)
+                        {
+                            parsedMessages.Add(mudMessage.Message);
+                        }
                     }
                     catch (Exception)
                     {

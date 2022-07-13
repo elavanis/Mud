@@ -11,7 +11,7 @@ namespace Objects.Item.Items.Interface
         bool Pickable { get; set; }
         int PickDificulty { get; set; }
         bool Linked { get; set; }
-        IBaseObjectId LinkedRoomId { get; set; }
+        IBaseObjectId? LinkedRoomId { get; set; }
         Direction LinkedRoomDirection { get; set; }
 
     }

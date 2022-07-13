@@ -23,6 +23,7 @@ namespace Objects.Item.Items
 
         protected static object padlock = new object();
         protected static List<Type> defenseTypes = null;
+
         protected List<Type> DefenseTypes
         {
             get
@@ -52,7 +53,7 @@ namespace Objects.Item.Items
             }
         }
 
-        public Enchantery() : base()
+        public Enchantery(string examineDescription, string lookDescription, string sentenceDescription, string shortDescription) : base(examineDescription, lookDescription, sentenceDescription, shortDescription)
         {
             KeyWords.Add("Enchantery");
         }

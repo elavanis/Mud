@@ -23,12 +23,16 @@ namespace ObjectsUnitTest.Zone
         public void Setup()
         {
             GlobalReference.GlobalValues = new GlobalValues();
+            GlobalReference.GlobalValues.Initilize();
 
             zone = new Objects.Zone.Zone();
-            room = new Objects.Room.Room();
-            item = new Objects.Item.Item();
-            npc = new Objects.Mob.NonPlayerCharacter();
-            pc = new Objects.Mob.PlayerCharacter();
+
+            GlobalReference.GlobalValues.World.Zones.Add(0, zone);
+
+            room = new Objects.Room.Room(0, "examineDescription", "lookDescription", "shortDescription");
+            item = new Objects.Item.Item("examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            npc = new Objects.Mob.NonPlayerCharacter(room, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
+            pc = new Objects.Mob.PlayerCharacter(room,  "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
 
             zone.Id = 0;
             room.Id = 0;
@@ -45,8 +49,9 @@ namespace ObjectsUnitTest.Zone
             pc.MaxHealth = 10;
             pc.Name = "pc";
 
-            GlobalReference.GlobalValues.Initilize();
-            GlobalReference.GlobalValues.World.Zones.Add(0, zone);
+            //fix circular serialization issue
+            npc.Room = null!;
+            pc.Room = null!;
         }
 
         [TestMethod]

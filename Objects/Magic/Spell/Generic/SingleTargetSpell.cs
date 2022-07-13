@@ -8,6 +8,10 @@ namespace Objects.Magic.Spell.Generic
 {
     public class SingleTargetSpell : BaseSpell
     {
+        public SingleTargetSpell(string spellName, int manaCost) : base(spellName, manaCost)
+        {
+        }
+
         public override IResult ProcessSpell(IMobileObject performer, ICommand command)
         {
             if (command.Parameters.Count > 1)
@@ -26,7 +30,7 @@ namespace Objects.Magic.Spell.Generic
             }
             else if (performer.IsInCombat)
             {
-                IBaseObject target = performer.Opponent;
+                IBaseObject? target = performer.Opponent;
 
                 if (target != null)
                 {

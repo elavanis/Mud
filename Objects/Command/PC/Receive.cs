@@ -55,7 +55,7 @@ namespace Objects.Command.PC
             {
                 ICraftsmanObject craftsmanObject = pc.CraftsmanObjects[i];
 
-                if (craftsmanObject.CraftsmanId.Zone == foundCraftsman.Item1.Zone
+                if (craftsmanObject.CraftsmanId.Zone == foundCraftsman.Item1.ZoneId
                     && craftsmanObject.CraftsmanId.Id == foundCraftsman.Item1.Id
                     && craftsmanObject.Completion < DateTime.Now)
                 {

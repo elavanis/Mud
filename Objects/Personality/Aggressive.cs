@@ -9,7 +9,7 @@ namespace Objects.Personality
         /// <summary>
         /// Will attack pc on sight
         /// </summary>
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command == null)
             {

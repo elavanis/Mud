@@ -12,8 +12,8 @@ namespace MiscShared
     {
         public static void ConnectZone(IRoom room, Direction roomExitDirection, int zoneId, int roomId, DoorInfo doorInfo = null)
         {
-            IRoom dummyRoom = new Room();
-            dummyRoom.Zone = zoneId;
+            IRoom dummyRoom = new Room(zoneId, "dummyRoom", "dummyRoom", "dummyRoom");
+            dummyRoom.ZoneId = zoneId;
             dummyRoom.Id = roomId;
             ConnectRoom(room, roomExitDirection, dummyRoom, doorInfo);
         }
@@ -55,7 +55,7 @@ namespace MiscShared
         {
             IExit exit = new Exit();
             exit.Room = room2.Id;
-            exit.Zone = room2.Zone;
+            exit.Zone = room2.ZoneId;
             switch (room1ExitDirection)
             {
                 case Direction.North:
@@ -104,21 +104,16 @@ namespace MiscShared
 
             if (doorInfo != null)
             {
-                exit.Door = new Door();
-                exit.Door.Zone = room1.Zone;    //needed to pass verification
+                exit.Door = new Door(doorInfo.OpenMessage, doorInfo.CloseMessage, doorInfo.Description, doorInfo.Description, doorInfo.Name, doorInfo.Name);
+                exit.Door.ZoneId = room1.ZoneId;    //needed to pass verification
                 exit.Door.Id = room1.Id;        //needed to pass verification
                 exit.Door.KeyWords.Add(doorInfo.Name);
-                exit.Door.ExamineDescription = doorInfo.Description;
-                exit.Door.LookDescription = doorInfo.Description;
-                exit.Door.ShortDescription = doorInfo.Name;
-                exit.Door.SentenceDescription = doorInfo.Name;
-                exit.Door.OpenMessage = doorInfo.OpenMessage;
                 exit.Door.Linked = doorInfo.Linked;
                 exit.Door.Opened = doorInfo.Opened;
                 exit.Door.Locked = doorInfo.Locked;
                 if (doorInfo.Linked)
                 {
-                    exit.Door.LinkedRoomId = new BaseObjectId() { Id = room2.Id, Zone = room2.Zone };
+                    exit.Door.LinkedRoomId = new BaseObjectId() { Id = room2.Id, Zone = room2.ZoneId };
                     exit.Door.LinkedRoomDirection = ReverseDirection(room1ExitDirection);
                 }
             }

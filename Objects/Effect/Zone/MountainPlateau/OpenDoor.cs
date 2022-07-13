@@ -41,8 +41,8 @@ namespace Objects.Effect.Zone.MountainPlateau
                 return;
             }
 
-            if (container.Zone == Chest.Zone && container.Id == Chest.Id
-                && statue.Zone == Statue.Zone && statue.Id == Statue.Id)
+            if (container.ZoneId == Chest.Zone && container.Id == Chest.Id
+                && statue.ZoneId == Statue.Zone && statue.Id == Statue.Id)
             {
                 IRoom room = parameter.ObjectRoom;
 
@@ -57,7 +57,7 @@ namespace Objects.Effect.Zone.MountainPlateau
         {
             if (door != null)
             {
-                if (door.Zone == Door.Zone
+                if (door.ZoneId == Door.Zone
                     && door.Id == Door.Id
                     && door.Opened == false)
                 {

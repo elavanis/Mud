@@ -44,7 +44,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             for (int i = 0; i < 50; i++)
             {
                 int roomId = GlobalReference.GlobalValues.Random.Next(Zone.Rooms.Count) + 1;
-                Zone.Rooms[roomId].AddMobileObjectToRoom(TunnelGoblin());
+                Zone.Rooms[roomId].AddMobileObjectToRoom(TunnelGoblin(Zone.Rooms[roomId]));
             }
         }
 
@@ -53,105 +53,111 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom GenerateRoom1()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "Each statue is larger than life coming in at eight feet tall.  Their axes raised in a salute touching overhead forming the entrance way in which to walk in or out of the camp.";
-            room.LookDescription = "A pair of dwarven statues are carved into the rock faces.";
-            room.ShortDescription = "Dwarven Mining Camp";
+            string examineDescription = "Each statue is larger than life coming in at eight feet tall.  Their axes raised in a salute touching overhead forming the entrance way in which to walk in or out of the camp.";
+            string lookDescription = "A pair of dwarven statues are carved into the rock faces.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom2()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The cavern begins to open up more here to allow for the larger camp.";
-            room.LookDescription = "The dwarven mining camp opens to the east and the camp ends with a pair of statues to the west.";
-            room.ShortDescription = "Dwarven Mining Camp";
+            string examineDescription = "The cavern begins to open up more here to allow for the larger camp.";
+            string lookDescription = "The dwarven mining camp opens to the east and the camp ends with a pair of statues to the west.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom3()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The store front was carved out the rock but the right half has been ripped apart like it was a kids Lincoln Logs.";
-            room.LookDescription = "The old store front of the blacksmith has been partly destroyed.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "The store front was carved out the rock but the right half has been ripped apart like it was a kids Lincoln Logs.";
+            string lookDescription = "The old store front of the blacksmith has been partly destroyed.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom4()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The smoke carries the smell of meat and vegetables to your nostrils.";
-            room.LookDescription = "Smoke slowly rolls out of what used to be the old dwarven tavern.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "The smoke carries the smell of meat and vegetables to your nostrils.";
+            string lookDescription = "Smoke slowly rolls out of what used to be the old dwarven tavern.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom5()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The hole leading down to the water is all that remains.";
-            room.LookDescription = "Once upon a time there used to be a well here but has since been removed.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "The hole leading down to the water is all that remains.";
+            string lookDescription = "Once upon a time there used to be a well here but has since been removed.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom6()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "Small piles of rubble are all that are left of the stone walls that was one stood high above.";
-            room.LookDescription = "Piles of rubble, a dwarven anvil and a long dead forge are all that remain of the dwarven blacksmith hall.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "Small piles of rubble are all that are left of the stone walls that was one stood high above.";
+            string lookDescription = "Piles of rubble, a dwarven anvil and a long dead forge are all that remain of the dwarven blacksmith hall.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom7()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The place has been ransacked and looted.  A few empty bottles are all that remain of what was surely a well stocked store.";
-            room.LookDescription = "You stand in what was a general store of sorts.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "The place has been ransacked and looted.  A few empty bottles are all that remain of what was surely a well stocked store.";
+            string lookDescription = "You stand in what was a general store of sorts.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom8()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "Not much remains of the bar.  Just a few broken table and chairs.";
-            room.LookDescription = "Broken tables are piled in one corner while the booze behind the bar has been emptied.";
-            room.ShortDescription = "Dwarven Mining Camp";
+
+            string examineDescription = "Not much remains of the bar.  Just a few broken table and chairs.";
+            string lookDescription = "Broken tables are piled in one corner while the booze behind the bar has been emptied.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
 
         private IRoom GenerateRoom9()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "Peering into the cooking pot revels a stew of sorts slowly bubbling.";
-            room.LookDescription = "A small cooking fire burns giving light to the room and filling the room with the scent of food.";
-            room.ShortDescription = "Dwarven Mining Camp";
 
-            room.Attributes.Add(Room.RoomAttribute.Light);
+            string examineDescription = "Peering into the cooking pot revels a stew of sorts slowly bubbling.";
+            string lookDescription = "A small cooking fire burns giving light to the room and filling the room with the scent of food.";
+            string shortDescription = "Dwarven Mining Camp";
+            IRoom room = IndoorRoomLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
-            room.AddMobileObjectToRoom(Goblin());
-            room.AddMobileObjectToRoom(Goblin());
+            room.AddMobileObjectToRoom(Goblin(room));
+            room.AddMobileObjectToRoom(Goblin(room));
 
             return room;
         }
 
         private IRoom GenerateRoom10()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "Faint light comes from one end of the tunnel while inky blackness fills the other end.";
-            room.LookDescription = "A natural tunnel was revealed when the wall to the bar was broken.";
-            room.ShortDescription = "Cavern Tunnels";
+
+            string examineDescription = "Faint light comes from one end of the tunnel while inky blackness fills the other end.";
+            string lookDescription = "A natural tunnel was revealed when the wall to the bar was broken.";
+            string shortDescription = "Cavern Tunnels";
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -248,10 +254,11 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IRoom CavernTunnel()
         {
-            IRoom room = IndoorRoomNoLight();
-            room.ExamineDescription = "The small tunnel was formed by flowing water long since gone.";
-            room.LookDescription = "You stand in a small tunnel part of a larger cave system.";
-            room.ShortDescription = "Cavern Tunnels";
+
+            string examineDescription = "The small tunnel was formed by flowing water long since gone.";
+            string lookDescription = "You stand in a small tunnel part of a larger cave system.";
+            string shortDescription = "Cavern Tunnels";
+            IRoom room = IndoorRoomNoLight(Zone.Id, examineDescription, lookDescription, shortDescription);
 
             return room;
         }
@@ -259,31 +266,35 @@ namespace GenerateZones.Zones.DeepWoodForest
         #endregion Rooms
 
         #region NPC
-        private INonPlayerCharacter Goblin()
+        private INonPlayerCharacter Goblin(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, 14);
+            string corpseDescription = "A small broken green goblin lies here.";
+            string examineDescription = "The goblin stares at you with fright in its eyes.";
+            string lookDescription = "The goblin cowers in the corner watching you very intently.";
+            string shortDescription = "A frightened goblin.";
+            string sentenceDescription = "goblin";
 
-            npc.ExamineDescription = "The goblin stares at you with fright in its eyes.";
-            npc.LookDescription = "The goblin cowers in the corner watching you very intently.";
-            npc.ShortDescription = "A frightened goblin.";
-            npc.SentenceDescription = "goblin";
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, shortDescription, sentenceDescription, 14, corpseDescription);
+
             npc.KeyWords.Add("goblin");
 
             return npc;
         }
 
-        private INonPlayerCharacter TunnelGoblin()
+        private INonPlayerCharacter TunnelGoblin(IRoom room)
         {
-            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid);
+            string corpseDescription = "A small broken green goblin lies here.";
+            string examineDescription = "The goblin is armed to the teeth and appears to be on some type of war patrol.";
+            string lookDescription = "A well armed goblin appears before you with weapon drawn.";
+            string shortDescription = "An armed goblin.";
+            string sentenceDescription = "goblin";
+
+            INonPlayerCharacter npc = CreateNonplayerCharacter(MobType.Humanoid, room, examineDescription, lookDescription, sentenceDescription, shortDescription, 0, corpseDescription);
             npc.LevelRange = new LevelRange() { LowerLevel = 14, UpperLevel = 16 };
 
             npc.Personalities.Add(new Aggressive());
             npc.Personalities.Add(new Wanderer());
 
-            npc.ExamineDescription = "The goblin is armed to the teeth and appears to be on some type of war patrol.";
-            npc.LookDescription = "A well armed goblin appears before you with weapon drawn.";
-            npc.ShortDescription = "An armed goblin.";
-            npc.SentenceDescription = "goblin";
             npc.KeyWords.Add("goblin");
 
             npc.AddEquipment(Dogslicer());
@@ -296,74 +307,72 @@ namespace GenerateZones.Zones.DeepWoodForest
 
         private IEquipment Dogslicer()
         {
-            IWeapon weapon = CreateWeapon(WeaponType.Sword, 15);
-            weapon.KeyWords.Add("sword");
+            string examineDescription = "The Dogslicer is poorly made and looks like it will fail in combat at some point.";
+            string lookDescription = "The sword is crudely made with spots of rust where the iron has gotten wet.";
+            string sentenceDescription = "Dogslicer";
+            string shortDescription = "The goblin Dogslicer has three holes in the blade making it lighter and easier to swing.";
+
+            IWeapon weapon = CreateWeapon(WeaponType.Sword, 15, examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.KeyWords.Add("dog");
             weapon.KeyWords.Add("slicer");
-            weapon.LookDescription = "The sword is crudely made with spots of rust where the iron has gotten wet.";
-            weapon.ShortDescription = "The goblin Dogslicer has three holes in the blade making it lighter and easier to swing.";
-            weapon.SentenceDescription = "Dogslicer";
-            weapon.ExamineDescription = "The Dogslicer is poorly made and looks like it will fail in combat at some point.";
-
-            IDamage damage = new Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
-            damage.Type = Damage.DamageType.Slash;
-            weapon.DamageList.Add(damage);
 
             return weapon;
         }
 
         private IEquipment Bracer()
         {
-            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 15, new Leather());
+            string examineDescription = "The bracers are fairly plain but are poorly made.";
+            string lookDescription = "The bracers extend up the wearers arm a good ways giving the user extra protection.";
+            string shortDescription = "A poorly made pair leather bracers.";
+            string sentenceDescription = "a pair of leather bracers";
+
+            IArmor armor = CreateArmor(AvalableItemPosition.Arms, 15, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("bracer");
-            armor.ShortDescription = "A poorly made pair leather bracers.";
-            armor.LookDescription = "The bracers extend up the wearers arm a good ways giving the user extra protection.";
-            armor.SentenceDescription = "a pair of leather bracers";
-            armor.ExamineDescription = "The bracers are fairly plain but are poorly made.";
 
             return armor;
         }
 
         private IEquipment ChainMail()
         {
-            IArmor armor = CreateArmor(AvalableItemPosition.Body, 15, new Steel());
+            string examineDescription = "The chain mail is a light steel color. It has a few missing links but other wise looks good.";
+            string lookDescription = "The chain mail looks to be as utilitarian as protectant.";
+            string shortDescription = "A chain mail shirt with a few missing links.";
+            string sentenceDescription = "a chain mail shirt";
+
+            IArmor armor = CreateArmor(AvalableItemPosition.Body, 15, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
             armor.KeyWords.Add("chain mail");
             armor.KeyWords.Add("mail");
             armor.KeyWords.Add("shirt");
-            armor.ShortDescription = "A chain mail shirt with a few missing links.";
-            armor.LookDescription = "The chain mail looks to be as utilitarian as protectant.";
-            armor.SentenceDescription = "a chain mail shirt";
-            armor.ExamineDescription = "The chain mail is a light steel color. It has a few missing links but other wise looks good.";
 
             return armor;
         }
 
         private IEquipment Helmet()
         {
-            IArmor armor = CreateArmor(AvalableItemPosition.Head, 15, new Steel());
+            string examineDescription = "The helmet is of good quality for goblin craftsmanship.";
+            string lookDescription = "The helmet sits crooked on the user slightly obscuring their vision.";
+            string shortDescription = "A steel helmet that is more functional then attractive.";
+            string sentenceDescription = "a steel helmet";
+
+            IArmor armor = CreateArmor( AvalableItemPosition.Head, 15, examineDescription, lookDescription, sentenceDescription, shortDescription, new Steel());
             armor.KeyWords.Add("helmet");
             armor.KeyWords.Add("steel");
-            armor.Material = new Steel();
-            armor.ShortDescription = "A steel helmet that is more functional then attractive.";
-            armor.LookDescription = "The helmet sits crooked on the user slightly obscuring their vision.";
-            armor.SentenceDescription = "a steel helmet";
-            armor.ExamineDescription = "The helmet is of good quality for goblin craftsmanship.";
 
             return armor;
         }
 
         private IEquipment LeathPants()
         {
-            IArmor armor = CreateArmor(AvalableItemPosition.Legs, 15, new Leather());
+            string examineDescription = "The leather pants have lots of stains from the life in the caves.";
+            string lookDescription = "These pants once belonged to a goblin and look well worn.";
+            string shortDescription = "Leather pants.";
+            string sentenceDescription = "leather pants";
+
+            IArmor armor = CreateArmor(AvalableItemPosition.Legs, 15, examineDescription, lookDescription, sentenceDescription, shortDescription, new Leather());
             armor.KeyWords.Add("leather");
             armor.KeyWords.Add("pants");
             armor.KeyWords.Add("pant");
-            armor.ShortDescription = "Leather pants.";
-            armor.LookDescription = "These pants once belonged to a goblin and look well worn.";
-            armor.SentenceDescription = "leather pants";
-            armor.ExamineDescription = "The leather pants have lots of stains from the life in the caves.";
 
             return armor;
         }

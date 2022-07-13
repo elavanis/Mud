@@ -16,26 +16,26 @@ namespace ServerTelnetCommunication
         public ConnectionHandler(IMudMessage mudMessage)
         {
             ContinueRunning = true;
-            TcpClient clientSocket = default(TcpClient);
+            TcpClient clientSocket;
             TcpListener serverSocket = new TcpListener(IPAddress.Any, GlobalReference.GlobalValues.Settings.Port);
             serverSocket.Start();
 
-            while (ContinueRunning)
+            do
             {
                 clientSocket = serverSocket.AcceptTcpClient();
                 LogConnection(clientSocket);
                 clientSocket.ReceiveBufferSize = (int)Math.Pow(2, 20);
                 clientSocket.SendBufferSize = clientSocket.ReceiveBufferSize;
                 ServerHandler serverHandler = new ServerHandler(clientSocket, mudMessage);
-            }
+            } while (ContinueRunning);
 
             clientSocket.Close();
             serverSocket.Stop();
 
             if (GlobalReference.GlobalValues.Settings.UseCachingFileIO)
             {
-                ICachedFileIO cachedFileIO = GlobalReference.GlobalValues.FileIO as ICachedFileIO;
-                cachedFileIO.Flush();
+                ICachedFileIO? cachedFileIO = GlobalReference.GlobalValues.FileIO as ICachedFileIO;
+                cachedFileIO?.Flush();
             }
         }
 

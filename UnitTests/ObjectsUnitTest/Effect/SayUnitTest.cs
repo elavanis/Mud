@@ -43,7 +43,7 @@ namespace ObjectsUnitTest.Effect
 
             effectParameter.Setup(e => e.RoomId).Returns(baseObjectId.Object);
             effectParameter.Setup(e => e.RoomMessage).Returns(message.Object);
-            room.Setup(e => e.Zone).Returns(1);
+            room.Setup(e => e.ZoneId).Returns(1);
             room.Setup(e => e.Id).Returns(2);
             zone.Setup(e => e.Rooms).Returns(rooms);
             world.Setup(e => e.Zones).Returns(zones);

@@ -28,7 +28,7 @@ namespace Server
             //Console.WriteLine("Restart Profiling");
             //Console.ReadLine();
 
-            ConnectionHandler connectionHandler = new ConnectionHandler(new JsonMudMessage());
+            ConnectionHandler connectionHandler = new ConnectionHandler(new JsonMudMessage("",""));
         }
 
         private static void LoadServerSettings()
