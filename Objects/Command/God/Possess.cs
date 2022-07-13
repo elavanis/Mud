@@ -16,7 +16,7 @@ namespace Objects.Command.God
 
         public IResult PerformCommand(IMobileObject performer, ICommand command)
         {
-            IResult result = base.PerfomCommand(performer, command);
+            IResult? result = base.PerfomCommand(performer, command);
             if (result != null)
             {
                 return result;

@@ -738,9 +738,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             enchantment.Effect = effect;
             enchantment.Parameter = effectParameter;
 
-            effectParameter.Damage = new Objects.Damage.Damage();
-            effectParameter.Damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(84);
-            effectParameter.Damage.Type = DamageType.Fire;
+            effectParameter.Damage = new Objects.Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(84), DamageType.Fire);
 
             return enchantment;
         }
@@ -756,14 +754,10 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.RequiredHands = 2;
             weapon.KeyWords.Add("Balrog");
 
-            IDamage damage = new Objects.Damage.Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
-            damage.Type = DamageType.Fire;
+            IDamage damage = new Objects.Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level), DamageType.Fire);
             weapon.DamageList.Add(damage);
 
-            damage = new Objects.Damage.Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
-            damage.Type = DamageType.Poison;
+            damage = new Objects.Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level), DamageType.Poison);
             weapon.DamageList.Add(damage);
 
             return weapon;

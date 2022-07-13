@@ -153,7 +153,7 @@ namespace ObjectsUnitTest.Personality.Personalities
             Assert.IsTrue(start.AddMinutes(1) <= craftsmanObject.Completion);
             Assert.IsTrue(end.AddMinutes(1) >= craftsmanObject.Completion);
 
-            IDamage damage = new Objects.Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(item.Level));
+            IDamage damage = new Objects.Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(item.Level), DamageType.Pierce);
             Assert.AreEqual(1, item.DamageList.Count);
             IDamage itemDamge = item.DamageList[0];
             Assert.AreEqual(damage.BonusDamageStat, itemDamge.BonusDamageStat);

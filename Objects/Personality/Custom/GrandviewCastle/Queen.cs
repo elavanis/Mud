@@ -24,7 +24,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
         private List<string> GreetingForKing = new List<string>() { "Good morning honey.", "Good morning sweetie.", "Good morning moonbeam.", "Hello my handsome lion." };
 
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command != null)
             {
@@ -68,7 +68,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
         }
 
-        private string DayTimeThings(INonPlayerCharacter npc)
+        private string? DayTimeThings(INonPlayerCharacter npc)
         {
 
             if (StateMachine == State.Sleep)
@@ -100,11 +100,11 @@ namespace Objects.Personality.Custom.GrandviewCastle
             return null;
         }
 
-        private string NightTimeThings(INonPlayerCharacter npc)
+        private string? NightTimeThings(INonPlayerCharacter npc)
         {
             if (npc.Room.Id == 20)
             {
-                string message = null;
+                string? message = null;
                 StateMachine = State.GotoBalcony;
 
                 while ((message = npc.DequeueMessage()) != null)
@@ -143,7 +143,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             {
                 if (Step % 5 == 0)
                 {
-                    string message = null;
+                    string? message = null;
 
                     while ((message = npc.DequeueMessage()) != null)
                     {
@@ -335,7 +335,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             IWeapon weapon = new Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.Level = npc.Level;
-            weapon.DamageList.Add(new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(weapon.Level + 2)) { Type = DamageType.Slash });
+            weapon.DamageList.Add(new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(weapon.Level + 2), DamageType.Slash));
             weapon.KeyWords.Add("sword");
 
 

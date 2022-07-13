@@ -132,9 +132,7 @@ namespace Objects.Item.Items
                     case 1:
                         enchantment = new DamageReceivedAfterDefenseEnchantment();
                         enchantment.Effect = new Effect.Damage();
-                        Damage.Damage damage = new Damage.Damage();
-                        damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(item.Level);
-                        damage.Type = GetRandomDamageType();
+                        Damage.Damage damage = new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(item.Level), GetRandomDamageType());
                         break;
                 }
             }
@@ -153,9 +151,7 @@ namespace Objects.Item.Items
         {
             IEnchantment enchantment = new DamageDealtBeforeDefenseEnchantment();
             enchantment.Effect = new Effect.Damage();
-            Damage.Damage damage = new Damage.Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(item.Level);
-            damage.Type = GetRandomDamageType();
+            Damage.Damage damage = new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(item.Level), GetRandomDamageType());
 
             return enchantment;
         }

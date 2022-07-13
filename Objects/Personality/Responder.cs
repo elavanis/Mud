@@ -20,7 +20,7 @@ namespace Objects.Personality
         [ExcludeFromCodeCoverage]
         private static string CommunicationTrailer { get; } = "</" + TagType.Communication.ToString() + ">";
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command == null)
             {

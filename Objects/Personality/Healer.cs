@@ -19,7 +19,7 @@ namespace Objects.Personality
 
         public int CastPercent { get; set; } = 1;
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command == null)
             {

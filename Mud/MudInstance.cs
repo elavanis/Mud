@@ -13,11 +13,9 @@ namespace Mud
         private int lastTimeRan = -1;
         private int lastUpdateLength = 0;
 
-        private Thread _heartBeatThread { get; set; }
-
+        private Thread? _heartBeatThread { get; set; }
+        private IHeartBeat? _heartBeat { get; set; }
         private Stopwatch sw = new Stopwatch();
-
-        private IHeartBeat _heartBeat { get; set; }
 
         public MudInstance()
         {

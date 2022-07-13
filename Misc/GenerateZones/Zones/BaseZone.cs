@@ -16,6 +16,7 @@ using Objects.Zone.Interface;
 using System;
 using System.Linq;
 using System.Reflection;
+using static Objects.Damage.Damage;
 using static Objects.Item.Items.Equipment;
 using static Objects.Item.Items.Weapon;
 using static Objects.Mob.NonPlayerCharacter;
@@ -79,30 +80,29 @@ namespace GenerateZones.Zones
             weapon.Type = weaponType;
             weapon.Level = level;
 
-            IDamage damage = new Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level);
-            weapon.DamageList.Add(damage);
-
+            DamageType damageType = DamageType.NotSet;
             switch (weaponType)
             {
                 case WeaponType.Club:
                 case WeaponType.Mace:
                 case WeaponType.WizardStaff:
-                    damage.Type = Damage.DamageType.Bludgeon;
+                    damageType = Damage.DamageType.Bludgeon;
                     break;
 
                 case WeaponType.Axe:
                 case WeaponType.Sword:
-                    damage.Type = Damage.DamageType.Slash;
+                    damageType = Damage.DamageType.Slash;
                     break;
 
                 case WeaponType.Dagger:
                 case WeaponType.Pick:
                 case WeaponType.Spear:
-                    damage.Type = Damage.DamageType.Slash;
+                    damageType = Damage.DamageType.Slash;
                     break;
             }
 
+            IDamage damage = new Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level), damageType);
+            weapon.DamageList.Add(damage);
             weapon.KeyWords.Add(weaponType.ToString());
 
             return weapon;

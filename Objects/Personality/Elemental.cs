@@ -6,7 +6,7 @@ namespace Objects.Personality
 {
     public class Elemental : IPersonality
     {
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             IElemental elemental = npc as IElemental;
             if (elemental != null)

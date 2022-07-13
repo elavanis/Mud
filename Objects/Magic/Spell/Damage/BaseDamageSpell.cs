@@ -10,8 +10,7 @@ namespace Objects.Magic.Spell.Damage
         {
             Effect = new Objects.Effect.Damage();
             Parameter.Dice = GlobalReference.GlobalValues.DefaultValues.ReduceValues(die, sides);
-            Parameter.Damage = new Objects.Damage.Damage(Parameter.Dice);
-            Parameter.Damage.Type = damageType;
+            Parameter.Damage = new Objects.Damage.Damage(Parameter.Dice, damageType);
 
             if (manaCost == -1)
             {

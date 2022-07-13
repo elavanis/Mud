@@ -38,8 +38,7 @@ namespace Objects.Personality
                 case Equipment.AvalableItemPosition.Wield:
                     IWeapon weapon = new Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
                     result = BuildItem(craftsman, performer, position, level, keyword, weapon);
-                    IDamage damage = new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level));
-                    damage.Type = damageType;
+                    IDamage damage = new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level), damageType);
                     weapon.DamageList.Add(damage);
                     item = weapon;
                     break;
@@ -118,7 +117,7 @@ namespace Objects.Personality
             return ((double)merchant.CharismaEffective) / performer.CharismaEffective;
         }
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             return command;
         }

@@ -644,9 +644,7 @@ namespace GenerateZones.Zones
             staff.AttackerStat = Stats.Stat.Dexterity;
             staff.DeffenderStat = Stats.Stat.Dexterity;
 
-            Damage damage = new Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(staff.Level);
-            damage.Type = Damage.DamageType.Cold;
+            Damage damage = new Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(staff.Level), Damage.DamageType.Cold);
             damage.BonusDamageStat = Stats.Stat.Intelligence;
             staff.DamageList.Add(damage);
 

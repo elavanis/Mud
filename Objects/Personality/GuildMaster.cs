@@ -188,7 +188,7 @@ namespace Objects.Personality
 
         #endregion Teach
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             return command;
         }

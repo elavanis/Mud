@@ -19,9 +19,10 @@ namespace ObjectsUnitTest.Damage
         {
             Mock<IDice> dice = new Mock<IDice>();
 
-            Objects.Damage.Damage damage = new Objects.Damage.Damage(dice.Object);
+            Objects.Damage.Damage damage = new Objects.Damage.Damage(dice.Object, Objects.Damage.Damage.DamageType.Acid);
 
             Assert.AreSame(dice.Object, damage.Dice);
+            Assert.AreEqual(Objects.Damage.Damage.DamageType.Acid, damage.Type);
         }
     }
 }

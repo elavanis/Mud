@@ -49,7 +49,7 @@ namespace Objects.Mob.SpecificNPC
                 }
 
                 IWeapon head = new Weapon("hydra head", "hydra head", "hydra head", "hydra head");
-                Damage.Damage damage = new Damage.Damage() { Type = DamageType.Pierce, Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(Math.Max(1, value - 5)) };
+                Damage.Damage damage = new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(Math.Max(1, value - 5)), DamageType.Pierce);
                 head.DamageList.Add(damage);
 
                 for (int i = 0; i < 5; i++)

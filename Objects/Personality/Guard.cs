@@ -32,7 +32,7 @@ namespace Objects.Personality
         [ExcludeFromCodeCoverage]
         public string BlockLeaveMessage { get; set; } = "You attempt to leave but your way is suddenly blocked by a guard.";
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             return command;
         }

@@ -7,7 +7,7 @@ namespace Objects.Personality.Custom.GrandViewGraveYard
 {
     public class DeathDuringDay : IPersonality
     {
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             //if its 12am or then the mobs need to die since its daylight
             if (GlobalReference.GlobalValues.GameDateTime.GameDateTime.Hour < 12)

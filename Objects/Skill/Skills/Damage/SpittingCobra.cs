@@ -42,9 +42,7 @@ namespace Objects.Skill.Skills.Damage
             defeatInfo.MobStat = Stat.Constitution;
 
             effectParameter.TargetMessage = new TranslationMessage("Poison burns your face.");
-            effectParameter.Damage = new Objects.Damage.Damage();
-            effectParameter.Damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(28);
-            effectParameter.Damage.Type = DamageType.Poison;
+            effectParameter.Damage = new Objects.Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForSkillLevel(28), DamageType.Poison);
 
             target.Enchantments.Add(enchantment);
         }

@@ -14,7 +14,7 @@ namespace Objects.Personality
         [ExcludeFromCodeCoverage]
         public List<string> ThingsToSay { get; set; } = new List<string>();
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command == null)
             {

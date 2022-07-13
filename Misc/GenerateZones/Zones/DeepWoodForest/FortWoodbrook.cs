@@ -439,7 +439,7 @@ namespace GenerateZones.Zones.DeepWoodForest
                 loadableRoom.LoadableItems.Add(new LoadPercentage() { PercentageLoad = 7, Object = Spear(level) });
 
                 IArmor armor = null!;
-                string examineDescription = null;
+                string examineDescription = null!;
                 string lookDescription = null!;
                 string sentenceDescription = null!;
                 string shortDescription = null!;
@@ -597,9 +597,7 @@ namespace GenerateZones.Zones.DeepWoodForest
             weapon.DeffenderStat = Stats.Stat.Dexterity;
 
             weapon.DamageList.Clear(); //remove the default damage
-            IDamage damage = new Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level - 2);
-            damage.Type = Damage.DamageType.Pierce;
+            IDamage damage = new Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(weapon.Level - 2), Damage.DamageType.Pierce);
             weapon.DamageList.Add(damage);
             weapon.DamageList.Add(damage);
             weapon.DamageList.Add(damage);

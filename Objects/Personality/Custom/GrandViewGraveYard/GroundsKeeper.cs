@@ -11,7 +11,7 @@ namespace Objects.Personality.Custom.GrandViewGraveYard
         private int step;
         private State stateMachine = State.LookForCorpse;
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command == null)
             {

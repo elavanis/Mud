@@ -5,7 +5,7 @@ namespace Objects.Personality.Custom.EnchantersTower
 {
     public class FollowPlayerAfterRescue : IPersonality
     {
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command == null)
             {

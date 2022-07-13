@@ -6,7 +6,7 @@ namespace Objects.Personality
 {
     public class Hydra : IPersonality
     {
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             IHydra hydra = npc as IHydra;
             if (hydra != null)

@@ -43,7 +43,7 @@ namespace Objects.Personality
             CureSpell = CureSpell.OrderByDescending(e => e.ManaCost).ToList();
         }
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command == null)
             {

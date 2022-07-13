@@ -12,7 +12,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
         private State StateMachine { get; set; } = State.Wait;
         private int Step;
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command != null)
             {
@@ -28,7 +28,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             if (StateMachine == State.Wait)
             {
-                string message = null;
+                string? message = null;
                 while ((message = npc.DequeueMessage()) != null)
                 {
                     if (message == "<Communication>King says Servant, bring me my meal.</Communication>")
@@ -45,7 +45,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             else if (StateMachine == State.AskedWhatWanted)
             {
-                string message = null;
+                string? message = null;
                 while ((message = npc.DequeueMessage()) != null)
                 {
                     if (message == "<Communication>King says Bring me hasenpfeffer.</Communication>")
@@ -117,7 +117,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             else if (StateMachine == State.AskCookForHasenpfeffer)
             {
-                string message = null;
+                string? message = null;
                 while ((message = npc.DequeueMessage()) != null)
                 {
                     if (message == "<Communication>Cook says here you go. Hasenpfeffer for the King.</Communication>")

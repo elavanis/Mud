@@ -23,7 +23,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
         private bool GreetedQueen { get; set; }
         private List<string> GreetingForQueen = new List<string>() { "Good morning honey.", "Good morning buttercup.", "I hope you slept well.", "Good morning sunshine.", "You look as lovely as the first time I met you.", "Hello my desert lily." };
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command != null)
             {
@@ -67,9 +67,8 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
         }
 
-        private string DayTimeThings(INonPlayerCharacter npc)
+        private string? DayTimeThings(INonPlayerCharacter npc)
         {
-
             if (StateMachine == State.Sleep)
             {
                 switch (Step)
@@ -128,7 +127,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
                    && GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(npc.Room, "servant").Count > 0)
                 {
                     bool foundAskedForWhat = false;
-                    string message = null;
+                    string? message = null;
                     while ((message = npc.DequeueMessage()) != null)
                     {
                         if (message == "<Communication>Kings servant says Your Honorable Majestic Majesty Graciousness, what would you like to eat?</Communication>")
@@ -149,7 +148,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             }
             else if (StateMachine == State.AskedForHasenpfeffer)
             {
-                string message = null;
+                string? message = null;
                 while ((message = npc.DequeueMessage()) != null)
                 {
                     if (message == "<Communication>Kings servant says Bon appetit Most Gracious Majesty.</Communication>")
@@ -197,7 +196,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             return null;
         }
 
-        private string NightTimeThings(INonPlayerCharacter npc)
+        private string? NightTimeThings(INonPlayerCharacter npc)
         {
             if (npc.Room.Id == 21)
             {
@@ -235,7 +234,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
                 if (Step % 5 == 0)
                 {
-                    string message = null;
+                    string? message = null;
 
                     while ((message = npc.DequeueMessage()) != null)
                     {
@@ -311,7 +310,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             string sentenceDescription = "King's guard";
             string shortDescription = "The King's guard.";
 
-            INonPlayerCharacter npc = new NonPlayerCharacter(room, examineDescription,  lookDescription, sentenceDescription, shortDescription, corpseDescription);
+            INonPlayerCharacter npc = new NonPlayerCharacter(room, examineDescription, lookDescription, sentenceDescription, shortDescription, corpseDescription);
             npc.TypeOfMob = MobType.Humanoid;
             npc.Level = 45;
             npc.KeyWords.Add("King's guard");
@@ -341,7 +340,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
 
             IArmor armor = Armor(AvalableItemPosition.Body, examineDescription, lookDescription, sentenceDescription, shortDescription);
             armor.KeyWords.Add("breastplate");
-            
+
 
             return armor;
         }
@@ -354,7 +353,7 @@ namespace Objects.Personality.Custom.GrandviewCastle
             string shortDescription = "A helmet made of gold.";
             IArmor armor = Armor(AvalableItemPosition.Head, examineDescription, lookDescription, sentenceDescription, shortDescription);
             armor.KeyWords.Add("helmet");
-            
+
 
             return armor;
         }
@@ -376,9 +375,9 @@ namespace Objects.Personality.Custom.GrandviewCastle
             string sentenceDescription = "A finely crafted sword that is light and quick.";
             string shortDescription = "A finely crafted sword that is light and quick.";
 
-            IWeapon weapon = new Weapon( examineDescription, lookDescription, sentenceDescription,shortDescription);
+            IWeapon weapon = new Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.Level = 45;
-            weapon.DamageList.Add(new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(weapon.Level + 2)) { Type = DamageType.Slash });
+            weapon.DamageList.Add(new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForArmorLevel(weapon.Level + 2), DamageType.Slash));
             weapon.KeyWords.Add("sword");
 
             return weapon;

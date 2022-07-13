@@ -20,16 +20,26 @@ namespace GenerateZoneMaps
             GlobalReference.GlobalValues.Initilize();
 
             Type zoneCodeInterface = typeof(IZoneCode);
-            IEnumerable<Type> zones = Assembly.GetAssembly(typeof(IZoneCode)).GetTypes().Where(e => zoneCodeInterface.IsAssignableFrom(e) && e.IsClass);
+            Assembly? assembly = Assembly.GetAssembly(typeof(IZoneCode))
 
-            foreach (Type type in zones)
+
+
+            IEnumerable<Type>? zones = Assembly.GetAssembly().GetTypes().Where(e => zoneCodeInterface.IsAssignableFrom(e) && e.IsClass);
+
+            if (zones.Any())
             {
-                IZoneCode zoneCode = (IZoneCode)Activator.CreateInstance(type);
-                IZone zone = zoneCode.Generate();
+                foreach (Type type in zones)
+                {
+                    IZoneCode? zoneCode = Activator.CreateInstance(type) as IZoneCode;
 
-                generatedZones.Add(zone);
+                    if (zoneCode != null)
+                    {
+                        IZone zone = zoneCode.Generate();
+
+                        generatedZones.Add(zone);
+                    }
+                }
             }
-
         }
 
         public static void GenerateMaps(List<IZone> zones)
@@ -90,7 +100,6 @@ namespace GenerateZoneMaps
         {
             Map map = new Map(null);
             MapGrid mapGrid = new MapGrid();
-            mapGrid.Grid = new Dictionary<IRoom, MapRoom>();
 
             mapGrid.Grid.Add(zone.Rooms[1], new MapRoom(zone, zone.Rooms[1], new Position(1, 1, 1)));
             mapGrid.Grid.Add(zone.Rooms[2], new MapRoom(zone, zone.Rooms[2], new Position(1, 2, 1)));
@@ -120,7 +129,6 @@ namespace GenerateZoneMaps
         {
             Map map = new Map(null);
             MapGrid mapGrid = new MapGrid();
-            mapGrid.Grid = new Dictionary<IRoom, MapRoom>();
 
             mapGrid.Grid.Add(zone.Rooms[1], new MapRoom(zone, zone.Rooms[1], new Position(5, 1, 1)));
             mapGrid.Grid.Add(zone.Rooms[2], new MapRoom(zone, zone.Rooms[2], new Position(5, 2, 1)));

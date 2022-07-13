@@ -234,35 +234,34 @@ namespace Objects.Global.Random
 
             IWeapon weapon = new Item.Items.Weapon(examineDescription, lookDescription, sentenceDescription, shortDescription);
             weapon.Level = level;
+            weapon.Type = weaponType;
             weapon.KeyWords.AddRange(keyWords);
             foreach (var item in flavorOptions.Keys)
             {
                 weapon.FlavorOptions.Add(item, flavorOptions[item]); 
             }
-
-            IDamage damage = new Damage.Damage();
-            damage.Dice = GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(effectiveLevel);
-            weapon.DamageList.Add(damage);
-            weapon.Type = weaponType;
-
+            
+            DamageType damageType = DamageType.NotSet;
             switch (weapon.Type)
             {
                 case WeaponType.Club:
                 case WeaponType.Mace:
                 case WeaponType.WizardStaff:
-                    damage.Type = DamageType.Bludgeon;
+                    damageType = DamageType.Bludgeon;
                     break;
                 case WeaponType.Axe:
                 case WeaponType.Sword:
-                    damage.Type = DamageType.Slash;
+                    damageType = DamageType.Slash;
                     break;
                 case WeaponType.Dagger:
                 case WeaponType.Pick:
                 case WeaponType.Spear:
-                    damage.Type = DamageType.Pierce;
+                    damageType = DamageType.Pierce;
                     break;
             }
 
+            IDamage damage = new Damage.Damage(GlobalReference.GlobalValues.DefaultValues.DiceForWeaponLevel(effectiveLevel), damageType);
+            weapon.DamageList.Add(damage);
             weapon.FinishLoad();
 
             return weapon;

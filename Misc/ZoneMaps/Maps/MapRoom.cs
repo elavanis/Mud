@@ -5,18 +5,13 @@ namespace Maps
 {
     public class MapRoom
     {
-        public IRoom North { get; set; }
-        public IRoom East { get; set; }
-        public IRoom South { get; set; }
-        public IRoom West { get; set; }
-        public IRoom Up { get; set; }
-        public IRoom Down { get; set; }
+        public IRoom? North { get; set; }
+        public IRoom? East { get; set; }
+        public IRoom? South { get; set; }
+        public IRoom? West { get; set; }
+        public IRoom? Up { get; set; }
+        public IRoom? Down { get; set; }
         public Position Position { get; set; }
-
-        public MapRoom()
-        {
-
-        }
 
         public MapRoom(IZone zone, IRoom room, Position position)
         {

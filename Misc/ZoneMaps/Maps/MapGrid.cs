@@ -8,7 +8,7 @@ namespace Maps
     {
         private Stack<RoomPositionInfo> roomStack = new Stack<RoomPositionInfo>();
         private HashSet<string> hashPositions = new HashSet<string>();
-        public Dictionary<IRoom, MapRoom> Grid { get; set; }
+        public Dictionary<IRoom, MapRoom> Grid { get; set; } = new Dictionary<IRoom, MapRoom>();
         public Dictionary<IRoom, MapRoom> BuildRooms(IZone zone)
         {
             int firstRoomFound = 0;
@@ -19,8 +19,7 @@ namespace Maps
             }
 
             IRoom room = zone.Rooms[firstRoomFound];
-            Grid = new Dictionary<IRoom, MapRoom>();
-
+            Grid.Clear();
             AddRoom(zone, room, 1, 1, 1);
 
             return Grid;

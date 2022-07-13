@@ -8,15 +8,10 @@ namespace Objects.Damage
 {
     public class Damage : IDamage
     {
-        [ExcludeFromCodeCoverage]
-        public Damage()
-        {
-
-        }
-
-        public Damage(IDice dice)
+        public Damage(IDice dice, DamageType damageType)
         {
             Dice = dice;
+            Type = damageType;
         }
 
         [ExcludeFromCodeCoverage]

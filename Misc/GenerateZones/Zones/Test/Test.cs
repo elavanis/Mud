@@ -87,8 +87,7 @@ namespace GenerateZones.Zones
         private IWeapon Weapon()
         {
             IWeapon weapon = CreateWeapon(Objects.Item.Items.Weapon.WeaponType.Axe, 1, "examineDescription", "lookDescription", "sentenceDescription", "shortDescription");
-            IDamage damage = new Damage();
-            damage.Dice = new Dice(10, 10);
+            IDamage damage = new Damage(new Dice(10, 10), Damage.DamageType.Radiant);
             for (int i = 0; i < 1000; i++)
             {
                 weapon.DamageList.Add(damage);

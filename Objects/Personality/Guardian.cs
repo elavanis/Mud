@@ -10,7 +10,7 @@ namespace Objects.Personality
     /// </summary>
     public class Guardian : IPersonality
     {
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command == null)
             {

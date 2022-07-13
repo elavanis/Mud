@@ -224,9 +224,7 @@ namespace GenerateZones.Zones
             fireDamage.Effect = new Damage();
             fireDamage.ActivationPercent = 5;
             fireDamage.EnchantmentEndingDateTime = new DateTime(9999, 12, 31);
-            IDamage damage = new Objects.Damage.Damage();
-            damage.Dice = new Dice(1, 6);
-            damage.Type = DamageType.Fire;
+            IDamage damage = new Objects.Damage.Damage(new Dice(1, 6), DamageType.Fire);
             fireDamage.Parameter.Damage = damage;
             fireDamage.Parameter.TargetMessage = new TranslationMessage("Fire leaps up and burns you.");
             fireDamage.Parameter.Description = "fire";
@@ -248,9 +246,7 @@ namespace GenerateZones.Zones
             fireDamage.ActivationPercent = 3;
             fireDamage.EnchantmentEndingDateTime = new DateTime(9999, 12, 31);
 
-            IDamage damage = new Objects.Damage.Damage();
-            damage.Dice = new Dice(5, 6);
-            damage.Type = DamageType.Fire;
+            IDamage damage = new Objects.Damage.Damage(new Dice(5, 6), DamageType.Fire);
             fireDamage.Parameter.Damage = damage;
             fireDamage.Parameter.TargetMessage = new TranslationMessage("A dragon sweeps down and breaths fire on you.");
             fireDamage.Parameter.Description = "a dragon";

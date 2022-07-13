@@ -15,7 +15,7 @@ namespace Objects.Personality
         [ExcludeFromCodeCoverage]
         public List<IBaseObjectId> RoomsToPhaseTo { get; set; } = new List<IBaseObjectId>();
 
-        public string Process(INonPlayerCharacter npc, string command)
+        public string? Process(INonPlayerCharacter npc, string? command)
         {
             if (command == null)
             {
