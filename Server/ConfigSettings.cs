@@ -5,6 +5,29 @@ namespace Server
 {
     public class ConfigSettings
     {
+        public ConfigSettings(string assetsDirectory, string bugDirectory, string bulletinBoardDirectory, string logDirectory, string playerCharacterDirectory, string vaultDirectory, string weaponIdDirectory, string zoneDirectory, bool logStats, string statsDirectory, bool useCachingFileIO, int port, bool sendMapPosition, string bannedIps, double elemenatlSpawnPercent, double randomDropPercent, double dropBeingPlusOnePercent, string asciiArt, List<IMoon> moons)
+        {
+            AssetsDirectory = assetsDirectory;
+            BugDirectory = bugDirectory;
+            BulletinBoardDirectory = bulletinBoardDirectory;
+            LogDirectory = logDirectory;
+            PlayerCharacterDirectory = playerCharacterDirectory;
+            VaultDirectory = vaultDirectory;
+            WeaponIdDirectory = weaponIdDirectory;
+            ZoneDirectory = zoneDirectory;
+            LogStats = logStats;
+            StatsDirectory = statsDirectory;
+            UseCachingFileIO = useCachingFileIO;
+            Port = port;
+            SendMapPosition = sendMapPosition;
+            BannedIps = bannedIps;
+            ElemenatlSpawnPercent = elemenatlSpawnPercent;
+            RandomDropPercent = randomDropPercent;
+            DropBeingPlusOnePercent = dropBeingPlusOnePercent;
+            AsciiArt = asciiArt;
+            Moons = moons;
+        }
+
         public string AssetsDirectory { get; set; }
         public string BugDirectory { get; set; }
         public string BulletinBoardDirectory { get; set; }

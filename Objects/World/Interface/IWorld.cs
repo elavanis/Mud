@@ -46,7 +46,7 @@ namespace Objects.World.Interface
         ConcurrentQueue<IPlayerCharacter> AddPlayerQueue { get; }
         IPlayerCharacter CreateCharacter(string userName, string password);
         IZone DeserializeZone(string serializedZone);
-        IPlayerCharacter LoadCharacter(string name);
+        IPlayerCharacter? LoadCharacter(string name);
         void LoadWorld();
         void LogOutCharacter(IPlayerCharacter playerCharacter);
         void PerformTick();

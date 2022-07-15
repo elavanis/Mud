@@ -13,6 +13,6 @@ namespace Objects.Global.Engine.Engines.Interface
         IResult AddCombatPair(IMobileObject attacker, IMobileObject defender);
         bool AreFighting(IMobileObject mob, IMobileObject mob2);
         bool IsInCombat(IMobileObject mob);
-        IMobileObject Opponet(IMobileObject mobileObject);
+        IMobileObject? Opponet(IMobileObject mobileObject);
     }
 }

@@ -2,6 +2,7 @@
 using Maps;
 using Objects.Global;
 using Objects.Room.Interface;
+using Objects.Zone;
 using Objects.Zone.Interface;
 using System;
 using System.Collections.Generic;
@@ -20,25 +21,34 @@ namespace GenerateZoneMaps
             GlobalReference.GlobalValues.Initilize();
 
             Type zoneCodeInterface = typeof(IZoneCode);
-            Assembly? assembly = Assembly.GetAssembly(typeof(IZoneCode))
+            Assembly? assembly = Assembly.GetAssembly(typeof(IZoneCode));
 
-
-
-            IEnumerable<Type>? zones = Assembly.GetAssembly().GetTypes().Where(e => zoneCodeInterface.IsAssignableFrom(e) && e.IsClass);
-
-            if (zones.Any())
+            if (assembly != null)
             {
-                foreach (Type type in zones)
+                IEnumerable<Type> zones = assembly.GetTypes().Where(e => zoneCodeInterface.IsAssignableFrom(e) && e.IsClass);
+
+                if (zones.Any())
                 {
-                    IZoneCode? zoneCode = Activator.CreateInstance(type) as IZoneCode;
-
-                    if (zoneCode != null)
+                    foreach (Type type in zones)
                     {
-                        IZone zone = zoneCode.Generate();
+                        IZoneCode? zoneCode = Activator.CreateInstance(type) as IZoneCode;
 
-                        generatedZones.Add(zone);
+                        if (zoneCode != null)
+                        {
+                            IZone zone = zoneCode.Generate();
+
+                            generatedZones.Add(zone);
+                        }
                     }
                 }
+                else
+                {
+                    throw new Exception("Error loading zones.");
+                }
+            }
+            else
+            {
+                throw new Exception("Error loading zones.");
             }
         }
 
@@ -98,7 +108,7 @@ namespace GenerateZoneMaps
 
         private static void GenerateZone11(IZone zone)
         {
-            Map map = new Map(null);
+            Map map = new Map(new Zone());  
             MapGrid mapGrid = new MapGrid();
 
             mapGrid.Grid.Add(zone.Rooms[1], new MapRoom(zone, zone.Rooms[1], new Position(1, 1, 1)));
@@ -127,7 +137,7 @@ namespace GenerateZoneMaps
 
         private static void GenerateZone5(IZone zone)
         {
-            Map map = new Map(null);
+            Map map = new Map(new Zone());
             MapGrid mapGrid = new MapGrid();
 
             mapGrid.Grid.Add(zone.Rooms[1], new MapRoom(zone, zone.Rooms[1], new Position(5, 1, 1)));

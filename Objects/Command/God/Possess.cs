@@ -38,7 +38,7 @@ namespace Objects.Command.God
             }
             else
             {
-                IMobileObject possedMob = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(performer.Room, command.Parameters[0].ParameterValue).FirstOrDefault();
+                IMobileObject? possedMob = GlobalReference.GlobalValues.FindObjects.FindNpcInRoom(performer.Room, command.Parameters[0].ParameterValue).FirstOrDefault();
 
                 if (possedMob == null)
                 {

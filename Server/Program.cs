@@ -85,8 +85,7 @@ namespace Server
             string[] ips = config.BannedIps.Split(',');
             foreach (string ip in ips)
             {
-                IPAddress address = null;
-                if (IPAddress.TryParse(ip, out address))
+                if (IPAddress.TryParse(ip, out IPAddress? address))
                 {
                     GlobalReference.GlobalValues.Settings.BannedIps.Add(address);
                 }
@@ -98,25 +97,26 @@ namespace Server
 
         private static void WriteNewAppConfigFile()
         {
-            ConfigSettings configSettings = new ConfigSettings();
-            configSettings.AssetsDirectory = "C:\\Mud\\Assets";
-            configSettings.BannedIps = "";
-            configSettings.BugDirectory = "C:\\Mud\\Bugs";
-            configSettings.WeaponIdDirectory = "C:\\Mud\\DamgeId";
-            configSettings.DropBeingPlusOnePercent = 10;
-            configSettings.ElemenatlSpawnPercent = .01;
-            configSettings.LogDirectory = "C:\\Mud\\Logs";
-            configSettings.LogStats = true;
-            configSettings.StatsDirectory = "C:\\Mud\\Stats";
-            configSettings.Moons = GetMoons();
-            configSettings.PlayerCharacterDirectory = "C:\\Mud\\Players";
-            configSettings.Port = 52475;
-            configSettings.RandomDropPercent = 10;
-            configSettings.SendMapPosition = true;
-            configSettings.UseCachingFileIO = true;
-            configSettings.VaultDirectory = "C:\\Mud\\Vaults";
-            configSettings.ZoneDirectory = "C:\\Mud\\World";
-            configSettings.AsciiArt =
+            string assetsDirectory = "C:\\Mud\\Assets";
+            string bannedIps = "";
+            string bugDirectory = "C:\\Mud\\Bugs";
+            string weaponIdDirectory = "C:\\Mud\\DamgeId";
+            double dropBeingPlusOnePercent = 10;
+            double elemenatlSpawnPercent = .01;
+            string logDirectory = "C:\\Mud\\Logs";
+            bool logStats = true;
+            string statsDirectory = "C:\\Mud\\Stats";
+            List<IMoon> moons = GetMoons();
+            string playerCharacterDirectory = "C:\\Mud\\Players";
+            int port = 52475;
+            double randomDropPercent = 10;
+            bool sendMapPosition = true;
+            bool useCachingFileIO = true;
+            string bulletinBoardDirectory = "C:\\Mud\\BulletinBoard";
+            string vaultDirectory = "C:\\Mud\\Vaults";
+            string zoneDirectory = "C:\\Mud\\World";
+
+            string asciiArt =
 
 @"                                   ▒▓▓░░▒▒▓░                               
                            ▒▓▓██████████████▓▓▒░                           
@@ -163,6 +163,10 @@ namespace Server
                     ░▓███████████▓▓▓▓▓▓▓▓▓▓███████▓▒▒▒▒▓▒▒░                
                         ░▒▓███████████████████▓▒▒▒▒▒▒▒░                    
                                     ░░░░░░▒▒▒▒▒░░                          ";
+
+
+            ConfigSettings configSettings = new ConfigSettings(assetsDirectory, bugDirectory, bulletinBoardDirectory, logDirectory, playerCharacterDirectory, vaultDirectory, weaponIdDirectory, zoneDirectory, logStats, statsDirectory, useCachingFileIO, port, sendMapPosition, bannedIps, elemenatlSpawnPercent, randomDropPercent, dropBeingPlusOnePercent, asciiArt, moons);
+
 
             using (TextWriter tw = new StreamWriter(@"AppConfig2.json"))
             {

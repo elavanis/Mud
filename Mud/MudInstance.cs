@@ -13,13 +13,20 @@ namespace Mud
         private int lastTimeRan = -1;
         private int lastUpdateLength = 0;
 
-        private Thread? _heartBeatThread { get; set; }
-        private IHeartBeat? _heartBeat { get; set; }
+        private Thread _heartBeatThread { get; set; }
+        private IHeartBeat _heartBeat { get; set; }
         private Stopwatch sw = new Stopwatch();
 
         public MudInstance()
         {
             GlobalReference.GlobalValues.Initilize();
+            _heartBeat = new HeartBeat();
+            _heartBeatThread = new Thread(() =>
+            {
+                Thread.CurrentThread.Name = "HeartBeat";
+                Thread.CurrentThread.IsBackground = true;
+                _heartBeat.StartHeartBeat();
+            });
         }
 
         public void StartMud()
@@ -27,20 +34,13 @@ namespace Mud
             LoadWorld();
             GlobalReference.GlobalValues.Logger.Log(LogLevel.INFO, "Starting Heartbeat");
             StartHeartBeat();
+            Console.Write("Waiting for stats to load...");
         }
 
         #region StartMudMethods
         private void StartHeartBeat()
         {
-            _heartBeat = new HeartBeat();
             _heartBeat.Tick += HeartBeat_Tick;
-
-            _heartBeatThread = new Thread(() =>
-            {
-                Thread.CurrentThread.Name = "HeartBeat";
-                Thread.CurrentThread.IsBackground = true;
-                _heartBeat.StartHeartBeat();
-            });
             _heartBeatThread.Start();
         }
 
@@ -62,7 +62,7 @@ namespace Mud
             //World.SaveWorld(zoneFileLocation);
         }
 
-        public void HeartBeat_Tick(object sender, EventArgs e)
+        public void HeartBeat_Tick(object? sender, EventArgs e)
         {
             sw.Restart();
             GlobalReference.GlobalValues.TickCounter++;

@@ -11,7 +11,8 @@ namespace Mud
     {
         private int _heartBeatDelay;
         private bool _continueHeartBeat;
-        public event EventHandler Tick;
+        public event EventHandler? Tick;
+
         public HeartBeat(int heartBeatDelay = 500)
         {
             _heartBeatDelay = heartBeatDelay;
@@ -27,13 +28,16 @@ namespace Mud
                 try
                 {
                     //IAsyncResult result = Tick.BeginInvoke(null, null, null, null);
-                    Tick.Invoke(null, null);
+                    if (Tick != null)
+                    {
+                        Tick.Invoke(null, null!);
+                    }
                     //Thread.Sleep(_heartBeatDelay);
                     //Tick.EndInvoke(result);
                 }
                 catch (Exception ex)
                 {
-                    string message = ex.Message + Environment.NewLine + ex.StackTrace.ToString();
+                    string message = ex.Message + Environment.NewLine + ex.StackTrace??"".ToString();
                     GlobalReference.GlobalValues.Logger.Log(LogLevel.ERROR, message);
                 }
                 finally

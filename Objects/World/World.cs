@@ -217,8 +217,7 @@ namespace Objects.World
 
         private void DoWorldCommands()
         {
-            string command = null;
-            while (WorldCommands.TryDequeue(out command))
+            while (WorldCommands.TryDequeue(out string? command))
             {
                 switch (command)
                 {
@@ -392,7 +391,7 @@ namespace Objects.World
             }
         }
 
-        public IPlayerCharacter LoadCharacter(string name)
+        public IPlayerCharacter? LoadCharacter(string name)
         {
             lock (CharacterLock)
             {
@@ -470,23 +469,23 @@ namespace Objects.World
 
         public string SerializePlayerCharacter(IPlayerCharacter character)
         {
-            character.Room = null;
-            IMount mount = character.Mount;
-            IRoom mountRoom = null;
-            List<IMobileObject> riders = null;
+            character.Room = null!;
+            IMount mount = character.Mount!;
+            IRoom mountRoom = null!;
+            List<IMobileObject> riders = null!;
             if (mount != null)
             {
                 riders = mount.Riders;
                 mountRoom = mount.Room;
-                mount.Riders = null;
-                mount.Room = null;
+                mount.Riders = null!;
+                mount.Room = null!;
             }
 
             string result = GlobalReference.GlobalValues.Serialization.Serialize(character);
 
             if (mount != null)
             {
-                character.Mount.Riders = riders;
+                character.Mount!.Riders = riders;
                 mount.Room = mountRoom;
             }
 
@@ -562,8 +561,10 @@ namespace Objects.World
                 if (GlobalReference.GlobalValues.Settings.UseCachingFileIO
                     && GlobalReference.GlobalValues.TickCounter % 600 == 0)
                 {
-                    ICachedFileIO cachedFileIO = GlobalReference.GlobalValues.FileIO as ICachedFileIO;
-                    cachedFileIO.Flush();
+                    if (GlobalReference.GlobalValues.FileIO is ICachedFileIO cachedFileIO)
+                    {
+                        cachedFileIO.Flush();
+                    }
                 }
             }
         }
@@ -577,11 +578,11 @@ namespace Objects.World
         {
             while (_followMobQueue.Count > 0)
             {
-                if (_followMobQueue.TryDequeue(out IMobileObject performer))
+                if (_followMobQueue.TryDequeue(out IMobileObject? performer))
                 {
                     HashSet<IRoom> searchedRooms = new HashSet<IRoom>();
                     //double check the room in case the follow target moved into the same room as the follower;
-                    if (performer.Room != performer.FollowTarget.Room)
+                    if (performer.Room != performer.FollowTarget?.Room)
                     {
                         searchedRooms.Add(performer.Room);
                         SearchOtherRooms(performer, searchedRooms);
@@ -595,7 +596,7 @@ namespace Objects.World
             Queue<Trail> newTrails = new Queue<Trail>();
             IRoom currentRoom = performer.Room;
 
-            Trail trail = null;
+            Trail? trail = null;
             foreach (Directions.Direction direction in Enum.GetValues(typeof(Directions.Direction)))
             {
                 Trail brandNewTrail = new Trail() { Direction = direction, Distance = 0 };
@@ -625,9 +626,9 @@ namespace Objects.World
             performer.FollowTarget = null;
         }
 
-        private Trail LookForMobInNextRoom(IMobileObject performer, HashSet<IRoom> searchedRooms, Queue<Trail> newTrails, IRoom currentRoom, Directions.Direction direction, Trail existingTrail)
+        private Trail? LookForMobInNextRoom(IMobileObject performer, HashSet<IRoom> searchedRooms, Queue<Trail> newTrails, IRoom currentRoom, Directions.Direction direction, Trail existingTrail)
         {
-            Trail trail = null;
+            Trail? trail = null;
             switch (direction)
             {
                 case Directions.Direction.North:
@@ -1206,7 +1207,7 @@ namespace Objects.World
             INonPlayerCharacter npc = mob as INonPlayerCharacter;
             if (npc != null && npc.PossingMob == null)  //don't process the npc personalities if possessed
             {
-                string command = null;
+                string? command = null;
                 foreach (IPersonality personality in npc.Personalities)
                 {
                     command = personality.Process(npc, command);

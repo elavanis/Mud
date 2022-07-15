@@ -67,15 +67,15 @@ namespace ServerTelnetCommunication
                     //Need to make the thread sleep
                     Thread.Sleep(10);
 
-                    IPlayerCharacter pc = null;
+                    //IPlayerCharacter pc = null;
 
-                    TimeOutIdleConnection(lastMessage, pc);
+                    TimeOutIdleConnection(lastMessage);
 
                     #region Get Message From Client
                     //Handle message from client
                     try
                     {
-                        if (InQueue.TryDequeue(out string messageFromClient))
+                        if (InQueue.TryDequeue(out string? messageFromClient))
                         {
                             IPAddress address;
 
@@ -108,8 +108,8 @@ namespace ServerTelnetCommunication
                                 case LoginState.Password:
                                     _password = messageFromClient;
 
-                                    pc = GlobalReference.GlobalValues.World.LoadCharacter(_userName);
-                                    if (pc == null)
+                                    IPlayerCharacter? pcPassword = GlobalReference.GlobalValues.World.LoadCharacter(_userName);
+                                    if (pcPassword == null)
                                     {
                                         GlobalReference.GlobalValues.Logger.Log(LogLevel.ALL, string.Format("{0} is an unknown user, offered to make a new one.", _userName, _password));
                                         _loginState = LoginState.CreateCharacter;
@@ -117,18 +117,18 @@ namespace ServerTelnetCommunication
                                     }
                                     else
                                     {
-                                        if (pc.Password == _password)
+                                        if (pcPassword.Password == _password)
                                         {
                                             //clear out the exp and money message from loading
-                                            while (pc.DequeueMessage() != null)
+                                            while (pcPassword.DequeueMessage() != null)
                                             {
 
                                             }
 
                                             GlobalReference.GlobalValues.Logger.Log(LogLevel.ALL, string.Format("{0} logged in successfully.", _userName));
-                                            GlobalReference.GlobalValues.World.AddPlayerQueue.Enqueue(pc);
-                                            RemoveOldConnectionsToSamePc(pc);
-                                            GuidToCharacter.AddOrUpdate(GuidString, pc, (k, v) => v = pc);
+                                            GlobalReference.GlobalValues.World.AddPlayerQueue.Enqueue(pcPassword);
+                                            RemoveOldConnectionsToSamePc(pcPassword);
+                                            GuidToCharacter.AddOrUpdate(GuidString, pcPassword, (k, v) => v = pcPassword);
                                             _loginState = LoginState.LoggedIn;
                                         }
                                         else
@@ -142,21 +142,21 @@ namespace ServerTelnetCommunication
                                     break;
                                 case LoginState.LoggedIn:
                                     //player character should be loaded
-                                    GuidToCharacter.TryGetValue(GuidString, out pc);
-                                    if (pc != null)
+                                    GuidToCharacter.TryGetValue(GuidString, out IPlayerCharacter? pcLoggedIn);
+                                    if (pcLoggedIn != null)
                                     {
                                         //don't accept commands from possessed mobs
-                                        if (pc.PossingMob == null)
+                                        if (pcLoggedIn.PossingMob == null)
                                         {
-                                            pc.EnqueueCommand(messageFromClient);
+                                            pcLoggedIn.EnqueueCommand(messageFromClient);
                                             //if (messageFromClient.ToUpper() == "LOGOUT")
                                             //{
                                             //    continueToLoop = false;
                                             //}
                                         }
-                                        else if (pc.AttributesCurrent.Contains(MobileAttribute.Frozen)) //don't allow frozen players to play
+                                        else if (pcLoggedIn.AttributesCurrent.Contains(MobileAttribute.Frozen)) //don't allow frozen players to play
                                         {
-                                            pc.EnqueueMessage("You are frozen and can not do anything until you thaw.");
+                                            pcLoggedIn.EnqueueMessage("You are frozen and can not do anything until you thaw.");
                                         }
                                     }
                                     //not sure why we could not find the player character.  Relogin.
@@ -168,8 +168,8 @@ namespace ServerTelnetCommunication
                                 case LoginState.CreateCharacter:
                                     if (messageFromClient.Substring(0, 1).ToUpper() == "Y")
                                     {
-                                        pc = GlobalReference.GlobalValues.World.CreateCharacter(_userName, _password);
-                                        GuidToCharacter.AddOrUpdate(GuidString, pc, (k, v) => v = pc);
+                                        IPlayerCharacter pcCreateCharacter = GlobalReference.GlobalValues.World.CreateCharacter(_userName, _password);
+                                        GuidToCharacter.AddOrUpdate(GuidString, pcCreateCharacter, (k, v) => v = pcCreateCharacter);
                                         _loginState = LoginState.LoggedIn;
                                     }
                                     else if (messageFromClient.Substring(0, 1).ToUpper() == "N")
@@ -209,11 +209,9 @@ namespace ServerTelnetCommunication
 
                     if (GuidString != null)
                     {
-                        pc = null;
-                        GuidToCharacter.TryGetValue(GuidString, out pc);
-                        if (pc != null)
+                        if (GuidToCharacter.TryGetValue(GuidString, out IPlayerCharacter? pc))
                         {
-                            string messageToClient = pc.DequeueMessage();
+                            string? messageToClient = pc.DequeueMessage();
                             if (messageToClient != null)
                             {
                                 OutQueue.Enqueue(messageToClient);
@@ -243,13 +241,12 @@ namespace ServerTelnetCommunication
             }
         }
 
-        private void TimeOutIdleConnection(DateTime lastMessage, IPlayerCharacter pc)
+        private void TimeOutIdleConnection(DateTime lastMessage)
         {
             //if the player has not sent any command for 30 minutes log the player out
             if (DateTime.Now.Subtract(lastMessage).TotalMinutes > 30)
             {
-                GuidToCharacter.TryGetValue(GuidString, out pc);
-                if (pc != null)
+                if (GuidToCharacter.TryGetValue(GuidString, out IPlayerCharacter? pc))
                 {
                     pc.EnqueueCommand("Logout");
                 }
