@@ -37,9 +37,7 @@ namespace Objects.Global.Engine.Engines
 
         public IResult AddCombatPair(IMobileObject attacker, IMobileObject defender)
         {
-            CombatPair pair;
-
-            if (Combatants.TryGetValue(attacker, out pair))
+            if (Combatants.TryGetValue(attacker, out CombatPair? pair))
             {
                 return new Result(string.Format("You are already attacking {0}.", pair.Defender.KeyWords.FirstOrDefault()), true);
             }
@@ -59,7 +57,7 @@ namespace Objects.Global.Engine.Engines
 
         public bool AreFighting(IMobileObject mob, IMobileObject mob2)
         {
-            CombatPair pair;
+            CombatPair? pair;
             if (Combatants.TryGetValue(mob, out pair))
             {
                 if (pair.Defender == mob2)
@@ -86,8 +84,7 @@ namespace Objects.Global.Engine.Engines
 
         public IMobileObject? Opponet(IMobileObject mobileObject)
         {
-            CombatPair pair;
-            if (Combatants.TryGetValue(mobileObject, out pair))
+            if (Combatants.TryGetValue(mobileObject, out CombatPair? pair))
             {
                 return pair.Defender;
             }
@@ -115,7 +112,7 @@ namespace Objects.Global.Engine.Engines
                 || (pair.Attacker.Room != pair.Defender.Room)
                 || pair.Attacker.Room.Attributes.Contains(Room.Room.RoomAttribute.Peaceful))
             {
-                Combatants.TryRemove(mob, out pair);
+                Combatants.TryRemove(mob, out CombatPair? tempCombatPair);
                 return true;
             }
 
