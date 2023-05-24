@@ -35,7 +35,7 @@ namespace ObjectsUnitTest.Magic.Spell.Generic
         {
             GlobalReference.GlobalValues = new GlobalValues();
 
-            singleTargetSpell = new SingleTargetSpell();
+            singleTargetSpell = new SingleTargetSpell("test", 1);
             npc = new Mock<INonPlayerCharacter>();
             npc2 = new Mock<INonPlayerCharacter>();
             command = new Mock<ICommand>();

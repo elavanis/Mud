@@ -1,6 +1,7 @@
 ﻿{
   "configProperties": {
     "ServerAdress": "127.0.0.1",
+    //"ServerAdress": "10.1.0.3",
     "Port": 52475,
     "MaxLines": 1000,
     "FontSize": 8,

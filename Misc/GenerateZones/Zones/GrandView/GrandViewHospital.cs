@@ -286,7 +286,7 @@ namespace GenerateZones.Zones.GrandView
         #region Spells
         private ISpell Health()
         {
-            ISpell heal = BuildSpell("health");
+            ISpell heal = BuildSpell("health", 0);
 
             heal.TargetNotificationSuccess = new TranslationMessage("You feel healthier.");
             heal.Effect = new RecoverHealth();
@@ -294,9 +294,9 @@ namespace GenerateZones.Zones.GrandView
             return heal;
         }
 
-        private static ISpell BuildSpell(string spellName)
+        private static ISpell BuildSpell(string spellName, int manaCost)
         {
-            ISpell spell = new SingleTargetSpell();
+            ISpell spell = new SingleTargetSpell(spellName, manaCost);
             spell.SpellName = spellName;
             spell.ManaCost = 0;
             spell.Parameter.Dice = GlobalReference.GlobalValues.DefaultValues.ReduceValues(1, 100);
@@ -312,7 +312,7 @@ namespace GenerateZones.Zones.GrandView
 
         private ISpell Magic()
         {
-            ISpell heal = BuildSpell("magic");
+            ISpell heal = BuildSpell("magic", 0);
             heal.TargetNotificationSuccess = new TranslationMessage("You feel more magical.");
             heal.Effect = new RecoverMana();
 
@@ -321,7 +321,7 @@ namespace GenerateZones.Zones.GrandView
 
         private ISpell Stamina()
         {
-            ISpell heal = BuildSpell("stamina");
+            ISpell heal = BuildSpell("stamina", 0);
             heal.TargetNotificationSuccess = new TranslationMessage("You feel more energetic.");
             heal.Effect = new RecoverStamina();
 

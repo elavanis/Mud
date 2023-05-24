@@ -495,7 +495,8 @@ namespace Objects.World
 
         public IPlayerCharacter CreateCharacter(string userName, string password)
         {
-            IRoom tempRoom = new Room.Room(0, "tempExam", "tempLook", "tempShort");
+            IRoom tempRoom = new Room.Room(1, "tempExam", "tempLook", "tempShort");
+            tempRoom = Zones[1].Rooms[1];
             IPlayerCharacter pc = new PlayerCharacter(tempRoom, userName, userName, userName, userName, $"The corpse of {userName} lies here.");
             pc.Name = userName;
             pc.Password = password;
