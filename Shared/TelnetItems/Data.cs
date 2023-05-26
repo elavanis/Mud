@@ -1,4 +1,5 @@
-﻿using Shared.FileIO.Interface;
+﻿using Newtonsoft.Json;
+using Shared.FileIO.Interface;
 using Shared.TelnetItems.Interface;
 using System.Diagnostics.CodeAnalysis;
 
@@ -7,13 +8,13 @@ namespace Shared.TelnetItems
     public class Data : IData
     {
         [ExcludeFromCodeCoverage]
-        public string AssetName { get; set; } 
+        public string AssetName { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public DataType Type { get; set; } 
+        public DataType Type { get; set; }
 
         [ExcludeFromCodeCoverage]
-        public string Base64Encoding { get; set; } 
+        public string Base64Encoding { get; set; }
 
 
         public Data(DataType type, string fileLocation, IFileIO io, string assetName)
@@ -23,6 +24,10 @@ namespace Shared.TelnetItems
             Type = type;
             AssetName = assetName;
         }
+
+        [JsonConstructor]
+        public Data() { }
+
 
         public enum DataType
         {
