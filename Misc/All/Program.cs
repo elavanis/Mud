@@ -15,7 +15,7 @@ namespace All
             GlobalReference.GlobalValues.Initilize();
 
             List<string> permanentDirectories = new List<string>();
-            permanentDirectories.Add(@"c:\temp");
+            //permanentDirectories.Add(@"c:\temp");
             CachedFileIO cachedFileIO = new CachedFileIO(permanentDirectories, new FileIO());
             cachedFileIO.ReloadCache();
 

@@ -16,7 +16,7 @@ namespace GenerateZones.Zones
 {
     public class Test : BaseZone, IZoneCode
     {
-        public Test() : base(-1)
+        public Test() : base(-99)
         {
         }
 

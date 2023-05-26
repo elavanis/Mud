@@ -31,6 +31,7 @@ using Objects.Language.Interface;
 using Objects.Mob.SpecificNPC.Interface;
 using Objects.Skill.Skills;
 using Objects.Global.FileIO.Interface;
+using Objects.Room;
 
 namespace Objects.World
 {
@@ -494,7 +495,14 @@ namespace Objects.World
 
         public IPlayerCharacter CreateCharacter(string userName, string password)
         {
-            IRoom tempRoom = new Room.Room(0, "tempExam", "tempLook", "tempShort");
+            IRoom tempRoom = new Room.Room(1, "Seriously there is nothing you can do here, go down.", "Go down to start the game.", "Dreaming");
+            tempRoom.Attributes.Add(RoomAttribute.Light);
+            tempRoom.Id = 1;
+            IExit exit = new Exit();
+            exit.Room = 1;
+            exit.Zone = 1;
+            tempRoom.Down = exit;
+
             IPlayerCharacter pc = new PlayerCharacter(tempRoom, userName, userName, userName, userName, $"The corpse of {userName} lies here.");
             pc.Name = userName;
             pc.Password = password;
